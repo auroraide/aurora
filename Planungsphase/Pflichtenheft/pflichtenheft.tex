@@ -143,9 +143,86 @@ Nikolai Polley, Randy Seng}
 %%%%%%%%%%%
 \section{Tests}
 
-%\test{Betreiberinfos lesen}{tst:tmg}
+
 %\tests{fnc:impressum-link}
 %\tests{fnc:datenschutz-link}
+\teststep {Das Programm liegt auf einem Server}
+{Der Benutzer tippt den link des Programms \texttt{aurora.kit.edu} in den Browser \enquote {Google Chrome} }
+{ Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
+
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{ Der Benutzer gibt in den Editor \enquote {($\lambda$ x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
+{ Das Programm führt eine Beta-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine Beta-Reduktion durchgeführt hat.}
+
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{Der Benutzer gibt den Term \enquote {$\lambda$ x.x} in das Eingabefeld ein und drückt auf run}
+{Das Programm kann keine Beta-Reduktion durchführen und gibt als Ausgabe $\lambda$ x.x}
+
+\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten seite ist die Standardfunktionsbibliothek implementiert }
+{Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm Beta-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
+
+\teststep { Der vorherige Test wurde soeben durchgeführt}
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der Beta Reduktion durchgeführt wurden }
+{ Das Programm zeigt folgende Schritte : 
+\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
+\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
+\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z) 
+\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z) 
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) )) 
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) )) 
+\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))
+ }
+
+\teststep{Das Programm ist im Default-State}
+{der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
+{ das Programm erkennt die Endlosschleife und warnt den Benutzer }
+
+\teststep {Das Programm ist im Default-State}
+{ Der Benutzer drückt auf den \enquote {Plus} Button und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein }
+{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben. }
+
+\teststep { Der vorherige Test wurde ausgeführt}
+{ der Benutzer gibt in den Editor \enquote {fst (pair a b)} ein. Dannach drückt er auf Run}
+{ Das Programm erkennt fst aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun Beta-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+
+\teststep {Das Programm berechnet zurzeit einen Lambdaterm }
+{Der Benutzer drückt auf den Stopp-Button}
+{ Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+
+\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) }
+{Der Benutzer benutzt den Step-Button einmal mit Normalenreihenfolge  und einmal mit der Auswertungsstrategie Call-By-Value welche in den Einstellungen zu finden ist}
+{ Bei der Normalenreihenfolge wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. bei der Auswertungsstrategie wird der Term ($\lambda$x.x) als erstes reduziert }
+
+\teststep { Das Programm ist im Default-State}
+{ Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
+{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  } 
+
+\teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
+{ Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
+
+\teststep { Das Programm ist im Default-State}
+{ Der Benutzer gibt den (($\lambda$x.x)( in den Editor ein }
+{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger LambdaTerm ist }
+
+\teststep { Das Programm ist im Default -State }
+{ Der Benutzer drückt shift l }
+{Im Editor erscheint ein $\lambda$}
+
+\teststep {Das Programm hat einen Lambdaterm ausgerechntet}
+{ Der Benutzer drückt auf den Share button und wählt copy-link}
+{ Eine gekürzte Url wird in sein Clipboard gespeichert }
+
+\teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
+{Der Benutzer gibt den Link in seine URL Leiste ein }
+{ Das Programm öffnet sich mit dem LambdaTerm bereits in der Eingabe }
+
+\teststep {Das Programm ist im Default-State}
+{ Der Benutzer gibt sub 1 1 ein und drückt auf Run }
+{ Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+
+ 
+
 
 %\teststep{Besucher \enquote{Jayne Cobb} ist auf der Homepage}
 %{Er folgt dem Link mit dem Text \enquote{Datenschutz}}
@@ -177,6 +254,12 @@ Nikolai Polley, Randy Seng}
 
 %\textbf{Homepage}:
 %Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
+\textbf{Standardbibliothek} :
+Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten Lambdaterme zusammen getragen damit der Benutzer häufig vorkommende Lambdaterme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten Lambdaterm.
+
+\textbf{Benutzerbibliothek}
+Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
+
 
 
 \end{document}
