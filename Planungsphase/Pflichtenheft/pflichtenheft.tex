@@ -128,6 +128,7 @@ Nikolai Polley, Randy Seng}
 \functionality{Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.}{fnc:localstorage-permanent}
 \functionality{Der Benutzer kann Eingaben aus der Historie wiederherstellen.}{fnc:localstorage-restore}
 \functionality{Der Benutzer kann die Einträge in der Historie löschen.}{fnc:localstorage-flush}
+\functionality{Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.}{fnc:localstorage-userlib}
 
 \functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
 \functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
@@ -135,9 +136,20 @@ Nikolai Polley, Randy Seng}
 \functionality{Das äußere Erscheinungsbild der Applikation kann über die "Night mode"-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
 \functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
 
+\functionality{Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.}{fnc:stdlib}
+\functionality{Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).}{fnc:func-name-def}
+\functionality{Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.}{fnc:userlib}
+\functionality{Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.}{fnc:user-vs-std}
+\functionality{Die Eingabe von definierten Funktionen ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.}{fnc:func-lambda-equivalent}
+\functionality{Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.}{fnc:func-assoc-def}
 
-
-
+\functionality{Der Benutzer kann $\lambda$-Terme über das Eingabefeld eingeben.}{fnc:input}
+\functionality{Der Benutzer kann den Inhalt das Eingabefelds bearbeiten.}{fnc:editor}
+\functionality{Der Benutzer kann die Berechnung des $\lambda$-Terms über den Run-Button starten.}{fnc:run}
+\functionality{Die "Run"-Funktion liest $\lambda$-Terme über das Eingabefeld ein.}{fnc:run-input}
+\functionality{Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.}{fnc:no-edit-while-running}
+\functionality{Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.}{fnc:output}
+\functionality{Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.}{fnc:output-readonly}
 
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
