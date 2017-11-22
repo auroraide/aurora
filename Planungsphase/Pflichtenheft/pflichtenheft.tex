@@ -121,6 +121,24 @@ Nikolai Polley, Randy Seng}
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
+\functionality{Der Benutzer kann eine laufende Berechnung über einen Stop-Button vorzeitig beenden.}{fnc:stop-exec}
+\functionality{Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.}{fnc:run-no-timeout}
+
+\functionality{Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.}{fnc:localstorage-autosave}
+\functionality{Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.}{fnc:localstorage-permanent}
+\functionality{Der Benutzer kann Eingaben aus der Historie wiederherstellen.}{fnc:localstorage-restore}
+\functionality{Der Benutzer kann die Einträge in der Historie löschen.}{fnc:localstorage-flush}
+
+\functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
+\functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
+
+\functionality{Das äußere Erscheinungsbild der Applikation kann über die "Night mode"-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
+\functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
+
+
+
+
+
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
