@@ -9,7 +9,7 @@
 
 
 \author{Julia Patrusheva, Alexander von Heyden\\
-Younis Bensalah, Max Nowak\\ 
+Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
 \end{titlepage}
@@ -55,7 +55,7 @@ Nikolai Polley, Randy Seng}
 
 
 \author{Julia Patrusheva, Alexander von Heyden\\
-Younis Bensalah, Max Nowak\\ 
+Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
 \end{titlepage}
@@ -105,9 +105,10 @@ Nikolai Polley, Randy Seng}
 
 \subsection{Abgrenzungskriterien}
 
-%\criteriumNot{Keine Wahl Kurz-URL}{crt:no-choice}
-
-%Ein Nutzer hat keine Möglichkeit die Auswahl einer Kurz-URL zu beeinflussen.
+\criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
+\criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
+\criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
+\criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
 
 \pagebreak
 %%%%%%%%%%%%%%
@@ -164,13 +165,13 @@ Nikolai Polley, Randy Seng}
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
 { Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der Beta Reduktion durchgeführt wurden }
-{ Das Programm zeigt folgende Schritte : 
+{ Das Programm zeigt folgende Schritte :
 \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
-\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z) 
-\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z) 
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) )) 
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) )) 
+\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z)
+\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
 \newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))
  }
 
@@ -196,7 +197,7 @@ Nikolai Polley, Randy Seng}
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  } 
+{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  }
 
 \teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
 { Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
@@ -221,7 +222,7 @@ Nikolai Polley, Randy Seng}
 { Der Benutzer gibt sub 1 1 ein und drückt auf Run }
 { Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
- 
+
 
 
 %\teststep{Besucher \enquote{Jayne Cobb} ist auf der Homepage}
