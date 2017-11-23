@@ -163,6 +163,9 @@ Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom 
 
 \criteriumOptional{Bei laufender Berechnung ist nichts editierbar}{crt:not-editable}
 Wenn der Benutzer eine Berechnung laufen lässt ist weder das Eingabefeld noch das Ausgabefeld editierbar. Das Ausgabefeld ist generell nie editierbar.
+
+\criteriumOptional{Endlosschleife möglich}{crt:infiniteloop}
+Wenn der Benutzer eine offensichtliche Endlosschleife gebaut hat wie z.b. ($\lambda$x. x x) ($\lambda$x. x x) dann hat er die Option die Endlosschleife weiterlaufen zu lassen wenn er das will. 
 \subsection{Abgrenzungskriterien}
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
@@ -175,11 +178,11 @@ Wenn der Benutzer eine Berechnung laufen lässt ist weder das Eingabefeld noch d
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
 
-Der Anwendungsbereich umfasst die Studierenden und wissenschaftlichen Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte anzeigen zu lassen. Durch vorgesehene Shortcuts und standard $\lambda$-Kalkül Bibliothek mit Funktionen soll die Benutzung von der Aurora Web App den Benutzer an der IDE erinnern, was die Verwendung von der Aurora Web App erleichtern kann.
+Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der Beta-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung  der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
 
 \subsection{Zielgruppen}
 
-Studenten und Wissenschaftliche Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die das Aurora als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
+Eine Zielgruppe sind Informatik-Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen, die z.B. einen $\lambda$-Kalkül Term  üben oder einfach schnell ausrechnen wollen. Auch Interessierte des LambdaKalüls sollen das Programm benutzen können. Die Plattform ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm ist nur eingeschränk möglich. Das Aurora soll von den Zielgruppen als Werkzeug benutzt werden, welches während des Studiums, wissenschaftlicher Arbeiten oder der privaten Freude am $\lambda$-Kalkül den Benutzer unterstützt.
 
 Zur Benutzung des Auroras werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
 
@@ -199,7 +202,7 @@ Bezüglich des Betriebsbedingungen soll sich das Aurora nicht wesentlich von and
 \functionality{Stop}{fnc:stop-exec} \fulfills{crt:stop-feature}
 Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
 
-\functionality{No Timeout}{fnc:run-no-timeout}
+\functionality{No Timeout}{fnc:run-no-timeout}\fulfills{crt:infiniteloop}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
 \functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
@@ -360,10 +363,10 @@ Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Butto
 { Das Programm führt eine Beta-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine Beta-Reduktion durchgeführt hat.}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
-{Der Benutzer gibt den Term \enquote {$\lambda$ x.x} in das Eingabefeld ein und drückt auf run}
+{Der Benutzer gibt den Term \enquote {$\lambda$ x.x} in das Eingabefeld ein und drückt auf Run}
 {Das Programm kann keine Beta-Reduktion durchführen und gibt als Ausgabe $\lambda$ x.x}
 
-\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten seite ist die Standardfunktionsbibliothek implementiert }
+\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm Beta-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
 
@@ -439,56 +442,59 @@ Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Butto
 
 \section{Entwicklungsumgebung}
   \begin{description}
-	\item[Benutzte Hardware die für das Erstellen des Programmes verwendet wurden]~\par
+	\item[Benutzte Software die für das Erstellen des Programmes verwendet wurden]~\par
 	\begin{itemize}
-		\item Programmiersprache
+		\item \textbf{Programmiersprache}
 		\begin{itemize}
 			\item Java 8
 		\end{itemize}
-		\item Build System
+		\item \textbf{Build System}
 		\begin{itemize}
 			\item Bazel
 		\end{itemize}
-		\item IDE
+		\item \textbf{IDE}
 		\begin{itemize}
 			\item Jeder Entwickler wählt selber. Eclipse, Intellij oder Sublimetext
 		\end{itemize}
-		\item Webframework
+		\item \textbf{Webframework}
 		\begin{itemize}
 			\item Google Web Toolkit \enquote{GWT}
 		\end{itemize}
-		\item Versionskontrolle
+		\item \textbf{Versionskontrolle}
 		\begin{itemize}
 			\item Git auf scc.kit.edu. Webanwendung ist Gitlab
 		\end{itemize}
-		\item Dokument Erstellung
+		\item \textbf{Dokument Erstellung}
 		\begin{itemize}
 			\item LaTeX
 		\end{itemize}
-		\item Testen
+		\item \textbf{Testen}
 		\begin{itemize}
 			\item JUnit
 			\item JaCoCo
 		\end{itemize}
-		\item GUI Entwürfe
+		\item \textbf{GUI Entwürfe}
 			\begin{itemize}
 				\item draw.io
 			\end{itemize}
-		\item UMl und Diagramme zeichnen
+		\item \textbf{UMl und Diagramme zeichnen}
 			\begin{itemize}
 				\item UMLet
 				\item Umbrella
 				\item BOUML
 				
 			\end{itemize}
-		
+		\item \textbf{endgültige Programmiersprache auf der Website}
+			\begin{itemize}
+				\item Javascript
+			\end{itemize}
 	\end{itemize}
 %%%%%%%%%%%%%
 \newpage
 \appendix
 \end{description}
 \section{Seitenentwürfe}
-
+\textbf{GUI HIER}
 % made via https://gomockingbird.com/projects/mnf0cwf/4gXVnC
 
 %\begin{figure}[hb]
