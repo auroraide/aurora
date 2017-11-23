@@ -9,7 +9,7 @@
 
 
 \author{Julia Patrusheva, Alexander von Heyden\\
-Younis Bensalah, Max Nowak\\ 
+Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
 \end{titlepage}
@@ -55,7 +55,7 @@ Nikolai Polley, Randy Seng}
 
 
 \author{Julia Patrusheva, Alexander von Heyden\\
-Younis Bensalah, Max Nowak\\ 
+Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
 \end{titlepage}
@@ -65,6 +65,7 @@ Nikolai Polley, Randy Seng}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \section{Einleitung}
 
@@ -105,9 +106,10 @@ Nikolai Polley, Randy Seng}
 
 \subsection{Abgrenzungskriterien}
 
-%\criteriumNot{Keine Wahl Kurz-URL}{crt:no-choice}
-
-%Ein Nutzer hat keine Möglichkeit die Auswahl einer Kurz-URL zu beeinflussen.
+\criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
+\criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
+\criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
+\criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
 
 \pagebreak
 %%%%%%%%%%%%%%
@@ -119,6 +121,36 @@ Nikolai Polley, Randy Seng}
 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
+
+\functionality{Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.}{fnc:stop-exec}
+\functionality{Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.}{fnc:run-no-timeout}
+
+\functionality{Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.}{fnc:localstorage-autosave}
+\functionality{Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.}{fnc:localstorage-permanent}
+\functionality{Der Benutzer kann Eingaben aus der Historie wiederherstellen.}{fnc:localstorage-restore}
+\functionality{Der Benutzer kann die Einträge in der Historie löschen.}{fnc:localstorage-flush}
+\functionality{Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.}{fnc:localstorage-userlib}
+
+\functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
+\functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
+
+\functionality{Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
+\functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
+
+\functionality{Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.}{fnc:stdlib}
+\functionality{Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).}{fnc:func-name-def}
+\functionality{Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.}{fnc:userlib}
+\functionality{Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.}{fnc:user-vs-std}
+\functionality{Die Eingabe von definierten Funktionen ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.}{fnc:func-lambda-equivalent}
+\functionality{Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.}{fnc:func-assoc-def}
+
+\functionality{Der Benutzer kann $\lambda$-Terme über das Eingabefeld eingeben.}{fnc:input}
+\functionality{Der Benutzer kann den Inhalt das Eingabefelds bearbeiten.}{fnc:editor}
+\functionality{Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.}{fnc:run}
+\functionality{Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.}{fnc:run-input}
+\functionality{Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.}{fnc:no-edit-while-running}
+\functionality{Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.}{fnc:output}
+\functionality{Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.}{fnc:output-readonly}
 
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
@@ -164,13 +196,13 @@ Nikolai Polley, Randy Seng}
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
 { Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der Beta Reduktion durchgeführt wurden }
-{ Das Programm zeigt folgende Schritte : 
+{ Das Programm zeigt folgende Schritte :
 \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
-\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z) 
-\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z) 
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) )) 
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) )) 
+\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z)
+\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
+\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
 \newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))
  }
 
@@ -196,7 +228,7 @@ Nikolai Polley, Randy Seng}
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  } 
+{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  }
 
 \teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
 { Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
@@ -221,7 +253,7 @@ Nikolai Polley, Randy Seng}
 { Der Benutzer gibt sub 1 1 ein und drückt auf Run }
 { Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
- 
+
 
 
 %\teststep{Besucher \enquote{Jayne Cobb} ist auf der Homepage}
