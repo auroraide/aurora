@@ -132,7 +132,7 @@ Nikolai Polley, Randy Seng}
 \functionality{Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.}{fnc:localstorage-userlib}
 
 \functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
-\functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
+\functionality{In jedem Schritt wird der zuletzt ausgewertete Redex farblich hinterlegt.}{fnc:highlight-prev}
 
 \functionality{Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
 \functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
@@ -151,6 +151,9 @@ Nikolai Polley, Randy Seng}
 \functionality{Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.}{fnc:no-edit-while-running}
 \functionality{Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.}{fnc:output}
 \functionality{Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.}{fnc:output-readonly}
+
+\functionality{$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.}{fnc:eval-order-normal}
+\functionality{Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.}{fnc:eval-order}
 
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
@@ -293,7 +296,7 @@ Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die En
 Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
 
 \textbf {Redex}
-Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind. 
+Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind.
 Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
 \textbf{Normalenform}
