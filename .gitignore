@@ -1,6 +1,12 @@
 # garbage
 *~
 
+# MAC extra files
+.DB_Store
+
+# merge backup files
+*.orig
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -222,7 +228,3 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.texl
-
-
-# MAC extra files
-.DB_Store
