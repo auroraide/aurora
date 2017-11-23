@@ -84,11 +84,11 @@ Nikolai Polley, Randy Seng}
 
 \criterium{Ausgabe des Ergebnisses, beim Auswerten eines $\lambda-Term$}{crt:output-solution}
 
-\criterium{Sprache der Applikation ist Englisch}{crt:language}
+\criterium{Sprache der Applikation ist Englisch}{crt:default-language}
 
 \criterium{Applikation funktioniert auf dem Webbrowser \enquote{Google Chrome}}{crt:default-browser}
 
-\criterium{Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist Normalenreihenfolge}{crt:eval-strategy}
+\criterium{Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist Normalenreihenfolge}{crt:default-eval-strategy}
 
 \criterium{Architektur soll einfaches hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
 
@@ -100,7 +100,65 @@ Nikolai Polley, Randy Seng}
 %Der Dienst bietet eine Seite \enquote{Über Uns},
 %mit Informationen zum Betreiber.
 
-\criteriumOptional{Erkennen von Schleifen während der Auswertung}{crt:loop-detection}
+\criteriumOptional{Erkennen von einfachen Schleifen während der Auswertung}{crt:loop-detection}
+
+\criteriumOptional{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
+
+\criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora benutzt.
+
+%\criteriumOptional{Zusätliche Auswertungsstrategien sind Call by Name und Call by Value}{crt:opt-eval-strategy}
+
+%\criteriumOptional{Auswertungsstrategie  }
+
+\criteriumOptional{Share-Funktion}{crt:share-feature}
+
+Generiere eine Kurz-URL mit \enquote{Copy to clipboard} Funktion, die $\lambda$urora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
+
+\criteriumOptional{Stopp-Funktion}{crt:stop-feature}
+Mit der Stopp-Funktion, kann die Auswertung eines $\lambda$-Terms vom Benutzer, terminiert werden.
+
+\criteriumOptional{Lambda-Term vom Text-Editor oder von der Schrittliste in Latex-Syntax übersetzen}{crt:latex-export}
+Hat \enquote{Copy to Clipboard} Funktion.
+
+\criteriumOptional{Sprachen: Deutsch, Russisch, Französisch}{crt:opt-language}
+
+\criteriumOptional{Die Applikation funktioniert zusätlich auf den Webbrowsern Safari und Firefox}{crt:opt-webbrowser}
+
+\criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
+Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
+
+\criteriumOptional{Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
+
+\criteriumOptional{Standardbibliothek}{crt:std-library}
+
+\criteriumOptional{Benutzerbibliothek}{crt:user-library}
+
+\criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes}{crt:debruijn-output}
+% Hilft den Entwicklern beim Debuggen.
+
+\criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
+\begin{itemize}
+
+\item Lambda-Zeichen, Punkte, Church Zahlen, Namen aus der Standard oder Benutzerbibliothek, gebundene und freie Variablen, werden farblich, differenziert im Text-Editor und Schrittfeld dargestellt.
+
+\item Ein Redex, der als nächstes reduziert werden soll, erhält einen farbigen Hintergrund.
+
+\item Beim \enquote{darüber hovern} des Lambda-Zeichens oder der Klammer, wird der zum Lambda-Zeichen gehörende Redex bzw. das was von der Klammer umschlossen wird , farblich hervorgehoben.
+\end{itemize}
+
+\criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
+
+\criteriumOptional{Anschaufunktion auf mobilen Geräten}{crt:gui-mobile-devices}
+Das Öffnen von $\lambda$urora auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von $\lambda$urora im Webbrowser eines Computers.
+
+\criteriumOptional{Lokale Sessions}{crt:local-sessions}
+Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben.
+
+\criteriumOptional{Syntax Highlighting Permium}{crt:syntax-highlighting-premium}
+Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schritt in einem helleren Ton derselben Farbe hinterlegt.
+
+
 
 
 \subsection{Abgrenzungskriterien}
