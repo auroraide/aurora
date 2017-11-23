@@ -15,7 +15,6 @@
 \newpage
 \end{titlepage}
 
-
 % section numbers in margins:
 \renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
 
@@ -52,8 +51,10 @@
 
 \begin{document}
 \maketitle
+\newpage
 \tableofcontents
 
+\newpage
 \section{Einleitung}
 
 
@@ -83,7 +84,6 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criterium{Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
 
 
-
 \subsection{Wunschkriterien}
 %\criteriumOptional{Seite mit Betreiberinfo}{crt:about}
 
@@ -95,13 +95,13 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criteriumOptional{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
 
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
-Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora benutzt.
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
 
 \criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name, Call by Value und eine eigene Auswahl bei der $\beta$-Reduzierung eines Redex}{crt:opt-eval-strategy}
 
 \criteriumOptional{Share-Funktion}{crt:share-feature}
 
-Generiere eine Short-URL mit \enquote{Copy to clipboard} Funktion, die $\lambda$urora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
+Generiere eine Short-URL mit \enquote{Copy to clipboard} Funktion, die Aurora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
 
 \criteriumOptional{Stopp-Funktion}{crt:stop-feature}
 Mit der Stopp-Funktion, kann die Auswertung eines $\lambda$-Terms vom Benutzer, terminiert werden.
@@ -132,7 +132,7 @@ Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schri
 \criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
 
 \criteriumOptional{Anschaufunktion auf mobilen Geräten}{crt:gui-mobile-devices}
-Das Öffnen von $\lambda$urora auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von $\lambda$urora im Webbrowser eines Computers.
+Das Öffnen von Aurora Web App auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von Aurora Web App im Webbrowser eines Computers.
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
@@ -165,7 +165,11 @@ Wenn der Benutzer eine offensichtliche Endlosschleife gebaut hat wie z.b. ($\lam
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
 
+<<<<<<< HEAD
 Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der Beta-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung  der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
+=======
+Der Anwendungsbereich umfasst die Studierenden und wissenschaftlichen Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen. Aurora Web App erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte anzeigen zu lassen. Durch vorgesehene Shortcuts und standard $\lambda$-Kalkül Bibliothek mit Funktionen soll die Benutzung von der Aurora Web App den Benutzer an der IDE erinnern, was die Verwendung von der Aurora Web App erleichtern kann.
+>>>>>>> 1Phase_Randy
 
 \subsection{Zielgruppen}
 
@@ -289,11 +293,20 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in 
 \functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
 \functionality{Finales Ergebnis wird angezeigt}{fnc:output}
 \functionality{Nach Wunsch der User werden die beta Reduktionsschritte angezeigt}{fnc:output}
-\functionality{Sprache uswählbar}{fnc:output}
+
+\functionality{Sprache ist auswählbar}{fnc:language-selection}
+Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
+
+\fulfills{crt:default-language}
+\fulfills{crt:opt-language}
+
 \functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
 \functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
 \functionality{Der Stop Button endet die Berechnung}{fnc:output}
-\functionality{Darstellung der Berechnung mit de Bruijn Indices}{fnc:output}
+
+\functionality{Darstellung der Berechnung mit DeBruijn Indizes}{fnc:debruijn-output}
+
+
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
 
 \subsection{Hintergrundablauf}
