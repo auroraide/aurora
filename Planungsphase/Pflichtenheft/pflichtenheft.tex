@@ -110,7 +110,7 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora benutzt.
 
-\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name, Call by Value und eigene Auswahl bei der $\beta$-Reduzierung eines Redex}{crt:opt-eval-strategy}
+\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name, Call by Value und eine eigene Auswahl bei der $\beta$-Reduzierung eines Redex}{crt:opt-eval-strategy}
 
 \criteriumOptional{Share-Funktion}{crt:share-feature}
 
@@ -148,15 +148,21 @@ Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schri
 Das Öffnen von $\lambda$urora auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von $\lambda$urora im Webbrowser eines Computers.
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
-Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben.
+Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
 
 
 
 \criteriumOptional{Auto-Complete von Klammern}{crt:Autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
 
+\criteriumOptional{Zeilenzahlen im Editor}{crt:linenumbers}
+Im Eingabefeld soll ausgeblasst eine Zeilennumerierung im Eingabefeld dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
+\criteriumOptional{Auskommentieren ist möglich}{crt:comments}
+Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom Parser übersprungen wird und nicht gelesen wird
 
+\criteriumOptional{Bei laufender Berechnung ist nichts editierbar}{crt:not-editable}
+Wenn der Benutzer eine Berechnung laufen lässt ist weder das Eingabefeld noch das Ausgabefeld editierbar. Das Ausgabefeld ist generell nie editierbar.
 \subsection{Abgrenzungskriterien}
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
@@ -186,88 +192,88 @@ Bezüglich des Betriebsbedingungen soll sich das Aurora nicht wesentlich von and
 \section{Produktumgebung}
 
 
-\section{Produktumgebung}
-
 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Stop}{fnc:stop-exec}
+\functionality{Stop}{fnc:stop-exec} \fulfills{crt:stop-feature}
 Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
 
 \functionality{No Timeout}{fnc:run-no-timeout}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
-\functionality{Historie}{fnc:localstorage-autosave}
+\functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
 Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.
 
-\functionality{Permanenz der Historie}{fnc:localstorage-permanent}
+\functionality{Permanenz der Historie}{fnc:localstorage-permanent}\fulfills{crt:local-sessions}
 Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
 
-\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}
+\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}\fulfills{crt:local-sessions}
 Der Benutzer kann Eingaben aus der Historie wiederherstellen.
 
-\functionality{Löschen der Historie}{fnc:localstorage-flush}
+\functionality{Löschen der Historie}{fnc:localstorage-flush}\fulfills{crt:local-sessions}
 Der Benutzer kann die Einträge in der Historie löschen.
 
-\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}
+\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}\fulfills{crt:local-sessions}
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
 
-\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
-In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinterlegt.
 
-\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
-In jedem Schritt wird der zuletzt ausgewertete Redex farblich hinterlegt.
+\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
-\functionality{Night Mode}{fnc:night-mode}
+\functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
 
-\functionality{Standardbibliothek}{fnc:stdlib}
+\functionality{Standardbibliothek}{fnc:stdlib}\fulfills{crt:std-library}
 Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
 
-\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}
+\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}\fulfills{crt:std-library}
 Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
 
-\functionality{Benutzerbibliothek}{fnc:userlib}
+\functionality{Benutzerbibliothek}{fnc:userlib}\fulfills{crt:user-library}
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
-\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}
+\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}\fulfills{crt:user-library}
 Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.
 
-\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
-Die Eingabe von definierten Funktionen ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
+\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}\fulfills{crt:user-library}\fulfills{crt:std-library}
+Die Eingabe von definierten Funktionen in der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
 
-\functionality{Definition einer Funktion}{fnc:func-def}
+\functionality{Definition einer Funktion}{fnc:func-def}\fulfills{crt:std-library}\fulfills{crt:user-library}
 Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
 
-\functionality{Eingabefeld}{fnc:input}
-Der Benutzer kann $\lambda$-Terme über das Eingabefeld eingeben.
+\functionality{Eingabefeld}{fnc:input}\fulfills{crt:text-editor}
+Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur eingeben. Die Zeichen erscheinen in Echtzeit im Eingabefeld.
 
-\functionality{Eingabefeld bearbeiten}{fnc:editor}
-Der Benutzer kann den Inhalt das Eingabefelds bearbeiten.
+\functionality{Eingabefeld bearbeiten}{fnc:editor}\fulfills{crt:text-editor}
+Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten.
+Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 
-\functionality{Run}{fnc:run}
+\functionality{Run}{fnc:run}\fulfills{crt:evaluate-term}
 Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.
 
-\functionality{Run Eingabefeld}{fnc:run-input}
+\functionality{Run Eingabefeld}{fnc:run-input}\fulfills{crt:evaluate-term}
 Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.
 
-\functionality{Eingabefeld während einer Berechnung nicht editierbar}{fnc:no-edit-while-running}
+\functionality{Eingabefeld während einer Berechnung nicht editierbar}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
 Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.
 
-\functionality{Ausgabefeld}{fnc:output}
+\functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
-\functionality{Normalenreihenfolge}{fnc:eval-order-normal}
+\functionality{Normalenreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
 $\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.
+Das heißt, dass immer der linkeste Redex ausgewertet wird.
 
-\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
 Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
 
-\functionality{Auswertungsstrategien}{fnc:eval-order-options}
+\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
 Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfolge}, enquote{Call-by-Name} und enquote{Call-by-Value}.
 
 
@@ -478,7 +484,7 @@ Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Butto
 		
 	\end{itemize}
 %%%%%%%%%%%%%
-\pagebreak
+\newpage
 \appendix
 \end{description}
 \section{Seitenentwürfe}
@@ -510,4 +516,16 @@ Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 \textbf{Normalenform}
 Die Normalenform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
+\textbf{Auswertungsstrategie}
+Die Auswertungsstrategie gibt an welcher Redex als nächstes ausgewertet wird und dann mit Beta-Reduktion reduziert wird.
+
+\textbf{Normalenreihenfolge}
+Der linkeste äußerste Redex wird als erstes ausgewertet und reduziert.
+
+\textbf{Call-By-Name}
+Der linkeste äußerste Redex der nicht von einem $\lambda$ umgeben ist wird als erstes ausgewertet und reduziert
+
+\textbf{Call-By-Value}
+Der linkeste Redex der nicht von einem $\lambda$ umgeben ist und dessen Argument ein Wert ist wird als erstes ausgewertet und reduziert.
+ 
 \end{document}
