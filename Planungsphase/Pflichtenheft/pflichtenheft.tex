@@ -103,6 +103,10 @@ Nikolai Polley, Randy Seng}
 
 \criteriumOptional{Erkennen von Schleifen während der Auswertung}{crt:loop-detection}
 
+\criteriumOptional{Auto-Complete von Klammern}{crt:Autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
+
+
 
 \subsection{Abgrenzungskriterien}
 
@@ -159,6 +163,12 @@ Nikolai Polley, Randy Seng}
 \functionality{Highlightning Lambda}{fnc:output}
 \functionality{Highlightning Text}{fnc:output}
 
+\functionality{Brackets Auto-complete}{fnc:bracket}
+\fulfills{crt:Autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in Echtzeit, dass eine Klammer geöffnet wurde und fügt automatisch eine schließende Klammer \enquote{)} hinzu
+
+
+
 \subsection{Darstellungen}
 \functionality{DarkModus}{fnc:output}
 \functionality{Tutorial zur Web App}{fnc:output}
@@ -201,6 +211,9 @@ Nikolai Polley, Randy Seng}
 \section{Nicht-Funktionale Anforderungen}
 
 %\nonFunctionality{Modernes Design}{nfc:design}
+\nonFunctionality{Stop-Button}{nfc:but}
+Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
+
 
 %Das Design soll modern und seriös wirken.
 
