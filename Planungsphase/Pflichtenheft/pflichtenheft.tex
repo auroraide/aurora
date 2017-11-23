@@ -80,18 +80,20 @@ Nikolai Polley, Randy Seng}
 %\criterium{Schnelle Weiterleitung Kurz- zu Lang-URL}{crt:fast}
 
 \criterium{$\lambda$-Term auswerten}{crt:evaluate-term}
+Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korrekte Beta-Reduktion als Ergebnis aus 
 
 \criterium{Text-Editor zur Eingabe}{crt:text-editor}
 
-\criterium{Ausgabe des Ergebnisses, beim Auswerten eines $\lambda-Term$}{crt:output-solution}
+Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 
-\criterium{Sprache der Applikation ist Englisch}{crt:language}
+
+\criterium{Sprache der Applikation ist Englisch}{crt:default-language}
 
 \criterium{Applikation funktioniert auf dem Webbrowser \enquote{Google Chrome}}{crt:default-browser}
 
-\criterium{Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist Normalenreihenfolge}{crt:eval-strategy}
-
-\criterium{Architektur soll einfaches hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
+\criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
+ Weitere Auswertungsstrategien sind in den Wunschkriterien
+\criterium{Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
 
 
 
@@ -101,7 +103,58 @@ Nikolai Polley, Randy Seng}
 %Der Dienst bietet eine Seite \enquote{Über Uns},
 %mit Informationen zum Betreiber.
 
-\criteriumOptional{Erkennen von Schleifen während der Auswertung}{crt:loop-detection}
+\criteriumOptional{Erkennen von einfachen Schleifen während der Auswertung}{crt:loop-detection}
+
+\criteriumOptional{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
+
+\criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora benutzt.
+
+\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name, Call by Value und eigene Auswahl bei der $\beta$-Reduzierung eines Redex}{crt:opt-eval-strategy}
+
+\criteriumOptional{Share-Funktion}{crt:share-feature}
+
+Generiere eine Short-URL mit \enquote{Copy to clipboard} Funktion, die $\lambda$urora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
+
+\criteriumOptional{Stopp-Funktion}{crt:stop-feature}
+Mit der Stopp-Funktion, kann die Auswertung eines $\lambda$-Terms vom Benutzer, terminiert werden.
+
+\criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in Latex-Syntax übersetzen}{crt:latex-export}
+
+\criteriumOptional{Sprachen: Deutsch, Russisch, Französisch}{crt:opt-language}
+
+\criteriumOptional{Die Applikation funktioniert zusätlich auf den Webbrowsern Safari und Firefox}{crt:opt-webbrowser}
+
+\criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
+Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
+
+\criteriumOptional{Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
+
+\criteriumOptional{Standardbibliothek}{crt:std-library}
+
+\criteriumOptional{Benutzerbibliothek}{crt:user-library}
+
+\criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes}{crt:debruijn-output}
+% Hilft den Entwicklern beim Debuggen.
+
+\criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
+
+\criteriumOptional{Syntax-Highlighting-Erweitert}{crt:syntax-highlighting-premium}
+Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schritt in einem helleren Ton derselben Farbe hinterlegt.
+
+\criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
+
+\criteriumOptional{Anschaufunktion auf mobilen Geräten}{crt:gui-mobile-devices}
+Das Öffnen von $\lambda$urora auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von $\lambda$urora im Webbrowser eines Computers.
+
+\criteriumOptional{Lokale Sessions}{crt:local-sessions}
+Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben.
+
+
+
+\criteriumOptional{Auto-Complete von Klammern}{crt:Autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
+
 
 
 \subsection{Abgrenzungskriterien}
@@ -116,15 +169,18 @@ Nikolai Polley, Randy Seng}
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
 
+Der Anwendungsbereich umfasst die Studierenden und wissenschaftlichen Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte anzeigen zu lassen. Durch vorgesehene Shortcuts und standard $\lambda$-Kalkül Bibliothek mit Funktionen soll die Benutzung von der Aurora Web App den Benutzer an der IDE erinnern, was die Verwendung von der Aurora Web App erleichtern kann.
+
 \subsection{Zielgruppen}
 
-Studenten und Wissenschaftliche Arbeiten, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die die Aurora Web App als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
+Studenten und Wissenschaftliche Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die das Aurora als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
 
-Zur Benutzung der Aurora Webb App werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
+Zur Benutzung des Auroras werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
 
 Als Basissprache ist Englisch implementiert ist, deswegen sind die Englisch Grundkenntnisse vom Vorteil gesehen.
 
 \subsection{Betriebsbedingungen}
+Bezüglich des Betriebsbedingungen soll sich das Aurora nicht wesentlich von anderen Web Apps unterscheiden. Die maximale Anzahl der Benutzer des Auroras ist unbegrenzt, bzw vom Webserver abhängig. (Betriebsdauer soll 24 Stunden betragen.) 
 
 
 \section{Produktumgebung}
@@ -223,6 +279,12 @@ Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfo
 \functionality{Highlightning Lambda}{fnc:output}
 \functionality{Highlightning Text}{fnc:output}
 
+\functionality{Brackets Auto-complete}{fnc:bracket}
+\fulfills{crt:Autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in Echtzeit, dass eine Klammer geöffnet wurde und fügt automatisch eine schließende Klammer \enquote{)} hinzu
+
+
+
 \subsection{Darstellungen}
 \functionality{DarkModus}{fnc:output}
 \functionality{Tutorial zur Web App}{fnc:output}
@@ -265,6 +327,9 @@ Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfo
 \section{Nicht-Funktionale Anforderungen}
 
 %\nonFunctionality{Modernes Design}{nfc:design}
+\nonFunctionality{Stop-Button}{nfc:but}
+Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
+
 
 %Das Design soll modern und seriös wirken.
 
@@ -363,11 +428,55 @@ Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfo
 %{Ein Text mit Informationen des Betreibers wird ihm angezeigt.}
 
 \section{Entwicklungsumgebung}
-
+  \begin{description}
+	\item[Benutzte Hardware die für das Erstellen des Programmes verwendet wurden]~\par
+	\begin{itemize}
+		\item Programmiersprache
+		\begin{itemize}
+			\item Java 8
+		\end{itemize}
+		\item Build System
+		\begin{itemize}
+			\item Bazel
+		\end{itemize}
+		\item IDE
+		\begin{itemize}
+			\item Jeder Entwickler wählt selber. Eclipse, Intellij oder Sublimetext
+		\end{itemize}
+		\item Webframework
+		\begin{itemize}
+			\item Google Web Toolkit \enquote{GWT}
+		\end{itemize}
+		\item Versionskontrolle
+		\begin{itemize}
+			\item Git auf scc.kit.edu. Webanwendung ist Gitlab
+		\end{itemize}
+		\item Dokument Erstellung
+		\begin{itemize}
+			\item LaTeX
+		\end{itemize}
+		\item Testen
+		\begin{itemize}
+			\item JUnit
+			\item JaCoCo
+		\end{itemize}
+		\item GUI Entwürfe
+			\begin{itemize}
+				\item draw.io
+			\end{itemize}
+		\item UMl und Diagramme zeichnen
+			\begin{itemize}
+				\item UMLet
+				\item Umbrella
+				\item BOUML
+				
+			\end{itemize}
+		
+	\end{itemize}
 %%%%%%%%%%%%%
 \pagebreak
 \appendix
-
+\end{description}
 \section{Seitenentwürfe}
 
 % made via https://gomockingbird.com/projects/mnf0cwf/4gXVnC
