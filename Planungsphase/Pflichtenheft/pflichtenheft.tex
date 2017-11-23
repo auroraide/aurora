@@ -161,6 +161,20 @@ Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorh
 \pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
+\subsection{Anwendungsbereiche}
+
+\subsection{Zielgruppen}
+
+Studenten und Wissenschaftliche Arbeiten, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die die Aurora Web App als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
+
+Zur Benutzung der Aurora Webb App werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
+
+Als Basissprache ist Englisch implementiert ist, deswegen sind die Englisch Grundkenntnisse vom Vorteil gesehen.
+
+\subsection{Betriebsbedingungen}
+
+
+\section{Produktumgebung}
 
 
 \section{Produktumgebung}
@@ -199,6 +213,43 @@ Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorh
 \functionality{Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.}{fnc:output}
 \functionality{Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.}{fnc:output-readonly}
 
+\functionality{$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.}{fnc:eval-order-normal}
+\functionality{Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.}{fnc:eval-order}
+
+\subsection{Eingabe}
+\functionality{Textfeld}{fnc:output}
+\functionality{Shortcuts}{fnc:output}
+\functionality{Auto-complete}{fnc:output}
+\functionality{Highlightning Lambda}{fnc:output}
+\functionality{Highlightning Text}{fnc:output}
+
+\subsection{Darstellungen}
+\functionality{DarkModus}{fnc:output}
+\functionality{Tutorial zur Web App}{fnc:output}
+\functionality{Highlighting vom Ergebnis}{fnc:output}
+\functionality{Highlighting von dem Redex, der als nächstes reduziert wird}{fnc:output}
+\functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
+\functionality{Finales Ergebnis wird angezeigt}{fnc:output}
+\functionality{Nach Wunsch der User werden die beta Reduktionsschritte angezeigt}{fnc:output}
+\functionality{Sprache uswählbar}{fnc:output}
+\functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
+\functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
+\functionality{Der Stop Button endet die Berechnung}{fnc:output}
+\functionality{Darstellung der Berechnung mit de Bruijn Indices}{fnc:output}
+\functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
+
+\subsection{Hintergrundablauf}
+\functionality{Eingabe wird geparsed}{fnc:output}
+\functionality{Alfa conversion mit de Bruijn Indices}{fnc:output}
+\functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
+\functionality{Erkennung von offensichtlichen endlosen Schleifen}{fnc:output}
+\functionality{Beta Reduktion}{fnc:output}
+\functionality{Das Program erkennt wenn da keine weitere Beta Reduktion möglich ist}{fnc:output}
+
+\subsection{Speichern}
+\functionality{Share Funktion von link}{fnc:output}
+\functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
+\functionality{Berechnung in LaTeX schreiweise umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:output}
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
@@ -339,6 +390,11 @@ Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die En
 \textbf{Benutzerbibliothek}
 Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
 
+\textbf {Redex}
+Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind. 
+Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
+\textbf{Normalenform}
+Die Normalenform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
 \end{document}
