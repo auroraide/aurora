@@ -171,16 +171,16 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm a
 
 Der Anwendungsbereich umfasst die Studierenden und wissenschaftlichen Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte anzeigen zu lassen. Durch vorgesehene Shortcuts und standard $\lambda$-Kalkül Bibliothek mit Funktionen soll die Benutzung von der Aurora Web App den Benutzer an der IDE erinnern, was die Verwendung von der Aurora Web App erleichtern kann.
 
-
 \subsection{Zielgruppen}
 
-Studenten und Wissenschaftliche Arbeiten, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die die Aurora Web App als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
+Studenten und Wissenschaftliche Mitarbeiter, die sich mit $\lambda$-Kalkül beschäftigen, die einen $\lambda$-Kalkül Term rechnen üben oder einfach schnell ausrechnen wollen. Diese Plattform ist für Einzelpersonen gedacht, die das Aurora als Werkzeug benutzen wollen, das während dem Studium und/oder wissenschaftlicher Arbeiten den Benutzer unterstützt.
 
-Zur Benutzung der Aurora Webb App werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
+Zur Benutzung des Auroras werden die Basiskenntnisse in Internetnutzung vorausgesetzt. Ausserdem werden auch die Kenntnisse über $\lambda$-Kalkül Terme.
 
 Als Basissprache ist Englisch implementiert ist, deswegen sind die Englisch Grundkenntnisse vom Vorteil gesehen.
 
 \subsection{Betriebsbedingungen}
+Bezüglich des Betriebsbedingungen soll sich das Aurora nicht wesentlich von anderen Web Apps unterscheiden. Die maximale Anzahl der Benutzer des Auroras ist unbegrenzt, bzw vom Webserver abhängig. (Betriebsdauer soll 24 Stunden betragen.) 
 
 
 \section{Produktumgebung}
@@ -192,38 +192,85 @@ Als Basissprache ist Englisch implementiert ist, deswegen sind die Englisch Grun
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.}{fnc:stop-exec}
-\functionality{Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.}{fnc:run-no-timeout}
+\functionality{Stop}{fnc:stop-exec}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
 
-\functionality{Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.}{fnc:localstorage-autosave}
-\functionality{Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.}{fnc:localstorage-permanent}
-\functionality{Der Benutzer kann Eingaben aus der Historie wiederherstellen.}{fnc:localstorage-restore}
-\functionality{Der Benutzer kann die Einträge in der Historie löschen.}{fnc:localstorage-flush}
-\functionality{Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.}{fnc:localstorage-userlib}
+\functionality{No Timeout}{fnc:run-no-timeout}
+Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
-\functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
-\functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
+\functionality{Historie}{fnc:localstorage-autosave}
+Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.
 
-\functionality{Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
-\functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
+\functionality{Permanenz der Historie}{fnc:localstorage-permanent}
+Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
 
-\functionality{Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.}{fnc:stdlib}
-\functionality{Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).}{fnc:func-name-def}
-\functionality{Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.}{fnc:userlib}
-\functionality{Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.}{fnc:user-vs-std}
-\functionality{Die Eingabe von definierten Funktionen ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.}{fnc:func-lambda-equivalent}
-\functionality{Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.}{fnc:func-assoc-def}
+\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}
+Der Benutzer kann Eingaben aus der Historie wiederherstellen.
 
-\functionality{Der Benutzer kann $\lambda$-Terme über das Eingabefeld eingeben.}{fnc:input}
-\functionality{Der Benutzer kann den Inhalt das Eingabefelds bearbeiten.}{fnc:editor}
-\functionality{Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.}{fnc:run}
-\functionality{Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.}{fnc:run-input}
-\functionality{Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.}{fnc:no-edit-while-running}
-\functionality{Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.}{fnc:output}
-\functionality{Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.}{fnc:output-readonly}
+\functionality{Löschen der Historie}{fnc:localstorage-flush}
+Der Benutzer kann die Einträge in der Historie löschen.
 
-\functionality{$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.}{fnc:eval-order-normal}
-\functionality{Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.}{fnc:eval-order}
+\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}
+Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
+
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
+In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.
+
+\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
+In jedem Schritt wird der zuletzt ausgewertete Redex farblich hinterlegt.
+
+\functionality{Night Mode}{fnc:night-mode}
+Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
+
+\functionality{Standardbibliothek}{fnc:stdlib}
+Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
+
+\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}
+Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
+
+\functionality{Benutzerbibliothek}{fnc:userlib}
+Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
+
+\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}
+Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.
+
+\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
+Die Eingabe von definierten Funktionen ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
+
+\functionality{Definition einer Funktion}{fnc:func-def}
+Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
+
+\functionality{Eingabefeld}{fnc:input}
+Der Benutzer kann $\lambda$-Terme über das Eingabefeld eingeben.
+
+\functionality{Eingabefeld bearbeiten}{fnc:editor}
+Der Benutzer kann den Inhalt das Eingabefelds bearbeiten.
+
+\functionality{Run}{fnc:run}
+Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.
+
+\functionality{Run Eingabefeld}{fnc:run-input}
+Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.
+
+\functionality{Eingabefeld während einer Berechnung nicht editierbar}{fnc:no-edit-while-running}
+Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.
+
+\functionality{Ausgabefeld}{fnc:output}
+Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
+
+\functionality{Normalenreihenfolge}{fnc:eval-order-normal}
+$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.
+
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
+Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
+
+\functionality{Auswertungsstrategien}{fnc:eval-order-options}
+Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfolge}, enquote{Call-by-Name} und enquote{Call-by-Value}.
+
+
 
 \subsection{Eingabe}
 \functionality{Textfeld}{fnc:output}
@@ -457,7 +504,7 @@ Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die En
 Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
 
 \textbf {Redex}
-Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind. 
+Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind.
 Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
 \textbf{Normalenform}
