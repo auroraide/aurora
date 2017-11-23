@@ -132,7 +132,7 @@ Nikolai Polley, Randy Seng}
 \functionality{Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.}{fnc:localstorage-userlib}
 
 \functionality{In jedem Schritt wird der nächste auszuwertende Redex farblich hinterlegt.}{fnc:highlight-next}
-\functionality{In jedem Schritt wird der zuletzt ausgewertete Redex farblich hinterlegt.}{fnc:highlight-prev}
+\functionality{In jedem Schritt wird der zuletzt auszuwertende Redex farblich hinterlegt.}{fnc:highlight-previous}
 
 \functionality{Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden.}{fnc:night-mode}
 \functionality{Night mode kann über das Hamburger-Menü ein- und ausgestellt werden.}{fnc:night-mode-toggle}
@@ -155,6 +155,40 @@ Nikolai Polley, Randy Seng}
 \functionality{$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.}{fnc:eval-order-normal}
 \functionality{Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.}{fnc:eval-order}
 
+\subsection{Eingabe}
+\functionality{Textfeld}{fnc:output}
+\functionality{Shortcuts}{fnc:output}
+\functionality{Auto-complete}{fnc:output}
+\functionality{Highlightning Lambda}{fnc:output}
+\functionality{Highlightning Text}{fnc:output}
+
+\subsection{Darstellungen}
+\functionality{DarkModus}{fnc:output}
+\functionality{Tutorial zur Web App}{fnc:output}
+\functionality{Highlighting vom Ergebnis}{fnc:output}
+\functionality{Highlighting von dem Redex, der als nächstes reduziert wird}{fnc:output}
+\functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
+\functionality{Finales Ergebnis wird angezeigt}{fnc:output}
+\functionality{Nach Wunsch der User werden die beta Reduktionsschritte angezeigt}{fnc:output}
+\functionality{Sprache uswählbar}{fnc:output}
+\functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
+\functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
+\functionality{Der Stop Button endet die Berechnung}{fnc:output}
+\functionality{Darstellung der Berechnung mit de Bruijn Indices}{fnc:output}
+\functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
+
+\subsection{Hintergrundablauf}
+\functionality{Eingabe wird geparsed}{fnc:output}
+\functionality{Alfa conversion mit de Bruijn Indices}{fnc:output}
+\functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
+\functionality{Erkennung von offensichtlichen endlosen Schleifen}{fnc:output}
+\functionality{Beta Reduktion}{fnc:output}
+\functionality{Das Program erkennt wenn da keine weitere Beta Reduktion möglich ist}{fnc:output}
+
+\subsection{Speichern}
+\functionality{Share Funktion von link}{fnc:output}
+\functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
+\functionality{Berechnung in LaTeX schreiweise umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:output}
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
@@ -296,7 +330,7 @@ Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die En
 Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
 
 \textbf {Redex}
-Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind.
+Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind. 
 Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
 \textbf{Normalenform}

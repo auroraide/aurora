@@ -222,3 +222,7 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.texl
+
+
+# MAC extra files
+.DB_Store
