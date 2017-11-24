@@ -120,25 +120,26 @@ Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 \criteriumOptional{Share-Button}{crt:share-feature}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
+\criteriumOptional{LaTeX export}{crt:latex-export}
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in \LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+
+\criteriumOptional{\enquote{Night Mode}}{crt:night-mode}
+Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 
-\criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
-Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
+\criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
 
+\criteriumOptional{De Bruijn Indizes}{crt:debruijn-output}
+Ausgabe des Programmes kann wahlweise mit De Bruijn Indizes erfolgen.
 
+\criteriumOptional{Lokale Sessions}{crt:local-sessions}
+Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der Benutzer kann außerdem diese Historie verändern.
 
-
-
-\criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
-Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
-
-\criteriumOptional{Tastatur-Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\criteriumOptional{Tastatur-Shortcuts}{crt:shortcuts}
+$\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Features bereit.
 
 \textbf{Verfügbare Tastatur-Shortcuts}
 
@@ -150,14 +151,12 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
     
 \end{tabular}
 
-\criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes}{crt:debruijn-output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 % Hilft den Entwicklern beim Debuggen.
 
 
 
-\criteriumOptional{Lokale Sessions}{crt:local-sessions}
-Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
+
 
 
 
@@ -437,6 +436,10 @@ Die Benutzerbibliothek kann bis zu 10 selbstdefinierte Funktionen beinhalten.
 
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
 Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
+
+\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
+Der \LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
+
 
 
 %%%%%%%%%%%
