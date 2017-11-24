@@ -69,7 +69,7 @@
 %\criterium{Schnelle Weiterleitung Kurz- zu Lang-URL}{crt:fast}
 
 \criterium{$\lambda$-Term auswerten}{crt:evaluate-term}
-Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korrekte Beta-Reduktion als Ergebnis aus 
+Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korrekte $\beta$-Reduktion als Ergebnis aus 
 
 \criterium{Text-Editor zur Eingabe}{crt:text-editor}
 Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
@@ -139,7 +139,7 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 \criteriumOptional{Benutzerbibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.}{crt:user-library}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes}{crt:debruijn-output}
+\criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes}{crt:debruijn-output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 % Hilft den Entwicklern beim Debuggen.
 
@@ -170,19 +170,23 @@ Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom 
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 
 \pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
 
-Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der Beta-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung  der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
+Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung  der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
 
 \subsection{Zielgruppen}
 
@@ -283,8 +287,8 @@ Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
 Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalenreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
 
-\functionality{DeBruijin Indizes}{fnc:debruijn-output}
-Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes.
+\functionality{De Bruijin Indizes}{fnc:debruijn-output}
+Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
 
 \functionality{Schleifen erkennung}{fnc:loop-test}
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft.
@@ -329,13 +333,14 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in 
 \functionality{Finales Ergebnis wird angezeigt}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Nach Wunsch der User werden die beta Reduktionsschritte angezeigt}{fnc:output}
+\functionality{Nach Wunsch der User werden die $\beta$-Reduktionsschritte angezeigt}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
+Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
+
 \fulfills{crt:default-language}
 \fulfills{crt:opt-language}
-Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
 
 \functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -346,8 +351,8 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Der Stop Button endet die Berechnung}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Darstellung der Berechnung mit DeBruijn Indizes}{fnc:debruijn-output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Darstellung der Berechnung mit De Bruijn Indizes}{fnc:debruijn-output}
+
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -356,21 +361,15 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Eingabe wird geparsed}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Alfa conversion mit de Bruijn Indices}{fnc:output}
+\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Erkennung von offensichtlichen endlosen Schleifen}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Beta Reduktion}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Das Program erkennt wenn da keine weitere Beta Reduktion möglich ist}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
+\functionality{$\beta$-Reduktion}{fnc:output}
+\functionality{Das Program erkennt wenn keine weitere $\beta$-Reduktion möglich ist}{fnc:output}
 
 \subsection{Speichern}
 \functionality{Share Funktion von link}{fnc:output}
@@ -451,18 +450,18 @@ Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$ x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
-{ Das Programm führt eine Beta-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine Beta-Reduktion durchgeführt hat.}
+{ Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt den Term \enquote {$\lambda$ x.x} in das Eingabefeld ein und drückt auf Run}
-{Das Programm kann keine Beta-Reduktion durchführen und gibt als Ausgabe $\lambda$ x.x}
+{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$ x.x}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
-{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm Beta-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
+{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der Beta Reduktion durchgeführt wurden }
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
 { Das Programm zeigt folgende Schritte :
 \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -483,7 +482,7 @@ Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
 
 \teststep { Der vorherige Test wurde ausgeführt}
 { der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun Beta-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
