@@ -64,35 +64,29 @@
 % Diese Section sollte kurz und knapp "für Manager" sein
 % und auf eine Seite passen.
 
+
 \subsection{Musskriterien}
 
-%\criterium{Schnelle Weiterleitung Kurz- zu Lang-URL}{crt:fast}
-
-\criterium{$\lambda$-Term auswerten}{crt:evaluate-term}
-Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korrekte $\beta$-Reduktion als Ergebnis aus 
-
-\criterium{Text-Editor zur Eingabe}{crt:text-editor}
-Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
-
-\criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
-Weitere Auswertungsstrategien sind in den Wunschkriterien.
-
-\criterium{Zwischenschritte}{crt:intermediate-step-output}
-Während der Auswertung des $\lambda$-Terms werden alle Zwischenergebnisse ausgegeben.
-
-\criterium{Stopp-Funktion}{crt:stop-feature}
-Mit der Stopp-Funktion kann die Auswertung eines $\lambda$-Terms vom Benutzer terminiert werden.
-
+\criterium{Eingabe}{crt:text-editor}
+Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 
 \criterium{Input editieren}{fnc:not-editable}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
+\criterium{Auswertung starten}{crt:evaluate-term}
+Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform. 
+
+\criterium{Auswertung stoppen}{crt:stop-feature}
+Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
+
+\criterium{Zwischenschritte}{crt:intermediate-step-output}
+Während der Auswertung des $\lambda$-Terms werden alle Zwischenergebnisse ausgegeben.
+
+\criterium{Auswertungsstrategie}{crt:default-eval-strategy}
+Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge. Weitere Auswertungsstrategien sind in den Wunschkriterien.
+
 
 \subsection{Wunschkriterien}
-%\criteriumOptional{Seite mit Betreiberinfo}{crt:about}
-
-%Der Dienst bietet eine Seite \enquote{Über Uns},
-%mit Informationen zum Betreiber.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
@@ -100,7 +94,7 @@ Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
 
-\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name und Call by Value. STIMMEN IMPLEMENTIERUNGEN NOCH???}{crt:opt-eval-strategy}
+\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name und Call by Value.}{crt:opt-eval-strategy}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.}{crt:own-eval-strategy}
@@ -108,7 +102,6 @@ Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora ben
 
 \criteriumOptional{Share-Button}{crt:share-feature}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren in den Zwischenspeicher.
-
 
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -119,11 +112,7 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 \criteriumOptional{Tastatur-Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\textbf{Verfügbare Tastatur-Shortcuts} \textcolor{red}{Hier die Shortcuts einfügen}
-%different posssibility to display shortcuts
-%\begin{itemize}
-%\item \enquote{\textbackslash\ + Shift} $\rightarrow$ $\lambda$
-%\end{itemize}
+\textbf{Verfügbare Tastatur-Shortcuts}
 
 \begin{tabular}{|r|l|}
     
