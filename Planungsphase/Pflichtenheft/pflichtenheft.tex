@@ -75,7 +75,7 @@ Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korre
 Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 
 \criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
- Weitere Auswertungsstrategien sind in den Wunschkriterien.
+Weitere Auswertungsstrategien sind in den Wunschkriterien.
 
 \criterium{Zwischenschritte}{crt:intermediate-step-output}
 Während der Auswertung des $\lambda$-Terms werden alle Zwischenergebnisse ausgegeben.
@@ -101,19 +101,23 @@ Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
 
 \criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name und Call by Value. STIMMEN IMPLEMENTIERUNGEN NOCH???}{crt:opt-eval-strategy}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.}{crt:own-eval-strategy}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Share-Button}{crt:share-feature}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren in den Zwischenspeicher.
 
 
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Tastatur-Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \textbf{Verfügbare Tastatur-Shortcuts} \textcolor{red}{Hier die Shortcuts einfügen}
 %different posssibility to display shortcuts
@@ -130,18 +134,23 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 \end{tabular}
 
 \criteriumOptional{Standardbibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.}{crt:std-library}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Benutzerbibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.}{crt:user-library}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes}{crt:debruijn-output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 % Hilft den Entwicklern beim Debuggen.
 
 \criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Syntax-Highlighting-Erweitert}{crt:syntax-highlighting-premium}
 Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schritt in einem helleren Ton derselben Farbe hinterlegt.
 
 \criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
@@ -160,9 +169,13 @@ Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom 
 \subsection{Abgrenzungskriterien}
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 \criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 \criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \pagebreak
 %%%%%%%%%%%%%%
@@ -299,40 +312,75 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in 
 
 \subsection{Darstellungen}
 \functionality{DarkModus}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Tutorial zur Web App}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Highlighting vom Ergebnis}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Highlighting von dem Redex, der als nächstes reduziert wird}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Finales Ergebnis wird angezeigt}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Nach Wunsch der User werden die beta Reduktionsschritte angezeigt}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
-Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
-
 \fulfills{crt:default-language}
 \fulfills{crt:opt-language}
+Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
 
 \functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Der Stop Button endet die Berechnung}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Darstellung der Berechnung mit DeBruijn Indizes}{fnc:debruijn-output}
-
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \subsection{Hintergrundablauf}
 \functionality{Eingabe wird geparsed}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Alfa conversion mit de Bruijn Indices}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Erkennung von offensichtlichen endlosen Schleifen}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Beta Reduktion}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Das Program erkennt wenn da keine weitere Beta Reduktion möglich ist}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 
 \subsection{Speichern}
 \functionality{Share Funktion von link}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
 \functionality{Berechnung in LaTeX schreiweise umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Stop-Button}{fnc:but}
 Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
@@ -356,21 +404,18 @@ Die Funktionalität der Aurora Web App ist auf mobilen Geräten gegenüber der D
 
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
 Das Programm soll auch ohne dem Tutorial verständlich bedienbar sein.
-%\nonFunctionality{Modernes Design}{nfc:design}
+
 \nonFunctionality{Aussehen}{nfc:appearence}
 Die Grafische Oberfläche soll schlicht aber modern wirken. 
-%Das Design soll modern und seriös wirken.
 
 \nonFunctionality{Geschwindigkeit}{nfc:latency}
 Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Button ausführt soll schnell erfolgen. 
-
 
 \nonFunctionality{Programmsprache}{crt:default-language}
 Die Standard Sprache des Programmes ist Englisch.
 
 \nonFunctionality{Erweiterte Sprachenauswahl}{nfc:opt-language}
 Das Programm ist durch außerdem in den Sprachen Deutsch, Russisch, Französisch verfügbar.
-
 
 \nonFunctionality{Browserkompatibilität}{nfc:default-browser}
 Das Programm funktioniert auf dem Webbrowser \enquote{Google Chrome} 62.
