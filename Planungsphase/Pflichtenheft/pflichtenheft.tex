@@ -51,6 +51,7 @@
 
 
 \begin{document}
+
 \maketitle
 \newpage
 \tableofcontents
@@ -105,10 +106,20 @@ Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgeho
 Der nächste auszuwertende Redex wird farblich hinterlegt, im nächsten Schritt in einem helleren Ton derselben Farbe.
 
 \criteriumOptional{Standardbibliothek}{crt:std-library}
-Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.
+Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
 \criteriumOptional{Benutzerbibliothek}{crt:user-library}
-Bibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.
+Bibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
+
+\criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
+Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
+
+\criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
+Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
+
+\criteriumOptional{Share-Button}{crt:share-feature}
+Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
+
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
@@ -116,14 +127,9 @@ Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
 
-\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name und Call by Value.}{crt:opt-eval-strategy}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\criteriumOptional{Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.}{crt:own-eval-strategy}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\criteriumOptional{Share-Button}{crt:share-feature}
-Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren in den Zwischenspeicher.
+
 
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
