@@ -77,7 +77,8 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
  Weitere Auswertungsstrategien sind in den Wunschkriterien.
 
-\criterium{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
+\criterium{Zwischenschritte}{crt:intermediate-step-output}
+Während der Auswertung des $\lambda$-Terms werden alle Zwischenergebnisse ausgegeben.
 
 \criterium{Stopp-Funktion}{crt:stop-feature}
 Mit der Stopp-Funktion kann die Auswertung eines $\lambda$-Terms vom Benutzer terminiert werden.
@@ -103,9 +104,8 @@ Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora ben
 
 \criteriumOptional{Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.}{crt:own-eval-strategy}
 
-\criteriumOptional{Share-Funktion}{crt:share-feature}
-
-Generiere eine Short-URL mit \enquote{Copy to clipboard} Funktion, die Aurora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
+\criteriumOptional{Share-Button}{crt:share-feature}
+Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren in den Zwischenspeicher.
 
 
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
@@ -273,6 +273,15 @@ Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalenreihenf
 \functionality{DeBruijin Indizes}{fnc:debruijn-output}
 Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes.
 
+\functionality{Schleifen erkennung}{fnc:loop-test}
+Eine laufende Berechnung wird automatisch auf Schleifen überprüft.
+
+\functionality{Share-Button}{fnc:share-button}
+Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern.
+
+\functionality{URL öffnen}{fnc:open-url}
+Der Benutzer gibt eine mit ihm geteilte URL in die Adressleiste seines Browsers ein, das Programm kopiert den geteilten Code in das Eingabefeld.
+
 
 
 \subsection{Eingabe}
@@ -372,6 +381,18 @@ Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstütze
 \nonFunctionality{nfc:supported-languages}
 Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen.
 
+\nonFunctionality{Hash-Aufwand}{nfc:hash-time}
+Die Berechnung der Hashwerte ist nicht mehr als 10\% der Gesamtrechenzeit in Anspruch.
+
+\nonFunctionality{Standardbibliothek}{nfc:standard-library-content}
+Die Standardbibliothek kann bis zu 20 vordefinierte Funktionen beinhalten.
+
+\nonFunctionality{Benutzerbibliothek}{nfc:user-library-content}
+Die Benutzerbibliothek kann bis zu 10 selbstdefinierte Funktionen beinhalten.
+
+\nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
+Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
+
 
 %%%%%%%%%%%
 \section{Tests}
@@ -453,6 +474,14 @@ Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen 
 \teststep {Das Programm ist im Default-State}
 { Der Benutzer gibt sub 1 1 ein und drückt auf Run }
 { Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer gibt ($\lambda$x.xx)($\lambda$x.xx) in den Editor ein.}
+{Das Programm erkennt die Endlosschleife und terminiert.}
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
+{Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
 
 
