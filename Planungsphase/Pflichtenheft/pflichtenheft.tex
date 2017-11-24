@@ -83,10 +83,32 @@ Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
 Während der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
 
 \criterium{Auswertungsstrategie}{crt:default-eval-strategy}
-Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge. Weitere Auswertungsstrategien sind in den Wunschkriterien.
+Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalreihenfolge. Weitere Auswertungsstrategien sind in den Wunschkriterien.
 
 
+\newpage
 \subsection{Wunschkriterien}
+
+\criteriumOptional{Zeilennummer}{crt:linenumbers}
+Neben dem Eingabefeld soll ausgeblasst eine Zeilennumerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
+
+\criteriumOptional{Kommentare einfügen}{crt:comments}
+Man kann mit \enquote{ \# } die jeweils restliche Zeile auskommentieren. Sie wird vom Parser übersprungen und nicht gelesen.
+
+\criteriumOptional{Autovervollständigung von Klammern}{crt:autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
+
+\criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
+Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgehoben. Beim hovern über einer Klammer wird das entsprechende Klammerpaar farblich hervorgehoben.
+
+\criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
+Der nächste auszuwertende Redex wird farblich hinterlegt, im nächsten Schritt in einem helleren Ton derselben Farbe.
+
+\criteriumOptional{Standardbibliothek}{crt:std-library}
+Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.
+
+\criteriumOptional{Benutzerbibliothek}{crt:user-library}
+Bibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
@@ -122,38 +144,22 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
     
 \end{tabular}
 
-\criteriumOptional{Standardbibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.}{crt:std-library}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\criteriumOptional{Benutzerbibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.}{crt:user-library}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
 \criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes}{crt:debruijn-output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 % Hilft den Entwicklern beim Debuggen.
 
-\criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\criteriumOptional{Syntax-Highlighting-Erweitert}{crt:syntax-highlighting-premium}
-Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schritt in einem helleren Ton derselben Farbe hinterlegt.
-
-\criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
 
 
 
-\criteriumOptional{Auto-Complete von Klammern}{crt:Autobracket}
-Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
 
-\criteriumOptional{Zeilenzahlen im Editor}{crt:linenumbers}
-Im Eingabefeld soll ausgeblasst eine Zeilennumerierung im Eingabefeld dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
-\criteriumOptional{Auskommentieren ist möglich}{crt:comments}
-Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom Parser übersprungen wird und nicht gelesen wird
+
+
+
 
 \subsection{Abgrenzungskriterien}
 
@@ -175,7 +181,7 @@ Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom 
 \section{Produkteinsatz}
 \subsection{Anwendungsbereiche}
 
-Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung  der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
+Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
 
 \subsection{Zielgruppen}
 
@@ -266,15 +272,15 @@ Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 \functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
-\functionality{Normalenreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
-$\lambda$-Terme werden standardmäßig in Normalenreihenfolge ausgewertet.
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
+$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet.
 Das heißt, dass immer der linkeste Redex ausgewertet wird.
 
 \functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
 Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
 
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
-Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalenreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
+Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
 
 \functionality{De Bruijin Indizes}{fnc:debruijn-output}
 Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
@@ -298,7 +304,7 @@ Der Benutzer gibt eine mit ihm geteilte URL in die Adressleiste seines Browsers 
 \functionality{Highlightning Text}{fnc:output}
 
 \functionality{Brackets Auto-complete}{fnc:bracket}
-\fulfills{crt:Autobracket}
+\fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in Echtzeit, dass eine Klammer geöffnet wurde und fügt automatisch eine schließende Klammer \enquote{)} hinzu
 
 
@@ -478,8 +484,8 @@ Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
 \teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) }
-{Der Benutzer benutzt den Step-Button einmal mit Normalenreihenfolge  und einmal mit der Auswertungsstrategie Call-By-Value welche in den Einstellungen zu finden ist}
-{ Bei der Normalenreihenfolge wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. bei der Auswertungsstrategie wird der Term ($\lambda$x.x) als erstes reduziert }
+{Der Benutzer benutzt den Step-Button einmal mit Normalreihenfolge  und einmal mit der Auswertungsstrategie Call-By-Value welche in den Einstellungen zu finden ist}
+{ Bei der Normalreihenfolge wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. bei der Auswertungsstrategie wird der Term ($\lambda$x.x) als erstes reduziert }
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
@@ -596,7 +602,7 @@ Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
 
 %\textbf{Homepage}:
 %Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
-\textbf{Standardbibliothek} :
+\textbf{Standardbibliothek}
 Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten Lambdaterme zusammen getragen damit der Benutzer häufig vorkommende Lambdaterme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten Lambdaterm.
 
 \textbf{Benutzerbibliothek}
@@ -606,13 +612,13 @@ Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann
 Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind.
 Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
-\textbf{Normalenform}
-Die Normalenform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
+\textbf{Normalform}
+Die Normalform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
 \textbf{Auswertungsstrategie}
 Die Auswertungsstrategie gibt an welcher Redex als nächstes ausgewertet wird und dann mit Beta-Reduktion reduziert wird.
 
-\textbf{Normalenreihenfolge}
+\textbf{Normalreihenfolge}
 Der linkeste äußerste Redex wird als erstes ausgewertet und reduziert.
 
 \textbf{Call-By-Name}
@@ -620,5 +626,8 @@ Der linkeste äußerste Redex der nicht von einem $\lambda$ umgeben ist wird als
 
 \textbf{Call-By-Value}
 Der linkeste Redex der nicht von einem $\lambda$ umgeben ist und dessen Argument ein Wert ist wird als erstes ausgewertet und reduziert.
+
+\textbf{Hover}
+Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu drücken.
  
 \end{document}
