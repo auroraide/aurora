@@ -43,6 +43,7 @@
 
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\usepackage{color}
 
 \usepackage{pflichtenheft}
 
@@ -76,7 +77,14 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
  Weitere Auswertungsstrategien sind in den Wunschkriterien.
 
-\criterium{Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
+\criterium{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
+
+\criterium{Stopp-Funktion}{crt:stop-feature}
+Mit der Stopp-Funktion kann die Auswertung eines $\lambda$-Terms vom Benutzer terminiert werden.
+
+
+\criterium{Input editieren}{fnc:not-editable}
+Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
 
 \subsection{Wunschkriterien}
@@ -85,9 +93,8 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 %Der Dienst bietet eine Seite \enquote{Über Uns},
 %mit Informationen zum Betreiber.
 
-\criteriumOptional{Erkennen von einfachen Schleifen während der Auswertung}{crt:loop-detection}
-
-\criteriumOptional{Zwischenschritte bei der Auswertung eines Lambda-Term werden ausgegeben}{crt:intermediate-step-output}
+\criteriumOptional{Schleifenerkennung}{crt:loop-detection}
+Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
@@ -100,17 +107,19 @@ Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora ben
 
 Generiere eine Short-URL mit \enquote{Copy to clipboard} Funktion, die Aurora, mit vorgefertigten Input im Text Editor, im Webbrowser öffnet.
 
-\criteriumOptional{Stopp-Funktion}{crt:stop-feature}
-Mit der Stopp-Funktion, kann die Auswertung eines $\lambda$-Terms vom Benutzer, terminiert werden.
 
-\criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in Latex-Syntax übersetzen}{crt:latex-export}
-
-\criteriumOptional{Die Applikation funktioniert zusätlich auf den Webbrowsern Safari und Firefox}{crt:opt-webbrowser}
+\criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
 
 \criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
-\criteriumOptional{Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
+\criteriumOptional{Tastatur-Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
+
+\textbf{Verfügbare Tastatur-Shortcuts} \textcolor{red}{Hier die Shortcuts einfügen}
+\begin{itemize}
+	\item \enquote{\textbackslash\ + Shift} $\rightarrow$ $\lambda$
+\end{itemize}
+
 
 \criteriumOptional{Standardbibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.}{crt:std-library}
 
@@ -126,9 +135,6 @@ Der nächste auszuwertende Redex wird farblich hinterlegt und im nächsten Schri
 
 \criteriumOptional{Auto-Complete von Klammern}{crt:auto-complete-parentheses}
 
-\criteriumOptional{Anschaufunktion auf mobilen Geräten}{crt:gui-mobile-devices}
-Das Öffnen von Aurora Web App auf mobilen Geräten, enthält nur eingeschränkte Funktionalität, gegenüber dem Öffnen von Aurora Web App im Webbrowser eines Computers.
-
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der benutzer kann außerdem diese Historie verändern.
 
@@ -143,11 +149,6 @@ Im Eingabefeld soll ausgeblasst eine Zeilennumerierung im Eingabefeld dargestell
 \criteriumOptional{Auskommentieren ist möglich}{crt:comments}
 Man kann mit \enquote{ // } und \enquote{*/ */ }  Text auskommentieren, der vom Parser übersprungen wird und nicht gelesen wird
 
-\criteriumOptional{Bei laufender Berechnung ist nichts editierbar}{crt:not-editable}
-Wenn der Benutzer eine Berechnung laufen lässt ist weder das Eingabefeld noch das Ausgabefeld editierbar. Das Ausgabefeld ist generell nie editierbar.
-
-\criteriumOptional{Endlosschleife möglich}{crt:infiniteloop}
-Wenn der Benutzer eine offensichtliche Endlosschleife gebaut hat wie z.b. ($\lambda$x. x x) ($\lambda$x. x x) dann hat er die Option die Endlosschleife weiterlaufen zu lassen wenn er das will. 
 \subsection{Abgrenzungskriterien}
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
@@ -259,7 +260,10 @@ Das heißt, dass immer der linkeste Redex ausgewertet wird.
 Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
 
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
-Die zur Verfügung stehenden Auswertungsstrategien sind enquote{Normalenreihenfolge}, enquote{Call-by-Name} und enquote{Call-by-Value}.
+Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalenreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
+
+\functionality{DeBruijin Indizes}{fnc:debruijn-output}
+Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes.
 
 
 
@@ -315,6 +319,9 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 
 \functionality{Stop-Button}{fnc:but}
 Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
+
+\funcionality{Anschaufunktion auf mobilen Geräten}{fnc:gui-mobile-devices}
+Die Funktionalität der Aurora Web App ist auf mobilen Geräten gegenüber der Desktop Version eingeschränkt.
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
@@ -352,6 +359,9 @@ Das Programm funktioniert auf dem Webbrowser \enquote{Google Chrome} 62.
 
 \nonFunctionality{Erweiterte Browserkompatibilität}{nfc:advances-default-browser}
 Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstützen.
+
+\nonFunctionality{nfc:supported-languages}
+Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen.
 
 
 %%%%%%%%%%%
@@ -397,8 +407,8 @@ Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstütze
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben. }
 
 \teststep { Der vorherige Test wurde ausgeführt}
-{ der Benutzer gibt in den Editor \enquote {fst (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt fst aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun Beta-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+{ der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun Beta-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
