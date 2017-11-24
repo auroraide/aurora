@@ -71,16 +71,11 @@
 Der Benutzer kann einen $\lambda$-Term eingeben und das Programm gibt eine Korrekte Beta-Reduktion als Ergebnis aus 
 
 \criterium{Text-Editor zur Eingabe}{crt:text-editor}
-
 Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 
-
-\criterium{Sprache der Applikation ist Englisch}{crt:default-language}
-
-\criterium{Applikation funktioniert auf dem Webbrowser \enquote{Google Chrome}}{crt:default-browser}
-
 \criterium{Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalenreihenfolge}{crt:default-eval-strategy}
- Weitere Auswertungsstrategien sind in den Wunschkriterien
+ Weitere Auswertungsstrategien sind in den Wunschkriterien.
+
 \criterium{Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen}{crt:architecture-language}
 
 
@@ -97,7 +92,9 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben
 \criteriumOptional{Tutorial in Form von textueller Anleitung mit Bildern}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora benutzt.
 
-\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name, Call by Value und eine eigene Auswahl bei der $\beta$-Reduzierung eines Redex}{crt:opt-eval-strategy}
+\criteriumOptional{Zusätzliche Auswertungsstrategien sind Call by Name und Call by Value. STIMMEN IMPLEMENTIERUNGEN NOCH???}{crt:opt-eval-strategy}
+
+\criteriumOptional{Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.}{crt:own-eval-strategy}
 
 \criteriumOptional{Share-Funktion}{crt:share-feature}
 
@@ -108,8 +105,6 @@ Mit der Stopp-Funktion, kann die Auswertung eines $\lambda$-Terms vom Benutzer, 
 
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in Latex-Syntax übersetzen}{crt:latex-export}
 
-\criteriumOptional{Sprachen: Deutsch, Russisch, Französisch}{crt:opt-language}
-
 \criteriumOptional{Die Applikation funktioniert zusätlich auf den Webbrowsern Safari und Firefox}{crt:opt-webbrowser}
 
 \criteriumOptional{\enquote{Night Mode} Funktion}{crt:night-mode}
@@ -117,9 +112,9 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 
 \criteriumOptional{Shortcuts zum Ausführen von Features der Applikation}{crt:shortcuts}
 
-\criteriumOptional{Standardbibliothek}{crt:std-library}
+\criteriumOptional{Standardbibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind.}{crt:std-library}
 
-\criteriumOptional{Benutzerbibliothek}{crt:user-library}
+\criteriumOptional{Benutzerbibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann.}{crt:user-library}
 
 \criteriumOptional{Ausgabe der $\lambda$-Ausdrücke mit DeBruijn Indizes}{crt:debruijn-output}
 % Hilft den Entwicklern beim Debuggen.
@@ -247,8 +242,8 @@ Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-But
 \functionality{Run Eingabefeld}{fnc:run-input}\fulfills{crt:evaluate-term}
 Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.
 
-\functionality{Eingabefeld während einer Berechnung nicht editierbar}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
-Der Benutzer kann das Eingabefeld nicht editieren, während die Berechnung am laufen ist.
+\functionality{Die Eingabe kann nur geändert werden, falls keine Berechnung läuft.}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
+Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
 \functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
@@ -317,6 +312,9 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Share Funktion von link}{fnc:output}
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
 \functionality{Berechnung in LaTeX schreiweise umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:output}
+
+\functionality{Stop-Button}{fnc:but}
+Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
@@ -334,14 +332,26 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
 Das Programm soll auch ohne dem Tutorial verständlich bedienbar sein.
 %\nonFunctionality{Modernes Design}{nfc:design}
-\nonFunctionality{Stop-Button}{nfc:but}
-Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
 \nonFunctionality{Aussehen}{nfc:appearence}
 Die Grafische Oberfläche soll schlicht aber modern wirken. 
 %Das Design soll modern und seriös wirken.
 
 \nonFunctionality{Geschwindigkeit}{nfc:latency}
 Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Button ausführt soll schnell erfolgen. 
+
+
+\nonFunctionality{Programmsprache}{crt:default-language}
+Die Standard Sprache des Programmes ist Englisch.
+
+\nonFunctionality{Erweiterte Sprachenauswahl}{nfc:opt-language}
+Das Programm ist durch außerdem in den Sprachen Deutsch, Russisch, Französisch verfügbar.
+
+
+\nonFunctionality{Browserkompatibilität}{nfc:default-browser}
+Das Programm funktioniert auf dem Webbrowser \enquote{Google Chrome} 62.
+
+\nonFunctionality{Erweiterte Browserkompatibilität}{nfc:advances-default-browser}
+Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstützen.
 
 
 %%%%%%%%%%%
