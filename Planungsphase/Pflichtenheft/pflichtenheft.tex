@@ -147,7 +147,8 @@ Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x
 
 \criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
-
+\criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
+Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit Deutsch Französisch und Russisch auszuwählen
 \criteriumOptional{De Bruijn Indizes}{crt:debruijn-output}
 Ausgabe des Programmes kann wahlweise mit De Bruijn Indizes erfolgen.
 
@@ -232,8 +233,8 @@ Der \enquote{Run-Button} startet die  \enquote{Run}-Funktion und diese veranlass
 \functionality{Shortcuts}{fnc:shortcut}\fulfills{crt:shortcuts}
 Der Benutzer kann Tastenkürzel benutzen um das Programm mit Einschränkungen zu bedienen. 
 
-\functionality{Highlightning Lambda}{fnc:output}
-
+\functionality{Highlightning Lambdasymbol und Punkte}{fnc:highlightstatic}\fulfills{crt:syntax-highlighting}
+Das Lambda Symbol und Punkte werden fett dargestellt, damit man eine bessere Übersicht behält.
 
 \functionality{Brackets Auto-complete}{fnc:bracket}
 \fulfills{crt:autobracket}
@@ -296,15 +297,9 @@ In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinte
 \functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
-\functionality{Finales Ergebnis wird angezeigt}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-
-\functionality{Sprache ist auswählbar}{fnc:language-selection}
+\functionality{Sprache ist auswählbar}{fnc:language-selection}\fulfills{crt:opt-language}
 Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
 
-\fulfills{crt:default-language}
-\fulfills{crt:opt-language}
 
 \functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
