@@ -216,54 +216,7 @@ Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von andere
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Stop}{fnc:stop-exec} \fulfills{crt:stop-feature}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
-
-\functionality{No Timeout}{fnc:run-no-timeout}\fulfills{crt:infiniteloop}
-Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
-
-\functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
-Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.
-
-\functionality{Permanenz der Historie}{fnc:localstorage-permanent}\fulfills{crt:local-sessions}
-Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
-
-\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}\fulfills{crt:local-sessions}
-Der Benutzer kann Eingaben aus der Historie wiederherstellen.
-
-\functionality{Löschen der Historie}{fnc:localstorage-flush}\fulfills{crt:local-sessions}
-Der Benutzer kann die Einträge in der Historie löschen.
-
-\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}\fulfills{crt:local-sessions}
-Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
-
-\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinterlegt.
-
-\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
-
-\functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
-Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
-
-\functionality{Standardbibliothek}{fnc:stdlib}\fulfills{crt:std-library}
-Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
-
-\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}\fulfills{crt:std-library}
-Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
-
-\functionality{Benutzerbibliothek}{fnc:userlib}\fulfills{crt:user-library}
-Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
-
-\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}\fulfills{crt:user-library}
-Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden.
-
-\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}\fulfills{crt:user-library}\fulfills{crt:std-library}
-Die Eingabe von definierten Funktionen in der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
-
-\functionality{Definition einer Funktion}{fnc:func-def}\fulfills{crt:std-library}\fulfills{crt:user-library}
-Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
-
+\subsection{Eingabe}
 \functionality{Eingabefeld}{fnc:input}\fulfills{crt:text-editor}
 Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur eingeben. Die Zeichen erscheinen in Echtzeit im Eingabefeld.
 
@@ -271,47 +224,9 @@ Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur einge
 Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten.
 Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 
-\functionality{Run}{fnc:run}\fulfills{crt:evaluate-term}
-Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.
-
 \functionality{Run Eingabefeld}{fnc:run-input}\fulfills{crt:evaluate-term}
-Die \enquote{Run}-Funktion liest $\lambda$-Terme über das Eingabefeld ein.
+Der \enquote{Run-Button} startet die  \enquote{Run}-Funktion und diese veranlasst den Parser dazu, dass er die $\lambda$-Terme über das Eingabefeld einliest.
 
-\functionality{Die Eingabe kann nur geändert werden, falls keine Berechnung läuft.}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
-Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
-
-\functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
-Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
-
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
-Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
-
-\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
-$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet.
-Das heißt, dass immer der linkeste Redex ausgewertet wird.
-
-\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
-Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
-
-\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
-Die zur Verfügung stehenden Auswertungsstrategien sind \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
-
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}
-Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
-
-\functionality{Schleifen erkennung}{fnc:loop-test}
-Eine laufende Berechnung wird automatisch auf Schleifen überprüft.
-
-\functionality{Share-Button}{fnc:share-button}
-Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern.
-
-\functionality{URL öffnen}{fnc:open-url}
-Der Benutzer gibt eine mit ihm geteilte URL in die Adressleiste seines Browsers ein, das Programm kopiert den geteilten Code in das Eingabefeld.
-
-
-
-\subsection{Eingabe}
-\functionality{Textfeld}{fnc:output}
 \functionality{Shortcuts}{fnc:output}
 \functionality{Auto-complete}{fnc:output}
 \functionality{Highlightning Lambda}{fnc:output}
@@ -321,20 +236,47 @@ Der Benutzer gibt eine mit ihm geteilte URL in die Adressleiste seines Browsers 
 \fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(} dann erkennt das Programm in Echtzeit, dass eine Klammer geöffnet wurde und fügt automatisch eine schließende Klammer \enquote{)} hinzu
 
+\functionality{Standardbibliothek}{fnc:stdlib}\fulfills{crt:std-library}
+Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
+
+\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}\fulfills{crt:user-library}
+Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es unterscheidet sich für die Eingabe nicht, ob eine Funktion in der Standard oder in der Benutzerbibliothek ist.
+
+
+\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}\fulfills{crt:user-library}\fulfills{crt:std-library}
+Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
+
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
+Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
+
+\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
+Der Benutzer kann zwischen 3 Standard Auswertungsstrategien auswählen. Sie sind \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
+Er kann außerdem auf einen Redex drücken der dann ausgewertet wird.
+
+
+\functionality{Die Eingabe kann nur geändert werden, falls keine Berechnung läuft.}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
+Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 
 \subsection{Darstellungen}
-\functionality{DarkModus}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
+Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
 
 \functionality{Tutorial zur Web App}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Highlighting vom Ergebnis}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
+Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
-\functionality{Highlighting von dem Redex, der als nächstes reduziert wird}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinterlegt.
+
+\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
 \functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -357,32 +299,56 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Der Stop Button endet die Berechnung}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Stop}{fnc:stop-exec} \fulfills{crt:stop-feature}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
 
-\functionality{Darstellung der Berechnung mit De Bruijn Indizes}{fnc:debruijn-output}
+\functionality{De Bruijin Indizes}{fnc:debruijn-output}
+Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
+
 
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \subsection{Hintergrundablauf}
+\functionality{Run}{fnc:run}\fulfills{crt:evaluate-term}
+Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.
+
 \functionality{Eingabe wird geparsed}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
+$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet.
+Das heißt, dass immer der linkeste Redex ausgewertet wird.
+
 \functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Erkennung von offensichtlichen endlosen Schleifen}{fnc:output}
+\functionality{Offensichtliche Schleifen erkennung}{fnc:loop-test}
+Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine offensichtliche Schleife gefunden wurde warnt das Programm davor.
 \functionality{$\beta$-Reduktion}{fnc:output}
 \functionality{Das Program erkennt wenn keine weitere $\beta$-Reduktion möglich ist}{fnc:output}
 
+\functionality{No Timeout}{fnc:run-no-timeout}\fulfills{crt:infiniteloop}
+Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
+
 \subsection{Speichern}
-\functionality{Share Funktion von link}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}\fulfills{crt:std-library}
+Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
+
+\functionality{Definition einer Funktion}{fnc:func-def}\fulfills{crt:std-library}\fulfills{crt:user-library}
+Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
+
+\functionality{Benutzerbibliothek}{fnc:userlib}\fulfills{crt:user-library}
+Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
+
+
+\functionality{Share-Button}{fnc:share-button}
+Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
 
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -396,6 +362,22 @@ Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einf
 
 \functionality{Anschaufunktion auf mobilen Geräten}{fnc:gui-mobile-devices}
 Die Funktionalität der Aurora Web App ist auf mobilen Geräten gegenüber der Desktop Version eingeschränkt.
+
+\subsubsection{History}
+\functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
+Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.
+
+\functionality{Permanenz der Historie}{fnc:localstorage-permanent}\fulfills{crt:local-sessions}
+Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
+
+\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}\fulfills{crt:local-sessions}
+Der Benutzer kann Eingaben aus der Historie wiederherstellen.
+
+\functionality{Löschen der Historie}{fnc:localstorage-flush}\fulfills{crt:local-sessions}
+Der Benutzer kann die Einträge in der Historie löschen.
+
+\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}\fulfills{crt:local-sessions}
+Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
 %\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
 %\fulfills{crt:login}
 %\fulfills{crt:github}
