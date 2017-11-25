@@ -106,6 +106,9 @@ Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgeho
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
 Der nächste auszuwertende Redex wird farblich hinterlegt, im nächsten Schritt in einem helleren Ton derselben Farbe.
 
+\criteriumOptional{Pretty Print}
+Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert.
+
 \criteriumOptional{Standardbibliothek}{crt:std-library}
 Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
@@ -122,7 +125,7 @@ Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
 \criteriumOptional{LaTeX export}{crt:latex-export}
-$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in \LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in \LaTeX-Snippet exportiert werden. Bis zu einer gewissen Größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 \criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
 \criteriumOptional{\enquote{Night Mode}}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
@@ -357,8 +360,7 @@ Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum
 Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
 
 
-\functionality{Anschaufunktion auf mobilen Geräten}{fnc:gui-mobile-devices}
-Die Funktionalität der Aurora Web App ist auf mobilen Geräten gegenüber der Desktop Version eingeschränkt.
+
 
 \subsubsection{History}
 \functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
