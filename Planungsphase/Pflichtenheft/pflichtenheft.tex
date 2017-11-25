@@ -238,12 +238,13 @@ Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten
 Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 
 \functionality{Run Eingabefeld}{fnc:run-input}\fulfills{crt:evaluate-term}
-Der \enquote{Run-Button} startet die  \enquote{Run}-Funktion und diese veranlasst den Parser dazu, dass er die $\lambda$-Terme über das Eingabefeld einliest.
+Der \enquote{Run-Button} startet die  \enquote{Run}-Funktion und diese veranlasst den Parser dazu, dass er die $\lambda$-Ausdrücke über das Eingabefeld einliest.
 
-\functionality{Shortcuts}{fnc:output}
-\functionality{Auto-complete}{fnc:output}
+\functionality{Shortcuts}{fnc:shortcut}\fulfills{crt:shortcuts}
+Der Benutzer kann Tastenkürzel benutzen um das Programm mit Einschränkungen zu bedienen. 
+
 \functionality{Highlightning Lambda}{fnc:output}
-\functionality{Highlightning Text}{fnc:output}
+
 
 \functionality{Brackets Auto-complete}{fnc:bracket}
 \fulfills{crt:autobracket}
@@ -279,6 +280,10 @@ Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentie
 Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
 
 \subsection{Darstellungen}
+\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}\fulfills{crt:syntax-highlighting}
+Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
+Wenn der Benutzer über Klammer \enquote{A} hovert, dann wird die Klammer die \enquote{A} öffnet oder schließt, farbig markiert.
+
 \functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
 
@@ -286,7 +291,7 @@ Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode
 Links neben der Eingabe des Benutzers sind Zahlen, die jeweils die jetzige Zeilennummer angeben. Sie sind nicht editierbar oder anderweitig änderbar. Dies soll mit der Orientierung der Eingabe helfen.
 
 
-\functionality{Tutorial zur Web App}{fnc:tutorial}
+\functionality{Tutorial zur Web App}{fnc:tutorial}\fulfills{crt:tutorial}
 Wenn der Benutzer auf einen Hilf-Button drückt dann wird ein kleines Tutorial erscheinen, dass ihm die Benutzung des Programmes erklärt und auf Features hinweist.
 
 \functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
@@ -321,8 +326,8 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Stop-Button}{fnc:stop-exec} \fulfills{crt:stop-feature}
 Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
 
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}
-Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
+\functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
+Der Benutzer kann einstellen, dass er die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben will.
 
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
@@ -345,7 +350,7 @@ Das heißt, dass immer der linkeste Redex ausgewertet wird.
 \functionality{Ermittlung der Eingestellten Auswertungsstrategie}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Offensichtliche Schleifen erkennung}{fnc:loop-test}
+\functionality{Offensichtliche Schleifen erkennung}{fnc:loop-test}\fulfills{crt:loop-detection}
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde warnt das Programm davor.
 
 \functionality{$\beta$-Reduktion}{fnc:output}
@@ -368,17 +373,15 @@ Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspric
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
 
-\functionality{Share-Button}{fnc:share-button}
+\functionality{Share-Button}{fnc:share-button}\fulfills{crt:share-feature}
 Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
 
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Berechnung in LaTeX schreiweise umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Berechnung in LaTeX syntax umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:latexshare}\fulfills{crt:latex-export}
+Der Benutzer kann entweder die Eingabe oder, die Eingabe + die Schritte zum Ergebnis in Latexsyntax speichern. Dies wird automatisch zum Clipboard gecopied, damit der Benutzer dies selbsständig in ein LaTeXdokument einfügen kann.
 
-\functionality{Stop-Button}{fnc:but}
-Wenn der Stop-button betätigt wird muss er ohne große Latenz und und ohne einfrieren des Programmes das Berechnen beenden können.
 
 
 
