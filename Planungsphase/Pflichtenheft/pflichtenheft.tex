@@ -177,14 +177,14 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 
 \subsection{Abgrenzungskriterien}
 
-\criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
 \criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+Der Client führt das Programm aus. Alle Funktionen die etwas berechnen oder speichern müssen werden auf der Hardware des Clients ausgeführt.
+
+\criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
+Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktion für das Programm aus.
 
 \criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls. Auch eine einfache Erweiterungsschnittstelle, damit man z.B. das typisierte $\lambda$-Kalkül einfügen könnte ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen
 
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
