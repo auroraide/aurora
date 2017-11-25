@@ -72,7 +72,7 @@ Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür 
 \criterium{Eingabe}{crt:text-editor}
 Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 
-\criterium{Input editieren}{fnc:not-editable}
+\criterium{Input editieren}{crt:not-editable}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
 \criterium{Auswertung starten}{crt:evaluate-term}
@@ -82,7 +82,7 @@ Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Au
 Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
 
 \criterium{Zwischenschritte}{crt:intermediate-step-output}
-Während der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
+Nach der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
 
 \criterium{Auswertungsstrategie}{crt:default-eval-strategy}
 Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalreihenfolge. Weitere Auswertungsstrategien sind in den Wunschkriterien.
@@ -95,7 +95,7 @@ Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Norm
 Neben dem Eingabefeld soll ausgeblasst eine Zeilennumerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
 \criteriumOptional{Kommentare einfügen}{crt:comments}
-Man kann mit \enquote{ \# } die jeweils restliche Zeile auskommentieren. Sie wird vom Parser übersprungen und nicht gelesen.
+Man kann eine Zeile in der Eingabe auskommentieren. Diese Zeile wird dann vom Parser übersprungen
 
 \criteriumOptional{Autovervollständigung von Klammern}{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
@@ -118,6 +118,9 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
+\criteriumOptional{Pause-Button}{crt:pausebutton}
+Der Pause-Button unterbricht die laufende Berechnung
+ 
 \criteriumOptional{Share-Button}{crt:share-feature}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
@@ -224,10 +227,10 @@ Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von andere
 \section{Funktionale Anforderungen}
 
 \subsection{Eingabe}
-\functionality{Eingabefeld}{fnc:input}\fulfills{crt:text-editor}
+\functionality{Eingabefeld}{fnc:input}\fulfills{crt:text-editor}\fulfills{crt:not-editable}
 Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur eingeben. Die Zeichen erscheinen in Echtzeit im Eingabefeld.
 
-\functionality{Eingabefeld bearbeiten}{fnc:editor}\fulfills{crt:text-editor}
+\functionality{Eingabefeld bearbeiten}{fnc:editor}\fulfills{crt:text-editor}\fulfills{crt:not-editable}
 Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten.
 Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 
@@ -256,27 +259,38 @@ Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek 
 \functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
 Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
 
-\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}
+\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}\fulfills{crt:own-eval-strategy}
 Der Benutzer kann zwischen 3 Standard Auswertungsstrategien auswählen. Sie sind \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
 Er kann außerdem auf einen Redex drücken der dann ausgewertet wird.
 
-
+\functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:choosingredex}\fulfills{crt:own-eval-strategy}
+Wenn der Benutzer sich die Steps anzeigen lässt kann er auf  einen Redex drücken und der wird als nächstes ausgewertet. 
 \functionality{Die Eingabe kann nur geändert werden, falls keine Berechnung läuft.}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
 \functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
+\functionality{Kommentare hinzufügen}{fnc:commentyourcode}\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren
+Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
 
 \subsection{Darstellungen}
 \functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
 
-\functionality{Tutorial zur Web App}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Line Numbers}{fnc:ln}\fulfills{crt:linenumbers}
+Links neben der Eingabe des Benutzers sind Zahlen, die jeweils die jetzige Zeilennummer angeben. Sie sind nicht editierbar oder anderweitig änderbar. Dies soll mit der Orientierung der Eingabe helfen.
+
+
+\functionality{Tutorial zur Web App}{fnc:tutorial}
+Wenn der Benutzer auf einen Hilf-Button drückt dann wird ein kleines Tutorial erscheinen, dass ihm die Benutzung des Programmes erklärt und auf Features hinweist.
 
 \functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Nach Wunsch der User werden die $\beta$-Reduktionsschritte angezeigt}{fnc:stepbystep}\fulfills{crt:intermediate-step-output}
+Dem Benutzer wird in der GUI nach einer erfolgreichen Berechnung 3 Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen
 
 
 \functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}\fulfills{crt:syntax-highlighting-premium}
@@ -285,14 +299,9 @@ In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinte
 \functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
-\functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
 \functionality{Finales Ergebnis wird angezeigt}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Nach Wunsch der User werden die $\beta$-Reduktionsschritte angezeigt}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
@@ -306,12 +315,11 @@ Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Appl
 \functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Stop}{fnc:stop-exec} \fulfills{crt:stop-feature}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden.
+\functionality{Stop-Button}{fnc:stop-exec} \fulfills{crt:stop-feature}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
 
 \functionality{De Bruijin Indizes}{fnc:debruijn-output}
 Ausgabe der $\lambda$-Ausdrücke mit De Bruijn Indizes.
-
 
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
@@ -340,6 +348,8 @@ Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine S
 \functionality{$\beta$-Reduktion}{fnc:output}
 \functionality{Das Program erkennt wenn keine weitere $\beta$-Reduktion möglich ist}{fnc:output}
 
+\functionality{Pause-Button} {fnc:pausebut} \fulfills{crt:pausebutton}
+Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat. 
 \functionality{No Timeout}{fnc:run-no-timeout}\fulfills{crt:infiniteloop}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
