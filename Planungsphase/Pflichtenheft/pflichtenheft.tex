@@ -4,7 +4,7 @@
 \begin{titlepage}
 
 \subject{Pflichtenheft}
-\title{$\lambda$urora}
+\title{\textbf{$\lambda$}urora}
 \subtitle{The Lambda Calculus IDE}
 
 
@@ -62,7 +62,7 @@ Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür 
 
 
 \newpage
-\section{Kriterien}
+\section{Zielsetzung}
 % Diese Section sollte kurz und knapp "für Manager" sein
 % und auf eine Seite passen.
 
@@ -179,12 +179,18 @@ Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber 
 Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls. Auch eine einfache Erweiterungsschnittstelle, damit man z.B. das typisierte $\lambda$-Kalkül einfügen könnte ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen
 
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
+Das Programm ist so konzipiert das ein Benutzer es nur alleine bedienen kann und gegebenenfalls mit der Share-Funktion einnem anderem die Ergebnisse des Programmes mitteilen kann. Ein Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
+
 
 
 \pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
+
+Wenn ein Interessierter das Programm benutzen will, dann benötigt er eine Internetanbindung. Er benötigt  außerdem einen PC mit folgenden Spezifikationen: Wenn er Windows benutzt, dann Windows 7 oder höher, wenn er Mac benutzt dann OS X Mavericks 10.9 oder höher oder wenn er Linux benutzt Ubuntu 14.04 oder höher, Debian 8 oder höher,  oder Fedora24 oder höher.
+Er braucht zusätzlich einen SSE2-fähigen Intel Pentium 4-Prozessor oder besser.
+
 \subsection{Anwendungsbereiche}
 
 Der Anwendungsbereich umfasst die Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorgesehene Shortcuts und der Standardbibliothek mit Funktionen soll die Benutzung der Aurora Web App den Benutzer an eine normale IDE erinnern, was die Verwendung von Aurora erleichtern soll.
