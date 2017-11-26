@@ -4,7 +4,7 @@
 \begin{titlepage}
 
 \subject{Pflichtenheft}
-\title{\textbf{$\lambda$}urora}
+\title{\textbf{$\uplambda$}urora}
 \subtitle{The Lambda Calculus IDE}
 
 
@@ -44,7 +44,7 @@
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
 \usepackage{color}
-
+\usepackage{upgreek}
 \usepackage{pflichtenheft}
 
 
@@ -146,8 +146,8 @@ Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$u
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
 Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
 
-\criteriumOptional{De Bruijn Indizes}{crt:debruijn-output}
-Ausgabe des Programmes kann wahlweise mit De Bruijn Indizes erfolgen.
+\criteriumOptional{De Bruijn-Indizes}{crt:debruijn-output}
+Ausgabe des Programmes kann wahlweise mit De Bruijn-Indizes erfolgen.
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der Benutzer kann außerdem diese Historie verändern.
@@ -503,9 +503,9 @@ Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
-Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgeben werden.
 
 
 
@@ -648,7 +648,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  }
+{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
 
 \teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
 { Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
@@ -804,7 +804,7 @@ Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu dr�
 \newline
 Integrierte Entwicklungsumgebung (engl. integrated developement environment). Stellt Features bereit, die die Entwicklung von Software vereinfachen soll.
 
-\textbf{De Bruijn Indizes}
+\textbf{De Bruijn-Indizes}
 \newline
 Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 
