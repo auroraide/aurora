@@ -3,6 +3,7 @@
 
 # MAC extra files
 .DB_Store
+.DS_Store
 
 # merge backup files
 *.orig
