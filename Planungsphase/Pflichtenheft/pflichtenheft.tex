@@ -8,7 +8,7 @@
 \subtitle{The Lambda Calculus IDE}
 
 
-\author{Alexander von Heyden, Julia Patrusheva\\
+\author{Alexander von Heyden, Iuliia Patrusheva\\
  Max Nowak, Nikolai Polley\\
  Randy Seng, Younis Bensalah}
 
@@ -415,6 +415,9 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \functionality{$\beta$-Reduktion}{fnc:beta}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
+\functionality{Auswertung beendet}{fnc:finished-reducing}
+Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sind.
+
 \functionality{Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
@@ -478,13 +481,13 @@ Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch au
 
 \subsection{Ausgabe}
 
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
-\fulfills{crt:output-readonly}
-Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
-
 \functionality{Ausgabefeld}{fnc:output}
 \fulfills{crt:run}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:output-readonly}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
 \fulfills{crt:intermediate-step-output}
@@ -584,29 +587,75 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:bracket}
 \tests{fnc:highlightlambda}
 \tests{fnc:highlightparentheses}
-\tests{fnc:highlightfunctions}
 \tests{fnc:highlight-next}
 \tests{fnc:highlight-prev}
 \tests{fnc:run}
 \tests{fnc:eval-order-normal}
 \tests{fnc:beta}
+\tests{fnc:finished-reducing}
 \tests{fnc:output}
-
-
-\teststep {Das Programm ist geöffnet und es ist im Default-State}
-{ Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
-{ Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
 {Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
 
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{ Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
+{ Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
 
+
+
+\test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:bracket}
+\tests{fnc:highlightlambda}
+\tests{fnc:highlightparentheses}
+\tests{fnc:highlightfunctions}
+\tests{fnc:highlight-next}
+\tests{fnc:highlight-prev}
+\tests{fnc:run}
+\tests{fnc:stdlib}
+\tests{fnc:userlib-vs-stdlib}
+\tests{fnc:userlib-extend}
+\tests{fnc:func-def}
+\tests{fnc:eval-order-normal}
+\tests{fnc:beta}
+\tests{fnc:finished-reducing}
+\tests{fnc:output}
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
+{Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein}
+{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben.}
+
+
+
+\test{Weitere Tests, muss fertig gemacht werden!!!}{tst:REMOVE-ME}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
+
+\teststep{Das Programm befindet sich im Default-State}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
+
+\teststep { Der vorherige Test wurde ausgeführt}
+{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+\teststep {Die vorherigen zwei Tests wurden ausgeführt}
+{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
 { Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
@@ -624,27 +673,10 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
-\test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
-\tests{fnc:stdlib}
-\tests{fnc:uselib-vs-stdlib}
-\tests{fnc:userlib-extend}
-\tests{fnc:userlib-remove}
-\tests{fnc:func-def}
-\tests{fnc:func-lambda-equivalent}
-\teststep {Das Programm ist im Default-State}
-{ Der Benutzer drückt auf den \enquote {Plus} Button und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein }
-{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben. }
 
-\teststep { Der vorherige Test wurde ausgeführt}
-{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
-\teststep {Die vorherigen zwei Tests wurden ausgeführt}
-{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
-{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
-\teststep{Das Programm befindet sich im Default-State}
-{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
-{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
+
+
 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
@@ -686,17 +718,13 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Der Benutzer gibt den Link in seine URL Leiste ein }
 { Das Programm öffnet sich mit dem LambdaTerm bereits in der Eingabe }
 
-\teststep {Das Programm ist im Default-State}
-{ Der Benutzer gibt sub 1 1 ein und drückt auf Run }
-{ Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+
 
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer gibt ($\lambda$x.xx)($\lambda$x.xx) in den Editor ein.}
 {Das Programm erkennt die Endlosschleife und terminiert.}
 
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
-{Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
+
 
 \test{In neuem Tab öffnen}{tst:to-new-tab}
 \tests{fnc:to-new-tab}
@@ -720,7 +748,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 		\end{itemize}
 		\item \textbf{Build System}
 		\begin{itemize}
-			\item Bazel, Apache Ant
+			\item Bazel oder Apache Ant
 		\end{itemize}
 		\item \textbf{IDE}
 		\begin{itemize}
