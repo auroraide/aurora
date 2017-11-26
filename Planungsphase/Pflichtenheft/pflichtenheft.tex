@@ -107,7 +107,7 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm a
 Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgehoben. Beim hovern über einer Klammer wird das entsprechende Klammerpaar farblich hervorgehoben.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
-Der nächste auszuwertende Redex wird farblich hinterlegt. 
+Der nächste auszuwertende Redex wird farblich hinterlegt.
 Außerder wird der reingezogene Term mit einer dritten Farbe im nächsten Schritt markiert.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
@@ -626,19 +626,21 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:finished-reducing}
 \tests{fnc:output}
 
-
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
 \teststep {Das Programm ist im Default-State}
-{ Der Benutzer gibt sub 1 1 ein und drückt auf Run }
-{ Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
 \teststep {Das Programm ist im Default-State}
-{ Der Benutzer drückt auf den \enquote {Plus} Button und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein }
-{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben.
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein}
+{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben.}
 
+
+
+\test{Weitere Tests, muss fertig gemacht werden!!!}{tst:REMOVE-ME}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
@@ -670,7 +672,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \teststep{Das Programm ist im Default-State}
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
-}
+
 
 
 
@@ -746,7 +748,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 		\end{itemize}
 		\item \textbf{Build System}
 		\begin{itemize}
-			\item Bazel, Apache Ant
+			\item Bazel oder Apache Ant
 		\end{itemize}
 		\item \textbf{IDE}
 		\begin{itemize}
