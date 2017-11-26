@@ -76,7 +76,7 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
 \criterium{Auswertung starten}{crt:evaluate-term}
-Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform. 
+Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform.
 
 \criterium{Auswertung stoppen}{crt:stop-feature}
 Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
@@ -123,7 +123,7 @@ Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
 \criteriumOptional{Pause-Button}{crt:pausebutton}
 Der Pause-Button unterbricht die laufende Berechnung
- 
+
 \criteriumOptional{Share-Button}{crt:share-feature}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
@@ -159,8 +159,8 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 
 \label{shortcuts}
 \begin{tabular}{|r|l|}
-    
-    \hline 
+
+    \hline
     shortcut & Beschreibung \\ \hline
     \textbackslash & $\lambda$ \\ \hline
     Ctrl \enquote{+} $\hookleftarrow$ & Run \\ \hline
@@ -215,7 +215,7 @@ Für die Benutzung der Aurora Web App werden Basiskenntnisse der Internetnutzung
 Die Basissprache der Web App ist Englisch, daher sind Englisch Grundkenntnisse von Vorteil.
 
 \subsection{Betriebsbedingungen}
-Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von anderen Web Apps unterscheiden. Die maximale Anzahl der Benutzer von Aurora ist unbegrenzt bzw. vom Webserver abhängig. (Die Betriebsdauer soll 24 Stunden betragen.) 
+Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von anderen Web Apps unterscheiden. Die maximale Anzahl der Benutzer von Aurora ist unbegrenzt bzw. vom Webserver abhängig. (Die Betriebsdauer soll 24 Stunden betragen.)
 
 
 \newpage
@@ -230,7 +230,7 @@ Aurora ist eine clientseitige Anwendung.
 			\item OS X Mavericks 10.9 oder höher
 			\item Ubuntu 14.04 oder höher, Debian 8 oder höher, Fedora24 oder höher
 		\end{itemize}
-		\item Es wird ein gängiger Webbrowser benötigt, der HTML5, CSS3 und JavaScript unterstütz: 
+		\item Es wird ein gängiger Webbrowser benötigt, der HTML5, CSS3 und JavaScript unterstütz:
 			\begin{itemize}
 				\item Firefox (ab Version 57)
 				\item Google Chrome (ab Version 62.0)
@@ -249,7 +249,7 @@ Aurora ist eine clientseitige Anwendung.
 			\begin{itemize}
 				\item Pflichtenheft
 				\item Aurora Handbuch
-			\end{itemize} 
+			\end{itemize}
 	\end{itemize}
 \newpage
 
@@ -289,15 +289,17 @@ Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnun
 
 \subsection{Highlighting}
 
-\functionality{Highlightning von Lambdas und Punkten}{fnc:highlightstatic}
+\functionality{Highlightning von Lambdas und Punkten}{fnc:highlightlambda}
 \fulfills{crt:syntax-highlighting}
-Lambda Symbole (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden zur besseren Übersicht fett hervorgehoben.
-\textcolor{green}{Sicher, dass wir fett und nicht farbig wollen?}
+Lambda-Zeichen (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden farblich hervorgehoben.
 
-\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}
+\functionality{Highlighting von Klammern}{fnc:highlightparentheses}
 \fulfills{crt:syntax-highlighting}
-Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- / Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
-Wenn der Benutzer über eine Klammer hovert, werden beide Klammern des Paares farbig hervorgehoben.
+Wenn der Eingabezeiger adjazent zu einer öffnenden oder schließenden Klammer steht, werden beide Klammern des Paares farbig hervorgehoben.
+
+\functionality{Highlighting von Funktionsnamen}{fnc:highlightfunctions}
+\fulfills{crt:syntax-highlighting}
+Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus der Standardbibliothek oder Benutzerbibliothek zu erkennen und farblich hervorzuheben.
 
 \functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
 \fulfills{crt:syntax-highlighting-premium}
@@ -309,18 +311,17 @@ In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
 
 
-
 \subsection{Buttons}
 
 \functionality{Ausführen}{fnc:run-input}
 \fulfills{crt:evaluate-term}
 Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
-\functionality{Stop-Button}{fnc:stop-exec} 
+\functionality{Stop-Button}{fnc:stop-exec}
 \fulfills{crt:stop-feature}
 Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
 
-\functionality{Pause-Button} {fnc:pausebut} 
+\functionality{Pause-Button} {fnc:pausebut}
 \fulfills{crt:pausebutton}
 Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
 
@@ -383,7 +384,7 @@ Der Benutzer kann die Auswertungsstrategie des $\lambda$-Ausdrucks auswählen.
 
 \functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
 \fulfills{crt:own-eval-strategy}
-Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird. 
+Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird.
 
 
 
@@ -459,11 +460,11 @@ Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefüg
 
 \subsection{Sonstige Funktionalität}
 
-\functionality{Nach neuer Tab}{fnc:to-new-tab}
+\functionality{In neuem Tab öffnen}{fnc:to-new-tab}
 \fulfills{crt:to-new-tab}
 Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
 
-\functionality{LaTeX export}{fnc:latexshare}
+\functionality{LaTeX-Export}{fnc:latexshare}
 \fulfills{crt:latex-export}
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
@@ -500,7 +501,8 @@ Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
+\functionality{De Bruijin Indizes}{fnc:debruijn-output}
+\fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
 
 \functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
@@ -523,10 +525,10 @@ Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indize
 Das Programm soll auch ohne Tutorial verständlich bedienbar sein.
 
 \nonFunctionality{Aussehen}{nfc:appearence}
-Die Grafische Oberfläche soll schlicht aber modern wirken. 
+Die Grafische Oberfläche soll schlicht aber modern wirken.
 
 \nonFunctionality{Geschwindigkeit}{nfc:latency}
-Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Button ausführt soll schnell erfolgen. 
+Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Button ausführt soll schnell erfolgen.
 
 \nonFunctionality{Programmsprache}{crt:default-language}
 Die Standard Sprache des Programmes ist Englisch.
@@ -576,7 +578,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:ln}
 \tests{fnc:editor}
 \tests{fnc:bracket}
-\tests{fnc:highlightstatic}
+\tests{fnc:highlightlambda}
 \tests{fnc:highlight-next}
 \tests{fnc:highlight-prev}
 \tests{fnc:run-input}
@@ -667,7 +669,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \test{In neuem Tab öffnen}{tst:to-new-tab}
 \tests{fnc:to-new-tab}
-\teststep 
+\teststep
 {Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
 {Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
 {Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
@@ -818,5 +820,5 @@ Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 \textbf{Default-State}
 \newline
 \textcolor{green}{Hier könnte Ihr Senf stehen}
- 
+
 \end{document}
