@@ -138,6 +138,7 @@ Die Funktion \enquote{Nacht Modus} ändert das äußere Erscheinungsbild der App
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
+Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
 \criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
@@ -396,7 +397,7 @@ Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der A
 \fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
-\functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
+\functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:mobile}
 Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
 
 
@@ -560,9 +561,9 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 \test{Darstellung in Chrome}{tst:chrome-design}
-\tests{fnc:chrome-design}
+\tests{fnc:chrome-design}\tests{fnc:input}\tests{fnc:ln}\tests{fnc:mobile}
 \teststep {Das Programm liegt auf einem Server}
-{Der Benutzer tippt den link des Programms \texttt{aurora.kit.edu} in den Browser \enquote {Google Chrome} }
+{Der Benutzer tippt die lokale IP in den Browser \enquote {Google Chrome} ein }
 { Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
 
 
@@ -582,12 +583,12 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
-{ Der Benutzer gibt in den Editor \enquote {($\lambda$ x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
+{ Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
 { Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
-{Der Benutzer gibt den Term \enquote {$\lambda$ x.x} in das Eingabefeld ein und drückt auf Run}
-{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$ x.x}
+{Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
+{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
