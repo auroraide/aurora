@@ -160,6 +160,7 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 
 \textbf{Verfügbare Tastatur-Shortcuts}
 
+\label{shortcuts}
 \begin{tabular}{|r|l|}
     
     \hline 
@@ -168,6 +169,7 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
     Ctrl \enquote{+} $\hookleftarrow$ & Run \\ \hline
     
 \end{tabular}
+
 
 
 \subsection{Abgrenzungskriterien}
@@ -220,65 +222,89 @@ Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von andere
 \section{Funktionale Anforderungen}
 
 \subsection{Eingabe}
-\functionality{Eingabefeld}{fnc:input}\fulfills{crt:text-editor}\fulfills{crt:not-editable}
+
+\functionality{Eingabefeld}{fnc:input}
+\fulfills{crt:text-editor}
+\fulfills{crt:not-editable}
 Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur eingeben. Die Zeichen erscheinen in Echtzeit im Eingabefeld.
 
-\functionality{Eingabefeld bearbeiten}{fnc:editor}\fulfills{crt:text-editor}\fulfills{crt:not-editable}
+\functionality{Eingabefeld bearbeiten}{fnc:editor}
+\fulfills{crt:text-editor}
+\fulfills{crt:not-editable}
 Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten.
 Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 
-\functionality{Run Eingabefeld}{fnc:run-input}\fulfills{crt:evaluate-term}
-Der \enquote{Run-Button} startet die  \enquote{Run}-Funktion und diese veranlasst den Parser dazu, dass er die $\lambda$-Ausdrücke über das Eingabefeld einliest.
+\functionality{Ausführen}{fnc:run-input}
+\fulfills{crt:evaluate-term}
+Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
-\functionality{Shortcuts}{fnc:shortcut}\fulfills{crt:shortcuts}
-Der Benutzer kann Tastenkürzel benutzen um das Programm mit Einschränkungen zu bedienen. 
-
-\functionality{Highlightning Lambdasymbol und Punkte}{fnc:highlightstatic}\fulfills{crt:syntax-highlighting}
-Das Lambda Symbol und Punkte werden fett dargestellt, damit man eine bessere Übersicht behält.
+\functionality{Shortcuts}{fnc:shortcut}
+\fulfills{crt:shortcuts}
+Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
 
 \functionality{Autovervollständigung von Klammern}{fnc:bracket}
 \fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
 
-\functionality{Standardbibliothek}{fnc:stdlib}\fulfills{crt:std-library}
+\functionality{Standardbibliothek}{fnc:stdlib}
+\fulfills{crt:std-library}
 Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
 
-\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}\fulfills{crt:user-library}
+\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}
+\fulfills{crt:user-library}
 Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es unterscheidet sich für die Eingabe nicht, ob eine Funktion in der Standard oder in der Benutzerbibliothek ist.
 
 
-\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}\fulfills{crt:user-library}\fulfills{crt:std-library}
+\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
 Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
 
-\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}\fulfills{crt:opt-eval-strategy}
-Der Benutzer kann die Auswertungsstrategie der $\lambda$-Terme auswählen.
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
+\fulfills{crt:opt-eval-strategy}
+Der Benutzer kann die Auswertungsstrategie des $\lambda$-Ausdrucks auswählen.
 
-\functionality{Auswertungsstrategien}{fnc:eval-order-options}\fulfills{crt:opt-eval-strategy}\fulfills{crt:own-eval-strategy}
-Der Benutzer kann zwischen 3 Standard Auswertungsstrategien auswählen. Sie sind \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value}.
-Er kann außerdem auf einen Redex drücken der dann ausgewertet wird.
+\functionality{Auswertungsstrategien}{fnc:eval-order-options}
+\fulfills{crt:opt-eval-strategy}
+\fulfills{crt:own-eval-strategy}
+Der Benutzer kann zwischen den drei standard Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen.
 
-\functionality{Der Benutzer kann selber Redex auswählen, der als nächstes reduziert wird}{fnc:choosingredex}\fulfills{crt:own-eval-strategy}
-Wenn der Benutzer sich die Steps anzeigen lässt kann er auf  einen Redex drücken und der wird als nächstes ausgewertet. 
-\functionality{Die Eingabe kann nur geändert werden, falls keine Berechnung läuft.}{fnc:no-edit-while-running}\fulfills{crt:not-editable}
+\functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
+\fulfills{crt:own-eval-strategy}
+Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird. 
+
+\functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
+\fulfills{crt:not-editable}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}\fulfills{crt:not-editable}
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:not-editable}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{Kommentare hinzufügen}{fnc:commentyourcode}\fulfills{crt:comments}
-Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren
-Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
+Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren. Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
+
+
 
 \subsection{Darstellungen}
-\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}\fulfills{crt:syntax-highlighting}
-Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
-Wenn der Benutzer über Klammer \enquote{A} hovert, dann wird die Klammer die \enquote{A} öffnet oder schließt, farbig markiert.
 
-\functionality{Night Mode}{fnc:night-mode}\fulfills{crt:night-mode}
-Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- und ausgestellt werden.
+\functionality{Highlightning von Lambdas und Punkten}{fnc:highlightstatic}
+\fulfills{crt:syntax-highlighting}
+Lambda Symbole (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden zur besseren Übersicht fett hervorgehoben.
+\textcolor{green}{Sicher, dass wir fett und nicht farbig wollen?}
 
-\functionality{Line Numbers}{fnc:ln}\fulfills{crt:linenumbers}
-Links neben der Eingabe des Benutzers sind Zahlen, die jeweils die jetzige Zeilennummer angeben. Sie sind nicht editierbar oder anderweitig änderbar. Dies soll mit der Orientierung der Eingabe helfen.
+\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}
+\fulfills{crt:syntax-highlighting}
+Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- / Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
+Wenn der Benutzer über eine Klammer hovert, werden beide Klammern des Paares farbig hervorgehoben.
+
+\functionality{Nacht Modus}{fnc:night-mode}
+\fulfills{crt:night-mode}
+Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
+
+\functionality{Zeilennummern}{fnc:ln}
+\fulfills{crt:linenumbers}
+Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Sie sind nicht editierbar oder anderweitig veränderbar. Dies soll eine einfachere Orientation in der Eingabe ermöglichen.
 
 
 \functionality{Tutorial zur Web App}{fnc:tutorial}\fulfills{crt:tutorial}
