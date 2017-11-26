@@ -217,6 +217,7 @@ Die Basissprache der Web App ist Englisch, daher sind Englisch Grundkenntnisse v
 Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von anderen Web Apps unterscheiden. Die maximale Anzahl der Benutzer von Aurora ist unbegrenzt bzw. vom Webserver abhängig. (Die Betriebsdauer soll 24 Stunden betragen.) 
 
 
+\newpage
 \section{Produktumgebung}
 \textcolor{green}{Kann das weg oder ist das eine leere Seite???}
 \newpage
@@ -292,6 +293,9 @@ Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vor
 \fulfills{crt:pausebutton}
 Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
 
+\functionality{Share-Button}{fnc:share-button}
+\fulfills{crt:share-feature}
+Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
 
 
 
@@ -305,6 +309,19 @@ Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden
 \fulfills{crt:user-library}
 Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es unterscheidet sich für die Eingabe nicht, ob eine Funktion in der Standard oder in der Benutzerbibliothek ist.
 
+\functionality{Erweitern der Benutzerbibliothek}{fnc:userlib-extend}
+\fulfills{crt:user-library}
+Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
+
+\functionality{Entfernen aus der Benutzerbibliothek}{fnx:userlib-remove}
+\fulfills{crt:user-library}
+Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
+
+\functionality{Definition einer Funktion}{fnc:func-def}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
+Eine definierte Funktion der Standard- oder Benutzerbibliothek hat einen Namen und entspricht genau einem $\lambda$-Term.
+
 \functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
 \fulfills{crt:std-library}
 \fulfills{crt:user-library}
@@ -313,15 +330,20 @@ Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek 
 
 
 
+
+
+
+
+
 \subsection{Strategien}
+
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
+$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
 
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}
 \fulfills{crt:opt-eval-strategy}
 \fulfills{crt:own-eval-strategy}
 Der Benutzer kann zwischen den drei standard Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen.
-
-\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
-$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
 
 \functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
 \fulfills{crt:opt-eval-strategy}
@@ -334,10 +356,10 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 
 
-\subsection{Darstellungen}
+\subsection{Darstellung}
 
 \functionality{Korrekte Darstellung in Google Chrome}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jeglicher Art dargestellt.
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
@@ -348,42 +370,57 @@ Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der A
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-
-
-
-
-
-
-
-
+Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
 
 
 
 
 \subsection{Hintergrundablauf}
 
-\functionality{Eingabe wird geparsed}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
+\functionality{Eingabe wird geparsed}{fnc:pars}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
+\functionality{$\beta$-Reduktion}{fnc:output}
+Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
+
+\functionality{Normalform erkennen}{fnc:output}
+Das Programm erkennt, falls ein $\lambda$-Ausdruck in Normalform vorliegt, bzw. keine weiteren $\beta$-Reduktion durchgeführt werden können.
 
 \functionality{Offensichtliche Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde warnt das Programm davor.
 
-\functionality{$\beta$-Reduktion}{fnc:output}
-\functionality{Das Program erkennt wenn keine weitere $\beta$-Reduktion möglich ist}{fnc:output}
-
 \functionality{No Timeout}{fnc:run-no-timeout}
 \fulfills{crt:infiniteloop}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+
+
+
+
+
+
+
+
 
 \functionality{Nach neuer Tab}{fnc:to-new-tab}
 \fulfills{crt:to-new-tab}
@@ -391,25 +428,9 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 
 \subsection{Speichern}
 
-\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}
-\fulfills{crt:std-library}
-Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
 
-\functionality{Definition einer Funktion}{fnc:func-def}
-\fulfills{crt:std-library}
-\fulfills{crt:user-library}
-Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
 
-\functionality{Erweitern der Benutzerbibliothek}{fnc:userlib}
-\fulfills{crt:user-library}
-Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
-\functionality{Entfernen aus der Benutzerbibliothek}
-Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
-
-\functionality{Share-Button}{fnc:share-button}
-\fulfills{crt:share-feature}
-Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
 
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -485,7 +506,7 @@ Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indize
 
 
 
-%%%%%%%%%%%
+\newpage
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
@@ -529,7 +550,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 
-%%%%%%%%%%%
+\newpage
 \section{Tests}
 
 
@@ -628,14 +649,8 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 
-%\teststep{Besucher \enquote{Jayne Cobb} ist auf der Homepage}
-%{Er folgt dem Link mit dem Text \enquote{Datenschutz}}
-%{Ein Text mit allen Datenschutzinformationen wird ihm angezeigt.}
 
-%\teststep{}
-%{Jayne folgt dem Link mit dem Text \enquote{Impressum}}
-%{Ein Text mit Informationen des Betreibers wird ihm angezeigt.}
-
+\newpage
 \section{Entwicklungsumgebung}
   \begin{description}
 	\item[Benutzte Software die für das Erstellen des Programmes verwendet wurden]~\par
@@ -699,7 +714,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 %}
 %\end{figure}
 
-
+\newpage
 \section{Glossar}
 
 %\textbf{Homepage}:
@@ -762,6 +777,14 @@ Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 \textcolor{green}{Hier könnte Ihr Senf stehen}
 
 \textbf{Shortcut}
+\newline
+\textcolor{green}{Hier könnte Ihr Senf stehen}
+
+\textbf{GUI}
+\newline
+\textcolor{green}{Hier könnte Ihr Senf stehen}
+
+\textbf{IPD}
 \newline
 \textcolor{green}{Hier könnte Ihr Senf stehen}
 
