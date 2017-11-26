@@ -408,14 +408,18 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \functionality{Eingabe wird geparsed}{fnc:pars}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:checkorder}
+Das Programm schaut nach, welche Auswertungsstrategie vom Nutzer eingestellt wurde und stellt die Ausgewählte Strategie auf aktiv.
 
-\functionality{$\beta$-Reduktion}{fnc:output}
+\functionality{Eine $\beta$-Reduktion}{fnc:beta}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
-\functionality{Normalform erkennen}{fnc:output}
-Das Programm erkennt, falls ein $\lambda$-Ausdruck in Normalform vorliegt, bzw. keine weiteren $\beta$-Reduktion durchgeführt werden können.
+\functionality{Folgende $\beta$-Reduktionen}{fnc:morebeta}
+Solange $\beta$-Reduktionen möglich sind führt das Programm sie aus.
+
+\functionality{Ausgabefeld}{fnc:result}
+\fulfills{crt:evaluate-term}
+Falls die Berechnung terminiert (es sind keine $\beta$-Reduktions Schritte mehr möglich), ist steht das Ergebnis im Ausgabefeld.
 
 \functionality{Offensichtliche Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
@@ -488,19 +492,17 @@ Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das P
 \fulfills{crt:not-editable}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
-\functionality{Ausgabefeld}{fnc:output}
-\fulfills{crt:evaluate-term}
-Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
 \functionality{$\beta$-Reduktionen angezeigen}{fnc:stepbystep}
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
 
+
 \functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
 
-\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+
 
 
 
