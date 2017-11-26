@@ -636,7 +636,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein}
-{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben.}
+{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als $\lambda$-Term den von ihm gewünschten $\lambda$-Term eingibt. Dieser Name wird mit dem $\lambda$-Term gespeichert und man kann im Editor anstelle des $\lambda$-Terms den Namen eingeben.}
 
 
 
@@ -652,7 +652,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \teststep { Der vorherige Test wurde ausgeführt}
 { Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
 \teststep {Die vorherigen zwei Tests wurden ausgeführt}
 {Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
 {Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
@@ -678,7 +678,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 
-\teststep {Das Programm berechnet zurzeit einen Lambdaterm }
+\teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
 {Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
@@ -690,7 +690,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
 { Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
 
-\teststep{ Im Editor steht der Lambdaterm ($\lambda$x. f x x) (($\lambda$y. y)z)}
+\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z)}
 {Der Benutzer drückt auf den Step-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
 {Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
 
@@ -704,19 +704,19 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt den (($\lambda$x.x)( in den Editor ein }
-{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger LambdaTerm ist }
+{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
 
 \teststep { Das Programm ist im Default -State }
 { Der Benutzer drückt shift l }
 {Im Editor erscheint ein $\lambda$}
 
-\teststep {Das Programm hat einen Lambdaterm ausgerechntet}
+\teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
 { Eine gekürzte Url wird in sein Clipboard gespeichert }
 
 \teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
 {Der Benutzer gibt den Link in seine URL Leiste ein }
-{ Das Programm öffnet sich mit dem LambdaTerm bereits in der Eingabe }
+{ Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
 
 
 
@@ -810,11 +810,11 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 %Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
 \textbf{Standardbibliothek}
 \newline
-Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten Lambdaterme zusammen getragen damit der Benutzer häufig vorkommende Lambdaterme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten Lambdaterm.
+Eine Ansammlung von $\lambda$-Termen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten $\lambda$-Terme zusammen getragen damit der Benutzer häufig vorkommende $\lambda$-Terme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten $\lambda$-Term.
 
 \textbf{Benutzerbibliothek}
 \newline
-Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
+Der Benutzer kann selber Funktionen mit Namen und $\lambda$-Term definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den $\lambda$-Term ersetzt.
 
 \textbf {Redex}
 \newline
