@@ -133,12 +133,6 @@ Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe
 \criteriumOptional{LaTeX export}{crt:latex-export}
 $\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
-\criteriumOptional{$\lambda$-Term vom Text-Editor oder Schrittliste in LaTeX-Snippet exportieren}{crt:latex-export}
-
-\criteriumOptional{LaTeX export}{crt:latex-export}
-$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen Größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
-
-
 \criteriumOptional{\enquote{Night Mode}}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
@@ -383,17 +377,24 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 
 \subsection{Speichern}
 
-\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}\fulfills{crt:std-library}
+\functionality{Funktionen der Standardbibliothek}{fnc:func-name-def}
+\fulfills{crt:std-library}
 Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\lambda$-Term).
 
-\functionality{Definition einer Funktion}{fnc:func-def}\fulfills{crt:std-library}\fulfills{crt:user-library}
+\functionality{Definition einer Funktion}{fnc:func-def}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
 Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
 
-\functionality{Benutzerbibliothek}{fnc:userlib}\fulfills{crt:user-library}
+\functionality{Benutzerbibliothek}{fnc:userlib}
+\fulfills{crt:user-library}
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
+\functionality{Entfernen aus der Benutzerbibliothek}
+Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
 
-\functionality{Share-Button}{fnc:share-button}\fulfills{crt:share-feature}
+\functionality{Share-Button}{fnc:share-button}
+\fulfills{crt:share-feature}
 Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
 
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
@@ -404,12 +405,9 @@ Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 
-
-
-
 \subsubsection{History}
 \functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
-Eine ausgeführte Benutzereingabe, wird automatisch in die Historie eingefügt.
+Eine ausgeführte Benutzereingabe wird automatisch in die Historie eingefügt.
 
 \functionality{Permanenz der Historie}{fnc:localstorage-permanent}\fulfills{crt:local-sessions}
 Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
@@ -422,15 +420,6 @@ Der Benutzer kann die Einträge in der Historie löschen.
 
 \functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}\fulfills{crt:local-sessions}
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
-%\functionality{Login-Möglichkeit auf Homepage}{fnc:login}
-%\fulfills{crt:login}
-%\fulfills{crt:github}
-
-%Auf der Homepage \texttt{http://atu.rl/} sieht ein Besucher
-%einen \enquote{Login via Facebook} Knopf.
-%Weitere Knöpfe wie \enquote{Login via Github} sind möglich.
-%Siehe \cref{fig:homepage}.
-
 
 
 %%%%%%%%%%%
