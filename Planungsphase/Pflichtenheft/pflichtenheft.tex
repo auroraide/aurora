@@ -344,7 +344,7 @@ Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardb
 \fulfills{crt:user-library}
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
-\functionality{Entfernen aus der Benutzerbibliothek}{fnx:userlib-remove}
+\functionality{Entfernen aus der Benutzerbibliothek}{fnc:userlib-remove}
 \fulfills{crt:user-library}
 Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
 
@@ -573,7 +573,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 { Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
 
 
-\test{Auswertung mit einem Schritt}{tst:single-step-eval}
+\test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
 \tests{fnc:input}
 \tests{fnc:ln}
 \tests{fnc:editor}
@@ -583,8 +583,6 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:highlight-prev}
 \tests{fnc:run-input}
 \tests{fnc:eval-order-normal}
-\tests{fnc:chrome-design}
-\tests{fnc:output}
 \tests{fnc:pars}
 
 
@@ -616,13 +614,27 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
+\test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
+\tests{fnc:stdlib}
+\tests{fnc:user-vs-std}
+\tests{fnc:userlib-extend}
+\tests{fnc:userlib-remove}
+\tests{fnc:func-def}
+\tests{fnc:func-lambda-equivalent}
 \teststep {Das Programm ist im Default-State}
 { Der Benutzer drückt auf den \enquote {Plus} Button und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein }
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben. }
 
 \teststep { Der vorherige Test wurde ausgeführt}
-{ der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
 { Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+\teststep {Die vorherigen zwei Tests wurden ausgeführt}
+{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+
+\teststep{Das Programm befindet sich im Default-State}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
