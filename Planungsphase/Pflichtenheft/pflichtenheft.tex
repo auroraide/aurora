@@ -400,48 +400,7 @@ Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
 
 
-
-
-
-
-
-
-
-
-
-
-\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-
-
-
-
-
-
-
-
-
-\functionality{Nach neuer Tab}{fnc:to-new-tab}
-\fulfills{crt:to-new-tab}
-Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
-
-\subsection{Speichern}
-
-
-
-
-
-\functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{LaTeX export}{fnc:latexshare}
-\fulfills{crt:latex-export}
-Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
-
-
-
-\subsubsection{History}
+\subsection{History}
 
 \functionality{Historie}{fnc:localstorage-autosave}
 \fulfills{crt:local-sessions}
@@ -464,17 +423,38 @@ Der Benutzer kann die Einträge der Historie löschen.
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
 
 
-\subsection{EverythingElse ATM}
+
+
+\subsection{Sonstige Funktionalität}
+
+\functionality{Nach neuer Tab}{fnc:to-new-tab}
+\fulfills{crt:to-new-tab}
+Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
+
+\functionality{LaTeX export}{fnc:latexshare}
+\fulfills{crt:latex-export}
+Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
 Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
 
-
 \functionality{Tutorial zur Web App}{fnc:tutorial}
 \fulfills{crt:tutorial}
 Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
 
+\functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+
+
+
+
+
+
+
+
+\subsection{EverythingElse ATM }
 
 \functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
 \fulfills{crt:not-editable}
@@ -488,13 +468,11 @@ Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
 
-
-
-
 \functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
 
-
+\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 
 
