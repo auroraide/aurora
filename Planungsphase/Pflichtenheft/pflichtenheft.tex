@@ -218,7 +218,8 @@ Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von andere
 
 
 \section{Produktumgebung}
-
+\textcolor{green}{Kann das weg oder ist das eine leere Seite???}
+\newpage
 
 
 %%%%%%%%%%%
@@ -229,13 +230,55 @@ Bezüglich den Betriebsbedingungen, soll sich Aurora nicht wesentlich von andere
 \functionality{Eingabefeld}{fnc:input}
 \fulfills{crt:text-editor}
 \fulfills{crt:not-editable}
-Der Benutzer kann $\lambda$-Terme über das Eingabefeld mit einer Tastatur eingeben. Die Zeichen erscheinen in Echtzeit im Eingabefeld.
+Es gibt ein Eingabefeld, dessen Inhalt als Eingabe für Aurora dient.
+
+\functionality{Zeilennummern}{fnc:ln}
+\fulfills{crt:linenumbers}
+Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Sie sind nicht editierbar oder anderweitig veränderbar. Dies soll eine einfachere Orientation in der Eingabe ermöglichen.
 
 \functionality{Eingabefeld bearbeiten}{fnc:editor}
 \fulfills{crt:text-editor}
 \fulfills{crt:not-editable}
-Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten.
-Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
+Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten. Hierzu zählen neben der direkten Eingabe mit der Tastatur auch das Textauswählen mit der Maus.
+
+\functionality{Kommentare hinzufügen}{fnc:commentyourcode}\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren. Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
+
+\functionality{Autovervollständigung von Klammern}{fnc:bracket}
+\fulfills{crt:autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
+
+\functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
+\fulfills{crt:not-editable}
+Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
+
+
+
+
+\subsection{Highlighting}
+
+\functionality{Highlightning von Lambdas und Punkten}{fnc:highlightstatic}
+\fulfills{crt:syntax-highlighting}
+Lambda Symbole (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden zur besseren Übersicht fett hervorgehoben.
+\textcolor{green}{Sicher, dass wir fett und nicht farbig wollen?}
+
+\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}
+\fulfills{crt:syntax-highlighting}
+Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- / Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
+Wenn der Benutzer über eine Klammer hovert, werden beide Klammern des Paares farbig hervorgehoben.
+
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
+
+\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
+
+
+
+
+\subsection{Buttons}
 
 \functionality{Ausführen}{fnc:run-input}
 \fulfills{crt:evaluate-term}
@@ -249,108 +292,74 @@ Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vor
 \fulfills{crt:pausebutton}
 Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
 
-\functionality{Shortcuts}{fnc:shortcut}
-\fulfills{crt:shortcuts}
-Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
 
-\functionality{Autovervollständigung von Klammern}{fnc:bracket}
-\fulfills{crt:autobracket}
-Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
+
+
+\subsection{Bibliotheken}
 
 \functionality{Standardbibliothek}{fnc:stdlib}
 \fulfills{crt:std-library}
 Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
 
-\functionality{Funktionen der Benutzerbibliothek}{fnc:user-vs-std}
+\functionality{Benutzerbibliothek}{fnc:user-vs-std}
 \fulfills{crt:user-library}
 Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es unterscheidet sich für die Eingabe nicht, ob eine Funktion in der Standard oder in der Benutzerbibliothek ist.
-
 
 \functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
 \fulfills{crt:std-library}
 \fulfills{crt:user-library}
 Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
 
-\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
-\fulfills{crt:opt-eval-strategy}
-Der Benutzer kann die Auswertungsstrategie des $\lambda$-Ausdrucks auswählen.
+
+
+
+\subsection{Strategien}
 
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}
 \fulfills{crt:opt-eval-strategy}
 \fulfills{crt:own-eval-strategy}
 Der Benutzer kann zwischen den drei standard Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen.
 
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
+$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
+
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
+\fulfills{crt:opt-eval-strategy}
+Der Benutzer kann die Auswertungsstrategie des $\lambda$-Ausdrucks auswählen.
+
 \functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
 \fulfills{crt:own-eval-strategy}
 Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird. 
 
-\functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
-\fulfills{crt:not-editable}
-Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
-
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
-\fulfills{crt:not-editable}
-Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
-
-\functionality{Kommentare hinzufügen}{fnc:commentyourcode}\fulfills{crt:comments}
-Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren. Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
 
 
 
 \subsection{Darstellungen}
 
-\functionality{Highlightning von Lambdas und Punkten}{fnc:highlightstatic}
-\fulfills{crt:syntax-highlighting}
-Lambda Symbole (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden zur besseren Übersicht fett hervorgehoben.
-\textcolor{green}{Sicher, dass wir fett und nicht farbig wollen?}
-
-\functionality{Highlighting von Funktsionsnamen und Klammern}{fnc:highonbrackets}
-\fulfills{crt:syntax-highlighting}
-Während der Benutzer seine Eingaben tätigt, schaut das Programm nach ob es Funktionsnamen aus der Standard- / Benutzerbibliothek erkennt. Wenn es dieses tut, wird der Name jeweils unterschiedlich mit einem Hintergrundskasten farbig markiert.
-Wenn der Benutzer über eine Klammer hovert, werden beide Klammern des Paares farbig hervorgehoben.
-
-\functionality{Nacht Modus}{fnc:night-mode}
-\fulfills{crt:night-mode}
-Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
-
-\functionality{Zeilennummern}{fnc:ln}
-\fulfills{crt:linenumbers}
-Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Sie sind nicht editierbar oder anderweitig veränderbar. Dies soll eine einfachere Orientation in der Eingabe ermöglichen.
-
-
-\functionality{Tutorial zur Web App}{fnc:tutorial}
-\fulfills{crt:tutorial}
-Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
-
-\functionality{Ausgabefeld}{fnc:output}
-\fulfills{crt:evaluate-term}
-Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
-
-\functionality{$\beta$-Reduktionen angezeigen}{fnc:stepbystep}
-\fulfills{crt:intermediate-step-output}
-Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
-
-
-\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
-\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
-
-\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
-\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
+\functionality{Korrekte Darstellung in Google Chrome}{fnc:output}
+\textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
 Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Applikation einstellen.
 
-\functionality{Korrekte Darstellung in Google Chrome}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
-Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
+\functionality{Nacht Modus}{fnc:night-mode}
+\fulfills{crt:night-mode}
+Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Hintergrundablauf}
@@ -360,10 +369,6 @@ Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indize
 
 \functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
-$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet.
-Das heißt, dass immer der linkeste Redex ausgewertet wird.
 
 \functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -436,6 +441,48 @@ Der Benutzer kann die Einträge der Historie löschen.
 \functionality{Benutzerbibliothek in der Historie}{fnc:localstorage-userlib}
 \fulfills{crt:local-sessions}
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
+
+
+\subsection{EverythingElse ATM}
+
+\functionality{Shortcuts}{fnc:shortcut}
+\fulfills{crt:shortcuts}
+Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
+
+
+\functionality{Tutorial zur Web App}{fnc:tutorial}
+\fulfills{crt:tutorial}
+Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
+
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:not-editable}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
+
+\functionality{Ausgabefeld}{fnc:output}
+\fulfills{crt:evaluate-term}
+Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{$\beta$-Reduktionen angezeigen}{fnc:stepbystep}
+\fulfills{crt:intermediate-step-output}
+Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
+
+
+
+
+\functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
+
+
+
+
+
+
+
+
+
+
+
 
 
 %%%%%%%%%%%
