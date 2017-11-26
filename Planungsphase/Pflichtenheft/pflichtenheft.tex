@@ -63,9 +63,6 @@ Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür 
 
 \newpage
 \section{Zielsetzung}
-% Diese Section sollte kurz und knapp "für Manager" sein
-% und auf eine Seite passen.
-
 
 \subsection{Musskriterien}
 
@@ -104,11 +101,11 @@ Man kann eine Zeile in der Eingabe auskommentieren. Diese Zeile wird dann vom Pa
 Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
 
 \criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
-Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgehoben. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar farblich hervorgehoben.
+Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. $\lambda$s  und \enquote"." Punkte werden fett geschrieben für Übersichtlichkeit. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
-Der nächste zu auszuwertende Redex wird farblich hinterlegt.
-Außerdem wird der reingezogene Term mit einer dritten Farbe im nächsten Schritt markiert.
+Der nächste auszuwertende Redex wird farblich hinterlegt.
+Außerdem wird der Term, der bei einer $\beta$-Reduktion von einer Abstraktion in die Abstraktion eingefügt wurde mit einer dritten Farbe im nächsten Schritt markiert.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
 Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
@@ -292,7 +289,7 @@ Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnun
 
 \functionality{Highlighting von Lambdas und Punkten}{fnc:highlightlambda}
 \fulfills{crt:syntax-highlighting}
-Lambda-Zeichen \enquote{$\lambda$} und Punkte \enquote{.} werden farblich hervorgehoben.
+Lambda-Zeichen \enquote{$\lambda$} und Punkte \enquote{.} werden fett geschrieben.
 
 \functionality{Highlighting von Klammern}{fnc:highlightparentheses}
 \fulfills{crt:syntax-highlighting}
@@ -300,7 +297,7 @@ Wenn der Eingabezeiger adjazent zu einer öffnenden oder schließenden Klammer s
 
 \functionality{Highlighting von Funktionsnamen}{fnc:highlightfunctions}
 \fulfills{crt:syntax-highlighting}
-Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus der Standardbibliothek oder Benutzerbibliothek zu erkennen und farblich hervorzuheben.
+Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus der Standardbibliothek oder Benutzerbibliothek zu erkennen und farblich hervorzuheben. Wenn ein Funktionsname gefunden wurde, dann wird er farbig geschrieben.
 
 \functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
 \fulfills{crt:syntax-highlighting-premium}
