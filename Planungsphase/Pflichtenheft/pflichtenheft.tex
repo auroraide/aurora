@@ -230,7 +230,7 @@ Aurora ist eine clientseitige Anwendung.
 			\item OS X Mavericks 10.9 oder höher
 			\item Ubuntu 14.04 oder höher, Debian 8 oder höher, Fedora24 oder höher
 		\end{itemize}
-		\item Es wird ein gängiger Webbrowser benötigt, der HTML5, CSS3 und JavaScript unterstütz:
+		\item Es wird ein gängiger Webbrowser benötigt, der HTML5, CSS3 und JavaScript unterstützt:
 			\begin{itemize}
 				\item Firefox (ab Version 57)
 				\item Google Chrome (ab Version 62.0)
@@ -308,6 +308,7 @@ In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich h
 \functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
 \fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
+
 
 
 
@@ -413,14 +414,18 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \functionality{Eingabe wird geparsed}{fnc:pars}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+\functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:checkorder}
+Das Programm schaut nach, welche Auswertungsstrategie vom Nutzer eingestellt wurde und stellt die Ausgewählte Strategie auf aktiv.
 
-\functionality{$\beta$-Reduktion}{fnc:output}
+\functionality{Eine $\beta$-Reduktion}{fnc:beta}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
-\functionality{Normalform erkennen}{fnc:output}
-Das Programm erkennt, falls ein $\lambda$-Ausdruck in Normalform vorliegt, bzw. keine weiteren $\beta$-Reduktion durchgeführt werden können.
+\functionality{Folgende $\beta$-Reduktionen}{fnc:morebeta}
+Solange $\beta$-Reduktionen möglich sind führt das Programm sie aus.
+
+\functionality{Ausgabefeld}{fnc:result}
+\fulfills{crt:evaluate-term}
+Falls die Berechnung terminiert (es sind keine $\beta$-Reduktions Schritte mehr möglich), ist steht das Ergebnis im Ausgabefeld.
 
 \functionality{Offensichtliche Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
@@ -476,7 +481,7 @@ Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Pr
 \fulfills{crt:tutorial}
 Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
 
-\functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
+\functionality{Session und Benutzer Bibliothek Speichern}{fnc:savesession}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
 
@@ -505,8 +510,8 @@ Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte a
 \fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
 
-\functionality{$\alpha$-Konversion mit De Bruijn Indices}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
+
+
 
 
 
@@ -722,6 +727,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 				\item UMLet
 				\item Umbrella
 				\item BOUML
+				\item Lucidchart
 			\end{itemize}
 		\item \textbf{endgültige Programmiersprache auf der Website}
 			\begin{itemize}
