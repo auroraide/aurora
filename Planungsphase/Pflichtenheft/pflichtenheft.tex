@@ -107,7 +107,8 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm a
 Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgehoben. Beim hovern über einer Klammer wird das entsprechende Klammerpaar farblich hervorgehoben.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
-Der nächste auszuwertende Redex wird farblich hinterlegt.
+Der nächste zu auszuwertende Redex wird farblich hinterlegt. 
+Außerder wird der reingezogene Term mit einer dritten Farbe im nächsten Schritt markiert.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
 Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
@@ -303,8 +304,11 @@ Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus
 \functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
 \fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
+Die Abstraktion des auszuwertenden Redex wird mit einer Farbe markiert und der Term, der von der Abstraktion reingezogen wird, bekommt eine andere Farbe.
 
-
+\functionality{Highlighting des zuletzt ausgeführten Redex}{fnc:highlight-prev}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von einer Abstraktion eingefügt wurde, farbig markiert.
 
 
 \subsection{Buttons}
