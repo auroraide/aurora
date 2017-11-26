@@ -238,6 +238,14 @@ Er kann mit der Maus Text auswählen, mit \enquote{Delete} Zeichen löschen usw.
 \fulfills{crt:evaluate-term}
 Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
+\functionality{Stop-Button}{fnc:stop-exec} 
+\fulfills{crt:stop-feature}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
+
+\functionality{Pause-Button} {fnc:pausebut} 
+\fulfills{crt:pausebutton}
+Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
+
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
 Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
@@ -307,45 +315,42 @@ Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode
 Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Sie sind nicht editierbar oder anderweitig veränderbar. Dies soll eine einfachere Orientation in der Eingabe ermöglichen.
 
 
-\functionality{Tutorial zur Web App}{fnc:tutorial}\fulfills{crt:tutorial}
-Wenn der Benutzer auf einen Hilf-Button drückt dann wird ein kleines Tutorial erscheinen, dass ihm die Benutzung des Programmes erklärt und auf Features hinweist.
+\functionality{Tutorial zur Web App}{fnc:tutorial}
+\fulfills{crt:tutorial}
+Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
 
-\functionality{Ausgabefeld}{fnc:output}\fulfills{crt:evaluate-term}
+\functionality{Ausgabefeld}{fnc:output}
+\fulfills{crt:evaluate-term}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
-\functionality{Nach Wunsch der User werden die $\beta$-Reduktionsschritte angezeigt}{fnc:stepbystep}\fulfills{crt:intermediate-step-output}
-Dem Benutzer wird in der GUI nach einer erfolgreichen Berechnung 3 Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen
+\functionality{$\beta$-Reduktionen angezeigen}{fnc:stepbystep}
+\fulfills{crt:intermediate-step-output}
+Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
 
 
-\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird im Schrittfeld nächste auszuwertende Redex farblich hinterlegt.
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
 
-\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}\fulfills{crt:syntax-highlighting-premium}
+\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
+\fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
-\functionality{Sprache ist auswählbar}{fnc:language-selection}\fulfills{crt:opt-language}
-Der Benutzer kann aus einem Satz von menschlichen Sprachen, die Sprache der Applikation einstellen.
+\functionality{Sprache ist auswählbar}{fnc:language-selection}
+\fulfills{crt:opt-language}
+Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Applikation einstellen.
 
-
-\functionality{GUI wird korrekt auf Google Chrome Web Browser angezeigt}{fnc:output}
+\functionality{Korrekte Darstellung in Google Chrome}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Die Web App wird korrekt in Google Chrome Web Browser funktionieren}{fnc:output}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Stop-Button}{fnc:stop-exec} \fulfills{crt:stop-feature}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
 
 \functionality{De Bruijin Indizes}{fnc:debruijn-output}\fulfills{crt:debruijn-output}
-Der Benutzer kann einstellen, dass er die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben will.
-
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
 
 \functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
+
 \subsection{Hintergrundablauf}
-\functionality{Run}{fnc:run}\fulfills{crt:evaluate-term}
-Der Benutzer kann die Berechnung des $\lambda$-Terms über den \enquote{Run}-Button starten.
 
 \functionality{Eingabe wird geparsed}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
@@ -368,13 +373,12 @@ Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine S
 \functionality{$\beta$-Reduktion}{fnc:output}
 \functionality{Das Program erkennt wenn keine weitere $\beta$-Reduktion möglich ist}{fnc:output}
 
-\functionality{Pause-Button} {fnc:pausebut} \fulfills{crt:pausebutton}
-Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
-
-\functionality{No Timeout}{fnc:run-no-timeout}\fulfills{crt:infiniteloop}
+\functionality{No Timeout}{fnc:run-no-timeout}
+\fulfills{crt:infiniteloop}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
-\functionality{Nach neuer Tab}{fnc:to-new-tab}\fulfills{crt:to-new-tab}
+\functionality{Nach neuer Tab}{fnc:to-new-tab}
+\fulfills{crt:to-new-tab}
 Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
 
 \subsection{Speichern}
@@ -395,8 +399,9 @@ Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum
 \functionality{Session und Benutzer Bibliothek Speichern}{fnc:output}
 \textcolor{green}{HIER FEHLT BESCHREIBUNG}
 
-\functionality{Berechnung in LaTeX syntax umwandeln und zum Copy-to-Clipboard hinzufügen}{fnc:latexshare}\fulfills{crt:latex-export}
-Der Benutzer kann entweder die Eingabe oder, die Eingabe + die Schritte zum Ergebnis in Latexsyntax speichern. Dies wird automatisch zum Clipboard gecopied, damit der Benutzer dies selbsständig in ein LaTeXdokument einfügen kann.
+\functionality{LaTeX export}{fnc:latexshare}
+\fulfills{crt:latex-export}
+Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 
 
@@ -649,37 +654,53 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 %\textbf{Homepage}:
 %Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
 \textbf{Standardbibliothek}
+\newline
 Eine Ansammlung von Lambdatermen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten Lambdaterme zusammen getragen damit der Benutzer häufig vorkommende Lambdaterme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten Lambdaterm.
 
 \textbf{Benutzerbibliothek}
+\newline
 Der Benutzer kann selber Funktionen mit Namen und Lambdaterm definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den Lambdaterm ersetzt.
 
 \textbf {Redex}
+\newline
 Redex steht für \enquote{reducible expression} oder auf deutsch \enquote{reduzibler Ausdruck} ist ein Subterm der durch die Auswertungsstrategien mit Beta-Reductionen reduzierbar sind.
 Bei dem Term ($\lambda$x.x) y ist der ($\lambda$x.x) der Redex.
 
 \textbf{Normalform}
+\newline
 Die Normalform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
 \textbf{Auswertungsstrategie}
+\newline
 Die Auswertungsstrategie gibt an welcher Redex als nächstes ausgewertet wird und dann mit Beta-Reduktion reduziert wird.
 
 \textbf{Normalreihenfolge}
+\newline
 Der linkeste äußerste Redex wird als erstes ausgewertet und reduziert.
 
 \textbf{Call-By-Name}
+\newline
 Der linkeste äußerste Redex der nicht von einem $\lambda$ umgeben ist wird als erstes ausgewertet und reduziert
 
 \textbf{Call-By-Value}
+\newline
 Der linkeste Redex der nicht von einem $\lambda$ umgeben ist und dessen Argument ein Wert ist wird als erstes ausgewertet und reduziert.
 
 \textbf{Hover}
+\newline
 Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu drücken.
 
 \textbf{IDE}
+\newline
 Integrierte Entwicklungsumgebung (engl. integrated developement environment). Stellt Features bereit, die die Entwicklung von Software vereinfachen soll.
 
 \textbf{De Bruijn Indizes}
+\newline
 Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
+
+\textbf{Clipboard}
+\newline
+(dt. Zwischenablage) Speicher, der für das Kopieren von Daten zwischen zwei Programmen gedacht ist. In der Zwischenablage Gespeichertes kann in anderen Programmen einfach eingefügt werden.
+
  
 \end{document}
