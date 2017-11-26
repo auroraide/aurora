@@ -107,13 +107,13 @@ Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgeho
 Der nächste auszuwertende Redex wird farblich hinterlegt, im nächsten Schritt in einem helleren Ton derselben Farbe.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
-Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert.
+Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
 
 \criteriumOptional{Standardbibliothek}{crt:std-library}
 Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
 \criteriumOptional{Benutzerbibliothek}{crt:user-library}
-Bibliothek, in der der Benutzer eigene Funktionen definieren und speichern kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
+Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und löschen kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
 \criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
 Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
@@ -133,16 +133,18 @@ Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe
 \criteriumOptional{LaTeX export}{crt:latex-export}
 $\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
-\criteriumOptional{\enquote{Night Mode}}{crt:night-mode}
-Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
+\criteriumOptional{Nacht Modus}{crt:night-mode}
+Die Funktion \enquote{Nacht Modus} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
-Das Programm soll einfache Schleifen wie z.B. ($\lambda$x. x x) ($\lambda$x. x x) erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
+Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 
 \criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
+
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
-Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit Deutsch Französisch und Russisch auszuwählen
+Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
+
 \criteriumOptional{De Bruijn Indizes}{crt:debruijn-output}
 Ausgabe des Programmes kann wahlweise mit De Bruijn Indizes erfolgen.
 
@@ -172,14 +174,16 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 Der Client führt das Programm aus. Alle Funktionen die etwas berechnen oder speichern müssen werden auf der Hardware des Clients ausgeführt.
 
 \criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
-Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktion für das Programm aus.
+Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktionen für das Programm aus.
 
 \criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
-Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls. Auch eine einfache Erweiterungsschnittstelle, damit man z.B. das typisierte $\lambda$-Kalkül einfügen könnte ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen
+Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls durchführen. Auch eine einfache Erweiterungsschnittstelle, um z.B. Auswertungen des typisierten $\lambda$-Kalküls zu erlauben, ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen.
 
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
 Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
-Das Programm ist so konzipiert das ein Benutzer es nur alleine bedienen kann und gegebenenfalls mit der Share-Funktion einnem anderem die Ergebnisse des Programmes mitteilen kann. Ein Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
+Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX export kann Code geteilt werden.
+\newline
+Ein Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
 
 
 
@@ -386,7 +390,7 @@ Funktionen aus der Standardbibliothek haben einen Namen und eine Definition ($\l
 \fulfills{crt:user-library}
 Eine definierte Funktion der Standardbibliothek oder Benutzerbibliothek entspricht genau einem $\lambda$-Term.
 
-\functionality{Benutzerbibliothek}{fnc:userlib}
+\functionality{Erweitern der Benutzerbibliothek}{fnc:userlib}
 \fulfills{crt:user-library}
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
@@ -405,20 +409,27 @@ Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 
+
 \subsubsection{History}
-\functionality{Historie}{fnc:localstorage-autosave}\fulfills{crt:local-sessions}
+
+\functionality{Historie}{fnc:localstorage-autosave}
+\fulfills{crt:local-sessions}
 Eine ausgeführte Benutzereingabe wird automatisch in die Historie eingefügt.
 
-\functionality{Permanenz der Historie}{fnc:localstorage-permanent}\fulfills{crt:local-sessions}
+\functionality{Permanenz der Historie}{fnc:localstorage-permanent}
+\fulfills{crt:local-sessions}
 Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
 
-\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}\fulfills{crt:local-sessions}
+\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}
+\fulfills{crt:local-sessions}
 Der Benutzer kann Eingaben aus der Historie wiederherstellen.
 
-\functionality{Löschen der Historie}{fnc:localstorage-flush}\fulfills{crt:local-sessions}
-Der Benutzer kann die Einträge in der Historie löschen.
+\functionality{Löschen der Historie}{fnc:localstorage-flush}
+\fulfills{crt:local-sessions}
+Der Benutzer kann die Einträge der Historie löschen.
 
-\functionality{Benutzerbibliothek in Historie}{fnc:localstorage-userlib}\fulfills{crt:local-sessions}
+\functionality{Benutzerbibliothek in der Historie}{fnc:localstorage-userlib}
+\fulfills{crt:local-sessions}
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
 
 
@@ -426,7 +437,7 @@ Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefüg
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
-Das Programm soll auch ohne dem Tutorial verständlich bedienbar sein.
+Das Programm soll auch ohne Tutorial verständlich bedienbar sein.
 
 \nonFunctionality{Aussehen}{nfc:appearence}
 Die Grafische Oberfläche soll schlicht aber modern wirken. 
@@ -438,16 +449,16 @@ Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Butto
 Die Standard Sprache des Programmes ist Englisch.
 
 \nonFunctionality{Erweiterte Sprachenauswahl}{nfc:opt-language}
-Das Programm ist durch außerdem in den Sprachen Deutsch, Russisch, Französisch verfügbar.
+Das Programm ist außerdem in den Sprachen Deutsch, Russisch und Französisch verfügbar.
+
+\nonFunctionality{Hinzufügen neuer Sprachen}{nfc:supported-languages}
+Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen.
 
 \nonFunctionality{Browserkompatibilität}{nfc:default-browser}
 Das Programm funktioniert auf dem Webbrowser \enquote{Google Chrome} 62.
 
 \nonFunctionality{Erweiterte Browserkompatibilität}{nfc:advances-default-browser}
 Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstützen.
-
-\nonFunctionality{Unterstützde Sprachen}{nfc:supported-languages}
-Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen.
 
 \nonFunctionality{Hash-Aufwand}{nfc:hash-time}
 Die Berechnung der Hashwerte ist nicht mehr als 10\% der Gesamtrechenzeit in Anspruch.
@@ -459,7 +470,7 @@ Die Standardbibliothek kann bis zu 20 vordefinierte Funktionen beinhalten.
 Die Benutzerbibliothek kann bis zu 10 selbstdefinierte Funktionen beinhalten.
 
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
-Die Anzahl der sichtbaren Zwischenergebnisse ist auf XXX beschränkt.
+Die Anzahl der sichtbaren Zwischenergebnisse ist auf 30 beschränkt.
 
 \nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
 Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
@@ -690,6 +701,10 @@ Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 \textbf{Clipboard}
 \newline
 (dt. Zwischenablage) Speicher, der für das Kopieren von Daten zwischen zwei Programmen gedacht ist. In der Zwischenablage Gespeichertes kann in anderen Programmen einfach eingefügt werden.
+
+\textbf{localStorage}
+\newline
+\textcolor{green}{Hier was reindudeln}
 
  
 \end{document}
