@@ -573,6 +573,20 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:bracket}
+\tests{fnc:highlightlambda}
+\tests{fnc:highlightparantheses}
+\tests{fnc:highlightfunctions}
+\tests{fnc:highlight-next}
+\tests{fnc:highlight-prev}
+\tests{fnc:run}
+\tests{fnc:eval-order-normal}
+\tests{fnc:beta}
+\tests{fnc:output}
+
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
@@ -581,6 +595,9 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
 {Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
+
+
+
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
