@@ -415,6 +415,9 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \functionality{$\beta$-Reduktion}{fnc:beta}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
+\functionality{Auswertung beendet}{fnc:finished-reducing}
+Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sind.
+
 \functionality{Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
@@ -478,13 +481,13 @@ Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch au
 
 \subsection{Ausgabe}
 
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
-\fulfills{crt:output-readonly}
-Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
-
 \functionality{Ausgabefeld}{fnc:output}
 \fulfills{crt:run}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:output-readonly}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
 \fulfills{crt:intermediate-step-output}
@@ -590,16 +593,18 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:run}
 \tests{fnc:eval-order-normal}
 \tests{fnc:beta}
+\tests{fnc:finished-reducing}
 \tests{fnc:output}
 
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
+{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
 { Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
-\teststep {Das Programm ist geöffnet und es ist im Default-State}
-{Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
-{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
+
 
 
 
