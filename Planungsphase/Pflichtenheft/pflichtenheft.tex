@@ -72,13 +72,16 @@ Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür 
 \criterium{Eingabe}{crt:text-editor}
 Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 
-\criterium{Input editieren}{crt:not-editable}
+\criterium{Input editieren}{crt:input-readonly}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
-\criterium{Auswertung starten}{crt:evaluate-term}
+\criterium{Input editieren}{crt:output-readonly}
+Der Output kann nicht bearbeitet werden.
+
+\criterium{Auswertung starten}{crt:run}
 Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform.
 
-\criterium{Auswertung stoppen}{crt:stop-feature}
+\criterium{Auswertung stoppen}{crt:stop}
 Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
 
 \criterium{Zwischenschritte}{crt:intermediate-step-output}
@@ -121,20 +124,20 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
-\criteriumOptional{Pause-Button}{crt:pausebutton}
+\criteriumOptional{Pause-Button}{crt:pause}
 Der Pause-Button unterbricht die laufende Berechnung
 
-\criteriumOptional{Share-Button}{crt:share-feature}
+\criteriumOptional{Share-Button}{crt:share}
 Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
 \criteriumOptional{Öffnen in neuem Tab}{crt:to-new-tab}
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
 
-\criteriumOptional{LaTeX export}{crt:latex-export}
+\criteriumOptional{LaTeX export}{crt:export-latex}
 $\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
-\criteriumOptional{Nacht Modus}{crt:night-mode}
-Die Funktion \enquote{Nacht Modus} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
+\criteriumOptional{Night Mode}{crt:night-mode}
+Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
@@ -261,27 +264,23 @@ Aurora ist eine clientseitige Anwendung.
 
 \functionality{Eingabefeld}{fnc:input}
 \fulfills{crt:text-editor}
-\fulfills{crt:not-editable}
+\fulfills{crt:input-readonly}
 Es gibt ein Eingabefeld, dessen Inhalt als Eingabe für Aurora dient.
 
 \functionality{Zeilennummern}{fnc:ln}
 \fulfills{crt:linenumbers}
-Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Sie sind nicht editierbar oder anderweitig veränderbar. Dies soll eine einfachere Orientation in der Eingabe ermöglichen.
+Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Diese sind nicht editierbar.
 
 \functionality{Eingabefeld bearbeiten}{fnc:editor}
 \fulfills{crt:text-editor}
-\fulfills{crt:not-editable}
-Der Benutzer kann den Inhalt das Eingabefelds durch gängige Methoden bearbeiten. Hierzu zählen neben der direkten Eingabe mit der Tastatur auch das Textauswählen mit der Maus.
-
-\functionality{Kommentare hinzufügen}{fnc:commentyourcode}\fulfills{crt:comments}
-Der Benutzer kann mit \enquote{\#} die ganze Zeile nach dem Zeichen auskommentieren. Der Parser erkennt das Zeichen und springt zur nächsten Zeile.
+Der Benutzer kann den Inhalt des Eingabefelds über die Tastatur bearbeiten.
 
 \functionality{Autovervollständigung von Klammern}{fnc:bracket}
 \fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
 
 \functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
-\fulfills{crt:not-editable}
+\fulfills{crt:input-readonly}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
 
@@ -291,7 +290,7 @@ Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnun
 
 \functionality{Highlightning von Lambdas und Punkten}{fnc:highlightlambda}
 \fulfills{crt:syntax-highlighting}
-Lambda-Zeichen (\enquote{$\lambda$}) und Punkte (\enquote{.}) werden farblich hervorgehoben.
+Lambda-Zeichen \enquote{$\lambda$} und Punkte \enquote{.} werden farblich hervorgehoben.
 
 \functionality{Highlighting von Klammern}{fnc:highlightparentheses}
 \fulfills{crt:syntax-highlighting}
@@ -314,21 +313,21 @@ In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
 \subsection{Buttons}
 
-\functionality{Ausführen}{fnc:run-input}
-\fulfills{crt:evaluate-term}
-Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+\functionality{Run}{fnc:run}
+\fulfills{crt:run}
+Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
-\functionality{Stop-Button}{fnc:stop-exec}
-\fulfills{crt:stop-feature}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button vorzeitig beenden. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
+\functionality{Stop}{fnc:stop}
+\fulfills{crt:stop}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
 
-\functionality{Pause-Button} {fnc:pausebut}
-\fulfills{crt:pausebutton}
-Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich z.B. die bisherigen Schritte anzeigen lassen. Er kann allerdings im Gegensatz zum Stop-Button die Berechnung weiterlaufen lassen von dem Punkt aus, an dem sie gestoppt hat.
+\functionality{Pause}{fnc:pause}
+\fulfills{crt:pause}
+Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
 
-\functionality{Share-Button}{fnc:share-button}
-\fulfills{crt:share-feature}
-Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum Teilen speichern. Wenn ein anderer Benutzer diesen Link in seinen Browser einfügt, dann öffnet sich das Programm mit dem gleichen Input, wie derjenige der den Link geschickt hat.
+\functionality{Share}{fnc:share}
+\fulfills{crt:share}
+Der Benutzer kann mithilfe des Share-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
 
 
 
@@ -338,15 +337,15 @@ Der Benutzer kann mithilfe des Share-Buttons seinen Input in einer short-URL zum
 \fulfills{crt:std-library}
 Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
 
-\functionality{Benutzerbibliothek}{fnc:user-vs-std}
+\functionality{Benutzerbibliothek}{fnc:userlib-vs-stdlib}
 \fulfills{crt:user-library}
-Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es unterscheidet sich für die Eingabe nicht, ob eine Funktion in der Standard oder in der Benutzerbibliothek ist.
+Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es spielt für die Eingabe keine Rolle, ob eine Funktion in der Standard- oder in der Benutzerbibliothek ist.
 
 \functionality{Erweitern der Benutzerbibliothek}{fnc:userlib-extend}
 \fulfills{crt:user-library}
 Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
 
-\functionality{Entfernen aus der Benutzerbibliothek}{fnx:userlib-remove}
+\functionality{Entfernen aus der Benutzerbibliothek}{fnc:userlib-remove}
 \fulfills{crt:user-library}
 Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
 
@@ -368,20 +367,24 @@ Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek 
 
 
 
-\subsection{Strategien}
+\subsection{Auswertungsstrategien}
 
 \functionality{Normalreihenfolge}{fnc:eval-order-normal}
 \fulfills{crt:default-eval-strategy}
 $\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
 
-\functionality{Auswertungsstrategien}{fnc:eval-order-options}
+\functionality{Call-by-Name}{fnc:eval-order-call-by-name}
+\fulfills{crt:opt-eval-strategy}
+$\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Name} ausgewertet werden.
+
+\functionality{Call-by-Value}{fnc:eval-order-call-by-value}
+\fulfills{crt:opt-eval-strategy}
+$\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Value} ausgewertet werden.
+
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order-options}
 \fulfills{crt:opt-eval-strategy}
 \fulfills{crt:own-eval-strategy}
-Der Benutzer kann zwischen den drei standard Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen.
-
-\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order}
-\fulfills{crt:opt-eval-strategy}
-Der Benutzer kann die Auswertungsstrategie des $\lambda$-Ausdrucks auswählen.
+Der Benutzer kann zwischen den drei Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen, oder selbst den nächsten auszuwertenden Redex auswählen.
 
 \functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
 \fulfills{crt:own-eval-strategy}
@@ -397,13 +400,13 @@ In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jegliche
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
-Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Applikation einstellen.
+Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläsche einstellen.
 
-\functionality{Nacht Modus}{fnc:night-mode}
+\functionality{Night Mode}{fnc:night-mode}
 \fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
-\functionality{Mobile Darstellung ist im begrenzten Modus möglich}{fnc:mobile}
+\functionality{Mobile Darstellung}{fnc:mobile}
 Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
 
 
@@ -411,27 +414,14 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 
 \subsection{Hintergrundablauf}
 
-\functionality{Eingabe wird geparsed}{fnc:pars}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-\functionality{Ermittlung der eingestellten Auswertungsstrategie}{fnc:checkorder}
-Das Programm schaut nach, welche Auswertungsstrategie vom Nutzer eingestellt wurde und stellt die Ausgewählte Strategie auf aktiv.
-
-\functionality{Eine $\beta$-Reduktion}{fnc:beta}
+\functionality{$\beta$-Reduktion}{fnc:beta}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
-\functionality{Folgende $\beta$-Reduktionen}{fnc:morebeta}
-Solange $\beta$-Reduktionen möglich sind führt das Programm sie aus.
-
-\functionality{Ausgabefeld}{fnc:result}
-\fulfills{crt:evaluate-term}
-Falls die Berechnung terminiert (es sind keine $\beta$-Reduktions Schritte mehr möglich), ist steht das Ergebnis im Ausgabefeld.
-
-\functionality{Offensichtliche Schleifenerkennung}{fnc:loop-test}
+\functionality{Schleifenerkennung}{fnc:loop-test}
 \fulfills{crt:loop-detection}
-Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde warnt das Programm davor.
+Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
 
-\functionality{No Timeout}{fnc:run-no-timeout}
+\functionality{Kein Timeout}{fnc:run-no-timeout}
 \fulfills{crt:infiniteloop}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
@@ -469,46 +459,42 @@ Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefüg
 \fulfills{crt:to-new-tab}
 Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
 
-\functionality{LaTeX-Export}{fnc:latexshare}
-\fulfills{crt:latex-export}
+\functionality{LaTeX-Export}{fnc:export-latex}
+\fulfills{crt:export-latex}
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
-Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
+Der Benutzer kann Tastatur-Shortcuts benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
 
-\functionality{Tutorial zur Web App}{fnc:tutorial}
+\functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
-Durch drücken des Hilfe-Buttons erscheint ein Tutorial, dass dem Benutzer das Programmes erklärt und auf Features hinweist.
+Durch drücken des Hilfe-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
 
-\functionality{Session und Benutzer Bibliothek Speichern}{fnc:savesession}
-\textcolor{green}{HIER FEHLT BESCHREIBUNG}
-
-
-
+\functionality{Kommentare}{fnc:comments}
+\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
 
 
 
 
-
-
-\subsection{EverythingElse ATM }
+\subsection{Ausgabe}
 
 \functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
-\fulfills{crt:not-editable}
+\fulfills{crt:output-readonly}
 Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{Ausgabefeld}{fnc:output}
-\fulfills{crt:evaluate-term}
+\fulfills{crt:run}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
-\functionality{$\beta$-Reduktionen angezeigen}{fnc:stepbystep}
+\functionality{$\beta$-Reduktionen anzeigen}{fnc:stepbystep}
 \fulfills{crt:intermediate-step-output}
-Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktions Schritte angezeigt die durchgeführt wurden um auf das Ergebnis zu kommen.
+Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijin Indizes}{fnc:debruijn-output}
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
-Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn Indizes ausgeben werden.
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
 
 
@@ -562,7 +548,7 @@ Die Benutzerbibliothek kann bis zu 10 selbstdefinierte Funktionen beinhalten.
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
 Die Anzahl der sichtbaren Zwischenergebnisse ist auf 30 beschränkt.
 
-\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
+\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-export-latex}
 Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
 
 
