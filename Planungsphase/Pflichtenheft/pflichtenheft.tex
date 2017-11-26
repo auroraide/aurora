@@ -4,7 +4,7 @@
 \begin{titlepage}
 
 \subject{Pflichtenheft}
-\title{\textbf{$\lambda$}urora}
+\title{\textbf{$\uplambda$}urora}
 \subtitle{The Lambda Calculus IDE}
 
 
@@ -44,7 +44,7 @@
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
 \usepackage{color}
-
+\usepackage{upgreek}
 \usepackage{pflichtenheft}
 
 
@@ -75,7 +75,7 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 \criterium{Input editieren}{crt:input-readonly}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
-\criterium{Input editieren}{crt:output-readonly}
+\criterium{Output editieren}{crt:output-readonly}
 Der Output kann nicht bearbeitet werden.
 
 \criterium{Auswertung starten}{crt:run}
@@ -149,8 +149,8 @@ Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$u
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
 Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
 
-\criteriumOptional{De Bruijn Indizes}{crt:debruijn-output}
-Ausgabe des Programmes kann wahlweise mit De Bruijn Indizes erfolgen.
+\criteriumOptional{De Bruijn-Indizes}{crt:debruijn-output}
+Ausgabe des Programmes kann wahlweise mit De Bruijn-Indizes erfolgen.
 
 \criteriumOptional{Lokale Sessions}{crt:local-sessions}
 Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der Benutzer kann außerdem diese Historie verändern.
@@ -179,16 +179,16 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 
 \subsection{Abgrenzungskriterien}
 
-\criteriumNot{Berechnungen laufen Client-seitig.}{crt:client-side}
+\criteriumNot{Berechnungen laufen Client-seitig}{crt:client-side}
 Der Client führt das Programm aus. Alle Funktionen die etwas berechnen oder speichern müssen werden auf der Hardware des Clients ausgeführt.
 
-\criteriumNot{Keine Server-Komponente.}{crt:no-server-side}
+\criteriumNot{Keine Server-Komponente}{crt:no-server-side}
 Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktionen für das Programm aus.
 
-\criteriumNot{Kein typisiertes $\lambda$-Kalkül.}{crt:no-typed-calculus}
+\criteriumNot{Kein typisiertes $\lambda$-Kalkül}{crt:no-typed-calculus}
 Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls durchführen. Auch eine einfache Erweiterungsschnittstelle, um z.B. Auswertungen des typisierten $\lambda$-Kalküls zu erlauben, ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen.
 
-\criteriumNot{Applikation bietet keine Projekt-Unterstützung.}{crt:no-projects}
+\criteriumNot{Applikation bietet keine Projekt-Unterstützung}{crt:no-projects}
 Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
 Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX export kann Code geteilt werden.
 \newline
@@ -465,7 +465,7 @@ Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten un
 
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
-Der Benutzer kann Tastatur-Shortcuts benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
+Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
 
 \functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
@@ -488,11 +488,11 @@ Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 \fulfills{crt:run}
 Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
 
-\functionality{$\beta$-Reduktionen anzeigen}{fnc:stepbystep}
+\functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
+\functionality{De Bruijin-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
@@ -548,7 +548,7 @@ Die Benutzerbibliothek kann bis zu 10 selbstdefinierte Funktionen beinhalten.
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
 Die Anzahl der sichtbaren Zwischenergebnisse ist auf 30 beschränkt.
 
-\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-export-latex}
+\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
 Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
 
 
@@ -564,7 +564,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 { Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
 
 
-\test{Auswertung mit einem Schritt}{tst:single-step-eval}
+\test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
 \tests{fnc:input}
 \tests{fnc:ln}
 \tests{fnc:editor}
@@ -607,13 +607,27 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
+\test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
+\tests{fnc:stdlib}
+\tests{fnc:user-vs-std}
+\tests{fnc:userlib-extend}
+\tests{fnc:userlib-remove}
+\tests{fnc:func-def}
+\tests{fnc:func-lambda-equivalent}
 \teststep {Das Programm ist im Default-State}
 { Der Benutzer drückt auf den \enquote {Plus} Button und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein }
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als lambda term den von ihm gewünschten lambda term eingibt. Dieser Name wird mit dem Lambdaterm gespeichert und man kann im Editor anstelle des Lambdaterms den Namen eingeben. }
 
 \teststep { Der vorherige Test wurde ausgeführt}
-{ der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
 { Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten Lambdaterm und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+\teststep {Die vorherigen zwei Tests wurden ausgeführt}
+{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+
+\teststep{Das Programm befindet sich im Default-State}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
@@ -625,7 +639,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn Indizes ist das Ergebnis nicht a  a  }
+{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
 
 \teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
 { Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
@@ -781,7 +795,7 @@ Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu dr�
 \newline
 Integrierte Entwicklungsumgebung (engl. integrated developement environment). Stellt Features bereit, die die Entwicklung von Software vereinfachen soll.
 
-\textbf{De Bruijn Indizes}
+\textbf{De Bruijn-Indizes}
 \newline
 Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 
