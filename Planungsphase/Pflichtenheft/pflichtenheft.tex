@@ -337,7 +337,8 @@ Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek 
 
 \subsection{Strategien}
 
-\functionality{Normalreihenfolge}{fnc:eval-order-normal}\fulfills{crt:default-eval-strategy}
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}
+\fulfills{crt:default-eval-strategy}
 $\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
 
 \functionality{Auswertungsstrategien}{fnc:eval-order-options}
@@ -358,7 +359,7 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 \subsection{Darstellung}
 
-\functionality{Korrekte Darstellung in Google Chrome}{fnc:output}
+\functionality{Korrekte Darstellung in Google Chrome}{fnc:chrome-design}
 In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jeglicher Art dargestellt.
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
@@ -532,11 +533,27 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \section{Tests}
 
 
-%\tests{fnc:impressum-link}
-%\tests{fnc:datenschutz-link}
+\test{Darstellung in Chrome}{tst:chrome-design}
+\tests{fnc:chrome-design}
 \teststep {Das Programm liegt auf einem Server}
 {Der Benutzer tippt den link des Programms \texttt{aurora.kit.edu} in den Browser \enquote {Google Chrome} }
 { Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
+
+
+\test{Auswertung mit einem Schritt}{tst:single-step-eval}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:bracket}
+\tests{fnc:highlightstatic}
+\tests{fnc:highlight-next}
+\tests{fnc:highlight-prev}
+\tests{fnc:run-input}
+\tests{fnc:eval-order-normal}
+\tests{fnc:chrome-design}
+\tests{fnc:output}
+\tests{fnc:pars}
+
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$ x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
@@ -617,7 +634,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
-\test {In neuem Tab öffnen}{tst:to-new-tab}
+\test{In neuem Tab öffnen}{tst:to-new-tab}
 \tests{fnc:to-new-tab}
 \teststep 
 {Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
@@ -766,5 +783,8 @@ Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 \newline
 \textcolor{green}{Hier könnte Ihr Senf stehen}
 
+\textbf{Default-State}
+\newline
+\textcolor{green}{Hier könnte Ihr Senf stehen}
  
 \end{document}
