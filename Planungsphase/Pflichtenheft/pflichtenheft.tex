@@ -107,7 +107,7 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm a
 Schlüsselwörter aus den Bibliotheken und $\lambda$s werden farblich hervorgehoben. Beim hovern über einer Klammer wird das entsprechende Klammerpaar farblich hervorgehoben.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
-Der nächste auszuwertende Redex wird farblich hinterlegt, im nächsten Schritt in einem helleren Ton derselben Farbe.
+Der nächste auszuwertende Redex wird farblich hinterlegt.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
 Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
@@ -303,10 +303,6 @@ Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus
 \functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
 \fulfills{crt:syntax-highlighting-premium}
 In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
-
-\functionality{Highlighting des zuletzt ausgewerteten Redex}{fnc:highlight-prev}
-\fulfills{crt:syntax-highlighting-premium}
-In jedem Schritt wird der zuletzt eingesetzte Term farblich hinterlegt.
 
 
 
@@ -612,7 +608,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
 \tests{fnc:stdlib}
-\tests{fnc:user-vs-std}
+\tests{fnc:uselib-vs-stdlib}
 \tests{fnc:userlib-extend}
 \tests{fnc:userlib-remove}
 \tests{fnc:func-def}
@@ -635,8 +631,10 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+
+
 \test{Auswertungsstrategie}{tst:strategy}
-\tests{fnc:eval-order-normal}\tests{fnc:eval-order-options}
+\tests{fnc:eval-order-normal}\tests{fnc:eval-order-call-by-name}\tests{fnc:eval-order-call-by-value}\tests{fnc:eval-order-options}\tests{fnc:choosing-redex}
 
 \teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
