@@ -572,10 +572,13 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 
 \test{Darstellung in Chrome}{tst:chrome-design}
-\tests{fnc:chrome-design}\tests{fnc:input}\tests{fnc:ln}\tests{fnc:mobile}
+\tests{fnc:chrome-design}\tests{fnc:input}\tests{fnc:ln}\tests{fnc:mobile}\tests{fnc:night-mode}
 \teststep {Das Programm liegt auf einem Server}
 {Der Benutzer tippt die lokale IP in den Browser \enquote {Google Chrome} ein }
 { Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
+\teststep {Das Programm ist im Default State}
+{Der Benutzer drückt auf den Nachtmodus-Button}
+{Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell}
 
 
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
@@ -644,10 +647,17 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \teststep {Das Programm berechnet zurzeit einen Lambdaterm }
 {Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+\test{Auswertungsstrategie}{tst:strategy}
+\tests{fnc:eval-order-normal}\tests{fnc:eval-order-options}
 
-\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) }
-{Der Benutzer benutzt den Step-Button einmal mit Normalreihenfolge  und einmal mit der Auswertungsstrategie Call-By-Value welche in den Einstellungen zu finden ist}
-{ Bei der Normalreihenfolge wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. bei der Auswertungsstrategie wird der Term ($\lambda$x.x) als erstes reduziert }
+\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
+{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
+{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
+
+\teststep{ Im Editor steht der Lambdaterm ($\lambda$x. f x x) (($\lambda$y. y)z)}
+{Der Benutzer drückt auf den Step-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
+{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
+
 
 \teststep { Das Programm ist im Default-State}
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
