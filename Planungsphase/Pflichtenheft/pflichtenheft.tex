@@ -395,9 +395,6 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 \subsection{Darstellung}
 
-\functionality{Korrekte Darstellung in Google Chrome}{fnc:chrome-design}
-In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jeglicher Art dargestellt.
-
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
 Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläsche einstellen.
@@ -512,6 +509,10 @@ Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indize
 \newpage
 \section{Nicht-Funktionale Anforderungen}
 
+
+\nonFunctionality{Korrekte Darstellung in Google Chrome}{nfc:chrome-design}
+In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jeglicher Art dargestellt.
+
 \nonFunctionality{Benutzbarkeit}{nfc:usability}
 Das Programm soll auch ohne Tutorial verständlich bedienbar sein.
 
@@ -556,31 +557,27 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \newpage
 \section{Tests}
 
-
+\textcolor{green}{Testet eine NFC, behalten oder entfernen?}
 \test{Darstellung in Chrome}{tst:chrome-design}
-\tests{fnc:chrome-design}\tests{fnc:input}\tests{fnc:ln}\tests{fnc:mobile}\tests{fnc:night-mode}
-\teststep {Das Programm liegt auf einem Server}
-{Der Benutzer tippt die lokale IP in den Browser \enquote {Google Chrome} ein }
-{ Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung}
-\teststep {Das Programm ist im Default State}
+\tests{nfc:chrome-design}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:mobile}
+\tests{fnc:night-mode}
+\teststep {Das Programm liegt auf einem Server.}
+{Der Benutzer tippt die lokale IP in den Browser \enquote {Google Chrome} ein.}
+{Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung.}
+
+\teststep {Das Programm liegt auf einem Server.}
+{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mpbile Geräte ein.}
+{Die mobile Version der Webseite wird geöffnet und korrekt dargestellt.}
+
+\teststep {Das Programm ist im Default State.}
 {Der Benutzer drückt auf den Nachtmodus-Button}
-{Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell}
+{Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
 
 
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
-\tests{fnc:input}
-\tests{fnc:ln}
-\tests{fnc:editor}
-\tests{fnc:bracket}
-\tests{fnc:highlightlambda}
-\tests{fnc:highlight-next}
-\tests{fnc:highlight-prev}
-\tests{fnc:run-input}
-\tests{fnc:eval-order-normal}
-\tests{fnc:chrome-design}
-\tests{fnc:output}
-\tests{fnc:pars}
-
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
