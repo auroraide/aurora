@@ -282,7 +282,10 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch ein
 \fulfills{crt:input-readonly}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
-
+\functionality{Pretty Print}{fnc:prettierprint}
+\fulfills{crt:pretty-print}
+Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann 
+die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die gleiche Eingabe wie in der Zeile davor handelt.
 
 
 \subsection{Highlighting}
@@ -569,7 +572,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung.}
 
 \teststep {Das Programm liegt auf einem Server.}
-{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mpbile Geräte ein.}
+{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mobile Geräte ein.}
 {Die mobile Version der Webseite wird geöffnet und korrekt dargestellt.}
 
 \teststep {Das Programm ist im Default State.}
