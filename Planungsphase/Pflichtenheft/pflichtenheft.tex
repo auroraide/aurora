@@ -561,6 +561,21 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \newpage
 \section{Tests}
 
+\test{Einstellungsmenue}{tst:settings}
+\tests{F27}
+\teststep{Das Programm befindet sich im Default-Zustand.}
+{Der Benutzer drueckt auf den Einstellungen Knopf.}
+{Die Sidebar wird mit der Einstellungen-Sidebar ersetzt.}
+
+\teststep{...}
+{Der Benutzer drueckt auf \enquote{Lanauge}.}
+{Die Einstellungen-Sidebar wird mit einer Liste von menschlichen Sprachen ersetzt.}
+
+\teststep{...}
+{Der Benutzer drueckt auf \enquote{Russian}.}
+{Die Sprache vom Programm aendert sich auf Russisch und die Sprach-Listen-Sidebar und
+Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Zustand angezeigt.}
+
 \test{Darstellung in Chrome}{tst:chrome-design}
 \tests{nfc:chrome-design}
 \tests{fnc:input}
