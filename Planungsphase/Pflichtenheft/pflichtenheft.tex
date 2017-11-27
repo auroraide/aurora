@@ -565,14 +565,31 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Der Benutzer drueckt auf den Einstellungen Knopf.}
 {Die Sidebar wird mit der Einstellungen-Sidebar ersetzt.}
 
-\teststep{...}
+\teststep{Zustand aus dem vorherigen Schritt.}
 {Der Benutzer drueckt auf \enquote{Lanauge}.}
 {Die Einstellungen-Sidebar wird mit einer Liste von menschlichen Sprachen ersetzt.}
 
-\teststep{...}
-{Der Benutzer drueckt auf \enquote{Russian}.}
-{Die Sprache vom Programm aendert sich auf Russisch und die Sprach-Listen-Sidebar und
+\teststep{Zustand aus dem vorherigem Schritt.}
+{Der Benutzer drückt auf \enquote{Russian}.}
+{Die Sprache vom Programm ändert sich auf Russisch und die Sprach-Listen-Sidebar und
 Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Zustand angezeigt.}
+
+\test{Teilen-Funktion}{tst:export}
+\tests{F40}
+\teststep
+{Es steht eine gültige Eingabe im Eingabefeld.
+Es werden mindestens 3 Zwischenschritte angezeigt.}
+{Der Benutzer hovert über einen Schritt.}
+{Es wird der Schrittemenüknopf angezeigt.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Benuzer klickt auf Schrittemenüknopf.}
+{Es öffnet sich das zu dem Schritt zugehörige Schrittemenü.}
+
+\teststep{Zustand aus dem vorherigen Schritt.}
+{Der Benutzer klickt auf \enquote{LaTeX} im Schrittemenüknopf.}
+{Der LaTeX-Code für diesen einen Schritt wird in die Zwischenablage des Benutzers kopiert.
+Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es verschwunden.}
 
 \test{Darstellung in Chrome}{tst:chrome-design}
 \tests{nfc:chrome-design}
