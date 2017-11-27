@@ -284,9 +284,12 @@ Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnun
 
 \functionality{Pretty Print}{fnc:prettierprint}
 \fulfills{crt:pretty-print}
-Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann 
+Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann
 die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die gleiche Eingabe wie in der Zeile davor handelt.
 
+\functionality{Kommentare}{fnc:comments}
+\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
 
 \subsection{Highlighting}
 
@@ -471,11 +474,6 @@ Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Pr
 \functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
 Durch drücken des Hilfe-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
-
-\functionality{Kommentare}{fnc:comments}
-\fulfills{crt:comments}
-Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
-
 
 
 
@@ -671,7 +669,7 @@ Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Z
 {Die $\lambda$s und die \enquote{Punkte} sind fett markiert. Wenn der Benutzer über eine Klammer hovert dann wird die jeweils öffnende bzw. schließende Klammer markiert  }
 
 \teststep{Der letzte Test wurde eingegeben und es wurde auf Run gedrückt.}
-{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils 
+{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils
  \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
  \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
 }
@@ -858,7 +856,7 @@ Der Benutzer kann selber Funktionen mit Namen und $\lambda$-Term definieren. er 
 
 \textbf {Redex}
 \newline
-Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist. 
+Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist.
 \newline
 Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x aber nicht, da der Term nicht mehr reduzierbar ist.
 
@@ -908,7 +906,7 @@ Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu s
 
 \textbf{Shortcut}
 \newline
-(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge. 
+(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge.
 
 \textbf{GUI}
 \newline
