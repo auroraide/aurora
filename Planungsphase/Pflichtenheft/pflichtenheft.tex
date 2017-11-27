@@ -595,7 +595,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:output}
 \tests{fnc:stop}
 \tests{fnc:pause}
-
+\tests{fnc:output-readonly}
 
 \teststep { Das Programm ist im Default -State }
 { Der Benutzer drückt \textbackslash }
@@ -636,7 +636,9 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Der Benutzer drückt \enquote{(}}
 {Das Programm schreibt automatisch \enquote{)} um die Klammer zu schließen}
 
-
+\teststep {Das Programm kann in jedem Status sein}
+{Der Benutzer will das Ausgabefeld editieren}
+{Dies ist unmöglich}
 
 
 
