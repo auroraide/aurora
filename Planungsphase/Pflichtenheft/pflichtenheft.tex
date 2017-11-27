@@ -123,10 +123,13 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
 \criteriumOptional{Pause-Button}{crt:pause}
-Der Pause-Button unterbricht die laufende Berechnung
+Der \enquote{Pause}-Button unterbricht die laufende Berechnung.
+
+\criteriumOptional{Continue-Button}{crt:continue}
+Der \enquote{Continue}-Button setzt eine pausierte Berechnung fort.
 
 \criteriumOptional{Share-Button}{crt:share}
-Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
+Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
 \criteriumOptional{Öffnen in neuem Tab}{crt:to-new-tab}
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
@@ -284,7 +287,7 @@ Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnun
 
 \functionality{Pretty Print}{fnc:prettierprint}
 \fulfills{crt:pretty-print}
-Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann 
+Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann
 die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die gleiche Eingabe wie in der Zeile davor handelt.
 
 
@@ -320,11 +323,15 @@ Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den
 
 \functionality{Stop}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+
+\functionality{Continue}{fnc:continue}
+\fulfills{crt:continue}
+Der Benutzer kann mit dem \enquote{Continue}-Button eine mit Pause unterbrochenen Berechnung fortsetzen lassen.
 
 \functionality{Share}{fnc:share}
 \fulfills{crt:share}
@@ -658,7 +665,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Die $\lambda$s und die \enquote{Punkte} sind fett markiert. Wenn der Benutzer über eine Klammer hovert dann wird die jeweils öffnende bzw. schließende Klammer markiert  }
 
 \teststep{Der letzte Test wurde eingegeben und es wurde auf Run gedrückt.}
-{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils 
+{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils
  \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
  \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
 }
@@ -845,7 +852,7 @@ Der Benutzer kann selber Funktionen mit Namen und $\lambda$-Term definieren. er 
 
 \textbf {Redex}
 \newline
-Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist. 
+Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist.
 \newline
 Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x aber nicht, da der Term nicht mehr reduzierbar ist.
 
@@ -895,7 +902,7 @@ Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu s
 
 \textbf{Shortcut}
 \newline
-(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge. 
+(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge.
 
 \textbf{GUI}
 \newline
