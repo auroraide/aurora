@@ -580,6 +580,8 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
 
 
+
+
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
 \tests{fnc:input}
 \tests{fnc:ln}
@@ -592,6 +594,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:finished-reducing}
 \tests{fnc:output}
 \tests{fnc:stop}
+\tests{fnc:pause}
 
 
 \teststep { Das Programm ist im Default -State }
@@ -613,8 +616,6 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
-
-
 \teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
 {Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
@@ -631,11 +632,13 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 { Der Benutzer hat nach seiner Eingabe \enquote{(($\lambda$x.x)( }in dem Editor stehen  }
 { Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
 
-
-
 \teststep{Das Programm ist im Default State}
 {Der Benutzer drückt \enquote{(}}
 {Das Programm schreibt automatisch \enquote{)} um die Klammer zu schließen}
+
+
+
+
 
 \test{Testen von Highlighting}{tst:high}
 \tests{fnc:highlightlambda}
@@ -674,21 +677,23 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:beta}
 \tests{fnc:finished-reducing}
 \tests{fnc:output}
-
+\tests{fnc:userlib-remove}
+\tests{fnc:func-lambda-equivalent}
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
 \teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein}
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {first} und $\lambda$p.p($\lambda$a.$\lambda$b.a) ein}
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als $\lambda$-Term den von ihm gewünschten $\lambda$-Term eingibt. Dieser Name wird mit dem $\lambda$-Term gespeichert und man kann im Editor anstelle des $\lambda$-Terms den Namen eingeben.}
 
 \teststep { Der vorherige Test wurde ausgeführt}
 { Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+{ Das Programm erkennt pair aus seiner Standardbibliothek und ihm ist $\lambda$a.$\lambda$b.$\lambda$f.f a b  zugewiesen. Das Programm erkennt first aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+
 \teststep {Die vorherigen zwei Tests wurden ausgeführt}
 {Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
-{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
 {Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
@@ -704,8 +709,11 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 	\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
-	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))
-}
+	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
+
+\teststep{Das Programm ist im Default state.}
+{Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
+{Das Ergebnis ist in beiden Fällen das Gleiche. }
 
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
