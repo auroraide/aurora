@@ -504,7 +504,7 @@ Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijin-Indizes}{fnc:debruijn-output}
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
@@ -626,6 +626,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 
 
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
+\tests{fnc:shortcut}
 \tests{fnc:input}
 \tests{fnc:ln}
 \tests{fnc:editor}
@@ -734,6 +735,7 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:output}
 \tests{fnc:userlib-remove}
 \tests{fnc:func-lambda-equivalent}
+\tests{fnc:show-beta-reduction}
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
@@ -779,9 +781,10 @@ Außerdem ist der Kommentar farblich markiert. }
 {Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 
-\test{Auswertungsstrategie}{tst:strategy}
+\test{Auswertungsstrategie und De Bruijn}{tst:strategy}
 \tests{fnc:eval-order-normal}\tests{fnc:eval-order-call-by-name}\tests{fnc:eval-order-call-by-value}\tests{fnc:eval-order-options}\tests{fnc:choosing-redex}
 \tests{fnc:share}
+\tests{fnc:debruijn-output}
 
 \teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
@@ -797,6 +800,18 @@ Außerdem ist der Kommentar farblich markiert. }
 { Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
 
 
+\test{Sharing und Speichern}{tst:to-new-tab}
+\tests{fnc:to-new-tab}
+\tests{fnc:localstorage-autosave}
+\tests{fnc:localstorage-permanent}
+\tests{fnc:localstorage-restore}
+\tests{fnc:localstorage-userlib}
+\tests{fnc:localstorage-flush}
+\tests{fnc:share}
+\teststep{Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
+{Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
+{Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
+
 \teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
 { Sofern möglich wird eine gekürzte Url in sein Clipboard gespeichert }
@@ -805,16 +820,13 @@ Außerdem ist der Kommentar farblich markiert. }
 {Der Benutzer gibt den Link in seine URL Leiste ein }
 { Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
 
+\teststep{Der Benutzer hat die Funktion first in die Benutzerbibliothek eingefügt. Er hat die Eingabe \enquote{($\lambda$x.x) y} runnen lassen.}
+{Der Benutzer schließt den Browser, fährt den Pc herunter, fährt den Pc wieder hoch und startet das Programm im selben Browser.}
+{In der Benutzerbibliothek ist immer noch die Funktion \enquote{first} und in der Eingabe steht \enquote{($\lambda$x.x) y}}
 
-
-\test{In neuem Tab öffnen}{tst:to-new-tab}
-\tests{fnc:to-new-tab}
-\teststep
-{Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
-{Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
-{Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
-
-
+\teststep{Der vorherige Test wurde ausgeführt}
+{Der Benutzer drückt den Button der die History löscht}
+{Die Benutzerbibliothekfuntkionen die aus der History geladen wurden, werden gelöscht. Die Eingabe aus der History wird auch gelöscht}
 
 
 
