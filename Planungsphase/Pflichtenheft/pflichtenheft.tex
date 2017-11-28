@@ -72,7 +72,7 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 \criterium{Input editieren}{crt:input-readonly}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
-\criterium{Output editieren}{crt:output-readonly}
+\criterium{Output nicht editierbar}{crt:output-readonly}
 Der Output kann nicht bearbeitet werden.
 
 \criterium{Auswertung starten}{crt:run}
@@ -92,7 +92,7 @@ Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Norm
 \subsection{Wunschkriterien}
 
 \criteriumOptional{Zeilennummer}{crt:linenumbers}
-Neben dem Eingabefeld soll ausgeblasst eine Zeilennumerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
+Neben dem Eingabefeld soll ausgeblasst eine Zeilennummerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
 \criteriumOptional{Kommentare einfügen}{crt:comments}
 Man kann eine Zeile in der Eingabe auskommentieren. Diese Zeile wird dann vom Parser übersprungen
@@ -119,6 +119,12 @@ Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und lös
 \criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
 Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
 
+\criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
+Auf Wunsch kann ein einzelner Schritt ausgewertet werden.
+
+\criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
+Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
+
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
@@ -144,7 +150,7 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
-\criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
+\criteriumOptional{Aurora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
 
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
@@ -167,16 +173,16 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
     \hline
     shortcut & Beschreibung \\ \hline
     \textbackslash & $\lambda$ \\ \hline
-    Ctrl \enquote{+} $\hookleftarrow$ & Run \\ \hline
-    Ctrl \enquote{+} t & Stopp \\ \hline
-    Ctrl \enquote{+} p & Pause \\ \hline
-    Ctrl \enquote{+} n & Schritt \\ \hline
-    Ctrl \enquote{+} s & Speichern \\ \hline
-    Ctrl \enquote{+} o & Öffnen \\ \hline
+    Shift \enquote{+} $\hookleftarrow$ & Run \\ \hline
+    Shift \enquote{+} t & Terminate \\ \hline
+    Shift \enquote{+} p & Pause \\ \hline
+    Shift \enquote{+} n & Schritt \\ \hline
+
 
 \end{tabular}
 
-
+\criteriumOptional{Mobile-Darstellung}{crt:mobile}
+Das Programm soll stark reduziert auch auf mobilen Endgeräten laufen
 
 \subsection{Abgrenzungskriterien}
 
@@ -191,9 +197,9 @@ Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls dur
 
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung}{crt:no-projects}
 Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
-Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX export kann Code geteilt werden.
+Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX Export kann Code geteilt werden.
 \newline
-Ein Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
+Eine Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
 
 
 
@@ -216,7 +222,7 @@ Aurora ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm (z.B
 
 Für die Benutzung von Aurora werden Grundkenntnisse der Internetnutzung vorausgesetzt.
 
-Die Sprache der Benutzeroberfläsche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
+Die Sprache der Benutzeroberfläche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
 
 \subsection{Betriebsbedingungen}
 
@@ -225,7 +231,7 @@ Aurora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an belie
 
 \newpage
 \section{Produktumgebung}
-Aurora ist eine clientseitige Anwendung.
+Aurora ist eine Client seitige Anwendung.
 
 \subsection{Software}
 	\begin{itemize}
@@ -246,7 +252,7 @@ Aurora ist eine clientseitige Anwendung.
 \subsection{Hardware}
 	\begin{itemize}
 		\item Es wird ein an das Internet angeschlossener Rechner benötigt..
-		\item Desweiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
+		\item Des weiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
 	\end{itemize}
 \subsection{Orgware}
 	\begin{itemize}
@@ -281,6 +287,10 @@ Der Benutzer kann den Inhalt des Eingabefelds über die Tastatur bearbeiten.
 \fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
 
+\functionality{Anzahl von dargestellten Schritten auswählen}{fnc:amountofsteps}
+\fulfills{crt:intermediate-step-output}
+Der Benutzer kann einstellen wie viele Schritte er sehen will, wenn er auf die drei Punkte drückt um die Schritte zu sehen.
+
 \functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
 \fulfills{crt:input-readonly}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
@@ -293,6 +303,7 @@ die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die glei
 \functionality{Kommentare}{fnc:comments}
 \fulfills{crt:comments}
 Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
+Der Kommentar wird dann farbig kenntlich gemacht.
 
 \subsection{Highlighting}
 
@@ -322,7 +333,11 @@ In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von ei
 
 \functionality{Run}{fnc:run}
 \fulfills{crt:run}
-Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+
+\functionality{Step}{fnc:step}
+\fulfills{crt:single-step-eval}
+Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
 
 \functionality{Stop}{fnc:stop}
 \fulfills{crt:stop}
@@ -365,6 +380,11 @@ Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
 \fulfills{crt:user-library}
 Eine definierte Funktion der Standard- oder Benutzerbibliothek hat einen Namen und entspricht genau einem $\lambda$-Term.
 
+\functionality{Funktionsnamen-Konvention}{fnc:conventions}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
+Der Name einer Funktion beginnt ausnahmslos mit \enquote{\$}.
+
 \functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
 \fulfills{crt:std-library}
 \fulfills{crt:user-library}
@@ -406,15 +426,20 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 \subsection{Darstellung}
 
+\functionality{ Anzahl der angezeigten Schritte}{fnc:steps-to-display}
+\fulfills{crt:steps-to-display}
+Der Benutzer kann auswählen, wie viele Zwischenschritte angezeigt werden sollen.
+
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
-Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläsche einstellen.
+Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläche einstellen.
 
 \functionality{Night Mode}{fnc:night-mode}
 \fulfills{crt:night-mode}
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
 \functionality{Mobile Darstellung}{fnc:mobile}
+\fulfills{crt:mobile}
 Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
 
 
@@ -423,9 +448,11 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \subsection{Hintergrundablauf}
 
 \functionality{$\beta$-Reduktion}{fnc:beta}
+\fulfills{crt:run}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
 \functionality{Auswertung beendet}{fnc:finished-reducing}
+\fulfills{crt:run}
 Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sind.
 
 \functionality{Schleifenerkennung}{fnc:loop-test}
@@ -433,7 +460,7 @@ Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sin
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
 
 \functionality{Kein Timeout}{fnc:run-no-timeout}
-\fulfills{crt:infiniteloop}
+\fulfills{crt:loop-detection}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
 
@@ -498,7 +525,7 @@ Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 \fulfills{crt:intermediate-step-output}
 Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
-\functionality{De Bruijin-Indizes}{fnc:debruijn-output}
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
 Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
@@ -550,18 +577,23 @@ Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstütze
 Die Berechnung der Hashwerte ist nicht mehr als 10\% der Gesamtrechenzeit in Anspruch.
 
 \nonFunctionality{Standardbibliothek}{nfc:standard-library-content}
-Die Standardbibliothek kann bis zu 20 vordefinierte Funktionen beinhalten.
+Die Standardbibliothek kann bis zu 50 vordefinierte Funktionen beinhalten.
 
 \nonFunctionality{Benutzerbibliothek}{nfc:user-library-content}
-Die Benutzerbibliothek kann bis zu 10 selbst definierte Funktionen beinhalten.
+Die Benutzerbibliothek kann bis zu 50 selbst definierte Funktionen beinhalten.
 
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
-Die Anzahl der sichtbaren Zwischenergebnisse ist auf 30 beschränkt.
+Die Anzahl der sichtbaren Zwischenergebnisse ist auf 100 beschränkt.
 
 \nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
-Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
+Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 50 Zwischenergebnisse vorliegen.
 
-
+\nonFunctionality{Eingabedefinition}{nfc:inpudefinition}
+Das \enquote{\textbackslash} ist die einzige Möglichkeit um das \enquote{Lambdazeichen} einzugeben.
+Eine Variable darf nur ein kleingeschriebener Buchstabe sein. Sonderzeichen, Zahlen oder Großgeschriebene Buchstaben dürfen keine Variablen sein.
+Der Punkt bei der Abstraktion darf nur mit dem Punktzeichen \enquote{.} eingegeben werden.
+Funktionsnamen aus der Standard- und Benutzerbibliothek müssen mit einem vorangestellten \$ angegeben werden. Ohne \$ -Zeichen wird der Funktionsname als Variable behandelt.
+Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müssen nicht mit einem \$ vorangestellt werden.
 
 \newpage
 \section{Tests}
@@ -740,6 +772,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:editor}
 \tests{fnc:bracket}
 \tests{fnc:run}
+\tests{fnc:conventions}
 \tests{fnc:stdlib}
 \tests{fnc:userlib-vs-stdlib}
 \tests{fnc:userlib-extend}
@@ -750,6 +783,9 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:output}
 \tests{fnc:userlib-remove}
 \tests{fnc:func-lambda-equivalent}
+\tests{fnc:show-beta-reduction}
+\tests{fnc:amountofsteps}
+
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
@@ -767,12 +803,13 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
-{Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+{Der Benutzer gibt in den Editor \enquote {\$plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
 
 
-\teststep { Der vorherige Test wurde soeben durchgeführt}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
+\teststep { Der vorherige Test wurde soeben durchgeführt.}
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
+
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -782,21 +819,27 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
+\teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben }
+{Der Benutzer wählt aus, dass er nur 5 Schritte sehen will. Dann drückt er auf Run und drückt auf die drei Punkte}
+{Es werden nur die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er auf die drei Punkte unter den Schritten drücken}
+
 \teststep{Das Programm ist im Default state.}
 {Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
 {Das Ergebnis ist in beiden Fällen das Gleiche. }
 
 \teststep {Das Programm ist im Default-State}
-{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
-{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+{Der Benutzer gibt \enquote{\$ minus 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion minus und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
 \teststep{Das Programm befindet sich im Default-State}
 {Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
 {Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 
-\test{Auswertungsstrategie}{tst:strategy}
+\test{Auswertungsstrategie und De Bruijn}{tst:strategy}
 \tests{fnc:eval-order-normal}\tests{fnc:eval-order-call-by-name}\tests{fnc:eval-order-call-by-value}\tests{fnc:eval-order-options}\tests{fnc:choosing-redex}
+\tests{fnc:share}
+\tests{fnc:debruijn-output}
 
 \teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
@@ -812,26 +855,64 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 { Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
 
 
+\test{Sharing und Speichern}{tst:to-new-tab}
+\tests{fnc:to-new-tab}
+\tests{fnc:localstorage-autosave}
+\tests{fnc:localstorage-permanent}
+\tests{fnc:localstorage-restore}
+\tests{fnc:localstorage-userlib}
+\tests{fnc:localstorage-flush}
+\tests{fnc:share}
+\teststep{Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
+{Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
+{Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
+
 \teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
-{ Eine gekürzte Url wird in sein Clipboard gespeichert }
+{ Sofern möglich wird eine gekürzte Url in sein Clipboard gespeichert }
 
 \teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
 {Der Benutzer gibt den Link in seine URL Leiste ein }
 { Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
 
+\teststep{Der Benutzer hat die Funktion first in die Benutzerbibliothek eingefügt. Er hat die Eingabe \enquote{($\lambda$x.x) y} runnen lassen.}
+{Der Benutzer schließt den Browser, fährt den PC herunter, fährt den PC wieder hoch und startet das Programm im selben Browser.}
+{In der Benutzerbibliothek ist immer noch die Funktion \enquote{first} und in der Eingabe steht \enquote{($\lambda$x.x) y}}
 
+\teststep{Der vorherige Test wurde ausgeführt}
+{Der Benutzer drückt den Button der die History löscht}
+{Die Benutzerbibliothekfuntkionen die aus der History geladen wurden, werden gelöscht. Die Eingabe aus der History wird auch gelöscht}
 
-\test{In neuem Tab öffnen}{tst:to-new-tab}
-\tests{fnc:to-new-tab}
-\teststep
-{Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
-{Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
-{Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
+\test{Tutorial and Prettyprint}{tst:prettytut}
+\tests{fnc:tutorial}
+\tests{fnc:prettierprint}
 
+\teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
+{Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
+{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
+	\\
+	\noindent\hspace*{5mm}
+	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
 
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt auf den Hilfe Knopf}
+{Es öffnet sich ein Tutorial, welches die Funktionen des Programmes erklärt}
 
+\test{Ausgabe von Zwischenschritten}{tst:output-intermediate-results}
+\tests {fnc:steps-to-display}
+\tests{fnc:step}
 
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+
+\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {drei-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+{Der Benutzer drückt erneut auf den \enquote {drei-Punkte}-Button.}
+{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {drei-Punkte}-Button ersetzt.}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 \newpage
 \section{Entwicklungsumgebung}
@@ -954,13 +1035,13 @@ Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
 \newline
 (dt. Zwischenablage) Speicher, der für das Kopieren von Daten zwischen zwei Programmen gedacht ist. In der Zwischenablage Gespeichertes kann in anderen Programmen einfach eingefügt werden.
 
-\textbf{local Storage}
+\textbf{localStorage}
 \newline
-Local Storage ist ein Teil von Web Storage auch \enquote{DOM Storage} genannt. Local Storage erlaubt es Daten lokal zu speichern, sogenannte \enquote{Local Shared Objects}, auch wenn der Benutzer seinen Browser schließt.
+localStorage ist ein Teil von Web Storage auch \enquote{DOM Storage} genannt. localStorage erlaubt es Daten lokal zu speichern, sogenannte \enquote{Local Shared Objects}, auch wenn der Benutzer seinen Browser schließt.
 
 \textbf{GWT}
 \newline
-Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu schreiben. Gwt beinhaltet einen Jave zu Javascript compiler um dies zu ermöglichen.
+Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu schreiben. Um dies zu ermöglichen, beinhaltet GWT einen Java zu Javascript Compiler.
 
 \textbf{Shortcut}
 \newline
@@ -976,5 +1057,5 @@ IPD steht für \enquote{Institute für Programmstrukturen und Datenverwaltung} u
 
 \textbf{Default-State}
 \newline
-Der Default-State ist der Zustand des Programmes in dem es ist, wenn es zum ersten Mal geöffnet wurde und nichts verstellt wurde. Im Default-State wird nichts aus dem local storage geladen.
+Der Default-State ist der Zustand des Programmes in dem es ist, wenn es zum ersten Mal geöffnet wurde und nichts verstellt wurde. Im Default-State wird nichts aus dem localStorage geladen.
 \end{document}
