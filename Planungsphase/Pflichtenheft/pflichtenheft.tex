@@ -648,15 +648,15 @@ Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müs
 {Der Benutzer gibt einen $\lambda$-Term in das Eingabefeld ein, der zur Berechnung länger als 10 Sekunden dauert.
 Danach drückt er auf \enquote{Run}.}
 {Das Ausgabefeld bleibt leer. Der Schrittzähler fängt an hochzuzählen.
-Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
-Der \enquote{Step}-Knopf wird ausgegraut.}
+\newline Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
+\newline Der \enquote{Step}-Knopf wird ausgegraut.}
 
 \teststep{Zustand vom vorherigen Schritt. Die Berechnung läuft.}
 {Der Benutzer drückt auf \enquote{Pause}.}
 {Der Schrittzähler zählt nicht mehr hoch, sondern zeight an, wie viele Schritte bisher berechnet wurden.
 Es wird der zuletzt berechnete Schritt in der Schrittliste angezeigt. Das Ausgabefeld bleibt leer.
-Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
-Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
+\newline Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
+\newline Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
 
 \teststep{Zustand aus dem vorherigem Schritt. } % \tests{fnc:no-edit-while-running}
 {Der Benutzer klickt in das Eingabefeld und drückt auf eine alphanumerische Taste.}
@@ -665,15 +665,15 @@ Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
 \teststep{Zustand aus vorherigem Schritt.}
 {Der Benutzer drückt auf \enquote{Continue}.}
 {Das Ausgabefeld bleibt leer. Der Schrittzähler fängt an hochzuzählen.
-Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
-Der \enquote{Step}-Knopf wird ausgegraut.}
+\newline Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
+\newline Der \enquote{Step}-Knopf wird ausgegraut.}
 
 \teststep{Zustand vom vorherigen Schritt. Die Berechnung läuft.}
 {Der Benutzer drückt auf \enquote{Pause}.}
 {Der Schrittzähler zählt nicht mehr hoch, sondern zeight an, wie viele Schritte bisher berechnet wurden.
 Es wird der zuletzt berechnete Schritt in der Schrittliste angezeigt. Das Ausgabefeld bleibt leer.
-Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
-Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
+\newline Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
+\newline Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
 
 \teststep{Zustand aus vorherigem Schritt.}
 {Der Benutzer klickt auf \enquote{Step}.}
@@ -889,7 +889,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 
 \teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
 {Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
-{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
+{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z))
 	\\
 	\noindent\hspace*{5mm}
 	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
