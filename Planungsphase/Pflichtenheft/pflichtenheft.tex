@@ -72,7 +72,7 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 \criterium{Input editieren}{crt:input-readonly}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
-\criterium{Output editieren}{crt:output-readonly}
+\criterium{Output nicht editierbar}{crt:output-readonly}
 Der Output kann nicht bearbeitet werden.
 
 \criterium{Auswertung starten}{crt:run}
@@ -119,6 +119,12 @@ Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und lös
 \criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
 Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
 
+\criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
+Auf Wunsch kann ein einzelner Schritt ausgewertet werden.
+
+\criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
+Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
+
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
@@ -144,7 +150,7 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
-\criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
+\criteriumOptional{Aurora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
 
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
@@ -409,6 +415,10 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 
 \subsection{Darstellung}
+
+\functionality{ Anzahl der angezeigten Schritte}{fnc:steps-to-display}
+\fulfills{crt:steps-to-display}
+Der Benutzer kann auswählen, wie viele Zwischenschritte angezeigt werden sollen.
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
@@ -821,13 +831,27 @@ Außerdem ist der Kommentar farblich markiert. }
 { Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
 
 \teststep{Der Benutzer hat die Funktion first in die Benutzerbibliothek eingefügt. Er hat die Eingabe \enquote{($\lambda$x.x) y} runnen lassen.}
-{Der Benutzer schließt den Browser, fährt den Pc herunter, fährt den Pc wieder hoch und startet das Programm im selben Browser.}
+{Der Benutzer schließt den Browser, fährt den Pc herunter, fährt den PC wieder hoch und startet das Programm im selben Browser.}
 {In der Benutzerbibliothek ist immer noch die Funktion \enquote{first} und in der Eingabe steht \enquote{($\lambda$x.x) y}}
 
 \teststep{Der vorherige Test wurde ausgeführt}
-{Der Benutzer drückt den Button der die History löscht}
-{Die Benutzerbibliothekfuntkionen die aus der History geladen wurden, werden gelöscht. Die Eingabe aus der History wird auch gelöscht}
+{Der Benutzer drückt den Button der die History löscht.}
+{Die Benutzerbibliothekfuntkionen die aus der History geladen wurden, werden gelöscht. Die Eingabe aus der History wird auch gelöscht.}
 
+\test{Ausgabe von Zwischenschritten}{tst:output-intermediate-results}
+\tests {fnc:steps-to-display}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+
+\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {drei-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+{Der Benutzer drückt erneut auf den \enquote {drei-Punkte}-Button.}
+{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {drei-Punkte}-Button ersetzt.}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 
 \newpage
