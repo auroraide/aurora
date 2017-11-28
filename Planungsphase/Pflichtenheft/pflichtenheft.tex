@@ -175,7 +175,8 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 
 \end{tabular}
 
-
+\criteriumOptional{Mobile-Darstellung}{crt:mobile}
+Das Programm soll stark reduziert auch auf mobilen Endgeräten laufen
 
 \subsection{Abgrenzungskriterien}
 
@@ -420,6 +421,7 @@ Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der B
 Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
 
 \functionality{Mobile Darstellung}{fnc:mobile}
+\fulfills{crt:mobile}
 Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
 
 
@@ -731,6 +733,7 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:editor}
 \tests{fnc:bracket}
 \tests{fnc:run}
+\tests{fnc:conventions}
 \tests{fnc:stdlib}
 \tests{fnc:userlib-vs-stdlib}
 \tests{fnc:userlib-extend}
