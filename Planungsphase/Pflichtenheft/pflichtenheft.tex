@@ -339,13 +339,13 @@ Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den
 \fulfills{crt:single-step-eval}
 Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
 
-\functionality{Stop}{fnc:stop}
+\functionality{Terminate}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Terminate}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum \enquote {Terminate}-Button, die Berechnung weiterlaufen lassen.
 
 \functionality{Continue}{fnc:continue}
 \fulfills{crt:continue}
@@ -353,7 +353,7 @@ Der Benutzer kann mit dem \enquote{Continue}-Button eine mit Pause unterbrochene
 
 \functionality{Share}{fnc:share}
 \fulfills{crt:share}
-Der Benutzer kann mithilfe des Share-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
+Der Benutzer kann mithilfe des \enquote{Share}-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
 
 
 
@@ -421,6 +421,25 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 \fulfills{crt:own-eval-strategy}
 Der Benutzer kann zwischen den drei Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen, oder selbst den nächsten auszuwertenden Redex auswählen.
 
+
+
+\subsection{Ausgabe}
+
+\functionality{Ausgabefeld}{fnc:output}
+\fulfills{crt:run}
+Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:output-readonly}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
+
+\functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
+\fulfills{crt:intermediate-step-output}
+Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
+
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
+\fulfills{crt:debruijn-output}
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
 
 
@@ -493,6 +512,26 @@ Der Benutzer kann die Einträge der Historie löschen.
 Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
 
 
+\subsection{Shortcuts}
+
+\functionality{Shortcuts}{fnc:shortcut}
+\fulfills{crt:shortcuts}
+Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
+
+\functionality{$\lambda$-Shortcut}{fnc:lambda-shortcut}
+Durch Eingabe von \enquote {\textbackslash} wird ein \enquote {$\lambda$} ausgegeben.
+
+\functionality{Run-Shortcut}{fnc:run-shortcut}
+Drücken von Shift \enquote {+} $\hookleftarrow$ ist äquivalent zum Drücken des \enquote {Run}-Buttons.
+
+\functionality{Terminate-Shortcut}{fnc:terminate-shortcut}
+Drücken von Shift \enquote {+} t ist äquivalent zum Drücken des \enquote {Terminate}-Buttons.
+
+\functionality{Pause-Shortcut}{fnc:pause-shortcut}
+Drücken von Shift \enquote {+} p ist äquivalent zum Drücken des \enquote {Paues}-Buttons.
+
+\functionality{Schritt}{fnc:step-shortcut}
+Drücken von Shift \enquote {+} n ist äquivalent zum Drücken des \enquote {Schritt}-Buttons.
 
 
 \subsection{Sonstige Funktionalität}
@@ -505,33 +544,12 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 \fulfills{crt:export-latex}
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
-\functionality{Shortcuts}{fnc:shortcut}
-\fulfills{crt:shortcuts}
-Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
-
 \functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
 Durch drücken des \enquote {Hilfe}-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
 
 
 
-\subsection{Ausgabe}
-
-\functionality{Ausgabefeld}{fnc:output}
-\fulfills{crt:run}
-Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
-
-\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
-\fulfills{crt:output-readonly}
-Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
-
-\functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
-\fulfills{crt:intermediate-step-output}
-Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
-
-\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
-\fulfills{crt:debruijn-output}
-Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
 
 
 
@@ -637,7 +655,7 @@ Der Name von Funktionen, unabhängig davon, wo sie definiert sind, beginnt ausna
 {Es passiert nichts.}
 
 \teststep{Zustand aus vorherigem Schritt.}
-{Der Benutzer klickt auf \enquote{Stop}.}
+{Der Benutzer klickt auf \enquote{Terminate}.}
 {Alle Schritte werden gelöscht. Das Ausgabefeld wird leer. Die Eingabe im Eingabefeld bleibt erhalten.}
 
 \teststep{Zustand vom vorherigen Schritt.}
@@ -701,7 +719,7 @@ Es wird der zuletzt berechnete Schritt in der Schrittliste angezeigt. Das Ausgab
 {Es wird \em{eine} $\beta$-Reduktion ausgeführt und der damit resultierende neue Schritt angezeigt.}
 
 \teststep{Zustand aus vorherigem Schritt.}
-{Der Benutzer klickt auf \enquote{Stop}.}
+{Der Benutzer klickt auf \enquote{Terminate}.}
 {Alle Schritte werden gelöscht.
 Der \enquote{Continue}-Knopf wird mit dem \enquote{Run}-Knopf ersetzt.}
 
@@ -759,7 +777,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Die mobile Version der Webseite wird geöffnet und korrekt dargestellt.}
 
 \teststep {Das Programm ist im Default State.}
-{Der Benutzer drückt auf den Nachtmodus-Button}
+{Der Benutzer drückt auf den \enquote{Night Mode}-Button}
 {Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
 
 
@@ -809,7 +827,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:amountofsteps}
 
 \teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
+{Der Benutzer drückt im Feld Benutzerbibliothek auf den \enquote{Plus}-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
 \teststep {Das Programm ist im Default-State}
@@ -868,7 +886,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 { Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
 
 \teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z)}
-{Der Benutzer drückt auf den Step-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
+{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
 {Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
 
 
@@ -947,7 +965,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 		\end{itemize}
 		\item \textbf{Build System}
 		\begin{itemize}
-			\item Bazel 
+			\item Bazel
             \item Apache Ant
 		\end{itemize}
 		\item \textbf{Editor / IDE}
