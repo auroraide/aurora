@@ -619,7 +619,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:ln}
 \tests{fnc:editor}
 \tests{fnc:bracket}
-\tests{fnc:no-edit-while-running}
+\tests{fnc:no-edit-while-running} % TODO update \tests
 \tests{fnc:run}
 \tests{fnc:eval-order-normal}
 \tests{fnc:beta}
@@ -629,13 +629,14 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:pause}
 \tests{fnc:output-readonly}
 
-\teststep { Das Programm ist im Default -State }
-{ Der Benutzer drückt \textbackslash }
-{Im Editor erscheint ein $\lambda$}
+\teststep {Das Programm ist im Anfangszustand.}
+{Der Benutzer drückt \enquote{\textbackslash}.}
+{Im Editor erscheint ein $\lambda$. Kein \enquote{\textbackslash} wird hinzugefügt.}
 
-\teststep {Das Programm ist geöffnet und es ist im Default-State}
-{Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
-{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
+\teststep {Zustand aus vorherigem Schritt.}
+{Der Benutzer gibt $\lambda x.x$ in das Eingabefeld ein und drückt auf \enquote{Run}.}
+{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda x.x$.
+Das Eingabefeld }
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 { Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
@@ -644,6 +645,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ind den Editor ein und drückt auf run}
 {Das Programm gibt $\lambda$s.$\lambda$z. ( s ( s ( s (s z))) aus. (Dieser Test gibt 4 aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist) }
+
 \teststep{Das Programm ist im Default-State}
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
@@ -652,29 +654,48 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
-\teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
+\teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
 {Der Benutzer will das Eingabefeld editieren}
 {Dies ist nicht möglich}
 
 \teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
 {Der Benutzer betätigt den Pause-Button}
-{Das Programm hört auf $\beta$-Redutkionen zu berechnen. Es ist allerdings möglich auf den Continue Button zu drücken um weiter zu Rechnen}
+{Das Programm hört auf $\beta$-Redutkionen zu berechnen. Es ist allerdings möglich auf den \enquote{Continue} Button zu drücken um weiter zu Rechnen}
 
-\teststep { Das Programm ist im Default-State}
-{ Der Benutzer hat nach seiner Eingabe \enquote{(($\lambda$x.x)( }in dem Editor stehen  }
-{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
+%% TODO add click on continue button
 
-\teststep{Das Programm ist im Default State}
-{Der Benutzer drückt \enquote{(}}
-{Das Programm schreibt automatisch \enquote{)} um die Klammer zu schließen}
+\test{Einfaches Eingabe und Run Szenario.}{tst:simple-input-run}
+\tests{fnc:export-latex}
+\tests{fnc:comments}
+\tests{fnc:bracket} % TODO
+\tests{fnc:input}
+\tests{fnc:editor}
+\tests{fnc:run}
+\teststep{Anfangszustand nach dem öffnen von $\lambda$urora.}
+{Der Benutzer gibt \texttt{(} ein.}
+{Im Eingabefeld steht jetzt $()$. Die Klammer zu wurde verfollständigt.}
 
-\teststep {Das Programm kann in jedem Status sein}
-{Der Benutzer will das Ausgabefeld editieren}
-{Dies ist unmöglich}
+\teststep {Zustand vom letzten Schritt.}
+{Der Benutzer bewegt den Cursor zwischen die beiden Klammern und gibt \texttt{\textbackslash} ein.}
+{Es erscheint ein $\lambda$ an Stelle von \texttt{\textbackslash}. Im Eingabefeld steht kein \texttt{\textbackslash}.}
 
+\teststep{Im Eingabefeld steht $(\lambda)$. Cursor ist nach dem $\lambda$}
+{Der Benutzer gibt \texttt{x.x} ein und drückt auf \enquote{Run}.}
+{Im Eingabefeld steht $(\lambda x.x)$. Es wird $\lambda x.x$ ausgegeben.} % TODO vielleicht hieran noch Stop/Pause und ausgrauungen testen?
 
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer löscht das letzte Zeichen vom Eingabefeld (das \texttt{)}) und drückt auf \enquote{Run}.}
+{Die Hintergrundfarbe vom Eingabefeld wird Rot und es werden im Ausgabefeld häufige Fehler angezeigt.}
 
-\test{Testen von Highlighting}{tst:high}
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer fügt eine neue Zeile am Ende der Eingabe hinzu mit \texttt{\# hall)o}. Benutzer drückt auf \enquote{Run}.}
+{Keine Änderung. Im Ausgabefeld stehen immer noch häufige Fehler und das Eingabefeld hat eine rote Hintergrundfarbe.}
+
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer füght eine neue Zeile am Ender der Eingabe hinzu mit $) \lambda x.x$ und drückt auf \enquote{Run}.}
+{Im Ausgabefeld erscheint $\lambda x.x$. Die Hintergrundfarbe vom Eingabefeld wird auf ihren Default-Wert zurückgesetzt.}
+
+\test{Highlighting}{tst:high}
 \tests{fnc:highlightlambda}
 \tests{fnc:highlightparentheses}
 \tests{fnc:highlightfunctions}
