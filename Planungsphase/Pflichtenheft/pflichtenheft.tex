@@ -293,6 +293,7 @@ die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die glei
 \functionality{Kommentare}{fnc:comments}
 \fulfills{crt:comments}
 Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
+Der Kommentar wird dann farbig kenntlich gemacht.
 
 \subsection{Highlighting}
 
@@ -423,9 +424,11 @@ Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen
 \subsection{Hintergrundablauf}
 
 \functionality{$\beta$-Reduktion}{fnc:beta}
+\fulfills{crt:run}
 Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
 
 \functionality{Auswertung beendet}{fnc:finished-reducing}
+\fulfills{crt:run}
 Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sind.
 
 \functionality{Schleifenerkennung}{fnc:loop-test}
@@ -433,7 +436,7 @@ Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sin
 Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
 
 \functionality{Kein Timeout}{fnc:run-no-timeout}
-\fulfills{crt:infiniteloop}
+\fulfills{crt:loop-detection}
 Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
 
 
@@ -625,6 +628,8 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:editor}
 \tests{fnc:bracket}
 \tests{fnc:no-edit-while-running}
+\tests{fnc:loop-test}
+\tests{fnc:run-no-timeout}
 \tests{fnc:run}
 \tests{fnc:eval-order-normal}
 \tests{fnc:beta}
@@ -632,7 +637,9 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \tests{fnc:output}
 \tests{fnc:stop}
 \tests{fnc:pause}
+\tests{fnc:continue}
 \tests{fnc:output-readonly}
+\tests{fnc:comments}
 
 \teststep { Das Programm ist im Default -State }
 { Der Benutzer drückt \textbackslash }
@@ -649,6 +656,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ind den Editor ein und drückt auf run}
 {Das Programm gibt $\lambda$s.$\lambda$z. ( s ( s ( s (s z))) aus. (Dieser Test gibt 4 aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist) }
+
 \teststep{Das Programm ist im Default-State}
 {der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
@@ -677,6 +685,11 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Der Benutzer will das Ausgabefeld editieren}
 {Dies ist unmöglich}
 
+\teststep{Das Programm ist im Default-State}
+{Der Benutzer gibt in den Editor ein \enquote{\#dies ist ein test ($\lambda$z.z) a } , drückt dann enter und schreibt in der zweiten Zeile 
+\newline \enquote{($\lambda$ x. x) y}  und drückt dannach auf Run}
+{Das Programm überspringt den Lambdaterm in der Kommentarzeile und berechenet nur den aus der unteren Zeile. Das Programm gibt y aus.
+Außerdem ist der Kommentar farblich markiert. }
 
 
 \test{Testen von Highlighting}{tst:high}
@@ -765,6 +778,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 
 \test{Auswertungsstrategie}{tst:strategy}
 \tests{fnc:eval-order-normal}\tests{fnc:eval-order-call-by-name}\tests{fnc:eval-order-call-by-value}\tests{fnc:eval-order-options}\tests{fnc:choosing-redex}
+\tests{fnc:share}
 
 \teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
@@ -782,7 +796,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 
 \teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
-{ Eine gekürzte Url wird in sein Clipboard gespeichert }
+{ Sofern möglich wird eine gekürzte Url in sein Clipboard gespeichert }
 
 \teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
 {Der Benutzer gibt den Link in seine URL Leiste ein }
