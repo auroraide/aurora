@@ -78,8 +78,8 @@ Der Output kann nicht bearbeitet werden.
 \criterium{Auswertung starten}{crt:run}
 Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform.
 
-\criterium{Auswertung stoppen}{crt:stop}
-Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
+\criterium{Auswertung terminieren}{crt:stop}
+Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit terminieren.
 
 \criterium{Zwischenschritte}{crt:intermediate-step-output}
 Nach der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
@@ -167,12 +167,11 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
     \hline
     shortcut & Beschreibung \\ \hline
     \textbackslash & $\lambda$ \\ \hline
-    Ctrl \enquote{+} $\hookleftarrow$ & Run \\ \hline
-    Ctrl \enquote{+} t & Stopp \\ \hline
-    Ctrl \enquote{+} p & Pause \\ \hline
-    Ctrl \enquote{+} n & Schritt \\ \hline
-    Ctrl \enquote{+} s & Speichern \\ \hline
-    Ctrl \enquote{+} o & Öffnen \\ \hline
+    Shift \enquote{+} $\hookleftarrow$ & Run \\ \hline
+    Shift \enquote{+} t & Terminate \\ \hline
+    Shift \enquote{+} p & Pause \\ \hline
+    Shift \enquote{+} n & Schritt \\ \hline
+
 
 \end{tabular}
 
@@ -325,13 +324,13 @@ In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von ei
 \fulfills{crt:run}
 Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
-\functionality{Stop}{fnc:stop}
+\functionality{Terminate}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Terminate}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Terminate-Button, die Berechnung weiterlaufen lassen.
 
 \functionality{Continue}{fnc:continue}
 \fulfills{crt:continue}
@@ -558,10 +557,10 @@ Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstütze
 Die Berechnung der Hashwerte ist nicht mehr als 10\% der Gesamtrechenzeit in Anspruch.
 
 \nonFunctionality{Standardbibliothek}{nfc:standard-library-content}
-Die Standardbibliothek kann bis zu 20 vordefinierte Funktionen beinhalten.
+Die Standardbibliothek kann bis zu 50 vordefinierte Funktionen beinhalten.
 
 \nonFunctionality{Benutzerbibliothek}{nfc:user-library-content}
-Die Benutzerbibliothek kann bis zu 10 selbst definierte Funktionen beinhalten.
+Die Benutzerbibliothek kann bis zu 50 selbst definierte Funktionen beinhalten.
 
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
 Die Anzahl der sichtbaren Zwischenergebnisse ist auf 100 beschränkt.
@@ -673,7 +672,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
 \teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
-{Der Benutzer drückt auf den Stopp-Button}
+{Der Benutzer drückt auf den Terminate-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
 \teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
