@@ -599,12 +599,14 @@ Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müs
 \section{Tests}
 
 \test{Einfaches Eingabe- und Runzenario.}{tst:simple-input-run}
-\tests{fnc:export-latex}
 \tests{fnc:comments}
 \tests{fnc:bracket}
 \tests{fnc:input}
+\tests{fnc:output}
+\tests{fnc:finished-reducing}
 \tests{fnc:editor}
 \tests{fnc:run}
+\tests{fnc:output-readonly}
 % TODO \tests error printing
 \teststep{Anfangszustand nach dem öffnen von $\lambda$urora.}
 {Der Benutzer gibt \texttt{(} ein.}
@@ -618,8 +620,17 @@ Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müs
 {Der Benutzer gibt \texttt{x.x} ein und drückt auf \enquote{Run}.}
 {Im Eingabefeld steht $(\lambda x.x)$. Es wird $\lambda x.x$ ausgegeben.}
 
+\teststep{Zustand aus dem vorherigem Schritt.} % \tests{fnc:output-readonly}
+{Der Benutzer klickt in das Ausgabefeld und drückt auf eine alphanumerische Taste.}
+{Es passiert nichts.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Der Benutzer klickt auf \enquote{Stop}.}
+{Alle Schritte werden gelöscht. Das Ausgabefeld wird leer. Die Eingabe im Eingabefeld bleibt erhalten.}
+
 \teststep{Zustand vom vorherigen Schritt.}
-{Der Benutzer löscht das letzte Zeichen vom Eingabefeld (das \texttt{)}) und drückt auf \enquote{Run}.}
+{Der Benutzer klickt in das Eingabefeld und navigiert den Cursor an das Ende der Eingabe.
+Der Benutzer löscht das letzte Zeichen vom Eingabefeld (das \texttt{)}) und drückt auf \enquote{Run}.}
 {Die Hintergrundfarbe vom Eingabefeld wird Rot und es werden im Ausgabefeld häufige Fehler angezeigt.}
 
 \teststep{Zustand vom vorherigen Schritt.}
@@ -627,22 +638,20 @@ Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müs
 {Keine Änderung. Im Ausgabefeld stehen immer noch häufige Fehler und das Eingabefeld hat eine rote Hintergrundfarbe.}
 
 \teststep{Zustand vom vorherigen Schritt.}
-{Der Benutzer füght eine neue Zeile am Ender der Eingabe hinzu mit $) \lambda x.x$ und drückt auf \enquote{Run}.}
+{Der Benutzer füght eine neue Zeile am Ende der Eingabe hinzu mit $) \lambda x.x$ und drückt auf \enquote{Run}.}
 {Im Ausgabefeld erscheint $\lambda x.x$. Die Hintergrundfarbe vom Eingabefeld wird auf ihren Default-Wert zurückgesetzt.}
 
 \test{Run, Pause, Step}{tst:run-pause-stop}
 \tests{fnc:input}
 %\tests{fnc:ln}
 \tests{fnc:editor}
-\tests{fnc:no-edit-while-running} % TODO update \tests
+\tests{fnc:no-edit-while-running}
 \tests{fnc:run}
 %\tests{fnc:eval-order-normal}
 \tests{fnc:beta}
 %\tests{fnc:finished-reducing}
-%\tests{fnc:output}
 \tests{fnc:stop}
 \tests{fnc:pause}
-%\tests{fnc:output-readonly}
 
 \teststep {Anfangszustand.}
 {Der Benutzer gibt einen $\lambda$-Term in das Eingabefeld ein, der zur Berechnung länger als 10 Sekunden dauert.
