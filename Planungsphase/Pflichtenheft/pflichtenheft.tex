@@ -289,7 +289,7 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch ein
 
 \functionality{Anzahl von dargestellten Schritten auswählen}{fnc:amountofsteps}
 \fulfills{crt:intermediate-step-output}
-Der Benutzer kann einstellen wie viele Schritte er sehen will, wenn er auf die drei Punkte drückt um die Schritte zu sehen.
+Der Benutzer kann einstellen wie viele Schritte er sehen will, wenn er auf den \enquote {3-Punkte}-Button drückt um die Schritte zu sehen.
 
 \functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
 \fulfills{crt:input-readonly}
@@ -431,7 +431,7 @@ Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
 \fulfills{crt:intermediate-step-output}
-Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
+In der GUI wird dem Benutzer nach einer erfolgreichen Berechnung ein \enquote {3-Punkte}-Butto angezeigt. Wenn er auf diesen klickt, werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
 \functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
@@ -792,7 +792,7 @@ Außerdem ist der Kommentar farblich markiert. }
 
 
 \teststep { Der vorherige Test wurde soeben durchgeführt.}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
+{ Der Benutzer drückt auf den \enquote {3-Punkte}-Button um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
 
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -804,8 +804,8 @@ Außerdem ist der Kommentar farblich markiert. }
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
 \teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben }
-{Der Benutzer wählt aus, dass er nur 5 Schritte sehen will. Dann drückt er auf Run und drückt auf die drei Punkte}
-{Es werden nur die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er auf die drei Punkte unter den Schritten drücken}
+{Der Benutzer wählt aus, dass er nur 5 Schritte sehen will, er drückt auf \enquote {Run} und wartet, bis das Ergebnis zu sehen ist, anschließend drückt er auf den \enquote {3-Punkte}-Button.}
+{Es werden nun die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er erneut auf den Button drücken.}
 
 \teststep{Das Programm ist im Default state.}
 {Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
@@ -887,16 +887,16 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:step}
 
 \teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
-{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
-{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+{Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
-\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {drei-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
-{Der Benutzer drückt erneut auf den \enquote {drei-Punkte}-Button.}
-{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {drei-Punkte}-Button ersetzt.}
+\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {3-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+{Der Benutzer drückt erneut auf den \enquote {3-Punkte}-Button.}
+{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {3-Punkte}-Button ersetzt.}
 
 \teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
-{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
-{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+{Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 \test{Shortcuts}{tst:allshortcuts}
 \tests{fnc:shortcut}
