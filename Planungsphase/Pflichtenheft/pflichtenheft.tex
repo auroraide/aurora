@@ -123,10 +123,13 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
 \criteriumOptional{Pause-Button}{crt:pause}
-Der Pause-Button unterbricht die laufende Berechnung
+Der \enquote{Pause}-Button unterbricht die laufende Berechnung.
+
+\criteriumOptional{Continue-Button}{crt:continue}
+Der \enquote{Continue}-Button setzt eine pausierte Berechnung fort.
 
 \criteriumOptional{Share-Button}{crt:share}
-Ein Share-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
+Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
 \criteriumOptional{Öffnen in neuem Tab}{crt:to-new-tab}
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
@@ -282,8 +285,14 @@ Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch ein
 \fulfills{crt:input-readonly}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
 
+\functionality{Pretty Print}{fnc:prettierprint}
+\fulfills{crt:pretty-print}
+Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann
+die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die gleiche Eingabe wie in der Zeile davor handelt.
 
-
+\functionality{Kommentare}{fnc:comments}
+\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
 
 \subsection{Highlighting}
 
@@ -317,11 +326,15 @@ Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den
 
 \functionality{Stop}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den Pause-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
+
+\functionality{Continue}{fnc:continue}
+\fulfills{crt:continue}
+Der Benutzer kann mit dem \enquote{Continue}-Button eine mit Pause unterbrochenen Berechnung fortsetzen lassen.
 
 \functionality{Share}{fnc:share}
 \fulfills{crt:share}
@@ -469,11 +482,6 @@ Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Pr
 \fulfills{crt:tutorial}
 Durch drücken des Hilfe-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
 
-\functionality{Kommentare}{fnc:comments}
-\fulfills{crt:comments}
-Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
-
-
 
 
 \subsection{Ausgabe}
@@ -558,6 +566,38 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \newpage
 \section{Tests}
 
+\test{Einstellungsmenü}{tst:settings}
+\tests{fnc:language-selection}
+\teststep{Das Programm befindet sich im Default-Zustand.}
+{Der Benutzer drückt auf den Einstellungen Knopf.}
+{Die Sidebar wird mit der Einstellungen-Sidebar ersetzt.}
+
+\teststep{Zustand aus dem vorherigen Schritt.}
+{Der Benutzer drückt auf \enquote{Language}.}
+{Die Einstellungen-Sidebar wird mit einer Liste von menschlichen Sprachen ersetzt.}
+
+\teststep{Zustand aus dem vorherigem Schritt.}
+{Der Benutzer drückt auf \enquote{Russian}.}
+{Die Sprache vom Programm ändert sich auf Russisch und die Sprach-Listen-Sidebar und
+Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Zustand angezeigt.}
+
+\test{Teilen-Funktion}{tst:export}
+\tests{fnc:export-latex}
+\teststep
+{Es steht eine gültige Eingabe im Eingabefeld.
+Es werden mindestens 3 Zwischenschritte angezeigt.}
+{Der Benutzer hovert über einen Schritt.}
+{Es wird der Schrittemenüknopf angezeigt.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Benuzer klickt auf Schrittemenüknopf.}
+{Es öffnet sich das zu dem Schritt zugehörige Schrittemenü.}
+
+\teststep{Zustand aus dem vorherigen Schritt.}
+{Der Benutzer klickt auf \enquote{LaTeX} im Schrittemenüknopf.}
+{Der LaTeX-Code für diesen einen Schritt wird in die Zwischenablage des Benutzers kopiert.
+Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es verschwunden.}
+
 \test{Darstellung in Chrome}{tst:chrome-design}
 \tests{nfc:chrome-design}
 \tests{fnc:input}
@@ -569,7 +609,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung.}
 
 \teststep {Das Programm liegt auf einem Server.}
-{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mpbile Geräte ein.}
+{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mobile Geräte ein.}
 {Die mobile Version der Webseite wird geöffnet und korrekt dargestellt.}
 
 \teststep {Das Programm ist im Default State.}
@@ -577,20 +617,26 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 {Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
 
 
+
+
 \test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
 \tests{fnc:input}
 \tests{fnc:ln}
 \tests{fnc:editor}
 \tests{fnc:bracket}
-\tests{fnc:highlightlambda}
-\tests{fnc:highlightparentheses}
-\tests{fnc:highlight-next}
-\tests{fnc:highlight-prev}
+\tests{fnc:no-edit-while-running}
 \tests{fnc:run}
 \tests{fnc:eval-order-normal}
 \tests{fnc:beta}
 \tests{fnc:finished-reducing}
 \tests{fnc:output}
+\tests{fnc:stop}
+\tests{fnc:pause}
+\tests{fnc:output-readonly}
+
+\teststep { Das Programm ist im Default -State }
+{ Der Benutzer drückt \textbackslash }
+{Im Editor erscheint ein $\lambda$}
 
 \teststep {Das Programm ist geöffnet und es ist im Default-State}
 {Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
@@ -600,7 +646,60 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 { Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
 { Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
 
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{Der Benutzer gibt \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ind den Editor ein und drückt auf run}
+{Das Programm gibt $\lambda$s.$\lambda$z. ( s ( s ( s (s z))) aus. (Dieser Test gibt 4 aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist) }
+\teststep{Das Programm ist im Default-State}
+{der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
+{ das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
+\teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
+{Der Benutzer drückt auf den Stopp-Button}
+{ Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+
+\teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
+{Der Benutzer will das Eingabefeld editieren}
+{Dies ist nicht möglich}
+
+\teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
+{Der Benutzer betätigt den Pause-Button}
+{Das Programm hört auf $\beta$-Redutkionen zu berechnen. Es ist allerdings möglich auf den Continue Button zu drücken um weiter zu Rechnen}
+
+\teststep { Das Programm ist im Default-State}
+{ Der Benutzer hat nach seiner Eingabe \enquote{(($\lambda$x.x)( }in dem Editor stehen  }
+{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
+
+\teststep{Das Programm ist im Default State}
+{Der Benutzer drückt \enquote{(}}
+{Das Programm schreibt automatisch \enquote{)} um die Klammer zu schließen}
+
+\teststep {Das Programm kann in jedem Status sein}
+{Der Benutzer will das Ausgabefeld editieren}
+{Dies ist unmöglich}
+
+
+
+\test{Testen von Highlighting}{tst:high}
+\tests{fnc:highlightlambda}
+\tests{fnc:highlightparentheses}
+\tests{fnc:highlightfunctions}
+\tests{fnc:highlight-next}
+\tests{fnc:highlight-prev}
+
+\teststep{Das Programm ist im Default state}
+{Der Benutzer gibt \enquote{plus} in den Editor ein}
+{Das Programm erkennt plus aus der Standardbibliothek und markiert es farbig}
+
+\teststep{Das Programm ist im Default-State.}
+{Der Benutzer gibt in den Editor \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ein }
+{Die $\lambda$s und die \enquote{Punkte} sind fett markiert. Wenn der Benutzer über eine Klammer hovert dann wird die jeweils öffnende bzw. schließende Klammer markiert  }
+
+\teststep{Der letzte Test wurde eingegeben und es wurde auf Run gedrückt.}
+{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils
+ \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
+ \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
+}
+{In dem ersten Schritt wird die Abstraktion ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) mit Farbe A markiert. Term  ($\lambda$s.$\lambda$z.s(s z)) wird mit Farbe B markiert um zu zeigen, dass A B reduziert. Im zweiten Schritt wird  ($\lambda$s.$\lambda$z.s(s z)) welches gerade eingefügt wurde mit Farbe 3 markiert um zu zeigen, dass es im letzten Schritt eingefügt wurde. Mit Farbe A wird ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) markiert und mit Farbe B der rechte ($\lambda$s.$\lambda$z.s(s z)) um zu zeigen dass im nächsten Schritt B von eingesetzt wird. Dies widerholt sich in den nächsten Schritten. }
 
 
 \test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
@@ -608,11 +707,6 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:ln}
 \tests{fnc:editor}
 \tests{fnc:bracket}
-\tests{fnc:highlightlambda}
-\tests{fnc:highlightparentheses}
-\tests{fnc:highlightfunctions}
-\tests{fnc:highlight-next}
-\tests{fnc:highlight-prev}
 \tests{fnc:run}
 \tests{fnc:stdlib}
 \tests{fnc:userlib-vs-stdlib}
@@ -622,62 +716,51 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \tests{fnc:beta}
 \tests{fnc:finished-reducing}
 \tests{fnc:output}
-
+\tests{fnc:userlib-remove}
+\tests{fnc:func-lambda-equivalent}
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
 \teststep {Das Programm ist im Default-State}
-{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
-{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
-
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {pair} und $\lambda$a.$\lambda$b.$\lambda$f.f a b ein}
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {first} und $\lambda$p.p($\lambda$a.$\lambda$b.a) ein}
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als $\lambda$-Term den von ihm gewünschten $\lambda$-Term eingibt. Dieser Name wird mit dem $\lambda$-Term gespeichert und man kann im Editor anstelle des $\lambda$-Terms den Namen eingeben.}
-
-
-
-\test{Weitere Tests, muss fertig gemacht werden!!!}{tst:REMOVE-ME}
-
-\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
-{Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
-{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt er ist die Churchzahl 4 und gibt dies aus. }
-
-\teststep{Das Programm befindet sich im Default-State}
-{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
-{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 \teststep { Der vorherige Test wurde ausgeführt}
 { Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
-{ Das Programm erkennt first aus seiner Standardbibliothek und ihm ist $\lambda$p.p($\lambda$a.$\lambda$b.a) zugewiesen. Das Programm erkennt pair aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+{ Das Programm erkennt pair aus seiner Standardbibliothek und ihm ist $\lambda$a.$\lambda$b.$\lambda$f.f a b  zugewiesen. Das Programm erkennt first aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+
 \teststep {Die vorherigen zwei Tests wurden ausgeführt}
 {Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
-{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die funtkion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+
+\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
+{Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
+
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
 { Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
 { Das Programm zeigt folgende Schritte :
-\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
-\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
-\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z)
-\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
-\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
-\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))
- }
+	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
+	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
+	\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z)
+	\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
+	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
+	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
+	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
-\teststep{Das Programm ist im Default-State}
-{der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
-{ das Programm erkennt die Endlosschleife und warnt den Benutzer }
+\teststep{Das Programm ist im Default state.}
+{Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
+{Das Ergebnis ist in beiden Fällen das Gleiche. }
 
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
-
-
-
-
-\teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
-{Der Benutzer drückt auf den Stopp-Button}
-{ Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+\teststep{Das Programm befindet sich im Default-State}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
 
 
 \test{Auswertungsstrategie}{tst:strategy}
@@ -696,16 +779,6 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 { Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
 { Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
 
-\teststep {Das Programm hat einen Lambda-Term im Editor stehen} { Der Benutzer drückt auf einen Redex}
-{ Dieser Redex wird als nächstes ausgewertet unabhängig davon welche Auswertungsstrategie ausgewählt ist. }
-
-\teststep { Das Programm ist im Default-State}
-{ Der Benutzer gibt den (($\lambda$x.x)( in den Editor ein }
-{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
-
-\teststep { Das Programm ist im Default -State }
-{ Der Benutzer drückt shift l }
-{Im Editor erscheint ein $\lambda$}
 
 \teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
@@ -714,12 +787,6 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
 {Der Benutzer gibt den Link in seine URL Leiste ein }
 { Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
-
-
-
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer gibt ($\lambda$x.xx)($\lambda$x.xx) in den Editor ein.}
-{Das Programm erkennt die Endlosschleife und terminiert.}
 
 
 
@@ -815,7 +882,7 @@ Der Benutzer kann selber Funktionen mit Namen und $\lambda$-Term definieren. er 
 
 \textbf {Redex}
 \newline
-Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist. 
+Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist.
 \newline
 Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x aber nicht, da der Term nicht mehr reduzierbar ist.
 
@@ -865,7 +932,7 @@ Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu s
 
 \textbf{Shortcut}
 \newline
-(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge. 
+(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge.
 
 \textbf{GUI}
 \newline
