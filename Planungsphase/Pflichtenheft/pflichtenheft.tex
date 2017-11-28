@@ -564,12 +564,17 @@ Die Standardbibliothek kann bis zu 20 vordefinierte Funktionen beinhalten.
 Die Benutzerbibliothek kann bis zu 10 selbst definierte Funktionen beinhalten.
 
 \nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
-Die Anzahl der sichtbaren Zwischenergebnisse ist auf 30 beschränkt.
+Die Anzahl der sichtbaren Zwischenergebnisse ist auf 100 beschränkt.
 
 \nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
-Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 20 Zwischenergebnisse vorliegen.
+Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 50 Zwischenergebnisse vorliegen.
 
-
+\nonFunctionality{Eingabedefinition}{nfc:inpudefinition}
+Das \enquote{\textbackslash} ist die einzige Möglichkeit um das \enquote{Lambdazeichen} einzugeben.
+Eine Variable darf nur ein kleingeschriebener Buchstabe sein. Sonderzeichen, Zahlen oder Großgeschriebene Buchstaben dürfen keine Variablen sein.
+Der Punkt bei der Abstraktion darf nur mit dem Punktzeichen \enquote{.} eingegeben werden.
+Funktionsnamen aus der Standard- und Benutzerbibliothek müssen mit einem vorangestellten \$ angegeben werden. Ohne \$ -Zeichen wird der Funktionsname als Variable behandelt.
+Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müssen nicht mit einem \$ vorangestellt werden.
 
 \newpage
 \section{Tests}
