@@ -1,0 +1,1080 @@
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+\begin{titlepage}
+
+\subject{Pflichtenheft}
+\title{\textbf{$\uplambda$}urora}
+\subtitle{The Lambda Calculus IDE}
+
+
+\author{Alexander von Heyden, Iuliia Patrusheva\\
+ Max Nowak, Nikolai Polley\\
+ Randy Seng, Younis Bensalah}
+
+\newpage
+\end{titlepage}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{amsmath} % for $\text{}$
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\usepackage{color}
+\usepackage{upgreek}
+\usepackage{pflichtenheft}
+
+
+
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+
+\newpage
+\section{Einleitung}
+Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
+
+
+\newpage
+\section{Zielsetzung}
+
+\subsection{Musskriterien}
+
+\criterium{Eingabe}{crt:text-editor}
+Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
+
+\criterium{Input editieren}{crt:input-readonly}
+Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
+
+\criterium{Output nicht editierbar}{crt:output-readonly}
+Der Output kann nicht bearbeitet werden.
+
+\criterium{Auswertung starten}{crt:run}
+Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform.
+
+\criterium{Auswertung terminieren}{crt:stop}
+Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit abbrechen.
+
+\criterium{Zwischenschritte}{crt:intermediate-step-output}
+Nach der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
+
+\criterium{Auswertungsstrategie}{crt:default-eval-strategy}
+Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Normalreihenfolge. Weitere Auswertungsstrategien sind in den Wunschkriterien.
+
+
+\newpage
+\subsection{Wunschkriterien}
+
+\criteriumOptional{Zeilennummer}{crt:linenumbers}
+Neben dem Eingabefeld soll ausgeblasst eine Zeilennummerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
+
+\criteriumOptional{Kommentare einfügen}{crt:comments}
+Einzelne Zeilen in der Eingabe können auskommentiert werden. Diese Zeilen werden dann vom Parser übersprungen.
+
+\criteriumOptional{Autovervollständigung von Klammern}{crt:autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(}, dann schließt das Programm automatisch diese Klammer mit \enquote{)}.
+
+\criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
+Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. Zur besseren Übersichtlichkeit werden $\lambda$s  und \enquote{.} Punkte fett geschrieben. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
+
+\criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
+Der nächste auszuwertende Redex wird farblich hinterlegt.
+Außerdem wird der Term, der bei einer $\beta$-Reduktion von einer Abstraktion reduziert wurde, mit einer dritten Farbe im nächsten Schritt markiert.
+
+\criteriumOptional{Pretty Print}{crt:pretty-print}
+Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
+
+\criteriumOptional{Standardbibliothek}{crt:std-library}
+Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
+
+\criteriumOptional{Benutzerbibliothek}{crt:user-library}
+Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und löschen kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
+
+\criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
+Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
+
+\criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
+Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
+
+\criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
+Auf Wunsch kann lediglich eine $\beta$-Reduktion durchgeführt und angezeigt werden.
+
+\criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
+Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
+
+\criteriumOptional{Pause-Button}{crt:pause}
+Der \enquote{Pause}-Button unterbricht die laufende Berechnung. Nachdem das Programm pausiert hat, kann der Benutzer sich die bisher berechneten Zwischenschritte ansehen.
+
+\criteriumOptional{Continue-Button}{crt:continue}
+Der \enquote{Continue}-Button setzt eine pausierte Berechnung fort.
+
+\criteriumOptional{Share-Button}{crt:share}
+Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
+
+\criteriumOptional{Öffnen in neuem Tab}{crt:to-new-tab}
+Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
+
+\criteriumOptional{LaTeX export}{crt:export-latex}
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+
+\criteriumOptional{Night Mode}{crt:night-mode}
+Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
+
+\criteriumOptional{Schleifenerkennung}{crt:loop-detection}
+Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
+Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
+
+\criteriumOptional{Aurora Tutorial}{crt:tutorial}
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
+
+\criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
+Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
+
+\criteriumOptional{De Bruijn-Indizes}{crt:debruijn-output}
+Ausgabe des Programmes kann wahlweise mit De Bruijn-Indizes erfolgen.
+
+\criteriumOptional{Lokale Sessions}{crt:local-sessions}
+Die Applikation merkt sich im localStorage des Webbrowsers die Historie von vorherigen Eingaben. Der Benutzer kann außerdem diese Historie verändern.
+
+\criteriumOptional{Tastatur-Shortcuts}{crt:shortcuts}
+$\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Features bereit.
+
+\textbf{Verfügbare Tastatur-Shortcuts}
+
+\label{shortcuts}
+\begin{tabular}{|r|l|}
+
+    \hline
+    shortcut & Beschreibung \\ \hline
+    \textbackslash & $\lambda$ \\ \hline
+    Shift \enquote{+} $\hookleftarrow$ & Run \\ \hline
+    Shift \enquote{+} t & Terminate \\ \hline
+    Shift \enquote{+} p & Pause \\ \hline
+    Shift \enquote{+} n & Schritt \\ \hline
+
+
+\end{tabular}
+
+\criteriumOptional{Mobile-Darstellung}{crt:mobile}
+Das Programm soll stark reduziert auch auf mobilen Endgeräten laufen
+
+\subsection{Abgrenzungskriterien}
+
+\criteriumNot{Berechnungen laufen Client-seitig}{crt:client-side}
+Der Client führt das Programm aus. Alle Funktionen die etwas berechnen oder speichern müssen werden auf der Hardware des Clients ausgeführt.
+
+\criteriumNot{Keine Server-Komponente}{crt:no-server-side}
+Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktionen für das Programm aus.
+
+\criteriumNot{Kein typisiertes $\lambda$-Kalkül}{crt:no-typed-calculus}
+Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls durchführen. Auch eine einfache Erweiterungsschnittstelle, um z.B. Auswertungen des typisierten $\lambda$-Kalküls zu erlauben, ist nicht geplant und wird nicht bei Entwicklung des Programms in Betracht gezogen.
+
+\criteriumNot{Applikation bietet keine Projekt-Unterstützung}{crt:no-projects}
+Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
+Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX Export kann Code geteilt werden.
+\newline
+Eine Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
+
+
+
+\newpage
+%%%%%%%%%%%%%%
+\section{Produkteinsatz}
+
+Wenn ein Interessierter das Programm benutzen will, dann benötigt er eine Internetanbindung. Er benötigt außerdem einen PC mit folgenden Spezifikationen: Wenn er Windows benutzt, dann Windows 7 oder höher, wenn er Mac benutzt dann OS X Mavericks 10.9 oder höher oder wenn er Linux benutzt Ubuntu 14.04 oder höher, Debian 8 oder höher, oder Fedora24 oder höher.
+Er braucht zusätzlich einen SSE2-fähigen Intel Pentium 4-Prozessor oder besser.
+
+\subsection{Anwendungsbereiche}
+
+Der Anwendungsbereich umfasst Studenten und wissenschaftlichen Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorhandene Tastatur-Shortcuts und eine mit grundlegenden Funktionen ausgestattete Standardbibliothek, soll die Benutzung der Aurora Web App den Benutzer an eine normale IDE erinnern, sodass schneller das gewünschte Ergebnis erreicht werden kann.
+
+\subsection{Zielgruppen}
+
+Zur Zielgruppe gehören vor allem Informatik-Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen und bereits gewisse Grundkenntnisse des $\lambda$-Kalküls besitzen. Auch anderweitig Interessierte sollen das Programm benutzen können.
+
+Aurora ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm (z.B. simultanes Bearbeiten) ist nicht möglich.
+
+Für die Benutzung von Aurora werden Grundkenntnisse der Internetnutzung vorausgesetzt.
+
+Die Sprache der Benutzeroberfläche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
+
+\subsection{Betriebsbedingungen}
+
+Aurora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an beliebig viele Benutzer ausgeliefert werden.
+
+
+\newpage
+\section{Produktumgebung}
+Aurora ist eine Client seitige Anwendung.
+
+\subsection{Software}
+	\begin{itemize}
+		\item Es wird eines der gängigen Betriebssysteme benötigt:
+		\begin{itemize}
+			\item Windows 7 oder höher
+			\item OS X Mavericks 10.9 oder höher
+			\item Ubuntu 14.04 oder höher, Debian 8 oder höher, Fedora24 oder höher
+		\end{itemize}
+		\item Es wird ein gängiger Webbrowser benötigt, der HTML5, CSS3 und JavaScript unterstützt:
+			\begin{itemize}
+				\item Firefox (ab Version 57)
+				\item Google Chrome (ab Version 62.0)
+				\item Safari (ab Version 11.0.0)
+			\end{itemize}
+	\end{itemize}
+
+\subsection{Hardware}
+	\begin{itemize}
+		\item Es wird ein an das Internet angeschlossener Rechner benötigt..
+		\item Des weiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
+	\end{itemize}
+\subsection{Orgware}
+	\begin{itemize}
+		\item Während dem Projekt werden folgende Dokumente erstellt und dauernd gepflegt:
+			\begin{itemize}
+				\item Pflichtenheft
+				\item Aurora Handbuch
+			\end{itemize}
+	\end{itemize}
+\newpage
+
+
+%%%%%%%%%%%
+\section{Funktionale Anforderungen}
+
+\subsection{Eingabe}
+
+\functionality{Eingabefeld}{fnc:input}
+\fulfills{crt:text-editor}
+\fulfills{crt:input-readonly}
+Es gibt ein Eingabefeld, dessen Inhalt als Eingabe für Aurora dient.
+
+\functionality{Zeilennummern}{fnc:ln}
+\fulfills{crt:linenumbers}
+Links neben dem Eingabefeld befinden sich Zahlen, die die Nummer der Zeile angeben. Diese sind nicht editierbar.
+
+\functionality{Eingabefeld bearbeiten}{fnc:editor}
+\fulfills{crt:text-editor}
+Der Benutzer kann den Inhalt des Eingabefelds über die Tastatur bearbeiten.
+
+\functionality{Autovervollständigung von Klammern}{fnc:bracket}
+\fulfills{crt:autobracket}
+Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
+
+\functionality{Anzahl von dargestellten Schritten auswählen}{fnc:amountofsteps}
+\fulfills{crt:intermediate-step-output}
+Der Benutzer kann einstellen wie viele Schritte er sehen will, wenn er auf die drei Punkte drückt um die Schritte zu sehen.
+
+\functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
+\fulfills{crt:input-readonly}
+Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
+
+\functionality{Pretty Print}{fnc:prettierprint}
+\fulfills{crt:pretty-print}
+Wenn eine Eingabe länger als die Zeilenlänge ist, dann wird der Zeilenumbruch wenn möglich nach einem Redex gemacht damit der Redex nicht in zwei Teile gerissen wird. In der folgenden Zeile ist dann
+die Eingabe eingerückt um zu verdeutlichen, dass es sich immer noch um die gleiche Eingabe wie in der Zeile davor handelt.
+
+\functionality{Kommentare}{fnc:comments}
+\fulfills{crt:comments}
+Der Benutzer kann mit \enquote{\#} eine Zeile bis zum nächsten Zeilenumbruch auskommentieren.
+Der Kommentar wird dann farbig kenntlich gemacht.
+
+\subsection{Highlighting}
+
+\functionality{Highlighting von Lambdas und Punkten}{fnc:highlightlambda}
+\fulfills{crt:syntax-highlighting}
+Lambda-Zeichen \enquote{$\lambda$} und Punkte \enquote{.} werden fett geschrieben.
+
+\functionality{Highlighting von Klammern}{fnc:highlightparentheses}
+\fulfills{crt:syntax-highlighting}
+Wenn der Eingabezeiger adjazent zu einer öffnenden oder schließenden Klammer steht, werden beide Klammern des Paares farbig hervorgehoben.
+
+\functionality{Highlighting von Funktionsnamen}{fnc:highlightfunctions}
+\fulfills{crt:syntax-highlighting}
+Während der Benutzer Eingaben tätigt, versucht das Programm Funktionsnamen aus der Standardbibliothek oder Benutzerbibliothek zu erkennen und farblich hervorzuheben. Wenn ein Funktionsname gefunden wurde, dann wird er farbig geschrieben.
+
+\functionality{Highlighting des nächsten auszuwertenden Redex}{fnc:highlight-next}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird im Schrittfeld der nächste auszuwertende Redex farblich hinterlegt.
+Die Abstraktion des auszuwertenden Redex wird mit einer Farbe markiert und der Term, der von der Abstraktion reingezogen wird, bekommt eine andere Farbe.
+
+\functionality{Highlighting des zuletzt ausgeführten Redex}{fnc:highlight-prev}
+\fulfills{crt:syntax-highlighting-premium}
+In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von einer Abstraktion eingefügt wurde, farbig markiert.
+
+
+\subsection{Buttons}
+
+\functionality{Run}{fnc:run}
+\fulfills{crt:run}
+Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+
+\functionality{Step}{fnc:step}
+\fulfills{crt:single-step-eval}
+Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
+
+\functionality{Terminate}{fnc:stop}
+\fulfills{crt:stop}
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Terminate}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
+
+\functionality{Pause}{fnc:pause}
+\fulfills{crt:pause}
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Terminate-Button, die Berechnung weiterlaufen lassen.
+
+\functionality{Continue}{fnc:continue}
+\fulfills{crt:continue}
+Der Benutzer kann mit dem \enquote{Continue}-Button eine mit Pause unterbrochenen Berechnung fortsetzen lassen.
+
+\functionality{Share}{fnc:share}
+\fulfills{crt:share}
+Der Benutzer kann mithilfe des  \enquote{Share}-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
+
+\subsection{Bibliotheken}
+
+\functionality{Standardbibliothek}{fnc:stdlib}
+\fulfills{crt:std-library}
+Der Benutzer kann Funktionen aus der Standardbibliothek im Eingabefeld verwenden.
+
+\functionality{Benutzerbibliothek}{fnc:userlib-vs-stdlib}
+\fulfills{crt:user-library}
+Funktionen aus der Benutzerbibliothek können analog zu Funktionen der Standardbibliothek verwendet werden. Es spielt für die Eingabe keine Rolle, ob eine Funktion in der Standard- oder in der Benutzerbibliothek ist.
+
+\functionality{Erweitern der Benutzerbibliothek}{fnc:userlib-extend}
+\fulfills{crt:user-library}
+Der Benutzer kann Funktionen zur Benutzerbibliothek hinzufügen.
+
+\functionality{Entfernen aus der Benutzerbibliothek}{fnc:userlib-remove}
+\fulfills{crt:user-library}
+Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
+
+\functionality{Definition einer Funktion}{fnc:func-def}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
+Eine definierte Funktion der Standard- oder Benutzerbibliothek hat einen Namen und entspricht genau einem $\lambda$-Term.
+
+\functionality{Funktionsnamen-Konvention}{fnc:conventions}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
+Der Name einer Funktion beginnt ausnahmslos mit \enquote{\$}.
+
+\functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
+Die Eingabe von definierten Funktionen aus der Standard- und Benutzerbibliothek ist semantisch äquivalent zur Eingabe deren entsprechenden Definition als $\lambda$-Term.
+
+
+
+
+
+
+
+
+
+\subsection{Auswertungsstrategien}
+
+\functionality{Normalreihenfolge}{fnc:eval-order-normal}
+\fulfills{crt:default-eval-strategy}
+$\lambda$-Terme werden standardmäßig in Normalreihenfolge ausgewertet. Das heißt, dass immer der linkeste Redex zuerst ausgewertet wird.
+
+\functionality{Call-by-Name}{fnc:eval-order-call-by-name}
+\fulfills{crt:opt-eval-strategy}
+$\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Name} ausgewertet werden.
+
+\functionality{Call-by-Value}{fnc:eval-order-call-by-value}
+\fulfills{crt:opt-eval-strategy}
+$\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Value} ausgewertet werden.
+
+\functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order-options}
+\fulfills{crt:opt-eval-strategy}
+\fulfills{crt:own-eval-strategy}
+Der Benutzer kann zwischen den drei Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen, oder selbst den nächsten auszuwertenden Redex auswählen.
+
+\functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
+\fulfills{crt:own-eval-strategy}
+Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird.
+
+\subsection{Ausgabe}
+
+\functionality{Ausgabefeld}{fnc:output}
+\fulfills{crt:run}
+Falls die Berechnung terminiert, steht das Ergebnis im Ausgabefeld.
+
+\functionality{Ausgabefeld nicht editierbar}{fnc:output-readonly}
+\fulfills{crt:output-readonly}
+Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
+
+\functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
+\fulfills{crt:intermediate-step-output}
+Dem Benutzer werden in der GUI nach einer erfolgreichen Berechnung drei Punkte angezeigt. Wenn er auf diese klickt werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
+
+\functionality{De Bruijn-Indizes}{fnc:debruijn-output}
+\fulfills{crt:debruijn-output}
+Der Benutzer kann einstellen, dass die $\lambda$-Ausdrücke mit De Bruijn-Indizes ausgegeben werden.
+
+
+\subsection{Darstellung}
+
+\functionality{ Anzahl der angezeigten Schritte}{fnc:steps-to-display}
+\fulfills{crt:steps-to-display}
+Der Benutzer kann auswählen, wie viele Zwischenschritte angezeigt werden sollen.
+
+\functionality{Sprache ist auswählbar}{fnc:language-selection}
+\fulfills{crt:opt-language}
+Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläche einstellen.
+
+\functionality{Night Mode}{fnc:night-mode}
+\fulfills{crt:night-mode}
+Das äußere Erscheinungsbild der Applikation kann über die \enquote{Night mode}-Funktion zu einem dunklen Farbschema geändert werden. Dies kann über das Hamburger-Menü ein- oder ausgestellt werden.
+
+\functionality{Mobile Darstellung}{fnc:mobile}
+\fulfills{crt:mobile}
+Falls erkannt wird, dass das Programm von einem mobilen Endgerät aus aufgerufen wird, wird eine vereinfachte Version der GUI angezeigt. Hier ist ist kein bearbeiten des Inputs möglich, lediglich der vorhandene Input, wie z.B. der durch eine geteilte URL erhaltene, wird ausgewertet.
+
+
+
+
+\subsection{Hintergrundablauf}
+
+\functionality{$\beta$-Reduktion}{fnc:beta}
+\fulfills{crt:run}
+Das Programm kann anhand eines vorhandenen $\lambda$-Ausdrucks und einer gegebenen Auswertungsstrategie eine korrekte $\beta$-Reduktion durchführen.
+
+\functionality{Auswertung beendet}{fnc:finished-reducing}
+\fulfills{crt:run}
+Das Programm erkennt, falls keine weiteren $\beta$-Reduktionen mehr möglich sind.
+
+\functionality{Schleifenerkennung}{fnc:loop-test}
+\fulfills{crt:loop-detection}
+Eine laufende Berechnung wird automatisch auf Schleifen überprüft. Wenn eine Schleife gefunden wurde, warnt das Programm davor.
+
+\functionality{Kein Timeout}{fnc:run-no-timeout}
+\fulfills{crt:loop-detection}
+Ein vom Benutzer eingegebenes Programm kann potentiell unendlich laufen.
+
+
+
+
+\subsection{History}
+
+\functionality{Historie}{fnc:localstorage-autosave}
+\fulfills{crt:local-sessions}
+Eine ausgeführte Benutzereingabe wird automatisch in die Historie eingefügt.
+
+\functionality{Permanenz der Historie}{fnc:localstorage-permanent}
+\fulfills{crt:local-sessions}
+Einträge in der Historie werden nach schließen des Browsers nicht gelöscht.
+
+\functionality{Wiederherstellen der Historie}{fnc:localstorage-restore}
+\fulfills{crt:local-sessions}
+Der Benutzer kann Eingaben aus der Historie wiederherstellen.
+
+\functionality{Löschen der Historie}{fnc:localstorage-flush}
+\fulfills{crt:local-sessions}
+Der Benutzer kann die Einträge der Historie löschen.
+
+\functionality{Benutzerbibliothek in der Historie}{fnc:localstorage-userlib}
+\fulfills{crt:local-sessions}
+Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefügt.
+
+\subsection{Shortcuts}
+
+\functionality{Shortcuts}{fnc:shortcut}
+\fulfills{crt:shortcuts}
+Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
+
+\functionality{$\lambda$-Shortcut}{fnc:lambda-shortcut}
+\fulfills{crt:shortcuts}
+Durch Eingabe von \enquote {\textbackslash} wird ein \enquote {$\lambda$} ausgegeben.
+
+\functionality{Run-Shortcut}{fnc:run-shortcut}
+\fulfills{crt:shortcuts}
+Drücken von Shift \enquote {+} $\hookleftarrow$ ist äquivalent zum Drücken des \enquote {Run}-Buttons.
+
+\functionality{Terminate-Shortcut}{fnc:terminate-shortcut}
+\fulfills{crt:shortcuts}
+Drücken von Shift \enquote {+} t ist äquivalent zum Drücken des \enquote {Terminate}-Buttons.
+
+\functionality{Pause-Shortcut}{fnc:pause-shortcut}
+\fulfills{crt:shortcuts}
+Drücken von Shift \enquote {+} p ist äquivalent zum Drücken des \enquote {Pause}-Buttons.
+
+\functionality{Schritt}{fnc:step-shortcut}
+\fulfills{crt:shortcuts}
+Drücken von Shift \enquote {+} n ist äquivalent zum Drücken des \enquote {Schritt}-Buttons.
+
+
+
+\subsection{Sonstige Funktionalität}
+
+\functionality{In neuem Tab öffnen}{fnc:to-new-tab}
+\fulfills{crt:to-new-tab}
+Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editieren geöffnet werden.
+
+\functionality{LaTeX-Export}{fnc:export-latex}
+\fulfills{crt:export-latex}
+Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
+
+\functionality{Tutorial}{fnc:tutorial}
+\fulfills{crt:tutorial}
+Durch drücken des \enquote {Hilfe}-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
+
+
+
+\newpage
+\section{Nicht-Funktionale Anforderungen}
+
+
+\nonFunctionality{Korrekte Darstellung in Google Chrome}{nfc:chrome-design}
+In \enquote{Google Chrome} 62 wird das Programm korrekt und ohne Fehler jeglicher Art dargestellt.
+
+\nonFunctionality{Benutzbarkeit}{nfc:usability}
+Das Programm soll auch ohne Tutorial verständlich bedienbar sein.
+
+\nonFunctionality{Aussehen}{nfc:appearence}
+Die Grafische Oberfläche soll schlicht aber modern wirken.
+
+\nonFunctionality{Geschwindigkeit}{nfc:latency}
+Das Programm soll sich schnell und responsiv anfühlen. Die Aktion die ein Button ausführt soll schnell erfolgen.
+
+\nonFunctionality{Programmsprache}{crt:default-language}
+Die Standard Sprache des Programmes ist Englisch.
+
+\nonFunctionality{Erweiterte Sprachenauswahl}{nfc:opt-language}
+Das Programm ist außerdem in den Sprachen Deutsch, Russisch und Französisch verfügbar.
+
+\nonFunctionality{Hinzufügen neuer Sprachen}{nfc:supported-languages}
+Die Programmarchitektur soll einfaches Hinzufügen neuer, menschlicher Sprachen unterstützen.
+
+\nonFunctionality{Browserkompatibilität}{nfc:default-browser}
+Das Programm funktioniert auf dem Webbrowser \enquote{Google Chrome} 62.
+
+\nonFunctionality{Erweiterte Browserkompatibilität}{nfc:advances-default-browser}
+Das Programm funktioniert auf aktuellen Webbrowsern, die Javascript unterstützen.
+
+\nonFunctionality{Hash-Aufwand}{nfc:hash-time}
+Die Berechnung der Hashwerte ist nicht mehr als 10\% der Gesamtrechenzeit in Anspruch.
+
+\nonFunctionality{Standardbibliothek}{nfc:standard-library-content}
+Die Standardbibliothek kann bis zu 50 vordefinierte Funktionen beinhalten.
+
+\nonFunctionality{Benutzerbibliothek}{nfc:user-library-content}
+Die Benutzerbibliothek kann bis zu 50 selbst definierte Funktionen beinhalten.
+
+\nonFunctionality{Begrenzte Zwischenergebnisse}{nfc:limit-intermediate-results}
+Die Anzahl der sichtbaren Zwischenergebnisse ist auf 100 beschränkt.
+
+\nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
+Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 50 Zwischenergebnisse vorliegen.
+
+\nonFunctionality{Punkt Eingabe}{nfc:point-input}
+Zur Eingabe des Punktes innerhalb einer Abstraktion darf lediglich das Punktzeichen \enquote {.} verwendet werden.
+
+\nonFunctionality{Eingabe von Zahlen}{fnc:number-input}
+Zahlen dürfen nur als reine Ziffernfolgen eingegeben werden. Es darf kein \enquote {\$} davor gesetzt werden.
+
+\nonFunctionality{Variablennamen}{nfc:variable-names}
+Der Name einer Variable darf lediglich aus Kleinbuchstaben bestehen. Sonderzeichen, Zahlen, und Großbuchstaben sind nicht zugelassen.
+
+\nonFunctionality{Funktionsnamen}{nfc:function-names}
+Der Name von Funktionen, unabhängig davon, wo sie definiert sind, beginnt ausnahmslos mit \enquote {\$}. Danach ist die Funktion mit Kleinbuchstaben zu schreiben. Fehlt das \enquote {\$} wird der Name als Variable interpretiert.
+
+
+\newpage
+\section{Tests}
+
+\test{Einstellungsmenü}{tst:settings}
+\tests{fnc:language-selection}
+\teststep{Das Programm befindet sich im Default-Zustand.}
+{Der Benutzer drückt auf den Einstellungen Knopf.}
+{Die Sidebar wird mit der Einstellungen-Sidebar ersetzt.}
+
+\teststep{Zustand aus dem vorherigen Schritt.}
+{Der Benutzer drückt auf \enquote{Language}.}
+{Die Einstellungen-Sidebar wird mit einer Liste von menschlichen Sprachen ersetzt.}
+
+\teststep{Zustand aus dem vorherigem Schritt.}
+{Der Benutzer drückt auf \enquote{Russian}.}
+{Die Sprache vom Programm ändert sich auf Russisch und die Sprach-Listen-Sidebar und
+Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Zustand angezeigt.}
+
+\test{Teilen-Funktion}{tst:export}
+\tests{fnc:export-latex}
+\teststep
+{Es steht eine gültige Eingabe im Eingabefeld.
+Es werden mindestens 3 Zwischenschritte angezeigt.}
+{Der Benutzer hovert über einen Schritt.}
+{Es wird der Schrittemenüknopf angezeigt.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Benuzer klickt auf Schrittemenüknopf.}
+{Es öffnet sich das zu dem Schritt zugehörige Schrittemenü.}
+
+\teststep{Zustand aus dem vorherigen Schritt.}
+{Der Benutzer klickt auf \enquote{LaTeX} im Schrittemenüknopf.}
+{Der LaTeX-Code für diesen einen Schritt wird in die Zwischenablage des Benutzers kopiert.
+Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es verschwunden.}
+
+\test{Darstellung in Chrome}{tst:chrome-design}
+\tests{nfc:chrome-design}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:mobile}
+\tests{fnc:night-mode}
+\teststep {Das Programm liegt auf einem Server.}
+{Der Benutzer tippt die lokale IP in den Browser \enquote {Google Chrome} ein.}
+{Die Webseite wird geöffnet und wird korrekt dargestellt je nach Browserauflösung.}
+
+\teststep {Das Programm liegt auf einem Server.}
+{Der Benutzer tippt die Adresse in \enquote{Google Chrome} für mobile Geräte ein.}
+{Die mobile Version der Webseite wird geöffnet und korrekt dargestellt.}
+
+\teststep {Das Programm ist im Default State.}
+{Der Benutzer drückt auf den \enquote{Nightmode}-Button}
+{Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
+
+
+
+
+\test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:bracket}
+\tests{fnc:no-edit-while-running}
+\tests{fnc:loop-test}
+\tests{fnc:run-no-timeout}
+\tests{fnc:run}
+\tests{fnc:eval-order-normal}
+\tests{fnc:beta}
+\tests{fnc:finished-reducing}
+\tests{fnc:output}
+\tests{fnc:stop}
+\tests{fnc:pause}
+\tests{fnc:continue}
+\tests{fnc:output-readonly}
+\tests{fnc:comments}
+
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{Der Benutzer gibt den Term \enquote {$\lambda$x.x} in das Eingabefeld ein und drückt auf Run}
+{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda$x.x}
+
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{ Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
+{ Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
+
+\teststep {Das Programm ist geöffnet und es ist im Default-State}
+{Der Benutzer gibt \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ind den Editor ein und drückt auf run}
+{Das Programm gibt $\lambda$s.$\lambda$z. ( s ( s ( s (s z))) aus. (Dieser Test gibt 4 aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist) }
+
+\teststep{Das Programm ist im Default-State}
+{der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
+{ das Programm erkennt die Endlosschleife und warnt den Benutzer }
+
+\teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
+{Der Benutzer drückt auf den Terminate-Button}
+{ Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
+
+\teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
+{Der Benutzer will das Eingabefeld editieren}
+{Dies ist nicht möglich}
+
+\teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
+{Der Benutzer betätigt den Pause-Button}
+{Das Programm hört auf $\beta$-Redutkionen zu berechnen. Es ist allerdings möglich auf den Continue Button zu drücken um weiter zu Rechnen}
+
+\teststep { Das Programm ist im Default-State}
+{ Der Benutzer hat nach seiner Eingabe \enquote{(($\lambda$x.x)( }in dem Editor stehen  }
+{ Das Programm gibt die Fehlermeldung aus, dass dies kein gültiger $\lambda$-Term ist }
+
+\teststep{Das Programm ist im Default State}
+{Der Benutzer drückt \enquote{(}}
+{Das Programm schreibt automatisch \enquote{)} um die Klammer zu schließen}
+
+\teststep {Das Programm kann in jedem Status sein}
+{Der Benutzer will das Ausgabefeld editieren}
+{Dies ist unmöglich}
+
+\teststep{Das Programm ist im Default-State}
+{Der Benutzer gibt in den Editor ein \enquote{\#dies ist ein test ($\lambda$z.z) a } , drückt dann enter und schreibt in der zweiten Zeile 
+\newline \enquote{($\lambda$ x. x) y}  und drückt dannach auf Run}
+{Das Programm überspringt den Lambdaterm in der Kommentarzeile und berechnet nur den aus der unteren Zeile. Das Programm gibt y aus.
+Außerdem ist der Kommentar farblich markiert. }
+
+
+\test{Testen von Highlighting}{tst:high}
+\tests{fnc:highlightlambda}
+\tests{fnc:highlightparentheses}
+\tests{fnc:highlightfunctions}
+\tests{fnc:highlight-next}
+\tests{fnc:highlight-prev}
+
+\teststep{Das Programm ist im Default state}
+{Der Benutzer gibt \enquote{plus} in den Editor ein}
+{Das Programm erkennt plus aus der Standardbibliothek und markiert es farbig}
+
+\teststep{Das Programm ist im Default-State.}
+{Der Benutzer gibt in den Editor \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ein }
+{Die $\lambda$s und die \enquote{Punkte} sind fett markiert. Wenn der Benutzer über eine Klammer hovert dann wird die jeweils öffnende bzw. schließende Klammer markiert  }
+
+\teststep{Der letzte Test wurde eingegeben und es wurde auf Run gedrückt.}
+{Der Benutzer schaut sich die ersten zwei Steps an. Sie sind jeweils
+ \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
+ \newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
+}
+{In dem ersten Schritt wird die Abstraktion ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) mit Farbe A markiert. Term  ($\lambda$s.$\lambda$z.s(s z)) wird mit Farbe B markiert um zu zeigen, dass A B reduziert. Im zweiten Schritt wird  ($\lambda$s.$\lambda$z.s(s z)) welches gerade eingefügt wurde mit Farbe 3 markiert um zu zeigen, dass es im letzten Schritt eingefügt wurde. Mit Farbe A wird ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) markiert und mit Farbe B der rechte ($\lambda$s.$\lambda$z.s(s z)) um zu zeigen dass im nächsten Schritt B von eingesetzt wird. Dies widerholt sich in den nächsten Schritten. }
+
+
+\test{Testen der Standard- und Benutzerbibliotheken}{tst:library}
+\tests{fnc:input}
+\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:bracket}
+\tests{fnc:run}
+\tests{fnc:conventions}
+\tests{fnc:stdlib}
+\tests{fnc:userlib-vs-stdlib}
+\tests{fnc:userlib-extend}
+\tests{fnc:func-def}
+\tests{fnc:eval-order-normal}
+\tests{fnc:beta}
+\tests{fnc:finished-reducing}
+\tests{fnc:output}
+\tests{fnc:userlib-remove}
+\tests{fnc:func-lambda-equivalent}
+\tests{fnc:show-beta-reduction}
+\tests{fnc:amountofsteps}
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt im Feld Benutzerbibliothek auf den enquote{Plus}-Button.}
+{Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {first} und $\lambda$p.p($\lambda$a.$\lambda$b.a) ein}
+{Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als $\lambda$-Term den von ihm gewünschten $\lambda$-Term eingibt. Dieser Name wird mit dem $\lambda$-Term gespeichert und man kann im Editor anstelle des $\lambda$-Terms den Namen eingeben.}
+
+\teststep { Der vorherige Test wurde ausgeführt}
+{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+{ Das Programm erkennt pair aus seiner Standardbibliothek und ihm ist $\lambda$a.$\lambda$b.$\lambda$f.f a b  zugewiesen. Das Programm erkennt first aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
+
+\teststep {Die vorherigen zwei Tests wurden ausgeführt}
+{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
+{Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
+
+\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
+{Der Benutzer gibt in den Editor \enquote {\$plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+{ Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
+
+
+\teststep { Der vorherige Test wurde soeben durchgeführt.}
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
+
+{ Das Programm zeigt folgende Schritte :
+	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
+	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
+	\newline $\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (($\lambda$s.$\lambda$z.s(s z)) s z)
+	\newline $\lambda$s.$\lambda$z.($\lambda$z.s(s z)) (($\lambda$s.$\lambda$z.s(s z)) s z)
+	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
+	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
+	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
+
+\teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben }
+{Der Benutzer wählt aus, dass er nur 5 Schritte sehen will. Dann drückt er auf Run und drückt auf die drei Punkte}
+{Es werden nur die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er auf die drei Punkte unter den Schritten drücken}
+
+\teststep{Das Programm ist im Default state.}
+{Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
+{Das Ergebnis ist in beiden Fällen das Gleiche. }
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer gibt \enquote{\$ minus 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion minus und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+
+\teststep{Das Programm befindet sich im Default-State}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
+
+
+\test{Auswertungsstrategie und De Bruijn}{tst:strategy}
+\tests{fnc:eval-order-normal}\tests{fnc:eval-order-call-by-name}\tests{fnc:eval-order-call-by-value}\tests{fnc:eval-order-options}\tests{fnc:choosing-redex}
+\tests{fnc:share}
+\tests{fnc:debruijn-output}
+
+\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
+{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
+{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
+
+\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z)}
+{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
+{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
+
+
+\teststep { Das Programm ist im Default-State}
+{ Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
+{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
+
+
+\test{Sharing und Speichern}{tst:to-new-tab}
+\tests{fnc:to-new-tab}
+\tests{fnc:localstorage-autosave}
+\tests{fnc:localstorage-permanent}
+\tests{fnc:localstorage-restore}
+\tests{fnc:localstorage-userlib}
+\tests{fnc:localstorage-flush}
+\tests{fnc:share}
+\teststep{Das Programm hat einen eingegebenen $\lambda$-Term erfolgreich fertig ausgewertet und zeigt die Zwischenergebnisse an.}
+{Der Benutzer öffnet im ersten Zwischenergebnis das Kontextmenü uns wählt \enquote{To new Tab} aus.}
+{Es öffnet sich ein neuer Browser-Tab, in dem der entsprechende Zwischenschritt nun im Eingabefeld steht und editiert werden kann.}
+
+\teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
+{ Der Benutzer drückt auf den Share button und wählt copy-link}
+{ Sofern möglich wird eine gekürzte Url in sein Clipboard gespeichert }
+
+\teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
+{Der Benutzer gibt den Link in seine URL Leiste ein }
+{ Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
+
+\teststep{Der Benutzer hat die Funktion first in die Benutzerbibliothek eingefügt. Er hat die Eingabe \enquote{($\lambda$x.x) y} runnen lassen.}
+{Der Benutzer schließt den Browser, fährt den PC herunter, fährt den PC wieder hoch und startet das Programm im selben Browser.}
+{In der Benutzerbibliothek ist immer noch die Funktion \enquote{first} und in der Eingabe steht \enquote{($\lambda$x.x) y}}
+
+\teststep{Der vorherige Test wurde ausgeführt}
+{Der Benutzer drückt den Button der die History löscht}
+{Die Benutzerbibliothekfuntkionen die aus der History geladen wurden, werden gelöscht. Die Eingabe aus der History wird auch gelöscht}
+
+\test{Tutorial and Prettyprint}{tst:prettytut}
+\tests{fnc:tutorial}
+\tests{fnc:prettierprint}
+
+\teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
+{Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
+{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
+	\\
+	\noindent\hspace*{5mm}
+	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt auf den Hilfe Knopf}
+{Es öffnet sich ein Tutorial, welches die Funktionen des Programmes erklärt}
+
+\test{Ausgabe von Zwischenschritten}{tst:output-intermediate-results}
+\tests {fnc:steps-to-display}
+\tests{fnc:step}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+
+\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {drei-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+{Der Benutzer drückt erneut auf den \enquote {drei-Punkte}-Button.}
+{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {drei-Punkte}-Button ersetzt.}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+
+\test{Shortcuts}{tst:allshortcuts}
+\tests{fnc:shortcut}
+\tests{fnc:lambda-shortcut}
+\tests{fnc:run-shortcut}
+\tests{fnc:terminate-shortcut}
+\tests{fnc:pause-shortcut}
+\tests{fnc:step-shortcut}
+
+\teststep{Das Programm ist im Default-State}
+{Der Benutzer gibt \textbackslash in den Editor ein}
+{Ein fettgedrucktes Lambdasymbol $\lambda$ erscheint}
+
+\teststep{In dem Eingabefeld steht eine willkürliche Eingabe}
+{Der Benutzer drückt gleichzeitg Shift \enquote {+} $\hookleftarrow$ }
+{Der Shortcut betätigt den Run Knopf und die Standard Run-Operation wird ausgeführt}
+
+\teststep{Das Programm berechnet $\beta$-Reduktionen}
+{Der Benutzer drückt gleichzeitig Shift \enquote {+} t }
+{Die Berechnung terminiert wie sie es getan hätte, hätte der Benutzer den \enquote{Terminate}-Button gedrückt}
+
+\teststep{Das Programm berechnet$\beta$-Reduktionen}
+{Der Benutzer drückt gleichzeitig \enquote {+} p }
+{Die Berechnung pausiert wie sie es getan hätte, als hätter der Benutzer auf den \enquote{Pause}-Button gedrückt hätte}
+
+\teststep{In dem Eingabefeld steht eine willkürliche Eingabe}
+{Der Benutzer drückt gleichzeitig Shift \enquote {+} n }
+{Das Programm zeigt den ersten Schritt. Der Shortcut ist äquivalent zum drücken des \enquote{Schritt}-Buttons}
+
+\newpage
+\section{Entwicklungsumgebung}
+  \begin{description}
+	\item[Benutzte Software die für das Erstellen des Programmes verwendet wird]~\par
+	\begin{itemize}
+		\item \textbf{Programmiersprache}
+		\begin{itemize}
+			\item Java 8
+		\end{itemize}
+		\item \textbf{Build System}
+		\begin{itemize}
+			\item Bazel
+			\item Apache Ant
+		\end{itemize}
+		\item \textbf{Editor / IDE}
+		\newline Freie Wahl des jeweiligen Entwicklers, benutzt werden unter anderem
+		\begin{itemize}
+			\item Eclipse
+			\item IntelliJ
+			\item SublimeText
+			\item Atom
+			\item Vim
+		\end{itemize}
+		\item \textbf{Webframework}
+		\begin{itemize}
+			\item Google Web Toolkit \enquote{GWT}
+		\end{itemize}
+		\item \textbf{Versionskontrolle}
+		\begin{itemize}
+			\item Git auf git.scc.kit.edu. Webanwendung ist Gitlab
+		\end{itemize}
+		\item \textbf{Dokument Erstellung}
+		\begin{itemize}
+			\item LaTeX
+		\end{itemize}
+		\item \textbf{Testen}
+		\begin{itemize}
+			\item JUnit
+			\item JaCoCo
+		\end{itemize}
+		\item \textbf{GUI Entwürfe}
+			\begin{itemize}
+				\item draw.io
+				\item Sketch
+			\end{itemize}
+		\item \textbf{UML und Diagramme zeichnen}
+			\begin{itemize}
+				\item UMLet
+				\item Umbrella
+				\item BOUML
+				\item Lucidchart
+			\end{itemize}
+		\item \textbf{endgültige Programmiersprache auf der Website}
+			\begin{itemize}
+				\item JavaScript
+			\end{itemize}
+	\end{itemize}
+%%%%%%%%%%%%%
+\newpage
+\appendix
+\end{description}
+\section{Seitenentwürfe}
+\textbf{GUI HIER}
+% made via https://gomockingbird.com/projects/mnf0cwf/4gXVnC
+
+%\begin{figure}[hb]
+%\fbox{\includegraphics[width=\textwidth]{image/login.png}}
+%\caption{\label{fig:homepage}
+%Homepage mit Login-Funktion
+%}
+%\end{figure}
+
+\newpage
+\section{Glossar}
+
+%\textbf{Homepage}:
+%Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
+\textbf{Standardbibliothek}
+\newline
+Eine Ansammlung von $\lambda$-Termen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten $\lambda$-Terme zusammen getragen damit der Benutzer häufig vorkommende $\lambda$-Terme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten $\lambda$-Term.
+
+\textbf{Benutzerbibliothek}
+\newline
+Der Benutzer kann selber Funktionen mit Namen und $\lambda$-Term definieren. er kann dann den gewählten Namen im Editor verwenden und der Name wird automatisch durch den $\lambda$-Term ersetzt.
+
+\textbf {Redex}
+\newline
+Redex steht für \enquote{reducible expression} oder auf Deutsch \enquote{reduzibler Ausdruck}. Ein Redex ist ein Subterm, der durch die Auswertungsstrategien mit $\beta$-Reduktion reduzierbar ist.
+\newline
+Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x aber nicht, da der Term nicht mehr reduzierbar ist.
+
+\textbf{Normalform}
+\newline
+Die Normalform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
+
+\textbf{Auswertungsstrategie}
+\newline
+Die Auswertungsstrategie gibt an welcher Redex als nächstes ausgewertet wird und dann mit Beta-Reduktion reduziert wird.
+
+\textbf{Normalreihenfolge}
+\newline
+Der linkeste äußerste Redex wird als erstes ausgewertet und reduziert.
+
+\textbf{Call-By-Name}
+\newline
+Der linkeste äußerste Redex der nicht von einem $\lambda$ umgeben ist wird als erstes ausgewertet und reduziert
+
+\textbf{Call-By-Value}
+\newline
+Der linkeste Redex der nicht von einem $\lambda$ umgeben ist und dessen Argument ein Wert ist wird als erstes ausgewertet und reduziert.
+
+\textbf{Hover}
+\newline
+Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu drücken.
+
+\textbf{IDE}
+\newline
+Integrierte Entwicklungsumgebung (engl. integrated developement environment). Stellt Features bereit, die die Entwicklung von Software vereinfachen soll.
+
+\textbf{De Bruijn-Indizes}
+\newline
+Ermöglicht es, $\lambda$-Terme frei von Variablennamen darzustellen.
+
+\textbf{Clipboard}
+\newline
+(dt. Zwischenablage) Speicher, der für das Kopieren von Daten zwischen zwei Programmen gedacht ist. In der Zwischenablage Gespeichertes kann in anderen Programmen einfach eingefügt werden.
+
+\textbf{localStorage}
+\newline
+localStorage ist ein Teil von Web Storage auch \enquote{DOM Storage} genannt. localStorage erlaubt es Daten lokal zu speichern, sogenannte \enquote{Local Shared Objects}, auch wenn der Benutzer seinen Browser schließt.
+
+\textbf{GWT}
+\newline
+Google Web Toolkit ist ein Webframework, das erlaubt Webanwendungen in Java zu schreiben. Um dies zu ermöglichen, beinhaltet GWT einen Java zu Javascript Compiler.
+
+\textbf{Shortcut}
+\newline
+(oder auch Tastenkombination) bezeichnet man das gleichzeitige oder aufeinanderfolgende Drücken mehrerer Tasten auf Computertastaturen in einer bestimmten Reihenfolge.
+
+\textbf{GUI}
+\newline
+(engl. graphical user interface, dt. graphische Benutzeroberfläche) bezeichnet eine Form von Benutzerschnittstelle eines Computers. Sie hat die Aufgabe, Anwendungssoftware auf einem Rechner mittels grafischer Symbole, Steuerelemente oder auch Widgets genannt, bedienbar zu machen.
+
+\textbf{IPD}
+\newline
+IPD steht für \enquote{Institut für Programmstrukturen und Datenverwaltung} und beinhaltet mehrere Forschungsgruppen, Programmierparadigmen ist eine davon.
+
+\textbf{Default-State}
+\newline
+Der Default-State ist der Zustand des Programmes in dem es ist, wenn es zum ersten Mal geöffnet wurde und nichts verstellt wurde. Im Default-State wird nichts aus dem localStorage geladen.
+\end{document}
+
