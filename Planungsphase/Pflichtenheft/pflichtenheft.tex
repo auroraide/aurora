@@ -281,6 +281,10 @@ Der Benutzer kann den Inhalt des Eingabefelds über die Tastatur bearbeiten.
 \fulfills{crt:autobracket}
 Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
 
+\functionality{Anzahl von dargestellten Schritten auswählen}{fnc:amountofsteps}
+\fulfills{crt:intermediate-step-output}
+Der Benutzer kann einstellen wie viele Schritte er sehen will, wenn er auf die drei Punkte drückt um die Schritte zu sehen.
+
 \functionality{Keine Änderungen während der Auswertung}{fnc:no-edit-while-running}
 \fulfills{crt:input-readonly}
 Der Benutzer kann das Eingabefeld nur genau dann editieren, wenn keine Berechnung am laufen ist.
@@ -745,6 +749,8 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:userlib-remove}
 \tests{fnc:func-lambda-equivalent}
 \tests{fnc:show-beta-reduction}
+\tests{fnc:amountofsteps}
+
 \teststep {Das Programm ist im Default-State}
 {Der Benutzer drückt im Feld Benutzerbibliothek auf den Plus-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
@@ -762,12 +768,12 @@ Außerdem ist der Kommentar farblich markiert. }
 {Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
 \teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
-{Der Benutzer gibt in den Editor \enquote {plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+{Der Benutzer gibt in den Editor \enquote {\$plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
 
 
 \teststep { Der vorherige Test wurde soeben durchgeführt}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. Die Anzahl der angezeigten Steps ist 30 }
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -776,6 +782,10 @@ Außerdem ist der Kommentar farblich markiert. }
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$s.$\lambda$z.s(s z)) s z) ))
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
+
+\teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben }
+{Der Benutzer wählt aus, dass er nur 5 Schritte sehen will. Dann drückt er auf Run und drückt auf die drei Punkte}
+{Es werden nur die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er auf die drei Punkte unter den Schritten drücken}
 
 \teststep{Das Programm ist im Default state.}
 {Der Benutzer gibt einmal \enquote{	\$plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
