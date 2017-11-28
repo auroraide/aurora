@@ -58,7 +58,7 @@
 
 \newpage
 \section{Einleitung}
-Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichtert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
+Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
 
 
 \newpage
@@ -72,14 +72,14 @@ Es gibt ein Eingabefeld um $\lambda$-Terme einzugeben.
 \criterium{Input editieren}{crt:input-readonly}
 Der Input kann nur bearbeitet werden, solange das Programm nicht rechnet.
 
-\criterium{Output editieren}{crt:output-readonly}
+\criterium{Output nicht editierbar}{crt:output-readonly}
 Der Output kann nicht bearbeitet werden.
 
 \criterium{Auswertung starten}{crt:run}
 Der Benutzer kann die Auswertung des eingegebenen $\lambda$-Terms starten. Im Ausgabefenster erscheint das Ergebnis in Normalform.
 
-\criterium{Auswertung terminieren}{crt:stop}
-Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit terminieren.
+\criterium{Auswertung stoppen}{crt:stop}
+Der Benutzer kann die Auswertung des $\lambda$-Terms jederzeit stoppen.
 
 \criterium{Zwischenschritte}{crt:intermediate-step-output}
 Nach der Auswertung des $\lambda$-Terms können Zwischenergebnisse ausgegeben werden.
@@ -119,6 +119,12 @@ Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und lös
 \criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
 Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
 
+\criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
+Auf Wunsch kann ein einzelner Schritt ausgewertet werden.
+
+\criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
+Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
+
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
@@ -135,17 +141,17 @@ Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Ko
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
 
 \criteriumOptional{LaTeX export}{crt:export-latex}
-$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen Größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
 \criteriumOptional{Night Mode}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
-Außerdem soll das Programm nicht die Berechnung abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
+Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
-\criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
-Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora nutzt.
+\criteriumOptional{Aurora Tutorial}{crt:tutorial}
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
 
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
 Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
@@ -220,7 +226,7 @@ Die Sprache der Benutzeroberfläche ist Englisch, daher sind Grundkenntnisse der
 
 \subsection{Betriebsbedingungen}
 
-Aurora muss auf einem Web Server (z.B. Apache) gehosted werden und kann an beliebig viele Benutzer ausgeliefert werden.
+Aurora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an beliebig viele Benutzer ausgeliefert werden.
 
 
 \newpage
@@ -323,15 +329,19 @@ In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von ei
 
 \functionality{Run}{fnc:run}
 \fulfills{crt:run}
-Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
 
-\functionality{Terminate}{fnc:stop}
+\functionality{Step}{fnc:step}
+\fulfills{crt:single-step-eval}
+Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
+
+\functionality{Stop}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Terminate}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Stop}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Terminate-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Stop-Button, die Berechnung weiterlaufen lassen.
 
 \functionality{Continue}{fnc:continue}
 \fulfills{crt:continue}
@@ -412,6 +422,10 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 \subsection{Darstellung}
 
+\functionality{ Anzahl der angezeigten Schritte}{fnc:steps-to-display}
+\fulfills{crt:steps-to-display}
+Der Benutzer kann auswählen, wie viele Zwischenschritte angezeigt werden sollen.
+
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
 Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläche einstellen.
@@ -481,7 +495,7 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 
 \functionality{LaTeX-Export}{fnc:export-latex}
 \fulfills{crt:export-latex}
-Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbständig in ein LaTeX Dokument einfügen kann.
+Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
@@ -674,7 +688,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
 \teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
-{Der Benutzer drückt auf den Terminate-Button}
+{Der Benutzer drückt auf den Stopp-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
 \teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
@@ -766,8 +780,8 @@ Außerdem ist der Kommentar farblich markiert. }
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
 
 
-\teststep { Der vorherige Test wurde soeben durchgeführt}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
+\teststep { Der vorherige Test wurde soeben durchgeführt.}
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -778,7 +792,7 @@ Außerdem ist der Kommentar farblich markiert. }
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
 \teststep{Das Programm ist im Default state.}
-{Der Benutzer gibt einmal \enquote{	\$plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
+{Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
 {Das Ergebnis ist in beiden Fällen das Gleiche. }
 
 \teststep {Das Programm ist im Default-State}
@@ -830,7 +844,7 @@ Außerdem ist der Kommentar farblich markiert. }
 { Das Programm öffnet sich mit dem $\lambda$-Term bereits in der Eingabe }
 
 \teststep{Der Benutzer hat die Funktion first in die Benutzerbibliothek eingefügt. Er hat die Eingabe \enquote{($\lambda$x.x) y} runnen lassen.}
-{Der Benutzer schließt den Browser, fährt den Pc herunter, fährt den Pc wieder hoch und startet das Programm im selben Browser.}
+{Der Benutzer schließt den Browser, fährt den PC herunter, fährt den PC wieder hoch und startet das Programm im selben Browser.}
 {In der Benutzerbibliothek ist immer noch die Funktion \enquote{first} und in der Eingabe steht \enquote{($\lambda$x.x) y}}
 
 \teststep{Der vorherige Test wurde ausgeführt}
@@ -840,6 +854,21 @@ Außerdem ist der Kommentar farblich markiert. }
 \test{Tutorial and Prettyprint}{tst:prettytut}
 \tests{fnc:tutorial}
 \tests{fnc:prettierprint}
+
+\test{Ausgabe von Zwischenschritten}{tst:output-intermediate-results}
+\tests {fnc:steps-to-display}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+
+\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {drei-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+{Der Benutzer drückt erneut auf den \enquote {drei-Punkte}-Button.}
+{Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {drei-Punkte}-Button ersetzt.}
+
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
+{Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
+{Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 \teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
 {Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
@@ -939,7 +968,7 @@ Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x
 
 \textbf{Normalform}
 \newline
-Die Normalform ist ein $\lambda$-Term der nicht mehr durch $\beta$-Reduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
+Die Normalform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
 \textbf{Auswertungsstrategie}
 \newline
@@ -959,7 +988,7 @@ Der linkeste Redex der nicht von einem $\lambda$ umgeben ist und dessen Argument
 
 \textbf{Hover}
 \newline
-Mit dem Mauszeiger über einem Element \enquote{schweben}, ohne es jedoch zu drücken.
+Mit dem Mauszeiger über einem Element \enquote{schewben}, ohne es jedoch zu drücken.
 
 \textbf{IDE}
 \newline
