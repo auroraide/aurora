@@ -866,8 +866,20 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:tutorial}
 \tests{fnc:prettierprint}
 
+\teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
+{Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
+{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
+	\\
+	\noindent\hspace*{5mm}
+	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
+
+\teststep {Das Programm ist im Default-State}
+{Der Benutzer drückt auf den Hilfe Knopf}
+{Es öffnet sich ein Tutorial, welches die Funktionen des Programmes erklärt}
+
 \test{Ausgabe von Zwischenschritten}{tst:output-intermediate-results}
 \tests {fnc:steps-to-display}
+\tests{fnc:step}
 
 \teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
 {Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
@@ -880,17 +892,6 @@ Außerdem ist der Kommentar farblich markiert. }
 \teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
 {Der Benutzer drückt auf den \enquote {drei-Punkte}-Button.}
 {Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {drei-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
-
-\teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
-{Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
-{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
-\\
-\noindent\hspace*{5mm}
- ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
-
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt auf den Hilfe Knopf}
-{Es öffnet sich ein Tutorial, welches die Funktionen des Programmes erklärt}
 
 \newpage
 \section{Entwicklungsumgebung}
