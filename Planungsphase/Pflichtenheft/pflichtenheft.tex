@@ -329,7 +329,11 @@ In jedem Schritt wird der Term, der in der Berechnung für diesen Schritt von ei
 
 \functionality{Run}{fnc:run}
 \fulfills{crt:run}
-Der \enquote{Run-Button} startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den Parser dazu, die $\lambda$-Ausdrücke im Eingabefeld einzulesen.
+
+\functionality{Step}{fnc:step}
+\fulfills{crt:single-step-eval}
+Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
 
 \functionality{Stop}{fnc:stop}
 \fulfills{crt:stop}
@@ -632,10 +636,15 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Der Benutzer drückt auf den Nachtmodus-Button}
 {Das Programm wechselt im Design in den Nachtmodus. Das bisher helle Eingabefenster wird dunkel und die Schrift hell.}
 
+\test{Einzelauswertung}{tst:single-eval}
+\tests{fnc:step}
+\teststep{Das Programm befindet sich im Default-State.}
+{Der Benutzer gibt \enquote {\$plus 2 2} ein und drückt auf \enquote {Step}.}
+{Im Schrittfenster wird ausgegeben:
+    \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))}
 
 
-
-\test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
+\test{Eingabe und korrektes Ergebnis}{tst:input-and-result}
 \tests{fnc:shortcut}
 \tests{fnc:input}
 \tests{fnc:ln}
@@ -767,8 +776,8 @@ Außerdem ist der Kommentar farblich markiert. }
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
 
 
-\teststep { Der vorherige Test wurde soeben durchgeführt}
-{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden }
+\teststep { Der vorherige Test wurde soeben durchgeführt.}
+{ Der Benutzer drückt auf die drei Punkte um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
 	\newline ($\lambda$m.$\lambda$s.$\lambda$z.($\lambda$s.$\lambda$z.s(s z)) s (m s z)) ($\lambda$s.$\lambda$z.s(s z))
