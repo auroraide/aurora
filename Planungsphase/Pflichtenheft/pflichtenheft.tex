@@ -566,7 +566,105 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 \newpage
 \section{Tests}
 
-\test{Einstellungen}{tst:settings}
+\test{Einfaches Eingabe- und Runzenario.}{tst:simple-input-run}
+\tests{fnc:export-latex}
+\tests{fnc:comments}
+\tests{fnc:bracket}
+\tests{fnc:input}
+\tests{fnc:editor}
+\tests{fnc:run}
+% TODO \tests error printing
+\teststep{Anfangszustand nach dem öffnen von $\lambda$urora.}
+{Der Benutzer gibt \texttt{(} ein.}
+{Im Eingabefeld steht jetzt $()$. Die Klammer zu wurde verfollständigt.}
+
+\teststep {Zustand vom letzten Schritt.}
+{Der Benutzer bewegt den Cursor zwischen die beiden Klammern und gibt \texttt{\textbackslash} ein.}
+{Es erscheint ein $\lambda$ an Stelle von \texttt{\textbackslash}. Im Eingabefeld steht kein \texttt{\textbackslash}.}
+
+\teststep{Im Eingabefeld steht $(\lambda)$. Cursor ist nach dem $\lambda$}
+{Der Benutzer gibt \texttt{x.x} ein und drückt auf \enquote{Run}.}
+{Im Eingabefeld steht $(\lambda x.x)$. Es wird $\lambda x.x$ ausgegeben.}
+
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer löscht das letzte Zeichen vom Eingabefeld (das \texttt{)}) und drückt auf \enquote{Run}.}
+{Die Hintergrundfarbe vom Eingabefeld wird Rot und es werden im Ausgabefeld häufige Fehler angezeigt.}
+
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer fügt eine neue Zeile am Ende der Eingabe hinzu mit \texttt{\# hall)o}. Benutzer drückt auf \enquote{Run}.}
+{Keine Änderung. Im Ausgabefeld stehen immer noch häufige Fehler und das Eingabefeld hat eine rote Hintergrundfarbe.}
+
+\teststep{Zustand vom vorherigen Schritt.}
+{Der Benutzer füght eine neue Zeile am Ender der Eingabe hinzu mit $) \lambda x.x$ und drückt auf \enquote{Run}.}
+{Im Ausgabefeld erscheint $\lambda x.x$. Die Hintergrundfarbe vom Eingabefeld wird auf ihren Default-Wert zurückgesetzt.}
+
+\test{Run, Pause, Step}{tst:run-pause-stop}
+\tests{fnc:input}
+%\tests{fnc:ln}
+\tests{fnc:editor}
+\tests{fnc:no-edit-while-running} % TODO update \tests
+\tests{fnc:run}
+%\tests{fnc:eval-order-normal}
+\tests{fnc:beta}
+%\tests{fnc:finished-reducing}
+%\tests{fnc:output}
+\tests{fnc:stop}
+\tests{fnc:pause}
+%\tests{fnc:output-readonly}
+
+\teststep {Anfangszustand.}
+{Der Benutzer gibt einen $\lambda$-Term in das Eingabefeld ein, der zur Berechnung länger als 10 Sekunden dauert.
+Danach drückt er auf \enquote{Run}.}
+{Das Ausgabefeld bleibt leer. Der Schrittzähler fängt an hochzuzählen.
+Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
+Der \enquote{Step}-Knopf wird ausgegraut.}
+
+\teststep{Zustand vom vorherigen Schritt. Die Berechnung läuft.}
+{Der Benutzer drückt auf \enquote{Pause}.}
+{Der Schrittzähler zählt nicht mehr hoch, sondern zeight an, wie viele Schritte bisher berechnet wurden.
+Es wird der zuletzt berechnete Schritt in der Schrittliste angezeigt. Das Ausgabefeld bleibt leer.
+Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
+Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
+
+\teststep{Zustand aus dem vorherigem Schritt. } % \tests{fnc:no-edit-while-running}
+{Der Benutzer klickt in das Eingabefeld und drückt auf eine alphanumerische Taste.}
+{Es passiert nichts.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Der Benutzer drückt auf \enquote{Continue}.}
+{Das Ausgabefeld bleibt leer. Der Schrittzähler fängt an hochzuzählen.
+Der \enquote{Run}-Knopf wird mit einem \enquote{Pause}-Knopf ersetzt.
+Der \enquote{Step}-Knopf wird ausgegraut.}
+
+\teststep{Zustand vom vorherigen Schritt. Die Berechnung läuft.}
+{Der Benutzer drückt auf \enquote{Pause}.}
+{Der Schrittzähler zählt nicht mehr hoch, sondern zeight an, wie viele Schritte bisher berechnet wurden.
+Es wird der zuletzt berechnete Schritt in der Schrittliste angezeigt. Das Ausgabefeld bleibt leer.
+Der \enquote{Pause}-Knopf wird mit einem \enquote{Continue}-Knopf ersetzt.
+Der \enquote{Step}-Knopf ist nicht mehr ausgegraut.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Der Benutzer klickt auf \enquote{Step}.}
+{Es wird \em{eine} $\beta$-Reduktion ausgeführt und der damit resultierende neue Schritt angezeigt.}
+
+\teststep{Zustand aus vorherigem Schritt.}
+{Der Benutzer klickt auf \enquote{Stop}.}
+{Alle Schritte werden gelöscht.
+Der \enquote{Continue}-Knopf wird mit dem \enquote{Run}-Knopf ersetzt.}
+
+% TODO finish computation
+%\teststep{Zustand aus dem vorherigem Schritt.} % \tests{fnc:output-readonly}
+%{Der Benutzer klickt in das Ausgabefeld und drückt auf eine alphanumerische Taste.}
+%{Es passiert nichts.}
+
+% TODO use this somewhere
+% \teststep {Zustand aus vorherigem Schritt.}
+%{Der Benutzer gibt $$(\lambda n.\lambda m.\lambda s.\lambda z.n\,s\,(m\,s\,z))\,(\lambda s.\lambda z.s(s\,z)) (\lambda s.\lambda z.s(s \, z))$$ in den Editor ein und drückt auf \enquote{Run}.}
+%{Das Programm gibt $$\lambda s.\lambda z.(\,s\,(\,s\,(\,s\,(s\,z)))$$ im Ausgabefeld aus. (Dieser Test gibt $4$ aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist).}
+
+
+
+\test{Sprachenauswahl}{tst:settings}
 \tests{fnc:language-selection}
 \teststep{Das Programm befindet sich im Default-Zustand.}
 {Der Benutzer drückt auf den \enquote{ENG}-Knopf.}
@@ -578,8 +676,7 @@ Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls 
 
 \test{Teilen-Funktion}{tst:export}
 \tests{fnc:export-latex}
-\teststep
-{Es steht eine gültige Eingabe im Eingabefeld.
+\teststep{Es steht eine gültige Eingabe im Eingabefeld.
 Es werden mindestens 3 Zwischenschritte angezeigt.}
 {Der Benutzer hovert über einen Schritt.}
 {Es wird der Schrittemenüknopf angezeigt.}
@@ -613,87 +710,6 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 
 
 
-
-\test{Eingabe und korrektes Ergebnis}{tst:single-step-eval}
-\tests{fnc:input}
-\tests{fnc:ln}
-\tests{fnc:editor}
-\tests{fnc:bracket}
-\tests{fnc:no-edit-while-running} % TODO update \tests
-\tests{fnc:run}
-\tests{fnc:eval-order-normal}
-\tests{fnc:beta}
-\tests{fnc:finished-reducing}
-\tests{fnc:output}
-\tests{fnc:stop}
-\tests{fnc:pause}
-\tests{fnc:output-readonly}
-
-\teststep {Das Programm ist im Anfangszustand.}
-{Der Benutzer drückt \enquote{\textbackslash}.}
-{Im Editor erscheint ein $\lambda$. Kein \enquote{\textbackslash} wird hinzugefügt.}
-
-\teststep {Zustand aus vorherigem Schritt.}
-{Der Benutzer gibt $\lambda x.x$ in das Eingabefeld ein und drückt auf \enquote{Run}.}
-{Das Programm kann keine $\beta$-Reduktion durchführen und gibt als Ausgabe $\lambda x.x$.
-Das Eingabefeld }
-
-\teststep {Das Programm ist geöffnet und es ist im Default-State}
-{ Der Benutzer gibt in den Editor \enquote {($\lambda$x.x) z } ein. Dannach drückt er auf den Button \enquote {Run}}
-{ Das Programm führt eine $\beta$-Reduktion aus und gibt als Ausgabe \enquote {z} aus. Es wird auch angezeigt, dass es nur eine $\beta$-Reduktion durchgeführt hat.}
-
-\teststep {Das Programm ist geöffnet und es ist im Default-State}
-{Der Benutzer gibt \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) ind den Editor ein und drückt auf run}
-{Das Programm gibt $\lambda$s.$\lambda$z. ( s ( s ( s (s z))) aus. (Dieser Test gibt 4 aus, wenn das Wunschkriterium Standardbibliothek vollständig implementiert ist) }
-
-\teststep{Das Programm ist im Default-State}
-{der Benutzer gibt in den Editor ($\lambda$x.xx)($\lambda$x.xx) ein }
-{ das Programm erkennt die Endlosschleife und warnt den Benutzer }
-
-\teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
-{Der Benutzer drückt auf den Stopp-Button}
-{ Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
-
-\teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
-{Der Benutzer will das Eingabefeld editieren}
-{Dies ist nicht möglich}
-
-\teststep{Das Programm berechnet zurzeit einen $\lambda$-Term}
-{Der Benutzer betätigt den Pause-Button}
-{Das Programm hört auf $\beta$-Redutkionen zu berechnen. Es ist allerdings möglich auf den \enquote{Continue} Button zu drücken um weiter zu Rechnen}
-
-%% TODO add click on continue button
-
-\test{Einfaches Eingabe und Run Szenario.}{tst:simple-input-run}
-\tests{fnc:export-latex}
-\tests{fnc:comments}
-\tests{fnc:bracket} % TODO
-\tests{fnc:input}
-\tests{fnc:editor}
-\tests{fnc:run}
-\teststep{Anfangszustand nach dem öffnen von $\lambda$urora.}
-{Der Benutzer gibt \texttt{(} ein.}
-{Im Eingabefeld steht jetzt $()$. Die Klammer zu wurde verfollständigt.}
-
-\teststep {Zustand vom letzten Schritt.}
-{Der Benutzer bewegt den Cursor zwischen die beiden Klammern und gibt \texttt{\textbackslash} ein.}
-{Es erscheint ein $\lambda$ an Stelle von \texttt{\textbackslash}. Im Eingabefeld steht kein \texttt{\textbackslash}.}
-
-\teststep{Im Eingabefeld steht $(\lambda)$. Cursor ist nach dem $\lambda$}
-{Der Benutzer gibt \texttt{x.x} ein und drückt auf \enquote{Run}.}
-{Im Eingabefeld steht $(\lambda x.x)$. Es wird $\lambda x.x$ ausgegeben.} % TODO vielleicht hieran noch Stop/Pause und ausgrauungen testen?
-
-\teststep{Zustand vom vorherigen Schritt.}
-{Der Benutzer löscht das letzte Zeichen vom Eingabefeld (das \texttt{)}) und drückt auf \enquote{Run}.}
-{Die Hintergrundfarbe vom Eingabefeld wird Rot und es werden im Ausgabefeld häufige Fehler angezeigt.}
-
-\teststep{Zustand vom vorherigen Schritt.}
-{Der Benutzer fügt eine neue Zeile am Ende der Eingabe hinzu mit \texttt{\# hall)o}. Benutzer drückt auf \enquote{Run}.}
-{Keine Änderung. Im Ausgabefeld stehen immer noch häufige Fehler und das Eingabefeld hat eine rote Hintergrundfarbe.}
-
-\teststep{Zustand vom vorherigen Schritt.}
-{Der Benutzer füght eine neue Zeile am Ender der Eingabe hinzu mit $) \lambda x.x$ und drückt auf \enquote{Run}.}
-{Im Ausgabefeld erscheint $\lambda x.x$. Die Hintergrundfarbe vom Eingabefeld wird auf ihren Default-Wert zurückgesetzt.}
 
 \test{Highlighting}{tst:high}
 \tests{fnc:highlightlambda}
