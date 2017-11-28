@@ -95,17 +95,17 @@ Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Norm
 Neben dem Eingabefeld soll ausgeblasst eine Zeilennummerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
 \criteriumOptional{Kommentare einfügen}{crt:comments}
-Man kann eine Zeile in der Eingabe auskommentieren. Diese Zeile wird dann vom Parser übersprungen
+Einzelne Zeilen in der Eingabe können auskommentiert werden. Diese Zeilen werden dann vom Parser übersprungen.
 
 \criteriumOptional{Autovervollständigung von Klammern}{crt:autobracket}
-Wenn der Benutzer eine Klammer öffnet \enquote{(} dann schließt das Programm automatisch diese Klammer mit \enquote{)}
+Wenn der Benutzer eine Klammer öffnet \enquote{(}, dann schließt das Programm automatisch diese Klammer mit \enquote{)}.
 
 \criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
-Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. $\lambda$s  und \enquote"." Punkte werden fett geschrieben für Übersichtlichkeit. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
+Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. Zur besseren Übersichtlichkeit werden $\lambda$s  und \enquote{.} Punkte fett geschrieben. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
 Der nächste auszuwertende Redex wird farblich hinterlegt.
-Außerdem wird der Term, der bei einer $\beta$-Reduktion von einer Abstraktion in die Abstraktion eingefügt wurde mit einer dritten Farbe im nächsten Schritt markiert.
+Außerdem wird der Term, der bei einer $\beta$-Reduktion von einer Abstraktion in die Abstraktion eingefügt wurde, mit einer dritten Farbe im nächsten Schritt markiert.
 
 \criteriumOptional{Pretty Print}{crt:pretty-print}
 Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbesondere wird das korrekte Einrücken der Zeilen gewährleistet.
@@ -123,13 +123,13 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
 \criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
-Auf Wunsch kann ein einzelner Schritt ausgewertet werden.
+Auf Wunsch kann lediglich eine $\beta$-Reduktion durchgeführt und angezeigt werden.
 
 \criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
 Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
 
 \criteriumOptional{Pause-Button}{crt:pause}
-Der \enquote{Pause}-Button unterbricht die laufende Berechnung.
+Der \enquote{Pause}-Button unterbricht die laufende Berechnung. Nachdem das Programm pausiert hat, kann der Benutzer sich die bisher berechneten Zwischenschritte ansehen.
 
 \criteriumOptional{Continue-Button}{crt:continue}
 Der \enquote{Continue}-Button setzt eine pausierte Berechnung fort.
@@ -412,14 +412,18 @@ $\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Name} 
 \fulfills{crt:opt-eval-strategy}
 $\lambda$-Terme können gemäß der Auswertungsstrategie \enquote{Call-by-Value} ausgewertet werden.
 
+\functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
+\fulfills{crt:own-eval-strategy}
+Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird.
+
 \functionality{Auswahl der Auswertungsstrategie}{fnc:eval-order-options}
 \fulfills{crt:opt-eval-strategy}
 \fulfills{crt:own-eval-strategy}
 Der Benutzer kann zwischen den drei Auswertungsstrategien \enquote{Normalreihenfolge}, \enquote{Call-by-Name} und \enquote{Call-by-Value} wählen, oder selbst den nächsten auszuwertenden Redex auswählen.
 
-\functionality{Benutzerdefinierte Redex Wahl}{fnc:choosing-redex}
-\fulfills{crt:own-eval-strategy}
-Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes ausgewertet wird.
+
+
+
 
 
 
@@ -507,7 +511,7 @@ Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Pr
 
 \functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
-Durch drücken des Hilfe-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
+Durch drücken des \enquote {Hilfe}-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
 
 
 
