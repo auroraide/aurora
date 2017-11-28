@@ -58,7 +58,7 @@
 
 \newpage
 \section{Einleitung}
-Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
+Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichtert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
 
 
 \newpage
@@ -92,7 +92,7 @@ Die Auswertungsstrategie bei $\beta$-Reduktion von $\lambda$-Termen ist die Norm
 \subsection{Wunschkriterien}
 
 \criteriumOptional{Zeilennummer}{crt:linenumbers}
-Neben dem Eingabefeld soll ausgeblasst eine Zeilennumerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
+Neben dem Eingabefeld soll ausgeblasst eine Zeilennummerierung dargestellt werden um eine einfache Zeilenzuteilung zu ermöglichen.
 
 \criteriumOptional{Kommentare einfügen}{crt:comments}
 Man kann eine Zeile in der Eingabe auskommentieren. Diese Zeile wird dann vom Parser übersprungen
@@ -135,17 +135,17 @@ Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Ko
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
 
 \criteriumOptional{LaTeX export}{crt:export-latex}
-$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen Größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
 \criteriumOptional{Night Mode}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
-Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
+Außerdem soll das Programm nicht die Berechnung abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
 \criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
-Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
+Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation Aurora nutzt.
 
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
 Der Benutzer soll neben der Default-Sprache Englisch auch die Möglichkeit haben, Deutsch, Französisch, oder Russisch auszuwählen.
@@ -191,9 +191,9 @@ Das Programm kann nur $\beta$-Reduktion des untypisierten $\lambda$-Kalküls dur
 
 \criteriumNot{Applikation bietet keine Projekt-Unterstützung}{crt:no-projects}
 Das Programm unterstützt keine Klassen oder anderweitig mehr als eine Eingabe oder mehrere Ausgabe.
-Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX export kann Code geteilt werden.
+Jede Instanz des Programmes ist nur auf die Nutzung durch eine Person ausgelegt. Es bietet keine Möglichkeiten zur Gruppenarbeit, lediglich durch die Share-Funktion und den LaTeX Export kann Code geteilt werden.
 \newline
-Ein Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
+Eine Versionskontrolle oder generelles Zusammenarbeiten über zwei Clients mit dem gleichen Programm ist nicht möglich.
 
 
 
@@ -216,16 +216,16 @@ Aurora ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm (z.B
 
 Für die Benutzung von Aurora werden Grundkenntnisse der Internetnutzung vorausgesetzt.
 
-Die Sprache der Benutzeroberfläsche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
+Die Sprache der Benutzeroberfläche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
 
 \subsection{Betriebsbedingungen}
 
-Aurora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an beliebig viele Benutzer ausgeliefert werden.
+Aurora muss auf einem Web Server (z.B. Apache) gehosted werden und kann an beliebig viele Benutzer ausgeliefert werden.
 
 
 \newpage
 \section{Produktumgebung}
-Aurora ist eine clientseitige Anwendung.
+Aurora ist eine Client seitige Anwendung.
 
 \subsection{Software}
 	\begin{itemize}
@@ -246,7 +246,7 @@ Aurora ist eine clientseitige Anwendung.
 \subsection{Hardware}
 	\begin{itemize}
 		\item Es wird ein an das Internet angeschlossener Rechner benötigt..
-		\item Desweiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
+		\item Des weiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
 	\end{itemize}
 \subsection{Orgware}
 	\begin{itemize}
@@ -367,6 +367,8 @@ Der Benutzer kann Funktionen aus der Benutzerbibliothek entfernen.
 Eine definierte Funktion der Standard- oder Benutzerbibliothek hat einen Namen und entspricht genau einem $\lambda$-Term.
 
 \functionality{Funktionsnamen-Konvention}{fnc:conventions}
+\fulfills{crt:std-library}
+\fulfills{crt:user-library}
 Der Name einer Funktion beginnt ausnahmslos mit \enquote{\$}.
 
 \functionality{Äquivalenz von Funktionen und deren Definition}{fnc:func-lambda-equivalent}
@@ -412,7 +414,7 @@ Im Step-Modus kann der Benutzer selbst einen Redex auswählen, der als nächstes
 
 \functionality{Sprache ist auswählbar}{fnc:language-selection}
 \fulfills{crt:opt-language}
-Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläsche einstellen.
+Der Benutzer kann aus einer Auswahl von menschlichen Sprachen, die Sprache der Benutzeroberfläche einstellen.
 
 \functionality{Night Mode}{fnc:night-mode}
 \fulfills{crt:night-mode}
@@ -478,7 +480,7 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 
 \functionality{LaTeX-Export}{fnc:export-latex}
 \fulfills{crt:export-latex}
-Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
+Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbständig in ein LaTeX Dokument einfügen kann.
 
 \functionality{Shortcuts}{fnc:shortcut}
 \fulfills{crt:shortcuts}
@@ -769,12 +771,12 @@ Außerdem ist der Kommentar farblich markiert. }
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
 \teststep{Das Programm ist im Default state.}
-{Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
+{Der Benutzer gibt einmal \enquote{	\$plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
 {Das Ergebnis ist in beiden Fällen das Gleiche. }
 
 \teststep {Das Programm ist im Default-State}
-{Der Benutzer gibt \enquote{sub 1 1} ein und drückt auf \enquote{Run}.}
-{Das Programm erkennt die funktion substraction und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+{Der Benutzer gibt \enquote{\$ minus 1 1} ein und drückt auf \enquote{Run}.}
+{Das Programm erkennt die funktion minus und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
 
 \teststep{Das Programm befindet sich im Default-State}
 {Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
@@ -930,7 +932,7 @@ Zum Beispiel, ist der Term ($\lambda$x.x) y ist ein Redex. Der Term $\lambda$x.x
 
 \textbf{Normalform}
 \newline
-Die Normalform ist ein $\lambda$-term der nicht mehr durch Betareduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
+Die Normalform ist ein $\lambda$-Term der nicht mehr durch $\beta$-Reduktion reduzierbar ist. Dies wird im Programm als \enquote{Result} ausgegeben
 
 \textbf{Auswertungsstrategie}
 \newline
