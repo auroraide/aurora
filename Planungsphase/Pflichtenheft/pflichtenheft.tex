@@ -592,12 +592,20 @@ Die Anzahl der sichtbaren Zwischenergebnisse ist auf 100 beschränkt.
 \nonFunctionality{Begrenzter LaTeX export}{nfc:limited-latex-export}
 Der LaTeX-Export für die komplette Rechnung kann nur ausgeführt werden, falls weniger als 50 Zwischenergebnisse vorliegen.
 
-\nonFunctionality{Eingabedefinition}{nfc:inpudefinition}
-Das \enquote{\textbackslash} ist die einzige Möglichkeit um das \enquote{Lambdazeichen} einzugeben.
-Eine Variable darf nur ein kleingeschriebener Buchstabe sein. Sonderzeichen, Zahlen oder Großgeschriebene Buchstaben dürfen keine Variablen sein.
-Der Punkt bei der Abstraktion darf nur mit dem Punktzeichen \enquote{.} eingegeben werden.
-Funktionsnamen aus der Standard- und Benutzerbibliothek müssen mit einem vorangestellten \$ angegeben werden. Ohne \$ -Zeichen wird der Funktionsname als Variable behandelt.
-Zahlen wie \enquote{5} werden automatisch in Church Zahlen umgewandelt, sie müssen nicht mit einem \$ vorangestellt werden.
+\nonFunctionality{Lambda Eingabe}{nfc:lambda-input}
+Zur Eingabe eines Lambdas ($\lambda$) gibt der Benutzer \enquote {\textbackslash} ein.
+
+\nonFunctionality{Punkt Eingabe}{nfc:point-input}
+Zur Eingabe des Punktes innerhalb einer Abstraktion darf lediglich das Punktzeichen \enquote {.} verwendet werden.
+
+\nonFunctionality{Eingabe von Zahlen}{fnc:number-input}
+Zahlen dürfen nur als reine Ziffernfolgen eingegeben werden. Es darf kein \enquote {\$} davor gesetzt werden.
+
+\nonFunctionality{Variablennamen}{nfc:variable-names}
+Der Name einer Variable darf lediglich aus Kleinbuchstaben bestehen. Sonderzeichen, Zahlen, und Großbuchstaben sind nicht zugelassen.
+
+\nonFunctionality{Funktionsnamen}{nfc:function-names}
+Der Name von Funktionen, unabhängig davon, wo sie definiert sind, beginnt ausnahmslos mit \enquote {\$}. Dannach dürfen nur Kleinbuchstaben verwendet werden. Fehlt das \enquote {\$} wird der Name als Variable interpretiert.
 
 \newpage
 \section{Tests}
