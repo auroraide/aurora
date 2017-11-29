@@ -122,8 +122,8 @@ Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call
 \criteriumOptional{Benutzerdefinierte Auswahl}{crt:own-eval-strategy}
 Eigene Auswahl bei der $\beta$-Reduzierung eines Redex.
 
-\criteriumOptional{Einzelnen Schritt auswerten}{crt:single-step-eval}
-Auf Wunsch kann lediglich eine $\beta$-Reduktion durchgeführt und angezeigt werden.
+\criteriumOptional{Mehrere Schritte auswerten}{crt:single-step-eval}
+Auf Wunsch kann eine benutzerdefinierte Anzahl von $\beta$-Reduktionen durchgeführt und angezeigt werden.
 
 \criteriumOptional{Anzahl angezeigter Zwischenschritte}{crt:steps-to-display}
 Der Benutzer kann die Anzahl der angezeigten Zwischenschritte frei wählen.
@@ -337,7 +337,7 @@ Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den
 
 \functionality{Step}{fnc:step}
 \fulfills{crt:single-step-eval}
-Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
+Der \enquote {Step}-Button führt eine benutzerdefinierte Anzahl von $\beta$-Reduktionen durch und gibt diese als Zwischenergebnis aus. Es wird kein vorzeitiges Ergebnis ausgegeben.
 
 \functionality{Reset}{fnc:stop}
 \fulfills{crt:stop}
@@ -431,7 +431,7 @@ Der Inhalt des Ausgabefelds kann nicht bearbeitet werden.
 
 \functionality{$\beta$-Reduktionen angezeigen}{fnc:show-beta-reduction}
 \fulfills{crt:intermediate-step-output}
-In der GUI wird dem Benutzer nach einer erfolgreichen Berechnung ein \enquote {3-Punkte}-Butto angezeigt. Wenn er auf diesen klickt, werden ihm alle $\beta$-Reduktion-Schritte angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
+In der GUI wird dem Benutzer nach einer erfolgreichen Berechnung ein \enquote {3-Punkte}-Button angezeigt. Wenn er auf diesen klickt, werden ihm die ausgewählte Anzahl von $\beta$-Reduktionsschritten angezeigt, die durchgeführt wurden, um auf das Ergebnis zu kommen.
 
 \functionality{De Bruijn-Indizes}{fnc:debruijn-output}
 \fulfills{crt:debruijn-output}
@@ -792,7 +792,7 @@ Außerdem ist der Kommentar farblich markiert. }
 
 
 \teststep { Der vorherige Test wurde soeben durchgeführt.}
-{ Der Benutzer drückt auf den \enquote {3-Punkte}-Button um alle Schritte zu sehen die bei der $\beta$-Reduktion durchgeführt wurden. }
+{ Der Benutzer drückt auf den \enquote {3-Punkte}-Button, um die gewünschte Anzahl von Schritten zu sehen, die bei der $\beta$-Reduktion durchgeführt werden. }
 
 { Das Programm zeigt folgende Schritte :
 	\newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z))
@@ -825,18 +825,18 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:share}
 \tests{fnc:debruijn-output}
 
-\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
-{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
-{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
+\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State.}
+{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name.}
+{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert.}
 
 \teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z)}
-{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
-{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
+{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen Redex als nächstes zu reduzieren.}
+{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus.}
 
 
 \teststep { Das Programm ist im Default-State}
-{ Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
+{ Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run.}
+{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  .}
 
 
 \test{Sharing und Speichern}{tst:to-new-tab}
@@ -875,7 +875,7 @@ Außerdem ist der Kommentar farblich markiert. }
 {Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
 {Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
 	\\
-	\noindent\hspace*{5mm}
+	%\noindent\hspace*{5mm}
 	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
 
 \teststep {Das Programm ist im Default-State}
@@ -887,8 +887,8 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:step}
 
 \teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
-{Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
-{Im Schrittfeld werden die ersten 15 Zwischenschritte angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+{Der Benutzer stellt die Anzahl die Anzahl Schritte auf 3. Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
+{Im Schrittfeld werden 3 Zwischenschritten angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 \teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {3-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
 {Der Benutzer drückt erneut auf den \enquote {3-Punkte}-Button.}
