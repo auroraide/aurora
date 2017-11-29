@@ -58,7 +58,7 @@
 
 \newpage
 \section{Einleitung}
-Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht Aurora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
+Der Lehrstuhl für Programmierparadigmen am IPD Snelting ist seit Jahren dafür zuständig, Besuchern der gleichnamigen Vorlesung des $\lambda$-Kalkül zu vermitteln. Leider hat es sich in den vergangenen Jahren immer wieder gezeigt, dass eine erhebliche Anzahl von Studenten mit den grundlegenden Eigenschaften des $\lambda$-Kalküls Probleme haben. Hier versucht $\lambda$urora anzusetzen. Mit Hilfe einer einfach strukturierten Web App, die vom Design her an gängige IDEs angelehnt ist, soll dem Benutzer die Einführung in das $\lambda$-Kalkül erleichert werden. Hierfür wird dem Besucher eine Eingabemaske zur Verfügung gestellt, in die er eigene Terme eingeben kann. Schritt für Schritt kann er nun die Auswertung bis zum finalen Ergebnis verfolgen.
 
 
 \newpage
@@ -150,7 +150,7 @@ Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Appl
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
 Außerdem soll das Programm nicht die Berechnung abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
-\criteriumOptional{Aurora Tutorial}{crt:tutorial}
+\criteriumOptional{$\lambda$urora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
 
 \criteriumOptional{Sprachenauswahl im Programm}{crt:opt-language}
@@ -212,26 +212,26 @@ Er braucht zusätzlich einen SSE2-fähigen Intel Pentium 4-Prozessor oder besser
 
 \subsection{Anwendungsbereiche}
 
-Der Anwendungsbereich umfasst Studenten und wissenschaftlichen Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. Aurora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorhandene Tastatur-Shortcuts und eine mit grundlegenden Funktionen ausgestattete Standardbibliothek, soll die Benutzung der Aurora Web App den Benutzer an eine normale IDE erinnern, sodass schneller das gewünschte Ergebnis erreicht werden kann.
+Der Anwendungsbereich umfasst Studenten und wissenschaftlichen Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen. $\lambda$urora erlaubt dem Benutzer $\lambda$-Terme zu berechnen und sich dabei einzelne Schritte der $\beta$-Reduktion anzeigen zu lassen. Durch vorhandene Tastatur-Shortcuts und eine mit grundlegenden Funktionen ausgestattete Standardbibliothek, soll die Benutzung der $\lambda$urora Web App den Benutzer an eine normale IDE erinnern, sodass schneller das gewünschte Ergebnis erreicht werden kann.
 
 \subsection{Zielgruppen}
 
 Zur Zielgruppe gehören vor allem Informatik-Studenten und wissenschaftliche Mitarbeiter, die sich mit dem $\lambda$-Kalkül beschäftigen und bereits gewisse Grundkenntnisse des $\lambda$-Kalküls besitzen. Auch anderweitig Interessierte sollen das Programm benutzen können.
 
-Aurora ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm (z.B. simultanes Bearbeiten) ist nicht möglich.
+$\lambda$urora ist für Einzelpersonen gedacht, eine Gruppenarbeit mit dem Programm (z.B. simultanes Bearbeiten) ist nicht möglich.
 
-Für die Benutzung von Aurora werden Grundkenntnisse der Internetnutzung vorausgesetzt.
+Für die Benutzung von $\lambda$urora werden Grundkenntnisse der Internetnutzung vorausgesetzt.
 
 Die Sprache der Benutzeroberfläche ist Englisch, daher sind Grundkenntnisse der Sprache von Vorteil.
 
 \subsection{Betriebsbedingungen}
 
-Aurora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an beliebig viele Benutzer ausgeliefert werden.
+$\lambda$urora muss auf einem Web Server (z.B. Apache) gehostet werden und kann an beliebig viele Benutzer ausgeliefert werden.
 
 
 \newpage
 \section{Produktumgebung}
-Aurora ist eine Client seitige Anwendung.
+$\lambda$urora ist eine Client seitige Anwendung.
 
 \subsection{Software}
 	\begin{itemize}
@@ -251,7 +251,7 @@ Aurora ist eine Client seitige Anwendung.
 
 \subsection{Hardware}
 	\begin{itemize}
-		\item Es wird ein an das Internet angeschlossener Rechner benötigt..
+		\item Es wird ein an das Internet angeschlossener Rechner benötigt.
 		\item Des weiteren wird ein SSE2-fähiger Intel Pentium 4-Prozessor oder besser benötigt.
 	\end{itemize}
 \subsection{Orgware}
@@ -259,7 +259,7 @@ Aurora ist eine Client seitige Anwendung.
 		\item Während dem Projekt werden folgende Dokumente erstellt und dauernd gepflegt:
 			\begin{itemize}
 				\item Pflichtenheft
-				\item Aurora Handbuch
+				\item $\lambda$urora Handbuch
 			\end{itemize}
 	\end{itemize}
 \newpage
@@ -273,7 +273,7 @@ Aurora ist eine Client seitige Anwendung.
 \functionality{Eingabefeld}{fnc:input}
 \fulfills{crt:text-editor}
 \fulfills{crt:input-readonly}
-Es gibt ein Eingabefeld, dessen Inhalt als Eingabe für Aurora dient.
+Es gibt ein Eingabefeld, dessen Inhalt als Eingabe für $\lambda$urora dient.
 
 \functionality{Zeilennummern}{fnc:ln}
 \fulfills{crt:linenumbers}
@@ -285,7 +285,7 @@ Der Benutzer kann den Inhalt des Eingabefelds über die Tastatur bearbeiten.
 
 \functionality{Autovervollständigung von Klammern}{fnc:bracket}
 \fulfills{crt:autobracket}
-Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt Aurora automatisch eine passende schließende Klammer ein \enquote{)}.
+Wenn der Benutzer eine Klammer öffnet \enquote{(}, fügt $\lambda$urora automatisch eine passende schließende Klammer ein \enquote{)}.
 
 \functionality{Anzahl von dargestellten Schritten auswählen}{fnc:amountofsteps}
 \fulfills{crt:intermediate-step-output}
@@ -353,7 +353,7 @@ Der Benutzer kann mit dem \enquote{Continue}-Button eine mit Pause unterbrochene
 
 \functionality{Share}{fnc:share}
 \fulfills{crt:share}
-Der Benutzer kann mithilfe des  \enquote{Share}-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
+Der Benutzer kann mithilfe des \enquote{Share}-Buttons eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält. Wenn ein anderer Benutzer diesen Link in seinem Browser lädt, dann öffnet sich das Programm mit gleichem Input und Benutzerbibliothek.
 
 \subsection{Bibliotheken}
 
@@ -1035,7 +1035,7 @@ Außerdem ist der Kommentar farblich markiert. }
 \includegraphics[width=\textwidth]{../GUI-Design/tutorials/Tutorial_Top_Menu_Section.png}
 \newline
 \newline
-\textbf{(1) Aurora}
+\textbf{(1) $\lambda$urora}
 \newline Der Titel der Seite, lädt die Seite neu.
 
 \textbf{(2) Tutorial}
@@ -1060,7 +1060,7 @@ Außerdem ist der Kommentar farblich markiert. }
 %Seite, die beim Besuchen der Betreiberdomain \emph{ohne Pfad} angezeigt wird. Auch %\enquote{Startseite}.
 \textbf{Standardbibliothek}
 \newline
-Eine Ansammlung von $\lambda$-Termen die einen Funktionsnamen bekommen haben. Die Entwickler von Aurora haben die wichtigsten $\lambda$-Terme zusammen getragen damit der Benutzer häufig vorkommende $\lambda$-Terme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten $\lambda$-Term.
+Eine Ansammlung von $\lambda$-Termen die einen Funktionsnamen bekommen haben. Die Entwickler von $\lambda$urora haben die wichtigsten $\lambda$-Terme zusammen getragen damit der Benutzer häufig vorkommende $\lambda$-Terme nicht selber tippen muss. Der Benutzer kann den Namen der Funktion im Editor verwenden und das Programm ersetzt den Namen automatisch in den gewählten $\lambda$-Term.
 
 \textbf{Benutzerbibliothek}
 \newline
