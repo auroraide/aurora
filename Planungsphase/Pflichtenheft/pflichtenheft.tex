@@ -825,7 +825,7 @@ Außerdem ist der Kommentar farblich markiert. }
 {Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und mit Call-By-Name.}
 { Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert. }
 
-\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z).}
+\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z). Die Schrittanzahl für die zu gehenden Steps ist auf 1 eingestellt.}
 {Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen Redex als nächstes zu reduzieren.}
 {Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus.}
 
@@ -886,15 +886,15 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests {fnc:steps-to-display}
 \tests{fnc:step}
 
-\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und auswerten lassen. Lediglich das Ergebnis wurde ausgegeben.}
-{Der Benutzer stellt die Anzahl die Anzahl Schritte auf 3. Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
-{Im Schrittfeld werden 3 Zwischenschritten angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben. Der $\lambda$-Term sollte mehr als 100 Zwischenschritte haben. Der Benutzer hat den $\lambda$-Term auswerten lassen.  Lediglich das Ergebnis wurde ausgegeben.}
+{Der Benutzer stellt die Anzahl der zu gehenden Schritte auf 15. Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
+{Im Schrittfeld werden 15 Zwischenschritte angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
-\teststep {Nach dem vorherigen Test wurde noch fünf mal aud den \enquote {3-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
+\teststep {Nach dem vorigen Test wurde noch 5 mal auf den \enquote {3-Punkte}-Button gedrückt, es sind also 90 Zwischenergebnisse sichtbar.}
 {Der Benutzer drückt erneut auf den \enquote {3-Punkte}-Button.}
 {Es werden die Zwischenschritte 91 bis 105 der Liste hinzugefügt, die Zwischenschritte 1 bis 5 verschwinden und werden durch einen \enquote {3-Punkte}-Button ersetzt.}
 
-\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
+\teststep {Der Benutzer hat einen $\lambda$-Term eingegeben und diesen Auswerten lassen. Dieser $/lambda$-Term sollte länger als 50 Zwischenschritte beinhalten. Er stellt die Anzahl der auszugebenden Zwischenergebnisse auf 50 um.}
 {Der Benutzer drückt auf den \enquote {3-Punkte}-Button.}
 {Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
