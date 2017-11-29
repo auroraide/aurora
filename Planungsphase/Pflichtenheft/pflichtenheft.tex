@@ -101,7 +101,7 @@ Einzelne Zeilen in der Eingabe können auskommentiert werden. Diese Zeilen werde
 Wenn der Benutzer eine Klammer öffnet \enquote{(}, dann schließt das Programm automatisch diese Klammer mit \enquote{)}.
 
 \criteriumOptional{Syntax-Highlighting}{crt:syntax-highlighting}
-Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. Zur besseren Übersichtlichkeit werden $\lambda$s  und \enquote{.} Punkte fett geschrieben. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
+Funktionsnamen aus der Standard- oder Benutzerbibliothek werden farbig geschrieben um eine einfache Erkennung zu ermöglichen. Zur besseren Übersichtlichkeit werden $\lambda$s und \enquote{.} Punkte fett geschrieben. Beim Hovern über einer Klammer wird das entsprechende Klammerpaar markiert.
 
 \criteriumOptional{Erweitertes Syntax-Highlighting}{crt:syntax-highlighting-premium}
 Der nächste auszuwertende Redex wird farblich hinterlegt.
@@ -135,7 +135,7 @@ Der \enquote{Pause}-Button unterbricht die laufende Berechnung. Nachdem das Prog
 Der \enquote{Continue}-Button setzt eine pausierte Berechnung fort.
 
 \criteriumOptional{Share-Button}{crt:share}
-Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
+Ein \enquote{Share}-Button ermöglicht das Erstellen von Short-URLs sowie das Kopieren dieser in den Zwischenspeicher.
 
 \criteriumOptional{Öffnen in neuem Tab}{crt:to-new-tab}
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
@@ -536,6 +536,10 @@ Ein vom Benutzer ausgewählter Schritt kann in einem neuen Browser-Tab zum Editi
 \fulfills{crt:export-latex}
 Der Benutzer kann entweder die Eingabe oder die Eingabe mit Zwischenschritten und Ergebnis in Latexsyntax exportieren. Dies wird automatisch ins Clipboard kopiert, damit der Benutzer dies selbsständig in ein LaTeX Dokument einfügen kann.
 
+\functionality{E-Mail Link}{fnc:export-email}
+\fulfills{crt:share}
+Der Benutzer kann eine Short-URL erstellen, welche den Input und die Benutzerbibliothek enthält und diese anschließend als E-Mail versenden.
+
 \functionality{Tutorial}{fnc:tutorial}
 \fulfills{crt:tutorial}
 Durch drücken des \enquote {Hilfe}-Buttons erscheint ein Tutorial, das dem Benutzer das Programm erklärt und auf Features hinweist.
@@ -845,7 +849,11 @@ Außerdem ist der Kommentar farblich markiert. }
 
 \teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
 { Der Benutzer drückt auf den Share button und wählt copy-link}
-{ Sofern möglich wird eine gekürzte Url in sein Clipboard gespeichert }
+{ Sofern möglich, wird eine gekürzte URL in sein Clipboard gespeichert }
+
+\teststep {Das Programm hat einen $\lambda$-Term ausgerechntet}
+{ Der Benutzer drückt auf den Share button und wählt \enquote{E-Mail}}
+{ Sofern möglich, wird eine gekürzte URL generiert und diese an den E-Mail-Client des Benutzers übergeben. }
 
 \teststep {Der Benutzer hat von vorherigem Test eine Url erhalten}
 {Der Benutzer gibt den Link in seine URL Leiste ein }
@@ -867,7 +875,6 @@ Außerdem ist der Kommentar farblich markiert. }
 {Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
 {Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z))
 	\\
-	%\noindent\hspace*{5mm}
 	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
 
 \teststep {Das Programm ist im Default-State}
@@ -902,19 +909,19 @@ Außerdem ist der Kommentar farblich markiert. }
 {Ein fettgedrucktes Lambdasymbol $\lambda$ erscheint}
 
 \teststep{In dem Eingabefeld steht eine willkürliche Eingabe}
-{Der Benutzer drückt gleichzeitg Shift \enquote {+} $\hookleftarrow$ }
+{Der Benutzer drückt gleichzeitg \texttt{Shift} + $\hookleftarrow$ }
 {Der Shortcut betätigt den Run Knopf und die Standard Run-Operation wird ausgeführt}
 
 \teststep{Das Programm berechnet $\beta$-Reduktionen}
-{Der Benutzer drückt gleichzeitig Shift \enquote {+} r }
+{Der Benutzer drückt gleichzeitig \texttt{Shift} + $\hookleftarrow$ }
 {Die Berechnung terminiert wie sie es getan hätte, hätte der Benutzer den \enquote{Reset}-Button gedrückt}
 
 \teststep{Das Programm berechnet$\beta$-Reduktionen}
-{Der Benutzer drückt gleichzeitig \enquote {+} p }
+{Der Benutzer drückt gleichzeitig \texttt{Shift} + \texttt{P} }
 {Die Berechnung pausiert wie sie es getan hätte, als hätter der Benutzer auf den \enquote{Pause}-Button gedrückt hätte}
 
 \teststep{In dem Eingabefeld steht eine willkürliche Eingabe}
-{Der Benutzer drückt gleichzeitig Shift \enquote {+} n }
+{Der Benutzer drückt gleichzeitig \texttt{Shift} + \texttt{N} }
 {Das Programm zeigt den ersten Schritt. Der Shortcut ist äquivalent zum drücken des \enquote{Schritt}-Buttons}
 
 \newpage
