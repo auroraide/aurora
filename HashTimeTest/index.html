@@ -1,5 +1,8 @@
 <html>
     <body>
+        <p id="MD5">0</p>
+        <p id="SHA1">0</p>
+
         <script src="md5.js"></script>
         <script src="sha1.js"></script>
         <script src="rndString.js"></script>
@@ -24,9 +27,10 @@
             }
             var end = performance.now();
             console.log(end - begin + " ms (MD5)");
+            document.getElementById("MD5").innerHTML=(end - begin).toString() + " ms (MD5)";
 
             var hashsha1 = new Array();
-            var begin = performance.now();
+            begin = performance.now();
             for (var i = 0; i < list.length; ++i) {
                 hash = Sha1.hash(list[i]);
                 if(hashsha1.includes(hash)){
@@ -34,8 +38,9 @@
                 }
                 hashsha1.push(hash);
             }
-            var end = performance.now();
+            end = performance.now();
             console.log(end - begin + " ms (SHA1)");
+            document.getElementById("SHA1").innerHTML=(end - begin).toString() + " ms (SHA1)";
         
         </script>            
     </body>
