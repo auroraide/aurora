@@ -604,20 +604,16 @@ Der Name von Funktionen, unabhängig davon, wo sie definiert sind, beginnt ausna
 \newpage
 \section{Tests}
 
-\test{Einstellungsmenü}{tst:settings}
+\test{Sprachenauswahl}{tst:langauge-selection}
 \tests{fnc:language-selection}
 \teststep{Das Programm befindet sich im Default-Zustand.}
-{Der Benutzer drückt auf den Einstellungen Knopf.}
-{Die Sidebar wird mit der Einstellungen-Sidebar ersetzt.}
+{Der Benutzer drückt auf den \enquote{ENG}-Knopf.}
+{Es geht ein Menü auf mit verfügbaren menschlichen Sprachen.}
 
 \teststep{Zustand aus dem vorherigen Schritt.}
-{Der Benutzer drückt auf \enquote{Language}.}
-{Die Einstellungen-Sidebar wird mit einer Liste von menschlichen Sprachen ersetzt.}
-
-\teststep{Zustand aus dem vorherigem Schritt.}
 {Der Benutzer drückt auf \enquote{Russian}.}
-{Die Sprache vom Programm ändert sich auf Russisch und die Sprach-Listen-Sidebar und
-Einstellungen-Sidebar verschwinden. Es wird wieder die Sidebar aus dem Default-Zustand angezeigt.}
+{Die Das Menü verschwindet und die Sprache des gesamten Programms ändert sich auf Russisch.}
+
 
 \test{Teilen-Funktion}{tst:export}
 \tests{fnc:export-latex}
