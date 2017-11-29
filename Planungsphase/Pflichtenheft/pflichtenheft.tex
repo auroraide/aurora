@@ -171,12 +171,12 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
 \begin{tabular}{|r|l|}
 
     \hline
-    shortcut & Beschreibung \\ \hline
+    Shortcut & Beschreibung \\ \hline
     \textbackslash & $\lambda$ \\ \hline
-    Shift \enquote{+} $\hookleftarrow$ & Run \\ \hline
-    Shift \enquote{+} r & Reset \\ \hline
-    Shift \enquote{+} p & Pause \\ \hline
-    Shift \enquote{+} n & Schritt \\ \hline
+    \texttt{Shift} + $\hookleftarrow$ & Run \\ \hline
+    \texttt{Shift} + \texttt{T} & Reset \\ \hline
+    \texttt{Shift} + \texttt{P} & Pause \\ \hline
+    \texttt{Shift} + \texttt{N} & Step \\ \hline
 
 
 \end{tabular}
@@ -504,29 +504,25 @@ Eine vom Benutzer definierte Funktion wird automatisch in die Historie eingefüg
 
 \subsection{Shortcuts}
 
-\functionality{Shortcuts}{fnc:shortcut}
+\functionality{Lambda-Shortcut}{fnc:lambda-shortcut}
 \fulfills{crt:shortcuts}
-Der Benutzer kann Tastenkürzel benutzen um schnelleren Zugriff auf bestimmte Programmfunktionen zu haben.
-
-\functionality{$\lambda$-Shortcut}{fnc:lambda-shortcut}
-\fulfills{crt:shortcuts}
-Durch Eingabe von \enquote {\textbackslash} wird ein \enquote {$\lambda$} ausgegeben.
+Durch Eingabe von \texttt{\textbackslash} wird ein \texttt{$\lambda$} ausgegeben.
 
 \functionality{Run-Shortcut}{fnc:run-shortcut}
 \fulfills{crt:shortcuts}
-Drücken von Shift \enquote {+} $\hookleftarrow$ ist äquivalent zum Drücken des \enquote {Run}-Buttons.
+Drücken von \texttt{Shift} + \texttt{$\hookleftarrow$} ist äquivalent zum Drücken des \enquote{Run}-Buttons.
 
 \functionality{Reset-Shortcut}{fnc:terminate-shortcut}
 \fulfills{crt:shortcuts}
-Drücken von Shift \enquote {+} r ist äquivalent zum Drücken des \enquote {Reset}-Buttons.
+Drücken von \texttt{Shift} + \texttt{T} ist äquivalent zum Drücken des \enquote{Reset}-Buttons.
 
 \functionality{Pause-Shortcut}{fnc:pause-shortcut}
 \fulfills{crt:shortcuts}
-Drücken von Shift \enquote {+} p ist äquivalent zum Drücken des \enquote {Pause}-Buttons.
+Drücken von \texttt{Shift} + \texttt{P} ist äquivalent zum Drücken des \enquote{Pause}-Buttons.
 
-\functionality{Schritt}{fnc:step-shortcut}
+\functionality{Step-Shortcut}{fnc:step-shortcut}
 \fulfills{crt:shortcuts}
-Drücken von Shift \enquote {+} n ist äquivalent zum Drücken des \enquote {Schritt}-Buttons.
+Drücken von \texttt{Shift} + \texttt{N} ist äquivalent zum Drücken des \enquote{Schritt}-Buttons.
 
 
 
@@ -721,7 +717,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 {Dies ist unmöglich}
 
 \teststep{Das Programm ist im Default-State}
-{Der Benutzer gibt in den Editor ein \enquote{\#dies ist ein test ($\lambda$z.z) a } , drückt dann enter und schreibt in der zweiten Zeile 
+{Der Benutzer gibt in den Editor ein \enquote{\#dies ist ein test ($\lambda$z.z) a } , drückt dann enter und schreibt in der zweiten Zeile
 \newline \enquote{($\lambda$ x. x) y}  und drückt dannach auf Run}
 {Das Programm überspringt den Lambdaterm in der Kommentarzeile und berechnet nur den aus der unteren Zeile. Das Programm gibt y aus.
 Außerdem ist der Kommentar farblich markiert. }
@@ -770,24 +766,24 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:show-beta-reduction}
 \tests{fnc:amountofsteps}
 
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt im Feld Benutzerbibliothek auf den enquote{Plus}-Button.}
+\teststep {Das Programm ist im Default-State.}
+{Der Benutzer drückt im Feld Benutzerbibliothek auf den \enquote{Plus}-Button.}
 {Es öffnet sich ein Popup, indem der Benutzer eine Funktion definieren kann.}
 
-\teststep {Das Programm ist im Default-State}
-{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {first} und $\lambda$p.p($\lambda$a.$\lambda$b.a) ein}
+\teststep {Das Programm ist im Default-State.}
+{Der Benutzer drückt auf den \enquote{Plus} Button im Feld \enquote{Benutzerbibliothek} und gibt \enquote {first} und $\lambda$p.p($\lambda$a.$\lambda$b.a) ein.}
 {Wenn er auf den Button drückt öffnet sich ein Popup-Fenster in dem der Benutzer als Name der neuen Funktion Pair eingeben kann und als $\lambda$-Term den von ihm gewünschten $\lambda$-Term eingibt. Dieser Name wird mit dem $\lambda$-Term gespeichert und man kann im Editor anstelle des $\lambda$-Terms den Namen eingeben.}
 
-\teststep { Der vorherige Test wurde ausgeführt}
-{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run}
+\teststep { Der vorherige Test wurde ausgeführt.}
+{ Der Benutzer gibt in den Editor \enquote {first (pair a b)} ein. Dannach drückt er auf Run.}
 { Das Programm erkennt pair aus seiner Standardbibliothek und ihm ist $\lambda$a.$\lambda$b.$\lambda$f.f a b  zugewiesen. Das Programm erkennt first aus dem im letzten Testfall hinzugefügten $\lambda$-Term und kann nun $\beta$-Reduktion druchführen. Das Programm gibt als Ergebnis a aus.}
 
-\teststep {Die vorherigen zwei Tests wurden ausgeführt}
-{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerlibrary}
+\teststep {Die vorherigen zwei Tests wurden ausgeführt.}
+{Der Benutzer löscht den vorher neu definierten \enquote{first} Term aus der Benutzerbibliothek.}
 {Der Name \enquote{first} verschwindet aus der Liste der Namen in der Benutzerbibliothek und dannach wird die Funktion \enquote{first} nicht mehr im Editor erkannt und gehighlightet.}
 
-\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardfunktionsbibliothek implementiert }
-{Der Benutzer gibt in den Editor \enquote {\$plus 2 2} ein und drückt auf den Buttorn \enquote {Run}}
+\teststep {Das Programm ist geöffnet und findet sich im Default-State. An der rechten Seite ist die Standardbibliothek implementiert.}
+{Der Benutzer gibt in den Editor \enquote {\$plus 2 2} ein und drückt auf den Buttorn \enquote {Run}.}
 { Das Programm erkennt das Wort \enquote {plus} aus der Standardbibliothek und ersetzt es durch \enquote {$\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)} die 2en erkennt er jeweils als die Churchzahl 2 und ersetzt sie durch \enquote {$\lambda$s.$\lambda$z.s(s z)}. Dann führt das Programm $\beta$-Reduktion aus und bekommt als Ergebnis\enquote {$\lambda$s.$\lambda$z. (s (s (s (s z))))} dies erkennt es ist die Churchzahl 4 und gibt dies aus. }
 
 
@@ -803,7 +799,7 @@ Außerdem ist der Kommentar farblich markiert. }
 	\newline $\lambda$s.$\lambda$z. ( s ( s (($\lambda$z.s(s z)) z) ))
 	\newline $\lambda$s.$\lambda$z. ( s ( s ( s (s z))))}
 
-\teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben }
+\teststep {Der Benutzer hat erneut \enquote {\$plus 2 2} in den Editor eingegeben. }
 {Der Benutzer wählt aus, dass er nur 5 Schritte sehen will, er drückt auf \enquote {Run} und wartet, bis das Ergebnis zu sehen ist, anschließend drückt er auf den \enquote {3-Punkte}-Button.}
 {Es werden nun die ersten 5 Schritte angezeigt, wenn er mehr sehen will muss er erneut auf den Button drücken.}
 
@@ -811,13 +807,13 @@ Außerdem ist der Kommentar farblich markiert. }
 {Der Benutzer gibt einmal \enquote{plus 2 2} in den Editor ein. Einmal gibt er ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in den Editor ein. Beidesmal drückt er auf run und schaut auf das Ergebnis}
 {Das Ergebnis ist in beiden Fällen das Gleiche. }
 
-\teststep {Das Programm ist im Default-State}
+\teststep {Das Programm ist im Default-State.}
 {Der Benutzer gibt \enquote{\$ minus 1 1} ein und drückt auf \enquote{Run}.}
-{Das Programm erkennt die funktion minus und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert }
+{Das Programm erkennt die funktion minus und die churchzahlen und gibt als ergebnis 0 aus. Da das Programm nicht erkennen kann ob es die Churchzahl 0 oder der boolean false ist gibt es immer 0 aus. Im Tutorial des Programmes wird das dem Benutzer erläutert. }
 
-\teststep{Das Programm befindet sich im Default-State}
-{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert) }
-{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf}
+\teststep{Das Programm befindet sich im Default-State.}
+{Der Benutzer will einen neuen Eintrag in die Benutzerbibliothek einfügen und nennt seinen neuen Term \enquote{plus} ( Dieser Term ist schon in der Standardbibliothek definiert.) }
+{Es öffnet sich ein Popup das dem Benutzer sagt, dass er dies nicht darf.}
 
 
 \test{Auswertungsstrategie und De Bruijn}{tst:strategy}
@@ -825,18 +821,18 @@ Außerdem ist der Kommentar farblich markiert. }
 \tests{fnc:share}
 \tests{fnc:debruijn-output}
 
-\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State }
-{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und  mit Call-By-Name}
-{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert }
+\teststep {Im Editor steht der Term ($\lambda$t.$\lambda$f.f)(($\lambda$y.($\lambda$x.x x))(($\lambda$x.x)($\lambda$x.x)))($\lambda$t.$\lambda$f.f) sonst ist das Programm im Default-State. }
+{Der Benutzer lässt den Term ohne eingestellte Auswertungsstrategie (im Default ist das Normalenreihenfolge) und schaut sich den ersten Schritt an. Dann tut er das gleiche mit der Auswertungsstrategie Call-By-Value und mit Call-By-Name.}
+{ Bei der Normalreihenfolge und Call-by-Name wird der Redex ($\lambda$t.$\lambda$f.f) als erstes reduziert. Bei Call-By-Value wird der Term ($\lambda$x.x) als erstes reduziert. }
 
-\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z)}
-{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren}
-{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus  }
+\teststep{ Im Editor steht der $\lambda$-Term ($\lambda$x. f x x) (($\lambda$y. y)z).}
+{Der Benutzer drückt auf den \enquote{Step}-Button und drückt auf ($\lambda$y. y) um diesen redex als nächstes zu reduzieren.}
+{Das Programm wählt diesen Redex für die $\beta$-Reduktion und gibt als nächsten Step \enquote{($\lambda$x. f x x) } aus.  }
 
 
-\teststep { Das Programm ist im Default-State}
-{ Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run}
-{ Durch die Alphakonversion mit De Bruijn-Indizes ist das Ergebnis nicht a  a  }
+\teststep{Das Programm ist im Default-State.}
+{Der Benutzer gibt ($\lambda$y.$\lambda$x.y x) x a in den Editor ein und drückt auf Run.}
+{Durch die $\alpha$-Konversion mit De Bruijn-Indizes ist das Ergebnis nicht a a.}
 
 
 \test{Sharing und Speichern}{tst:to-new-tab}
@@ -873,7 +869,7 @@ Außerdem ist der Kommentar farblich markiert. }
 
 \teststep{Der Benutzer hat den Term \newline($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) ($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) in das Eingabefeld ein und schaut sich den ersten Step an.}
 {Bei einer geringen Bildschirmauflösung wird der Lambdaterm nicht in einer Zeile passen. Das Programm verwendet Pretty print }
-{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z)) 
+{Der Term wird nach einer \enquote{)} Klammer in die neue Zeile gebracht. Jetzt ist der erste Step \newline ($\lambda$n.$\lambda$m.$\lambda$s.$\lambda$z.n s (m s z))
 	\\
 	\noindent\hspace*{5mm}
 	($\lambda$s.$\lambda$z.s(s z)) ($\lambda$s.$\lambda$z.s(s z)) }
@@ -899,7 +895,6 @@ Außerdem ist der Kommentar farblich markiert. }
 {Im Schrittfeld werden die ersten 50 Zwischenergebnisse angezeigt. Der \enquote {3-Punkte}-Button ist unter den Zwischenergebnissen sichtbar.}
 
 \test{Shortcuts}{tst:allshortcuts}
-\tests{fnc:shortcut}
 \tests{fnc:lambda-shortcut}
 \tests{fnc:run-shortcut}
 \tests{fnc:terminate-shortcut}
@@ -1077,4 +1072,3 @@ IPD steht für \enquote{Institut für Programmstrukturen und Datenverwaltung} un
 \newline
 Der Default-State ist der Zustand des Programmes in dem es ist, wenn es zum ersten Mal geöffnet wurde und nichts verstellt wurde. Im Default-State wird nichts aus dem localStorage geladen.
 \end{document}
-
