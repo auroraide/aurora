@@ -114,7 +114,7 @@ Die Ausgabe der Auswertungen von $\lambda$-Termen wird schön formatiert. Insbes
 Bibliothek, in der vordefinierte Funktionen und Church-Zahlen verfügbar sind. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
 \criteriumOptional{Benutzerbibliothek}{crt:user-library}
-Bibliothek, in der der Benutzer eigene Funktionen definieren, speichern und löschen kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
+Bibliothek, in die der Benutzer eigene Funktionen definieren, speichern und löschen kann. Durch Schlüsselwörter kann der Benutzer diese direkt in seinen Code einbinden.
 
 \criteriumOptional{Weitere Auswertungsstrategien}{crt:opt-eval-strategy}
 Zusätzliche Auswertungsstrategien sind \enquote{Call by Name} und \enquote{Call by Value}.
@@ -141,14 +141,14 @@ Ein \enquote{Share}-Button ermöglicht das Erstellen von short-URLs sowie das Ko
 Im Kontextmenü zu den einzelnen Schritten kann der aktuelle Schritt als Eingabe in einem neuen Browser-Tab geöffnet werden.
 
 \criteriumOptional{LaTeX export}{crt:export-latex}
-$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können in LaTeX-Snippet exportieren werden. Bis zu einer gewissen größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
+$\lambda$-Terme aus dem Text-Editor oder der Schrittliste können als LaTeX-Snippet exportiert werden. Bis zu einer gewissen Größe ist es auch möglich, den kompletten Rechenweg mit zu exportieren.
 
 \criteriumOptional{Night Mode}{crt:night-mode}
 Die Funktion \enquote{Night Mode} ändert das äußere Erscheinungsbild der Applikation zu einem dunkleren Farbschema.
 
 \criteriumOptional{Schleifenerkennung}{crt:loop-detection}
 Das Programm soll einfache Schleifen, wie z.B. ($\lambda$x. x x) ($\lambda$x. x x), erkennen. Insbesondere kann es aber weiterhin vorkommen, dass komplexere Schleifen nicht erkannt werden.
-Außerdem soll das Programm nicht die Berechnunng abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
+Außerdem soll das Programm nicht die Berechnung abbrechen wenn eine Schleife gefunden wurde, sondern nur dem Nutzer die Option gegeben werden die Berechnung abzubrechen. Wenn der Benutzer  will kann er auch gefundene Endlosschleifen weiterlaufen lassen.
 
 \criteriumOptional{Aurora Tutorial}{crt:tutorial}
 Das Tutorial erklärt und zeigt dem Benutzer, wie man die Applikation $\lambda$urora nutzt.
@@ -187,7 +187,7 @@ Das Programm soll stark reduziert auch auf mobilen Endgeräten laufen
 \subsection{Abgrenzungskriterien}
 
 \criteriumNot{Berechnungen laufen Client-seitig}{crt:client-side}
-Der Client führt das Programm aus. Alle Funktionen die etwas berechnen oder speichern müssen werden auf der Hardware des Clients ausgeführt.
+Der Client führt das Programm aus. Alle Funktionen, die etwas berechnen oder speichern müssen, werden auf der Hardware des Clients ausgeführt.
 
 \criteriumNot{Keine Server-Komponente}{crt:no-server-side}
 Der Server ist nur für die Verbreitung des Programmcodes zuständig. Er selber speichert keinerlei Daten oder führt Aktionen für das Programm aus.
