@@ -174,7 +174,7 @@ $\lambda$urora stellt Tastatur-Shortcuts zum vereinfachten Ausführen von Featur
     shortcut & Beschreibung \\ \hline
     \textbackslash & $\lambda$ \\ \hline
     Shift \enquote{+} $\hookleftarrow$ & Run \\ \hline
-    Shift \enquote{+} t & Terminate \\ \hline
+    Shift \enquote{+} r & Reset \\ \hline
     Shift \enquote{+} p & Pause \\ \hline
     Shift \enquote{+} n & Schritt \\ \hline
 
@@ -339,13 +339,13 @@ Der \enquote{Run}-Button startet die Auswertung des Inputs. Diese veranlasst den
 \fulfills{crt:single-step-eval}
 Der \enquote {Step}-Button führt genau eine $\beta$-Reduktion durch und gibt diese als Zwischenergebnis aus. Es wird kein Ergebnis ausgegeben.
 
-\functionality{Terminate}{fnc:stop}
+\functionality{Reset}{fnc:stop}
 \fulfills{crt:stop}
-Der Benutzer kann eine laufende Berechnung über einen \enquote{Terminate}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
+Der Benutzer kann eine laufende Berechnung über einen \enquote{Reset}-Button abbrechen. Alle Berechnungsschritte werden verworfen und nichts aus der bisherigen Berechnung wird gespeichert. Der Input bleibt erhalten.
 
 \functionality{Pause}{fnc:pause}
 \fulfills{crt:pause}
-Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Terminate-Button, die Berechnung weiterlaufen lassen.
+Der Benutzer kann auf den \enquote{Pause}-Button drücken um die laufende Berechnung zu unterbrechen und sich die bisherigen Schritte anzeigen zu lassen. Er kann allerdings, im Gegensatz zum Reset-Button, die Berechnung weiterlaufen lassen.
 
 \functionality{Continue}{fnc:continue}
 \fulfills{crt:continue}
@@ -516,9 +516,9 @@ Durch Eingabe von \enquote {\textbackslash} wird ein \enquote {$\lambda$} ausgeg
 \fulfills{crt:shortcuts}
 Drücken von Shift \enquote {+} $\hookleftarrow$ ist äquivalent zum Drücken des \enquote {Run}-Buttons.
 
-\functionality{Terminate-Shortcut}{fnc:terminate-shortcut}
+\functionality{Reset-Shortcut}{fnc:terminate-shortcut}
 \fulfills{crt:shortcuts}
-Drücken von Shift \enquote {+} t ist äquivalent zum Drücken des \enquote {Terminate}-Buttons.
+Drücken von Shift \enquote {+} r ist äquivalent zum Drücken des \enquote {Reset}-Buttons.
 
 \functionality{Pause-Shortcut}{fnc:pause-shortcut}
 \fulfills{crt:shortcuts}
@@ -697,7 +697,7 @@ Es wird ein Pop-up angezeigt als Bestätigung. Nach hoechstens 5 Sekunden ist es
 { das Programm erkennt die Endlosschleife und warnt den Benutzer }
 
 \teststep {Das Programm berechnet zurzeit einen $\lambda$-Term }
-{Der Benutzer drückt auf den Terminate-Button}
+{Der Benutzer drückt auf den Reset-Button}
 { Das Programm beendet die Berechnung und gibt kein Ergebnis aus }
 
 \teststep{Das Programm berechnet zurzei einen $\lambda$-Term}
@@ -915,8 +915,8 @@ Außerdem ist der Kommentar farblich markiert. }
 {Der Shortcut betätigt den Run Knopf und die Standard Run-Operation wird ausgeführt}
 
 \teststep{Das Programm berechnet $\beta$-Reduktionen}
-{Der Benutzer drückt gleichzeitig Shift \enquote {+} t }
-{Die Berechnung terminiert wie sie es getan hätte, hätte der Benutzer den \enquote{Terminate}-Button gedrückt}
+{Der Benutzer drückt gleichzeitig Shift \enquote {+} r }
+{Die Berechnung terminiert wie sie es getan hätte, hätte der Benutzer den \enquote{Reset}-Button gedrückt}
 
 \teststep{Das Programm berechnet$\beta$-Reduktionen}
 {Der Benutzer drückt gleichzeitig \enquote {+} p }
