@@ -225,7 +225,9 @@ TSWLatexianTemp*
 *~[0-9]*
 
 # vim
-*.*.swp
+*~
+*.swo
+*.swp
 
 # auto folder when using emacs and auctex
 /auto/*
