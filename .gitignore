@@ -342,3 +342,7 @@ local.properties
 .classpath
 
 .project
+
+\.idea/
+
+Aurora\.iml
