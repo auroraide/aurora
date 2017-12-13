@@ -1,4 +1,4 @@
-package aurora;
+package aurora.shared.backend;
 
 public class Application extends Term {
 	private final Term left;

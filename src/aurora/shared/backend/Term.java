@@ -1,4 +1,4 @@
-package aurora;
+package aurora.shared.backend;
 
 public abstract class Term {
 	

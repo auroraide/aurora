@@ -1,17 +1,11 @@
-package aurora;
+package aurora.shared.backend;
 
 public class Abstraction extends Term {
-    private String name;
-    
-	private BoundedVariable bound_var;
+	private final BoundVariable boundVariable;
     private final Term term;
 
-    public Abstraction(BoundedVariable bound_var, Term term) {
-        this.bound_var = bound_var;
+    public Abstraction(BoundVariable boundVariable, Term term) {
+        this.boundVariable = boundVariable;
         this.term = term;
-    }
-
-    public Term getTerm() {
-        return term;
     }
 }
