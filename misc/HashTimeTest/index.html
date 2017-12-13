@@ -1,0 +1,47 @@
+<html>
+    <body>
+        <p id="MD5">0</p>
+        <p id="SHA1">0</p>
+
+        <script src="md5.js"></script>
+        <script src="sha1.js"></script>
+        <script src="rndString.js"></script>
+        <script type="text/javascript">
+            var size = 10000;
+            var steps = 10000;
+
+            list = new Array();
+            for (var i = 0; i < steps; ++i) {
+                list.push(rndString(size));
+            }
+            
+            var hashmd5 = new Array();
+            var hash;
+            var begin = performance.now(); 
+            for (var i = 0; i < list.length; ++i) {
+                hash = md5(list[i]);
+                if(hashmd5.includes(hash)){
+                    console.log("shouldn't happen");
+                }
+                hashmd5.push(hash);
+            }
+            var end = performance.now();
+            console.log(end - begin + " ms (MD5)");
+            document.getElementById("MD5").innerHTML=(end - begin).toString() + " ms (MD5)";
+
+            var hashsha1 = new Array();
+            begin = performance.now();
+            for (var i = 0; i < list.length; ++i) {
+                hash = Sha1.hash(list[i]);
+                if(hashsha1.includes(hash)){
+                    console.log("shouldn't happen");
+                }
+                hashsha1.push(hash);
+            }
+            end = performance.now();
+            console.log(end - begin + " ms (SHA1)");
+            document.getElementById("SHA1").innerHTML=(end - begin).toString() + " ms (SHA1)";
+        
+        </script>            
+    </body>
+</html>
