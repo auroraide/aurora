@@ -1,0 +1,57 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{amsmath} % for $\text{}$
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+
+
+\begin{titlepage}
+
+\subject{Entwurfsdokumentation}
+\title{$\lambda$urora}
+\subtitle{The Lambda Calculus IDE}
+
+
+\author{Julia Patrusheva, Alexander von Heyden\\
+Younis Bensalah, Max Nowak\\
+Nikolai Polley, Randy Seng}
+
+\end{titlepage}
+
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Einleitung}
+\pagebreak
+\end{document}
