@@ -2,6 +2,6 @@ package aurora.client.view.editor.components;
 
 import com.google.gwt.user.client.ui.Composite;
 
-public class OutputField extends Composite {
+public abstract class OutputField extends Composite {
 
 }
