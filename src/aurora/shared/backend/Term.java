@@ -1,9 +1,12 @@
 package aurora.shared.backend;
 
 public abstract class Term {
-	
-	   private String prettyprint;
-	    
-	
+
+	public abstract void accept(TermVisitor visitor);
+
+	/**
+	 * 
+	 */
+	public abstract Term substitute(int index, Term with);
 
 }

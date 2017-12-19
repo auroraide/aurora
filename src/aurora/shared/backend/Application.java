@@ -16,4 +16,10 @@ public class Application extends Term {
     public Term getRight() {
         return right;
     }
+
+	public Term substitute(int index, Term with) {
+	    Term left = this.left.substitute(index + 1, with);
+	    Term right = this.right.substitute(index + 1, with);
+	    return new Application(left, right);
+	}
 }

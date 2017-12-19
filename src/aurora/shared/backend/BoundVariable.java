@@ -6,4 +6,10 @@ public class BoundVariable extends Variable {
     public BoundVariable(Abstraction abstraction) {
         this.abstraction = abstraction;
     }
+
+    // in BoundVariable
+    public Term substitute(int index, Term with) {
+        if (this.index == index) return with;
+        return this;
+    }
 }
