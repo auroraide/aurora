@@ -1,11 +1,19 @@
 package aurora.client.view.topmenu;
 
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.Widget;
 
 
 public class TopMenu extends Composite {
-    private Button logoButton;
-    private Button tutorialButton;
+    interface TopMenuUiBinder extends UiBinder<Widget, TopMenu> {}
+    @UiField Hyperlink logoButton;
+    @UiField Hyperlink tutorialButton;
+
+    public TopMenu() {
+
+    }
 
 }

@@ -1,4 +1,4 @@
 package aurora.client.view;
 
-public class DesktopView {
+public class AuroraView {
 }
