@@ -6,7 +6,7 @@ import aurora.client.view.editor.components.OutputField;
 import aurora.client.view.editor.components.StepWindow;
 import com.google.gwt.user.client.ui.Composite;
 
-public class EditorView extends Composite {
+public class Editor extends Composite {
     private CodeEditor codeEditor;
     private OutputField outputField;
     private StepWindow stepWindow;
