@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class TopMenu extends Composite {
     interface TopMenuUiBinder extends UiBinder<Widget, TopMenu> {}
-    @UiField Hyperlink logoButton;
-    @UiField Hyperlink tutorialButton;
+    @UiField Hyperlink logoURL;
+    @UiField Hyperlink tutoriaURL;
 
     public TopMenu() {
 

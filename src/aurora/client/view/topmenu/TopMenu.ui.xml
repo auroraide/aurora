@@ -2,7 +2,7 @@
     xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
     <g:HorizontalPanel>
-        <g:Hyperlink ui:field="logoButton"></g:Hyperlink>
-        <g:Hyperlink ui:field="tutorialButton"></g:Hyperlink>
+        <g:Hyperlink ui:field="logoURL"></g:Hyperlink>
+        <g:Hyperlink ui:field="tutoriaURL"></g:Hyperlink>
     </g:HorizontalPanel>
 </ui:UiBinder>
