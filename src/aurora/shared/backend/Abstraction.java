@@ -21,18 +21,23 @@ public class Abstraction extends Term {
 	 *
 	 */
 	@Override
-	public void accept(TermVisitor visitor) {
-
+	public <T> T accept(TermVisitor<T> visitor) {
+        //this.body.accept(visitor);
+        return visitor.visit(this);
 	}
 
 	/**
 	 *
 	 */
-	public Term getBody() {}
+	public Term getBody() {
+        return this.body;
+    }
 
 	/**
 	 *
 	 */
-	public String getName() {}
+	public String getName() {
+        return this.name;
+    }
 
 }

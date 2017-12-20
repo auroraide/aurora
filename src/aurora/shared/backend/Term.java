@@ -8,6 +8,6 @@ public abstract class Term {
 	/**
 	 *
 	 */
-	public abstract void accept(TermVisitor visitor);
+	public abstract <T> T accept(TermVisitor<T> visitor);
 
 }

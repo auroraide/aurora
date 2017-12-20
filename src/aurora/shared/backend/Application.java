@@ -20,9 +20,17 @@ public class Application extends Term {
 	/**
 	 *
 	 */
-	@Override
-	public void accept(TermVisitor visitor) {
+	/*@Override
+	public <T> T accept(TermVisitor<T> visitor) {
+		//this.left.accept(visitor);
+		//this.right.accept(visitor);
+		visitor.visit(this);
+	}*/
 
+	public <T> T accept(TermVisitor<T> visitor) {
+		//this.left.accept(visitor);
+		//this.right.accept(visitor);
+		return visitor.visit(this);
 	}
 
 	/**

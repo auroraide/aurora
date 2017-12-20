@@ -3,38 +3,38 @@ package aurora.shared.backend;
 /**
  *
  */
-public class Tuple<T> {
+public class Tuple<T, V> {
 
     private T first;
-    
-    private T second;
+
+    private V second;
 
     /**
      *
      */
     public T getFirst() {
-
+        return this.first;
     }
 
     /**
      *
      */
-    public T getSecond() {
-
+    public V getSecond() {
+        return this.second;
     }
 
     /**
      *
      */
-    public void getFirst(T first) {
-
+    public void setFirst(T first) {
+        this.first = first;
     }
 
     /**
      *
      */
-    public void getSecond(T second) {
-
+    public void setSecond(V second) {
+        this.second = second;
     }
 
 }

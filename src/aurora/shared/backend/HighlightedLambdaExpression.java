@@ -36,22 +36,40 @@ public class HighlightedLambdaExpression {
 
     }
 
-    public int[] getLambdas() {}
+    public int[] getLambdas() {
+        return this.lambdas;
+    }
 
-    public int[] getDots() {}
+    public int[] getDots() {
+        return this.dots;
+    }
 
-    public int[] getVariables() {}
+    public int[] getVariables() {
+        return this.variables;
+    }
 
-    public int[] getFunctions() {}
+    public int[] getFunctions() {
+        return this.functions;
+    }
 
-    public int[] getNumbers() {}
+    public int[] getNumbers() {
+        return this.numbers;
+    }
 
-    public Tuple<Integer, Integer>[] getParenthesis() {}
+    public Tuple<Integer, Integer>[] getParenthesis() {
+        return this.parenthesis;
+    }
 
-    public Tuple<Integer, Integer>[] getPrevTerm() {}
+    public Tuple<Integer, Integer>[] getPrevTerm() {
+        return this.prevTerm;
+    }
 
-    public Tuple<Integer, Integer>[] getRedexes() {}
+    public Tuple<Integer, Integer>[] getRedexes() {
+        return this.redexes;
+    }
 
-    public int getNextRedex() {}
+    public int getNextRedex() {
+        return this.nextRedex;
+    }
 
 }

@@ -3,36 +3,36 @@ package aurora.shared.backend;
 /**
  *
  */
-public interface TermVisitor {
+public interface TermVisitor<T> {
 
     /**
      *
      */
-    public void visit(Abstraction abs);
+    public T visit(Abstraction abs);
 
     /**
      *
      */
-    public void visit(Application app);
+    public T visit(Application app);
 
     /**
      *
      */
-    public void visit(BoundVariable bvar);
+    public T visit(BoundVariable bvar);
 
     /**
      *
      */
-    public void visit(FreeVariable fvar);
+    public T visit(FreeVariable fvar);
 
     /**
      *
      */
-    public void visit(LibraryTerm libterm);
+    public T visit(LibraryTerm libterm);
 
     /**
      *
      */
-    public void visit(ChurchNumber c);
+    public T visit(ChurchNumber c);
 
 }

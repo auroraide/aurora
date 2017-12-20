@@ -18,8 +18,8 @@ public class ChurchNumber extends Term {
 	 *
 	 */
     @Override
-	public void accept(TermVisitor visitor) {
-
+	public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
 	}
 
     /**
