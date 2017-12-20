@@ -1,15 +1,32 @@
 package aurora.shared.backend;
 
-public class BoundVariable extends Variable {
-    private final Abstraction abstraction;
+/**
+ *
+ */
+public class BoundVariable extends Term {
 
-    public BoundVariable(Abstraction abstraction) {
-        this.abstraction = abstraction;
+    private final int index;
+
+    /**
+	 *
+	 */
+    public BoundVariable(int index) {
+        this.index = index;
     }
 
-    // in BoundVariable
-    public Term substitute(int index, Term with) {
-        if (this.index == index) return with;
-        return this;
+    /**
+	 *
+	 */
+    @Override
+	public void accept(TermVisitor visitor) {
+
+	}
+
+    /**
+	 *
+	 */
+    public int getIndex() {
+        return this.index;
     }
+
 }

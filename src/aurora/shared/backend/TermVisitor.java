@@ -1,13 +1,38 @@
 package aurora.shared.backend;
 
-public class TermVisitor {
+/**
+ *
+ */
+public interface TermVisitor {
 
-    public abstract void visit();
+    /**
+     *
+     */
+    public void visit(Abstraction abs);
 
-    public abstract void visit();
+    /**
+     *
+     */
+    public void visit(Application app);
 
-    public abstract void visit();
+    /**
+     *
+     */
+    public void visit(BoundVariable bvar);
 
-    public abstract void visit();
+    /**
+     *
+     */
+    public void visit(FreeVariable fvar);
+
+    /**
+     *
+     */
+    public void visit(LibraryTerm libterm);
+
+    /**
+     *
+     */
+    public void visit(ChurchNumber c);
 
 }

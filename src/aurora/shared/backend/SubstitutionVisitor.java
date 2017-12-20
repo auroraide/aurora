@@ -1,21 +1,38 @@
 package aurora.shared.backend;
 
-public class SubstitutionVisitor extends TermVisitor {
+/**
+ *
+ */
+public class SubstitutionVisitor implements TermVisitor {
 
-    public void visit()
-    {
+    @Override
+    public void visit(Abstraction abs) {
+        
     }
 
-    public void visit()
-    {
+    @Override
+    public void visit(Application app) {
+        
     }
 
-    public void visit()
-    {
+    @Override
+    public void visit(BoundVariable bvar) {
+        
     }
 
-    public void visit()
-    {
+    @Override
+    public void visit(FreeVariable fvar) {
+        
+    }
+
+    @Override
+    public void visit(LibraryTerm libterm) {
+        
+    }
+
+    @Override
+    public void visit(ChurchNumber c) {
+        
     }
 
 }
