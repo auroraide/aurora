@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+    xmlns:g="urn:import:com.google.gwt.user.client.ui"
+    xmlns:sidebar="urn:import:aurora.client.view.sidebar.components">
+
+    <g:VerticalPanel>
+        <!-- Standard Library-->
+        <sidebar:library.StandardLibrary ui:field="stdlib"/>
+
+        <!-- User Library-->
+        <sidebar:library.UserLibrary ui:field="usrlib"/>
+
+        <!-- Strategy -->
+        <g:HorizontalPanel>
+            <g:RadioButton name="call by VALUE" ui:field="callByValue"/>
+            <g:RadioButton name="NORMAL ORDER" ui:field="normalOrder"/>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:RadioButton name="call by NAME" ui:field="callByName"/>
+            <g:RadioButton name="MANUAL SELECTION" ui:field="manualSelection"/>
+        </g:HorizontalPanel>
+
+        <!-- Night Mode -->
+        <g:HorizontalPanel>
+            <span>Night Mode</span>
+            <g:ToggleButton ui:field="nightModeSwitch"/>
+        </g:HorizontalPanel>
+
+        <!-- Language Selection and Share -->
+        <g:HorizontalPanel>
+            <sidebar:LanguageSelection/> <!-- Placeholder. Create own composite Widget or define here? -->
+            <sidebar:Share/> <!-- Placeholder. Create own composite Widget or define here? -->
+        </g:HorizontalPanel>
+
+    </g:VerticalPanel>
+</ui:UiBinder>
