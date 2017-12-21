@@ -10,7 +10,7 @@
         <sidebar:library.UserLibrary ui:field="usrlib"/>
 
         <!-- Strategy -->
-        <g:VerticalPanel>
+
             <g:HorizontalPanel>
                 <g:RadioButton ui:field="callByValue" name="strategyButton" value="callByValue" enabled="false">call by value</g:RadioButton>
                 <g:RadioButton ui:field="normalOrder" name="strategyButton" value="normalOrder" enabled="true">normal order</g:RadioButton>
@@ -20,7 +20,7 @@
                 <g:RadioButton ui:field="callByName" name="strategyButton" value="callByName" enabled="false">call by name</g:RadioButton>
                 <g:RadioButton ui:field="manualSelection" name="strategyButton" value="manualSelection" enabled="false">manual selection</g:RadioButton>
             </g:HorizontalPanel>
-        </g:VerticalPanel>
+
 
         <!-- Night Mode -->
         <g:HorizontalPanel>

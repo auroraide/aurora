@@ -1,8 +1,14 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
     xmlns:g="urn:import:com.google.gwt.user.client.ui"
     xmlns:editor="urn:import:aurora.client.view.editor.components">
-
     <g:VerticalPanel>
-
+        <g:SplitLayoutPanel>
+            <g:east>
+            </g:east>
+            <g:center>
+                <g:LayoutPanel ui:field="stepContainer"/>
+          </g:center>
+        </g:SplitLayoutPanel>
     </g:VerticalPanel>
+
 </ui:UiBinder>
