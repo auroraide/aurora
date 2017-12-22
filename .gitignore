@@ -1,5 +1,6 @@
 # garbage
 *~
+.directory
 
 # MAC extra files
 .DB_Store
