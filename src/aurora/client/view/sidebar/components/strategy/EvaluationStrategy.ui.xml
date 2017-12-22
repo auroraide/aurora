@@ -1,0 +1,26 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <g:VerticalPanel>
+        <g:HorizontalPanel>
+            <g:RadioButton ui:field="callByValue" name="strategyButton" value="callByValue" enabled="false">
+                call by VALUE
+            </g:RadioButton>
+
+            <g:RadioButton ui:field="normalOrder" name="strategyButton" value="normalOrder" enabled="true">
+                NORMAL ORDER
+            </g:RadioButton>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:RadioButton ui:field="callByName" name="strategyButton" value="callByName" enabled="false">
+                call by NAME
+            </g:RadioButton>
+
+            <g:RadioButton ui:field="manualSelection" name="strategyButton" value="manualSelection" enabled="false">
+                MANUAL SELECTION
+            </g:RadioButton>
+        </g:HorizontalPanel>
+    </g:VerticalPanel>
+
+</ui:UiBinder>
