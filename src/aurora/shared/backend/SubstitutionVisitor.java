@@ -4,13 +4,18 @@ package aurora.shared.backend;
  *
  */
 public class SubstitutionVisitor implements TermVisitor<Term> {
+
     private final int index;
+
     private final Term with;
 
-
+    /**
+	 *
+	 */
     public SubstitutionVisitor(Term with) {
         this(0, with);
     }
+    
     private SubstitutionVisitor(int index, Term with) {
         this.index = index;
         this.with = with;
@@ -53,6 +58,7 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
     }
 
     private class DebruijnFixVisitor implements TermVisitor<Term> {
+
         private final int innerindex;
 
         private DebruijnFixVisitor(int index) {
@@ -96,4 +102,5 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
         }
 
     }
+
 }
