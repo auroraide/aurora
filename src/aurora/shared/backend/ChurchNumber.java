@@ -3,15 +3,15 @@ package aurora.shared.backend;
 /**
  *
  */
-public class BoundVariable extends Term {
+public class ChurchNumber extends Term {
 
-    private final int index;
+    private final int value;
 
     /**
 	 *
 	 */
-    public BoundVariable(int index) {
-        this.index = index;
+    public ChurchNumber(int value) {
+        this.value = value;
     }
 
     /**
@@ -25,8 +25,8 @@ public class BoundVariable extends Term {
     /**
 	 *
 	 */
-    public int getIndex() {
-        return this.index;
+    public int getValue() {
+        return this.value;
     }
 
 }

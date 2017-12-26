@@ -1,0 +1,93 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+	pdftitle={Entwurfsdokumentation},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{amsmath} % for $\text{}$
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+
+
+\begin{titlepage}
+
+\subject{Entwurfsdokumentation}
+\title{$\lambda$urora}
+\subtitle{The Lambda Calculus IDE}
+
+
+\author{Iuliia Patrusheva, Alexander von Heyden\\
+Younis Bensalah, Max Nowak\\
+Nikolai Polley, Randy Seng}
+
+\end{titlepage}
+
+
+
+
+\begin{document}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+\section{Einleitung}
+\subsection{Zweck des Softwares}
+\subsection{Entwurfsziele}
+\pagebreak
+
+\section{Grobentwurf}
+\subsection{Architekturmuster und/oder Systemzerlegung}
+MVC oder MVP oder darf noch was sein?
+Vorteile gegenüber anderer Modelle
+\subsubsection{Übersicht}
+Hier kommt ein grober Übersicht von MVC oder MVP im Kontext des Auroras
+\subsubsection{Model}
+Was beinhaltet dieses Teil (Datenmodelle) + wen kennt es?
+\subsubsection{View}
+Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
+\subsubsection{Keine Ahnung - Controller oder Presenter}
+Was beinhaltet dieses Teil + wen kennt es?
+
+
+\subsection{Sicherheit und Zugrifskontrole}
+Erklären, dass wir keine Zugrifskontrolle haben und keinen DB
+\subsection{Kontrollfluss}
+Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
+\subsection{Datenbank?}
+Eklärung, das wir den DB nicht benutzen und wieso
+\subsection{Randbedingugen}
+Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
+\pagebreak
+
+\section{Feinentwurf}
+\subsection{Richtlinien der Schnittstellendokumentation}
+wie die Doku gemacht ist (Latex, Latex Javadoc)
+\subsection{Pakete}
+\subsection{Entwurfsmuster (welche sind benutzt)}
+\subsection{Klassen und Schnittstellen}
+\pagebreak
+
+\end{document}

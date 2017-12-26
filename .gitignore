@@ -346,3 +346,5 @@ local.properties
 \.idea/
 
 Aurora\.iml
+
+*.class

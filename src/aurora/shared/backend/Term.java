@@ -1,9 +1,13 @@
 package aurora.shared.backend;
 
+/**
+ *
+ */
 public abstract class Term {
-	
-	   private String prettyprint;
-	    
-	
+
+	/**
+	 *
+	 */
+	public abstract <T> T accept(TermVisitor<T> visitor);
 
 }

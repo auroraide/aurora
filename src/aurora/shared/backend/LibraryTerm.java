@@ -3,15 +3,15 @@ package aurora.shared.backend;
 /**
  *
  */
-public class BoundVariable extends Term {
+public class LibraryTerm extends Term {
 
-    private final int index;
+    private final String name;
 
     /**
 	 *
 	 */
-    public BoundVariable(int index) {
-        this.index = index;
+    public LibraryTerm(String name) {
+        this.name = name;
     }
 
     /**
@@ -25,8 +25,8 @@ public class BoundVariable extends Term {
     /**
 	 *
 	 */
-    public int getIndex() {
-        return this.index;
+    public String getName() {
+        return this.name;
     }
 
 }
