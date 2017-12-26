@@ -2,13 +2,11 @@ package aurora.client.view.sidebar;
 
 import aurora.client.view.sidebar.components.library.StandardLibrary;
 import aurora.client.view.sidebar.components.library.UserLibrary;
-import aurora.client.view.sidebar.components.nightmode.NightMode;
 import aurora.client.view.sidebar.components.strategy.EvaluationStrategy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -23,7 +21,7 @@ public class Sidebar extends Composite {
     // Evaluation Strategy
     @UiField EvaluationStrategy strategy;
 
-    @UiField NightMode nightMode;
+    @UiField ToggleButton nightModeSwitch;
 
     public Sidebar() {
 

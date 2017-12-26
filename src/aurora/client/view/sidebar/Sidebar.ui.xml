@@ -4,18 +4,30 @@
 
 
     <g:VerticalPanel>
-        <!-- Standard Library-->
-        <sidebar:library.StandardLibrary ui:field="stdlib"/>
+        <g:StackLayoutPanel unit="PX">
+            <!-- Standard Library-->
+            <g:stack>
+                <g:header size='3'>Standard Library</g:header>
+                <sidebar:library.StandardLibrary ui:field="stdlib"/>
+            </g:stack>
 
-        <!-- User Library-->
-        <sidebar:library.UserLibrary ui:field="usrlib"/>
+            <!-- User Library-->
+            <g:stack>
+                <g:header size="3">User Library</g:header>
+                <sidebar:library.UserLibrary ui:field="usrlib"/>
+            </g:stack>
 
+        </g:StackLayoutPanel>
+        
         <!-- Strategy -->
         <sidebar:strategy.EvaluationStrategy ui:field="strategy"/>
 
 
         <!-- Night Mode -->
-        <sidebar:nightmode.NightMode ui:field="nightMode"/>
+        <g:HorizontalPanel>
+            <span>Night Mode</span>
+            <g:ToggleButton ui:field="nightModeSwitch"/>
+        </g:HorizontalPanel>
 
         <!-- Language Selection and Share -->
         <g:HorizontalPanel>
