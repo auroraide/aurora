@@ -1,5 +1,21 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:topmenu="urn:import:aurora.client.view.topmenu"
+             xmlns:sidebar="urn:import:aurora.client.view.sidebar"
+             xmlns:editor="urn:import:aurora.client.view.editor">
 
+    <g:DockLayoutPanel unit="EM">
+        <g:north size="5">
+            <topmenu:TopMenu ui:field="topMenu"/>
+        </g:north>
+        
+        <g:west size="192">
+            <sidebar:Sidebar ui:field="sidebar"/>
+        </g:west>
 
+        <g:center>
+            <editor:Editor ui:field="editor"/>
+        </g:center>
+
+   </g:DockLayoutPanel>
 </ui:UiBinder>
