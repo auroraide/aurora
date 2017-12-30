@@ -7,5 +7,8 @@ import java.util.List;
 
 public class StandardLibrary extends Library {
 
+    public StandardLibrary() {
+
+    }
 
 }

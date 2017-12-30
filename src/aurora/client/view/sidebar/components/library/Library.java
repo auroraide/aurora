@@ -7,4 +7,5 @@ import com.google.gwt.user.client.ui.FlexTable;
 
 public abstract class Library extends Composite {
    @UiField FlexTable entryTable;
+
 }

@@ -9,11 +9,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DesktopView extends Composite{
-    interface DesktopViewUiBinder extends UiBinder<Widget, DesktopView> {
+public class DesktopView extends Composite {
+    interface DesktopViewImplUiBinder extends UiBinder<Widget, DesktopView> {
     }
 
-    private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
+    private static DesktopViewImplUiBinder uiBinder = GWT.create(DesktopViewImplUiBinder.class);
 
     @UiField
     TopMenu topMenu;
@@ -26,6 +26,8 @@ public class DesktopView extends Composite{
 
     public DesktopView() {
 
-        initWidget(ourUiBinder.createAndBindUi(this));
+        initWidget(uiBinder.createAndBindUi(this));
     }
+
+
 }

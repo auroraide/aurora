@@ -3,37 +3,64 @@
              xmlns:sidebar="urn:import:aurora.client.view.sidebar.components">
 
 
-    <g:VerticalPanel>
-        <g:StackLayoutPanel unit="PX">
-            <!-- Standard Library-->
-            <g:stack>
-                <g:header size='3'>Standard Library</g:header>
-                <sidebar:library.StandardLibrary ui:field="stdlib"/>
-            </g:stack>
+    <g:DockLayoutPanel>
+        <g:center>
+            <g:StackLayoutPanel unit="EM">
+                <g:stack>
+                    <g:header>Steps</g:header>
+                    <g:Button>StepSettingSlider</g:Button>
+                    <!-- Placeholder for Steps Widget -->
+                </g:stack>
 
-            <!-- User Library-->
-            <g:stack>
-                <g:header size="3">User Library</g:header>
-                <sidebar:library.UserLibrary ui:field="usrlib"/>
-            </g:stack>
+                <!-- Standard Library-->
+                <g:stack>
+                    <g:header size='3'>Standard Library</g:header>
+                    <!--<sidebar:library.StandardLibrary ui:field="stdlib"/>-->
+                    <g:Button>Stdlib Table</g:Button>
+                </g:stack>
 
-        </g:StackLayoutPanel>
-        
-        <!-- Strategy -->
-        <sidebar:strategy.EvaluationStrategy ui:field="strategy"/>
+                <!-- User Library-->
+                <g:stack>
+                    <g:customHeader>
+                        <g:HorizontalPanel>
+                            <g:Label>User Library</g:Label>
+                            <g:Button ui:field="addFunction">+</g:Button>
+                        </g:HorizontalPanel>
+                    </g:customHeader>
+                    <!--<sidebar:library.UserLibrary ui:field="usrlib"/>-->
+                    <g:Button>Usrlib Table</g:Button>
+                </g:stack>
 
 
-        <!-- Night Mode -->
-        <g:HorizontalPanel>
-            <span>Night Mode</span>
-            <g:ToggleButton ui:field="nightModeSwitch"/>
-        </g:HorizontalPanel>
+                <g:stack>
+                    <g:customHeader>
+                        <!-- Strategy -->
+                        <sidebar:strategy.EvaluationStrategy ui:field="strategy"/>
+                    </g:customHeader>
 
-        <!-- Language Selection and Share -->
-        <g:HorizontalPanel>
-            <!-- Placeholder. Create own composite Widget or define here? -->
-            <sidebar:Share/> <!-- Placeholder. Create own composite Widget or define here? -->
-        </g:HorizontalPanel>
+                    <g:Button>4 Strategies</g:Button>
+                </g:stack>
 
-    </g:VerticalPanel>
+            </g:StackLayoutPanel>
+        </g:center>
+
+
+        <g:south size="5">
+            <g:VerticalPanel>
+                <!-- Night Mode -->
+                <g:HorizontalPanel>
+                    <g:Label>Night Mode</g:Label>>
+                    <g:ToggleButton ui:field="nightModeSwitch"/>
+                </g:HorizontalPanel>
+
+                <!-- Language Selection and Share -->
+                <g:HorizontalPanel>
+                    <!-- Placeholder. Create own composite Widget or define here? -->
+                    <sidebar:Share/> <!-- Placeholder. Create own composite Widget or define here? -->
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+        </g:south>
+
+
+    </g:DockLayoutPanel>
 </ui:UiBinder>
