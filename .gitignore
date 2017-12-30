@@ -1,9 +1,16 @@
 # garbage
 *~
+.directory
 
 # MAC extra files
 .DB_Store
 .DS_Store
+#
+gwt-unitCache/*
+war/WEB-INF/classes/*
+war/WEB-INF/lib/*
+war/aurora/*
+
 
 # merge backup files
 *.orig
@@ -348,3 +355,6 @@ local.properties
 Aurora\.iml
 
 *.class
+
+#GWT
+build.xml
