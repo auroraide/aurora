@@ -349,3 +349,6 @@ local.properties
 Aurora\.iml
 
 *.class
+
+#GWT
+build.xml
