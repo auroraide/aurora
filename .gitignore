@@ -5,7 +5,8 @@
 # MAC extra files
 .DB_Store
 .DS_Store
-#
+
+# GWT
 gwt-unitCache/*
 war/WEB-INF/classes/*
 war/WEB-INF/lib/*
