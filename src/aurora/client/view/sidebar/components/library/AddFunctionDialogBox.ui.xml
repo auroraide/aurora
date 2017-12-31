@@ -1,0 +1,26 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <g:VerticalPanel>
+        <g:HorizontalPanel>
+            <g:Label>Name:</g:Label>
+            <g:TextBox ui:field="nameField" focus="true"/>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Label>Lambda-Term:</g:Label>
+            <g:TextBox ui:field="functionField"/>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Label>Description:</g:Label>
+            <g:TextArea ui:field="descriptionField"/>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Button ui:field="addButton">ADD</g:Button>
+            <g:Button ui:field="cancelButton">CANCEL</g:Button>
+        </g:HorizontalPanel>
+
+    </g:VerticalPanel>
+</ui:UiBinder>

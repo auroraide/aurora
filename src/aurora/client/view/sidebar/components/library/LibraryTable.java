@@ -4,8 +4,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 
+public abstract class LibraryTable extends Composite {
+    @UiField FlexTable table;
 
-public abstract class Library extends Composite {
-   @UiField FlexTable entryTable;
 
+    abstract void loadData();
 }

@@ -1,66 +1,82 @@
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:sidebar="urn:import:aurora.client.view.sidebar.components">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:library="urn:import:aurora.client.view.sidebar.components.library"
+             xmlns:strategy="urn:import:aurora.client.view.sidebar.components.strategy">
 
+    <ui:style>
+        .leftAlign {
+            position: absolute;
+            left: 0em;
+        }
 
-    <g:DockLayoutPanel>
+        .rightAlign {
+            position: absolute;
+            right: 0em;
+        }
+
+        .rightAlignButton {
+            position: absolute;
+            right: 0em;
+            top: 0em;
+        }
+    </ui:style>
+
+    <g:DockLayoutPanel unit="EM">
         <g:center>
-            <g:StackLayoutPanel unit="EM">
+            <!-- Step Setting, Standard Library, User Library -->
+            <g:StackLayoutPanel>
+
+                <!-- Step Setting -->
                 <g:stack>
-                    <g:header>Steps</g:header>
-                    <g:Button>StepSettingSlider</g:Button>
-                    <!-- Placeholder for Steps Widget -->
+                    <g:customHeader size="40">
+                        <g:FlowPanel>
+                            <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
+                            <g:TextBox ui:field="stepSetting" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                        </g:FlowPanel>
+                    </g:customHeader>
+                    <g:Label>Placeholder for custom slider widget</g:Label>
                 </g:stack>
 
-                <!-- Standard Library-->
+                <!-- Standard Library -->
                 <g:stack>
-                    <g:header size='3'>Standard Library</g:header>
-                    <!--<sidebar:library.StandardLibrary ui:field="stdlib"/>-->
-                    <g:Button>Stdlib Table</g:Button>
+                    <g:customHeader size="40">
+                        <g:FlowPanel>
+                            <!-- Placeholder for stdlib icon-->
+                            <g:Label addStyleNames="{style.leftAlign}">Icon</g:Label>
+                            <g:Label addStyleNames="{style.rightAlign}">Standard Library</g:Label>
+                        </g:FlowPanel>
+                    </g:customHeader>
+
+                    <library:StandardLibraryTable/>
                 </g:stack>
 
-                <!-- User Library-->
+                <!-- User Library -->
                 <g:stack>
-                    <g:customHeader>
-                        <g:HorizontalPanel>
+                    <g:customHeader size="70">
+                        <g:FlowPanel>
+                            <g:Label>Icon</g:Label>
                             <g:Label>User Library</g:Label>
-                            <g:Button ui:field="addFunction">+</g:Button>
-                        </g:HorizontalPanel>
-                    </g:customHeader>
-                    <!--<sidebar:library.UserLibrary ui:field="usrlib"/>-->
-                    <g:Button>Usrlib Table</g:Button>
-                </g:stack>
-
-
-                <g:stack>
-                    <g:customHeader>
-                        <!-- Strategy -->
-                        <sidebar:strategy.EvaluationStrategy ui:field="strategy"/>
+                            <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+</g:Button>
+                        </g:FlowPanel>
                     </g:customHeader>
 
-                    <g:Button>4 Strategies</g:Button>
+                    <library:UserLibraryTable/>
                 </g:stack>
-
             </g:StackLayoutPanel>
         </g:center>
 
+        <g:south size="20">
+            <g:FlowPanel>
+                <!-- Strategy Selection -->
+                <strategy:StrategySelection/>
 
-        <g:south size="5">
-            <g:VerticalPanel>
                 <!-- Night Mode -->
-                <g:HorizontalPanel>
-                    <g:Label>Night Mode</g:Label>>
-                    <g:ToggleButton ui:field="nightModeSwitch"/>
-                </g:HorizontalPanel>
+                <g:FlowPanel>
+                    <g:Label addStyleNames="{style.leftAlign}">Night Mode</g:Label>
+                    <g:ToggleButton ui:field="nightModeSwitch" addStyleNames="{style.rightAlign}">On</g:ToggleButton>
+                </g:FlowPanel>
 
-                <!-- Language Selection and Share -->
-                <g:HorizontalPanel>
-                    <!-- Placeholder. Create own composite Widget or define here? -->
-                    <sidebar:Share/> <!-- Placeholder. Create own composite Widget or define here? -->
-                </g:HorizontalPanel>
-            </g:VerticalPanel>
+            </g:FlowPanel>
         </g:south>
-
-
     </g:DockLayoutPanel>
 </ui:UiBinder>

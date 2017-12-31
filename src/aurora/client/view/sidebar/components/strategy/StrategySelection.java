@@ -7,18 +7,18 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
-public class EvaluationStrategy extends Composite {
-    interface EvaluationStrategyUiBinder extends UiBinder<Widget, EvaluationStrategy> {
+public class StrategySelection extends Composite {
+    interface StrategySelectionUiBinder extends UiBinder<Widget, StrategySelection> {
     }
 
-    private static EvaluationStrategyUiBinder uiBinder = GWT.create(EvaluationStrategyUiBinder.class);
+    private static StrategySelectionUiBinder ourUiBinder = GWT.create(StrategySelectionUiBinder.class);
 
     @UiField RadioButton callByValue;
-    @UiField RadioButton normalOrder;
     @UiField RadioButton callByName;
+    @UiField RadioButton normalOrder;
     @UiField RadioButton manualSelection;
 
-    public EvaluationStrategy() {
-        initWidget(uiBinder.createAndBindUi(this));
+    public StrategySelection() {
+        initWidget(ourUiBinder.createAndBindUi(this));
     }
 }
