@@ -7,9 +7,10 @@ before_script:
 entwurfsdokument:
   script:
     - cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex
-    - mkdir -p out && javadoc -output out/classes.tex -docletpath ../../../TeXDoclet.jar -doclet org.stfm.texdoclet.TeXDoclet $(find ../../../src -name '*.java')
-    - pdflatex -output-directory=out classes.tex && pdflatex -output-directory=out classes.tex
+    - javadoc -output Classes.tex -docletpath ../../../TeXDoclet.jar -doclet org.stfm.texdoclet.TeXDoclet $(find ../../../src -name '*.java')
+    - pdflatex Classes.tex && pdflatex Classes.tex
   artifacts:
     paths:
       - "docs/entwurf/tex/Entwurf.pdf"
-      - "docs/entwurf/tex/out/classes.pdf"
+      - "docs/entwurf/tex/Classes.pdf"
+      - "docs/entwurf/tex/Classes.tex"
