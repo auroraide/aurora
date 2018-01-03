@@ -1,15 +1,16 @@
 image: blang/latex
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential plantuml wget
+  - apt-get update -qq && apt-get install -y -qq build-essential plantuml wget openjdk-8-jdk
   - wget http://doclet.github.io/resources/bin/TeXDoclet.jar
 
 entwurfsdokument:
   script:
     - cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex
-    - javadoc -output docs/entwurf/tex/classes.tex -docletpath TeXDoclet.jar -doclet org.stfm.texdoclet.TeXDoclet $(find ../../../src -name '*.java')
-    - cd pdflatex -output-directory=out classes.tex
+    - javadoc -output Classes.tex -docletpath ../../../TeXDoclet.jar -doclet org.stfm.texdoclet.TeXDoclet $(find ../../../src -name '*.java')
+    - pdflatex Classes.tex && pdflatex Classes.tex
   artifacts:
     paths:
       - "docs/entwurf/tex/Entwurf.pdf"
-      - "docs/entwurf/tex/out/classes.pdf"
+      - "docs/entwurf/tex/Classes.pdf"
+      - "docs/entwurf/tex/Classes.tex"
