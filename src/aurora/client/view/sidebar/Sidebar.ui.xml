@@ -1,0 +1,93 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:library="urn:import:aurora.client.view.sidebar.components.library"
+             xmlns:strategy="urn:import:aurora.client.view.sidebar.components.strategy">
+
+    <ui:style>
+        .leftAlign {
+            position: absolute;
+            left: 0em;
+        }
+
+        .rightAlign {
+            position: absolute;
+            right: 0em;
+        }
+
+        .rightAlignButton {
+            position: absolute;
+            right: 0em;
+            top: 0em;
+        }
+    </ui:style>
+    <g:DockLayoutPanel  unit="EM">
+        <g:center>
+
+            <g:DockLayoutPanel unit="EM">
+                <g:center>
+                    <!-- Step Setting, Standard Library, User Library -->
+                    <g:StackLayoutPanel>
+
+                        <!-- Step Setting -->
+                        <g:stack>
+                            <g:customHeader size="40">
+                                <g:FlowPanel>
+                                    <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
+                                    <g:TextBox ui:field="stepSetting" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                                </g:FlowPanel>
+                            </g:customHeader>
+                            <g:Label>Placeholder for custom slider widget</g:Label>
+                        </g:stack>
+
+                        <!-- Standard Library -->
+                        <g:stack>
+                            <g:customHeader size="40">
+                                <g:FlowPanel>
+                                    <!-- Placeholder for stdlib icon-->
+                                    <g:Label addStyleNames="{style.leftAlign}">Icon</g:Label>
+                                    <g:Label addStyleNames="{style.rightAlign}">Standard Library</g:Label>
+                                </g:FlowPanel>
+                            </g:customHeader>
+
+                            <library:StandardLibraryTable/>
+                        </g:stack>
+
+                        <!-- User Library -->
+                        <g:stack>
+                            <g:customHeader size="70">
+                                <g:FlowPanel>
+                                    <g:Label>Icon</g:Label>
+                                    <g:Label>User Library</g:Label>
+                                    <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+</g:Button>
+                                </g:FlowPanel>
+                            </g:customHeader>
+
+                            <library:UserLibraryTable/>
+                        </g:stack>
+                    </g:StackLayoutPanel>
+                </g:center>
+
+                <g:south size="20">
+                    <g:FlowPanel>
+                        <!-- Strategy Selection -->
+                        <strategy:StrategySelection/>
+
+                        <!-- Night Mode -->
+                        <g:FlowPanel>
+                            <g:Label addStyleNames="{style.leftAlign}">Night Mode</g:Label>
+                            <g:ToggleButton ui:field="nightModeSwitch" addStyleNames="{style.rightAlign}">On</g:ToggleButton>
+                        </g:FlowPanel>
+
+                    </g:FlowPanel>
+                </g:south>
+            </g:DockLayoutPanel>
+        </g:center>
+
+        <g:south size='5'>
+            <g:HorizontalPanel>
+                <g:Button>Share</g:Button>
+                <g:Button>Language</g:Button>
+            </g:HorizontalPanel>
+        </g:south>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

@@ -1,4 +1,4 @@
 package aurora.client.view;
 
-public class SidebarView {
+public class TutorialView {
 }
