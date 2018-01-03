@@ -359,4 +359,6 @@ Aurora\.iml
 *.class
 
 #GWT
-//build.xml
+#build.xml
+
+TeXDoclet.jar
