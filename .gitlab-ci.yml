@@ -1,7 +1,7 @@
 image: blang/latex
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential plantuml
+  - apt-get update -qq && apt-get install -y -qq build-essential plantuml wget
   - wget http://doclet.github.io/resources/bin/TeXDoclet.jar
 
 entwurfsdokument:
