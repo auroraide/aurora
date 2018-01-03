@@ -9,5 +9,5 @@ public class ActionBar extends Composite {
     @UiField Button stepButton;
     @UiField Button continueButton;
     @UiField Button pauseButton;
-    // buttons gleich bei änderung run -> pause ->continue
+    // buttons gleich bei aenderung run -> pause ->continue
 }
