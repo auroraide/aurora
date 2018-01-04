@@ -35,6 +35,11 @@ public class HelloLambda {
             public String visit(ChurchNumber c) {
                 return "c" + c.getValue();
             }
+
+            @Override
+            public String visit(Parenthesis p) {
+                return p.getInner().accept(this);
+            }
         };
 
         Term abs = new Abstraction(
