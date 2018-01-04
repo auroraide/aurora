@@ -1,14 +1,16 @@
 package aurora.shared.backend;
 
+import aurora.shared.backend.TreePath.Direction;
 import aurora.shared.backend.tree.*;
 
-public class ReplaceVisitor implements TermVisitor<Term> {
-    private final TreePath path;
-    private Term with;
-    private int pathIndex;
+import java.util.Iterator;
 
-    public ReplaceVisitor(TreePath path, Term with) {
-        this.path = path;
+public class ReplaceVisitor implements TermVisitor<Term> {
+    private final Iterator<Direction> pathIterator;
+    private Term with;
+
+    public ReplaceVisitor(Iterator<Direction> pathIterator, Term with) {
+        this.pathIterator = pathIterator;
         this.with = with;
     }
 
@@ -19,17 +21,15 @@ public class ReplaceVisitor implements TermVisitor<Term> {
 
     @Override
     public Term visit(Application app) {
-        if (pathIndex == path.getLength()) {
+        if (!pathIterator.hasNext()) {
             return with;
         }
-        if (path.getDirection(pathIndex) == TreePath.Direction.LEFT) {
-            pathIndex++;
+        if (pathIterator.next() == Direction.LEFT) {
             return new Application(
                     app.getLeft().accept(this),
                     app.getRight()
             );
         } else {
-            pathIndex++;
             return new Application(
                     app.getLeft(),
                     app.getRight().accept(this)
