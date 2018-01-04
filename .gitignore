@@ -346,19 +346,10 @@ local.properties
 .scala_dependencies
 .worksheet
 
-
-
 .classpath
-
 .project
-
-\.idea/
-
-Aurora\.iml
-
+.idea
+*.iml
 *.class
-
-#GWT
-#build.xml
 
 TeXDoclet.jar
