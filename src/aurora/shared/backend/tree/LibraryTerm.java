@@ -1,4 +1,6 @@
-package aurora.shared.backend;
+package aurora.shared.backend.tree;
+
+import aurora.shared.backend.TermVisitor;
 
 /**
  *

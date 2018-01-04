@@ -1,5 +1,7 @@
 package aurora.shared.backend;
 
+import aurora.shared.backend.tree.Term;
+
 /**
  *
  */

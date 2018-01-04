@@ -1,4 +1,5 @@
 package aurora.shared.backend;
 
-public class Treepath {
+public class TreePath {
+
 }
