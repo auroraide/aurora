@@ -11,7 +11,7 @@ public class ExceptionDialogBox extends DialogBox {
     interface ExceptionDialogBoxUiBinder extends UiBinder<Widget, ExceptionDialogBox> {
     }
 
-    private static ExceptionDialogBox exceptionUiBinder = GWT.create(ExceptionDialogBoxUiBinder.class);
+    private static ExceptionDialogBoxUiBinder exceptionUiBinder = GWT.create(ExceptionDialogBoxUiBinder.class);
     
 
     public ExceptionDialogBox() {

@@ -8,5 +8,6 @@
 
         <g:HorizontalPanel>
             <g:Label>Hier könnte Ihr Fehler stehen:</g:Label>
+        </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
