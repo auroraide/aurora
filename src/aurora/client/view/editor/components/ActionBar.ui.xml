@@ -1,0 +1,10 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+                xmlns:actionButtons="urn:import:aurora.client.view.editor.components.buttons">
+    <g:FlowPanel>
+        <actionButtons:RunPauseContinueButton ui:field="runPauseContinueButton"/>
+        <actionButtons:ResetButton ui:field="resetButton"/>
+        <actionButtons:StepButton ui:field="stepButton"/>
+    </g:FlowPanel>
+
+</ui:UiBinder>
