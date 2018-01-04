@@ -1,6 +1,6 @@
 package aurora.shared.backend;
 
-public class CallByName extends Strategy {
+public class Normalorder extends ReductionStrategy {
     @Override
     public TreePath getRedex(Term t) {
         return null;
