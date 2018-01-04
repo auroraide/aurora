@@ -35,4 +35,6 @@ public interface TermVisitor<T> {
      */
     public T visit(ChurchNumber c);
 
+
+    T visit(Parenthesis p);
 }
