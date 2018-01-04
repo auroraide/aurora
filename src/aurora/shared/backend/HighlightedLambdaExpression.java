@@ -1,105 +1,120 @@
 package aurora.shared.backend;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
-public class HighlightedLambdaExpression {
+public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaExpression.Token> {
 
-    private int[] lambdas;
-
-    private int[] dots;
-
-    private int[] variables;
-
-    private int[] functions;
-
-    private int[] numbers;
-
-    private Tuple<Integer, Integer>[] parenthesis;
-
-    private Tuple<Integer, Integer>[] prevTerm;
-
-    private Tuple<Integer, Integer>[] redexes;
-
-    private int nextRedex;
+    private List<Token> tokens;
 
     /**
 	 *
 	 */
-    public HighlightedLambdaExpression(
-            int[] lambdas,
-            int[] dots,
-            int[] variables,
-            int[] functions,
-            int[] numbers,
-            Tuple<Integer, Integer>[] parenthesis,
-            Tuple<Integer, Integer>[] prevTerm,
-            Tuple<Integer, Integer>[] redexes,
-            int nextRedex) {
-
+    public HighlightedLambdaExpression() {
+        this.tokens = new LinkedList<>();
     }
 
     /**
-	 *
-	 */
-    public int[] getLambdas() {
-        return this.lambdas;
+     *
+     */
+    public void appendToken(Token t) {
+        this.tokens.add(t);
+    }
+
+    @Override
+    public Iterator<Token> iterator() {
+        return this.tokens.iterator();
     }
 
     /**
-	 *
-	 */
-    public int[] getDots() {
-        return this.dots;
+     *
+     */
+    public enum TokenType {
+        LAMBDA,
+        DOT,
+        VARIABLE,
+        LEFT_PARENTHESIS,
+        RIGHT_PARENTHESIS,
+        FUNCTION,
+        NUMBER
     }
 
     /**
-	 *
-	 */
-    public int[] getVariables() {
-        return this.variables;
+     *
+     */
+    public class Token {
+
+        private TokenType type;
+
+        private String name;
+
+        /**
+         *
+         * @param type
+         * @param name
+         */
+        public Token(TokenType type, String name) {
+        }
+
+        /**
+         *
+         * @param type
+         */
+        public Token(TokenType type) {
+            this(type, "");
+        }
+
+        /**
+         *
+         * @return
+         */
+        public TokenType getType() {
+            return this.type;
+        }
+
+        /**
+         *
+         * @return
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public String toString() {
+            switch (this.type) {
+                case LAMBDA:
+                    return "\\";
+                case DOT:
+                    return ".";
+                case VARIABLE:
+                    return this.name;
+                case LEFT_PARENTHESIS:
+                    return "(";
+                case RIGHT_PARENTHESIS:
+                    return ")";
+                case FUNCTION:
+                    return "$" + this.name;
+                case NUMBER:
+                    return "c" + this.name;
+            }
+        }
+
     }
 
-    /**
-	 *
-	 */
-    public int[] getFunctions() {
-        return this.functions;
-    }
-
-    /**
-	 *
-	 */
-    public int[] getNumbers() {
-        return this.numbers;
-    }
-
-    /**
-	 *
-	 */
-    public Tuple<Integer, Integer>[] getParenthesis() {
-        return this.parenthesis;
-    }
-
-    /**
-	 *
-	 */
-    public Tuple<Integer, Integer>[] getPrevTerm() {
-        return this.prevTerm;
-    }
-
-    /**
-	 *
-	 */
-    public Tuple<Integer, Integer>[] getRedexes() {
-        return this.redexes;
-    }
-
-    /**
-	 *
-	 */
-    public int getNextRedex() {
-        return this.nextRedex;
+    @Override
+    public String toString() {
+        // mostly for debug purposes
+        StringBuilder builder = new StringBuilder();
+        for (Token t : this.tokens) {
+            builder.append(tokens.toString());
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 
 }
