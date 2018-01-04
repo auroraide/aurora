@@ -102,6 +102,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
                 case NUMBER:
                     return "c" + this.name;
             }
+            return this.name;
         }
 
     }
