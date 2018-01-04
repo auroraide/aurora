@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <g:VerticalPanel>
+        <g:HorizontalPanel>
+            <g:Label>ERROR:</g:Label>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Label>Hier könnte Ihr Fehler stehen:</g:Label>
+    </g:VerticalPanel>
+</ui:UiBinder>
