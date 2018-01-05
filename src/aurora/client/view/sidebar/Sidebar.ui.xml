@@ -20,6 +20,7 @@
             top: 0em;
         }
     </ui:style>
+
     <g:DockLayoutPanel unit="EM">
         <g:center>
 
@@ -29,13 +30,11 @@
                     <!-- Step Setting -->
                     <g:FlowPanel>
                         <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
-                        <g:TextBox ui:field="stepSetting" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                        <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
                     </g:FlowPanel>
-
                 </g:north>
 
                 <g:center>
-
                     <!-- Standard Library, User Library -->
                     <g:StackLayoutPanel>
 

@@ -3,6 +3,7 @@ package aurora.client.view.sidebar;
 import aurora.client.view.sidebar.components.library.AddFunctionDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -15,7 +16,7 @@ public class Sidebar extends Composite {
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddFunctionDialogBox addFunctionDialogBox;
 
-    @UiField TextBox stepSetting;
+    @UiField TextBox stepNumber;
     @UiField Button addFunction;
     @UiField ToggleButton nightModeSwitch;
 
@@ -25,8 +26,19 @@ public class Sidebar extends Composite {
         addFunctionDialogBox = new AddFunctionDialogBox();
     }
 
+    @UiHandler("stepNumber")
+    void onStepSettingTyped(KeyDownEvent event) {
+
+    }
+
     @UiHandler("addFunction")
     void onAddFunctionClicked(ClickEvent event) {
         addFunctionDialogBox.show();
     }
+
+
+    public void setStepNumber() {
+
+    }
+
 }
