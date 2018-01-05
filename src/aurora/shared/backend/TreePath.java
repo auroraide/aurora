@@ -2,21 +2,27 @@ package aurora.shared.backend;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class TreePath implements Iterable<TreePath.Direction> {
+
+    private final LinkedList<Direction> path;
+
     public TreePath() {
-        path = new LinkedList<>();
+        this.path = new LinkedList<Direction>();
     }
 
-    public void append(Direction d) { path.add(d); }
-
+    public void append(Direction d) {
+        this.path.add(d);
+    }
+    public void remove() {
+        this.path.pop();
+    }
     @Override
     public Iterator<Direction> iterator() {
-        return path.iterator();
+        return this.path.iterator();
     }
 
     public enum Direction { LEFT, RIGHT }
 
-    private final List<Direction> path;
+
 }

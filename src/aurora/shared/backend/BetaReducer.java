@@ -10,8 +10,6 @@ public class BetaReducer {
         this.strategy = strategy;
         this.t = t;
     }
-    Term reduceTerm() {
 
-    }
 
 }
