@@ -1,4 +1,4 @@
-package aurora.shared.backend;
+package aurora.shared.backend.parser;
 
 import aurora.shared.backend.tree.Term;
 
