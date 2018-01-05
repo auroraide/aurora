@@ -16,4 +16,7 @@ public class Library {
 
     public void defTerm(String name, Term term) {
     }
+    public void remove(String name) {
+
+    }
 }
