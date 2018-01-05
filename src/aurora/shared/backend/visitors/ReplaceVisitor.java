@@ -1,17 +1,18 @@
 package aurora.shared.backend.visitors;
 
+import aurora.shared.backend.TreePath;
 import aurora.shared.backend.TreePath.Direction;
 import aurora.shared.backend.tree.*;
 
 import java.util.Iterator;
 
 public class ReplaceVisitor implements TermVisitor<Term> {
+    private final Term with;
     private final Iterator<Direction> pathIterator;
-    private Term with;
 
-    public ReplaceVisitor(Iterator<Direction> pathIterator, Term with) {
-        this.pathIterator = pathIterator;
+    public ReplaceVisitor(TreePath path, Term with) {
         this.with = with;
+        this.pathIterator = path.iterator();
     }
 
     @Override
