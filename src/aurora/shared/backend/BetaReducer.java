@@ -29,7 +29,7 @@ public class BetaReducer {
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.getRight());
         Term substituted = app.getLeft().accept(substitutionVisitor);
 
-        ReplaceVisitor replaceVisitor = new ReplaceVisitor(path.iterator(), substituted);
+        ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substituted);
         return term.accept(replaceVisitor);
     }
 
@@ -39,7 +39,7 @@ public class BetaReducer {
     private Term reduceN(Term term, int n) {
         if (n <= 0) throw new IllegalArgumentException();
         for (; n > 0; n--) {
-            term = reduce(term, strategy);
+            term = reduce(term);
             // Presenter will read term here and display it.
         }
         return term;
