@@ -3,8 +3,11 @@ package aurora.shared.backend;
 import aurora.shared.backend.strategies.ReductionStrategy;
 import aurora.shared.backend.tree.Application;
 import aurora.shared.backend.tree.Term;
+import aurora.shared.backend.visitors.RedexFinderVisitor;
 import aurora.shared.backend.visitors.ReplaceVisitor;
 import aurora.shared.backend.visitors.SubstitutionVisitor;
+
+import java.util.List;
 
 public class BetaReducer {
     /**
@@ -24,7 +27,10 @@ public class BetaReducer {
         return term.accept(replaceVisitor);
     }
 
-    public static Term reduceN(Term term, ReductionStrategy strategy, int n) {
+
+
+// only for reference / example usage
+    private static Term reduceN(Term term, ReductionStrategy strategy, int n) {
         if (n <= 0) throw new IllegalArgumentException();
         for (; n > 0; n--) {
             term = reduce(term, strategy);
@@ -32,5 +38,13 @@ public class BetaReducer {
         }
         return term;
     }
+
+    private static List<TreePath> findAllRedexes(Term term, TreePath path) {
+        RedexFinderVisitor redexFinderVisitor = new RedexFinderVisitor();
+        term.accept(redexFinderVisitor);
+        return redexFinderVisitor.getResult();
+    }
+
+
 
 }
