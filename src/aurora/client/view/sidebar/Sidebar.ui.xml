@@ -85,8 +85,18 @@
 
         <g:south size='5'>
             <g:HorizontalPanel>
-                <g:Button>Share</g:Button>
-                <g:Button>Language</g:Button>
+                <g:ListBox ui:field="shareList">
+                    <g:item value='latex'>LaTex</g:item>
+                    <g:item value='email'>eMail</g:item>
+                    <g:item value='link'>Link</g:item>
+                </g:ListBox>
+                <g:ListBox ui:field="languageList">
+                    <g:item value='EN'>EN</g:item>
+                    <g:item value='RU'>RU</g:item>
+                    <g:item value='FR'>FR</g:item>
+                    <g:item value='DE'>DE</g:item>
+                </g:ListBox>
+                <!-- language selection should load the list with available languages from properties files i18n -->
             </g:HorizontalPanel>
         </g:south>
     </g:DockLayoutPanel>
