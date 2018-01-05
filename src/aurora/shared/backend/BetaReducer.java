@@ -14,7 +14,7 @@ public class BetaReducer {
     public static Term reduce(Term term, ReductionStrategy strategy) {
         TreePath path = strategy.getRedex(term);
         if (path == null) return null;
-        Application app = path.get();
+        Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.getRight());
         Term substituted = app.getLeft().accept(substitutionVisitor);
 
