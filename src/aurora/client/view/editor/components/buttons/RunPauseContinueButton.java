@@ -23,7 +23,7 @@ public class RunPauseContinueButton extends ActionButton {
 
     }
 
-    public void setButton() {
+    public void setButtonStyle(RPCButtonType buttonType) {
 
     }
 }
