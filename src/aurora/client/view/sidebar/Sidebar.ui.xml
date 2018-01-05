@@ -20,24 +20,24 @@
             top: 0em;
         }
     </ui:style>
-    <g:DockLayoutPanel  unit="EM">
+    <g:DockLayoutPanel unit="EM">
         <g:center>
 
             <g:DockLayoutPanel unit="EM">
-                <g:center>
-                    <!-- Step Setting, Standard Library, User Library -->
-                    <g:StackLayoutPanel>
 
-                        <!-- Step Setting -->
-                        <g:stack>
-                            <g:customHeader size="40">
-                                <g:FlowPanel>
-                                    <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
-                                    <g:TextBox ui:field="stepSetting" visibleLength="2" addStyleNames="{style.rightAlign}"/>
-                                </g:FlowPanel>
-                            </g:customHeader>
-                            <g:Label>Placeholder for custom slider widget</g:Label>
-                        </g:stack>
+                <g:north size="2.5">
+                    <!-- Step Setting -->
+                    <g:FlowPanel>
+                        <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
+                        <g:TextBox ui:field="stepSetting" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                    </g:FlowPanel>
+
+                </g:north>
+
+                <g:center>
+
+                    <!-- Standard Library, User Library -->
+                    <g:StackLayoutPanel>
 
                         <!-- Standard Library -->
                         <g:stack>
@@ -58,7 +58,8 @@
                                 <g:FlowPanel>
                                     <g:Label>Icon</g:Label>
                                     <g:Label>User Library</g:Label>
-                                    <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+</g:Button>
+                                    <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+
+                                    </g:Button>
                                 </g:FlowPanel>
                             </g:customHeader>
 
@@ -67,27 +68,28 @@
                     </g:StackLayoutPanel>
                 </g:center>
 
-                <g:south size="20">
-                    <g:FlowPanel>
-                        <!-- Strategy Selection -->
-                        <strategy:StrategySelection/>
-
-                        <!-- Night Mode -->
-                        <g:FlowPanel>
-                            <g:Label addStyleNames="{style.leftAlign}">Night Mode</g:Label>
-                            <g:ToggleButton ui:field="nightModeSwitch" addStyleNames="{style.rightAlign}">On</g:ToggleButton>
-                        </g:FlowPanel>
-
-                    </g:FlowPanel>
-                </g:south>
             </g:DockLayoutPanel>
         </g:center>
 
-        <g:south size='5'>
-            <g:HorizontalPanel>
-                <g:Button>Share</g:Button>
-                <g:Button>Language</g:Button>
-            </g:HorizontalPanel>
+        <g:south size='10'>
+            <g:FlowPanel>
+                <!-- Strategy Selection -->
+                <strategy:StrategySelection/>
+
+                <!-- Night Mode -->
+                <g:FlowPanel>
+                    <g:Label>Night Mode</g:Label>
+                    <g:ToggleButton ui:field="nightModeSwitch">On</g:ToggleButton>
+                </g:FlowPanel>
+
+                <!--Share and Language Button -->
+                <g:FlowPanel>
+                    <g:Button>Share</g:Button>
+                    <g:Button>Language</g:Button>
+                </g:FlowPanel>
+
+            </g:FlowPanel>
+
         </g:south>
     </g:DockLayoutPanel>
 </ui:UiBinder>
