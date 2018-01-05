@@ -1,5 +1,7 @@
 package aurora.shared.backend;
 
+import aurora.shared.backend.tree.*;
+
 /**
  *
  */
@@ -58,7 +60,9 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
     }
 
     @Override
-    public Term visit(Parenthesis p) { return p; }
+    public Term visit(Parenthesis p) {
+        return p;
+    }
 
     private class DebruijnFixVisitor implements TermVisitor<Term> {
 
