@@ -8,17 +8,15 @@ import java.util.LinkedList;
 
 public class TreePath implements Iterable<TreePath.Direction> {
     private final LinkedList<Direction> path;
-    private final Term term;
 
-    public TreePath(Term term) {
-        this.term = term;
+    public TreePath() {
         this.path = new LinkedList<>();
     }
 
-    public void append(Direction d) {
+    public void push(Direction d) {
         this.path.add(d);
     }
-    public void remove() {
+    public void pop() {
         this.path.pop();
     }
     @Override
@@ -26,7 +24,7 @@ public class TreePath implements Iterable<TreePath.Direction> {
         return this.path.iterator();
     }
 
-    public Application get() {
+    public Application get(Term term) {
         return null;
     }
 
