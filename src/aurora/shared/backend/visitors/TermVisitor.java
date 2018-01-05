@@ -3,58 +3,57 @@ package aurora.shared.backend.visitors;
 import aurora.shared.backend.tree.*;
 
 /**
- *
+ * Visitor pattern with no particular purpose.
+ * @param <T> Return type.
  */
 public interface TermVisitor<T> {
+    /**
+     * Called by Abstractions.
+     * @param abs The caller.
+     * @return Result or null.
+     */
+    T visit(Abstraction abs);
 
     /**
-     *
-     * @param abs
-     * @return
+     * Called by Applications.
+     * @param app The caller.
+     * @return Result or null.
      */
-    public T visit(Abstraction abs);
+    T visit(Application app);
 
     /**
-     *
-     * @param app
-     * @return
+     * Called by BoundVariables.
+     * @param bvar The caller.
+     * @return Result or null.
      */
-    public T visit(Application app);
+    T visit(BoundVariable bvar);
 
     /**
-     *
-     * @param bvar
-     * @return
+     * Called by FreeVariables.
+     * @param fvar The caller.
+     * @return Result or null.
      */
-    public T visit(BoundVariable bvar);
+    T visit(FreeVariable fvar);
 
     /**
-     *
-     * @param fvar
-     * @return
+     * Called by LibraryTerms.
+     * @param libterm The caller.
+     * @return Result or null.
      */
-    public T visit(FreeVariable fvar);
+    T visit(LibraryTerm libterm);
 
     /**
-     *
-     * @param libterm
-     * @return
+     * Called by ChurchNumbers.
+     * @param c The caller.
+     * @return Result or null.
      */
-    public T visit(LibraryTerm libterm);
+    T visit(ChurchNumber c);
 
     /**
-     *
-     * @param c
-     * @return
+     * Called by Parenthesiseses.
+     * @param p The caller.
+     * @return Result or null.
      */
-    public T visit(ChurchNumber c);
-
-
-    /**
-     *
-     * @param p
-     * @return
-     */
-    public T visit(Parenthesis p);
+    T visit(Parenthesis p);
 
 }
