@@ -3,6 +3,8 @@ package aurora.shared.backend;
 import aurora.shared.backend.strategies.ReductionStrategy;
 import aurora.shared.backend.tree.Application;
 import aurora.shared.backend.tree.Term;
+import aurora.shared.backend.visitors.ReplaceVisitor;
+import aurora.shared.backend.visitors.SubstitutionVisitor;
 
 public class BetaReducer {
     /**

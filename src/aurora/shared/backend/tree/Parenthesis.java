@@ -1,6 +1,6 @@
 package aurora.shared.backend.tree;
 
-import aurora.shared.backend.TermVisitor;
+import aurora.shared.backend.visitors.TermVisitor;
 
 public class Parenthesis extends Term {
     private final Term inner;

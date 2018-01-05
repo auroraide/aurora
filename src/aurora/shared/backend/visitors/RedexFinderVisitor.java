@@ -1,6 +1,7 @@
-package aurora.shared.backend;
+package aurora.shared.backend.visitors;
 
 
+import aurora.shared.backend.TreePath;
 import aurora.shared.backend.tree.*;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
 
     @Override
     public Void visit(Application app) {
-        app.getLeft().accept(new DingsVisitor());
+        app.getLeft().accept(new Rudolf());
 
         currentPath.push(TreePath.Direction.LEFT);
         app.getLeft().accept(this);
@@ -64,8 +65,7 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
         return p.getInner().accept(this);
     }
 
-    private class DingsVisitor implements TermVisitor<Void> {
-
+    private class Rudolf implements TermVisitor<Void> {
         @Override
         public Void visit(Abstraction abs) {
             redexes.add(currentPath);
