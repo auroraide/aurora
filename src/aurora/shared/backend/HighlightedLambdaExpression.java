@@ -1,5 +1,8 @@
 package aurora.shared.backend;
 
+import aurora.shared.backend.tree.*;
+import aurora.shared.backend.visitors.TermVisitor;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +19,11 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
+    }
+
+    public HighlightedLambdaExpression(Term t) {
+        this();
+        t.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
     /**
@@ -116,6 +124,48 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
             builder.append(" ");
         }
         return builder.toString();
+    }
+
+    /**
+     * This class computes the HighlightedLambdaTerm representation of the Term it is applied on.
+     */
+    class TermToHighlightedLambdaExpressionVisitor implements TermVisitor<Void> {
+
+        @Override
+        public Void visit(Abstraction abs) {
+            return null;
+        }
+
+        @Override
+        public Void visit(Application app) {
+            return null;
+        }
+
+        @Override
+        public Void visit(BoundVariable bvar) {
+            return null;
+        }
+
+        @Override
+        public Void visit(FreeVariable fvar) {
+            return null;
+        }
+
+        @Override
+        public Void visit(LibraryTerm libterm) {
+            return null;
+        }
+
+        @Override
+        public Void visit(ChurchNumber c) {
+            return null;
+        }
+
+        @Override
+        public Void visit(Parenthesis p) {
+            return null;
+        }
+
     }
 
 }
