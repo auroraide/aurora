@@ -10,13 +10,19 @@ import aurora.shared.backend.visitors.SubstitutionVisitor;
 import java.util.List;
 
 public class BetaReducer {
+
+    private ReductionStrategy strategy;
+
+    public BetaReducer(ReductionStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     /**
      *
      * @param term
-     * @param strategy
      * @return null if not reducible, otherwise reduced Term.
      */
-    public static Term reduce(Term term, ReductionStrategy strategy) {
+    public Term reduce(Term term) {
         TreePath path = strategy.getRedex(term);
         if (path == null) return null;
         Application app = path.get(term);
@@ -30,7 +36,7 @@ public class BetaReducer {
 
 
 // only for reference / example usage
-    private static Term reduceN(Term term, ReductionStrategy strategy, int n) {
+    private Term reduceN(Term term, int n) {
         if (n <= 0) throw new IllegalArgumentException();
         for (; n > 0; n--) {
             term = reduce(term, strategy);
@@ -39,7 +45,7 @@ public class BetaReducer {
         return term;
     }
 
-    private static List<TreePath> findAllRedexes(Term term, TreePath path) {
+    private List<TreePath> findAllRedexes(Term term, TreePath path) {
         RedexFinderVisitor redexFinderVisitor = new RedexFinderVisitor();
         term.accept(redexFinderVisitor);
         return redexFinderVisitor.getResult();
