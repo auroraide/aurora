@@ -26,7 +26,7 @@ public class StepButton extends ActionButton {
 
     }
 
-    public void updateStepNumber(int stepNumber) {
+    public void setStepNumber(int stepNumber) {
 
     }
 
