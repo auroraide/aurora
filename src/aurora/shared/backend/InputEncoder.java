@@ -5,8 +5,8 @@ package aurora.shared.backend;
  */
 public interface  InputEncoder {
     /**
-     * This method takes the userinput in the textfield as a string and the current Userlibrary and
-     * encodes them both into an url String
+     * This method takes the user input in the text field as a string and the current userlibrary and
+     * encodes them both into an url string
      * @param input the userinput in the textfield
      * @param userlibrary the current userlibrary
      * @return both parameters get converted into an encoded string.
@@ -22,13 +22,13 @@ public interface  InputEncoder {
 
     /**
      * Standard getter
-     * @return Returns the decoded userlibrary
+     * @return The decoded userlibrary
      */
     public Library getLibrary();
 
     /**
      * Standard getter
-     * @return Returns the decoded input
+     * @return The decoded input
      */
     public String getInput();
 

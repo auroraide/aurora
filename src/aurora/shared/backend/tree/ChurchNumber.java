@@ -3,7 +3,7 @@ package aurora.shared.backend.tree;
 import aurora.shared.backend.visitors.TermVisitor;
 
 /**
- *
+ * A church number is a representation of a number in lambda calculus.
  */
 public class ChurchNumber extends Term {
 
