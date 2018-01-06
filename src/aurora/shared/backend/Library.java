@@ -22,7 +22,17 @@ public class Library {
         private String description;
         private Term term;
 
-
+        /**
+         * This constructor fills the library items.
+         * @param name The name of the library item, it stats with a $
+         * @param description The description of the library item
+         * @param term
+         */
+        public LibraryItem(String name, String description, Term term) {
+            this.name = name;
+            this.description = description;
+            this.term = term;
+        }
     }
 
 
@@ -43,5 +53,5 @@ public class Library {
      * @param description the description of the library item.
      * @param term the term of the library item.
      */
-    public void defTerm(String name, String description, Term term) { }
+    public void defineTerm(String name, String description, Term term) { }
 }

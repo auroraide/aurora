@@ -1,4 +1,6 @@
-package aurora.shared.backend;
+package aurora.shared.backend.encoders;
+
+import aurora.shared.backend.Library;
 
 /**
  * This class reads the current Input and the current User Library entries and saves them into an URL. It uses goo.gl to shorten the link.
