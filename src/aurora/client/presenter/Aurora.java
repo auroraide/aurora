@@ -1,4 +1,4 @@
-package aurora.client;
+package aurora.client.presenter;
 
 import aurora.client.view.DesktopView;
 import aurora.shared.FieldVerifier;
