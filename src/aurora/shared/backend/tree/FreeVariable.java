@@ -11,8 +11,9 @@ public class FreeVariable extends Term {
     private final String name;
 
     /**
-	 *
-	 */
+     * this constructor gets the name of the free variable as a string.
+     * @param name
+     */
     public FreeVariable(String name) {
         this.name = name;
     }
@@ -26,8 +27,9 @@ public class FreeVariable extends Term {
 	}
 
     /**
-	 *
-	 */
+     * A standard getter, that returns the name of the free variable.
+     * @return the name as a string.
+     */
     public String getName() {
         return this.name;
     }

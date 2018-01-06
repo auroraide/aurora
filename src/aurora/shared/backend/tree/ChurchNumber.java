@@ -10,8 +10,9 @@ public class ChurchNumber extends Term {
     private final int value;
 
     /**
-	 *
-	 */
+     * This constructor gets the value of the church number as a numerical value.
+     * @param value The value as Integer.
+     */
     public ChurchNumber(int value) {
         this.value = value;
     }
@@ -25,10 +26,18 @@ public class ChurchNumber extends Term {
 	}
 
     /**
-	 *
-	 */
+     * Standard getter, that returns the value of the church number.
+     * @return The value as an Integer.
+     */
     public int getValue() {
         return this.value;
     }
 
+    /**
+     * This method takes the numerical number and returns the number as a lambda expression. Every number can be represented as an abstraction.
+     * @return the number which got converted into an abstraction.
+     */
+    public Abstraction getAbstraction() {
+        return null;
+    }
 }

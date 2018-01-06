@@ -3,7 +3,7 @@ package aurora.shared.backend.visitors;
 import aurora.shared.backend.tree.*;
 
 /**
- * Visitor pattern with no particular purpose.
+ * In the Visitor pattern, this class is the "visitor interface".
  * @param <T> Return type.
  */
 public interface TermVisitor<T> {

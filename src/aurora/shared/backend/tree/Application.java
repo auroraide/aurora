@@ -13,9 +13,9 @@ public class Application extends Term {
     private final Term right;
 
     /**
-     * The constructor gets a left and a right term
-     * @param left The left term
-     * @param right The right term
+     * The constructor gets a left and a right term.
+     * @param left The left term.
+     * @param right The right term.
      */
     public Application(Term left, Term right) {
         this.left = left;
@@ -38,8 +38,8 @@ public class Application extends Term {
     }
 
     /**
-     * A standard getter for the right term of the application
-     * @return The right term of the application
+     * A standard getter for the right term of the application.
+     * @return The right term of the application.
      */
     public Term getRight() {
         return this.right;

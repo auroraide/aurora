@@ -3,9 +3,9 @@ package aurora.shared.backend.tree;
 import aurora.shared.backend.visitors.TermVisitor;
 
 /**
- * The term class is the main class of the package "tree". Every other class in the Package extends Term
+ * The term class is the main class of the package "tree". Every other class in the package extends term.
  * The Term class accepts a visitor and is the "Element" in the visitor pattern.
- * Every other class in this package is the "ConcreteElement"
+ * Every other class that extends Term in this package is the "ConcreteElement" in the visitor pattern.
  */
 public abstract class Term {
 

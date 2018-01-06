@@ -9,8 +9,8 @@ public class Parenthesis extends Term {
     private final Term inner;
 
     /**
-     * The constructor puts the parenthesis around a term
-     * @param inner The parentheses are around this inner term
+     * The constructor puts the parenthesis around a term.
+     * @param inner The parentheses are around this inner term.
      */
     public Parenthesis(Term inner) {
         this.inner = inner;
@@ -22,8 +22,8 @@ public class Parenthesis extends Term {
     }
 
     /**
-     * A standard getter, it returns the Term inside the parentheses
-     * @return The Term inside the parentheses
+     * A standard getter, it returns the Term inside the parentheses.
+     * @return The Term inside the parentheses.
      */
     public Term getInner() {
         return inner;
