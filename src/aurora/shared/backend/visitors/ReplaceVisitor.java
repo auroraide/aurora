@@ -6,6 +6,7 @@ import aurora.shared.backend.tree.*;
 
 import java.util.Iterator;
 
+
 public class ReplaceVisitor implements TermVisitor<Term> {
     private final Term with;
     private final Iterator<Direction> pathIterator;

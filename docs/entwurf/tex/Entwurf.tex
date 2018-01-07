@@ -54,7 +54,10 @@ Nikolai Polley, Randy Seng}
 \tableofcontents
 \pagebreak
 \section{Einleitung}
-\subsection{Zweck des Softwares}
+\subsection{Zweck der Software}
+Das Ziel ist es, Studenten eine Lernumgebung anzubieten. Man soll ein Gefühl für das $\lambda$-Kalkül entwickeln, durch Ausprobieren
+und durch farbige hervorhebungen um die Struktur der Terme anschaulicher zu machen.
+Ein Nebenziel ist es, das Erstellen von Lernmaterial zu erleichtern (insb. \LaTeX-Export), sowie Code schnell und zugänglich anderen zu Verfügung zu stellen.
 \subsection{Entwurfsziele}
 \pagebreak
 
@@ -68,23 +71,31 @@ Hier kommt ein grober Übersicht von MVC oder MVP im Kontext des Auroras
 Was beinhaltet dieses Teil (Datenmodelle) + wen kennt es?
 \subsubsection{View}
 Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
-\subsubsection{Keine Ahnung - Controller oder Presenter}
-Was beinhaltet dieses Teil + wen kennt es?
+\subsubsection{Presenter}
+Wir haben MVP gewählt, weil GWT mit für MVP entworfen wurde. Es wäre auch möglich, MVC zu wählen, allerdings würden sich
+einige Schwierigkeiten daraus ergeben: % TODO warum nicht MVC?
+\subsubsection{Lambda-Bibliothek}
+Man kann einen Teil des Projektes als eine wiedeverwendbare Bibliotek betrachten. Im Code ist dieses nicht
+explicit kenntlich gemacht worden, außer einem einenem Package.
+Diese Bibliothek existiert, um den Umgang mit Lambda-Termen zu erleichtern, und implementiert die
+Funktionalität zum Beta-Reduzieren, Substitution von Variablen, finden von Redexen, sowie verschiede Auswertungsstrategien von Lambda-Termen.
 
 
 \subsection{Sicherheit und Zugrifskontrole}
-Erklären, dass wir keine Zugrifskontrolle haben und keinen DB
 \subsection{Kontrollfluss}
 Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
 \subsection{Datenbank?}
-Eklärung, das wir den DB nicht benutzen und wieso
+Es wird nichts Serverseitig gespeichert. Die Sharing-Funktionen codieren das Nötige in der URL.
+Diese Designentscheiding wurde der Einfachheit halber getroffen.
 \subsection{Randbedingugen}
 Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
 \pagebreak
 
 \section{Feinentwurf}
+Hierfür haben wir doch schon UML?
 \subsection{Richtlinien der Schnittstellendokumentation}
 wie die Doku gemacht ist (Latex, Latex Javadoc)
+Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P.
 \subsection{Pakete}
 \subsection{Entwurfsmuster (welche sind benutzt)}
 \subsection{Klassen und Schnittstellen}

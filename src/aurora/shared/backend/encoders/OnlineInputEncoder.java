@@ -1,4 +1,6 @@
-package aurora.shared.backend;
+package aurora.shared.backend.encoders;
+
+import aurora.shared.backend.Library;
 
 /**
  * This Class implements the InputEncoder.
