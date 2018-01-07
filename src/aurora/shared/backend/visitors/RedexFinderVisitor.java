@@ -82,7 +82,7 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
 
     /**
      * This was rudolf. He will be missed.
-     * The class is called to find redexes. If the class finds redexes it'll add them to the redex list
+     * The class is called to find redexes. If the class finds redexes it'll add them to the redex list.
      */
     private class AbstractionFinder implements TermVisitor<Void> {
         @Override
