@@ -116,4 +116,13 @@ public class Library {
         }
     }
 
+    /**
+     * Remove a LibraryItem by name.
+     *
+     * @param name Name of the LibraryItem that should be removed.
+     */
+    public void remove(String name) {
+
+    }
+
 }
