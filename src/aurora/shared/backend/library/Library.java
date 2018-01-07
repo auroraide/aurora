@@ -1,8 +1,10 @@
-package aurora.shared.backend;
+package aurora.shared.backend.library;
 
+import aurora.shared.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.shared.backend.tree.Term;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public class Library {
     }
 
     /**
-     * A single item (i.e., lambda term definition) of the library.
+     * A single item (i.e., lambda term definition) defined in the library.
      */
     public class LibraryItem {
 
@@ -44,19 +46,28 @@ public class Library {
         }
 
         /**
-         * Get the Term.
+         * Get the library item name.
          *
-         * @param name the name of the library item.
-         * @return the term that has this name.
+         * @return The library item name.
          */
         public String getName() {
             return this.name;
         }
 
+        /**
+         * Get the library item description.
+         *
+         * @return The library item description.
+         */
         public String getDescription() {
             return this.description;
         }
 
+        /**
+         * Get the library item Term.
+         *
+         * @return The library item Term.
+         */
         public Term getTerm() {
             return this.term;
         }
@@ -71,16 +82,38 @@ public class Library {
      * @throws LibraryItemNotFoundException If there is no such entry in the library.
      */
     public LibraryItem getItem(String name) {
-        return this.map.get(name).term;
+        return this.map.get(name);
     }
 
     /**
-     * This creates a new library item and adds it to the map.
+     * Create a new LibraryItem and add it to the Library.
      *
-     * @param name the name of the library item.
-     * @param description the description of the library item.
-     * @param term the term of the library item.
+     * @param name The name of the Library item to be added.
+     * @param description The optional description of the Library item to be added.
+     * @param term The term of the Library item to be added.
      */
-    public void define(String name, String description, Term term) {}
+    public void define(String name, String description, Term term) {
+        this.define(new LibraryItem(name, description, term));
+    }
+
+    /**
+     * Add a LibraryItem to the Library.
+     *
+     * @param item The LibraryItem instance to be added.
+     */
+    public void define(LibraryItem item) {
+        this.map.add(item.name, item);
+    }
+
+    /**
+     * Add the content of whole other Library to this instance.
+     *
+     * @param library
+     */
+    public void define(Library library) {
+        for (Map.Entry<String, LibraryItem> entry : library.map.entrySet()) {
+            this.define(entry.getValue());
+        }
+    }
 
 }
