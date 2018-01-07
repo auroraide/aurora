@@ -122,4 +122,3 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
     }
 
 }
-

@@ -28,4 +28,5 @@ public class SyntaxException extends Exception {
     public int getColumn() {
         return column;
     }
+
 }
