@@ -8,15 +8,15 @@ public class ShareLatex {
 
     /**
      * This constructor gets a highlighted lambda expression so it can traverse the token list.
-     * @param hle The highlighted lambda expression
+     * @param hle The highlighted lambda expression.
      */
     public ShareLatex(HighlightedLambdaExpression hle) {
         this.hle = hle;
     }
 
     /**
-     * This method creates a latex snippet as a string which can be copied into a latex document
-     * @return A string which contains the latex code
+     * This method creates a latex snippet as a string which can be copied into a latex document.
+     * @return A string which contains the latex code.
      */
     public String generateLatex() {
         return null;

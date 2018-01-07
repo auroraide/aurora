@@ -21,10 +21,18 @@ public class SyntaxException extends Exception {
         this.column = column;
     }
 
+    /**
+     * Standard getter.
+     * @return The line of the syntax error.
+     */
     public int getLine() {
         return line;
     }
 
+    /**
+     * Standard getter.
+     * @return The column of the syntax error
+     */
     public int getColumn() {
         return column;
     }
