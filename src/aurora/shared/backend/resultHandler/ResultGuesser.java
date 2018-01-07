@@ -1,4 +1,7 @@
-package aurora.shared.backend;
+package aurora.shared.backend.resultHandler;
 
-public class ResultGuesser {
+import aurora.shared.backend.tree.Term;
+
+public interface ResultGuesser<T extends Term> {
+    T guess(Term t);
 }
