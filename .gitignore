@@ -13,6 +13,7 @@ war/WEB-INF/lib/*
 war/aurora/*
 war/WEB-INF/deploy/*
 war/WEB-INF/classes/*
+lib/*
 
 # merge backup files
 *.orig
