@@ -6,6 +6,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
+import aurora.client.view.infoPopup.InfoDialogBox;
+
 public class AuroraView extends Composite implements DesktopPresenter.Display {
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
     }

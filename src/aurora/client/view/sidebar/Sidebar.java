@@ -28,11 +28,12 @@ public class Sidebar extends Composite {
     @UiField ListBox languageList;
 
     public Sidebar() {
+
         initWidget(ourUiBinder.createAndBindUi(this));
         //init get languages fromt he language selection (check in properties)
         addFunctionDialogBox = new AddFunctionDialogBox();
-        shareLaTeXDialogBox = new ShareLaTeXDialogBox();
-        languageSelection = new LanguageSelection();
+	shareLaTeXDialogBox = new ShareLaTeXDialogBox();
+        languageSelection = new LanguageSelection();  
     }
 
     @UiHandler("stepNumber")
