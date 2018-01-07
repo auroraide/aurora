@@ -8,12 +8,20 @@ import aurora.shared.backend.encoders.exceptions.*;
  */
 public abstract class SessionEncoder {
 
+    /**
+     * A Session is lambda code (e.g., from user input) along with some Library context.
+     */
     public class Session {
 
         public final String rawInput;
 
         public final Library library;
 
+        /**
+         * Construct a Session from raw input and Library instance.
+         * @param rawInput The raw input string.
+         * @param library The Library instance.
+         */
         public Session(String rawInput, Library library) {
             this.rawInput = rawInput;
             this.library = library;
@@ -22,35 +30,32 @@ public abstract class SessionEncoder {
     }
 
     /**
-     * Encode raw input and Library entries.
+     * Encode a Session to a string.
      *
-     * @param rawInput Some raw user input.
-     * @param library Library object.
-     * @return Encoded String containing both input and Library.
+     * @param session Session to be encoded.
+     * @return Encoded string.
      */
-    public String encode(String rawInput, Library library);
+    public abstract String encode(Session session);
 
     /**
-     * Decode some previously encoded String.
-     * The user input and Library entries have to be fetched using getLibrary().
+     * Encode raw input String along with a Library to a string.
+     * This is just a helper that creates the Session object for you.
      *
-     * @param encodedInput The encoded String.
-     * @return The decoded input.
+     * @param rawInput The raw input to be encoded.
+     * @param library The Library object to be encoded.
+     * @return Encoded string.
      */
-    public void decode(String encodedInput) throws DecodeException;
+    public String encode(String rawInput, Library library) {
+        return this.encode(new Session(rawInput, library));
+    }
 
     /**
-     * Get decoded Library object.
+     * Decode some previously encoded string.
      *
-     * @return The decoded Library if possible.
+     * @param encodedInput The encoded string.
+     * @return The decoded Session.
+     * @throws DecodeException If the encoded input string could not be decoded.
      */
-    public Library getLibrary();
-
-    /**
-     * Get decoded input.
-     *
-     * @return The decoded input.
-     */
-    public String getInput();
+    public abstract Session decode(String encodedInput) throws DecodeException;
 
 }
