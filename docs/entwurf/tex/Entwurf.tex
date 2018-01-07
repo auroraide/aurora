@@ -64,31 +64,26 @@ Ein Nebenziel ist es, das Erstellen von Lernmaterial zu erleichtern (insb. \LaTe
 
 \section{Grobentwurf}
 \subsection{Architekturmuster und/oder Systemzerlegung}
-Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt.
-$\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik wurde für genau dieses Szenario MVC vorgestellt.
+\subsubsection{Übersicht}
+Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascrip Webanwendung in Java zu schreiben. 
+$\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik I wurde für dieses Szenario Model-View-Controller vorgestellt.
 Wir haben allerdings  Model-View-Presenter gewählt, weil GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases 
 einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben. 
-\subsubsection{Übersicht}
-Hier kommt ein grober Übersicht von MVC oder MVP im Kontext des Auroras
 \subsubsection{Model}
-Was beinhaltet dieses Teil (Datenmodelle) + wen kennt es?
 \subsubsection{View}
 Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
 \subsubsection{Presenter}
 
 \subsubsection{Lambda-Bibliothek}
 Man kann einen Teil des Projektes als eine wiedeverwendbare Bibliotek betrachten. Im Code ist dieses nicht
-explicit kenntlich gemacht worden, außer einem einenem Package.
+explizit kenntlich gemacht worden, außer einem eigenem Package.
 Diese Bibliothek existiert, um den Umgang mit Lambda-Termen zu erleichtern, und implementiert die
-Funktionalität zum Beta-Reduzieren, Substitution von Variablen, finden von Redexen, sowie verschiede Auswertungsstrategien von Lambda-Termen.
+Funktionalität zum Beta-Reduzieren, Substitution von Variablen, finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
 
 
 \subsection{Sicherheit und Zugrifskontrole}
 \subsection{Kontrollfluss}
 Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
-\subsection{Datenbank?}
-Es wird nichts Serverseitig gespeichert. Die Sharing-Funktionen codieren das Nötige in der URL.
-Diese Designentscheiding wurde der Einfachheit halber getroffen.
 \subsection{Randbedingugen}
 Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
 \pagebreak

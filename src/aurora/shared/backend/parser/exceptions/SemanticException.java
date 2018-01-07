@@ -21,10 +21,18 @@ public class SemanticException extends Exception {
         this.column = column;
     }
 
+    /**
+     * Standard getter.
+     * @return The line of the semantic error.
+     */
     public int getLine() {
         return line;
     }
 
+    /**
+     * Standard getter.
+     * @return The column of the semantic error.
+     */
     public int getColumn() {
         return column;
     }

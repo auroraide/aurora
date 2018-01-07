@@ -80,9 +80,9 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
         private final int innerIndex;
 
         /**
-         * This gets an index and saves it as innerIndex
+         * This gets an index and saves it as innerIndex.
          *
-         * @param index the index of the abstraction
+         * @param index the index of the abstraction.
          */
         private DebruijnFixVisitor(int index) {
             this.innerIndex = index;

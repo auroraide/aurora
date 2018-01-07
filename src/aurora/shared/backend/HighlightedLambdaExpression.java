@@ -15,19 +15,23 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     private List<Token> tokens;
 
     /**
-	 *
+	 * The constructor initializes an empty list.
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
 
+    /**
+     * This constructor gets a Term and turns it into a highlighted lambda expression.
+     * @param t The given term.
+     */
     public HighlightedLambdaExpression(Term t) {
         this();
         t.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
     /**
-     *
+     * This method adds a token to the token list
      */
     public void appendToken(Token t) {
         this.tokens.add(t);
@@ -39,7 +43,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     }
 
     /**
-     *
+     * This enum contains all token types
      */
     public enum TokenType {
         LAMBDA,
@@ -52,7 +56,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     }
 
     /**
-     *
+     * This is a nested class that is used in the token list.
      */
     public class Token {
 
@@ -61,32 +65,32 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
         private String name;
 
         /**
-         *
-         * @param type
-         * @param name
+         * This constructor gets a type and a name of the token.
+         * @param type The type of the token.
+         * @param name The name of the token.
          */
         public Token(TokenType type, String name) {
         }
 
         /**
-         *
-         * @param type
+         * This constructor uses an empty name.
+         * @param type The type of the token
          */
         public Token(TokenType type) {
             this(type, "");
         }
 
         /**
-         *
-         * @return
+         * Standard getter.
+         * @return The type of the token.
          */
         public TokenType getType() {
             return this.type;
         }
 
         /**
-         *
-         * @return
+         * Standard getter.
+         * @return The name of the token.
          */
         public String getName() {
             return this.name;
