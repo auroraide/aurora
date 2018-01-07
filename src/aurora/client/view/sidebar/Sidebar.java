@@ -1,7 +1,6 @@
 package aurora.client.view.sidebar;
 
 import aurora.client.view.sidebar.components.library.AddFunctionDialogBox;
-import aurora.client.view.infoPopups.InfoDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -15,7 +14,6 @@ public class Sidebar extends Composite {
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddFunctionDialogBox addFunctionDialogBox;
-    private final InfoDialogBox infoDialogBox;
 
     @UiField TextBox stepSetting;
     @UiField Button addFunction;
@@ -25,12 +23,10 @@ public class Sidebar extends Composite {
 
         initWidget(ourUiBinder.createAndBindUi(this));
         addFunctionDialogBox = new AddFunctionDialogBox();
-        infoDialogBox = new InfoDialogBox();
     }
 
     @UiHandler("addFunction")
     void onAddFunctionClicked(ClickEvent event) {
         addFunctionDialogBox.show();
-        infoDialogBox.show();
     }
 }

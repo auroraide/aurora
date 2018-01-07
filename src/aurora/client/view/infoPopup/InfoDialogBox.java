@@ -1,4 +1,4 @@
-package aurora.client.view.infoPopups;
+package aurora.client.view.infoPopup;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
