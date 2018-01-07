@@ -15,12 +15,17 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     private List<Token> tokens;
 
     /**
-	 *
+	 * Standard constructor.
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
 
+    /**
+     * Constructor.
+     *
+     * @param t
+     */
     public HighlightedLambdaExpression(Term t) {
         this();
         t.accept(new TermToHighlightedLambdaExpressionVisitor());
@@ -129,7 +134,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     /**
      * This class computes the HighlightedLambdaTerm representation of the Term it is applied on.
      */
-    class TermToHighlightedLambdaExpressionVisitor implements TermVisitor<Void> {
+    private class TermToHighlightedLambdaExpressionVisitor implements TermVisitor<Void> {
 
         @Override
         public Void visit(Abstraction abs) {
