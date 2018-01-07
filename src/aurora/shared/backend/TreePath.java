@@ -14,7 +14,7 @@ public class TreePath implements Iterable<TreePath.Direction> {
     private final LinkedList<Direction> path;
 
     /**
-     * This constructor initializes an empty list
+     * This constructor initializes an empty list.
      */
     public TreePath() {
         this.path = new LinkedList<>();

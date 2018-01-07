@@ -74,7 +74,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
 
         /**
          * This constructor uses an empty name.
-         * @param type The type of the token
+         * @param type The type of the token.
          */
         public Token(TokenType type) {
             this(type, "");

@@ -14,7 +14,7 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
     /**
      * This constructor gets a term. The index will automatically be 0.
      *
-     * @param with a term
+     * @param with The term that will get substituted.
      */
     public SubstitutionVisitor(Term with) {
         this(0, with);
