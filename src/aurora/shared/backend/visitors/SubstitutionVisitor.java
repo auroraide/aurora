@@ -3,8 +3,7 @@ package aurora.shared.backend.visitors;
 import aurora.shared.backend.tree.*;
 
 /**
- * This class implements the Term visitor, it is the "Concrete Visitor" in the visitor pattern.
- * This visitor traverses the tree and substitutes a bounded variable with a term.
+ * Visitor that traverses the Term tree and substitutes a BoundVariable with a given Term.
  */
 public class SubstitutionVisitor implements TermVisitor<Term> {
 
@@ -14,7 +13,8 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
 
     /**
      * This constructor gets a term. The index will automatically be 0.
-     * @param with a term
+     *
+     * @param with The term that will get substituted.
      */
     public SubstitutionVisitor(Term with) {
         this(0, with);
@@ -22,6 +22,7 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
 
     /**
      * This constructor gets a term and an index. It fills the attributes with these values.
+     *
      * @param index The index of the visitor.
      * @param with The term that will substitute something.
      */
@@ -72,23 +73,24 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
     }
 
     /**
-     * This is a nested class that fixes the values of the bounded variables. You have to fix De-Bruijn indices if you substitute something
+     * De Bruijn indices have to be fixed if you execute a substitution.
      */
-    public class DebruijnFixVisitor implements TermVisitor<Term> {
+    private class DebruijnFixVisitor implements TermVisitor<Term> {
 
-        private final int innerindex;
+        private final int innerIndex;
 
         /**
-         * This gets an index and saves it as innerindex
-         * @param index the index of the abstraction
+         * This gets an index and saves it as innerIndex.
+         *
+         * @param index the index of the abstraction.
          */
         private DebruijnFixVisitor(int index) {
-            this.innerindex = index;
+            this.innerIndex = index;
         }
 
         @Override
         public Term visit(Abstraction abs) {
-            return new Abstraction(abs.getBody().accept(new DebruijnFixVisitor(innerindex + 1)), abs.getName());
+            return new Abstraction(abs.getBody().accept(new DebruijnFixVisitor(innerIndex + 1)), abs.getName());
         }
 
         @Override
@@ -101,8 +103,8 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
 
         @Override
         public Term visit(BoundVariable bvar) {
-            if (bvar.getIndex() > innerindex) {
-                return new BoundVariable(bvar.getIndex() + index - innerindex + 1);
+            if (bvar.getIndex() > innerIndex) {
+                return new BoundVariable(bvar.getIndex() + index - innerIndex + 1);
             }
             return bvar;
         }

@@ -13,18 +13,22 @@ public class BetaReducer {
 
     private ReductionStrategy strategy;
 
+    /**
+     * The constructor gets a strategy that is used for the reduction.
+     * @param strategy The chosen reduction strategy.
+     */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
     }
 
     /**
-     *
-     * @param term
+     * This method performs one beta reduction.
+     * @param term The Term that will get reduced.
      * @return null if not reducible, otherwise reduced Term.
      */
     public Term reduce(Term term) {
         TreePath path = strategy.getRedex(term);
-        if (path == null) return null;
+        if (path == null) return null; // there is no reducible redex left, the given term is our result
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.getRight());
         Term substituted = app.getLeft().accept(substitutionVisitor);

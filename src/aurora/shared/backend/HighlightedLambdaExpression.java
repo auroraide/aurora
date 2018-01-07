@@ -15,19 +15,24 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     private List<Token> tokens;
 
     /**
-	 *
+	 * Standard constructor.
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
 
+    /**
+     * Constructor.
+     *
+     * @param t
+     */
     public HighlightedLambdaExpression(Term t) {
         this();
         t.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
     /**
-     *
+     * Add a Token to the Token list.
      */
     public void appendToken(Token t) {
         this.tokens.add(t);
@@ -39,7 +44,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     }
 
     /**
-     *
+     * Token types.
      */
     public enum TokenType {
         LAMBDA,
@@ -52,7 +57,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     }
 
     /**
-     *
+     * A single token.
      */
     public class Token {
 
@@ -61,6 +66,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
         private String name;
 
         /**
+         * Constructor.
          *
          * @param type
          * @param name
@@ -69,7 +75,7 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
         }
 
         /**
-         *
+         * Constructor with omitted name.
          * @param type
          */
         public Token(TokenType type) {
@@ -77,16 +83,18 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
         }
 
         /**
+         * Get type.
          *
-         * @return
+         * @return The type of this Token.
          */
         public TokenType getType() {
             return this.type;
         }
 
         /**
+         * Get name.
          *
-         * @return
+         * @return The name of this Token.
          */
         public String getName() {
             return this.name;

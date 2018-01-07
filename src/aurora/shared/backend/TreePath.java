@@ -14,7 +14,7 @@ public class TreePath implements Iterable<TreePath.Direction> {
     private final LinkedList<Direction> path;
 
     /**
-     * This constructor initializes an empty list
+     * This constructor initializes an empty list.
      */
     public TreePath() {
         this.path = new LinkedList<>();
@@ -49,7 +49,7 @@ public class TreePath implements Iterable<TreePath.Direction> {
     }
 
     /**
-     * This enum is used to show the direction of the traversal of an application. left or right
+     * This enum is used to show the direction of the traversal of an application.
      */
     public enum Direction { LEFT, RIGHT }
 

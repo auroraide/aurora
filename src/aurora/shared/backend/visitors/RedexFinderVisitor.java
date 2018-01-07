@@ -8,19 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class implements the term visitor and it traverses the tree.
- * It finds all redexes in the traversed term.
- * This is the "Concrete Visitor" in the visitor pattern
- * This class can only be called once.
+ * Visitor that traverses the Term tree and identifies redexes.
  */
 public class RedexFinderVisitor implements TermVisitor<Void> {
+
     private List<TreePath> redexes;
+
     private TreePath currentPath;
 
     /**
-     * This standard constructor initializes the attributes.
-     * Redexes will contain all Treepaths in an arraylist.
-     * currentpath is the Treepath for one redex.
+     * Standard constructor.
      */
     public RedexFinderVisitor() {
         redexes = new ArrayList<>();
@@ -28,8 +25,9 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
     }
 
     /**
-     * This is a standard getter, which returns all tree paths for all redexes
-     * @return The list of all tree paths
+     * Get list of found redexes.
+     *
+     * @return The list of TreePath objects that describe the locations of the redexes that have been found.
      */
     public List<TreePath> getResult() {
         return redexes;
@@ -81,10 +79,10 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
     }
 
     /**
-     * This was rudolf. He will be missed.
-     * The class is called to find redexes. If the class finds redexes it'll add them to the redex list.
+     * Visitor that helps find abstractions inside our Term tree.
      */
     private class AbstractionFinder implements TermVisitor<Void> {
+
         @Override
         public Void visit(Abstraction abs) {
             redexes.add(currentPath);
@@ -120,6 +118,7 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
         public Void visit(Parenthesis p) {
             return p.getInner().accept(this);
         }
-    }
-}
 
+    }
+
+}

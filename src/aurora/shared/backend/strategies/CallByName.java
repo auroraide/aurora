@@ -8,8 +8,10 @@ import aurora.shared.backend.tree.Term;
  * This will be made by a depth first search, that doesn't go below abstractions.
  */
 public class CallByName extends ReductionStrategy {
+
     @Override
     public TreePath getRedex(Term t) {
         return null;
     }
+
 }

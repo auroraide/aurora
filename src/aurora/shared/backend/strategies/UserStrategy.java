@@ -9,8 +9,10 @@ import aurora.shared.backend.tree.Term;
  * The strategy calculates the Treepath to the chosen redex.
  */
 public class UserStrategy extends ReductionStrategy {
+
     @Override
     public TreePath getRedex(Term t) {
         return null;
     }
+
 }

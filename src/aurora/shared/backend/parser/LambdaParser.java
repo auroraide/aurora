@@ -1,20 +1,23 @@
 package aurora.shared.backend.parser;
 
+import aurora.shared.backend.parser.exceptions.SemanticException;
+import aurora.shared.backend.parser.exceptions.SyntaxException;
 import aurora.shared.backend.tree.Term;
 
 /**
- * This class parses the Lambda Expression into our Lambda Tree.
- * It uses a Lexer to divide the expression into Tokens.
+ * Parser for lambda expressions.
  */
 public class LambdaParser {
 
     /**
-     * This method gets a Lambda expression and parses it into the Lambda Tree
-     * @param code The lambda expression as a String. This is mostly user input.
-     * @return The parsed expression in a Lambda Tree.
+     * Parse a lambda expression string into a tree of Terms.
+     *
+     * @param code The lambda expression as a string.
+     * @return The root node of the corresponding Term tree if parsing was successful.
+     * @throws SyntaxException In case of a syntax error.
+     * @throws SemanticException In case of a semantic error.
      */
-    public Term parse(String code)
-    {
+    public Term parse(String code) throws SyntaxException, SemanticException {
         return null;
     }
 
