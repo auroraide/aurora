@@ -64,8 +64,10 @@ Ein Nebenziel ist es, das Erstellen von Lernmaterial zu erleichtern (insb. \LaTe
 
 \section{Grobentwurf}
 \subsection{Architekturmuster und/oder Systemzerlegung}
-MVC oder MVP oder darf noch was sein?
-Vorteile gegenüber anderer Modelle
+Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt.
+$\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik wurde für genau dieses Szenario MVC vorgestellt.
+Wir haben allerdings  Model-View-Presenter gewählt, weil GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases 
+einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben. 
 \subsubsection{Übersicht}
 Hier kommt ein grober Übersicht von MVC oder MVP im Kontext des Auroras
 \subsubsection{Model}
@@ -73,8 +75,7 @@ Was beinhaltet dieses Teil (Datenmodelle) + wen kennt es?
 \subsubsection{View}
 Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
 \subsubsection{Presenter}
-Wir haben MVP gewählt, weil GWT mit für MVP entworfen wurde. Es wäre auch möglich, MVC zu wählen, allerdings würden sich
-einige Schwierigkeiten daraus ergeben: % TODO warum nicht MVC?
+
 \subsubsection{Lambda-Bibliothek}
 Man kann einen Teil des Projektes als eine wiedeverwendbare Bibliotek betrachten. Im Code ist dieses nicht
 explicit kenntlich gemacht worden, außer einem einenem Package.
@@ -95,11 +96,21 @@ Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagram
 \section{Feinentwurf}
 Hierfür haben wir doch schon UML?
 \subsection{Richtlinien der Schnittstellendokumentation}
+
 wie die Doku gemacht ist (Latex, Latex Javadoc)
 Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P.
 \subsection{Pakete}
 \subsection{Entwurfsmuster (welche sind benutzt)}
+Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
 \subsection{Klassen und Schnittstellen}
 \pagebreak
 
+\section{Änderungen zum Pflichtenheft}
+Das Wunschkriterium \textbf{K6. Pretty Print} ist in diesem Entwurf nicht mehr vorhanden. Das Team hat sich dafür entschieden, dass dieses Kriterium zuviel Zeit bei der Implementierung beanstanden würde und das Feature nicht wirklich gewünscht wurde.
+
+Gleiches gilt für das Wunschkriterium \textbf{K19. Schleifenerkennung}. Dieses Feature hätte nur sehr selten Anwendung gefunden und wäre großteils unbenutzt geblieben.
+
+Das Wunschkriterium \textbf{K23. Lokale Sessions} ist auch gestrichen worden. Zu viel Aufwand wäre in die Entwicklung dieses Features geflossen und wir haben beschlossen, dass dieses Feature den Aufwand nicht wert ist. 
+
+Das Wunschkriterium \textbf{K25. Mobile-Darstellung} ist in dem jetzigen Entwurf nicht vorhanden. Die Gruppe lässt sich aber offen, wenn noch Zeit bei der Implementierung übrig bleibt, dieses Feature über das rückläufiges Wassermodell wieder einzufügen.
 \end{document}
