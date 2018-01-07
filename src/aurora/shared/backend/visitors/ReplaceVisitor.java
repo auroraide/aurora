@@ -6,11 +6,21 @@ import aurora.shared.backend.tree.*;
 
 import java.util.Iterator;
 
-
+/**
+ * Visitor that allows replacing an Application with an arbitrary Term.
+ */
 public class ReplaceVisitor implements TermVisitor<Term> {
+
     private final Term with;
+
     private final Iterator<Direction> pathIterator;
 
+    /**
+     * Constructor that initializes the ReplaceVisitor.
+     *
+     * @param path Location of the Application to be replaced.
+     * @param with The Term that the Application shall be replaced with.
+     */
     public ReplaceVisitor(TreePath path, Term with) {
         this.with = with;
         this.pathIterator = path.iterator();
@@ -63,4 +73,5 @@ public class ReplaceVisitor implements TermVisitor<Term> {
     public Term visit(Parenthesis p) {
         return p.accept(this);
     }
+
 }

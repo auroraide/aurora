@@ -3,19 +3,22 @@ package aurora.shared.backend.visitors;
 import aurora.shared.backend.tree.*;
 
 /**
- * In the Visitor pattern, this class is the "visitor interface".
- * @param <T> Return type.
+ * Term tree Visitor with generic return type.
+ *
+ * @param <T> Return type of the visit methods.
  */
 public interface TermVisitor<T> {
     /**
-     * Called by Abstractions.
+     * Called with Abstraction.
+     *
      * @param abs The caller.
      * @return Result or null.
      */
     T visit(Abstraction abs);
 
     /**
-     * Called by Applications.
+     * Called with Application.
+     *
      * @param app The caller.
      * @return Result or null.
      */
@@ -23,34 +26,39 @@ public interface TermVisitor<T> {
 
     /**
      * Called by BoundVariables.
+     *
      * @param bvar The caller.
      * @return Result or null.
      */
     T visit(BoundVariable bvar);
 
     /**
-     * Called by FreeVariables.
+     * Called with FreeVariable.
+     *
      * @param fvar The caller.
      * @return Result or null.
      */
     T visit(FreeVariable fvar);
 
     /**
-     * Called by LibraryTerms.
+     * Called with LibraryTerm.
+     *
      * @param libterm The caller.
      * @return Result or null.
      */
     T visit(LibraryTerm libterm);
 
     /**
-     * Called by ChurchNumbers.
+     * Called with ChurchNumber.
+     *
      * @param c The caller.
      * @return Result or null.
      */
     T visit(ChurchNumber c);
 
     /**
-     * Called by Parenthesiseses.
+     * Called with Parenthesis.
+     *
      * @param p The caller.
      * @return Result or null.
      */
