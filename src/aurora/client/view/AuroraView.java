@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Knows the layout of the component tree.
- * Receives "direct" events from components and emits more semantic events onto the event bus.
+ * Receives "direct" events from actionbar and emits more semantic events onto the event bus.
  * Look into the aurora.client.event package.
  * TODO this doc is incomplete.
  */

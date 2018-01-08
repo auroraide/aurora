@@ -1,8 +1,6 @@
 package aurora.client.view.editor;
 
-import aurora.client.view.editor.components.ActionBar;
-import aurora.client.view.editor.components.OutputField;
-import aurora.client.view.editor.components.StepField;
+import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -53,9 +51,17 @@ public class Editor extends Composite {
         return inputCodeMirror;
     }
 
+    public Button getInputOptionButton() {
+        return inputOptionButton;
+    }
+
     public CodeMirrorPanel getOutputCodeMirror() {
         return outputCodeMirror;
-    } /* warum? nicht innerhalb den Actionbar?*/
+    }
+
+    public Button getOutputOptionButton() {
+        return outputOptionButton;
+    }
 
     public FlexTable getOutputFieldTable() {
         return outputFieldTable;
