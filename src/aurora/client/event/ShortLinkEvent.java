@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.shared.backend.Library;
+import aurora.shared.backend.library.Library;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ShortLinkEvent extends GwtEvent<ShortLinkEventHandler> {
