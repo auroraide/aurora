@@ -1,8 +1,11 @@
 package aurora.client.view;
 
 import aurora.client.presenter.DesktopPresenter;
+import aurora.client.view.editor.Editor;
+import aurora.client.view.sidebar.Sidebar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -18,6 +21,9 @@ public class AuroraView extends Composite implements DesktopPresenter.Display {
     }
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
+    @UiField Editor editor;
+    @UiField Sidebar sidebar;
+
 
     public AuroraView() {
         initWidget(ourUiBinder.createAndBindUi(this));

@@ -3,10 +3,11 @@
              xmlns:editor="urn:import:aurora.client.view.editor.components">
 
 
-    <g:SplitLayoutPanel unit="EM">
+    <g:SplitLayoutPanel>
 
-        <g:north size="15">
+        <g:north size="30" unit="EM">
             <g:FlowPanel>
+                <g:FlowPanel ui:field="inputField"/>
                 <editor:ActionBar/>
             </g:FlowPanel>
         </g:north>
