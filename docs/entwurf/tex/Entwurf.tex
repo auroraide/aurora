@@ -78,7 +78,7 @@
 % Argument 2: the name of the class/interface
 \newenvironment{texdocclass}[2]{%
 	\gdef\classname{#2}
-	\subsubsection{\texttt{#1 \textbf{#2}}}
+	\subsubsection{\texttt{#1 #2}}
 }{\newpage{}}
 
 % Environment for class description
@@ -240,7 +240,7 @@ Nikolai Polley, Randy Seng}
 \setcounter{tocdepth}{4}
 \tableofcontents
 
-\pagebreak
+\newpage
 \section{Einleitung}
 \subsection{Zweck der Software}
 Das Ziel ist es, Studenten eine Lernumgebung anzubieten in der man eigene Lambda Terme reduziert. Man soll ein Gefühl für das $\lambda$-Kalkül entwickeln, durch Ausprobieren
