@@ -15,7 +15,7 @@ public class Library {
     private Map<String, LibraryItem> map;
 
     /**
-     * Standard constructor.
+     * Standard constructor, that initializes an empty hash map.
      */
     public Library() {
         this.map = new HashMap<>();
@@ -125,4 +125,14 @@ public class Library {
 
     }
 
+    /**
+     * Checks if the function is already in the Library.
+     *
+     * @param name The name of the function.
+     *
+     * @return The boolean if the name is already in the Libray.
+     */
+    public boolean hasTerm(String name) {
+        return false;
+    }
 }
