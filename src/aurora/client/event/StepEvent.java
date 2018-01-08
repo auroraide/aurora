@@ -2,12 +2,19 @@ package aurora.client.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * Represents the user wanting to perform a fixed amount of steps.
+ */
 public class StepEvent extends GwtEvent<StepEventHandler> {
     public static Type<StepEventHandler> TYPE = new Type<>();
-    private int stepNumber;
+    private int stepCount;
 
-    public StepEvent(int stepNumber) {
-        this.stepNumber = stepNumber;
+    /**
+     * Simple constructor.
+     * @param stepCount Amount of steps to perform, >= 1.
+     */
+    public StepEvent(int stepCount) {
+        this.stepCount = stepCount;
     }
 
     @Override
@@ -20,7 +27,11 @@ public class StepEvent extends GwtEvent<StepEventHandler> {
 
     }
 
-    public int getStepNumber() {
-        return stepNumber;
+    /**
+     * Gets the amount of steps the user has selected to be evaluated.
+     * @return Amount of steps >= 1.
+     */
+    public int getStepCount() {
+        return stepCount;
     }
 }
