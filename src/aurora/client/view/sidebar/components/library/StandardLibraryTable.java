@@ -3,6 +3,7 @@ package aurora.client.view.sidebar.components.library;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
+import aurora.client.view.sidebar.components.library.LibraryItem;
 
 public class StandardLibraryTable extends LibraryTable {
     interface StandardLibraryTableUiBinder extends UiBinder<Widget, StandardLibraryTable> {

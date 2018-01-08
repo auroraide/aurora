@@ -15,10 +15,10 @@ public class StrategySelection extends Composite {
 
     private static StrategySelectionUiBinder ourUiBinder = GWT.create(StrategySelectionUiBinder.class);
 
-    @UiField RadioButton callByValue;
-    @UiField RadioButton callByName;
-    @UiField RadioButton normalOrder;
-    @UiField RadioButton manualSelection;
+    @UiField private RadioButton callByValue;
+    @UiField private RadioButton callByName;
+    @UiField private RadioButton normalOrder;
+    @UiField private RadioButton manualSelection;
 
     public StrategySelection() {
         initWidget(ourUiBinder.createAndBindUi(this));
