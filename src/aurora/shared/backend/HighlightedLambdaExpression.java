@@ -15,16 +15,16 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     private List<Token> tokens;
 
     /**
-	 * Standard constructor.
+	 * Standard constructor, that initializes an empty HighlightedLambdaExpression.
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
 
     /**
-     * Constructor.
+     * Constructor that analyzes a Term and creates the HighligtedLambdaExpression
      *
-     * @param t
+     * @param t the Term that gets analyzed.
      */
     public HighlightedLambdaExpression(Term t) {
         this();
@@ -66,17 +66,18 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
         private String name;
 
         /**
-         * Constructor.
+         * Constructor, that creates a new Token.
          *
-         * @param type
-         * @param name
+         * @param type The type of the Token.
+         * @param name The name of the Token.
          */
         public Token(TokenType type, String name) {
         }
 
         /**
          * Constructor with omitted name.
-         * @param type
+         * 
+         * @param type The type of the Token.
          */
         public Token(TokenType type) {
             this(type, "");
