@@ -165,7 +165,7 @@
     <!-- =================================
           target: doc
          ================================= -->
-    <target name="doc" description="Generate HTML docs using javadoc">
+    <target name="doc" depends="resolve" description="Generate HTML docs using javadoc">
         <delete dir="${html.dir}" />
         <mkdir dir="${html.dir}"/>
         <javadoc
@@ -180,7 +180,7 @@
     <!-- =================================
           target: texdoc
          ================================= -->
-    <target name="texdoc" description="Generate TeX docs using javadoc and texdoclet">
+    <target name="texdoc" depends="resolve" description="Generate TeX docs using javadoc and texdoclet">
         <delete file="${tex.dir}/javadoc.tex" />
         <javadoc
             sourcepath="${src.dir}"
