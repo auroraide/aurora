@@ -11,7 +11,7 @@ public class StepEvent extends GwtEvent<StepEventHandler> {
 
     /**
      * Simple constructor.
-     * @param stepCount Amount of steps to perform, >= 1.
+     * @param stepCount Amount of steps to perform, greater or equals 1.
      */
     public StepEvent(int stepCount) {
         this.stepCount = stepCount;
@@ -29,7 +29,7 @@ public class StepEvent extends GwtEvent<StepEventHandler> {
 
     /**
      * Gets the amount of steps the user has selected to be evaluated.
-     * @return Amount of steps >= 1.
+     * @return Amount of steps greater or equals 1.
      */
     public int getStepCount() {
         return stepCount;

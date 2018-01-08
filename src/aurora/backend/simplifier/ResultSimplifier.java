@@ -8,7 +8,7 @@ import aurora.backend.tree.Term;
  *
  * As an example \s.\z.(s (s (s (s z)))) can be detected as a Church Number and be printed as 4
  *
- * @param <T> The generic return type of the {@link #guess(Term) guess} method.
+ * @param <T> The generic return type of the {@link #simplify(Term) guess} method.
  */
 public interface ResultSimplifier<T extends Term> {
 
