@@ -19,11 +19,19 @@ public class Sidebar extends Composite {
     private StandardLibraryTable standardLibraryTable;
     private UserLibraryTable userLibraryTable;
     private StrategySelection strategySelection;
-    private LanguageSelection languageSelection;
-    private ShareSelection shareSelection;
+    @UiField private ListBox languageSelection;
+    @UiField private ListBox shareSelection;
 
     public Sidebar() {
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
+
+    public String getLanguageSelection() {
+        return shareSelection.getSelectedValue;
+    }
+
+    public String getShareSelection() {
+        return languageSelection.getSelectedValue;
     }
 
 }

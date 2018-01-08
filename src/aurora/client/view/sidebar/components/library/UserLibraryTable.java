@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import aurora.client.view.sidebar.components.library.LibraryItem;
+import aurora.client.view.popup.AddFunctionDialogBox;
 
 public class UserLibraryTable extends LibraryTable {
 
@@ -13,6 +14,8 @@ public class UserLibraryTable extends LibraryTable {
 
     private static UserLibraryTableUiBinder ourUiBinder = GWT.create(UserLibraryTableUiBinder.class);
     private List<LibraryItem> libraryItems;
+    @UiField private Button addFunctionToUserLibrary;
+    private AddFunctionDialogBox addFunctionDialogBox;
 
     public UserLibraryTable() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -21,6 +24,7 @@ public class UserLibraryTable extends LibraryTable {
 
     @Override
     void loadData() {
-
     }
+
+    //private method to call addfunctiondialogbox
 }
