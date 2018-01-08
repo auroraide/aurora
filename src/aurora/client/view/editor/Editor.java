@@ -16,11 +16,11 @@ public class Editor extends Composite {
     interface EditorUiBinder extends UiBinder<Widget, Editor> {}
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
-    private CodeMirrorPanel inputField;
+    CodeMirrorPanel inputField;
     @UiField FlowPanel inputFieldContainer;
     @UiField ActionBar actionBar;
-    /*@UiField*/ private StepField stepField;
-    /*@UiField*/ private OutputField outputField;
+    /*@UiField*/ StepField stepField;
+    /*@UiField*/ OutputField outputField;
 
     public Editor() {
         initWidget(ourUiBinder.createAndBindUi(this));

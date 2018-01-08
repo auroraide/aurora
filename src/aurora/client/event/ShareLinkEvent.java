@@ -8,7 +8,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     private String rawInput;
     private Library userLibrary;
 
-    public ShortLinkEvent(String rawInput, Library userLibrary) {
+    public ShareLinkEvent(String rawInput, Library userLibrary) {
         this.rawInput = rawInput;
         this.userLibrary = userLibrary;
     }

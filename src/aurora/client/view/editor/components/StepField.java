@@ -5,6 +5,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class StepField extends Composite {
@@ -14,7 +15,6 @@ public class StepField extends Composite {
     @UiField FlexTable stepsTable;
 
     private static StepFieldUiBinder ourUiBinder = GWT.create(StepFieldUiBinder.class);
-    @UiField ListBox termLineSettings;
 
     public StepField() {
         initWidget(ourUiBinder.createAndBindUi(this));
