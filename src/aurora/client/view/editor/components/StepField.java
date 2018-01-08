@@ -14,6 +14,7 @@ public class StepField extends Composite {
     @UiField FlexTable stepsTable;
 
     private static StepFieldUiBinder ourUiBinder = GWT.create(StepFieldUiBinder.class);
+    @UiField private ListBox termLineSettings;
 
     public StepField() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -27,6 +28,7 @@ public class StepField extends Composite {
     }
 
     private void setUpStepsTable() {
+        //supposed to add List of Terms as an attribute
         /* cp (column position)
             0: Line number
             1: Settings Widget which appears on mouse hover
