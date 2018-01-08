@@ -1,4 +1,4 @@
-<project name="Aurora" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="Aurora" default="devmode" xmlns:ivy="antlib:org.apache.ivy.ant">
     
     <!-- Arguments to gwtc and devmode targets -->
     <property name="gwt.args" value="" />
