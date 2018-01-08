@@ -21,6 +21,7 @@ public class Sidebar extends Composite {
     private StrategySelection strategySelection;
     @UiField private ListBox languageSelection;
     @UiField private ListBox shareSelection;
+    private String auroraActiveLanguage;
 
     public Sidebar() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -35,6 +36,9 @@ public class Sidebar extends Composite {
     }
     public void updateLanguages(String[] languagesAvailable) {
 
+    }
+    public void setActiveLanguage(String activeLanguage) {
+        auroraActiveLanguage = activeLanguage;
     }
 
 }
