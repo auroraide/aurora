@@ -37,13 +37,7 @@ Run
 ant doc
 ```
 
-and build the generated `docs/entwurf/tex/javadoc.tex` by running
-
-```
-pdflatex javadoc.tex
-```
-
-twice.
+and check out `docs/entwurf/html/index.html`.
 
 ### TeX
 
@@ -53,4 +47,10 @@ Run
 ant texdoc
 ```
 
-and check out `docs/entwurf/html/index.html`.
+and build the generated `docs/entwurf/tex/javadoc.tex` by running
+
+```
+pdflatex javadoc.tex
+```
+
+(twice).
