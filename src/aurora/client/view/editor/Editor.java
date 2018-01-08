@@ -15,11 +15,12 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 public class Editor extends Composite {
     interface EditorUiBinder extends UiBinder<Widget, Editor> {}
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
+
     private CodeMirrorPanel inputField;
-    @UiField FlowPanel inputFieldContainer;
-    @UiField ActionBar actionBar;
-    /*@UiField*/ StepField stepField;
-    /*@UiField*/ OutputField outputField;
+    @UiField private FlowPanel inputFieldContainer;
+    @UiField private ActionBar actionBar;
+    /*@UiField*/ private StepField stepField;
+    /*@UiField*/ private OutputField outputField;
 
     public Editor() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -37,7 +38,7 @@ public class Editor extends Composite {
 
     public ActionBar getActionBar() {
         return actionBar;
-    }
+    } /* warum? nicht innerhalb den Actionbar?*/
 
     public StepField getStepField() {
         return stepField;

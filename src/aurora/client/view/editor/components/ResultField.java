@@ -4,4 +4,8 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class ResultField extends OutputField {
     private TextBox textBox;
+
+    private void setResult(String resultAfterCalculating) {
+        
+    }
 }

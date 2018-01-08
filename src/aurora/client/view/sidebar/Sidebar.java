@@ -33,5 +33,8 @@ public class Sidebar extends Composite {
     public String getShareSelection() {
         return languageSelection.getSelectedValue;
     }
+    public void updateLanguages(String[] languagesAvailable) {
+
+    }
 
 }
