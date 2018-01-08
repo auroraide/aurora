@@ -1,4 +1,4 @@
-package aurora.client.view.sidebar.components.strategy;
+package aurora.client.view.sidebar.strategy;
 
 /**
  * Strategy types, without manual selection.

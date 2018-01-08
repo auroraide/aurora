@@ -2,7 +2,7 @@ package aurora.client.view.sidebar;
 
 import aurora.client.view.popup.AddFunctionDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
-import aurora.client.view.sidebar.components.strategy.StrategySelection;
+import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
