@@ -18,6 +18,8 @@ import aurora.client.view.popup.InfoDialogBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 public class AuroraView extends Composite implements AuroraPresenter.Display {
+    private final EventBus eventBus;
+
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);

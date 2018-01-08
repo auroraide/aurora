@@ -18,7 +18,7 @@ public class Aurora implements EntryPoint {
   public void onModuleLoad() {
       EventBus eventBus = GWT.create(SimpleEventBus.class);
 
-      RootLayoutPanel.get().add(new AuroraView());
+      RootLayoutPanel.get().add(new AuroraView(eventBus));
     }
 
 
