@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.shared.backend.TreePath;
+import aurora.backend.TreePath;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
