@@ -1,9 +1,9 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
- * This class represents the terms of the standard- and the userlibrary.
+ * Represent the terms of the standard- and the userlibrary.
  * Every LibraryTerm has a name which starts with a "$" and then consists of lower case letters.
  */
 public class LibraryTerm extends Term {

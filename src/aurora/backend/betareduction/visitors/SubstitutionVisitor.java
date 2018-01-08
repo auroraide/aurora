@@ -1,6 +1,7 @@
-package aurora.backend.visitors;
+package aurora.backend.betareduction.visitors;
 
 import aurora.backend.tree.*;
+import aurora.backend.TermVisitor;
 
 /**
  * Visitor that traverses the Term tree and substitutes a BoundVariable with a given Term.

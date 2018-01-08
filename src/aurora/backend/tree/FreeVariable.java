@@ -1,9 +1,9 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
- * This class models a free variable. A free variable is not bound by an abstraciton.
+ * This class models a free variable. A free variable is not bound by an abstraction.
  * Every free variable has a name , which can only be lower case letters.
  */
 public class FreeVariable extends Term {
@@ -11,7 +11,7 @@ public class FreeVariable extends Term {
     private final String name;
 
     /**
-     * this constructor gets the name of the free variable as a string.
+     * Get the name of the free variable as a string.
      * @param name
      */
     public FreeVariable(String name) {

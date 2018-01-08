@@ -1,8 +1,8 @@
 package aurora;
 
 import aurora.backend.tree.*;
-import aurora.backend.visitors.SubstitutionVisitor;
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.betareduction.visitors.SubstitutionVisitor;
+import aurora.backend.TermVisitor;
 
 public class HelloLambda {
 

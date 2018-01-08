@@ -1,8 +1,9 @@
-package aurora.backend.visitors;
+package aurora.backend.betareduction.visitors;
 
 import aurora.backend.TreePath;
 import aurora.backend.TreePath.Direction;
 import aurora.backend.tree.*;
+import aurora.backend.TermVisitor;
 
 import java.util.Iterator;
 

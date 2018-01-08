@@ -1,6 +1,6 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
  * An Abstraction is a "lambda", a "variable" a "." and a "body" in this order. The body is a Term.

@@ -1,4 +1,4 @@
-package aurora.backend.strategies;
+package aurora.backend.betareduction.strategies;
 
 import aurora.backend.TreePath;
 import aurora.backend.tree.Term;
