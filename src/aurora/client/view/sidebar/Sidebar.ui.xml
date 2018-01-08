@@ -48,7 +48,8 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <library:StandardLibraryTable/>
+                            <g:FlexTable ui:field="standardLibraryTable" />
+
                         </g:stack>
 
                         <!-- User Library -->
@@ -62,7 +63,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <library:UserLibraryTable/>
+                            <g:FlexTable ui:field="userLibraryTable" />
                         </g:stack>
                     </g:StackLayoutPanel>
                 </g:center>
@@ -73,7 +74,7 @@
         <g:south size='10'>
             <g:HorizontalPanel>
                 <!-- Strategy Selection -->
-                <strategy:StrategySelection/>
+                <strategy:StrategySelection ui:field="strategySelection"/>
                 
                 <!-- Night Mode -->
                 <g:FlowPanel>
@@ -87,17 +88,9 @@
                     <g:Button>Language</g:Button>
                 </g:FlowPanel>
                 
-                <g:ListBox ui:field="shareList">
-                    <g:item value='latex'>LaTex</g:item>
-                    <g:item value='email'>eMail</g:item>
-                    <g:item value='link'>Link</g:item>
-                </g:ListBox>
-                <g:ListBox ui:field="languageList">
-                    <g:item value='EN'>EN</g:item>
-                    <g:item value='RU'>RU</g:item>
-                    <g:item value='FR'>FR</g:item>
-                    <g:item value='DE'>DE</g:item>
-                </g:ListBox>
+                <g:ListBox ui:field="shareSelection" />
+                <!-- Presenter rendert -->
+                <g:ListBox ui:field="languageSelection" />
                 <!-- language selection should load the list with available languages from properties files i18n -->
             </g:HorizontalPanel>
         </g:south>
