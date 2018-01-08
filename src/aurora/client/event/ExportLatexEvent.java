@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.shared.backend.HighlightedLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**

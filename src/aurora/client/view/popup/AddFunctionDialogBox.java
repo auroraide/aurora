@@ -29,12 +29,6 @@ public class AddFunctionDialogBox extends DialogBox {
         hide();
     }
 
-    @UiHandler("addButton")
-    void onAddButtonClicked(ClickEvent event) {
-        // TODO More to implement. E.g. clearing TextBoxes.
-        hide();
-    }
-
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         // TODO More to implement. E.g. clearing TextBoxes.

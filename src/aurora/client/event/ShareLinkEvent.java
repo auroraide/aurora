@@ -10,7 +10,6 @@ import com.google.gwt.event.shared.GwtEvent;
 public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     public static Type<ShareLinkEventHandler> TYPE = new Type<>();
     private final HighlightedLambdaExpression highlightedLambdaExpression;
-    private final Library userLibrary;
 
     /**
      * Simple constructor.
@@ -19,7 +18,6 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
      */
     public ShareLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression, Library userLibrary) {
         this.highlightedLambdaExpression = highlightedLambdaExpression;
-        this.userLibrary = userLibrary;
     }
 
     @Override
@@ -33,18 +31,12 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     }
 
     /**
-     * Gets the user's user library.
-     * @return User library.
-     */
-    public Library getUserLibrary() {
-        return userLibrary;
-    }
-
-    /**
      * Gets term the user selected for sharing.
      * @return Selected term.
      */
     public HighlightedLambdaExpression getHighlightedLambdaExpression() {
         return highlightedLambdaExpression;
     }
+
+
 }
