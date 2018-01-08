@@ -2,9 +2,11 @@ package aurora.client.presenter;
 
 import com.google.gwt.user.client.ui.Panel;
 
-public class DesktopPresenter implements Presenter {
+public class DesktopPresenter {
 
-    public interface Display{}
+    public interface Display{
+
+    }
 
 
 
