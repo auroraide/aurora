@@ -10,3 +10,4 @@ entwurfsdokument:
   artifacts:
     paths:
       - "docs/entwurf/tex/Entwurf.pdf"
+      - "docs/entwurf/tex/javadoc.tex"
