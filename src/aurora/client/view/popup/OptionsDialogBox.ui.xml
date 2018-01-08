@@ -3,14 +3,19 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shareLatex"/>
+            <g:Button>To new Tab</g:Button>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="copyToClipboard">Copy to Clipboard</g:Button>
-            <g:Button ui:field="cancelButton">CANCEL</g:Button>
+            <g:Button>Export to LaTeX</g:Button>
         </g:HorizontalPanel>
 
+        <g:HorizontalPanel>
+            <g:Button>To Pastebin</g:Button>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Button>Shortlink</g:Button>
+        </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
-

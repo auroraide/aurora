@@ -3,7 +3,7 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shareLatex"/>
+            <g:TextArea ui:field="shortLink"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
