@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Collection of lambda term definitions.
  */
-public class Library {
+public class Library implements Iterable<Library.LibraryItem> {
 
     private Map<String, LibraryItem> map;
 
@@ -19,6 +19,11 @@ public class Library {
      */
     public Library() {
         this.map = new HashMap<>();
+    }
+
+    @Override
+    public Iterator<LibraryItem> iterator() {
+        return null;
     }
 
     /**
