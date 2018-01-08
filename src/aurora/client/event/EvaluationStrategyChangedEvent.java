@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.client.view.sidebar.components.strategy.StrategyType;
+import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
