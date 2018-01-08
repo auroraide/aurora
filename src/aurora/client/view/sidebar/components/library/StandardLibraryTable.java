@@ -9,6 +9,8 @@ public class StandardLibraryTable extends LibraryTable {
     }
 
     private static StandardLibraryTableUiBinder ourUiBinder = GWT.create(StandardLibraryTableUiBinder.class);
+    private List<LibraryItem> libraryItems;
+
 
     public StandardLibraryTable() {
         initWidget(ourUiBinder.createAndBindUi(this));

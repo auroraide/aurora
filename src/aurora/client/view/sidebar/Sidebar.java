@@ -1,13 +1,8 @@
 package aurora.client.view.sidebar;
 
-import aurora.client.view.sidebar.components.library.AddFunctionDialogBox;
-import aurora.client.view.sidebar.components.share.ShareLaTeXDialogBox;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
 public class Sidebar extends Composite {
@@ -15,42 +10,16 @@ public class Sidebar extends Composite {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    private final AddFunctionDialogBox addFunctionDialogBox;
-    private final ShareLaTeXDialogBox shareLaTeXDialogBox;
-    // change the active language to the chosen
-
-    @UiField TextBox stepNumber;
-    @UiField Button addFunction;
-    @UiField ToggleButton nightModeSwitch;
-    @UiField ListBox shareList;
-    @UiField ListBox languageList;
+    @UiField private TextBox stepNumber;
+    @UiField private ToggleButton nightModeSwitch;
+    private StandardLibraryTable standardLibraryTable;
+    private UserLibraryTable userLibraryTable;
+    private StrategySelection strategySelection;
+    private LanguageSelection languageSelection;
+    private ShareSelection shareSelection;
 
     public Sidebar() {
-
         initWidget(ourUiBinder.createAndBindUi(this));
-        //init get languages fromt he language selection (check in properties)
-        addFunctionDialogBox = new AddFunctionDialogBox();
-	shareLaTeXDialogBox = new ShareLaTeXDialogBox();
     }
 
-    @UiHandler("stepNumber")
-    void onStepSettingTyped(KeyDownEvent event) {
-
-    }
-
-    @UiHandler("addFunction")
-    void onAddFunctionClicked(ClickEvent event) {
-        addFunctionDialogBox.show();
-    }
-
-    @UiHandler("shareList")
-    void onShareOptionChosen(ClickEvent event) {
-        //what does the event have for info?
-        shareLaTeXDialogBox.show();
-    }
-
-    @UiHandler("languageList")
-    void onLanguageOptionChosen(ClickEvent event) {
-
-    }
 }
