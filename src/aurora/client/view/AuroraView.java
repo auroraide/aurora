@@ -53,8 +53,11 @@ public class AuroraView extends Composite implements Display {
         return null;
     }
 
+    /**
+     * Closes an add function dialog form.
+     */
     @Override
-    public void closeAddFunctionDiaglog() {
+    public void closeAddFunctionDialog() {
 
     }
 
@@ -70,6 +73,23 @@ public class AuroraView extends Composite implements Display {
 
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    /**
+     * @param stepNumber The step number to be set in the view
+     */
+    @Override
+    public void setStepNumber(int stepNumber) {
+
+    }
+
+    /**
+     * @param name
+     * @param description
+     */
+    @Override
+    public void addStdLibFunction(String name, String description) {
 
     }
 }
