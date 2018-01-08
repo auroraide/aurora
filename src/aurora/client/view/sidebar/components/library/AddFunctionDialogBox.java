@@ -31,11 +31,31 @@ public class AddFunctionDialogBox extends DialogBox {
 
     @UiHandler("addButton")
     void onAddButtonClicked(ClickEvent event) {
+        // TODO More to implement. E.g. clearing TextBoxes.
         hide();
     }
 
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
+        // TODO More to implement. E.g. clearing TextBoxes.
         hide();
     }
+
+    public TextBox getNameField() {
+        return nameField;
+    }
+
+    public TextBox getFunctionField() {
+        return functionField;
+    }
+
+    public TextArea getDescriptionField() {
+        return descriptionField;
+    }
+
+    public Button getAddButton() {
+        return addButton;
+    }
+
+
 }

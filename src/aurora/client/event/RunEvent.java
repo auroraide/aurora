@@ -14,4 +14,5 @@ public class RunEvent extends GwtEvent<RunEventHandler> {
     protected void dispatch(RunEventHandler runEventHandler) {
 
     }
+
 }

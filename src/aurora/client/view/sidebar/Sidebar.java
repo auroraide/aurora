@@ -1,6 +1,5 @@
 package aurora.client.view.sidebar;
 
-import aurora.client.view.sidebar.components.language.selection.LanguageSelection;
 import aurora.client.view.sidebar.components.library.AddFunctionDialogBox;
 import aurora.client.view.sidebar.components.share.ShareLaTeXDialogBox;
 import com.google.gwt.core.client.GWT;
@@ -18,7 +17,6 @@ public class Sidebar extends Composite {
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddFunctionDialogBox addFunctionDialogBox;
     private final ShareLaTeXDialogBox shareLaTeXDialogBox;
-    private final LanguageSelection languageSelection;
     // change the active language to the chosen
 
     @UiField TextBox stepNumber;
@@ -33,7 +31,6 @@ public class Sidebar extends Composite {
         //init get languages fromt he language selection (check in properties)
         addFunctionDialogBox = new AddFunctionDialogBox();
 	shareLaTeXDialogBox = new ShareLaTeXDialogBox();
-        languageSelection = new LanguageSelection();  
     }
 
     @UiHandler("stepNumber")
@@ -53,7 +50,7 @@ public class Sidebar extends Composite {
     }
 
     @UiHandler("languageList")
-    void onLangageOptionChosen(ClickEvent event) {
+    void onLanguageOptionChosen(ClickEvent event) {
 
     }
 }

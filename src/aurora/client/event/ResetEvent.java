@@ -14,4 +14,5 @@ public class ResetEvent extends GwtEvent<ResetEventHandler> {
     protected void dispatch(ResetEventHandler resetEventHandler) {
 
     }
+
 }

@@ -102,7 +102,7 @@ public class Library {
      * @param item The LibraryItem instance to be added.
      */
     public void define(LibraryItem item) {
-        this.map.add(item.name, item);
+        this.map.put(item.name, item);
     }
 
     /**

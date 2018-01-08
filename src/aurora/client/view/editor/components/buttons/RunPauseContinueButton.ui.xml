@@ -1,7 +1,0 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-
-    <g:FlowPanel>
-        <g:Button ui:field="actionButton">run</g:Button>
-    </g:FlowPanel>
-</ui:UiBinder>

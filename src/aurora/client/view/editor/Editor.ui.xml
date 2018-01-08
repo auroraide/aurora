@@ -3,13 +3,26 @@
              xmlns:editor="urn:import:aurora.client.view.editor.components">
 
 
-    <g:SplitLayoutPanel unit="EM">
+    <g:SplitLayoutPanel>
 
-        <g:north size="15">
+        <g:north size="120" unit="EM">
             <g:FlowPanel>
-                <editor:ActionBar/>
+                <g:FlowPanel ui:field="inputFieldContainer"/>
+                <editor:ActionBar ui:field="actionBar"/>
             </g:FlowPanel>
         </g:north>
+
+        <g:center>
+            <g:FlowPanel>
+                <g:Label>Ich bin das StepField</g:Label>
+            </g:FlowPanel>
+        </g:center>
+
+        <g:south size="120" unit="EM">
+            <g:FlowPanel>
+                <g:Label>Ich bin das OutputField</g:Label>
+            </g:FlowPanel>
+        </g:south>
 
 
     </g:SplitLayoutPanel>
