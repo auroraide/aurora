@@ -130,7 +130,7 @@ public class Library {
      *
      * @param name The name of the function.
      *
-     * @return The boolean if the name is already in the Libray.
+     * @return The boolean if the name is already in the Library.
      */
     public boolean hasTerm(String name) {
         return false;
