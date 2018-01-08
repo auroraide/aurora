@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.shared.backend.library.Library;
+import aurora.backend.library.Library;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
