@@ -24,23 +24,19 @@ public class StrategySelection extends Composite {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
-    @UiHandler("callByValue")
-    void onCallByValueSelected(ClickEvent event) {
-
+    public RadioButton getCallByValue() {
+        return callByValue;
     }
 
-    @UiHandler("callByName")
-    void onCallByNameSelected(ClickEvent event) {
-
+    public RadioButton getCallByName() {
+        return callByName;
     }
 
-    @UiHandler("normalOrder")
-    void onNormalOrderSelected(ClickEvent event) {
-
+    public RadioButton getNormalOrder() {
+        return normalOrder;
     }
 
-    @UiHandler("manualSelection")
-    void onManualSelectionSelected(ClickEvent event) {
-
+    public RadioButton getManualSelection() {
+        return manualSelection;
     }
 }
