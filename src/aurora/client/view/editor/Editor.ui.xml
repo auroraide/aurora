@@ -7,7 +7,7 @@
 
         <g:north size="120" unit="EM">
             <g:FlowPanel>
-                <g:FlowPanel ui:field="inputFieldContainer"/>
+                <g:FlexTable ui:field="inputFieldTable"/>
                 <editor:ActionBar ui:field="actionBar"/>
             </g:FlowPanel>
         </g:north>
@@ -15,12 +15,14 @@
         <g:center>
             <g:FlowPanel>
                 <g:Label>Ich bin das StepField</g:Label>
+                <g:FlexTable ui:field="stepFieldTable"/>
             </g:FlowPanel>
         </g:center>
 
         <g:south size="120" unit="EM">
             <g:FlowPanel>
                 <g:Label>Ich bin das OutputField</g:Label>
+                <g:FlexTable ui:field="outputFieldTable"/>
             </g:FlowPanel>
         </g:south>
 

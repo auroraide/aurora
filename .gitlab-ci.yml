@@ -1,16 +1,13 @@
 image: blang/latex
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential plantuml wget openjdk-8-jdk maven git
-  - (git clone https://github.com/younishd/texdoclet.git && cd texdoclet && mvn clean install)
+  - apt-get update -qq && apt-get install -y -qq build-essential plantuml openjdk-8-jdk
 
 entwurfsdokument:
   script:
-    - cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex
-    - javadoc -output Classes.tex -docletpath ../../../texdoclet/target/TeXDoclet.jar -doclet org.stfm.texdoclet.TeXDoclet $(find ../../../src -name '*.java')
-    - pdflatex Classes.tex && pdflatex Classes.tex
+    - javadoc -output docs/entwurf/tex/javadoc.tex -docletpath vendor/texdoclet-0.9.3.jar -doclet org.wonderly.doclets.TexDoclet -sourcepath src -subpackages aurora
+    - (cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex)
   artifacts:
     paths:
       - "docs/entwurf/tex/Entwurf.pdf"
-      - "docs/entwurf/tex/Classes.pdf"
-      - "docs/entwurf/tex/Classes.tex"
+      - "docs/entwurf/tex/javadoc.tex"

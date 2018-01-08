@@ -1,6 +1,18 @@
 % !TEX encoding = UTF-8 Unicode
-\documentclass[parskip=full,11pt,twoside]{scrartcl}
+%\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\documentclass[parskip=full,11pt,twoside]{scrbook}
 \usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{color}
+\usepackage{hyperref}
+
+\pagestyle{myheadings}
+
+\def\packagename{}
+\def\classname{}
 
 % section numbers in margins:
 \renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
@@ -10,6 +22,19 @@
 \lofoot{\today}
 \refoot{\today}
 \pagestyle{scrheadings}
+
+\markboth{\protect\packagename{} -- \protect\classname{}}{\protect\packagename{} -- \protect\classname{}}
+
+% hot mess.. I mean.. hotfix
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
 
 \usepackage[sfdefault,light]{roboto}
 \usepackage[T1]{fontenc}
@@ -31,6 +56,161 @@
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
 
+% ---------------------------------------------------------------------------
+% TexDoc macros start - everything below this point should be copied to your
+% own document and adapted to your style/language if needed
+% ---------------------------------------------------------------------------
+
+% Environment used to simulate html <p> </p>
+\newenvironment{texdocp}{}{
+
+}
+% Environment for packages
+\newenvironment{texdocpackage}[1]{%
+	\newpage{}\gdef\packagename{#1}\chapter{Package \texttt{#1}}
+	\rule{\hsize}{.7mm}
+}{}
+
+% Environment for classes, interfaces
+% Argument 1: "class" or "interface"
+% Argument 2: the name of the class/interface
+\newenvironment{texdocclass}[2]{%
+	\gdef\classname{#2}
+	\section{\texttt{#1 \textbf{#2}}}
+}{\newpage{}}
+
+% Environment for class description
+\newenvironment{texdocclassintro}{
+	\subsection*{Description}
+}{
+}
+
+% Environment around class fields
+\newenvironment{texdocclassfields}{%
+	\subsection*{Attributes}
+	\begin{itemize}
+}{%
+	\end{itemize}
+}
+
+% Environment around class methods
+\newenvironment{texdocclassmethods}{%
+	\subsection*{Methods}
+	\begin{itemize}
+}{%
+	\end{itemize}
+}
+
+% Environment around class Constructors
+\newenvironment{texdocclassconstructors}{%
+	\subsection*{Constructors}
+	\begin{itemize}
+}{%
+	\end{itemize}
+}
+
+% Environment around enum constants
+\newenvironment{texdocenums}{%
+	\subsection*{Enum Constants}
+	\begin{itemize}
+}{%
+	\end{itemize}
+}
+
+% Environment around "See also"-Blocks (\texdocsee invocations)
+%  Argument 1: Text preceding the references
+\newenvironment{texdocsees}[1]{
+
+	\textbf{#1:}
+	\begin{itemize}
+}{%
+	\end{itemize}
+}
+% Formats a single field
+%  Argument 1: modifiers
+%  Argument 2: type
+%  Argument 3: name
+%  Argument 4: Documentation text
+\newcommand{\texdocfield}[4]{\item \texttt{#1 #2 \textbf{#3}} \\ #4}
+
+% Formats an enum element
+%  Argument 1: name
+%  Argument 2: documentation text
+\newcommand{\texdocenum}[2]{\item \texttt{\textbf{#1}} \\ #2}
+
+% Formats a single method
+%  Argument 1: modifiers
+%  Argument 2: return type
+%  Argument 3: name
+%  Argument 4: part after name (parameters)
+%  Argument 5: Documentation text
+%  Argument 6: Documentation of parameters/exceptions/return values
+\newcommand{\texdocmethod}[6]{\item \texttt{#1 #2 \textbf{#3}#4} \\ #5#6}
+
+% Formats a single constructor
+%  Argument 1: modifiers
+%  Argument 2: name
+%  Argument 3: part after name (parameters)
+%  Argument 4: Documentation text
+%  Argument 5: Documentation of parameters/exceptions/return values
+\newcommand{\texdocconstructor}[5]{\item \texttt{#1 \textbf{#2}#3} \\ #4#5}
+
+% Inserted when @inheritdoc is used
+%  Argument 1: Class where the documentation was inherited from
+%  Argument 2: Documentation
+\newcommand{\texdocinheritdoc}[2]{#2 (\textit{documentation inherited from \texttt{#1})}}
+
+% Formats a single see-BlockTag
+%  Argument 1: text
+%  Argument 2: reference label
+\newcommand{\texdocsee}[2]{\item \texttt{#1 (\ref{#2})}}
+
+% Environment around \texdocparameter invocations
+\newenvironment{texdocparameters}{%
+	\minisec{Parameters}
+	\begin{tabular}{ll}
+}{%
+	\end{tabular}
+}
+
+% Environment around \texdocthrow invocations
+\newenvironment{texdocthrows}{%
+        \minisec{Throws}
+        \begin{tabular}{ll}
+}{%
+        \end{tabular}
+}
+
+\newcommand{\texdocreturn}[1]{\minisec{Returns} #1}
+
+% Formats a parameter (this gets put inside the input of a \texdocmethod or
+% \texdocconstructor macro)
+%  Argument 1: name
+%  Argument 2: description text
+\newcommand{\texdocparameter}[2]{\texttt{\textbf{#1}} & \begin{minipage}[t]{0.8\textwidth}#2\end{minipage} \\}
+
+% Formats a throws tag
+%  Argument 1: exception name
+%  Argument 2: description text
+\newcommand{\texdocthrow}[2]{\texttt{\textbf{#1}} & \begin{minipage}[t]{0.6\textwidth}#2\end{minipage} \\}
+
+% Used to simulate html <br/>
+\newcommand{\texdocbr}{\mbox{}\newline{}}
+
+% Used to simulate html <h[1-9]> - </h[1-9]>
+% Argument 1: number of heading (5 for a <h5>)
+% Argument 2: heading text
+\newcommand{\headref}[2]{\minisec{#2}}
+
+\newcommand{\refdefined}[1]{
+\expandafter\ifx\csname r@#1\endcsname\relax
+\relax\else
+{$($ in \ref{#1}, page \pageref{#1}$)$}
+\fi}
+
+% ---------------------------------------------------------------------------
+% TexDoc macros end
+% ---------------------------------------------------------------------------
 
 \begin{titlepage}
 
@@ -60,15 +240,31 @@ und durch farbige Hervorhebungen um die Struktur der Terme und der Berechnungen 
 Dies wird außerdem durch vordefinierte häufig benutzte Terme aus der Standardbibliothek und Church Zahlen in numerischer Schreibweise ermöglicht.
 Ein Nebenziel ist es, das Erstellen von Lernmaterial zu erleichtern (insb. \LaTeX-Export), sowie Code schnell und zugänglich anderen zu Verfügung zu stellen.
 \subsection{Entwurfsziele}
+Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
+\begin{description}
+	
+		\item[\textbf{Geheimhaltungsprinzip}] ~\par
+			Klassen geben so wenig Informationen wie möglich über Implementierungsdetails preis.
+			
+		\item[\textbf{Starke Kohäsion in Pakete und Klassen}] ~\par
+			Eine Klasse hat nur Methoden die sie direkt betreffen. Klassen innerhalb eines Paketes werden meist zusammen benutzt
+			
+		\item[\textbf{Lose Koppelung zwischen Klassen und Paketen}]~\par
+			Klassen kennen so wenig wie mögliche andere Klassen.
+			
+		\item[\textbf{Lokalitätsprinzip beachten}] ~\par
+			Eine Klasse soll auch alleine stehend verständlich sein. Die Klasse Term ist eine Ausnahme, da sie im Backend nahezu allen bekannt sein muss (siehe Abgrenzungskriterium \textbf{A3}). Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
+	
+\end{description}
 \pagebreak
 
 \section{Grobentwurf}
 \subsection{Architekturmuster und/oder Systemzerlegung}
 \subsubsection{Übersicht}
-Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascrip Webanwendung in Java zu schreiben. 
+Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascrip Webanwendung in Java zu schreiben.
 $\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik I wurde für dieses Szenario Model-View-Controller vorgestellt.
-Wir haben allerdings  Model-View-Presenter gewählt, weil GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases 
-einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben. 
+Wir haben allerdings  Model-View-Presenter gewählt, weil GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases
+einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben.
 \subsubsection{Model}
 \subsubsection{View}
 Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
@@ -89,12 +285,75 @@ Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagram
 \pagebreak
 
 \section{Feinentwurf}
-Hierfür haben wir doch schon UML?
+
+% include crap from texdoclet
+%\tableofcontents
+\input{javadoc.tex}
+
 \subsection{Richtlinien der Schnittstellendokumentation}
 
 wie die Doku gemacht ist (Latex, Latex Javadoc)
-Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P.
-\subsection{Pakete}
+Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
+\subsection{Paketbeschreibungen}
+\begin{description}
+	
+	
+	\item[aurora] ~\par
+	Alle Pakete und Klassen sind in diesem Oberpaket definiert.
+	
+	\item[aurora.backend] ~\par
+	Im Backend sind alle Berechnungen und Datenstrukturen die für das Lambda Kalkül gebraucht werden. 
+	
+	\item[aurora.backend.parser] ~\par
+	In diesem Paket wird eine Eingabe geparsed.
+
+	\item[aurora.backend.tree] ~\par
+	Dies ist die grundlegende Datenstruktur in der die Lambdaterme gespeichert werden.
+	
+	\item[aurora.backend.library] ~\par
+	Dieses Paket wird für die Benutzer- und Standardbibliothek benutzt.
+	
+	\item[aurora.backend.betareduction] ~\par
+	Dieses Paket umfasst alles was für die Beta-Reduktion benötigt wird.
+	
+	\item[aurora.backend.betareduction.visitors] ~\par
+	 In diesem Paket sind die Besucher, welche den Tree traversieren. Sie werden für die Beta-Reduktion benötigt.  
+	\item[aurora.backend.betareduction.strategies] ~\par
+	Hier liegen alle Reduktionsstrategien die für die Beta-Reduktion benutzt werden können.
+
+	\item[aurora.backend.encoders] ~\par
+	Das Paket wird für das encoden und decoden von Input benutzt.
+	
+	\item[aurora.backend.simplifier] ~\par
+	In diesem Paket wird versucht ein komplexer Term in eine simple Ausgabe zu überführen.
+	
+	\item[aurora.client] ~\par
+	Hier sind alle Funktionen die für den Client benötigt werden.
+	
+	\item[aurora.client.event] ~\par
+	Das Paket beinhaltet alle Events die ausgelöst werden können.
+	
+	\item[aurora.client.view] ~\par
+	Hier liegt die GUI.
+	
+	\item[aurora.client.view.editor] ~\par
+	Der Editor für die Benutzereingabe.
+	
+	\item[aurora.client.view.editor.components] ~\par
+	Die Bestandteile der GUI.
+	
+	\item[aurora.client.view.popup] ~\par
+	Das Paket beinhaltet alle Popups.
+	
+	\item[aurora.client.view.sidebar] ~\par
+	An der linken Seite der GUI ist eine Sidebar. Sie wird aus diesem Paket hergestellt
+	
+	\item[aurora.client.view.sidebar.components] ~\par 
+	Die Bestandteile der Sidebar.
+	
+	\item[aurora.client.presenter] ~\par
+	Der Presenter, der den Daten- und Kontrollfluss steuert.
+\end{description}
 \subsection{Entwurfsmuster (welche sind benutzt)}
 Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
 \subsection{Klassen und Schnittstellen}
@@ -105,7 +364,7 @@ Das Wunschkriterium \textbf{K6. Pretty Print} ist in diesem Entwurf nicht mehr v
 
 Gleiches gilt für das Wunschkriterium \textbf{K19. Schleifenerkennung}. Dieses Feature hätte nur sehr selten Anwendung gefunden und wäre großteils unbenutzt geblieben.
 
-Das Wunschkriterium \textbf{K23. Lokale Sessions} ist auch gestrichen worden. Zu viel Aufwand wäre in die Entwicklung dieses Features geflossen und wir haben beschlossen, dass dieses Feature den Aufwand nicht wert ist. 
+Das Wunschkriterium \textbf{K23. Lokale Sessions} ist auch gestrichen worden. Zu viel Aufwand wäre in die Entwicklung dieses Features geflossen und wir haben beschlossen, dass dieses Feature den Aufwand nicht wert ist.
 
 Das Wunschkriterium \textbf{K25. Mobile-Darstellung} ist in dem jetzigen Entwurf nicht vorhanden. Die Gruppe lässt sich aber offen, wenn noch Zeit bei der Implementierung übrig bleibt, dieses Feature über das rückläufiges Wassermodell wieder einzufügen.
 
