@@ -1,23 +1,23 @@
 package aurora.client.presenter;
 
-import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.event.shared.EventBus;
 
-public class DesktopPresenter {
+public class AuroraPresenter {
+
+    public AuroraPresenter(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
     public interface Display{
 
     }
 
+    private EventBus eventBus;
 
-
-
-    @Override
-    public void bind() {
+    private void bind() {
 
     }
 
-    @Override
-    public void go(Panel panel) {
 
-    }
+
 }

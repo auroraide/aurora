@@ -1,20 +1,29 @@
 package aurora.client.view;
 
-import aurora.client.presenter.DesktopPresenter;
+import aurora.client.presenter.AuroraPresenter;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-import aurora.client.view.infoPopup.InfoDialogBox;
+public class AuroraView extends Composite implements AuroraPresenter.Display {
+    private EventBus eventBus;
 
-public class AuroraView extends Composite implements DesktopPresenter.Display {
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
+
     }
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    public AuroraView() {
+    public AuroraView(EventBus eventBus) {
+        this.eventBus = eventBus;
+
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
+
+
+    private void bind() {
+        // TODO bind GWT method
     }
 }
