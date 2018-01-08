@@ -56,6 +56,7 @@
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
 
+\renewcommand{\thesection}{\arabic{section}}
 % ---------------------------------------------------------------------------
 % TexDoc macros start - everything below this point should be copied to your
 % own document and adapted to your style/language if needed
@@ -254,6 +255,9 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 			
 		\item[\textbf{Lokalitätsprinzip beachten}] ~\par
 			Eine Klasse soll auch alleine stehend verständlich sein. Die Klasse Term ist eine Ausnahme, da sie im Backend nahezu allen bekannt sein muss (siehe Abgrenzungskriterium \textbf{A3}). Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
+			
+		\item[\textbf{Keine Verwendung von instanceof}] ~\par
+			Auch als sich für eine  Entwurfsentscheidung instanceof sehr gut angeboten hat wurde eine andere Methode gewählt 
 	
 \end{description}
 \pagebreak
@@ -261,11 +265,25 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 \section{Grobentwurf}
 \subsection{Architekturmuster und/oder Systemzerlegung}
 \subsubsection{Übersicht}
-Das Programm is clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache benutzt werden muss, haben wir uns auf die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascrip Webanwendung in Java zu schreiben.
+Das Programm ist clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache vorausgesetzt wird, haben wir uns für die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascript Webanwendung in Java schreiben.
 $\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik I wurde für dieses Szenario Model-View-Controller vorgestellt.
-Wir haben allerdings  Model-View-Presenter gewählt, weil GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases
-einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben.
+Wir haben allerdings  Model-View-Presenter gewählt, da GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases schreiben einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben.
+
+\subsection{Model-View-Presenter}
+MVP ist ein Entwurfsmuster, welches aus drei Komponenten besteht: das Modell, die View und dem Presenter.
+\begin{description}
+	\item[Modell] ~\par
+	Das Modell beinhaltet die Logik und alle Funktionalität der View. Das Modell hat keinen Zugriff auf die View, im Gegensatz zum MVC. Es hat außerdem kein Zugriff auf den Presenter 
+	\item[View] ~\par
+	Die View wird für das Darstellen der Ein- und Ausgaben benutzt. Die grafische Oberfläche des Programms ist somit in der View. Sie enthält aber keinerlei Logik und kennt weder das Modell noch den Presenter.
+	
+	\item[Presenter] ~\par
+	Der Presenter kennt View und Modell und verbindet ihre Funktionen. Er steuert die Kommunikation zwischen den zwei Komponenten und steuert die logischen Abläufe.
+\end{description}
+
+
 \subsubsection{Model}
+ will noch jmd mvp auf unser projekt anwenden oder könenn diese unterpunkte weg?
 \subsubsection{View}
 Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
 \subsubsection{Presenter}

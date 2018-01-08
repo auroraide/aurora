@@ -7,27 +7,24 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
-public class ShortLinkDialogBox extends DialogBox {
-    interface ShortLinkDialogBoxUiBinder extends UiBinder<Widget, ShortLinkDialogBox> {
+public class ShareLaTeXDialogBox extends DialogBox {
+    interface ShareLaTeXDialogBoxUiBinder extends UiBinder<Widget, ShareLaTeXDialogBox> {
     }
 
-    private static ShortLinkDialogBoxUiBinder ourUiBinder = GWT.create(ShortLinkDialogBoxUiBinder.class);
+    private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
 
-    @UiField TextArea shortLink;
+    @UiField TextArea shareLatex;
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
-    public ShortLinkDialogBox() {
+    public ShareLaTeXDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
-        setText("ShortLink");
+        setText("LaTeX export");
         setGlassEnabled(true);
         center();
         hide();
-    }
-
-    public void setShortLink(String shortLink) {
     }
 
     @UiHandler("copyToClipboard")

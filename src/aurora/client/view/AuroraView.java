@@ -10,7 +10,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-//REMOVE ONCE CODEMIRROR IS NO LONGER IN PANEL
 
 /**
  * Knows the layout of the component tree.
@@ -43,10 +42,8 @@ public class AuroraView extends Composite implements Display {
     @UiField Sidebar sidebar;
 
     public AuroraView(EventBus eventBus) {
-        this.eventBus = eventBus;
-
         initWidget(ourUiBinder.createAndBindUi(this));
-    }
+        this.eventBus = eventBus;
 
     private void bind() {
         // TODO bind GWT method

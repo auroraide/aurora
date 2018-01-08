@@ -3,14 +3,14 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shortLink"/>
+            <g:Label>Description:</g:Label>
+            <g:TextArea ui:field="messageField"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="copyToClipboard">Copy to Clipboard</g:Button>
+            <g:Button ui:field="submitButton">SUBMIT</g:Button>
             <g:Button ui:field="cancelButton">CANCEL</g:Button>
         </g:HorizontalPanel>
 
     </g:VerticalPanel>
 </ui:UiBinder>
-
