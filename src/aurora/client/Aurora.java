@@ -1,5 +1,6 @@
 package aurora.client;
 
+import aurora.client.presenter.AuroraPresenter;
 import aurora.client.view.AuroraView;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -17,8 +18,9 @@ public class Aurora implements EntryPoint {
    */
   public void onModuleLoad() {
       EventBus eventBus = GWT.create(SimpleEventBus.class);
-
-      RootLayoutPanel.get().add(new AuroraView(eventBus));
+      AuroraView view = new AuroraView(eventBus);
+      AuroraPresenter presenter = new AuroraPresenter(eventBus, view);
+      RootLayoutPanel.get().add(view);
     }
 
 

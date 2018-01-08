@@ -6,6 +6,7 @@ import aurora.backend.HighlightedLambdaExpression;
  * Defines possible commands which can be used to modify the view.
  */
 public interface Display {
+
     /**
      * @param message Message to display.
      */

@@ -1,5 +1,6 @@
 package aurora.client.view;
 
+import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.Display;
 import aurora.client.view.editor.Editor;
 import aurora.client.view.sidebar.Sidebar;
@@ -19,9 +20,31 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class AuroraView extends Composite implements Display {
     private final EventBus eventBus;
+    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
+
+    private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
+    @UiField
+    Editor editor;
+    @UiField
+    Sidebar sidebar;
+
+    public AuroraView(EventBus eventBus) {
+        initWidget(ourUiBinder.createAndBindUi(this));
+        this.eventBus = eventBus;
+    }
+
+    private void bind() {
+        // TODO bind GWT method
+    }
+
 
     @Override
-    public void displayError(String message) {
+    public void displaySyntaxError(String message) {
+
+    }
+
+    @Override
+    public void displayWarning(String message) {
 
     }
 
@@ -31,21 +54,22 @@ public class AuroraView extends Composite implements Display {
     }
 
     @Override
-    public void setInput(String input) {
+    public void closeAddFunctionDiaglog() {
 
     }
 
-    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
+    @Override
+    public void addFunction(String name, String description) {
 
-    private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
-    @UiField Editor editor;
-    @UiField Sidebar sidebar;
+    }
 
-    public AuroraView(EventBus eventBus) {
-        initWidget(ourUiBinder.createAndBindUi(this));
-        this.eventBus = eventBus;
+    @Override
+    public void removeFunction(String name) {
 
-    private void bind() {
-        // TODO bind GWT method
+    }
+
+    @Override
+    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+
     }
 }
