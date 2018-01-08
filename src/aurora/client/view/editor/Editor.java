@@ -1,8 +1,6 @@
 package aurora.client.view.editor;
 
-import aurora.client.view.editor.components.ActionBar;
-import aurora.client.view.editor.components.OutputField;
-import aurora.client.view.editor.components.StepField;
+import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;

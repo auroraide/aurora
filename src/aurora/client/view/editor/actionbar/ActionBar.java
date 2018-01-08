@@ -1,4 +1,4 @@
-package aurora.client.view.editor.components;
+package aurora.client.view.editor.actionbar;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -6,7 +6,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import aurora.client.view.editor.components.RPCButtonType;
 
 public class ActionBar extends Composite {
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
