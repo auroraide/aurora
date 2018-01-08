@@ -1,11 +1,12 @@
 image: blang/latex
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential plantuml openjdk-8-jdk
+  - apt-get update && apt-get install -y build-essential plantuml openjdk-8-jdk ant wget unzip
+  - (cd .. && wget https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip gwt-2.8.2.zip)
 
 entwurfsdokument:
   script:
-    - javadoc -output docs/entwurf/tex/javadoc.tex -docletpath vendor/texdoclet-0.9.3.jar -doclet org.wonderly.doclets.TexDoclet -sourcepath src -subpackages aurora
+    - ant texdoc
     - (cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex)
   artifacts:
     paths:
