@@ -172,7 +172,7 @@
             destdir="${html.dir}"
             sourcepath="${src.dir}"
             packagenames="aurora.*"
-            classpathref="project.class.path"
+            classpathref="project.class.javadoc"
             failonerror="true">
         </javadoc>
     </target>
@@ -185,7 +185,7 @@
         <javadoc
             sourcepath="${src.dir}"
             packagenames="aurora.*"
-            classpathref="project.class.path.gwt"
+            classpathref="project.class.path.javadoc"
             failonerror="true">
 
             <doclet name="org.wonderly.doclets.TexDoclet" path="${vendor.dir}/texdoclet-0.9.3.jar">
