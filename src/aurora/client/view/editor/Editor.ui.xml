@@ -5,12 +5,24 @@
 
     <g:SplitLayoutPanel>
 
-        <g:north size="30" unit="EM">
+        <g:north size="120" unit="EM">
             <g:FlowPanel>
-                <g:FlowPanel ui:field="inputField"/>
+                <!--<g:FlowPanel ui:field="inputField"/>-->
                 <editor:ActionBar/>
             </g:FlowPanel>
         </g:north>
+
+        <g:center>
+            <g:FlowPanel>
+                <g:Label>Ich bin das StepField</g:Label>
+            </g:FlowPanel>
+        </g:center>
+
+        <g:south size="120" unit="EM">
+            <g:FlowPanel>
+                <g:Label>Ich bin das OutputField</g:Label>
+            </g:FlowPanel>
+        </g:south>
 
 
     </g:SplitLayoutPanel>

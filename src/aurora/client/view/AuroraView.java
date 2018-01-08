@@ -28,12 +28,12 @@ public class AuroraView extends Composite implements DesktopPresenter.Display {
     public AuroraView() {
         initWidget(ourUiBinder.createAndBindUi(this));
 
-		String initialContent = "BANANA";
+	/*	String initialContent = "BANANA";
 
 		final PopupPanel popup = new PopupPanel(false);
 		popup.setSize("800px", "450px");
 		popup.setWidget(new CodeMirrorPanel(initialContent));
-        popup.center();
+        popup.center();*/
 
     }
 }

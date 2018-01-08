@@ -12,7 +12,7 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 public class Editor extends Composite {
     interface EditorUiBinder extends UiBinder<Widget, Editor> {}
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-    @UiField FlowPanel inputField;
+    /*@UiField FlowPanel inputField;*/
 
     public Editor() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -20,7 +20,7 @@ public class Editor extends Composite {
     }
 
     private void setUpCodeMirror() {
-        inputField.add(new CodeMirrorPanel());
+        /*inputField.add(new CodeMirrorPanel());*/
     }
 
 
