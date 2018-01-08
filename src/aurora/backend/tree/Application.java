@@ -1,9 +1,9 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
- * This is the Application class. An application has a left and a right Term.
+ * An Application has a left and a right Term.
  * Only Applications can be Redexes.
  */
 public class Application extends Term {

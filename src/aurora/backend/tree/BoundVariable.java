@@ -1,6 +1,6 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
  *A bound variable is a variable, which is bound by an abstraction.

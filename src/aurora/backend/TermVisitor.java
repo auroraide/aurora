@@ -1,4 +1,4 @@
-package aurora.backend.visitors;
+package aurora.backend;
 
 import aurora.backend.tree.*;
 

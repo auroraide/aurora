@@ -1,6 +1,6 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
  * A church number is a representation of a number in lambda calculus.
@@ -10,7 +10,7 @@ public class ChurchNumber extends Term {
     private final int value;
 
     /**
-     * This constructor gets the value of the church number as a numerical value and initializes a ChurchNumber.
+     * Get the value of the church number as a numerical value and initializes a ChurchNumber.
      * @param value The value as Integer.
      */
     public ChurchNumber(int value) {

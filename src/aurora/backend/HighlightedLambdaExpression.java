@@ -1,7 +1,6 @@
 package aurora.backend;
 
 import aurora.backend.tree.*;
-import aurora.backend.visitors.TermVisitor;
 
 import java.util.Iterator;
 import java.util.LinkedList;

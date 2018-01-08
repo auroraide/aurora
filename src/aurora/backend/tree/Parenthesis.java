@@ -1,6 +1,6 @@
 package aurora.backend.tree;
 
-import aurora.backend.visitors.TermVisitor;
+import aurora.backend.TermVisitor;
 
 /**
  * This is a Parenthesis which is around a term.

@@ -240,6 +240,22 @@ und durch farbige Hervorhebungen um die Struktur der Terme und der Berechnungen 
 Dies wird außerdem durch vordefinierte häufig benutzte Terme aus der Standardbibliothek und Church Zahlen in numerischer Schreibweise ermöglicht.
 Ein Nebenziel ist es, das Erstellen von Lernmaterial zu erleichtern (insb. \LaTeX-Export), sowie Code schnell und zugänglich anderen zu Verfügung zu stellen.
 \subsection{Entwurfsziele}
+Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
+\begin{description}
+	
+		\item[\textbf{Geheimhaltungsprinzip}] ~\par
+			Klassen geben so wenig Informationen wie möglich über Implementierungsdetails preis.
+			
+		\item[\textbf{Starke Kohäsion in Pakete und Klassen}] ~\par
+			Eine Klasse hat nur Methoden die sie direkt betreffen. Klassen innerhalb eines Paketes werden meist zusammen benutzt
+			
+		\item[\textbf{Lose Koppelung zwischen Klassen und Paketen}]~\par
+			Klassen kennen so wenig wie mögliche andere Klassen.
+			
+		\item[\textbf{Lokalitätsprinzip beachten}] ~\par
+			Eine Klasse soll auch alleine stehend verständlich sein. Die Klasse Term ist eine Ausnahme, da sie im Backend nahezu allen bekannt sein muss (siehe Abgrenzungskriterium \textbf{A3}). Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
+	
+\end{description}
 \pagebreak
 
 \section{Grobentwurf}
@@ -278,7 +294,66 @@ Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagram
 
 wie die Doku gemacht ist (Latex, Latex Javadoc)
 Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
-\subsection{Pakete}
+\subsection{Paketbeschreibungen}
+\begin{description}
+	
+	
+	\item[aurora] ~\par
+	Alle Pakete und Klassen sind in diesem Oberpaket definiert.
+	
+	\item[aurora.backend] ~\par
+	Im Backend sind alle Berechnungen und Datenstrukturen die für das Lambda Kalkül gebraucht werden. 
+	
+	\item[aurora.backend.parser] ~\par
+	In diesem Paket wird eine Eingabe geparsed.
+
+	\item[aurora.backend.tree] ~\par
+	Dies ist die grundlegende Datenstruktur in der die Lambdaterme gespeichert werden.
+	
+	\item[aurora.backend.library] ~\par
+	Dieses Paket wird für die Benutzer- und Standardbibliothek benutzt.
+	
+	\item[aurora.backend.betareduction] ~\par
+	Dieses Paket umfasst alles was für die Beta-Reduktion benötigt wird.
+	
+	\item[aurora.backend.betareduction.visitors] ~\par
+	 In diesem Paket sind die Besucher, welche den Tree traversieren. Sie werden für die Beta-Reduktion benötigt.  
+	\item[aurora.backend.betareduction.strategies] ~\par
+	Hier liegen alle Reduktionsstrategien die für die Beta-Reduktion benutzt werden können.
+
+	\item[aurora.backend.encoders] ~\par
+	Das Paket wird für das encoden und decoden von Input benutzt.
+	
+	\item[aurora.backend.simplifier] ~\par
+	In diesem Paket wird versucht ein komplexer Term in eine simple Ausgabe zu überführen.
+	
+	\item[aurora.client] ~\par
+	Hier sind alle Funktionen die für den Client benötigt werden.
+	
+	\item[aurora.client.event] ~\par
+	Das Paket beinhaltet alle Events die ausgelöst werden können.
+	
+	\item[aurora.client.view] ~\par
+	Hier liegt die GUI.
+	
+	\item[aurora.client.view.editor] ~\par
+	Der Editor für die Benutzereingabe.
+	
+	\item[aurora.client.view.editor.components] ~\par
+	Die Bestandteile der GUI.
+	
+	\item[aurora.client.view.popup] ~\par
+	Das Paket beinhaltet alle Popups.
+	
+	\item[aurora.client.view.sidebar] ~\par
+	An der linken Seite der GUI ist eine Sidebar. Sie wird aus diesem Paket hergestellt
+	
+	\item[aurora.client.view.sidebar.components] ~\par 
+	Die Bestandteile der Sidebar.
+	
+	\item[aurora.client.presenter] ~\par
+	Der Presenter, der den Daten- und Kontrollfluss steuert.
+\end{description}
 \subsection{Entwurfsmuster (welche sind benutzt)}
 Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
 \subsection{Klassen und Schnittstellen}

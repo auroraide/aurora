@@ -1,11 +1,12 @@
-package aurora.backend;
+package aurora.backend.betareduction;
 
-import aurora.backend.strategies.ReductionStrategy;
+import aurora.backend.TreePath;
+import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.Term;
-import aurora.backend.visitors.RedexFinderVisitor;
-import aurora.backend.visitors.ReplaceVisitor;
-import aurora.backend.visitors.SubstitutionVisitor;
+import aurora.backend.betareduction.visitors.RedexFinderVisitor;
+import aurora.backend.betareduction.visitors.ReplaceVisitor;
+import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 
 import java.util.List;
 
