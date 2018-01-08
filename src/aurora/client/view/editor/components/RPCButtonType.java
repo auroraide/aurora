@@ -1,4 +1,4 @@
-package aurora.client.view.editor.components.buttons;
+package aurora.client.view.editor.components;
 
 public enum RPCButtonType {
     RUN, PAUSE, CONTINUE
