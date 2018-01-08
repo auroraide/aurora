@@ -10,11 +10,11 @@ import com.google.gwt.event.shared.EventBus;
  */
 public class AuroraPresenter {
     private final EventBus eventBus;
-    private final Display display;
+    private final Display view;
 
-    public AuroraPresenter(EventBus eventBus, Display display) {
+    public AuroraPresenter(EventBus eventBus, Display view) {
         this.eventBus = eventBus;
-        this.display = display;
+        this.view = view;
     }
 
     private void bind() {
