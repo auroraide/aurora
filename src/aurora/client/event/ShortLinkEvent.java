@@ -1,5 +1,6 @@
 package aurora.client.event;
 
+import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.library.Library;
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -8,19 +9,18 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ShortLinkEvent extends GwtEvent<ShortLinkEventHandler> {
     public static Type<ShortLinkEventHandler> TYPE = new Type<>();
-    private String rawInput;
-    private Library userLibrary;
+    private final HighlightedLambdaExpression highlightedLambdaExpression;
+    private final Library userLibrary;
 
     /**
      * Simple constructor.
-     * @param rawInput Raw user's input text box's contents. May be invalid.
+     * @param highlightedLambdaExpression The term (input, step, or output) the user has selected to be shared.
      * @param userLibrary Reference to user's current user library.
      */
-    public ShortLinkEvent(String rawInput, Library userLibrary) {
-        this.rawInput = rawInput;
+    public ShortLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression, Library userLibrary) {
+        this.highlightedLambdaExpression = highlightedLambdaExpression;
         this.userLibrary = userLibrary;
     }
-
 
     @Override
     public Type<ShortLinkEventHandler> getAssociatedType() {
@@ -33,18 +33,18 @@ public class ShortLinkEvent extends GwtEvent<ShortLinkEventHandler> {
     }
 
     /**
-     * Gets the raw input, as-is in the input text box. Possibly not a correct term.
-     * @return User input field content.
-     */
-    public String getRawInput() {
-        return rawInput;
-    }
-
-    /**
      * Gets the user's user library.
      * @return User library.
      */
     public Library getUserLibrary() {
         return userLibrary;
+    }
+
+    /**
+     * Gets term the user selected for sharing.
+     * @return Selected term.
+     */
+    public HighlightedLambdaExpression getHighlightedLambdaExpression() {
+        return highlightedLambdaExpression;
     }
 }
