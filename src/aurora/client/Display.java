@@ -1,14 +1,17 @@
 package aurora.client;
 
+import aurora.backend.HighlightedLambdaExpression;
+
 /**
  * Defines possible commands which can be used to modify the view.
  */
 public interface Display {
     /**
-     * Generates a pop-up to notify a user about an error.
      * @param message Message to display.
      */
-    void displayError(String message); // TODO there's more than one way to display bad results.
+    void displaySyntaxError(String message); // TODO there's more than one way to display bad results.
+
+    void displayWarning(String message);
 
     /**
      * Gets the user input String from the code editor.
@@ -16,11 +19,16 @@ public interface Display {
      */
     String getInput();
 
+    void closeAddFunctionDiaglog();
+
+    void addFunction(String name, String description);
+    void removeFunction(String name);
+
     /**
      * Sets the content of the code editor, replacing it entirely.
-     * @param input New content.
+     * @param highlightedLambdaExpression term with syntax highlighting.
      */
-    void setInput(String input);
+    void setInput(HighlightedLambdaExpression highlightedLambdaExpression);
 
     // TODO complete list of commands one can send to the view.
 }
