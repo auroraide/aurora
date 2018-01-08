@@ -81,7 +81,7 @@ public class Library {
      * @return The LibraryItem associated with the given name.
      * @throws LibraryItemNotFoundException If there is no such entry in the library.
      */
-    public LibraryItem getItem(String name) {
+    public LibraryItem getItem(String name) throws LibraryItemNotFoundException {
         return this.map.get(name);
     }
 
@@ -117,7 +117,7 @@ public class Library {
     }
 
     /**
-     * Remove a LibraryItem by name.
+     * Remove a LibraryItem from the Library by name.
      *
      * @param name Name of the LibraryItem that should be removed.
      */
@@ -126,13 +126,12 @@ public class Library {
     }
 
     /**
-     * Checks if the function is already in the Library.
+     * Check if a given LibraryItem exists in the Library.
      *
-     * @param name The name of the function.
-     *
-     * @return The boolean if the name is already in the Library.
+     * @param name The name of the LibraryItem.
+     * @return Whether the LibraryItem exists in the Library.
      */
-    public boolean hasTerm(String name) {
+    public boolean exists(String name) {
         return false;
     }
 }

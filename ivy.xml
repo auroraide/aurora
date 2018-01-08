@@ -5,6 +5,3 @@
         <dependency org="org.geomajas.project" name="geomajas-project-api-annotation" rev="1.0.0"/>
      </dependencies>
  </ivy-module>
-
-
-
