@@ -172,7 +172,7 @@
             destdir="${html.dir}"
             sourcepath="${src.dir}"
             packagenames="aurora.*"
-            classpathref="project.class.javadoc"
+            classpathref="project.class.path.javadoc"
             failonerror="true">
         </javadoc>
     </target>
