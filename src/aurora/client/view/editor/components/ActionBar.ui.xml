@@ -2,9 +2,9 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <g:FlowPanel>
-        <g:Button ui:field="runPauseContinueButton"/>
-        <g:Button ui:field="resetButton"/>
-        <g:Button ui:field="stepButton"/>
+        <g:Button ui:field="runPauseContinueButton">run</g:Button>
+        <g:Button ui:field="resetButton">reset</g:Button>
+        <g:Button ui:field="stepButton">step</g:Button>
     </g:FlowPanel>
 
 </ui:UiBinder>

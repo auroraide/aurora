@@ -70,7 +70,7 @@
             </g:DockLayoutPanel>
         </g:center>
 
-        <g:south size='5'>
+        <g:south size='10'>
             <g:HorizontalPanel>
                 <!-- Strategy Selection -->
                 <strategy:StrategySelection/>
