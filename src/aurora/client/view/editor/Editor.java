@@ -51,9 +51,17 @@ public class Editor extends Composite {
         return inputCodeMirror;
     }
 
+    public Button getInputOptionButton() {
+        return inputOptionButton;
+    }
+
     public CodeMirrorPanel getOutputCodeMirror() {
         return outputCodeMirror;
-    } /* warum? nicht innerhalb den Actionbar?*/
+    }
+
+    public Button getOutputOptionButton() {
+        return outputOptionButton;
+    }
 
     public FlexTable getOutputFieldTable() {
         return outputFieldTable;
