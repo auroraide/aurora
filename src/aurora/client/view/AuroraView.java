@@ -10,15 +10,31 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
-
-import aurora.client.view.popup.InfoDialogBox;
-
 //REMOVE ONCE CODEMIRROR IS NO LONGER IN PANEL
-import com.google.gwt.user.client.ui.PopupPanel;
 
+/**
+ * Knows the layout of the component tree.
+ * Receives "direct" events from components and emits more semantic events onto the event bus.
+ * Look into the aurora.client.event package.
+ * TODO this doc is incomplete.
+ */
 public class AuroraView extends Composite implements AuroraPresenter.Display {
     private final EventBus eventBus;
+
+    @Override
+    public void displayError(String message) {
+
+    }
+
+    @Override
+    public String getInput() {
+        return null;
+    }
+
+    @Override
+    public void setInput(String input) {
+
+    }
 
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
 
