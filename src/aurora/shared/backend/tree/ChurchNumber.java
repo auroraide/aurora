@@ -10,7 +10,7 @@ public class ChurchNumber extends Term {
     private final int value;
 
     /**
-     * This constructor gets the value of the church number as a numerical value.
+     * This constructor gets the value of the church number as a numerical value and initializes a ChurchNumber.
      * @param value The value as Integer.
      */
     public ChurchNumber(int value) {

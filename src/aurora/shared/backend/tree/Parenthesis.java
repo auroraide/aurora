@@ -22,7 +22,7 @@ public class Parenthesis extends Term {
     }
 
     /**
-     * A standard getter, it returns the Term inside the parentheses.
+     * Return the Term inside the parentheses.
      * @return The Term inside the parentheses.
      */
     public Term getInner() {

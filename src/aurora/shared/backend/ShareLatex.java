@@ -7,7 +7,7 @@ public class ShareLatex {
     private HighlightedLambdaExpression hle;
 
     /**
-     * This constructor gets a highlighted lambda expression so it can traverse the token list.
+     * Traverse the HighlightedLambdaExpression.
      * @param hle The highlighted lambda expression.
      */
     public ShareLatex(HighlightedLambdaExpression hle) {
@@ -15,7 +15,8 @@ public class ShareLatex {
     }
 
     /**
-     * This method creates a latex snippet as a string which can be copied into a latex document.
+     * Creates a latex snippet as a string which can be copied into a latex document.
+     *
      * @return A string which contains the latex code.
      */
     public String generateLatex() {

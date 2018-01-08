@@ -17,7 +17,7 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
     private TreePath currentPath;
 
     /**
-     * Standard constructor.
+     * Standard constructor, that initializes an empty RedexFinderVisitor.
      */
     public RedexFinderVisitor() {
         redexes = new ArrayList<>();
