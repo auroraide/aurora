@@ -6,8 +6,8 @@ import com.google.gwt.event.shared.GwtEvent;
 /**
  * Represents the user wanting to share a short link.
  */
-public class ShortLinkEvent extends GwtEvent<ShortLinkEventHandler> {
-    public static Type<ShortLinkEventHandler> TYPE = new Type<>();
+public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
+    public static Type<ShareLinkEventHandler> TYPE = new Type<>();
     private String rawInput;
     private Library userLibrary;
 
@@ -16,19 +16,19 @@ public class ShortLinkEvent extends GwtEvent<ShortLinkEventHandler> {
      * @param rawInput Raw user's input text box's contents. May be invalid.
      * @param userLibrary Reference to user's current user library.
      */
-    public ShortLinkEvent(String rawInput, Library userLibrary) {
+    public ShareLinkEvent(String rawInput, Library userLibrary) {
         this.rawInput = rawInput;
         this.userLibrary = userLibrary;
     }
 
 
     @Override
-    public Type<ShortLinkEventHandler> getAssociatedType() {
+    public Type<ShareLinkEventHandler> getAssociatedType() {
         return TYPE;
     }
 
     @Override
-    protected void dispatch(ShortLinkEventHandler shortLinkEventHandler) {
+    protected void dispatch(ShareLinkEventHandler shareLinkEventHandler) {
 
     }
 

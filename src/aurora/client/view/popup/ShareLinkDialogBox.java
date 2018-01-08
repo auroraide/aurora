@@ -1,4 +1,4 @@
-package aurora.client.view.sidebar.components.share;
+package aurora.client.view.popup;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -7,21 +7,21 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
-public class ShareLaTeXDialogBox extends DialogBox {
-    interface ShareLaTeXDialogBoxUiBinder extends UiBinder<Widget, ShareLaTeXDialogBox> {
+public class ShareLinkDialogBox extends DialogBox {
+    interface ShareLinkDialogBoxUiBinder extends UiBinder<Widget, ShareLinkDialogBox> {
     }
 
-    private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
+    private static ShareLinkDialogBoxUiBinder ourUiBinder = GWT.create(ShareLinkDialogBoxUiBinder.class);
 
-    @UiField TextArea shareLatex;
+    @UiField TextArea shareLink;
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
-    public ShareLaTeXDialogBox() {
+    public ShareLinkDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
-        setText("LaTeX export");
+        setText("Link export");
         setGlassEnabled(true);
         center();
         hide();

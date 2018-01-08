@@ -13,7 +13,6 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 public class Editor extends Composite {
     interface EditorUiBinder extends UiBinder<Widget, Editor> {}
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-
     // Input Field
     @UiField FlexTable inputFieldTable;
     private Button inputOptionButton;
@@ -56,7 +55,7 @@ public class Editor extends Composite {
 
     public CodeMirrorPanel getOutputCodeMirror() {
         return outputCodeMirror;
-    }
+    } /* warum? nicht innerhalb den Actionbar?*/
 
     public FlexTable getOutputFieldTable() {
         return outputFieldTable;
