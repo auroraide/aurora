@@ -6,6 +6,6 @@ public class ResultField extends OutputField {
     private TextBox textBox;
 
     private void setResult(String resultAfterCalculating) {
-        
+
     }
 }

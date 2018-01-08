@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import aurora.client.view.editor.components.RPCButtonType;
 
 public class ActionBar extends Composite {
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
@@ -33,5 +34,12 @@ public class ActionBar extends Composite {
 
     public Button getStepButton() {
         return stepButton;
+    }
+
+    public void setStatusActiveInactiv(Button buttonToUpdate) {
+
+    }
+    public void setTypeOfRunPauseConcitueButton(RPCButtonType buttonType) {
+
     }
 }
