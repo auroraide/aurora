@@ -1,8 +1,9 @@
 image: blang/latex
 
 before_script:
-  - apt-get update && apt-get install -y build-essential plantuml openjdk-8-jdk ant wget unzip ivy
+  - apt-get update && apt-get install -y build-essential plantuml openjdk-8-jdk ant wget unzip
   - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -o -d .. gwt-2.8.2.zip
+  - wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar && mv ivy.jar e"$ANT_HOME"/lib/
 
 entwurfsdokument:
   script:
