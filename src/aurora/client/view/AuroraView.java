@@ -1,6 +1,6 @@
 package aurora.client.view;
 
-import aurora.client.presenter.AuroraPresenter;
+import aurora.client.Display;
 import aurora.client.view.editor.Editor;
 import aurora.client.view.sidebar.Sidebar;
 import com.google.gwt.core.client.GWT;
@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Look into the aurora.client.event package.
  * TODO this doc is incomplete.
  */
-public class AuroraView extends Composite implements AuroraPresenter.Display {
+public class AuroraView extends Composite implements Display {
     private final EventBus eventBus;
 
     @Override
