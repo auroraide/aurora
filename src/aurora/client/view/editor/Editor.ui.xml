@@ -7,7 +7,7 @@
 
         <g:north size="120" unit="EM">
             <g:FlowPanel>
-                <!--<g:FlowPanel ui:field="inputField"/>-->
+                <g:FlowPanel ui:field="inputField"/>
                 <editor:ActionBar/>
             </g:FlowPanel>
         </g:north>

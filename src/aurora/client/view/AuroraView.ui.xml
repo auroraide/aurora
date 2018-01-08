@@ -39,9 +39,7 @@
                 </g:west>
 
                 <g:center>
-                    <g:FlowPanel styleName="{style.centerPanel}">
-                        <editor:Editor ui:field="editor"/>
-                    </g:FlowPanel>
+                    <editor:Editor ui:field="editor" styleName="{style.centerPanel}"/>
                 </g:center>
             </g:DockLayoutPanel>
         </g:tab>
