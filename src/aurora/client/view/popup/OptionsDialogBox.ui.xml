@@ -1,0 +1,21 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <g:VerticalPanel>
+        <g:HorizontalPanel>
+            <g:Button>To new Tab</g:Button>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Button>Export to LaTeX</g:Button>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Button>To Pastebin</g:Button>
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Button>Shortlink</g:Button>
+        </g:HorizontalPanel>
+    </g:VerticalPanel>
+</ui:UiBinder>
