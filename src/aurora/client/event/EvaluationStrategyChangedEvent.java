@@ -3,9 +3,12 @@ package aurora.client.event;
 import aurora.client.view.sidebar.components.strategy.StrategyType;
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * Represents the user selecting a different evaluation strategy.
+ */
 public class EvaluationStrategyChangedEvent extends GwtEvent<EvaluationStrategyChangedEventHandler> {
     public static Type<EvaluationStrategyChangedEventHandler> TYPE = new Type<>();
-    private StrategyType strategyType;
+    private final StrategyType strategyType;
 
     public EvaluationStrategyChangedEvent(StrategyType strategyType) {
         this.strategyType = strategyType;
@@ -20,4 +23,13 @@ public class EvaluationStrategyChangedEvent extends GwtEvent<EvaluationStrategyC
     protected void dispatch(EvaluationStrategyChangedEventHandler evaluationStrategyChangedEventHandler) {
 
     }
+
+    /**
+     * Gets the evaluation strategy type selected by the user.
+     * @return Strategy.
+     */
+    public StrategyType getStrategyType() {
+        return strategyType;
+    }
 }
+

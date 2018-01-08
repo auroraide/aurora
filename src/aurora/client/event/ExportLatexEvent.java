@@ -1,13 +1,21 @@
 package aurora.client.event;
 
+import aurora.shared.backend.HighlightedLambdaExpression;
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * Occurs when the user clicks the "share latex" button. Contains the term to share.
+ */
 public class ExportLatexEvent extends GwtEvent<ExportLatexEventHandler> {
     public static Type<ExportLatexEventHandler> TYPE = new Type<>();
-    private String lambdaTerm;
+    private HighlightedLambdaExpression highlightedLambdaExpression;
 
-    public ExportLatexEvent(String lambdaTerm) {
-        this.lambdaTerm = lambdaTerm;
+    /**
+     * Simple constructor.
+     * @param highlightedLambdaExpression The term the user has selected for exporting to LaTeX.
+     */
+    public ExportLatexEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
+        this.highlightedLambdaExpression = highlightedLambdaExpression;
     }
 
     @Override
@@ -20,7 +28,11 @@ public class ExportLatexEvent extends GwtEvent<ExportLatexEventHandler> {
 
     }
 
-    public String getLambdaTerm() {
-        return lambdaTerm;
+    /**
+     * Gets the term to be exported to LaTeX.
+     * @return The term in the form the View understands.
+     */
+    public HighlightedLambdaExpression getHighlightedLambdaExpression() {
+        return highlightedLambdaExpression;
     }
 }
