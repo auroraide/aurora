@@ -1,4 +1,4 @@
-package aurora.client.view.infoPopup;
+package aurora.client.view.popup;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -11,11 +11,11 @@ public class InfoDialogBox extends DialogBox {
     interface InfoDialogBoxUiBinder extends UiBinder<Widget, InfoDialogBox> {
     }
 
-    private static InfoDialogBoxUiBinder infoUiBinder = GWT.create(InfoDialogBoxUiBinder.class);
+    private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
     
 
     public InfoDialogBox() {
-       setWidget(infoUiBinder.createAndBindUi(this));
+       setWidget(uiBinder.createAndBindUi(this));
        setAutoHideEnabled(true);
        setText("TITLETEXT");
        setGlassEnabled(true);

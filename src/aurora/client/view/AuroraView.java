@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 
-import aurora.client.view.infoPopup.InfoDialogBox;
+import aurora.client.view.popup.InfoDialogBox;
 
 //REMOVE ONCE CODEMIRROR IS NO LONGER IN PANEL
 import com.google.gwt.user.client.ui.PopupPanel;
