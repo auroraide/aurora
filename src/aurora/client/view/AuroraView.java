@@ -23,8 +23,8 @@ public class AuroraView extends Composite implements DesktopPresenter.Display {
     }
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
-    @UiField private Editor editor;
-    @UiField private Sidebar sidebar;
+    @UiField Editor editor;
+    @UiField Sidebar sidebar;
 
 
 

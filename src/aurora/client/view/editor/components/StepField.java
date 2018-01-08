@@ -14,7 +14,7 @@ public class StepField extends Composite {
     @UiField FlexTable stepsTable;
 
     private static StepFieldUiBinder ourUiBinder = GWT.create(StepFieldUiBinder.class);
-    @UiField private ListBox termLineSettings;
+    @UiField ListBox termLineSettings;
 
     public StepField() {
         initWidget(ourUiBinder.createAndBindUi(this));

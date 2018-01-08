@@ -14,7 +14,7 @@ public class UserLibraryTable extends LibraryTable {
 
     private static UserLibraryTableUiBinder ourUiBinder = GWT.create(UserLibraryTableUiBinder.class);
     private List<LibraryItem> libraryItems;
-    @UiField private Button addFunctionToUserLibrary;
+    @UiField Button addFunctionToUserLibrary;
     private AddFunctionDialogBox addFunctionDialogBox;
 
     public UserLibraryTable() {

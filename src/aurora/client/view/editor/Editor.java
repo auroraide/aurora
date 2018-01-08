@@ -17,8 +17,8 @@ public class Editor extends Composite {
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
     private CodeMirrorPanel inputField;
-    @UiField private FlowPanel inputFieldContainer;
-    @UiField private ActionBar actionBar;
+    @UiField FlowPanel inputFieldContainer;
+    @UiField ActionBar actionBar;
     /*@UiField*/ private StepField stepField;
     /*@UiField*/ private OutputField outputField;
 

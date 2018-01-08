@@ -14,13 +14,13 @@ public class Sidebar extends Composite {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    @UiField private TextBox stepNumber;
-    @UiField private ToggleButton nightModeSwitch;
+    @UiField TextBox stepNumber;
+    @UiField ToggleButton nightModeSwitch;
     private StandardLibraryTable standardLibraryTable;
     private UserLibraryTable userLibraryTable;
     private StrategySelection strategySelection;
-    @UiField private ListBox languageSelection;
-    @UiField private ListBox shareSelection;
+    @UiField ListBox languageSelection;
+    @UiField ListBox shareSelection;
     private String auroraActiveLanguage;
 
     public Sidebar() {

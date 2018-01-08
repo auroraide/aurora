@@ -13,9 +13,9 @@ public class ShareLinkDialogBox extends DialogBox {
 
     private static ShareLinkDialogBoxUiBinder ourUiBinder = GWT.create(ShareLinkDialogBoxUiBinder.class);
 
-    @UiField private TextArea shareLink;
-    @UiField private Button copyToClipboard;
-    @UiField private Button cancelButton;
+    @UiField TextArea shareLink;
+    @UiField Button copyToClipboard;
+    @UiField Button cancelButton;
 
     public ShareLinkDialogBox() {
 
