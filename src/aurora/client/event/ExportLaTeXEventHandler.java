@@ -2,10 +2,10 @@ package aurora.client.event;
 
 import com.google.gwt.event.shared.EventHandler;
 
-public interface ExportLatexEventHandler extends EventHandler {
+public interface ExportLaTeXEventHandler extends EventHandler {
     /**
      * Called when user wants to export a given term as LaTeX.
-     * @param event Latex export event.
+     * @param event LaTeX export event.
      */
-    void onExportLatex(ExportLatexEvent event);
+    void onExportLaTeX(ExportLaTeXEvent event);
 }

@@ -13,7 +13,7 @@ public class ShareLaTeXDialogBox extends DialogBox {
 
     private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
 
-    @UiField TextArea shareLatex;
+    @UiField TextArea shareLaTeX;
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
