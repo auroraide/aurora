@@ -13,6 +13,9 @@ public class OptionsDialogBox extends DialogBox {
 
     private static OptionsDialogBoxUiBinder uiBinder = GWT.create(OptionsDialogBoxUiBinder.class);
 
+    /**
+     * Build a new OptionsDialogBox
+     */
     public OptionsDialogBox() {
        setWidget(uiBinder.createAndBindUi(this));
        setAutoHideEnabled(true);

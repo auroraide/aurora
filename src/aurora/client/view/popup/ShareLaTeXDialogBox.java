@@ -17,6 +17,9 @@ public class ShareLaTeXDialogBox extends DialogBox {
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
+    /**
+     * Builds a new ShareLaTeXDialogBox
+     */
     public ShareLaTeXDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -27,11 +30,17 @@ public class ShareLaTeXDialogBox extends DialogBox {
         hide();
     }
 
+    /**
+     * Executes once the copyToClipboard Button is pressed
+     */
     @UiHandler("copyToClipboard")
     void onCopyToClipboardButtonClicked(ClickEvent event) {
         hide();
     }
 
+    /**
+     * Executes once the cancelButton is pressed
+     */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         hide();

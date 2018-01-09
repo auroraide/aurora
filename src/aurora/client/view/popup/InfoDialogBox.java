@@ -13,7 +13,9 @@ public class InfoDialogBox extends DialogBox {
 
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
     
-
+    /**
+     * Build a new InfoDialogBox
+     */
     public InfoDialogBox() {
        setWidget(uiBinder.createAndBindUi(this));
        setAutoHideEnabled(true);

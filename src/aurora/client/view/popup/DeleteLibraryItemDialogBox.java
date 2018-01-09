@@ -13,17 +13,22 @@ public class DeleteLibraryItemDialogBox extends DialogBox {
 
     private static DeleteLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(DeleteLibraryItemDialogBoxUiBinder.class);
 
-    @UiField
-    TextArea messageField;
-    @UiField
-    Button submitButton;
-    @UiField
-    Button cancelButton;
+    @UiField TextArea messageField;
+    @UiField Button submitButton;
+    @UiField Button cancelButton;
 
+    /**
+     * Build a new DeleteLibraryItemDialogBox
+     */
     public DeleteLibraryItemDialogBox() {
 
     }
 
+    /**
+     * Getter for submitButton
+     *
+     * @return submitButton
+     */
     public Button getSubmitButton() {
         return submitButton;
     }

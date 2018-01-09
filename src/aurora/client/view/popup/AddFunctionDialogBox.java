@@ -19,6 +19,9 @@ public class AddFunctionDialogBox extends DialogBox {
     @UiField Button addButton;
     @UiField Button cancelButton;
 
+    /**
+     * Builds a new AddFunctionDialogBox
+     */
     public AddFunctionDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -29,27 +32,50 @@ public class AddFunctionDialogBox extends DialogBox {
         hide();
     }
 
+    /**
+     * Executes once the cancelButton is pressed
+     */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         // TODO More to implement. E.g. clearing TextBoxes.
         hide();
     }
 
+    /**
+     * Getter for nameField
+     *
+     * @return nameField
+     */
     public TextBox getNameField() {
         return nameField;
     }
 
+    /**
+     * Getter for functionField
+     *
+     * @return functionField
+     */
     public TextBox getFunctionField() {
         return functionField;
     }
 
+    /**
+     * Getter for descriptionField
+     *
+     * @return descriptionField
+     */
     public TextArea getDescriptionField() {
         return descriptionField;
     }
 
+    /**
+     * Getter for addButton
+     *
+     * @return addButton
+     */
     public Button getAddButton() {
         return addButton;
     }
 
-
 }
+
