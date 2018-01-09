@@ -3,16 +3,16 @@ package aurora.backend.tree;
 import aurora.backend.TermVisitor;
 
 /**
- * This class models a free variable. A free variable is not bound by an abstraction.
- * Every free variable has a name , which can only be lower case letters.
+ * Models a free variable. A free variable isn't bound by an abstraction.
+ * It has a lower case letters name.
  */
 public class FreeVariable extends Term {
 
     public final String name;
 
     /**
-     * Get the name of the free variable as a string.
-     * @param name
+     * Initialized with a name.
+     * @param name The name of the variable.
      */
     public FreeVariable(String name) {
         this.name = name;

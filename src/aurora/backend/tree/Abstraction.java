@@ -14,7 +14,7 @@ public class Abstraction extends Term {
 	public final String name;
 
 	/**
-	 * The Abstractions gets a body as a term. It also gets a string as a name for the variable.
+	 * The Abstractions gets initialized with a body and a name.
      * The name has to consist of lower case letters.
 	 */
     public Abstraction(Term body, String name) {

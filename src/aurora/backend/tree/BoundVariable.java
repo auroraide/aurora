@@ -3,16 +3,16 @@ package aurora.backend.tree;
 import aurora.backend.TermVisitor;
 
 /**
- *A bound variable is a variable, which is bound by an abstraction.
- * It is possible to find the matching abstraction to the bounded variable.
+ *A bound variable is bounded by an abstraction.
+ * It is possible to find abstraction that binds the varriable.
  */
 public class BoundVariable extends Term {
 
     public final int index;
 
     /**
-     * This constructor gets an index which points to the matching abstraction. The index is commonly called De-Bruijn index.
-     * @param index the De-Bruijn Index.
+     * Initialized with index which points to an abstraction. This index is commonly called De-Bruijn index.
+     * @param index The De-Bruijn Index.
      */
     public BoundVariable(int index) {
         this.index = index;

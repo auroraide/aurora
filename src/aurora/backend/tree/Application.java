@@ -13,9 +13,9 @@ public class Application extends Term {
     public final Term right;
 
     /**
-     * The constructor gets a left and a right term.
-     * @param left The left term.
-     * @param right The right term.
+     * Initialized with a right and a left Term.
+     * @param left The left Term.
+     * @param right The right Term.
      */
     public Application(Term left, Term right) {
         this.left = left;
