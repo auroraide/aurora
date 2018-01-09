@@ -1,6 +1,5 @@
 package aurora.client.presenter;
 
-import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.library.Library;
 import aurora.client.EditorDisplay;
 import aurora.client.event.StepEvent;
@@ -27,7 +26,7 @@ public class EditorPresenter {
     }
 
     private void onStep(StepEvent stepEvent) {
-        HighlightedLambdaExpression hle = /* result of beta reduction */;
-        editorDisplay.addNextStep(hle);
+//        HighlightedLambdaExpression hle = /* result of beta reduction */;
+//        editorDisplay.addNextStep(hle);
     }
 }

@@ -70,8 +70,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-
-        eventBus.addHandler(StepValueChangedEventHandler.TYPE, this::onStepValueChanged);
     }
 
     public ListBox getLanguageSelection() {
