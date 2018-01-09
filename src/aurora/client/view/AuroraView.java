@@ -1,6 +1,5 @@
 package aurora.client.view;
 
-import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.EditorView;
@@ -19,7 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Look into the aurora.client.event package.
  * TODO this doc is incomplete.
  */
-public class AuroraView extends Composite implements AuroraDisplay {
+public class AuroraView extends Composite {
     private final EventBus eventBus;
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
 
@@ -35,11 +34,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private void bind() {
-    }
-
-    @Override
-    public void displayWarning(String message) {
-
     }
 
     public EditorDisplay getEditor() {
