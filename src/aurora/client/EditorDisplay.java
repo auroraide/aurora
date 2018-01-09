@@ -37,3 +37,4 @@ public interface EditorDisplay {
      */
     void setInput(HighlightedLambdaExpression highlightedLambdaExpression);
 }
+

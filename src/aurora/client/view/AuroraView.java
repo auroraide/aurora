@@ -6,6 +6,8 @@ import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
+import aurora.client.view.states.Default;
+import aurora.client.view.states.State;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -47,7 +49,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.eventBus = eventBus;
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
+
+        currentState = new Default();
     }
+
+    private State currentState;
 
     private void bind() {
         // on click share latex (ist in sidebar):
@@ -73,3 +79,5 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return sidebar;
     }
 }
+
+
