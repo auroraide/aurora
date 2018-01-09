@@ -3,11 +3,11 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:Label>Info:</g:Label>
+            <g:Label ui:field="titleLabel">Info:</g:Label>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Label ui:field="description">Hier könnte Ihre Info stehen:</g:Label>
+            <g:Label ui:field="descriptionLabel">Hier könnte Ihre Info stehen:</g:Label>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>

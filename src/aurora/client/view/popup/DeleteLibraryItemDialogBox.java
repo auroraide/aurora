@@ -12,20 +12,35 @@ public class DeleteLibraryItemDialogBox extends DialogBox {
 
     private static DeleteLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(DeleteLibraryItemDialogBoxUiBinder.class);
 
-    @UiField
-    TextArea messageField;
-    @UiField
-    Button submitButton;
-    @UiField
-    Button cancelButton;
+    @UiField TextArea messageField;
+    @UiField Button submitButton;
+    @UiField Button cancelButton;
 
+    /**
+     * Build a new DeleteLibraryItemDialogBox.
+     * Provides an interface to delete user defined funtions from the user library.
+     */
     public DeleteLibraryItemDialogBox() {
-        ourUiBinder.createAndBindUi(this);
-
+        setWidget(ourUiBinder.createAndBindUi(this));
     }
 
+    /**
+     * Getter for submit button.
+     *
+     * @return submitButton
+     */
     public Button getSubmitButton() {
         return submitButton;
+    }
+
+    /**
+     * Executes once the cancelButton is clicked.
+     *
+     * @param event The {@link ClickEvent}.
+     */
+    @UiHandler("cancelButton")
+    void onCancelButtonClicked(ClickEvent event) {
+
     }
 }
 

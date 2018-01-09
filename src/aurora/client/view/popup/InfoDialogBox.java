@@ -12,8 +12,16 @@ public class InfoDialogBox extends DialogBox {
     }
 
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
-    @UiField Label description;
 
+
+
+    @UiField Label titleLabel;
+    @UiField Label descriptionLabel;
+    
+    /**
+     * Build a new InfoDialogBox.
+     * Enables displaying different kind of information to the user.
+     */
     public InfoDialogBox() {
        setWidget(uiBinder.createAndBindUi(this));
        setAutoHideEnabled(true);
@@ -22,4 +30,23 @@ public class InfoDialogBox extends DialogBox {
        center();
        hide();
     }
+
+    /**
+     * Setter for title.
+     *
+     * @param title Sets the title.
+     */
+    public void setTitle(String title) {
+        this.titleLabel.setText(title);
+    }
+
+    /**
+     * Setter for description.
+     *
+     * @param description Sets the description.
+     */
+    public void setDescription(String description) {
+        this.descriptionLabel.setText(description);
+    }
+
 }

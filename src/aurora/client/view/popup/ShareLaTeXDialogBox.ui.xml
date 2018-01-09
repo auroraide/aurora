@@ -3,11 +3,11 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shareLatex"/>
+            <g:TextArea ui:field="shareText"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="copyToClipboard">Copy to Clipboard</g:Button>
+            <g:Button ui:field="copyToClipboardButton">Copy to Clipboard</g:Button>
             <g:Button ui:field="cancelButton">CANCEL</g:Button>
         </g:HorizontalPanel>
 

@@ -13,31 +13,56 @@ public class ShareLaTeXDialogBox extends DialogBox {
 
     private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
 
-    @UiField TextArea shareLatex;
-    @UiField Button copyToClipboard;
+    @UiField TextArea shareText;
+    @UiField Button copyToClipboardButton;
     @UiField Button cancelButton;
 
-    public ShareLaTeXDialogBox() {
+    /**
+     * Builds a new ShareLaTeXDialogBox.
+     * A popup containing the exportable LaTeX snippet.
+     */
+    public ShareLaTeXDialogBox(String captionText) {
 
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
-        setText("LaTeX export");
+        setText(captionText);
         setGlassEnabled(true);
         center();
         hide();
     }
 
+    /**
+     * Executes once the copyToClipboard {@link Button} is pressed.
+     */
+    @UiHandler("copyToClipboardButton")
+    void onCopyToClipboardButtonClicked(ClickEvent event) {
+        hide();
+    }
+
+    /**
+     * Executes once the cancelButton is pressed.
+     */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         // TODO Clear TextArea
         hide();
     }
 
-    public Button getCopyToClipboard() {
-        return copyToClipboard;
+    /**
+     * Getter for copyToClipboardButton
+     *
+     * @return The copyToClipBoard {@link Button}.
+     */
+    public Button getCopyToClipboardButton() {
+        return copyToClipboardButton;
     }
 
-    public TextArea getShareLatex() {
-        return shareLatex;
+    /**
+     * Sets the text to be displayed in {@link TextArea}.
+     *
+     * @param shareText The text to be displayed.
+     */
+    public void setShareText(String shareText) {
+        this.shareText.setText(shareText);
     }
 }

@@ -3,19 +3,15 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:Button>To new Tab</g:Button>
+            <g:Button ui:field="openTabButton">To new Tab</g:Button>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button>Export to LaTeX</g:Button>
+            <g:Button ui:field="latexExportButton">Export to LaTeX</g:Button>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button>To Pastebin</g:Button>
-        </g:HorizontalPanel>
-
-        <g:HorizontalPanel>
-            <g:Button>Shortlink</g:Button>
-        </g:HorizontalPanel>
+        <g:Button ui:field="toPastebinButton">To Pastebin</g:Button>
+    </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
