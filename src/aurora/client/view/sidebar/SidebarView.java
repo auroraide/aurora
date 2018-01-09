@@ -1,15 +1,54 @@
 package aurora.client.view.sidebar;
 
+import aurora.client.SidebarDisplay;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 
-public class Sidebar extends Composite {
-    interface SidebarUiBinder extends UiBinder<Widget, Sidebar> {
+public class SidebarView extends Composite implements SidebarDisplay {
+    private EventBus eventBus;
+
+    @Override
+    public void addStdLibFunction(String name, String description) {
+
+    }
+
+    @Override
+    public void closeAddLibraryItemDialog() {
+
+    }
+
+    @Override
+    public void addUserLibraryItem(String name, String description) {
+
+    }
+
+    @Override
+    public void removeUserLibraryItem(String name) {
+
+    }
+
+    @Override
+    public void addStandardLibraryItem(String name, String description) {
+
+    }
+
+    @Override
+    public void removeStandardLibraryItem(String name) {
+
+    }
+
+    @Override
+    public void setStepNumber(int stepNumber) {
+
+    }
+
+    interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
@@ -26,13 +65,12 @@ public class Sidebar extends Composite {
 
 
 
-    public Sidebar() {
+    public SidebarView(EventBus eventBus) {
+        this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
     }
-
-
 
     public ListBox getLanguageSelection() {
         return languageSelection;
@@ -48,14 +86,6 @@ public class Sidebar extends Composite {
 
     public ToggleButton getNightModeSwitch() {
         return nightModeSwitch;
-    }
-
-    public AddLibraryItemDialogBox getAddLibraryItemDialogBox() {
-        return addLibraryItemDialogBox;
-    }
-
-    public DeleteLibraryItemDialogBox getDeleteLibraryItemDialogBox() {
-        return deleteLibraryItemDialogBox;
     }
 
     public void setStandardLibraryTable(FlexTable standardLibraryTable) {

@@ -7,5 +7,6 @@ package aurora.client.view.sidebar.strategy;
 public enum StrategyType {
     CALLBYVALUE,
     CALLBYNAME,
-    NORMALORDER
+    NORMALORDER,
+    MANUALSELECTION
 }

@@ -1,7 +1,6 @@
 package aurora.client.event;
 
 import aurora.backend.HighlightedLambdaExpression;
-import aurora.backend.library.Library;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
@@ -14,9 +13,8 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     /**
      * Simple constructor.
      * @param highlightedLambdaExpression The term (input, step, or output) the user has selected to be shared.
-     * @param userLibrary Reference to user's current user library.
      */
-    public ShareLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression, Library userLibrary) {
+    public ShareLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.highlightedLambdaExpression = highlightedLambdaExpression;
     }
 
@@ -40,3 +38,4 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
 
 }
+

@@ -1,28 +1,28 @@
 package aurora.client.presenter;
 
-import aurora.client.Display;
-import aurora.client.event.AddFunctionEvent;
+import aurora.client.AuroraDisplay;
+import aurora.client.event.ExportLaTeXEvent;
 import com.google.gwt.event.shared.EventBus;
 
-/**
- * An important class which receives events and decides how to respond to them.
- * Central part of the Model-View-Presenter architecture.
- */
 public class AuroraPresenter {
     private final EventBus eventBus;
-    private final Display view;
+    private final AuroraDisplay auroraDisplay;
 
-    public AuroraPresenter(EventBus eventBus, Display view) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
         this.eventBus = eventBus;
-        this.view = view;
+        this.auroraDisplay = auroraDisplay;
+
+        bind();
     }
 
     private void bind() {
-        eventBus.addHandler(AddFunctionEvent.TYPE, this::addFunctionEventHandler);
-        // etc...
+        // binds:
+        // - ShareLatexEvent
     }
 
-    private void addFunctionEventHandler(AddFunctionEvent event) {
-        // implementation
+    private void onShareLatex(ExportLaTeXEvent exportLaTeXEvent) {
+        // convert HLE -> LaTeX String
+//        auroraDisplay.displayLatexSnippetDialog();
     }
+
 }

@@ -9,14 +9,15 @@ import com.google.gwt.event.shared.GwtEvent;
 public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
     public static Type<RedexClickedEventHandler> TYPE = new Type<>();
     private final RedexPath redex;
-    // TODO in which step?
+    private final int stepIndex;
 
     /**
      * Constructor.
      * @param redex The redex the user clicked on.
      */
-    public RedexClickedEvent(RedexPath redex) {
+    public RedexClickedEvent(RedexPath redex, int stepIndex) {
         this.redex = redex;
+        this.stepIndex = stepIndex;
     }
 
     @Override
@@ -35,5 +36,9 @@ public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
      */
     public RedexPath getRedex() {
         return redex;
+    }
+
+    public int getStepIndex() {
+        return stepIndex;
     }
 }

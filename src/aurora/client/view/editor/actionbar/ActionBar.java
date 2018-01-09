@@ -34,11 +34,4 @@ public class ActionBar extends Composite {
     public Button getStepButton() {
         return stepButton;
     }
-
-    public void setStatusActiveInactiv(Button buttonToUpdate) {
-
-    }
-    public void setTypeOfRunPauseConcitueButton(RPCButtonType buttonType) {
-
-    }
 }

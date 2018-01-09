@@ -1,15 +1,53 @@
 package aurora.client.view.editor;
 
+import aurora.backend.HighlightedLambdaExpression;
+import aurora.client.EditorDisplay;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 
 
-public class Editor extends Composite {
-    interface EditorUiBinder extends UiBinder<Widget, Editor> {}
+public class EditorView extends Composite implements EditorDisplay {
+    private EventBus eventBus;
+
+    @Override
+    public void displaySyntaxError(String message) {
+
+    }
+
+    @Override
+    public String getInput() {
+        return null;
+    }
+
+    @Override
+    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    @Override
+    public void resetSteps() {
+
+    }
+
+    @Override
+    public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    @Override
+    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    interface EditorUiBinder extends UiBinder<Widget, EditorView> {}
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
     // Input Field
     @UiField FlexTable inputFieldTable;
@@ -27,9 +65,11 @@ public class Editor extends Composite {
 
 
     /**
-     * Creates the Editor contents and adds them to their respective parts of the window;
+     * Creates the EditorView contents and adds them to their respective parts of the window;
+     * @param eventBus
      */
-    public Editor() {
+    public EditorView(EventBus eventBus) {
+        this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputCodeMirror();
         setupOutputFieldCodeMirror();
