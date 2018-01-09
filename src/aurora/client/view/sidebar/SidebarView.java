@@ -1,7 +1,6 @@
 package aurora.client.view.sidebar;
 
-import aurora.client.SidebarDisplay;
-import aurora.client.view.popup.AddFunctionDialogBox;
+import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
@@ -54,7 +53,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField StrategySelection strategySelection;
     @UiField ListBox languageSelection;
     @UiField ListBox shareSelection;
-    private final AddFunctionDialogBox addFunctionDialogBox;
+    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
 // shareLaTeXDB ShareLinkDB are implemented in Presenter
 
@@ -63,7 +62,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        addFunctionDialogBox = new AddFunctionDialogBox();
+        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
     }
 
