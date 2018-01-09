@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     public static Type<ExportLaTeXEventHandler> TYPE = new Type<>();
-    private HighlightedLambdaExpression highlightedLambdaExpression;
+    private final HighlightedLambdaExpression highlightedLambdaExpression;
 
     /**
      * Simple constructor.
