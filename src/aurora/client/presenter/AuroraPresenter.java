@@ -1,6 +1,6 @@
 package aurora.client.presenter;
 
-import aurora.client.Display;
+import aurora.client.AuroraDisplay;
 import aurora.client.event.AddFunctionEvent;
 import com.google.gwt.event.shared.EventBus;
 
@@ -10,11 +10,11 @@ import com.google.gwt.event.shared.EventBus;
  */
 public class AuroraPresenter {
     private final EventBus eventBus;
-    private final Display view;
+    private final AuroraDisplay display;
 
-    public AuroraPresenter(EventBus eventBus, Display view) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay view) {
         this.eventBus = eventBus;
-        this.view = view;
+        this.display = view;
     }
 
     private void bind() {
