@@ -18,14 +18,15 @@ public class DeleteLibraryItemDialogBox extends DialogBox {
     @UiField Button cancelButton;
 
     /**
-     * Build a new DeleteLibraryItemDialogBox
+     * Build a new DeleteLibraryItemDialogBox.
+     * Provides an interface to delete user defined funtions from the user library.
      */
     public DeleteLibraryItemDialogBox() {
 
     }
 
     /**
-     * Getter for submitButton
+     * Getter for submitButton.
      *
      * @return submitButton
      */

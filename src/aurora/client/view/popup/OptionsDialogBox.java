@@ -14,7 +14,8 @@ public class OptionsDialogBox extends DialogBox {
     private static OptionsDialogBoxUiBinder uiBinder = GWT.create(OptionsDialogBoxUiBinder.class);
 
     /**
-     * Build a new OptionsDialogBox
+     * Build a new OptionsDialogBox.
+     * A small popup containing different kinds of options on what to do with the corresponding input.
      */
     public OptionsDialogBox() {
        setWidget(uiBinder.createAndBindUi(this));

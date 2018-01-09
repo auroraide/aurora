@@ -18,7 +18,8 @@ public class ShareLaTeXDialogBox extends DialogBox {
     @UiField Button cancelButton;
 
     /**
-     * Builds a new ShareLaTeXDialogBox
+     * Builds a new ShareLaTeXDialogBox.
+     * A popup containing the exportable LaTeX snippet.
      */
     public ShareLaTeXDialogBox() {
 
@@ -31,7 +32,7 @@ public class ShareLaTeXDialogBox extends DialogBox {
     }
 
     /**
-     * Executes once the copyToClipboard Button is pressed
+     * Executes once the copyToClipboard Button is pressed.
      */
     @UiHandler("copyToClipboard")
     void onCopyToClipboardButtonClicked(ClickEvent event) {
@@ -39,7 +40,7 @@ public class ShareLaTeXDialogBox extends DialogBox {
     }
 
     /**
-     * Executes once the cancelButton is pressed
+     * Executes once the cancelButton is pressed.
      */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {

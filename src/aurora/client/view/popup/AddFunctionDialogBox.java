@@ -20,7 +20,8 @@ public class AddFunctionDialogBox extends DialogBox {
     @UiField Button cancelButton;
 
     /**
-     * Builds a new AddFunctionDialogBox
+     * Builds a new AddFunctionDialogBox.
+     * Provides an interface to add new functions to the user library.
      */
     public AddFunctionDialogBox() {
 
@@ -33,7 +34,7 @@ public class AddFunctionDialogBox extends DialogBox {
     }
 
     /**
-     * Executes once the cancelButton is pressed
+     * Executes once the cancelButton is pressed.
      */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
@@ -42,7 +43,7 @@ public class AddFunctionDialogBox extends DialogBox {
     }
 
     /**
-     * Getter for nameField
+     * Getter for nameField.
      *
      * @return nameField
      */
@@ -51,7 +52,7 @@ public class AddFunctionDialogBox extends DialogBox {
     }
 
     /**
-     * Getter for functionField
+     * Getter for functionField.
      *
      * @return functionField
      */
@@ -60,7 +61,7 @@ public class AddFunctionDialogBox extends DialogBox {
     }
 
     /**
-     * Getter for descriptionField
+     * Getter for descriptionField.
      *
      * @return descriptionField
      */
@@ -69,7 +70,7 @@ public class AddFunctionDialogBox extends DialogBox {
     }
 
     /**
-     * Getter for addButton
+     * Getter for addButton.
      *
      * @return addButton
      */
