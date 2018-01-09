@@ -3,7 +3,6 @@ package aurora.client.presenter;
 import aurora.backend.library.Library;
 import aurora.client.EditorDisplay;
 import aurora.client.event.StepEvent;
-import aurora.client.event.StepValueChangedEvent;
 import com.google.gwt.event.shared.EventBus;
 
 public class EditorPresenter {
@@ -19,10 +18,6 @@ public class EditorPresenter {
         this.editorDisplay = editorView;
         standardLibrary = new Library();
         userLibrary = new Library();
-    }
-
-    private void onStepValueChanged(StepValueChangedEvent stepValueChangedEvent) {
-        editorDisplay.setStepNumber(stepValueChangedEvent.getStepNumber());
     }
 
     private void onStep(StepEvent stepEvent) {
