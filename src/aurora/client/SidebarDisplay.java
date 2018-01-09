@@ -29,4 +29,6 @@ public interface SidebarDisplay {
     void addStandardLibraryItem(String name, String description);
 
     void removeStandardLibraryItem(String name);
+
+    void setStepNumber(int stepNumber);
 }

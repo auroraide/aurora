@@ -1,14 +1,18 @@
 package aurora.client.presenter;
 
-import aurora.client.view.editor.EditorView;
+import aurora.client.EditorDisplay;
 import com.google.gwt.event.shared.EventBus;
 
 public class EditorPresenter {
     private final EventBus eventBus;
-    private final EditorView editorView;
+    private final EditorDisplay editorDisplay;
 
-    public EditorPresenter(EventBus eventBus, EditorView editorView) {
+    public EditorPresenter(EventBus eventBus, EditorDisplay editorView) {
         this.eventBus = eventBus;
-        this.editorView = editorView;
+        this.editorDisplay = editorView;
+    }
+
+    private void onStepValueChanged(StepValueChangedEvent stepValueChangedEvent) {
+        sidebarDisplay.setStepNumber(stepValueChangedEvent.getStepNumber());
     }
 }

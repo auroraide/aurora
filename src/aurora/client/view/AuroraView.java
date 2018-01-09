@@ -1,7 +1,8 @@
 package aurora.client.view;
 
-import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
+import aurora.client.EditorDisplay;
+import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
@@ -41,19 +42,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    /**
-     * @param stepNumber The step number to be set in the view
-     */
-    @Override
-    public void setStepNumber(int stepNumber) {
-
-    }
-
-    public EditorView getEditor() {
+    public EditorDisplay getEditor() {
         return editor;
     }
 
-    public SidebarView getSidebar() {
+    public SidebarDisplay getSidebar() {
         return sidebar;
     }
 }

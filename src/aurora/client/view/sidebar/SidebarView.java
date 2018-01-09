@@ -1,5 +1,6 @@
 package aurora.client.view.sidebar;
 
+import aurora.client.SidebarDisplay;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
@@ -42,6 +43,11 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     }
 
+    @Override
+    public void setStepNumber(int stepNumber) {
+
+    }
+
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
@@ -64,6 +70,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+
+        eventBus.addHandler(StepValueChangedEventHandler.TYPE, this::onStepValueChanged);
     }
 
     public ListBox getLanguageSelection() {

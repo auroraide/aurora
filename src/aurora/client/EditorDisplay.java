@@ -19,4 +19,6 @@ public interface EditorDisplay {
      * @param highlightedLambdaExpression term with syntax highlighting.
      */
     void setInput(HighlightedLambdaExpression highlightedLambdaExpression);
+
+    void setStepNumber(int stepNumber);
 }

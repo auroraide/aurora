@@ -14,6 +14,10 @@ public class SidebarPresenter {
     }
 
     private void bind() {
+        eventBus.addHandler(StepValueChangedEvent.TYPE, this::onStepValueChanged);
+    }
 
+    private void onStepValueChanged(StepValueChangedEvent stepValueChangedEvent) {
+        sidebarDisplay.setStepNumber(stepValueChangedEvent.getStepNumber());
     }
 }

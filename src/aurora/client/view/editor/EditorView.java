@@ -7,7 +7,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 
 
@@ -26,6 +29,11 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    @Override
+    public void setStepNumber(int stepNumber) {
 
     }
 
