@@ -35,6 +35,6 @@ public interface EditorDisplay {
      * Sets the content of the code editor, replacing it entirely.
      * @param highlightedLambdaExpression term with syntax highlighting.
      */
-    void setInput(HighlightedLambdaExpression highlightedLambdaExpression);
+    void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 }
 

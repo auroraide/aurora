@@ -6,8 +6,6 @@ import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
-import aurora.client.view.states.Default;
-import aurora.client.view.states.State;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -51,6 +49,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
         shortLinkDialogBox = new ShareDialogBox("Share short link");
 
         currentState = new Default();
+
+
+        // editor.getActionBar().onRunButtonClick(e -> {
+        //     currentState = currentState.run();
+        //     eventBus.fire(new RunEvent());
+        // });
     }
 
     private State currentState;
@@ -77,6 +81,126 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     public SidebarDisplay getSidebar() {
         return sidebar;
+    }
+
+    private class Default implements State {
+        public State run() { return new Running(); }
+
+        @Override
+        public State pause() {
+            return null;
+        }
+
+        @Override
+        public State resume() {
+            return null;
+        }
+
+        @Override
+        public State reset() {
+            return null;
+        }
+
+        @Override
+        public State step() {
+            return null;
+        }
+    }
+
+    private class Finished implements State {
+        @Override
+        public State run() {
+            return null;
+        }
+
+        @Override
+        public State pause() {
+            return null;
+        }
+
+        @Override
+        public State resume() {
+            return null;
+        }
+
+        @Override
+        public State reset() {
+            return null;
+        }
+
+        @Override
+        public State step() {
+            return null;
+        }
+    }
+
+    private static class Paused implements State {
+        @Override
+        public State run() {
+            return null;
+        }
+
+        @Override
+        public State pause() {
+            return null;
+        }
+
+        @Override
+        public State resume() {
+            return null;
+        }
+
+        @Override
+        public State reset() {
+            return null;
+        }
+
+        @Override
+        public State step() {
+            return null;
+        }
+    }
+
+    private class Running implements State {
+
+        @Override
+        public State run() {
+            return null;
+        }
+
+        @Override
+        public State pause() {
+            return null;
+        }
+
+        @Override
+        public State resume() {
+            return null;
+        }
+
+        @Override
+        public State reset() {
+            return null;
+        }
+
+        @Override
+        public State step() {
+            return null;
+        }
+    }
+
+    private interface State {
+        State run();
+        State pause();
+        State resume();
+        State reset();
+        State step();
+
+    //        default State run() { throw new IllegalStateException(); }
+    //        default State pause() { throw new IllegalStateException(); }
+    //        default State resume() { throw new IllegalStateException(); }
+    //        default State reset() { throw new IllegalStateException(); }
+    //        default State step() { throw new IllegalStateException(); }
     }
 }
 

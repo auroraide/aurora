@@ -28,12 +28,22 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
 
     }
 
     @Override
-    public void setStepNumber(int stepNumber) {
+    public void resetSteps() {
+
+    }
+
+    @Override
+    public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
+
+    }
+
+    @Override
+    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
 
     }
 
