@@ -13,10 +13,14 @@ public class ShareLaTeXDialogBox extends DialogBox {
 
     private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
 
-    @UiField TextArea shareLatex;
+    @UiField TextArea shareLaTeX;
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
+    /**
+     * Builds a new ShareLaTeXDialogBox.
+     * A popup containing the exportable LaTeX snippet.
+     */
     public ShareLaTeXDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -27,11 +31,17 @@ public class ShareLaTeXDialogBox extends DialogBox {
         hide();
     }
 
+    /**
+     * Executes once the copyToClipboard Button is pressed.
+     */
     @UiHandler("copyToClipboard")
     void onCopyToClipboardButtonClicked(ClickEvent event) {
         hide();
     }
 
+    /**
+     * Executes once the cancelButton is pressed.
+     */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         hide();

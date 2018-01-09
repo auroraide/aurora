@@ -17,6 +17,10 @@ public class ShareLinkDialogBox extends DialogBox {
     @UiField Button copyToClipboard;
     @UiField Button cancelButton;
 
+    /**
+     * Builds a new ShareLinkDialogBox.
+     * A popup containing a link which can be used to share the current input and user library.
+     */
     public ShareLinkDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
@@ -27,11 +31,17 @@ public class ShareLinkDialogBox extends DialogBox {
         hide();
     }
 
+    /**
+     * Executes once the copyToClipboard Button is pressed.
+     */
     @UiHandler("copyToClipboard")
     void onCopyToClipboardButtonClicked(ClickEvent event) {
         hide();
     }
 
+    /**
+     * Executes once the cancelButton Button is pressed.
+     */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
         hide();

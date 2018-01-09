@@ -22,7 +22,7 @@ public class Sidebar extends Composite {
     @UiField ListBox shareSelection;
     private final AddFunctionDialogBox addFunctionDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
-// shareLatexDB ShareLinkDB are implemented in Presenter
+// shareLaTeXDB ShareLinkDB are implemented in Presenter
 
 
 

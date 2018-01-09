@@ -26,7 +26,9 @@ public class Editor extends Composite {
     private CodeMirrorPanel outputCodeMirror;
 
 
-
+    /**
+     * Creates the Editor contents and adds them to their respective parts of the window;
+     */
     public Editor() {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputCodeMirror();
@@ -47,26 +49,56 @@ public class Editor extends Composite {
         // TODO Add outputCodeMirror and option button to outputFieldContainer
     }
 
+    /**
+     * Returns the inputCodeMirror
+     *
+     * @return inputCodeMirror
+     */
     public CodeMirrorPanel getInputCodeMirror() {
         return inputCodeMirror;
     }
 
+    /**
+     * Returns the inputOptionButton
+     *
+     * @return inputOptionButton
+     */
     public Button getInputOptionButton() {
         return inputOptionButton;
     }
 
+    /**
+     * Returns the outputCodeMirror
+     *
+     * @return outputCodeMirror
+     */
     public CodeMirrorPanel getOutputCodeMirror() {
         return outputCodeMirror;
     }
 
+    /**
+     * Returns the outputOptionButton
+     *
+     * @return outputOptionButton
+     */
     public Button getOutputOptionButton() {
         return outputOptionButton;
     }
 
+    /**
+     * Returns the outputFieldTable
+     *
+     * @return outputFieldTable
+     */
     public FlexTable getOutputFieldTable() {
         return outputFieldTable;
     }
 
+    /**
+     * Returns the ActionBar
+     *
+     * @return actionBar
+     */
     public ActionBar getActionBar() {
         return actionBar;
     }
