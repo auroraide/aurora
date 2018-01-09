@@ -7,22 +7,20 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
-public class ShareLaTeXDialogBox extends DialogBox {
-    interface ShareLaTeXDialogBoxUiBinder extends UiBinder<Widget, ShareLaTeXDialogBox> {
+public class ShareDialogBox extends DialogBox {
+    interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {
     }
 
-    private static ShareLaTeXDialogBoxUiBinder ourUiBinder = GWT.create(ShareLaTeXDialogBoxUiBinder.class);
-
+    private static ShareDialogBoxUiBinder ourUiBinder = GWT.create(ShareDialogBoxUiBinder.class);
     @UiField TextArea shareText;
     @UiField Button copyToClipboardButton;
     @UiField Button cancelButton;
 
     /**
-     * Builds a new ShareLaTeXDialogBox.
-     * A popup containing the exportable LaTeX snippet.
+     * Builds a new ShareDialogBox.
+     * A popup containing the exportable text snippet.
      */
-    public ShareLaTeXDialogBox(String captionText) {
-
+    public ShareDialogBox(String captionText) {
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
         setText(captionText);
@@ -32,19 +30,10 @@ public class ShareLaTeXDialogBox extends DialogBox {
     }
 
     /**
-     * Executes once the copyToClipboard {@link Button} is pressed.
-     */
-    @UiHandler("copyToClipboardButton")
-    void onCopyToClipboardButtonClicked(ClickEvent event) {
-        hide();
-    }
-
-    /**
      * Executes once the cancelButton is pressed.
      */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
-        // TODO Clear TextArea
         hide();
     }
 
@@ -58,11 +47,12 @@ public class ShareLaTeXDialogBox extends DialogBox {
     }
 
     /**
-     * Sets the text to be displayed in {@link TextArea}.
+     * Sets the text to be displayed in the Share {@link TextArea}.
      *
      * @param shareText The text to be displayed.
      */
     public void setShareText(String shareText) {
         this.shareText.setText(shareText);
     }
+
 }

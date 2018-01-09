@@ -10,7 +10,5 @@
             <g:Button ui:field="copyToClipboardButton">Copy to Clipboard</g:Button>
             <g:Button ui:field="cancelButton">CANCEL</g:Button>
         </g:HorizontalPanel>
-
     </g:VerticalPanel>
 </ui:UiBinder>
-
