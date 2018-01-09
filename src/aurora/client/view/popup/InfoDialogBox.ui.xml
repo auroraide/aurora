@@ -7,7 +7,7 @@
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Label>Hier könnte Ihre Info stehen:</g:Label>
+            <g:Label ui:field="description">Hier könnte Ihre Info stehen:</g:Label>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>

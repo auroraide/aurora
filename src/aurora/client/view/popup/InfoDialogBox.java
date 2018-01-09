@@ -12,7 +12,7 @@ public class InfoDialogBox extends DialogBox {
     }
 
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
-    
+    @UiField Label description;
 
     public InfoDialogBox() {
        setWidget(uiBinder.createAndBindUi(this));

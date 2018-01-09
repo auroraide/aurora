@@ -7,11 +7,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
-public class AddFunctionDialogBox extends DialogBox {
-    interface AddFunctionDialogBoxUiBinder extends UiBinder<Widget, AddFunctionDialogBox> {
+public class AddLibraryItemDialogBox extends DialogBox {
+    interface AddLibraryItemDialogBoxUiBinder extends UiBinder<Widget, AddLibraryItemDialogBox> {
     }
 
-    private static AddFunctionDialogBoxUiBinder ourUiBinder = GWT.create(AddFunctionDialogBoxUiBinder.class);
+    private static AddLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(AddLibraryItemDialogBoxUiBinder.class);
 
     @UiField TextBox nameField;
     @UiField TextBox functionField;
@@ -19,7 +19,7 @@ public class AddFunctionDialogBox extends DialogBox {
     @UiField Button addButton;
     @UiField Button cancelButton;
 
-    public AddFunctionDialogBox() {
+    public AddLibraryItemDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);

@@ -27,13 +27,17 @@ public class ShareLaTeXDialogBox extends DialogBox {
         hide();
     }
 
-    @UiHandler("copyToClipboard")
-    void onCopyToClipboardButtonClicked(ClickEvent event) {
+    @UiHandler("cancelButton")
+    void onCancelButtonClicked(ClickEvent event) {
+        // TODO Clear TextArea
         hide();
     }
 
-    @UiHandler("cancelButton")
-    void onCancelButtonClicked(ClickEvent event) {
-        hide();
+    public Button getCopyToClipboard() {
+        return copyToClipboard;
+    }
+
+    public TextArea getShareLatex() {
+        return shareLatex;
     }
 }
