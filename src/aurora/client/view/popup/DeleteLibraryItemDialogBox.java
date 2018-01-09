@@ -8,8 +8,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
 public class DeleteLibraryItemDialogBox extends DialogBox {
-    interface DeleteLibraryItemDialogBoxUiBinder extends UiBinder<Widget, DeleteLibraryItemDialogBox> {
-    }
+    interface DeleteLibraryItemDialogBoxUiBinder extends UiBinder<Widget, DeleteLibraryItemDialogBox> {}
 
     private static DeleteLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(DeleteLibraryItemDialogBoxUiBinder.class);
 
@@ -22,7 +21,7 @@ public class DeleteLibraryItemDialogBox extends DialogBox {
      * Provides an interface to delete user defined funtions from the user library.
      */
     public DeleteLibraryItemDialogBox() {
-
+        setWidget(ourUiBinder.createAndBindUi(this));
     }
 
     /**
@@ -32,6 +31,16 @@ public class DeleteLibraryItemDialogBox extends DialogBox {
      */
     public Button getSubmitButton() {
         return submitButton;
+    }
+
+    /**
+     * Executes once the cancelButton is clicked.
+     *
+     * @param event The {@link ClickEvent}.
+     */
+    @UiHandler("cancelButton")
+    void onCancelButtonClicked(ClickEvent event) {
+
     }
 }
 

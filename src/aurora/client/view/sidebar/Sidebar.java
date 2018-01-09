@@ -1,6 +1,6 @@
 package aurora.client.view.sidebar;
 
-import aurora.client.view.popup.AddFunctionDialogBox;
+import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
@@ -20,7 +20,7 @@ public class Sidebar extends Composite {
     @UiField StrategySelection strategySelection;
     @UiField ListBox languageSelection;
     @UiField ListBox shareSelection;
-    private final AddFunctionDialogBox addFunctionDialogBox;
+    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
 // shareLaTeXDB ShareLinkDB are implemented in Presenter
 
@@ -28,7 +28,7 @@ public class Sidebar extends Composite {
 
     public Sidebar() {
         initWidget(ourUiBinder.createAndBindUi(this));
-        addFunctionDialogBox = new AddFunctionDialogBox();
+        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
     }
 
@@ -48,6 +48,14 @@ public class Sidebar extends Composite {
 
     public ToggleButton getNightModeSwitch() {
         return nightModeSwitch;
+    }
+
+    public AddLibraryItemDialogBox getAddLibraryItemDialogBox() {
+        return addLibraryItemDialogBox;
+    }
+
+    public DeleteLibraryItemDialogBox getDeleteLibraryItemDialogBox() {
+        return deleteLibraryItemDialogBox;
     }
 
     public void setStandardLibraryTable(FlexTable standardLibraryTable) {

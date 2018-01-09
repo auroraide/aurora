@@ -7,11 +7,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
-public class AddFunctionDialogBox extends DialogBox {
-    interface AddFunctionDialogBoxUiBinder extends UiBinder<Widget, AddFunctionDialogBox> {
+public class AddLibraryItemDialogBox extends DialogBox {
+    interface AddLibraryItemDialogBoxUiBinder extends UiBinder<Widget, AddLibraryItemDialogBox> {
     }
 
-    private static AddFunctionDialogBoxUiBinder ourUiBinder = GWT.create(AddFunctionDialogBoxUiBinder.class);
+    private static AddLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(AddLibraryItemDialogBoxUiBinder.class);
 
     @UiField TextBox nameField;
     @UiField TextBox functionField;
@@ -20,10 +20,10 @@ public class AddFunctionDialogBox extends DialogBox {
     @UiField Button cancelButton;
 
     /**
-     * Builds a new AddFunctionDialogBox.
+     * Builds a new AddLibraryItemDialogBox.
      * Provides an interface to add new functions to the user library.
      */
-    public AddFunctionDialogBox() {
+    public AddLibraryItemDialogBox() {
 
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
@@ -35,6 +35,8 @@ public class AddFunctionDialogBox extends DialogBox {
 
     /**
      * Executes once the cancelButton is pressed.
+     *
+     * @param event The {@link ClickEvent}
      */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
