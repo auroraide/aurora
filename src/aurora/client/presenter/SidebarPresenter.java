@@ -1,6 +1,7 @@
 package aurora.client.presenter;
 
 import aurora.client.SidebarDisplay;
+import aurora.client.event.StepValueChangedEvent;
 import com.google.gwt.event.shared.EventBus;
 
 public class SidebarPresenter {

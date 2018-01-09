@@ -1,6 +1,7 @@
 package aurora.client.presenter;
 
 import aurora.client.EditorDisplay;
+import aurora.client.event.StepValueChangedEvent;
 import com.google.gwt.event.shared.EventBus;
 
 public class EditorPresenter {
@@ -13,6 +14,6 @@ public class EditorPresenter {
     }
 
     private void onStepValueChanged(StepValueChangedEvent stepValueChangedEvent) {
-        sidebarDisplay.setStepNumber(stepValueChangedEvent.getStepNumber());
+        editorDisplay.setStepNumber(stepValueChangedEvent.getStepNumber());
     }
 }
