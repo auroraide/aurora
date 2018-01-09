@@ -1,6 +1,6 @@
 package aurora.client.event;
 
-import aurora.backend.TreePath;
+import aurora.backend.RedexPath;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
@@ -8,14 +8,14 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
     public static Type<RedexClickedEventHandler> TYPE = new Type<>();
-    private final TreePath redex;
+    private final RedexPath redex;
     // TODO in which step?
 
     /**
      * Constructor.
      * @param redex The redex the user clicked on.
      */
-    public RedexClickedEvent(TreePath redex) {
+    public RedexClickedEvent(RedexPath redex) {
         this.redex = redex;
     }
 
@@ -33,7 +33,7 @@ public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
      * Gets the path pointing to an Application, which is the selected redex.
      * @return The Redex selected by the user.
      */
-    public TreePath getRedex() {
+    public RedexPath getRedex() {
         return redex;
     }
 }

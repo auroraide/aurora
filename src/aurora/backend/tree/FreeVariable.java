@@ -8,7 +8,7 @@ import aurora.backend.TermVisitor;
  */
 public class FreeVariable extends Term {
 
-    private final String name;
+    public final String name;
 
     /**
      * Get the name of the free variable as a string.
@@ -18,20 +18,9 @@ public class FreeVariable extends Term {
         this.name = name;
     }
 
-    /**
-	 *
-	 */
     @Override
 	public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
 	}
-
-    /**
-     * A standard getter, that returns the name of the free variable.
-     * @return the name as a string.
-     */
-    public String getName() {
-        return this.name;
-    }
 
 }

@@ -1,6 +1,6 @@
 package aurora.backend.betareduction;
 
-import aurora.backend.TreePath;
+import aurora.backend.RedexPath;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.Term;
@@ -28,7 +28,7 @@ public class BetaReducer {
      * @return null if not reducible, otherwise reduced Term.
      */
     public Term reduce(Term term) {
-        TreePath path = strategy.getRedex(term);
+        RedexPath path = strategy.getRedex(term);
         if (path == null) return null; // there is no reducible redex left, the given term is our result
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.getRight());
@@ -50,7 +50,7 @@ public class BetaReducer {
         return term;
     }
 
-    private List<TreePath> findAllRedexes(Term term, TreePath path) {
+    private List<RedexPath> findAllRedexes(Term term, RedexPath path) {
         RedexFinderVisitor redexFinderVisitor = new RedexFinderVisitor();
         term.accept(redexFinderVisitor);
         return redexFinderVisitor.getResult();

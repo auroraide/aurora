@@ -1,7 +1,7 @@
 package aurora.backend.betareduction.visitors;
 
 
-import aurora.backend.TreePath;
+import aurora.backend.RedexPath;
 import aurora.backend.tree.*;
 import aurora.backend.TermVisitor;
 
@@ -11,26 +11,26 @@ import java.util.List;
 /**
  * Visitor that traverses the Term tree and identifies redexes.
  */
-public class RedexFinderVisitor implements TermVisitor<Void> {
+public class RedexFinderVisitor extends TermVisitor<Void> {
 
-    private List<TreePath> redexes;
+    private List<RedexPath> redexes;
 
-    private TreePath currentPath;
+    private RedexPath currentPath;
 
     /**
      * Standard constructor, that initializes an empty RedexFinderVisitor.
      */
     public RedexFinderVisitor() {
         redexes = new ArrayList<>();
-        currentPath = new TreePath();
+        currentPath = new RedexPath();
     }
 
     /**
      * Get list of found redexes.
      *
-     * @return The list of TreePath objects that describe the locations of the redexes that have been found.
+     * @return The list of RedexPath objects that describe the locations of the redexes that have been found.
      */
-    public List<TreePath> getResult() {
+    public List<RedexPath> getResult() {
         return redexes;
     }
 
@@ -43,11 +43,11 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
     public Void visit(Application app) {
         app.getLeft().accept(new AbstractionFinder());
 
-        currentPath.push(TreePath.Direction.LEFT);
+        currentPath.push(RedexPath.Direction.LEFT);
         app.getLeft().accept(this);
         currentPath.pop();
 
-        currentPath.push(TreePath.Direction.RIGHT);
+        currentPath.push(RedexPath.Direction.RIGHT);
         app.getRight().accept(this);
         currentPath.pop();
 
@@ -74,15 +74,10 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
         return null;
     }
 
-    @Override
-    public Void visit(Parenthesis p) {
-        return p.getInner().accept(this);
-    }
-
     /**
      * Visitor that helps find abstractions inside our Term tree.
      */
-    private class AbstractionFinder implements TermVisitor<Void> {
+    private class AbstractionFinder extends TermVisitor<Void> {
 
         @Override
         public Void visit(Abstraction abs) {
@@ -113,11 +108,6 @@ public class RedexFinderVisitor implements TermVisitor<Void> {
         @Override
         public Void visit(ChurchNumber c) {
             return null;
-        }
-
-        @Override
-        public Void visit(Parenthesis p) {
-            return p.getInner().accept(this);
         }
 
     }

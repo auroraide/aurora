@@ -7,61 +7,64 @@ import aurora.backend.tree.*;
  *
  * @param <T> Return type of the visit methods.
  */
-public interface TermVisitor<T> {
+public abstract class TermVisitor<T> {
     /**
-     * Called with Abstraction.
+     * Called with {@link Abstraction}.
      *
      * @param abs The caller.
      * @return Result or null.
      */
-    T visit(Abstraction abs);
+    public abstract T visit(Abstraction abs);
 
     /**
-     * Called with Application.
+     * Called with {@link Application}.
      *
      * @param app The caller.
      * @return Result or null.
      */
-    T visit(Application app);
+    public abstract T visit(Application app);
 
     /**
-     * Called by BoundVariables.
+     * Called by {@link BoundVariable}.
      *
      * @param bvar The caller.
      * @return Result or null.
      */
-    T visit(BoundVariable bvar);
+    public abstract T visit(BoundVariable bvar);
 
     /**
-     * Called with FreeVariable.
+     * Called with {@link FreeVariable}.
      *
      * @param fvar The caller.
      * @return Result or null.
      */
-    T visit(FreeVariable fvar);
+    public abstract T visit(FreeVariable fvar);
 
     /**
-     * Called with LibraryTerm.
+     * Called with {@link LibraryTerm}.
      *
      * @param libterm The caller.
      * @return Result or null.
      */
-    T visit(LibraryTerm libterm);
+    public abstract T visit(LibraryTerm libterm);
 
     /**
-     * Called with ChurchNumber.
+     * Called with {@link ChurchNumber}.
      *
      * @param c The caller.
      * @return Result or null.
      */
-    T visit(ChurchNumber c);
+    public abstract T visit(ChurchNumber c);
 
     /**
-     * Called with Parenthesis.
+     * Called with {@link MetaTerm}.
+     * The default implementation is to just skip any {@link MetaTerm}.
      *
-     * @param p The caller.
-     * @return Result or null.
+     * @param mt
+     * @return
      */
-    T visit(Parenthesis p);
+    public T visit(MetaTerm mt) {
+        return mt.term.accept(this);
+    }
 
 }

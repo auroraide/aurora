@@ -1,13 +1,17 @@
 package aurora.backend.parser.exceptions;
 
+import aurora.backend.parser.Token;
+
 /**
- * Thrown by Parser in case of a semantic error.
+ * Thrown in case of a semantic error.
  */
 public class SemanticException extends Exception {
 
-    private int line;
+    private final int line;
 
-    private int column;
+    private final int column;
+
+    private final int offset;
 
     public SemanticException() {}
 
@@ -15,26 +19,46 @@ public class SemanticException extends Exception {
         super(message);
     }
 
-    public SemanticException(String message, int line, int column) {
+    /**
+     * Construct a {@link SemanticException} using a message, a line number, a column number, and a {@link Token} offset.
+     *
+     * @param message Custom message.
+     * @param line Line number within code where the semantic error occurred.
+     * @param column Column number within code where the semantic error occurred.
+     * @param offset Offset of the failing {@link Token} within {@link Token} stream where the semantic error occurred.
+     */
+    public SemanticException(String message, int line, int column, int offset) {
         super(message);
         this.line = line;
         this.column = column;
+        this.offset = offset;
     }
 
     /**
-     * Standard getter.
+     * Get line within code where the semantic error occurred.
+     *
      * @return The line of the semantic error.
      */
     public int getLine() {
-        return line;
+        return this.line;
     }
 
     /**
-     * Standard getter.
+     * Get column within code where the semantic error occurred.
+     *
      * @return The column of the semantic error.
      */
     public int getColumn() {
-        return column;
+        return this.column;
+    }
+
+    /**
+     * Get {@link Token} offset within {@link Token} stream where the semantic error occurred.
+     *
+     * @return The column of the semantic error.
+     */
+    public int getOffset() {
+        return this.offset;
     }
 
 }

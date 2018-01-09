@@ -1,6 +1,6 @@
 package aurora.backend.betareduction.strategies;
 
-import aurora.backend.TreePath;
+import aurora.backend.RedexPath;
 import aurora.backend.tree.Term;
 
 /**
@@ -9,7 +9,7 @@ import aurora.backend.tree.Term;
 public class NormalOrder extends ReductionStrategy {
 
     @Override
-    public TreePath getRedex(Term t) {
+    public RedexPath getRedex(Term t) {
         return null;
     }
 

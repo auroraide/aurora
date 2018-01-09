@@ -7,7 +7,7 @@ import aurora.backend.TermVisitor;
  */
 public class ChurchNumber extends Term {
 
-    private final int value;
+    public final int value;
 
     /**
      * Get the value of the church number as a numerical value and initializes a ChurchNumber.
@@ -17,27 +17,19 @@ public class ChurchNumber extends Term {
         this.value = value;
     }
 
-    /**
-	 *
-	 */
     @Override
 	public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
 	}
 
     /**
-     * Standard getter, that returns the value of the church number.
-     * @return The value as an Integer.
-     */
-    public int getValue() {
-        return this.value;
-    }
-
-    /**
-     * This method takes the numerical number and returns the number as a lambda expression. Every number can be represented as an abstraction.
-     * @return the number which got converted into an abstraction.
+     * This method takes the numerical number and returns the number as a lambda expression.
+     * Every number can be represented as an abstraction.
+     *
+     * @return The number which got converted into an abstraction.
      */
     public Abstraction getAbstraction() {
         return null;
     }
+
 }

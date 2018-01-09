@@ -1,7 +1,7 @@
 package aurora.backend.betareduction.visitors;
 
-import aurora.backend.TreePath;
-import aurora.backend.TreePath.Direction;
+import aurora.backend.RedexPath;
+import aurora.backend.RedexPath.Direction;
 import aurora.backend.tree.*;
 import aurora.backend.TermVisitor;
 
@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * Visitor that allows replacing an Application with an arbitrary Term.
  */
-public class ReplaceVisitor implements TermVisitor<Term> {
+public class ReplaceVisitor extends TermVisitor<Term> {
 
     private final Term with;
 
@@ -22,7 +22,7 @@ public class ReplaceVisitor implements TermVisitor<Term> {
      * @param path Location of the Application to be replaced.
      * @param with The Term that the Application shall be replaced with.
      */
-    public ReplaceVisitor(TreePath path, Term with) {
+    public ReplaceVisitor(RedexPath path, Term with) {
         this.with = with;
         this.pathIterator = path.iterator();
     }
@@ -68,11 +68,6 @@ public class ReplaceVisitor implements TermVisitor<Term> {
     @Override
     public Term visit(ChurchNumber c) {
         return c;
-    }
-
-    @Override
-    public Term visit(Parenthesis p) {
-        return p.accept(this);
     }
 
 }

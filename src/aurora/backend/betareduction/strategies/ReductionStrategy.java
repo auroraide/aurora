@@ -1,13 +1,14 @@
 package aurora.backend.betareduction.strategies;
 
-import aurora.backend.TreePath;
+import aurora.backend.RedexPath;
+import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.tree.Term;
 
 /**
  * A beta reduction strategy.
  *
  * A strategy evaluates terms and choses a redex to be reduced by the {@link BetaReducer}.
- * The location within the Term tree is given via a {@link TreePath} object.
+ * The location within the Term tree is given via a {@link RedexPath} object.
  */
 public abstract class ReductionStrategy {
 
@@ -18,6 +19,6 @@ public abstract class ReductionStrategy {
      * @param t the term which gets evaluated.
      * @return the tree path to the chosen redex.
      */
-    abstract public TreePath getRedex(Term t);
+    abstract public RedexPath getRedex(Term t);
 
 }

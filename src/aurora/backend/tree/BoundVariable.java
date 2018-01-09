@@ -8,7 +8,7 @@ import aurora.backend.TermVisitor;
  */
 public class BoundVariable extends Term {
 
-    private final int index;
+    public final int index;
 
     /**
      * This constructor gets an index which points to the matching abstraction. The index is commonly called De-Bruijn index.
@@ -18,20 +18,9 @@ public class BoundVariable extends Term {
         this.index = index;
     }
 
-    /**
-	 *
-	 */
     @Override
 	public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
 	}
-
-    /**
-     * A standard getter that returns the index.
-     * @return The index.
-     */
-    public int getIndex() {
-        return this.index;
-    }
 
 }

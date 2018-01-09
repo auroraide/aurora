@@ -6,7 +6,7 @@ import aurora.backend.TermVisitor;
 /**
  * Visitor that traverses the Term tree and substitutes a BoundVariable with a given Term.
  */
-public class SubstitutionVisitor implements TermVisitor<Term> {
+public class SubstitutionVisitor extends TermVisitor<Term> {
 
     private final int index;
 
@@ -68,15 +68,10 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
         return c;
     }
 
-    @Override
-    public Term visit(Parenthesis p) {
-        return p;
-    }
-
     /**
      * De Bruijn indices have to be fixed if you execute a substitution.
      */
-    private class DebruijnFixVisitor implements TermVisitor<Term> {
+    private class DebruijnFixVisitor extends TermVisitor<Term> {
 
         private final int innerIndex;
 
@@ -124,9 +119,6 @@ public class SubstitutionVisitor implements TermVisitor<Term> {
         public Term visit(ChurchNumber c) {
             return c;
         }
-
-        @Override
-        public Term visit(Parenthesis p) { return p; }
 
     }
 

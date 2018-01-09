@@ -1,5 +1,6 @@
 package aurora.backend;
 
+import aurora.backend.parser.Token;
 import aurora.backend.tree.*;
 
 import java.util.Iterator;
@@ -9,118 +10,40 @@ import java.util.List;
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
-public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaExpression.Token> {
+public class HighlightedLambdaExpression implements Iterable<Token> {
 
-    private List<Token> tokens;
+    private final List<Token> tokens;
 
     /**
-	 * Standard constructor, that initializes an empty HighlightedLambdaExpression.
+	 * Standard constructor that initializes with an empty {@link Token} list.
 	 */
     public HighlightedLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
 
     /**
-     * Constructor that analyzes a Term and creates the HighligtedLambdaExpression
+     * Constructor that creates a {@link HighlightedLambdaExpression} from a stream of {@link Token}s.
      *
-     * @param t the Term that gets analyzed.
+     * @param stream The {@link Token} stream.
+     */
+    public HighlightedLambdaExpression(List<Token> stream) {
+        // deep copy
+        this.tokens = null;
+    }
+
+    /**
+     * Constructor that analyzes a {@link Term} and creates the {@link HighlightedLambdaExpression}.
+     *
+     * @param t The {@link Term} that gets analyzed.
      */
     public HighlightedLambdaExpression(Term t) {
         this();
         t.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
-    /**
-     * Add a Token to the Token list.
-     */
-    public void appendToken(Token t) {
-        this.tokens.add(t);
-    }
-
     @Override
-    public Iterator<Token> iterator() {
+    public Iterator<aurora.backend.parser.Token> iterator() {
         return this.tokens.iterator();
-    }
-
-    /**
-     * Token types.
-     */
-    public enum TokenType {
-        LAMBDA,
-        DOT,
-        VARIABLE,
-        LEFT_PARENTHESIS,
-        RIGHT_PARENTHESIS,
-        FUNCTION,
-        NUMBER
-    }
-
-    /**
-     * A single token.
-     */
-    public class Token {
-
-        private TokenType type;
-
-        private String name;
-
-        /**
-         * Constructor, that creates a new Token.
-         *
-         * @param type The type of the Token.
-         * @param name The name of the Token.
-         */
-        public Token(TokenType type, String name) {
-        }
-
-        /**
-         * Constructor with omitted name.
-         *
-         * @param type The type of the Token.
-         */
-        public Token(TokenType type) {
-            this(type, "");
-        }
-
-        /**
-         * Get type.
-         *
-         * @return The type of this Token.
-         */
-        public TokenType getType() {
-            return this.type;
-        }
-
-        /**
-         * Get name.
-         *
-         * @return The name of this Token.
-         */
-        public String getName() {
-            return this.name;
-        }
-
-        @Override
-        public String toString() {
-            switch (this.type) {
-                case LAMBDA:
-                    return "\\";
-                case DOT:
-                    return ".";
-                case VARIABLE:
-                    return this.name;
-                case LEFT_PARENTHESIS:
-                    return "(";
-                case RIGHT_PARENTHESIS:
-                    return ")";
-                case FUNCTION:
-                    return "$" + this.name;
-                case NUMBER:
-                    return "c" + this.name;
-            }
-            return this.name;
-        }
-
     }
 
     @Override
@@ -135,9 +58,9 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
     }
 
     /**
-     * This class computes the HighlightedLambdaTerm representation of the Term it is applied on.
+     * Compute the {@link HighlightedLambdaExpression} representation of the {@link Term} it is applied on.
      */
-    class TermToHighlightedLambdaExpressionVisitor implements TermVisitor<Void> {
+    private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
 
         @Override
         public Void visit(Abstraction abs) {
@@ -166,11 +89,6 @@ public class HighlightedLambdaExpression implements Iterable<HighlightedLambdaEx
 
         @Override
         public Void visit(ChurchNumber c) {
-            return null;
-        }
-
-        @Override
-        public Void visit(Parenthesis p) {
             return null;
         }
 

@@ -12,8 +12,8 @@ public abstract class Term {
     /**
      * This method accepts a visitor
      * @param visitor this is the visitor which is accepted by the term
-     * @param <T> todo
-     * @return todo
+     * @param <T>
+     * @return
      */
 	public abstract <T> T accept(TermVisitor<T> visitor);
 
