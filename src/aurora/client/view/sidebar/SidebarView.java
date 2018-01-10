@@ -10,6 +10,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 
+/**
+ * Provides additional options to the user.
+ * Lists available advanced options the user can choose from, such as libraries and different strategies.
+ */
 public class SidebarView extends Composite implements SidebarDisplay {
     private EventBus eventBus;
 
@@ -59,7 +63,10 @@ public class SidebarView extends Composite implements SidebarDisplay {
 // shareLaTeXDB ShareLinkDB are implemented in Presenter
 
 
-
+    /**
+     * Created the Sidebar.
+     * In addition the add and remove library entry buttons are generated and added to the bar.
+     */
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -67,20 +74,40 @@ public class SidebarView extends Composite implements SidebarDisplay {
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
     }
 
+    /**
+     * Getter for languageSelection
+     *
+     * @return languageSelection
+     */
     public ListBox getLanguageSelection() {
         return languageSelection;
     }
 
+    /**
+     * Getter for shareSelection
+     *
+     * @return shareSelection
+     */
     public ListBox getShareSelection() {
         return shareSelection;
     }
 
+    /**
+     * Getter for stepNumber
+     *
+     * @return stepNumber
+     */
     public TextBox getStepNumber() {
         return stepNumber;
     }
 
+    /**
+     * Getter for nightModeSwitch
+     *
+     * @return nightModeSwitch
+     */
     public ToggleButton getNightModeSwitch() {
         return nightModeSwitch;
     }
-
 }
+
