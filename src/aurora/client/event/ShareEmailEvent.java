@@ -3,12 +3,15 @@ package aurora.client.event;
 import aurora.backend.HighlightedLambdaExpression;
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * A share email event with information.
+ */
 public class ShareEmailEvent extends GwtEvent<ShareEmailEventHandler> {
     public static Type<ShareEmailEventHandler> TYPE = new Type<>();
     private final HighlightedLambdaExpression highlightedLambdaExpression;
 
     /**
-     * Simple constructor.
+     * Constructor with HighlightedLambdaExpression.
      *
      * @param highlightedLambdaExpression Highlighted lambda term of the selected input, step, or output by the user to be shared.
      */
