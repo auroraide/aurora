@@ -39,13 +39,13 @@ public class ReplaceVisitor extends TermVisitor<Term> {
         }
         if (pathIterator.next() == Direction.LEFT) {
             return new Application(
-                    app.getLeft().accept(this),
-                    app.getRight()
+                    app.left.accept(this),
+                    app.right
             );
         } else {
             return new Application(
-                    app.getLeft(),
-                    app.getRight().accept(this)
+                    app.left,
+                    app.right.accept(this)
             );
         }
     }

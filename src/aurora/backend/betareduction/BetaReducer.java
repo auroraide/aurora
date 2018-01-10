@@ -31,8 +31,8 @@ public class BetaReducer {
         RedexPath path = strategy.getRedex(term);
         if (path == null) return null; // there is no reducible redex left, the given term is our result
         Application app = path.get(term);
-        SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.getRight());
-        Term substituted = app.getLeft().accept(substitutionVisitor);
+        SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
+        Term substituted = app.left.accept(substitutionVisitor);
 
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substituted);
         return term.accept(replaceVisitor);
