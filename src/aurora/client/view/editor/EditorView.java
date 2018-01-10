@@ -13,7 +13,11 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
 
-
+/**
+ * This is where the user may view and manipulate code.
+ * Three different kinds of code fields are provided.
+ * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
+ */
 public class EditorView extends Composite implements EditorDisplay {
     private EventBus eventBus;
 
