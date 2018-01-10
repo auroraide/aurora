@@ -355,3 +355,4 @@ local.properties
 
 TeXDoclet.jar
 /docs/entwurf/html
+!/docs/entwurf/tex/AuroraFinalA0.pdf
