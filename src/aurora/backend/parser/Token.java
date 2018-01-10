@@ -5,6 +5,22 @@ package aurora.backend.parser;
  */
 public class Token {
 
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     /**
      * Token types.
      */

@@ -1,6 +1,7 @@
 package aurora.client.event;
 
 import aurora.backend.RedexPath;
+import aurora.backend.parser.Token;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
@@ -8,16 +9,15 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
     public static Type<RedexClickedEventHandler> TYPE = new Type<>();
-    private final RedexPath redex;
-    private final int stepIndex;
+    private final Token token;
 
     /**
      * Constructor.
-     * @param redex The redex the user clicked on.
+     *
+     * @param token The token of the redex the user clicked on.
      */
-    public RedexClickedEvent(RedexPath redex, int stepIndex) {
-        this.redex = redex;
-        this.stepIndex = stepIndex;
+    public RedexClickedEvent( Token token) {
+        this.token = token;
     }
 
     @Override
@@ -31,14 +31,12 @@ public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
     }
 
     /**
-     * Gets the path pointing to an Application, which is the selected redex.
-     * @return The Redex selected by the user.
+     * Get the token of the redex the user clicked on.
+     *
+     * @return The token selected by the user.
      */
-    public RedexPath getRedex() {
-        return redex;
+    public Token getToken() {
+        return token;
     }
 
-    public int getStepIndex() {
-        return stepIndex;
-    }
 }

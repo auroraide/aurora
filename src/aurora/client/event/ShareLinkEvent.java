@@ -32,7 +32,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
      * Gets term the user selected for sharing.
      * @return Selected term.
      */
-    public HighlightedLambdaExpression getHighlightedLambdaExpression() {
+    public HighlightedLambdaExpression getHighlightableLambdaExpression() {
         return highlightedLambdaExpression;
     }
 

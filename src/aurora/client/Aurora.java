@@ -10,12 +10,14 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 /**
+ * Responsible for intitalising the Aurora Web Application.
+ *
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Aurora implements EntryPoint {
 
     /**
-     * This is the entry point method.
+     * This is the entry point method. Sets up and initialises the Aurora Web Application.
      */
     public void onModuleLoad() {
         EventBus eventBus = GWT.create(SimpleEventBus.class);

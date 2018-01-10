@@ -6,8 +6,8 @@ import com.google.gwt.event.shared.GwtEvent;
 import java.util.Iterator;
 import java.util.List;
 
-public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXEventHandler> {
-    public static Type<ExportLaTeXEventHandler> TYPE = new Type<>();
+public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
+    public static Type<ExportLaTeXAllEventHandler> TYPE = new Type<>();
     private final List<HighlightedLambdaExpression> inputAndSteps;
     private final HighlightedLambdaExpression result;
 
@@ -21,12 +21,12 @@ public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXEventHandler> {
     }
 
     @Override
-    public Type<ExportLaTeXEventHandler> getAssociatedType() {
+    public Type<ExportLaTeXAllEventHandler> getAssociatedType() {
         return TYPE;
     }
 
     @Override
-    protected void dispatch(ExportLaTeXEventHandler exportLaTeXEventHandler) {
+    protected void dispatch(ExportLaTeXAllEventHandler handler) {
 
     }
 

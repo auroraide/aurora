@@ -7,6 +7,7 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 
@@ -62,7 +63,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
-    public SidebarView(EventBus eventBus) {
+    public @UiConstructor SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
