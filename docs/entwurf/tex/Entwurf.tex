@@ -338,12 +338,17 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	
 	\item[aurora.backend.parser] ~\par
 	In diesem Paket wird eine Eingabe geparsed.
+	\item[aurora.backend.parser.exceptions] ~\par
+	Die Exceptions die bei beim parsen geworfen werden können.
 
 	\item[aurora.backend.tree] ~\par
 	Dies ist die grundlegende Datenstruktur in der die Lambdaterme gespeichert werden.
 	
 	\item[aurora.backend.library] ~\par
 	Dieses Paket wird für die Benutzer- und Standardbibliothek benutzt.
+	
+	\item[aurora.backend.librarby.exceptions] ~\par
+	Die Exceptions die bei der Library geworfen werden können.
 	
 	\item[aurora.backend.betareduction] ~\par
 	Dieses Paket umfasst alles was für die Beta-Reduktion benötigt wird.
@@ -355,6 +360,9 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 
 	\item[aurora.backend.encoders] ~\par
 	Das Paket wird für das encoden und decoden von Input benutzt.
+	
+	\item[aurora.backend.encoders.exceptions] ~\par
+	Die Exceptions die bei encoden/decoden geworfen werden können.
 	
 	\item[aurora.backend.simplifier] ~\par
 	In diesem Paket wird versucht ein komplexer Term in eine simple Ausgabe zu überführen.
@@ -372,7 +380,7 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	Der Editor für die Benutzereingabe.
 	
 	\item[aurora.client.view.editor.actionbar] ~\par
-	Die Bestandteile der GUI.
+	Die Actionbar des Editors.
 	
 	\item[aurora.client.view.popup] ~\par
 	Das Paket beinhaltet alle Popups.
@@ -380,8 +388,9 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	\item[aurora.client.view.sidebar] ~\par
 	An der linken Seite der GUI ist eine Sidebar. Sie wird aus diesem Paket hergestellt
 	
-	\item[aurora.client.view.sidebar.components] ~\par 
-	Die Bestandteile der Sidebar.
+	
+	\item[aurora.client.view.sidebar.strategy] ~\par 
+	Die Strategieauswahl in der Sidebar.
 	
 	\item[aurora.client.presenter] ~\par
 	Der Presenter, der den Daten- und Kontrollfluss steuert.
