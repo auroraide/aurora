@@ -5,5 +5,7 @@ public interface AuroraDisplay {
 
     void displayShortLinkDialog(String shortLink);
 
+    void setStepNumber(int stepNumber);
+
 
 }

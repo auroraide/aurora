@@ -34,6 +34,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
+    @Override
+    public void setStepNumber(int stepNumber) {
+
+    }
+
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
