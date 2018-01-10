@@ -271,7 +271,7 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
             Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
 			
 		\item[\textbf{Keine Verwendung von instanceof}] ~\par
-            Auch als sich für eine Entwurfsentscheidung \enquote{instanceof} sehr gut angeboten hat, wurde eine andere Methode gewählt.
+            Auch als sich \enquote{instanceof} als Entwurfsentscheidung sehr gut angeboten hat, haben wir eine andere Methode gewählt.
 	
 \end{description}
 \pagebreak
@@ -279,34 +279,42 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 \section{Grobentwurf}
 \subsection{Architekturmuster und/oder Systemzerlegung}
 \subsubsection{Übersicht}
-Das Programm ist clientseitig und läuft auf einem modernen Browser. Da in PSE eine objektorientierte Sprache vorausgesetzt wird, haben wir uns für die Programmierung in Java und der Verwendung des Webframeworks Google Web Toolkit geeinigt. GWT lässt den Entwickler eine Javascript Webanwendung in Java schreiben.
-$\lambda$urora ist ein klassisches Programm mit einer GUI für den Input und einem Backend für Berechnungen. In der Vorlesung Softwaretechnik I wurde für dieses Szenario Model-View-Controller vorgestellt.
-Wir haben allerdings  Model-View-Presenter gewählt, da GWT für MVP entworfen wurde. Es wäre zwar auch möglich gewesen MVC zu wählen, allerdings würden sich vor allem bei Testcases schreiben einige Schwierigkeiten daraus ergeben. Mit MVP kann man sehr viel mit klassischen Java Tests abdecken, bei MVC wäre dies nicht so einfach möglich und man müsste mehr GWT Tests schreiben die eine sehr langsame Ausführungszeit haben.
+Bei dem Programm handelt es sich um eine clientseitige Anwendung, die auf \enquote{Google Chrome} 62 lauffähig ist.
+Unter der Voraussetzung, dass in PSE eine objektorientierte Sprache verwendet werden muss, haben wir uns für Java 8 entschieden.
+Damit unser Programm in Chrome ausgeführt werden kann, haben wir uns für die Verwendung des \enquote{Google Web Toolkits} entschieden (\enquote{GWT});
+Dieses erlaubt es uns, Java Sourcecode nach Javascript zu übersetzen.
+\newline
+Aurora ist ein klassische aufgebautes Programm.
+Somit besteht es aus einer GUI, in die der Benutzer seinen Input eingeben kann, und einem Backend, in dem alle benötigten Berechnungen durchgeführt werden. 
+In der Vorlesung \enquote{Softwaretechnik I} wurde für dieses Szenario das Muster \enquote{Model-View-Controller} vorgestellt.
+Im Gegensatz dazu haben wir uns allerdings für \enquote{Model-View-Presenter} entschieden, was vorallem daran liegt, dass \enquote{GWT} mit \enquote{MVP} im Kopf entworfen wurde.
+Es wäre  zwar auch möglich gewesen \enquote{MVC} zu wählen, allerdings würden sich hier vor allem beim Schreiben von Testcases Schwierigkeiten auftun.
+Die Verwendung von \enquote{MVP} erlaubt in großen Teilen das Ausführen von klassischen Java Tests;
+Bei \enquote{MVC} wäre dies nicht so einfach möglich, hier müsste man die Tests speziell an \enquote{GWT} anpassen, was unter anderem zu einer längeren Laufzeit der Teste führen würde.
 
 \subsection{Model-View-Presenter}
-MVP ist ein Entwurfsmuster, welches aus drei Komponenten besteht: das Modell, die View und dem Presenter.
+\enqupte{MVP} ist ein Entwurfsmuster, welches aus drei Komponenten besteht, Model, View, und Presenter.
 \begin{description}
-	\item[Modell] ~\par
-	Das Modell beinhaltet die Logik und alle Funktionalität der View. Das Modell hat keinen Zugriff auf die View, im Gegensatz zum MVC. Es hat außerdem kein Zugriff auf den Presenter 
+	\item[Model] ~\par
+	Das Model beinhaltet die Logik und alle Funktionalität der View.
+    Im Gegensatz zum \enquote{MVC} hat hier das Model weder Zugriff auf die View, noch auf den Presenter.
+
 	\item[View] ~\par
-	Die View wird für das Darstellen der Ein- und Ausgaben benutzt. Die grafische Oberfläche des Programms ist somit in der View. Sie enthält aber keinerlei Logik und kennt weder das Modell noch den Presenter.
+	Die View wird für das Darstellen der Ein- und Ausgaben benutzt.
+    Somit ist die grafische Oberfläche des Programms ein Teil der View;
+    Sie enthält aber keinerlei Logik und kennt weder das Model noch den Presenter.
 	
 	\item[Presenter] ~\par
-	Der Presenter kennt View und Modell und verbindet ihre Funktionen. Er steuert die Kommunikation zwischen den zwei Komponenten und steuert die logischen Abläufe.
+	Der Presenter kennt sowohl View als auch das Model und verknüpft ihre Funktionen.
+    Er steuert die Kommunikation zwischen den zwei Komponenten und koordiniert die logischen Abläufe.
 \end{description}
 
-
-\subsubsection{Model}
- will noch jmd mvp auf unser projekt anwenden oder könenn diese unterpunkte weg?
-\subsubsection{View}
-Was beinhaltet dieses Teil (Darstellung) + wen kennt es?
-\subsubsection{Presenter}
-
 \subsubsection{Lambda-Bibliothek}
-Man kann einen Teil des Projektes als eine wiedeverwendbare Bibliotek betrachten. Im Code ist dieses nicht
-explizit kenntlich gemacht worden, außer einem eigenem Package.
-Diese Bibliothek existiert, um den Umgang mit Lambda-Termen zu erleichtern, und implementiert die
-Funktionalität zum Beta-Reduzieren, Substitution von Variablen, finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
+Ein Teil des Projektes kann als eigene Lambda-Bibliothek betrachtet werden.
+Im Code wird diese Eigenschaft nicht explizit sichtbar gemacht, lediglich ein eigenes Package weist darauf hin;
+Bei Bedarf könnte es jedoch in eine externe Bibliothek ausgelagert, und anschließend in Aurora eingebunden werden.
+Diese \enquote{Bibliothek} existiert, um den Umgang mit Lambda-Termen zu erleichtern.
+Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituieren von Variablen, Finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
 
 
 \subsection{Sicherheit und Zugriffskontrolle}
