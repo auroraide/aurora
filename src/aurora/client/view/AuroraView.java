@@ -21,9 +21,13 @@ import com.google.gwt.user.client.ui.Widget;
  * TODO this doc is incomplete.
  */
 public class AuroraView extends Composite implements AuroraDisplay {
+
     private final EventBus eventBus;
+
     private final ShareDialogBox latexDialogBox;
+
     private final ShareDialogBox shortLinkDialogBox;
+
     @Override
     public void displayLatexSnippetDialog(String latexCode) {
 
@@ -208,5 +212,3 @@ public class AuroraView extends Composite implements AuroraDisplay {
     //        default State step() { throw new IllegalStateException(); }
     }
 }
-
-

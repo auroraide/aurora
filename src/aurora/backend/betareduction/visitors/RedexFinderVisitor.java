@@ -36,19 +36,19 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
 
     @Override
     public Void visit(Abstraction abs) {
-        return abs.getBody().accept(this);
+        return abs.body.accept(this);
     }
 
     @Override
     public Void visit(Application app) {
-        app.getLeft().accept(new AbstractionFinder());
+        app.left.accept(new AbstractionFinder());
 
         currentPath.push(RedexPath.Direction.LEFT);
-        app.getLeft().accept(this);
+        app.left.accept(this);
         currentPath.pop();
 
         currentPath.push(RedexPath.Direction.RIGHT);
-        app.getRight().accept(this);
+        app.right.accept(this);
         currentPath.pop();
 
         return null;

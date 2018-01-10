@@ -13,10 +13,12 @@ public class SemanticException extends Exception {
 
     private final int offset;
 
-    public SemanticException() {}
+    public SemanticException() {
+        this("", 0, 0, 0);
+    }
 
     public SemanticException(String message) {
-        super(message);
+        this(message, 0, 0, 0);
     }
 
     /**

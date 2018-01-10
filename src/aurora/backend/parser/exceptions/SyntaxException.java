@@ -13,10 +13,12 @@ public class SyntaxException extends Exception {
 
     private final int offset;
 
-    public SyntaxException() {}
+    public SyntaxException() {
+        this("", 0, 0, 0);
+    }
 
     public SyntaxException(String message) {
-        super(message);
+        this(message, 0, 0, 0);
     }
 
     /**

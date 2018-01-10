@@ -24,7 +24,11 @@ public class Token {
 
     private final String name;
 
-    public Token() {}
+    private final int line;
+
+    private final int column;
+
+    private final int offset;
 
     /**
      * Constructor, that creates a new {@link Token}.
@@ -36,6 +40,11 @@ public class Token {
      * @param offset The offset within the {@link Token} list.
      */
     public Token(TokenType type, String name, int line, int column, int offset) {
+        this.type = type;
+        this.name = name;
+        this.line = line;
+        this.column = column;
+        this.offset = offset;
     }
 
     /**
@@ -47,7 +56,7 @@ public class Token {
      * @param offset The offset within the {@link Token} list.
      */
     public Token(TokenType type, int line, int column, int offset) {
-        this(type, "");
+        this(type, "", line, column, offset);
     }
 
     /**

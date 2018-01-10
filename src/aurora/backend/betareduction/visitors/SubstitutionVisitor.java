@@ -34,20 +34,20 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Abstraction abs) {
-        return new Abstraction(abs.getBody().accept(new SubstitutionVisitor(index + 1, with)), abs.getName());
+        return new Abstraction(abs.body.accept(new SubstitutionVisitor(index + 1, with)), abs.name);
     }
 
     @Override
     public Term visit(Application app) {
         return new Application(
-            app.getLeft().accept(this),
-            app.getRight().accept(this)
+            app.left.accept(this),
+            app.right.accept(this)
         );
     }
 
     @Override
     public Term visit(BoundVariable bvar) {
-        if (bvar.getIndex() == this.index) {
+        if (bvar.index == this.index) {
             return with.accept(new DebruijnFixVisitor(0));
         }
         return bvar;
@@ -86,21 +86,21 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
         @Override
         public Term visit(Abstraction abs) {
-            return new Abstraction(abs.getBody().accept(new DebruijnFixVisitor(innerIndex + 1)), abs.getName());
+            return new Abstraction(abs.body.accept(new DebruijnFixVisitor(innerIndex + 1)), abs.name);
         }
 
         @Override
         public Term visit(Application app) {
             return new Application(
-                app.getLeft().accept(this),
-                app.getRight().accept(this)
+                app.left.accept(this),
+                app.right.accept(this)
             );
         }
 
         @Override
         public Term visit(BoundVariable bvar) {
-            if (bvar.getIndex() > innerIndex) {
-                return new BoundVariable(bvar.getIndex() + index - innerIndex + 1);
+            if (bvar.index > innerIndex) {
+                return new BoundVariable(bvar.index + index - innerIndex + 1);
             }
             return bvar;
         }
