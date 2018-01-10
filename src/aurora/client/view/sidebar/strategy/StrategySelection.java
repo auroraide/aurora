@@ -7,6 +7,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * Provides Buttons for all available stretegies.
+ */
 public class StrategySelection extends Composite {
     interface StrategySelectionUiBinder extends UiBinder<Widget, StrategySelection> {
     }
@@ -18,22 +21,45 @@ public class StrategySelection extends Composite {
     @UiField RadioButton normalOrder;
     @UiField RadioButton manualSelection;
 
+    /**
+     * Creates the strategy selection area.
+     */
     public StrategySelection() {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
+    /**
+     * Getter for CallByValue.
+     *
+     * @return callByValue
+     */
     public RadioButton getCallByValue() {
         return callByValue;
     }
 
+    /**
+     * Getter for CallByName.
+     *
+     * @return callByName
+     */
     public RadioButton getCallByName() {
         return callByName;
     }
 
+    /**
+     * Getter for normal order.
+     *
+     * @return normalOrder
+     */
     public RadioButton getNormalOrder() {
         return normalOrder;
     }
 
+    /**
+     * Getter for manual selection.
+     *
+     * @return manualSelection
+     */
     public RadioButton getManualSelection() {
         return manualSelection;
     }
