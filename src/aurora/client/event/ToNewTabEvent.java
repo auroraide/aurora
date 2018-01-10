@@ -21,7 +21,7 @@ public class ToNewTabEvent extends GwtEvent<ToNewTabEventHandler> {
 
     }
 
-    public HighlightedLambdaExpression getHighlightedLambdaExpression() {
+    public HighlightedLambdaExpression getHighlightableLambdaExpression() {
         return highlightedLambdaExpression;
     }
 }
