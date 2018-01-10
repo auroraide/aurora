@@ -42,11 +42,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     }
 
-    @Override
-    public void setStepNumber(int stepNumber) {
-
-    }
-
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
