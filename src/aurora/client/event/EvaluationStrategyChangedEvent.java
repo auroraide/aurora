@@ -10,6 +10,11 @@ public class EvaluationStrategyChangedEvent extends GwtEvent<EvaluationStrategyC
     public static Type<EvaluationStrategyChangedEventHandler> TYPE = new Type<>();
     private final StrategyType strategyType;
 
+    /**
+     * Constructor with {@link StrategyType}.
+     *
+     * @param strategyType The {@link StrategyType}.
+     */
     public EvaluationStrategyChangedEvent(StrategyType strategyType) {
         this.strategyType = strategyType;
     }
