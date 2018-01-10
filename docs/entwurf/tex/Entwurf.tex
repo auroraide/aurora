@@ -317,6 +317,21 @@ Bei Bedarf könnte es jedoch in eine externe Bibliothek ausgelagert, und anschli
 Diese \enquote{Bibliothek} existiert, um den Umgang mit Lambda-Termen zu erleichtern.
 Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituieren von Variablen, Finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
 
+
+\subsection{Sicherheit und Zugriffskontrolle}
+\subsection{Kontrollfluss}
+Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
+\subsection{Randbedingugen}
+Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
+\pagebreak
+
+\section{Feinentwurf}
+
+
+\subsection{Richtlinien der Schnittstellendokumentation}
+
+wie die Doku gemacht ist (LaTeX, LaTeX Javadoc)
+Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
 \subsection{Paketbeschreibungen}
 \begin{description}
 	
@@ -325,44 +340,47 @@ Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituier
 	Alle Pakete und Klassen sind in diesem Oberpaket definiert.
 	
 	\item[aurora.backend] ~\par
-	Im Backend sind alle Berechnungen und Datenstrukturen die für das Lambda Kalkül gebraucht werden. 
+	Im Backend sind alle Berechnungen und Datenstrukturen, die für das Lambda Kalkül gebraucht werden. 
 	
 	\item[aurora.backend.parser] ~\par
 	In diesem Paket wird eine Eingabe geparsed.
+
 	\item[aurora.backend.parser.exceptions] ~\par
-	Die Exceptions die bei beim parsen geworfen werden können.
-	
+	Die Exceptions, die bei beim Parsen geworfen werden können.
+
 	\item[aurora.backend.tree] ~\par
-	Dies ist die grundlegende Datenstruktur in der die Lambdaterme gespeichert werden.
+	Dies ist die grundlegende Datenstruktur, in der die Lambdaterme gespeichert werden.
 	
 	\item[aurora.backend.library] ~\par
 	Dieses Paket wird für die Benutzer- und Standardbibliothek benutzt.
 	
 	\item[aurora.backend.librarby.exceptions] ~\par
-	Die Exceptions die bei der Library geworfen werden können.
+	Die Exceptions, die bei der Library geworfen werden können.
 	
 	\item[aurora.backend.betareduction] ~\par
-	Dieses Paket umfasst alles was für die Beta-Reduktion benötigt wird.
+	Dieses Paket umfasst alles, was für die Beta-Reduktion benötigt wird.
 	
 	\item[aurora.backend.betareduction.visitors] ~\par
-	In diesem Paket sind die Besucher, welche den Tree traversieren. Sie werden für die Beta-Reduktion benötigt.  
+	In diesem Paket sind die Besucher, welche den Tree traversieren.
+    Sie werden für die Beta-Reduktion benötigt.
+
 	\item[aurora.backend.betareduction.strategies] ~\par
 	Hier liegen alle Reduktionsstrategien die für die Beta-Reduktion benutzt werden können.
-	
+
 	\item[aurora.backend.encoders] ~\par
-	Das Paket wird für das encoden und decoden von Input benutzt.
+	Das Paket wird für das Encoden und Decoden des Inputs benutzt.
 	
 	\item[aurora.backend.encoders.exceptions] ~\par
-	Die Exceptions die bei encoden/decoden geworfen werden können.
+	Die Exceptions, die beim Encoden/Decoden geworfen werden können.
 	
 	\item[aurora.backend.simplifier] ~\par
-	In diesem Paket wird versucht ein komplexer Term in eine simple Ausgabe zu überführen.
+	In diesem Paket wird versucht, einen komplexer Term in eine simple Ausgabe zu überführen.
 	
 	\item[aurora.client] ~\par
-	Hier sind alle Funktionen die für den Client benötigt werden.
+	Hier sind alle Funktionen, die für den Client benötigt werden.
 	
 	\item[aurora.client.event] ~\par
-	Das Paket beinhaltet alle Events die ausgelöst werden können.
+	Das Paket beinhaltet alle Events, die ausgelöst werden können.
 	
 	\item[aurora.client.view] ~\par
 	Hier liegt die GUI.
@@ -374,51 +392,47 @@ Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituier
 	Die Actionbar des Editors.
 	
 	\item[aurora.client.view.popup] ~\par
-	Das Paket beinhaltet alle Popups.
+	Dieses Paket beinhaltet alle Popups.
 	
 	\item[aurora.client.view.sidebar] ~\par
-	An der linken Seite der GUI ist eine Sidebar. Sie wird aus diesem Paket hergestellt
-	
+	An der linken Seite der GUI ist eine Sidebar.
+    Sie wird von diesem Paket bereitgestellt.
 	
 	\item[aurora.client.view.sidebar.strategy] ~\par 
 	Die Strategieauswahl in der Sidebar.
 	
 	\item[aurora.client.presenter] ~\par
 	Der Presenter, der den Daten- und Kontrollfluss steuert.
+
 \end{description}
+\subsection{Entwurfsmuster (welche sind benutzt)}
+Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
 
-
-\subsection{Kontrollfluss}
-Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
-\subsection{Randbedingugen}
-Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
-\pagebreak
-
-\section{Feinentwurf}
-
+\newpage
+\subsection{Klassen und Schnittstellen}
 % include crap from texdoclet
 %\tableofcontents
 \input{javadoc.tex}
-
-\subsection{Richtlinien der Schnittstellendokumentation}
-
-wie die Doku gemacht ist (LaTeX, LaTeX Javadoc)
-Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
-
-\subsection{Entwurfsmuster}
-Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
-
 \pagebreak
 
 \section{Änderungen zum Pflichtenheft}
-Das Wunschkriterium \textbf{K6. Pretty Print} ist in diesem Entwurf nicht mehr vorhanden. Das Team hat sich dafür entschieden, dass dieses Kriterium zuviel Zeit bei der Implementierung beanstanden würde und das Feature nicht wirklich gewünscht wurde.
+    \begin{itemize}
+        \item Das Wunschkriterium \textbf{K6. Pretty Print} ist in diesem Entwurf nicht mehr vorhanden.
+            Das Team hat sich dafür entschieden, dass dieses Kriterium zuviel Zeit bei der Implementierung beanspruchen würde und das Feature nicht wirklich gewünscht war.
 
-Gleiches gilt für das Wunschkriterium \textbf{K19. Schleifenerkennung}. Dieses Feature hätte nur sehr selten Anwendung gefunden und wäre großteils unbenutzt geblieben.
+        \item Gleiches gilt für das Wunschkriterium \textbf{K19. Schleifenerkennung}.
+            Dieses Feature hätte nur sehr selten Anwendung gefunden und wäre großteils unbenutzt geblieben.
 
-Das Wunschkriterium \textbf{K23. Lokale Sessions} ist auch gestrichen worden. Zu viel Aufwand wäre in die Entwicklung dieses Features geflossen und wir haben beschlossen, dass dieses Feature den Aufwand nicht wert ist.
+        \item Auch ist das Wunschkriterium \textbf{K23. Lokale Sessions} gestrichen worden. 
+            Zu viel Aufwand wäre in die Entwicklung dieses Features geflossen und wir haben beschlossen, dass dieses Feature den Aufwand nicht wert ist.
 
-Das Wunschkriterium \textbf{K25. Mobile-Darstellung} ist in dem jetzigen Entwurf nicht vorhanden. Die Gruppe lässt sich aber offen, wenn noch Zeit bei der Implementierung übrig bleibt, dieses Feature über das rückläufiges Wassermodell wieder einzufügen.
+        \item Das Wunschkriterium \textbf{K25. Mobile-Darstellung} ist in dem jetzigen Entwurf nicht vorhanden.
+            Die Gruppe lässt sich aber offen, falls noch Zeit bei der Implementierung übrig bleiben sollte, dieses Feature über das rückläufiges Wassermodell wieder einzufügen.
 
-In Entwicklungsumgebung ist als \textbf{Build System} Bazel weggefallen, für GWT eignet sich Ant besser.
-Auch die \textbf{IDE} Eclipse wird von keinem Mitglied des Teams verwendet.
+        \item Im Bereich Entwicklungsumgebung ist Bazel als \textbf{Build System} weggefallen, für \enquote{GWT} eignet sich Ant besser.
+            Auch die \textbf{IDE} \enquote{Eclipse} wird von keinem Mitglied des Teams verwendet.
+
+        \item Zur Wechseln zwischen dem Aurora Hauptfenster und dem Tutorial werden wir das von \enquote{GWT} bereitgestellte TabLayout anstatt der geplanten Hyperlinks verwenden.
+    \end{itemize}
 \end{document}
+
