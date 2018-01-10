@@ -1,12 +1,6 @@
 package aurora.client;
 
 public interface SidebarDisplay {
-    /**
-     *
-     * @param name
-     * @param description
-     */
-    void addStdLibFunction(String name, String description);
 
     /**
      * Closes an add function dialog form.

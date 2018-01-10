@@ -14,11 +14,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private EventBus eventBus;
 
     @Override
-    public void addStdLibFunction(String name, String description) {
-
-    }
-
-    @Override
     public void closeAddLibraryItemDialog() {
 
     }
@@ -88,15 +83,4 @@ public class SidebarView extends Composite implements SidebarDisplay {
         return nightModeSwitch;
     }
 
-    public void setStandardLibraryTable(FlexTable standardLibraryTable) {
-        this.standardLibraryTable = standardLibraryTable;
-    }
-
-    public void setUserLibraryTable(FlexTable userLibraryTable) {
-        this.userLibraryTable = userLibraryTable;
-    }
-
-    public void setStrategySelection(StrategySelection strategySelection) {
-        this.strategySelection = strategySelection;
-    }
 }
