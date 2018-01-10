@@ -2,6 +2,9 @@ package aurora.client.event;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handles a {@link StepValueChangedEvent}.
+ */
 public interface StepValueChangedEventHandler extends EventHandler {
 
     /**

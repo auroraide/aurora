@@ -2,6 +2,9 @@ package aurora.client.event;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handles a {@link RedexClickedEvent}.
+ */
 public interface RedexClickedEventHandler extends EventHandler {
     /**
      * Called when the user clicks on a Redex.
