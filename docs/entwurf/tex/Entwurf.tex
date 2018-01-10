@@ -68,7 +68,8 @@
 }
 % Environment for packages
 \newenvironment{texdocpackage}[1]{%
-	\newpage{}\gdef\packagename{#1}\subsection{Package \texttt{#1}}
+	%\newpage{}
+    \gdef\packagename{#1}\subsection{Package \texttt{#1}}
 	\rule{\hsize}{.7mm}
 }{}
 
