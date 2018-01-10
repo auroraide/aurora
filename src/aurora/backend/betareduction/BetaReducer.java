@@ -40,7 +40,7 @@ public class BetaReducer {
 
 
 
-// only for reference / example usage
+    // only for reference / example usage
     private Term reduceN(Term term, int n) {
         if (n <= 0) throw new IllegalArgumentException();
         for (; n > 0; n--) {
