@@ -68,7 +68,8 @@
 }
 % Environment for packages
 \newenvironment{texdocpackage}[1]{%
-	\newpage{}\gdef\packagename{#1}\subsection{Package \texttt{#1}}
+	%\newpage{}
+    \gdef\packagename{#1}\subsection{Package \texttt{#1}}
 	\rule{\hsize}{.7mm}
 }{}
 
@@ -316,24 +317,6 @@ Bei Bedarf könnte es jedoch in eine externe Bibliothek ausgelagert, und anschli
 Diese \enquote{Bibliothek} existiert, um den Umgang mit Lambda-Termen zu erleichtern.
 Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituieren von Variablen, Finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
 
-
-\subsection{Sicherheit und Zugriffskontrolle}
-\subsection{Kontrollfluss}
-Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
-\subsection{Randbedingugen}
-Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
-\pagebreak
-
-\section{Feinentwurf}
-
-% include crap from texdoclet
-%\tableofcontents
-\input{javadoc.tex}
-
-\subsection{Richtlinien der Schnittstellendokumentation}
-
-wie die Doku gemacht ist (LaTeX, LaTeX Javadoc)
-Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
 \subsection{Paketbeschreibungen}
 \begin{description}
 	
@@ -348,7 +331,7 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	In diesem Paket wird eine Eingabe geparsed.
 	\item[aurora.backend.parser.exceptions] ~\par
 	Die Exceptions die bei beim parsen geworfen werden können.
-
+	
 	\item[aurora.backend.tree] ~\par
 	Dies ist die grundlegende Datenstruktur in der die Lambdaterme gespeichert werden.
 	
@@ -362,10 +345,10 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	Dieses Paket umfasst alles was für die Beta-Reduktion benötigt wird.
 	
 	\item[aurora.backend.betareduction.visitors] ~\par
-	 In diesem Paket sind die Besucher, welche den Tree traversieren. Sie werden für die Beta-Reduktion benötigt.  
+	In diesem Paket sind die Besucher, welche den Tree traversieren. Sie werden für die Beta-Reduktion benötigt.  
 	\item[aurora.backend.betareduction.strategies] ~\par
 	Hier liegen alle Reduktionsstrategien die für die Beta-Reduktion benutzt werden können.
-
+	
 	\item[aurora.backend.encoders] ~\par
 	Das Paket wird für das encoden und decoden von Input benutzt.
 	
@@ -403,9 +386,28 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	\item[aurora.client.presenter] ~\par
 	Der Presenter, der den Daten- und Kontrollfluss steuert.
 \end{description}
-\subsection{Entwurfsmuster (welche sind benutzt)}
+
+
+\subsection{Kontrollfluss}
+Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
+\subsection{Randbedingugen}
+Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
+\pagebreak
+
+\section{Feinentwurf}
+
+% include crap from texdoclet
+%\tableofcontents
+\input{javadoc.tex}
+
+\subsection{Richtlinien der Schnittstellendokumentation}
+
+wie die Doku gemacht ist (LaTeX, LaTeX Javadoc)
+Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
+
+\subsection{Entwurfsmuster}
 Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
-\subsection{Klassen und Schnittstellen}
+
 \pagebreak
 
 \section{Änderungen zum Pflichtenheft}
