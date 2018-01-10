@@ -69,7 +69,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
 
     /**
-     * Creates the EditorView contents and adds them to their respective parts of the window;
+     * Creates the EditorView contents and adds them to their respective parts of the window.
+     * 
      * @param eventBus
      */
     public EditorView(EventBus eventBus) {
@@ -94,7 +95,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the inputCodeMirror
+     * Returns the inputCodeMirror.
      *
      * @return inputCodeMirror
      */
@@ -103,7 +104,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the inputOptionButton
+     * Returns the inputOptionButton.
      *
      * @return inputOptionButton
      */
@@ -112,7 +113,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the outputCodeMirror
+     * Returns the outputCodeMirror.
      *
      * @return outputCodeMirror
      */
@@ -121,7 +122,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the outputOptionButton
+     * Returns the outputOptionButton.
      *
      * @return outputOptionButton
      */
@@ -130,7 +131,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the outputFieldTable
+     * Returns the outputFieldTable.
      *
      * @return outputFieldTable
      */
@@ -139,7 +140,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     /**
-     * Returns the ActionBar
+     * Returns the ActionBar.
      *
      * @return actionBar
      */
@@ -148,3 +149,4 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
 }
+

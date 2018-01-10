@@ -75,7 +75,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for languageSelection
+     * Getter for languageSelection.
      *
      * @return languageSelection
      */
@@ -84,7 +84,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for shareSelection
+     * Getter for shareSelection.
      *
      * @return shareSelection
      */
@@ -93,7 +93,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for stepNumber
+     * Getter for stepNumber.
      *
      * @return stepNumber
      */
@@ -102,7 +102,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for nightModeSwitch
+     * Getter for nightModeSwitch.
      *
      * @return nightModeSwitch
      */
