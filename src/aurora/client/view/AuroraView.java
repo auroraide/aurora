@@ -9,6 +9,7 @@ import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -46,14 +47,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
-    @UiField
+    @UiField(provided=true)
     EditorView editor;
-    @UiField
+    @UiField(provided=true)
     SidebarView sidebar;
 
-    public AuroraView(EventBus eventBus) {
-        initWidget(ourUiBinder.createAndBindUi(this));
+    public @UiConstructor AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
+        initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
 
