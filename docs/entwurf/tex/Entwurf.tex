@@ -242,6 +242,7 @@ Nikolai Polley, Randy Seng}
 
 \newpage
 \section{Einleitung}
+
 \subsection{Zweck der Software}
 Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit eigenen Lambda Termen sowohl arbeiten als auch experimentieren können.
 Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das $\lambda$-Kalkül zu entwickeln.
@@ -249,6 +250,7 @@ Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch
 Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.
 \newline
 Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen \LaTeX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbibliothek.
+
 \subsection{Entwurfsziele}
 Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 \begin{description}
@@ -257,16 +259,19 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 			Klassen geben so wenig Informationen wie möglich über Implementierungsdetails preis.
 			
 		\item[\textbf{Starke Kohäsion in Pakete und Klassen}] ~\par
-			Eine Klasse hat nur Methoden die sie direkt betreffen. Klassen innerhalb eines Paketes werden meist zusammen benutzt
+			Eine Klasse hat nur Methoden, die sie direkt betrifft. 
+            Klassen innerhalb eines Paketes werden meist zusammen benutzt.
 			
 		\item[\textbf{Lose Koppelung zwischen Klassen und Paketen}]~\par
-			Klassen kennen so wenig wie mögliche andere Klassen.
+			Eine Klassen kennt so wenig wie mögliche andere Klassen.
 			
 		\item[\textbf{Lokalitätsprinzip beachten}] ~\par
-			Eine Klasse soll auch alleine stehend verständlich sein. Die Klasse Term ist eine Ausnahme, da sie im Backend nahezu allen bekannt sein muss (siehe Abgrenzungskriterium \textbf{A3}). Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
+			Eine Klasse soll auch alleine stehend verständlich sein.
+            Die Klasse Term ist eine Ausnahme, da sie im Backend nahezu allen bekannt sein muss (siehe Abgrenzungskriterium \textbf{A3}).
+            Deswegen ist die Klasse Term abstrakt, und sehr schlank gehalten.
 			
 		\item[\textbf{Keine Verwendung von instanceof}] ~\par
-			Auch als sich für eine  Entwurfsentscheidung instanceof sehr gut angeboten hat wurde eine andere Methode gewählt 
+            Auch als sich für eine Entwurfsentscheidung \enquote{instanceof} sehr gut angeboten hat, wurde eine andere Methode gewählt.
 	
 \end{description}
 \pagebreak
