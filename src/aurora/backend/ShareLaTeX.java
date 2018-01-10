@@ -7,7 +7,7 @@ public class ShareLaTeX {
     private HighlightedLambdaExpression hle;
 
     /**
-     * Traverse the HighlightedLambdaExpression.
+     * Traverse the HighlightableLambdaExpression.
      * @param hle The highlighted lambda expression.
      */
     public ShareLaTeX(HighlightedLambdaExpression hle) {

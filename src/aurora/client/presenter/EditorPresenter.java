@@ -38,7 +38,7 @@ public class EditorPresenter {
     }
 
     private void onStep(StepEvent stepEvent) {
-//        HighlightedLambdaExpression hle = /* result of beta reduction */;
+//        HighlightableLambdaExpression hle = /* result of beta reduction */;
 //        editorDisplay.addNextStep(hle);
     }
 }

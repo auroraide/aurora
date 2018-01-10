@@ -1,97 +1,69 @@
 package aurora.backend;
 
 import aurora.backend.parser.Token;
-import aurora.backend.tree.*;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Encapsulates the lambda term combined with meta information about highlighting.
+ * A read-only version of HighlightableLambdaExpression.
  */
-public class HighlightedLambdaExpression implements Iterable<Token> {
-
-    private final List<Token> tokens;
-
-    /**
-	 * Standard constructor that initializes with an empty {@link Token} list.
-	 */
-    public HighlightedLambdaExpression() {
-        this.tokens = new LinkedList<>();
-    }
-
-    /**
-     * Constructor that creates a {@link HighlightedLambdaExpression} from a stream of {@link Token}s.
-     *
-     * @param stream The {@link Token} stream.
-     */
-    public HighlightedLambdaExpression(List<Token> stream) {
-        // deep copy
-        this.tokens = null;
-    }
-
-    /**
-     * Constructor that analyzes a {@link Term} and creates the {@link HighlightedLambdaExpression}.
-     *
-     * @param t The {@link Term} that gets analyzed.
-     */
-    public HighlightedLambdaExpression(Term t) {
-        this();
-        t.accept(new TermToHighlightedLambdaExpressionVisitor());
-    }
-
+public interface HighlightedLambdaExpression extends Iterable<Token> {
     @Override
-    public Iterator<aurora.backend.parser.Token> iterator() {
-        return this.tokens.iterator();
-    }
-
-    @Override
-    public String toString() {
-        // mostly for debug purposes
-        StringBuilder builder = new StringBuilder();
-        for (Token t : this.tokens) {
-            builder.append(tokens.toString());
-            builder.append(" ");
-        }
-        return builder.toString();
-    }
+    Iterator<Token> iterator();
 
     /**
-     * Compute the {@link HighlightedLambdaExpression} representation of the {@link Term} it is applied on.
+     * Gets the redex resulting from the previous computation. Or null.
+     * @return Redex.
      */
-    private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
+    Redex getPreviousRedex();
 
-        @Override
-        public Void visit(Abstraction abs) {
-            return null;
+    /**
+     * Gets the redex that will be executed in the next step.
+     * @return
+     */
+    Redex getNextRedex();
+
+    /**
+     * Get all possible redexes.
+     * @return
+     */
+    List<Redex> getAllRedexes();
+
+    /**
+     * Represents a redex in a specific tree. Information contained depends on that specific tree, and consists of
+     * Token indices and a RedexPath.
+     */
+    class Redex {
+        /**
+         * The very first token of the Redex. Usually a lambda.
+         */
+        final public int startToken;
+        /**
+         * The first token of the right side of the application.
+         */
+        final public int middleToken;
+        /**
+         * The last token of the right side of the application.
+         */
+        final public int lastToken;
+        /**
+         * Associated path to this redex in the specific tree this Redex belongs to.
+         */
+        final public RedexPath redex;
+
+        /**
+         * Creates a new Redex.
+         * @param startToken Start.
+         * @param middleToken Middle.
+         * @param lastToken End.
+         * @param redex Redex path.
+         */
+        public Redex(int startToken, int middleToken, int lastToken, RedexPath redex) {
+            this.startToken = startToken;
+            this.middleToken = middleToken;
+            this.lastToken = lastToken;
+            this.redex = redex;
         }
-
-        @Override
-        public Void visit(Application app) {
-            return null;
-        }
-
-        @Override
-        public Void visit(BoundVariable bvar) {
-            return null;
-        }
-
-        @Override
-        public Void visit(FreeVariable fvar) {
-            return null;
-        }
-
-        @Override
-        public Void visit(LibraryTerm libterm) {
-            return null;
-        }
-
-        @Override
-        public Void visit(ChurchNumber c) {
-            return null;
-        }
-
     }
-
 }
