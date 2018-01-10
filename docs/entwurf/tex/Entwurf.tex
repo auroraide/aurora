@@ -8,7 +8,7 @@
 
 \usepackage{color}
 \usepackage{hyperref}
-
+\usepackage{pdfpages}
 \pagestyle{myheadings}
 
 \def\packagename{}
@@ -278,7 +278,7 @@ Die Erstellung dieses Entwurfes hatte folgende Zielsetzungen:
 \pagebreak
 
 \section{Grobentwurf}
-\subsection{Architekturmuster und/oder Systemzerlegung}
+\subsection{Architekturmuster und Systemzerlegung}
 \subsubsection{Übersicht}
 Bei dem Programm handelt es sich um eine clientseitige Anwendung, die auf \enquote{Google Chrome} 62 lauffähig ist.
 Unter der Voraussetzung, dass in PSE eine objektorientierte Sprache verwendet werden muss, haben wir uns für Java 8 entschieden.
@@ -293,7 +293,7 @@ Es wäre  zwar auch möglich gewesen \enquote{MVC} zu wählen, allerdings würde
 Die Verwendung von \enquote{MVP} erlaubt in großen Teilen das Ausführen von klassischen Java Tests;
 Bei \enquote{MVC} wäre dies nicht so einfach möglich, hier müsste man die Tests speziell an \enquote{GWT} anpassen, was unter anderem zu einer längeren Laufzeit der Teste führen würde.
 
-\subsection{Model-View-Presenter}
+\subsubsection{Model-View-Presenter}
 \enquote{MVP} ist ein Entwurfsmuster, welches aus drei Komponenten besteht, Model, View, und Presenter.
 \begin{description}
 	\item[Model] ~\par
@@ -317,21 +317,6 @@ Bei Bedarf könnte es jedoch in eine externe Bibliothek ausgelagert, und anschli
 Diese \enquote{Bibliothek} existiert, um den Umgang mit Lambda-Termen zu erleichtern.
 Sie implementiert unter anderem Funktionalität zum Beta-Reduzieren, Substituieren von Variablen, Finden von Redexen, sowie verschiedene Auswertungsstrategien von Lambda-Termen.
 
-
-\subsection{Sicherheit und Zugriffskontrolle}
-\subsection{Kontrollfluss}
-Wenn MVC dann erfolgt durch Controller...  + SEQUENZDIAGRAMMEN (sollen sie getrennt sein oder passt es hier?)
-\subsection{Randbedingugen}
-Entwurfsanforderungen, die an das System gestellt werden. (anhand sequenzdiagrammen)
-\pagebreak
-
-\section{Feinentwurf}
-
-
-\subsection{Richtlinien der Schnittstellendokumentation}
-
-wie die Doku gemacht ist (LaTeX, LaTeX Javadoc)
-Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, genau... fml... *sigh* -younis)
 \subsection{Paketbeschreibungen}
 \begin{description}
 	
@@ -344,10 +329,10 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	
 	\item[aurora.backend.parser] ~\par
 	In diesem Paket wird eine Eingabe geparsed.
-
+	
 	\item[aurora.backend.parser.exceptions] ~\par
 	Die Exceptions, die bei beim Parsen geworfen werden können.
-
+	
 	\item[aurora.backend.tree] ~\par
 	Dies ist die grundlegende Datenstruktur, in der die Lambdaterme gespeichert werden.
 	
@@ -362,11 +347,11 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	
 	\item[aurora.backend.betareduction.visitors] ~\par
 	In diesem Paket sind die Besucher, welche den Tree traversieren.
-    Sie werden für die Beta-Reduktion benötigt.
-
+	Sie werden für die Beta-Reduktion benötigt.
+	
 	\item[aurora.backend.betareduction.strategies] ~\par
 	Hier liegen alle Reduktionsstrategien die für die Beta-Reduktion benutzt werden können.
-
+	
 	\item[aurora.backend.encoders] ~\par
 	Das Paket wird für das Encoden und Decoden des Inputs benutzt.
 	
@@ -396,17 +381,31 @@ Es wird TeXdoclet verwendet. Dieser hat ein paar Macken :P. (Ein "paar"... Ja, g
 	
 	\item[aurora.client.view.sidebar] ~\par
 	An der linken Seite der GUI ist eine Sidebar.
-    Sie wird von diesem Paket bereitgestellt.
+	Sie wird von diesem Paket bereitgestellt.
 	
 	\item[aurora.client.view.sidebar.strategy] ~\par 
 	Die Strategieauswahl in der Sidebar.
 	
 	\item[aurora.client.presenter] ~\par
 	Der Presenter, der den Daten- und Kontrollfluss steuert.
-
+	
 \end{description}
-\subsection{Entwurfsmuster (welche sind benutzt)}
+
+
+\subsection{Entwurfsmuster}
 Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es werden jeweils konkrete Besucher erstellt, die jeweils unterschiedliche Funktionen besitzen um den Term auszuwerten.
+
+Die Sidebar verwendet das Entwurfsmuster Kompositum.
+
+Das Eventhandling wird mit Observern vollzogen.
+
+\pagebreak
+
+\section{Sequenzdiagramme}
+
+
+\section{Feinentwurf}
+
 
 \newpage
 \subsection{Klassen und Schnittstellen}
@@ -434,5 +433,12 @@ Für das Traversieren der Terme wird das Visitor Pattern (Besucher) benutzt. Es 
 
         \item Zur Wechseln zwischen dem Aurora Hauptfenster und dem Tutorial werden wir das von \enquote{GWT} bereitgestellte TabLayout anstatt der geplanten Hyperlinks verwenden.
     \end{itemize}
+
+
+\section{HIER UML}
+\includepdf{UML_Klassen.pdf}
+
+
+    
 \end{document}
 
