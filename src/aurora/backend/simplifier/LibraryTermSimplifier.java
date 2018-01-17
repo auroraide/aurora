@@ -6,8 +6,8 @@ import aurora.backend.tree.Term;
 
 /**
  * Simplify a given Term into a LibraryTerm that is defined in some Library.
- *
- * <p>Checks if a given Term is in a Library.
+ * <p>
+ * Checks if a given Term is in a Library.
  */
 public class LibraryTermSimplifier implements ResultSimplifier<LibraryTerm> {
 

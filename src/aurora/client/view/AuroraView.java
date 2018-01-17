@@ -22,12 +22,14 @@ import com.google.gwt.user.client.ui.Widget;
  * TODO this doc is incomplete.
  */
 public class AuroraView extends Composite implements AuroraDisplay {
-    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
+    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
+    }
+
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    @UiField(provided=true)
+    @UiField(provided = true)
     EditorView editor;
-    @UiField(provided=true)
+    @UiField(provided = true)
     SidebarView sidebar;
 
     private final EventBus eventBus;
@@ -73,16 +75,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    public EditorDisplay getEditor() {
-        return editor;
-    }
-
-    public SidebarDisplay getSidebar() {
-        return sidebar;
-    }
-
-    private State currentState;
-
     private void bind() {
         // on click share latex (ist in sidebar):
         //      eventBus.fireEvent(new ShareLatexenvetdings(editor.balbalbalba))
@@ -108,7 +100,9 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private class Default implements State {
-        public State run() { return new Running(); }
+        public State run() {
+            return new Running();
+        }
 
         @Override
         public State pause() {
@@ -215,15 +209,19 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     private interface State {
         State run();
+
         State pause();
+
         State resume();
+
         State reset();
+
         State step();
 
-    //        default State run() { throw new IllegalStateException(); }
-    //        default State pause() { throw new IllegalStateException(); }
-    //        default State resume() { throw new IllegalStateException(); }
-    //        default State reset() { throw new IllegalStateException(); }
-    //        default State step() { throw new IllegalStateException(); }
+        //        default State run() { throw new IllegalStateException(); }
+        //        default State pause() { throw new IllegalStateException(); }
+        //        default State resume() { throw new IllegalStateException(); }
+        //        default State reset() { throw new IllegalStateException(); }
+        //        default State step() { throw new IllegalStateException(); }
     }
 }

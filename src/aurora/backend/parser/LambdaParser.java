@@ -13,8 +13,8 @@ public class LambdaParser {
 
     /**
      * Parse a lambda expression string into a tree of {@link MetaTerm}s.
-     *
-     * <p>Each {@link MetaTerm} keeps track of a reference to the original
+     * <p>
+     * Each {@link MetaTerm} keeps track of a reference to the original
      *
      * @param stream The {@link Token} stream constituting the lambda expression that shall be parsed.
      * @return The root node of the corresponding {@link MetaTerm} tree if parsing was successful.

@@ -5,7 +5,7 @@ import aurora.backend.HighlightedLambdaExpression;
 /**
  * The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
  * <code>EditorDisplay</code> interface.
- *
+ * <p>
  * <code>EditorDisplay</code> defines the interface, that the {@link aurora.client.presenter.EditorPresenter}
  * uses to communicate with the view.
  * A view implementing this interface, therefore provides necessary methods for the above mentioned

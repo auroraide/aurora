@@ -19,20 +19,26 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
  * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
  */
 public class EditorView extends Composite implements EditorDisplay {
-    interface EditorUiBinder extends UiBinder<Widget, EditorView> {}
+    interface EditorUiBinder extends UiBinder<Widget, EditorView> {
+    }
+
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
     // Input Field
-    @UiField FlexTable inputFieldTable;
+    @UiField
+    FlexTable inputFieldTable;
     private Button inputOptionButton;
     private CodeMirrorPanel inputCodeMirror;
-    @UiField ActionBar actionBar;
+    @UiField
+    ActionBar actionBar;
 
     // Step Field
-    @UiField FlexTable stepFieldTable;
+    @UiField
+    FlexTable stepFieldTable;
 
     // Output Field
-    @UiField FlexTable outputFieldTable;
+    @UiField
+    FlexTable outputFieldTable;
 
     private EventBus eventBus;
     private Button outputOptionButton;
@@ -41,8 +47,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
-     * 
-     * @param eventBus
+     *
+     * @param eventBus Current {@link EventBus} instance.
      */
     public EditorView(EventBus eventBus) {
         this.eventBus = eventBus;
@@ -147,9 +153,6 @@ public class EditorView extends Composite implements EditorDisplay {
      */
     public ActionBar getActionBar() {
         return actionBar;
-    }
-
-    interface EditorUiBinder extends UiBinder<Widget, EditorView> {
     }
 
 }

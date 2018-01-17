@@ -2,9 +2,9 @@ package aurora.client;
 
 /**
  * The implementation of an Aurora view is being hidden behind the <code>AuroraDisplay</code> interface.
- *
+ * <p>
  * <code>AuroraDisplay</code> defines the interface, that the {@link aurora.client.presenter.AuroraPresenter}
- * uses to communicate with the view. <br>
+ * uses to communicate with the view.
  * A view implementing this interface, therefore provides necessary methods for the above mentioned
  * communication purposes regarding the presenter.
  */

@@ -6,8 +6,8 @@ import aurora.backend.tree.Term;
 
 /**
  * A beta reduction strategy.
- *
- * <p>A strategy evaluates terms and choses a redex to be reduced by the {@link BetaReducer}.
+ * <p>
+ * A strategy evaluates terms and choses a redex to be reduced by the {@link BetaReducer}.
  * The location within the Term tree is given via a {@link RedexPath} object.
  */
 public abstract class ReductionStrategy {

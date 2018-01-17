@@ -13,7 +13,7 @@ public abstract class Term {
      * This method accepts a visitor.
      *
      * @param visitor this is the visitor which is accepted by the term
-     * @param <T> Generic type of the visitor's return value.
+     * @param <T>     Generic type of the visitor's return value.
      * @return Whatever the visitor wishes to return.
      */
     public abstract <T> T accept(TermVisitor<T> visitor);

@@ -7,8 +7,8 @@ import com.google.gwt.event.shared.EventBus;
 
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
- *
- * <p>It fetches editor specific user events and acts upon those
+ * <p>
+ * It fetches editor specific user events and acts upon those
  * by using the backend, which presents the model. <code>Aurora Presenter</code> then updates the view through
  * via the {@link EditorDisplay}.
  */

@@ -3,8 +3,8 @@ package aurora.client;
 /**
  * The implementation of {@link aurora.client.view.sidebar.SidebarView} is hidden behind the
  * <code>SidebarDisplay</code> interface.
- *
- * <p><code>SidebarDisplay</code> defines the interface, that the {@link aurora.client.presenter.SidebarPresenter}
+ * <p>
+ * <code>SidebarDisplay</code> defines the interface, that the {@link aurora.client.presenter.SidebarPresenter}
  * uses to communicate with the view.
  * A view implementing this interface, therefore provides necessary methods for the above mentioned
  * communication purposes regarding the presenter.

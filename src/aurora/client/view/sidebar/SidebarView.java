@@ -7,9 +7,13 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Provides additional options to the user.
@@ -18,6 +22,7 @@ import com.google.gwt.user.client.ui.*;
 public class SidebarView extends Composite implements SidebarDisplay {
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
+
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
@@ -36,17 +41,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     ListBox shareSelection;
     private EventBus eventBus;
-
-/**
-     * Created the Sidebar.
-     * In addition the add and remove library entry buttons are generated and added to the bar.
-     */
-    public SidebarView(EventBus eventBus) {
-        this.eventBus = eventBus;
-        initWidget(ourUiBinder.createAndBindUi(this));
-        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-    }
 
     /**
      * Created the Sidebar.

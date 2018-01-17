@@ -6,8 +6,8 @@ import com.google.gwt.event.shared.EventBus;
 
 /**
  * <code>AuroraPresenter</code> is responsible for the presentation logic.
- *
- * <p>It fetches user events and acts upon those by using the backend, which presents the model.
+ * <p>
+ * It fetches user events and acts upon those by using the backend, which presents the model.
  * <code>Aurora Presenter</code> then updates the view through via the {@link AuroraDisplay}.
  */
 public class AuroraPresenter {
