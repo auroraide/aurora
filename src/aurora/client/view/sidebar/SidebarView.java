@@ -38,7 +38,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
-    public @UiConstructor SidebarView(EventBus eventBus) {
+    public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
