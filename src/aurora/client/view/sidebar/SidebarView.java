@@ -16,7 +16,34 @@ import com.google.gwt.user.client.ui.*;
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
  */
 public class SidebarView extends Composite implements SidebarDisplay {
+    interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
+    }
+    private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
+
+    @UiField TextBox stepNumber;
+    @UiField ToggleButton nightModeSwitch;
+    @UiField FlexTable standardLibraryTable;
+    @UiField FlexTable userLibraryTable;
+    @UiField StrategySelection strategySelection;
+    @UiField ListBox languageSelection;
+    @UiField ListBox shareSelection;
+
     private EventBus eventBus;
+    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
+// shareLaTeXDB ShareLinkDB are implemented in Presenter
+
+
+    /**
+     * Created the Sidebar.
+     * In addition the add and remove library entry buttons are generated and added to the bar.
+     */
+    public @UiConstructor SidebarView(EventBus eventBus) {
+        this.eventBus = eventBus;
+        initWidget(ourUiBinder.createAndBindUi(this));
+        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
+        deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+    }
 
     @Override
     public void closeAddLibraryItemDialog() {
@@ -41,33 +68,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @Override
     public void removeStandardLibraryItem(String name) {
 
-    }
-
-    interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
-    }
-
-    private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    @UiField TextBox stepNumber;
-    @UiField ToggleButton nightModeSwitch;
-    @UiField FlexTable standardLibraryTable;
-    @UiField FlexTable userLibraryTable;
-    @UiField StrategySelection strategySelection;
-    @UiField ListBox languageSelection;
-    @UiField ListBox shareSelection;
-    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
-    private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
-// shareLaTeXDB ShareLinkDB are implemented in Presenter
-
-
-    /**
-     * Created the Sidebar.
-     * In addition the add and remove library entry buttons are generated and added to the bar.
-     */
-    public @UiConstructor SidebarView(EventBus eventBus) {
-        this.eventBus = eventBus;
-        initWidget(ourUiBinder.createAndBindUi(this));
-        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
     }
 
     /**

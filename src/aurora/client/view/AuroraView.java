@@ -22,35 +22,18 @@ import com.google.gwt.user.client.ui.Widget;
  * TODO this doc is incomplete.
  */
 public class AuroraView extends Composite implements AuroraDisplay {
-
-    private final EventBus eventBus;
-
-    private final ShareDialogBox latexDialogBox;
-
-    private final ShareDialogBox shortLinkDialogBox;
-
-    @Override
-    public void displayLatexSnippetDialog(String latexCode) {
-
-    }
-
-    @Override
-    public void displayShortLinkDialog(String shortLink) {
-
-    }
-
-    @Override
-    public void setStepNumber(int stepNumber) {
-
-    }
-
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
-
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
+
     @UiField(provided=true)
     EditorView editor;
     @UiField(provided=true)
     SidebarView sidebar;
+
+    private final EventBus eventBus;
+    private State currentState;
+    private final ShareDialogBox latexDialogBox;
+    private final ShareDialogBox shortLinkDialogBox;
 
     public @UiConstructor AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
@@ -67,7 +50,28 @@ public class AuroraView extends Composite implements AuroraDisplay {
         // });
     }
 
-    private State currentState;
+    @Override
+    public void displayLatexSnippetDialog(String latexCode) {
+
+    }
+
+    @Override
+    public void displayShortLinkDialog(String shortLink) {
+
+    }
+
+    @Override
+    public void setStepNumber(int stepNumber) {
+
+    }
+
+    public EditorDisplay getEditor() {
+        return editor;
+    }
+
+    public SidebarDisplay getSidebar() {
+        return sidebar;
+    }
 
     private void bind() {
         // on click share latex (ist in sidebar):
@@ -83,14 +87,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         // on step number change IN EDITOR:
         //      sidebar.stepnumber = ...;
         //      eventBus.fireevent(step chagned....)
-    }
-
-    public EditorDisplay getEditor() {
-        return editor;
-    }
-
-    public SidebarDisplay getSidebar() {
-        return sidebar;
     }
 
     private class Default implements State {

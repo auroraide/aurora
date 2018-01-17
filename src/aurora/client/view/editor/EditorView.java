@@ -19,7 +19,51 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
  * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
  */
 public class EditorView extends Composite implements EditorDisplay {
+    interface EditorUiBinder extends UiBinder<Widget, EditorView> {}
+    private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
+
+    // Input Field
+    @UiField FlexTable inputFieldTable;
+    private Button inputOptionButton;
+    private CodeMirrorPanel inputCodeMirror;
+    @UiField ActionBar actionBar;
+
+    // Step Field
+    @UiField FlexTable stepFieldTable;
+
+    // Output Field
+    @UiField FlexTable outputFieldTable;
+
     private EventBus eventBus;
+    private Button outputOptionButton;
+    private CodeMirrorPanel outputCodeMirror;
+
+
+    /**
+     * Creates the EditorView contents and adds them to their respective parts of the window.
+     * 
+     * @param eventBus
+     */
+    public EditorView(EventBus eventBus) {
+        this.eventBus = eventBus;
+        initWidget(ourUiBinder.createAndBindUi(this));
+        setupInputCodeMirror();
+        setupOutputFieldCodeMirror();
+    }
+
+    private void setupInputCodeMirror() {
+        this.inputOptionButton = new Button();
+        // TODO Set styling for optionButton
+        this.inputCodeMirror = new CodeMirrorPanel();
+        // TODO Add inputCodeMirror and option button to inputFieldContainer
+    }
+
+    private void setupOutputFieldCodeMirror() {
+        this.outputOptionButton = new Button();
+        // TODO Set styling for optionButton
+        this.outputCodeMirror = new CodeMirrorPanel();
+        // TODO Add outputCodeMirror and option button to outputFieldContainer
+    }
 
     @Override
     public void displaySyntaxError(String message) {
@@ -49,49 +93,6 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
 
-    }
-
-    interface EditorUiBinder extends UiBinder<Widget, EditorView> {}
-    private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-    // Input Field
-    @UiField FlexTable inputFieldTable;
-    private Button inputOptionButton;
-    private CodeMirrorPanel inputCodeMirror;
-    @UiField ActionBar actionBar;
-
-    // Step Field
-    @UiField FlexTable stepFieldTable;
-
-    // Output Field
-    @UiField FlexTable outputFieldTable;
-    private Button outputOptionButton;
-    private CodeMirrorPanel outputCodeMirror;
-
-
-    /**
-     * Creates the EditorView contents and adds them to their respective parts of the window.
-     * 
-     * @param eventBus
-     */
-    public EditorView(EventBus eventBus) {
-        this.eventBus = eventBus;
-        initWidget(ourUiBinder.createAndBindUi(this));
-        setupInputCodeMirror();
-        setupOutputFieldCodeMirror();
-    }
-
-    private void setupInputCodeMirror() {
-        this.inputOptionButton = new Button();
-        // TODO Set styling for optionButton
-        this.inputCodeMirror = new CodeMirrorPanel();
-        // TODO Add inputCodeMirror and option button to inputFieldContainer
-    }
-
-    private void setupOutputFieldCodeMirror() {
-        this.outputOptionButton = new Button();
-        // TODO Set styling for optionButton
-        this.outputCodeMirror = new CodeMirrorPanel();
-        // TODO Add outputCodeMirror and option button to outputFieldContainer
     }
 
     /**
