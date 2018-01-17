@@ -20,8 +20,8 @@ public class LibraryTerm extends Term {
     }
 
     @Override
-	public <T> T accept(TermVisitor<T> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
-	}
+    }
 
 }

@@ -14,8 +14,9 @@ public class AddFunctionEvent extends GwtEvent<AddFunctionEventHandler> {
 
     /**
      * Creates a new event with exactly those values. A simple data structure.
-     * @param name Name of the function.
-     * @param lambdaTerm String that is supposed to represent the lambda term.
+     *
+     * @param name        Name of the function.
+     * @param lambdaTerm  String that is supposed to represent the lambda term.
      * @param description User-provided description. Only for the user to understand.
      */
     public AddFunctionEvent(String name, String lambdaTerm, String description) {
@@ -37,6 +38,7 @@ public class AddFunctionEvent extends GwtEvent<AddFunctionEventHandler> {
 
     /**
      * Gets the name of the function, as entered in the text box.
+     *
      * @return Name of the function.
      */
     public String getName() {
@@ -45,6 +47,7 @@ public class AddFunctionEvent extends GwtEvent<AddFunctionEventHandler> {
 
     /**
      * Gets the supposed lambda term as entered by the user. It may still contain syntax errors.
+     *
      * @return Lambda term.
      */
     public String getLambdaTerm() {
@@ -53,6 +56,7 @@ public class AddFunctionEvent extends GwtEvent<AddFunctionEventHandler> {
 
     /**
      * Gets the user-provided description. Only for the user to understand.
+     *
      * @return user-provided description.
      */
     public String getDescription() {

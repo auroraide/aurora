@@ -1,6 +1,11 @@
 package aurora.backend;
 
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.LibraryTerm;
 
 /**
  * Term tree Visitor with generic return type.
@@ -60,8 +65,8 @@ public abstract class TermVisitor<T> {
      * Called with {@link MetaTerm}.
      * The default implementation is to just skip any {@link MetaTerm}.
      *
-     * @param mt
-     * @return
+     * @param mt {@link MetaTerm} that shall be visited.
+     * @return Result or null.
      */
     public T visit(MetaTerm mt) {
         return mt.term.accept(this);

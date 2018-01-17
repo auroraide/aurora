@@ -5,19 +5,24 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
 public class AddLibraryItemDialogBox extends DialogBox {
-    interface AddLibraryItemDialogBoxUiBinder extends UiBinder<Widget, AddLibraryItemDialogBox> {
-    }
-
     private static AddLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(AddLibraryItemDialogBoxUiBinder.class);
-
-    @UiField TextBox nameField;
-    @UiField TextBox functionField;
-    @UiField TextArea descriptionField;
-    @UiField Button addButton;
-    @UiField Button cancelButton;
+    @UiField
+    TextBox nameField;
+    @UiField
+    TextBox functionField;
+    @UiField
+    TextArea descriptionField;
+    @UiField
+    Button addButton;
+    @UiField
+    Button cancelButton;
 
     /**
      * Builds a new AddLibraryItemDialogBox.
@@ -78,6 +83,9 @@ public class AddLibraryItemDialogBox extends DialogBox {
      */
     public Button getAddButton() {
         return addButton;
+    }
+
+    interface AddLibraryItemDialogBoxUiBinder extends UiBinder<Widget, AddLibraryItemDialogBox> {
     }
 
 }

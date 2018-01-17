@@ -25,9 +25,9 @@ public class SyntaxException extends Exception {
      * Construct a {@link SyntaxException} using a message, a line number, a column number, and a {@link Token} offset.
      *
      * @param message Custom message.
-     * @param line Line number within code.
-     * @param column Column number within code.
-     * @param offset Offset of the failing {@link Token}.
+     * @param line    Line number within code.
+     * @param column  Column number within code.
+     * @param offset  Offset of the failing {@link Token}.
      */
     public SyntaxException(String message, int line, int column, int offset) {
         super(message);

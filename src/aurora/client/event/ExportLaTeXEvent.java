@@ -12,6 +12,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
 
     /**
      * Simple constructor.
+     *
      * @param highlightedLambdaExpression The term the user has selected for exporting to LaTeX.
      */
     public ExportLaTeXEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
@@ -30,6 +31,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
 
     /**
      * Gets the term to be exported to LaTeX.
+     *
      * @return The term in the form the View understands.
      */
     public HighlightedLambdaExpression getHighlightableLambdaExpression() {

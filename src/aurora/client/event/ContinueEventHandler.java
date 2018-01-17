@@ -3,7 +3,7 @@ package aurora.client.event;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * Handles a {@link ContinueEventHandler}
+ * Handles a {@link ContinueEventHandler}.
  */
 public interface ContinueEventHandler extends EventHandler {
     /**

@@ -5,7 +5,8 @@ package aurora.backend.encoders.exceptions;
  */
 public class DecodeException extends Exception {
 
-    public DecodeException() {}
+    public DecodeException() {
+    }
 
     public DecodeException(String message) {
         super(message);

@@ -13,7 +13,8 @@ public class ShareEmailEvent extends GwtEvent<ShareEmailEventHandler> {
     /**
      * Constructor with HighlightedLambdaExpression.
      *
-     * @param highlightedLambdaExpression Highlighted lambda term of the selected input, step, or output by the user to be shared.
+     * @param highlightedLambdaExpression Highlighted lambda term of the selected input,
+     *                                    step, or output by the user to be shared.
      */
     public ShareEmailEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.highlightedLambdaExpression = highlightedLambdaExpression;

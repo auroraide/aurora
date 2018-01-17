@@ -3,7 +3,7 @@ package aurora.client.event;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- *  Represents a StepValueChangedEvent.
+ * Represents a StepValueChangedEvent.
  */
 public class StepValueChangedEvent extends GwtEvent<StepValueChangedEventHandler> {
     public static Type<StepValueChangedEventHandler> TYPE = new Type<>();

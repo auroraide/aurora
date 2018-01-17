@@ -11,21 +11,21 @@ public class Abstraction extends Term {
 
     public final Term body;
 
-	public final String name;
+    public final String name;
 
-	/**
-	 * The Abstractions gets initialized with a body and a name.
+    /**
+     * The Abstractions gets initialized with a body and a name.
      * The name has to consist of lower case letters.
-	 */
+     */
     public Abstraction(Term body, String name) {
         this.body = body;
-		this.name = name;
+        this.name = name;
     }
 
 
-	@Override
-	public <T> T accept(TermVisitor<T> visitor) {
+    @Override
+    public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
-	}
+    }
 
 }

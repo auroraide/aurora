@@ -5,53 +5,18 @@ package aurora.backend.parser;
  */
 public class Token {
 
-    public int getLine() {
-        return line;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Token types.
-     */
-    public enum TokenType {
-        T_LAMBDA,
-        T_DOT,
-        T_VARIABLE,
-        T_LEFT_PARENS,
-        T_RIGHT_PARENS,
-        T_FUNCTION,
-        T_NUMBER,
-        T_COMMENT,
-        T_WHITESPACE
-    }
-
     private final TokenType type;
-
     private final String name;
-
     private final int line;
-
     private final int column;
-
     private final int offset;
 
     /**
      * Constructor, that creates a new {@link Token}.
      *
-     * @param type The type of the Token.
-     * @param name The name of the Token.
-     * @param line The line number within the code.
+     * @param type   The type of the Token.
+     * @param name   The name of the Token.
+     * @param line   The line number within the code.
      * @param column The column number within the code.
      * @param offset The offset within the {@link Token} list.
      */
@@ -66,13 +31,29 @@ public class Token {
     /**
      * Constructor with omitted name.
      *
-     * @param type The type of the Token.
-     * @param line The line number within the code.
+     * @param type   The type of the Token.
+     * @param line   The line number within the code.
      * @param column The column number within the code.
      * @param offset The offset within the {@link Token} list.
      */
     public Token(TokenType type, int line, int column, int offset) {
         this(type, "", line, column, offset);
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -101,8 +82,24 @@ public class Token {
                 return "c" + this.name;
             case T_COMMENT:
                 return "#" + this.name;
+            default:
         }
         return this.name;
+    }
+
+    /**
+     * Token types.
+     */
+    public enum TokenType {
+        T_LAMBDA,
+        T_DOT,
+        T_VARIABLE,
+        T_LEFT_PARENS,
+        T_RIGHT_PARENS,
+        T_FUNCTION,
+        T_NUMBER,
+        T_COMMENT,
+        T_WHITESPACE
     }
 
 }

@@ -11,6 +11,7 @@ public class ChurchNumber extends Term {
 
     /**
      * Get the value of the church number as a numerical value and initializes a ChurchNumber.
+     *
      * @param value The value as Integer.
      */
     public ChurchNumber(int value) {
@@ -18,9 +19,9 @@ public class ChurchNumber extends Term {
     }
 
     @Override
-	public <T> T accept(TermVisitor<T> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
-	}
+    }
 
     /**
      * This method takes the numerical number and returns the number as a lambda expression.

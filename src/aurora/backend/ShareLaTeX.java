@@ -8,6 +8,7 @@ public class ShareLaTeX {
 
     /**
      * Traverse the HighlightableLambdaExpression.
+     *
      * @param hle The highlighted lambda expression.
      */
     public ShareLaTeX(HighlightedLambdaExpression hle) {

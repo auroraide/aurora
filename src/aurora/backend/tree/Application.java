@@ -8,13 +8,14 @@ import aurora.backend.TermVisitor;
  */
 public class Application extends Term {
 
-	public final Term left;
+    public final Term left;
 
     public final Term right;
 
     /**
      * Initialized with a right and a left Term.
-     * @param left The left Term.
+     *
+     * @param left  The left Term.
      * @param right The right Term.
      */
     public Application(Term left, Term right) {
@@ -23,8 +24,8 @@ public class Application extends Term {
     }
 
     @Override
-	public <T> T accept(TermVisitor<T> visitor) {
-		return visitor.visit(this);
-	}
+    public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
 
 }

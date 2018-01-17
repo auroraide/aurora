@@ -12,6 +12,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
     /**
      * Simple constructor.
+     *
      * @param highlightedLambdaExpression The term (input, step, or output) the user has selected to be shared.
      */
     public ShareLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
@@ -30,6 +31,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
     /**
      * Gets term the user selected for sharing.
+     *
      * @return Selected term.
      */
     public HighlightedLambdaExpression getHighlightableLambdaExpression() {

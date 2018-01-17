@@ -13,14 +13,13 @@ import com.google.gwt.user.client.ui.Widget;
  * In addition a step Button is provided.
  */
 public class ActionBar extends Composite {
-    interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
-    }
-
     private static ActionBarUiBinder ourUiBinder = GWT.create(ActionBarUiBinder.class);
-
-    @UiField Button runPauseContinueButton;
-    @UiField Button resetButton;
-    @UiField Button stepButton;
+    @UiField
+    Button runPauseContinueButton;
+    @UiField
+    Button resetButton;
+    @UiField
+    Button stepButton;
 
     /**
      * Generates a new ActionBar.
@@ -55,5 +54,8 @@ public class ActionBar extends Composite {
      */
     public Button getStepButton() {
         return stepButton;
+    }
+
+    interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
     }
 }

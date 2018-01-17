@@ -1,6 +1,5 @@
 package aurora.client.event;
 
-import aurora.backend.RedexPath;
 import aurora.backend.parser.Token;
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -16,7 +15,7 @@ public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
      *
      * @param token The token of the redex the user clicked on.
      */
-    public RedexClickedEvent( Token token) {
+    public RedexClickedEvent(Token token) {
         this.token = token;
     }
 

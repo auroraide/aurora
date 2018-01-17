@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 /**
  * Responsible for intitalising the Aurora Web Application.
  *
- * Entry point classes define <code>onModuleLoad()</code>.
+ * <p>Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Aurora implements EntryPoint {
 

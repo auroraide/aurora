@@ -1,8 +1,6 @@
 package aurora.backend.parser;
 
-import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.Term;
 
 import java.util.List;
 

@@ -13,6 +13,7 @@ public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
 
     /**
      * Simple constructor.
+     *
      * @param result The result.
      */
     public ExportLaTeXAllEvent(List<HighlightedLambdaExpression> inputAndSteps, HighlightedLambdaExpression result) {
@@ -36,10 +37,11 @@ public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
 
     /**
      * Can be null if no result has been calculated (yet).
+     *
      * @return Return the current HighlightedLambdaExpression
      */
     public HighlightedLambdaExpression getResult() {
-        return  result;
+        return result;
     }
 }
 
