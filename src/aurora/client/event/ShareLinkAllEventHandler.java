@@ -9,7 +9,7 @@ public interface ShareLinkAllEventHandler extends EventHandler {
     /**
      * Called when the user wants to share a link.
      *
-     * @param shareLinkAllEvent
+     * @param event The event.
      */
-    void onShareLinkAll(ShareLinkAllEvent shareLinkAllEvent);
+    void onShareLinkAll(ShareLinkAllEvent event);
 }

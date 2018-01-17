@@ -1,34 +1,30 @@
 package aurora.client.view.popup;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 
 public class InfoDialogBox extends DialogBox {
-    interface InfoDialogBoxUiBinder extends UiBinder<Widget, InfoDialogBox> {
-    }
-
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
+    @UiField
+    Label titleLabel;
+    @UiField
+    Label descriptionLabel;
 
-
-
-    @UiField Label titleLabel;
-    @UiField Label descriptionLabel;
-    
     /**
      * Build a new InfoDialogBox.
      * Enables displaying different kind of information to the user.
      */
     public InfoDialogBox() {
-       setWidget(uiBinder.createAndBindUi(this));
-       setAutoHideEnabled(true);
-       setText("TITLETEXT");
-       setGlassEnabled(true);
-       center();
-       hide();
+        setWidget(uiBinder.createAndBindUi(this));
+        setAutoHideEnabled(true);
+        setText("TITLETEXT");
+        setGlassEnabled(true);
+        center();
+        hide();
     }
 
     /**
@@ -47,6 +43,9 @@ public class InfoDialogBox extends DialogBox {
      */
     public void setDescription(String description) {
         this.descriptionLabel.setText(description);
+    }
+
+    interface InfoDialogBoxUiBinder extends UiBinder<Widget, InfoDialogBox> {
     }
 
 }

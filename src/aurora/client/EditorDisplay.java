@@ -3,17 +3,13 @@ package aurora.client;
 import aurora.backend.HighlightedLambdaExpression;
 
 /**
- * <p>
- *     The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
- *     <code>EditorDisplay</code> interface.
- * </p>
+ * The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
+ * <code>EditorDisplay</code> interface.
  *
- * <p>
- *     <code>EditorDisplay</code> defines the interface, that the {@link aurora.client.presenter.EditorPresenter}
- *     uses to communicate with the view. <br>
- *     A view implementing this interface, therefore provides necessary methods for the above mentioned
- *     communication purposes regarding the presenter.
- * </p>
+ * <code>EditorDisplay</code> defines the interface, that the {@link aurora.client.presenter.EditorPresenter}
+ * uses to communicate with the view.
+ * A view implementing this interface, therefore provides necessary methods for the above mentioned
+ * communication purposes regarding the presenter.
  */
 public interface EditorDisplay {
 
@@ -30,6 +26,13 @@ public interface EditorDisplay {
      * @return User input. Unparsed lambda term.
      */
     String getInput();
+
+    /**
+     * Sets the content of the code editor, replacing it entirely.
+     *
+     * @param highlightedLambdaExpression term with syntax highlighting.
+     */
+    void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 
     /**
      * Appends a new step to the current step list.
@@ -49,12 +52,5 @@ public interface EditorDisplay {
      * @param highlightedLambdaExpression Result to display.
      */
     void displayResult(HighlightedLambdaExpression highlightedLambdaExpression);
-
-    /**
-     * Sets the content of the code editor, replacing it entirely.
-     *
-     * @param highlightedLambdaExpression term with syntax highlighting.
-     */
-    void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 }
 

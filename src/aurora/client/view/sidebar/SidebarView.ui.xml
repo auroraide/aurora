@@ -1,7 +1,5 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:library="urn:import:aurora.client.view.sidebar.components.library"
-             xmlns:strategy="urn:import:aurora.client.view.sidebar.components.strategy"
              xmlns:strategy2="urn:import:aurora.client.view.sidebar.strategy">
 
     <ui:style>
@@ -49,7 +47,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="standardLibraryTable" />
+                            <g:FlexTable ui:field="standardLibraryTable"/>
 
                         </g:stack>
 
@@ -64,7 +62,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="userLibraryTable" />
+                            <g:FlexTable ui:field="userLibraryTable"/>
                         </g:stack>
                     </g:StackLayoutPanel>
                 </g:center>
@@ -76,22 +74,22 @@
             <g:HorizontalPanel>
                 <!-- Strategy Selection -->
                 <strategy2:StrategySelection ui:field="strategySelection"/>
-                
+
                 <!-- Night Mode -->
                 <g:FlowPanel>
                     <g:Label>Night Mode</g:Label>
                     <g:ToggleButton ui:field="nightModeSwitch">On</g:ToggleButton>
                 </g:FlowPanel>
-                
+
                 <!--Share and Language Button -->
                 <g:FlowPanel>
                     <g:Button>Share</g:Button>
                     <g:Button>Language</g:Button>
                 </g:FlowPanel>
-                
-                <g:ListBox ui:field="shareSelection" />
+
+                <g:ListBox ui:field="shareSelection"/>
                 <!-- Presenter rendert -->
-                <g:ListBox ui:field="languageSelection" />
+                <g:ListBox ui:field="languageSelection"/>
                 <!-- language selection should load the list with available languages from properties files i18n -->
             </g:HorizontalPanel>
         </g:south>

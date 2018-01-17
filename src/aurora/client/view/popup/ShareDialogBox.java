@@ -5,16 +5,19 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.Widget;
 
 public class ShareDialogBox extends DialogBox {
-    interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {
-    }
-
     private static ShareDialogBoxUiBinder ourUiBinder = GWT.create(ShareDialogBoxUiBinder.class);
-    @UiField TextArea shareText;
-    @UiField Button copyToClipboardButton;
-    @UiField Button cancelButton;
+    @UiField
+    TextArea shareText;
+    @UiField
+    Button copyToClipboardButton;
+    @UiField
+    Button cancelButton;
 
     /**
      * Builds a new ShareDialogBox.
@@ -38,7 +41,7 @@ public class ShareDialogBox extends DialogBox {
     }
 
     /**
-     * Getter for copyToClipboardButton
+     * Getter for copyToClipboardButton.
      *
      * @return The copyToClipBoard {@link Button}.
      */
@@ -53,6 +56,9 @@ public class ShareDialogBox extends DialogBox {
      */
     public void setShareText(String shareText) {
         this.shareText.setText(shareText);
+    }
+
+    interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {
     }
 
 }

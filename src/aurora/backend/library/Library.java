@@ -27,6 +27,67 @@ public class Library implements Iterable<Library.LibraryItem> {
     }
 
     /**
+     * Get the LibraryItem by name.
+     *
+     * @param name The name of the library item.
+     * @return The LibraryItem associated with the given name.
+     * @throws LibraryItemNotFoundException If there is no such entry in the library.
+     */
+    public LibraryItem getItem(String name) throws LibraryItemNotFoundException {
+        return this.map.get(name);
+    }
+
+    /**
+     * Create a new LibraryItem and add it to the Library.
+     *
+     * @param name        The name of the Library item to be added.
+     * @param description The optional description of the Library item to be added.
+     * @param term        The term of the Library item to be added.
+     */
+    public void define(String name, String description, Term term) {
+        this.define(new LibraryItem(name, description, term));
+    }
+
+    /**
+     * Add a {@link LibraryItem} to the Library.
+     *
+     * @param item The {@link LibraryItem} instance to be added.
+     */
+    public void define(LibraryItem item) {
+        this.map.put(item.name, item);
+    }
+
+    /**
+     * Add the content of whole other Library to this instance.
+     *
+     * @param library The {@link Library} instance to be added.
+     */
+    public void define(Library library) {
+        for (Map.Entry<String, LibraryItem> entry : library.map.entrySet()) {
+            this.define(entry.getValue());
+        }
+    }
+
+    /**
+     * Remove a LibraryItem from the Library by name.
+     *
+     * @param name Name of the LibraryItem that should be removed.
+     */
+    public void remove(String name) {
+
+    }
+
+    /**
+     * Check if a given LibraryItem exists in the Library.
+     *
+     * @param name The name of the LibraryItem.
+     * @return Whether the LibraryItem exists in the Library.
+     */
+    public boolean exists(String name) {
+        return false;
+    }
+
+    /**
      * A single item (i.e., lambda term definition) defined in the library.
      */
     public class LibraryItem {
@@ -77,66 +138,5 @@ public class Library implements Iterable<Library.LibraryItem> {
             return this.term;
         }
 
-    }
-
-    /**
-     * Get the LibraryItem by name.
-     *
-     * @param name The name of the library item.
-     * @return The LibraryItem associated with the given name.
-     * @throws LibraryItemNotFoundException If there is no such entry in the library.
-     */
-    public LibraryItem getItem(String name) throws LibraryItemNotFoundException {
-        return this.map.get(name);
-    }
-
-    /**
-     * Create a new LibraryItem and add it to the Library.
-     *
-     * @param name The name of the Library item to be added.
-     * @param description The optional description of the Library item to be added.
-     * @param term The term of the Library item to be added.
-     */
-    public void define(String name, String description, Term term) {
-        this.define(new LibraryItem(name, description, term));
-    }
-
-    /**
-     * Add a LibraryItem to the Library.
-     *
-     * @param item The LibraryItem instance to be added.
-     */
-    public void define(LibraryItem item) {
-        this.map.put(item.name, item);
-    }
-
-    /**
-     * Add the content of whole other Library to this instance.
-     *
-     * @param library
-     */
-    public void define(Library library) {
-        for (Map.Entry<String, LibraryItem> entry : library.map.entrySet()) {
-            this.define(entry.getValue());
-        }
-    }
-
-    /**
-     * Remove a LibraryItem from the Library by name.
-     *
-     * @param name Name of the LibraryItem that should be removed.
-     */
-    public void remove(String name) {
-
-    }
-
-    /**
-     * Check if a given LibraryItem exists in the Library.
-     *
-     * @param name The name of the LibraryItem.
-     * @return Whether the LibraryItem exists in the Library.
-     */
-    public boolean exists(String name) {
-        return false;
     }
 }

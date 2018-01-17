@@ -11,7 +11,7 @@
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-        <g:Button ui:field="toPastebinButton">To Pastebin</g:Button>
-    </g:HorizontalPanel>
+            <g:Button ui:field="toPastebinButton">To Pastebin</g:Button>
+        </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>

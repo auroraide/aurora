@@ -22,12 +22,13 @@ public class SemanticException extends Exception {
     }
 
     /**
-     * Construct a {@link SemanticException} using a message, a line number, a column number, and a {@link Token} offset.
+     * Construct a {@link SemanticException} using a message, a line number,
+     * a column number, and a {@link Token} offset.
      *
      * @param message Custom message.
-     * @param line Line number within code where the semantic error occurred.
-     * @param column Column number within code where the semantic error occurred.
-     * @param offset Offset of the failing {@link Token} within {@link Token} stream where the semantic error occurred.
+     * @param line    Line number within code where the semantic error occurred.
+     * @param column  Column number within code where the semantic error occurred.
+     * @param offset  Offset of the failing {@link Token} within {@link Token} stream where the semantic error occurred.
      */
     public SemanticException(String message, int line, int column, int offset) {
         super(message);

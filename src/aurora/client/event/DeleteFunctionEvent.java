@@ -10,6 +10,15 @@ public class DeleteFunctionEvent extends GwtEvent<DeleteFunctionEventHandler> {
 
     private final String functionName;
 
+    /**
+     * Creates a <code>DeleteFunctionEvent</code> with a function name.
+     *
+     * @param functionName The function name.
+     */
+    public DeleteFunctionEvent(String functionName) {
+        this.functionName = functionName;
+    }
+
     @Override
     public Type<DeleteFunctionEventHandler> getAssociatedType() {
         return TYPE;
@@ -26,14 +35,5 @@ public class DeleteFunctionEvent extends GwtEvent<DeleteFunctionEventHandler> {
      */
     public String getFunctionName() {
         return functionName;
-    }
-
-    /**
-     * Creates a <code>DeleteFunctionEvent</code> with a function name.
-     *
-     * @param functionName The function name.
-     */
-    public DeleteFunctionEvent(String functionName) {
-        this.functionName = functionName;
     }
 }

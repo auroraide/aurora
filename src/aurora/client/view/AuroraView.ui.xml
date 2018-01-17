@@ -31,7 +31,9 @@
         <!-- Aurora Tab -->
         <g:tab>
 
-            <g:header size='7'><b>Aurora</b></g:header>
+            <g:header size='7'>
+                <b>Aurora</b>
+            </g:header>
             <g:DockLayoutPanel unit="EM">
 
                 <g:west size='20'>
@@ -46,7 +48,9 @@
 
         <!-- TUTORIAL Tab-->
         <g:tab>
-            <g:header size="7"><b>TUTORIAL</b></g:header>
+            <g:header size="7">
+                <b>TUTORIAL</b>
+            </g:header>
             <g:HTMLPanel>
                 <div>Ich bin ein TUTORIAL!</div>
             </g:HTMLPanel>

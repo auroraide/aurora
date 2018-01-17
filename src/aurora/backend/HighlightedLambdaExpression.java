@@ -14,18 +14,21 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
 
     /**
      * Gets the redex resulting from the previous computation. Or null.
+     *
      * @return Redex.
      */
     Redex getPreviousRedex();
 
     /**
      * Gets the redex that will be executed in the next step.
+     *
      * @return
      */
     Redex getNextRedex();
 
     /**
      * Get all possible redexes.
+     *
      * @return
      */
     List<Redex> getAllRedexes();
@@ -38,26 +41,27 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
         /**
          * The very first token of the Redex. Usually a lambda.
          */
-        final public int startToken;
+        public final int startToken;
         /**
          * The first token of the right side of the application.
          */
-        final public int middleToken;
+        public final int middleToken;
         /**
          * The last token of the right side of the application.
          */
-        final public int lastToken;
+        public final int lastToken;
         /**
          * Associated path to this redex in the specific tree this Redex belongs to.
          */
-        final public RedexPath redex;
+        public final RedexPath redex;
 
         /**
          * Creates a new Redex.
-         * @param startToken Start.
+         *
+         * @param startToken  Start.
          * @param middleToken Middle.
-         * @param lastToken End.
-         * @param redex Redex path.
+         * @param lastToken   End.
+         * @param redex       Redex path.
          */
         public Redex(int startToken, int middleToken, int lastToken, RedexPath redex) {
             this.startToken = startToken;

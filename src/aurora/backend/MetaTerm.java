@@ -22,7 +22,7 @@ public class MetaTerm extends Term {
     /**
      * Constructor that initializes a {@link MetaTerm} with an inner {@link Term} and an associated {@link Token}.
      *
-     * @param term The inner {@link Term}.
+     * @param term  The inner {@link Term}.
      * @param token The associated {@link Token}.
      */
     public MetaTerm(Term term, Token token) {

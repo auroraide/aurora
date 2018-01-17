@@ -3,7 +3,7 @@ package aurora.client.event;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * Handles an {@link ExportLaTeXAllEvent}
+ * Handles an {@link ExportLaTeXAllEvent}.
  */
 public interface ExportLaTeXAllEventHandler extends EventHandler {
     /**

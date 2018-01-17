@@ -17,7 +17,7 @@ public class ShareEmailAllEvent extends GwtEvent<ShareEmailAllEventHandler> {
      * Constructor with a result of HighlightedLambdaExpression and a list with input and steps of
      * HighlightedLambdaExpression.
      *
-     * @param result The result.
+     * @param result        The result.
      * @param inputAndSteps The inputAndSteps.
      */
     public ShareEmailAllEvent(HighlightedLambdaExpression result, List<HighlightedLambdaExpression> inputAndSteps) {

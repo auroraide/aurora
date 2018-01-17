@@ -5,7 +5,8 @@ package aurora.backend.library.exceptions;
  */
 public class LibraryItemNotFoundException extends Exception {
 
-    public LibraryItemNotFoundException() {}
+    public LibraryItemNotFoundException() {
+    }
 
     public LibraryItemNotFoundException(String message) {
         super(message);

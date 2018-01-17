@@ -19,7 +19,35 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
  * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
  */
 public class EditorView extends Composite implements EditorDisplay {
+    private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
+    // Input Field
+    @UiField
+    FlexTable inputFieldTable;
+    @UiField
+    ActionBar actionBar;
+    // Step Field
+    @UiField
+    FlexTable stepFieldTable;
+    // Output Field
+    @UiField
+    FlexTable outputFieldTable;
     private EventBus eventBus;
+    private Button inputOptionButton;
+    private CodeMirrorPanel inputCodeMirror;
+    private Button outputOptionButton;
+    private CodeMirrorPanel outputCodeMirror;
+
+    /**
+     * Creates the EditorView contents and adds them to their respective parts of the window.
+     *
+     * @param eventBus Current instance of the {@link EventBus}.
+     */
+    public EditorView(EventBus eventBus) {
+        this.eventBus = eventBus;
+        initWidget(ourUiBinder.createAndBindUi(this));
+        setupInputCodeMirror();
+        setupOutputFieldCodeMirror();
+    }
 
     @Override
     public void displaySyntaxError(String message) {
@@ -29,6 +57,11 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public String getInput() {
         return null;
+    }
+
+    @Override
+    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
+
     }
 
     @Override
@@ -44,40 +77,6 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
 
-    }
-
-    @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    interface EditorUiBinder extends UiBinder<Widget, EditorView> {}
-    private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
-    // Input Field
-    @UiField FlexTable inputFieldTable;
-    private Button inputOptionButton;
-    private CodeMirrorPanel inputCodeMirror;
-    @UiField ActionBar actionBar;
-
-    // Step Field
-    @UiField FlexTable stepFieldTable;
-
-    // Output Field
-    @UiField FlexTable outputFieldTable;
-    private Button outputOptionButton;
-    private CodeMirrorPanel outputCodeMirror;
-
-
-    /**
-     * Creates the EditorView contents and adds them to their respective parts of the window.
-     * 
-     * @param eventBus
-     */
-    public EditorView(EventBus eventBus) {
-        this.eventBus = eventBus;
-        initWidget(ourUiBinder.createAndBindUi(this));
-        setupInputCodeMirror();
-        setupOutputFieldCodeMirror();
     }
 
     private void setupInputCodeMirror() {
@@ -146,6 +145,9 @@ public class EditorView extends Composite implements EditorDisplay {
      */
     public ActionBar getActionBar() {
         return actionBar;
+    }
+
+    interface EditorUiBinder extends UiBinder<Widget, EditorView> {
     }
 
 }

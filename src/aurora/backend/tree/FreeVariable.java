@@ -12,6 +12,7 @@ public class FreeVariable extends Term {
 
     /**
      * Initialized with a name.
+     *
      * @param name The name of the variable.
      */
     public FreeVariable(String name) {
@@ -19,8 +20,8 @@ public class FreeVariable extends Term {
     }
 
     @Override
-	public <T> T accept(TermVisitor<T> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
-	}
+    }
 
 }

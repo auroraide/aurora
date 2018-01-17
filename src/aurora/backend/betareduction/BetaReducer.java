@@ -2,11 +2,11 @@ package aurora.backend.betareduction;
 
 import aurora.backend.RedexPath;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
-import aurora.backend.tree.Application;
-import aurora.backend.tree.Term;
 import aurora.backend.betareduction.visitors.RedexFinderVisitor;
 import aurora.backend.betareduction.visitors.ReplaceVisitor;
 import aurora.backend.betareduction.visitors.SubstitutionVisitor;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.Term;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ public class BetaReducer {
 
     /**
      * The constructor gets a strategy that is used for the reduction.
+     *
      * @param strategy The chosen reduction strategy.
      */
     public BetaReducer(ReductionStrategy strategy) {
@@ -24,12 +25,15 @@ public class BetaReducer {
 
     /**
      * This method performs one beta reduction.
+     *
      * @param term The Term that will get reduced.
      * @return null if not reducible, otherwise reduced Term.
      */
     public Term reduce(Term term) {
         RedexPath path = strategy.getRedex(term);
-        if (path == null) return null; // there is no reducible redex left, the given term is our result
+        if (path == null) {
+            return null; // there is no reducible redex left, the given term is our result
+        }
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
@@ -39,10 +43,11 @@ public class BetaReducer {
     }
 
 
-
     // only for reference / example usage
     private Term reduceN(Term term, int n) {
-        if (n <= 0) throw new IllegalArgumentException();
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
         for (; n > 0; n--) {
             term = reduce(term);
             // Presenter will read term here and display it.
@@ -55,7 +60,6 @@ public class BetaReducer {
         term.accept(redexFinderVisitor);
         return redexFinderVisitor.getResult();
     }
-
 
 
 }

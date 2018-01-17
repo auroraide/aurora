@@ -31,6 +31,7 @@ public class EvaluationStrategyChangedEvent extends GwtEvent<EvaluationStrategyC
 
     /**
      * Gets the evaluation strategy type selected by the user.
+     *
      * @return Strategy.
      */
     public StrategyType getStrategyType() {

@@ -1,7 +1,13 @@
 package aurora.backend;
 
 import aurora.backend.parser.Token;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Term;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,8 +21,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     private final List<Token> tokens;
 
     /**
-	 * Standard constructor that initializes with an empty {@link Token} list.
-	 */
+     * Standard constructor that initializes with an empty {@link Token} list.
+     */
     public HighlightableLambdaExpression() {
         this.tokens = new LinkedList<>();
     }
@@ -62,17 +68,23 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     /**
+     * Get {@link RedexPath} from {@link Token} instance.
      *
-     * @param token
-     * @return
+     * @param token The {@link Token} object that shall be looked up.
+     * @return {@link RedexPath} pointing to the given {@link Token}.
      */
     public RedexPath getRedexPathFromToken(Token token) {
         return null;
     }
 
-    public void highlightRedex(Redex redex) {}
-    public void highlightPreviousRedex(Redex redex) {}
-    public void highlightNextRedex(Redex redex) {}
+    public void highlightRedex(Redex redex) {
+    }
+
+    public void highlightPreviousRedex(Redex redex) {
+    }
+
+    public void highlightNextRedex(Redex redex) {
+    }
 
     @Override
     public String toString() {
