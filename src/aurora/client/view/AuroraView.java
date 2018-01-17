@@ -22,36 +22,35 @@ import com.google.gwt.user.client.ui.Widget;
  * TODO this doc is incomplete.
  */
 public class AuroraView extends Composite implements AuroraDisplay {
-
+    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {}
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    private final EventBus eventBus;
+    @UiField(provided=true)
+    EditorView editor;
+    @UiField(provided=true)
+    SidebarView sidebar;
 
+    private final EventBus eventBus;
+    private State currentState;
     private final ShareDialogBox latexDialogBox;
 
     private final ShareDialogBox shortLinkDialogBox;
-
-    @UiField(provided = true)
-    private EditorView editor;
-
-    @UiField(provided = true)
-    private SidebarView sidebar;
-
-    private State currentState;
 
     /**
      * Constructor.
      *
      * @param eventBus Instance of current {@link EventBus}.
      */
-    @UiConstructor
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
+        sidebar = new SidebarView(eventBus);
+        editor = new EditorView(eventBus);
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
 
         currentState = new Default();
+
 
         // editor.getActionBar().onRunButtonClick(e -> {
         //     currentState = currentState.run();
@@ -73,6 +72,16 @@ public class AuroraView extends Composite implements AuroraDisplay {
     public void setStepNumber(int stepNumber) {
 
     }
+
+    public EditorDisplay getEditor() {
+        return editor;
+    }
+
+    public SidebarDisplay getSidebar() {
+        return sidebar;
+    }
+
+    private State currentState;
 
     private void bind() {
         // on click share latex (ist in sidebar):
@@ -98,58 +107,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return sidebar;
     }
 
-    interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
-    }
-
-    private interface State {
-        State run();
-
-        State pause();
-
-        State resume();
-
-        State reset();
-
-        State step();
-
-        //        default State run() { throw new IllegalStateException(); }
-        //        default State pause() { throw new IllegalStateException(); }
-        //        default State resume() { throw new IllegalStateException(); }
-        //        default State reset() { throw new IllegalStateException(); }
-        //        default State step() { throw new IllegalStateException(); }
-    }
-
-    private static class Paused implements State {
-        @Override
-        public State run() {
-            return null;
-        }
-
-        @Override
-        public State pause() {
-            return null;
-        }
-
-        @Override
-        public State resume() {
-            return null;
-        }
-
-        @Override
-        public State reset() {
-            return null;
-        }
-
-        @Override
-        public State step() {
-            return null;
-        }
-    }
-
     private class Default implements State {
-        public State run() {
-            return new Running();
-        }
+        public State run() { return new Running(); }
 
         @Override
         public State pause() {
@@ -173,6 +132,33 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private class Finished implements State {
+        @Override
+        public State run() {
+            return null;
+        }
+
+        @Override
+        public State pause() {
+            return null;
+        }
+
+        @Override
+        public State resume() {
+            return null;
+        }
+
+        @Override
+        public State reset() {
+            return null;
+        }
+
+        @Override
+        public State step() {
+            return null;
+        }
+    }
+
+    private static class Paused implements State {
         @Override
         public State run() {
             return null;
@@ -225,5 +211,19 @@ public class AuroraView extends Composite implements AuroraDisplay {
         public State step() {
             return null;
         }
+    }
+
+    private interface State {
+        State run();
+        State pause();
+        State resume();
+        State reset();
+        State step();
+
+    //        default State run() { throw new IllegalStateException(); }
+    //        default State pause() { throw new IllegalStateException(); }
+    //        default State resume() { throw new IllegalStateException(); }
+    //        default State reset() { throw new IllegalStateException(); }
+    //        default State step() { throw new IllegalStateException(); }
     }
 }
