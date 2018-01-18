@@ -32,5 +32,5 @@ public class ChurchNumber extends Term {
     public Abstraction getAbstraction() {
         return null;
     }
-
+    
 }
