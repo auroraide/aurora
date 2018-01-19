@@ -30,7 +30,17 @@ public class ChurchNumber extends Term {
      * @return The number which got converted into an abstraction.
      */
     public Abstraction getAbstraction() {
-        return null;
+        int currentvalue = value;
+        Term x = new BoundVariable(1);
+        // this will fill up x recursively
+        while (currentvalue >= 1) {
+            x = new Application(new BoundVariable(2), x);
+            currentvalue--;
+        }
+
+        Abstraction abs = new Abstraction(
+                new Abstraction(x, "z"),"s"
+        );
+        return abs;
     }
-    
 }
