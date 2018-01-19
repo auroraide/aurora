@@ -54,10 +54,17 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     }
 
     /**
+     * standard getter for the direction
+     * @return the direction to a redex
+     */
+    public LinkedList<Direction> getPath() {
+        return path;
+    }
+    /**
      * Indicate the direction during tree traversal.
      */
     public enum Direction {
-        LEFT, RIGHT
+        LEFT, RIGHT, BODY, ROOT
     }
 
 }
