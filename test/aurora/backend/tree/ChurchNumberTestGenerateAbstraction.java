@@ -1,10 +1,11 @@
 package aurora.backend.tree;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 public class ChurchNumberTestGenerateAbstraction {
 
@@ -18,23 +19,24 @@ public class ChurchNumberTestGenerateAbstraction {
 
     @Test
     public void testzero() {
-       ChurchNumber churchzero = new ChurchNumber(0);
+        ChurchNumber churchzero = new ChurchNumber(0);
         Abstraction a = churchzero.getAbstraction();
         Abstraction abody = (Abstraction)a.body;
         BoundVariable bound = (BoundVariable)abody.body;
         assertEquals(1,bound.index);
 
     }
+
     @Test
     public void testone() throws Exception {
-    ChurchNumber churchone = new ChurchNumber(1);
-    Abstraction a = churchone.getAbstraction();
-    Abstraction abody = (Abstraction)a.body;
-    Application app = (Application)abody.body;
-    BoundVariable left = (BoundVariable)app.left;
-    BoundVariable right = (BoundVariable)app.right;
-    assertEquals(2,left.index);
-    assertEquals(1,right.index);
+        ChurchNumber churchone = new ChurchNumber(1);
+        Abstraction a = churchone.getAbstraction();
+        Abstraction abody = (Abstraction)a.body;
+        Application app = (Application)abody.body;
+        BoundVariable left = (BoundVariable)app.left;
+        BoundVariable right = (BoundVariable)app.right;
+        assertEquals(2,left.index);
+        assertEquals(1,right.index);
     }
 
     @Test
@@ -51,6 +53,7 @@ public class ChurchNumberTestGenerateAbstraction {
         assertEquals(2,apprightleft.index);
         assertEquals(1,apprightright.index);
     }
+
     @Test
     public void testthree() throws Exception {
         ChurchNumber churchthree = new ChurchNumber(3);
