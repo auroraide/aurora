@@ -1,15 +1,26 @@
-image: blang/latex
+image: ubuntu:xenial
 
 before_script:
-  - apt-get update && apt-get install -y build-essential plantuml openjdk-8-jdk ant wget unzip
+  - apt-get update && apt-get install -y build-essential openjdk-8-jdk ant wget unzip
   - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
-  - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
+  - (cd lib && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
-entwurfsdokument:
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
   script:
-    - ant texdoc -lib vendor
-    - (cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex)
-  artifacts:
-    paths:
-      - "docs/entwurf/tex/Entwurf.pdf"
-      - "docs/entwurf/tex/javadoc.tex"
+    - ant build
+
+test:
+  stage: test
+  script:
+    - ant cs
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying..."
