@@ -142,8 +142,8 @@
           target: clean
          ================================= -->
     <target name="clean" description="Cleans this project">
-        <delete dir="{war.dir}/WEB-INF/classes" failonerror="false"/>
-        <delete dir="{war.dir}/aurora" failonerror="false"/>
+        <delete dir="${war.dir}/WEB-INF/classes" failonerror="false"/>
+        <delete dir="${war.dir}/aurora" failonerror="false"/>
         <delete dir="${build.dir}" failonerror="false"/>
         <delete dir="${lib.dir}" failonerror="false"/>
         <delete dir="${html.dir}" failonerror="false"/>
