@@ -1,8 +1,9 @@
 image: ubuntu:xenial
 
 before_script:
-  - apt-get update && apt-get install -y build-essential openjdk-8-jdk ant ivy wget unzip
+  - apt-get update && apt-get install -y build-essential openjdk-8-jdk ant wget unzip
   - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
+  - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
 stages:
   - build
@@ -12,12 +13,12 @@ stages:
 build:
   stage: build
   script:
-    - ant build
+    - ant build -lib vendor
 
 test:
   stage: test
   script:
-    - ant cs
+    - ant cs -lib vendor
 
 deploy:
   stage: deploy
