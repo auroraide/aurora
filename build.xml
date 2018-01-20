@@ -35,7 +35,7 @@
 
         <!-- war -->
         <pathelement location="war/WEB-INF/classes"/>
-        <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+        <fileset dir="war/WEB-INF/lib" includes="**/*.jar" erroronmissingdir="false"/>
     </path>
 
     <!-- =================================
