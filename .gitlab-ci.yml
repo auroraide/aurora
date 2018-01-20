@@ -18,7 +18,7 @@ build:
 test:
   stage: test
   script:
-    - ant cs -lib vendor
+    - ant test -lib vendor
 
 deploy:
   stage: deploy
