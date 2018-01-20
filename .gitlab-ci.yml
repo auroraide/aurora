@@ -7,7 +7,7 @@ before_script:
 
 entwurfsdokument:
   script:
-    - ant texdoc -lib .
+    - ant texdoc
     - (cd docs/entwurf/tex && latexmk -f -pdf Entwurf.tex)
   artifacts:
     paths:
