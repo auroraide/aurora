@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Provides additional options to the user.
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
  */
-public class SidebarView extends Composite implements SidebarDisplay {
+public class SidebarView extends Composite {
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
@@ -51,31 +51,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-    }
-
-    @Override
-    public void closeAddLibraryItemDialog() {
-
-    }
-
-    @Override
-    public void addUserLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
-    public void addStandardLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
-
     }
 
     /**

@@ -18,7 +18,7 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
  * Three different kinds of code fields are provided.
  * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
  */
-public class EditorView extends Composite implements EditorDisplay {
+public class EditorView extends Composite {
     interface EditorUiBinder extends UiBinder<Widget, EditorView> {
     }
 
@@ -69,36 +69,6 @@ public class EditorView extends Composite implements EditorDisplay {
         // TODO Set styling for optionButton
         this.outputCodeMirror = new CodeMirrorPanel();
         // TODO Add outputCodeMirror and option button to outputFieldContainer
-    }
-
-    @Override
-    public void displaySyntaxError(String message) {
-
-    }
-
-    @Override
-    public String getInput() {
-        return null;
-    }
-
-    @Override
-    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void resetSteps() {
-
-    }
-
-    @Override
-    public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-
     }
 
     /**
