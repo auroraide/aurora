@@ -27,15 +27,17 @@
     </path>
 
     <path id="project.class.path">
-        <!-- gwt -->
-        <fileset dir="${gwt.sdk}" includes="*.jar"/>
+        <path id ="project.class.path.gwt">
+            <fileset dir="${gwt.sdk}" includes="*.jar"/>
+        </path>
 
-        <!-- lib -->
-        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <path id="project.class.path.lib">
+            <fileset dir="${lib.dir}" includes="*.jar"/>
+        </path>
 
-        <!-- war -->
-        <pathelement location="war/WEB-INF/classes"/>
-        <fileset dir="war/WEB-INF/lib" includes="**/*.jar" erroronmissingdir="false"/>
+        <!-- war crap -->
+        <pathelement location="${war.dir}/WEB-INF/classes"/>
+        <fileset dir="${war.dir}/WEB-INF/lib" includes="**/*.jar" erroronmissingdir="false"/>
     </path>
 
     <!-- =================================
@@ -65,9 +67,9 @@
           target: libs
          =================================== -->
     <target name="libs" depends="run" description="Copy libs to WEB-INF/lib">
-        <mkdir dir="war/WEB-INF/lib"/>
-        <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar"/>
-        <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar"/>
+        <mkdir dir="${war.dir}/WEB-INF/lib"/>
+        <copy todir="${war.dir}/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar"/>
+        <copy todir="${war.dir}/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar"/>
         <!-- Add any additional server libs that need to be copied -->
     </target>
 
@@ -75,14 +77,14 @@
           target: javac
          ================================= -->
     <target name="javac" depends="libs" description="Compile java source to bytecode">
-        <mkdir dir="war/WEB-INF/classes"/>
-        <javac srcdir="src" includes="**" encoding="utf-8"
-               destdir="war/WEB-INF/classes"
+        <mkdir dir="${war.dir}/WEB-INF/classes"/>
+        <javac srcdir="${src.dir}" includes="**" encoding="utf-8"
+               destdir="${war.dir}/WEB-INF/classes"
                source="1.8" target="1.8" nowarn="true"
                debug="true" debuglevel="lines,vars,source">
             <classpath refid="project.class.path"/>
         </javac>
-        <copy todir="war/WEB-INF/classes">
+        <copy todir="${war.dir}/WEB-INF/classes">
             <fileset dir="${src.dir}" excludes="**/*.java"/>
         </copy>
     </target>
@@ -97,7 +99,7 @@
                 <path refid="project.class.path"/>
             </classpath>
             <arg line="-war"/>
-            <arg value="war"/>
+            <arg value="${war.dir}"/>
             <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
             <arg line="${gwt.args}"/>
             <arg value="aurora.Aurora"/>
@@ -111,14 +113,13 @@
             description="Run development mode (pass -Dgwt.args=-nosuperDevMode to fallback to classic DevMode)">
         <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode" maxmemory="1g">
             <classpath>
-                <pathelement location="src"/>
+                <pathelement location="${src.dir}"/>
                 <path refid="project.class.path"/>
-                <pathelement location="${gwt.sdk}/gwt-codeserver.jar"/>
             </classpath>
             <arg value="-startupUrl"/>
             <arg value="Aurora.html"/>
             <arg line="-war"/>
-            <arg value="war"/>
+            <arg value="${war.dir}"/>
             <!-- Additional arguments like -style PRETTY, -logLevel DEBUG or -nosuperDevMode -->
             <arg line="${gwt.args}"/>
             <arg value="aurora.Aurora"/>
@@ -193,13 +194,49 @@
           target: cs
          ================================= -->
     <target name="cs" depends="resolve" description="Checkstyle">
-        <echo>Running checkstyle...</echo>
         <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
                  classpathref="project.class.path"/>
         <checkstyle config="google_checks_but_120.xml">
             <fileset dir="${src.dir}" includes="**/*.java"/>
             <fileset dir="${test.dir}" includes="**/*.java"/>
         </checkstyle>
+    </target>
+
+    <!-- =================================
+          target: test
+         ================================= -->
+    <target name="test" description="Test everything">
+        <antcall target="cs"/>
+        <antcall target="junit"/>
+    </target>
+
+    <!-- =================================
+          target: build-test
+         ================================= -->
+    <target name="build-test" depends="build" description="Compile tests to bytecode">
+        <javac
+                srcdir="${test.dir}" includes="**" encoding="utf-8"
+                destdir="${build.dir}"
+                source="1.8" target="1.8" nowarn="true"
+                debug="true" debuglevel="lines,vars,source">
+
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <!-- =================================
+          target: junit
+         ================================= -->
+    <target name="junit" depends="build-test" description="Run JUnit">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="run.path.id"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest fork="yes">
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
 </project>
