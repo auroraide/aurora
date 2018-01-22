@@ -51,7 +51,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
 
-        currentState = new Default();
+        currentState = State.DEFAULT;
 
 
         // editor.getActionBar().onRunButtonClick(e -> {
@@ -99,7 +99,179 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return sidebar;
     }
 
-    private class Default implements State {
+    private interface StateI {
+        default State run() { throw new IllegalStateException(); }
+        default State pause() { throw new IllegalStateException(); }
+        default State resume() { throw new IllegalStateException(); }
+        default State reset() { throw new IllegalStateException(); }
+        default State step() { throw new IllegalStateException(); }
+        void onEntry();
+    }
+
+    private enum State implements StateI {
+        DEFAULT {
+            @Override
+            public State run() {
+                return null;
+            }
+
+            @Override
+            public State pause() {
+                return null;
+            }
+
+            @Override
+            public State resume() {
+                return null;
+            }
+
+            @Override
+            public State reset() {
+                return null;
+            }
+
+            @Override
+            public State step() {
+                return null;
+            }
+
+            @Override
+            public void onEntry() {
+
+            }
+        },
+
+        MANUAL_SELECTION{
+            @Override
+            public State run() {
+                return null;
+            }
+
+            @Override
+            public State pause() {
+                return null;
+            }
+
+            @Override
+            public State resume() {
+                return null;
+            }
+
+            @Override
+            public State reset() {
+                return null;
+            }
+
+            @Override
+            public State step() {
+                return null;
+            }
+
+            @Override
+            public void onEntry() {
+
+            }
+        },
+
+        RUNNING {
+            @Override
+            public State run() {
+                return null;
+            }
+
+            @Override
+            public State pause() {
+                return null;
+            }
+
+            @Override
+            public State resume() {
+                return null;
+            }
+
+            @Override
+            public State reset() {
+                return null;
+            }
+
+            @Override
+            public State step() {
+                return null;
+            }
+
+            @Override
+            public void onEntry() {
+
+            }
+        },
+
+        PAUSED {
+            @Override
+            public State run() {
+                return null;
+            }
+
+            @Override
+            public State pause() {
+                return null;
+            }
+
+            @Override
+            public State resume() {
+                return null;
+            }
+
+            @Override
+            public State reset() {
+                return null;
+            }
+
+            @Override
+            public State step() {
+                return null;
+            }
+
+            @Override
+            public void onEntry() {
+
+            }
+        },
+
+        FINISHED {
+            @Override
+            public State run() {
+                return null;
+            }
+
+            @Override
+            public State pause() {
+                return null;
+            }
+
+            @Override
+            public State resume() {
+                return null;
+            }
+
+            @Override
+            public State reset() {
+                return null;
+            }
+
+            @Override
+            public State step() {
+                return null;
+            }
+
+            @Override
+            public void onEntry() {
+
+            }
+        }
+
+    }
+
+   /* private class Default implements State {
         public State run() {
             return new Running();
         }
@@ -205,23 +377,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         public State step() {
             return null;
         }
-    }
+    }*/
 
-    private interface State {
-        State run();
 
-        State pause();
-
-        State resume();
-
-        State reset();
-
-        State step();
-
-        //        default State run() { throw new IllegalStateException(); }
-        //        default State pause() { throw new IllegalStateException(); }
-        //        default State resume() { throw new IllegalStateException(); }
-        //        default State reset() { throw new IllegalStateException(); }
-        //        default State step() { throw new IllegalStateException(); }
-    }
 }
