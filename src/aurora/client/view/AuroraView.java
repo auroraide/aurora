@@ -27,9 +27,9 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    @UiField(provided = true)
+    @UiField
     EditorView editor;
-    @UiField(provided = true)
+    @UiField
     SidebarView sidebar;
 
     private final EventBus eventBus;
@@ -45,8 +45,8 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
      */
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
-        sidebar = new SidebarView(eventBus);
-        editor = new EditorView(eventBus);
+        sidebar = new SidebarView();
+        editor = new EditorView();
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");

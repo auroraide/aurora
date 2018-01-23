@@ -1,10 +1,7 @@
 package aurora.client.view.editor;
 
-import aurora.backend.HighlightedLambdaExpression;
-import aurora.client.EditorDisplay;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -40,18 +37,14 @@ public class EditorView extends Composite {
     @UiField
     FlexTable outputFieldTable;
 
-    private EventBus eventBus;
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
 
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
-     *
-     * @param eventBus Current {@link EventBus} instance.
      */
-    public EditorView(EventBus eventBus) {
-        this.eventBus = eventBus;
+    public EditorView() {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputCodeMirror();
         setupOutputFieldCodeMirror();
