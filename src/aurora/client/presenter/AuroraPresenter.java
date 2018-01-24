@@ -15,6 +15,7 @@ public class AuroraPresenter {
     private final AuroraDisplay auroraDisplay;
     private final EditorPresenter editorPresenter;
     private final SidebarPresenter sidebarPresenter;
+
     /**
      * Creates an <code>AuroraPresenter</code> with an event bus and a {@link AuroraDisplay}.
      *
