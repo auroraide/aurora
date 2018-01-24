@@ -15,8 +15,8 @@ import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
  * Three different kinds of code fields are provided.
  * An input field, which can be viewed and edited, as well as steps and an output field which can only be viewed.
  */
-public class EditorView extends Composite {
-    interface EditorUiBinder extends UiBinder<Widget, EditorView> {
+public class Editor extends Composite {
+    interface EditorUiBinder extends UiBinder<Widget, Editor> {
     }
 
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
@@ -42,9 +42,9 @@ public class EditorView extends Composite {
 
 
     /**
-     * Creates the EditorView contents and adds them to their respective parts of the window.
+     * Creates the Editor contents and adds them to their respective parts of the window.
      */
-    public EditorView() {
+    public Editor() {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputCodeMirror();
         setupOutputFieldCodeMirror();
