@@ -1,9 +1,10 @@
 package aurora.client;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.client.view.editor.Editor;
 
 /**
- * The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
+ * The implementation of {@link Editor} is hidden behind the
  * <code>EditorDisplay</code> interface.
  * <p>
  * <code>EditorDisplay</code> defines the interface, that the {@link aurora.client.presenter.EditorPresenter}

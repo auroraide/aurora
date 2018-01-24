@@ -3,6 +3,7 @@ package aurora.client.presenter;
 import aurora.backend.library.Library;
 import aurora.client.EditorDisplay;
 import aurora.client.event.StepEvent;
+import aurora.client.view.editor.Editor;
 import com.google.gwt.event.shared.EventBus;
 
 /**
@@ -24,7 +25,7 @@ public class EditorPresenter {
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
      *
      * @param eventBus      The event bus.
-     * @param editorDisplay The {@link aurora.client.view.editor.EditorView}
+     * @param editorDisplay The {@link Editor}
      */
     public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
         this.eventBus = eventBus;

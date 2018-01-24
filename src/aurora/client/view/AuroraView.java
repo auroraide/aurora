@@ -4,7 +4,7 @@ import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
-import aurora.client.view.editor.EditorView;
+import aurora.client.view.editor.Editor;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
@@ -28,7 +28,7 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
     @UiField
-    EditorView editor;
+    Editor editor;
     @UiField
     SidebarView sidebar;
 
@@ -46,7 +46,7 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
         sidebar = new SidebarView();
-        editor = new EditorView();
+        editor = new Editor();
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");

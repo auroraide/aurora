@@ -41,7 +41,7 @@
                 </g:west>
 
                 <g:center>
-                    <editor:EditorView ui:field="editor" styleName="{style.centerPanel}"/>
+                    <editor:Editor ui:field="editor" styleName="{style.centerPanel}"/>
                 </g:center>
             </g:DockLayoutPanel>
         </g:tab>
