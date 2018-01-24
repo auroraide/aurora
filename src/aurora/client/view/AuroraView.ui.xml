@@ -37,7 +37,7 @@
             <g:DockLayoutPanel unit="EM">
 
                 <g:west size='20'>
-                    <sidebar:SidebarView ui:field="sidebar" styleName="{style.westPanel}"/>
+                    <sidebar:Sidebar ui:field="sidebar" styleName="{style.westPanel}"/>
                 </g:west>
 
                 <g:center>

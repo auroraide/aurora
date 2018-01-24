@@ -1,7 +1,9 @@
 package aurora.client;
 
+import aurora.client.view.sidebar.Sidebar;
+
 /**
- * The implementation of {@link aurora.client.view.sidebar.SidebarView} is hidden behind the
+ * The implementation of {@link Sidebar} is hidden behind the
  * <code>SidebarDisplay</code> interface.
  * <p>
  * <code>SidebarDisplay</code> defines the interface, that the {@link aurora.client.presenter.SidebarPresenter}

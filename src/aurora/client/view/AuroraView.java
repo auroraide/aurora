@@ -6,7 +6,7 @@ import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.Editor;
 import aurora.client.view.popup.ShareDialogBox;
-import aurora.client.view.sidebar.SidebarView;
+import aurora.client.view.sidebar.Sidebar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -30,7 +30,7 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
     @UiField
     Editor editor;
     @UiField
-    SidebarView sidebar;
+    Sidebar sidebar;
 
     private final EventBus eventBus;
     private State currentState;
@@ -45,7 +45,7 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
      */
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
-        sidebar = new SidebarView();
+        sidebar = new Sidebar();
         editor = new Editor();
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");

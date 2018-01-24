@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Provides additional options to the user.
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
  */
-public class SidebarView extends Composite {
-    interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
+public class Sidebar extends Composite {
+    interface SidebarUiBinder extends UiBinder<Widget, Sidebar> {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
@@ -43,7 +43,7 @@ public class SidebarView extends Composite {
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
-    public SidebarView() {
+    public Sidebar() {
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
