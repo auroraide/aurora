@@ -12,7 +12,6 @@ import com.google.gwt.event.shared.EventBus;
  * via the {@link AuroraDisplay}.
  */
 public class EditorPresenter {
-    private final EventBus eventBus;
     private final AuroraDisplay auroraDisplay;
 
     //    private List<Step> steps;
@@ -22,11 +21,9 @@ public class EditorPresenter {
     /**
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link AuroraDisplay}.
      *
-     * @param eventBus      The event bus.
      * @param auroraDisplay The {@link AuroraDisplay}
      */
-    public EditorPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
-        this.eventBus = eventBus;
+    public EditorPresenter(AuroraDisplay auroraDisplay) {
         this.auroraDisplay = auroraDisplay;
         standardLibrary = new Library();
         userLibrary = new Library();
