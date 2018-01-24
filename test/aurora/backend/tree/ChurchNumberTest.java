@@ -6,8 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-public class ChurchNumberTestGenerateAbstraction {
+public class ChurchNumberTest {
 
     @Before
     public void setUp() throws Exception {
@@ -18,17 +17,16 @@ public class ChurchNumberTestGenerateAbstraction {
     }
 
     @Test
-    public void testzero() {
+    public void testZero() {
         ChurchNumber churchzero = new ChurchNumber(0);
         Abstraction a = churchzero.getAbstraction();
         Abstraction abody = (Abstraction)a.body;
         BoundVariable bound = (BoundVariable)abody.body;
         assertEquals(1,bound.index);
-
     }
 
     @Test
-    public void testone() throws Exception {
+    public void testOne() throws Exception {
         ChurchNumber churchone = new ChurchNumber(1);
         Abstraction a = churchone.getAbstraction();
         Abstraction abody = (Abstraction)a.body;
@@ -40,7 +38,7 @@ public class ChurchNumberTestGenerateAbstraction {
     }
 
     @Test
-    public void testtwo() throws Exception {
+    public void testTwo() throws Exception {
         ChurchNumber churchtwo = new ChurchNumber(2);
         Abstraction a = churchtwo.getAbstraction();
         Abstraction abody = (Abstraction)a.body;
@@ -55,7 +53,7 @@ public class ChurchNumberTestGenerateAbstraction {
     }
 
     @Test
-    public void testthree() throws Exception {
+    public void testThree() throws Exception {
         ChurchNumber churchthree = new ChurchNumber(3);
         Abstraction a = churchthree.getAbstraction();
         Abstraction abody = (Abstraction)a.body;
@@ -70,7 +68,5 @@ public class ChurchNumberTestGenerateAbstraction {
         BoundVariable apprightrightright = (BoundVariable)apprightright.right;
         assertEquals(2,apprightrightleft.index);
         assertEquals(1,apprightrightright.index);
-
-
     }
 }
