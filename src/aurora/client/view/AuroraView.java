@@ -2,8 +2,6 @@ package aurora.client.view;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
-import aurora.client.EditorDisplay;
-import aurora.client.SidebarDisplay;
 import aurora.client.view.editor.Editor;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.Sidebar;
@@ -21,7 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Look into the aurora.client.event package.
  * TODO this doc is incomplete.
  */
-public class AuroraView extends Composite implements AuroraDisplay, SidebarDisplay, EditorDisplay {
+public class AuroraView extends Composite implements AuroraDisplay {
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
     }
 
@@ -144,14 +142,6 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
         // on step number change IN EDITOR:
         //      sidebar.stepnumber = ...;
         //      eventBus.fireevent(step chagned....)
-    }
-
-    public EditorDisplay getEditor() {
-        return this;
-    }
-
-    public SidebarDisplay getSidebar() {
-        return this;
     }
 
     private class Default implements State {

@@ -1,35 +1,33 @@
 package aurora.client.presenter;
 
 import aurora.backend.library.Library;
-import aurora.client.EditorDisplay;
+import aurora.client.AuroraDisplay;
 import aurora.client.event.StepEvent;
-import aurora.client.view.editor.Editor;
 import com.google.gwt.event.shared.EventBus;
 
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
  * <p>
- * It fetches editor specific user events and acts upon those
- * by using the backend, which presents the model. <code>Aurora Presenter</code> then updates the view through
- * via the {@link EditorDisplay}.
+ <code>Aurora Presenter</code> then updates the view through
+ * via the {@link AuroraDisplay}.
  */
 public class EditorPresenter {
     private final EventBus eventBus;
-    private final EditorDisplay editorDisplay;
+    private final AuroraDisplay auroraDisplay;
 
     //    private List<Step> steps;
     private final Library userLibrary;
     private final Library standardLibrary;
 
     /**
-     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
+     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link AuroraDisplay}.
      *
      * @param eventBus      The event bus.
-     * @param editorDisplay The {@link Editor}
+     * @param auroraDisplay The {@link AuroraDisplay}
      */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
+    public EditorPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
         this.eventBus = eventBus;
-        this.editorDisplay = editorDisplay;
+        this.auroraDisplay = auroraDisplay;
         standardLibrary = new Library();
         userLibrary = new Library();
     }
