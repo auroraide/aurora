@@ -1,11 +1,9 @@
 package aurora.client.view.sidebar;
 
-import aurora.client.SidebarDisplay;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -19,7 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Provides additional options to the user.
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
  */
-public class SidebarView extends Composite implements SidebarDisplay {
+public class SidebarView extends Composite {
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
@@ -40,42 +38,15 @@ public class SidebarView extends Composite implements SidebarDisplay {
     ListBox languageSelection;
     @UiField
     ListBox shareSelection;
-    private EventBus eventBus;
 
     /**
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
-    public SidebarView(EventBus eventBus) {
-        this.eventBus = eventBus;
+    public SidebarView() {
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-    }
-
-    @Override
-    public void closeAddLibraryItemDialog() {
-
-    }
-
-    @Override
-    public void addUserLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
-    public void addStandardLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
-
     }
 
     /**
