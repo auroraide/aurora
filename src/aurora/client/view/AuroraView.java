@@ -1,6 +1,5 @@
 package aurora.client.view;
 
-import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
@@ -10,6 +9,7 @@ import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -27,9 +27,9 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    @UiField
+    @UiField(provided = true)
     EditorView editor;
-    @UiField
+    @UiField(provided = true)
     SidebarView sidebar;
 
     private final EventBus eventBus;
@@ -45,8 +45,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
      */
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
-        sidebar = new SidebarView();
-        editor = new EditorView();
+        sidebar = new SidebarView(eventBus);
+        editor = new EditorView(eventBus);
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
@@ -75,61 +75,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    @Override
-    public void displaySyntaxError(String message) {
-
-    }
-
-    @Override
-    public String getInput() {
-        return null;
-    }
-
-    @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void resetSteps() {
-
-    }
-
-    @Override
-    public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void closeAddLibraryItemDialog() {
-
-    }
-
-    @Override
-    public void addUserLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
-    public void addStandardLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
-
-    }
-
     private void bind() {
         // on click share latex (ist in sidebar):
         //      eventBus.fireEvent(new ShareLatexenvetdings(editor.balbalbalba))
@@ -147,11 +92,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     public EditorDisplay getEditor() {
-        return this;
+        return editor;
     }
 
     public SidebarDisplay getSidebar() {
-        return this;
+        return sidebar;
     }
 
     private interface StateI {

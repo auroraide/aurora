@@ -1,9 +1,11 @@
 package aurora.client.view.sidebar;
 
+import aurora.client.SidebarDisplay;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,8 +19,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Provides additional options to the user.
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
  */
-public class Sidebar extends Composite {
-    interface SidebarUiBinder extends UiBinder<Widget, Sidebar> {
+public class SidebarView extends Composite implements SidebarDisplay {
+    interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
@@ -38,15 +40,42 @@ public class Sidebar extends Composite {
     ListBox languageSelection;
     @UiField
     ListBox shareSelection;
+    private EventBus eventBus;
 
     /**
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
-    public Sidebar() {
+    public SidebarView(EventBus eventBus) {
+        this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+    }
+
+    @Override
+    public void closeAddLibraryItemDialog() {
+
+    }
+
+    @Override
+    public void addUserLibraryItem(String name, String description) {
+
+    }
+
+    @Override
+    public void removeUserLibraryItem(String name) {
+
+    }
+
+    @Override
+    public void addStandardLibraryItem(String name, String description) {
+
+    }
+
+    @Override
+    public void removeStandardLibraryItem(String name) {
+
     }
 
     /**
