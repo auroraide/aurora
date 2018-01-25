@@ -49,8 +49,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
 
-        currentState = State.DEFAULT;
-
+        currentState = new Default();
 
         // editor.getActionBar().onRunButtonClick(e -> {
         //     currentState = currentState.run();
@@ -250,7 +249,23 @@ public class AuroraView extends Composite implements AuroraDisplay {
         public State step() {
             return null;
         }
-    }*/
+    }
 
+    private interface State {
+        State run();
 
+        State pause();
+
+        State resume();
+
+        State reset();
+
+        State step();
+
+        //        default State run() { throw new IllegalStateException(); }
+        //        default State pause() { throw new IllegalStateException(); }
+        //        default State resume() { throw new IllegalStateException(); }
+        //        default State reset() { throw new IllegalStateException(); }
+        //        default State step() { throw new IllegalStateException(); }
+    }
 }
