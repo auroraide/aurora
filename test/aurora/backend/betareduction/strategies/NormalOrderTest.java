@@ -3,11 +3,8 @@ package aurora.backend.betareduction.strategies;
 import static org.junit.Assert.assertEquals;
 
 import aurora.backend.RedexPath;
-import aurora.backend.tree.Abstraction;
-import aurora.backend.tree.Application;
-import aurora.backend.tree.BoundVariable;
-import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.Term;
+import aurora.backend.tree.*;
+
 import java.util.LinkedList;
 import org.junit.After;
 import org.junit.Before;
@@ -151,6 +148,19 @@ public class NormalOrderTest {
                                 new BoundVariable(1),"y"
                         )
                 )
+        );
+        NormalOrder normal = new NormalOrder();
+        RedexPath path = normal.getRedex(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[]",list.toString());
+    }
+
+    @Test
+    //churchnumbertest
+    public void churchTest() throws Exception {
+        Term t = new Application(
+                    new ChurchNumber(3),
+                    new FreeVariable("s")
         );
         NormalOrder normal = new NormalOrder();
         RedexPath path = normal.getRedex(t);

@@ -112,6 +112,7 @@ public class CallByName extends ReductionStrategy {
 
             @Override
             public Void visit(ChurchNumber c) {
+                foundredex = true;
                 return null;
             }
 

@@ -174,6 +174,7 @@ public class CallByValue extends ReductionStrategy {
 
             @Override
             public Void visit(ChurchNumber c) {
+                foundvalue = true;
                 return null;
             }
         }

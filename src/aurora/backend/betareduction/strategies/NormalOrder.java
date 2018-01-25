@@ -84,6 +84,8 @@ public class NormalOrder extends ReductionStrategy {
 
         @Override
         public Void visit(ChurchNumber c) {
+            Abstraction abs = c.getAbstraction();
+            abs.body.accept(this);
             return null;
         }
 
@@ -121,6 +123,7 @@ public class NormalOrder extends ReductionStrategy {
 
             @Override
             public Void visit(ChurchNumber c) {
+                foundredex =  true;
                 return null;
             }
 
