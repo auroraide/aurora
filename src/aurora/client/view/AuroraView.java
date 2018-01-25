@@ -1,10 +1,11 @@
 package aurora.client.view;
 
-import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
-import aurora.client.view.editor.Editor;
+import aurora.client.EditorDisplay;
+import aurora.client.SidebarDisplay;
+import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
-import aurora.client.view.sidebar.Sidebar;
+import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,10 +26,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
-    @UiField
-    Editor editor;
-    @UiField
-    Sidebar sidebar;
+    @UiField(provided = true)
+    EditorView editor;
+    @UiField(provided = true)
+    SidebarView sidebar;
 
     private final EventBus eventBus;
     private State currentState;
@@ -71,61 +72,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    @Override
-    public void displaySyntaxError(String message) {
-
-    }
-
-    @Override
-    public String getInput() {
-        return null;
-    }
-
-    @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void resetSteps() {
-
-    }
-
-    @Override
-    public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
-
-    }
-
-    @Override
-    public void closeAddLibraryItemDialog() {
-
-    }
-
-    @Override
-    public void addUserLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
-    public void addStandardLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
-
-    }
-
     private void bind() {
         // on click share latex (ist in sidebar):
         //      eventBus.fireEvent(new ShareLatexenvetdings(editor.balbalbalba))
@@ -140,6 +86,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
         // on step number change IN EDITOR:
         //      sidebar.stepnumber = ...;
         //      eventBus.fireevent(step chagned....)
+    }
+
+    public EditorDisplay getEditor() {
+        return editor;
+    }
+
+    public SidebarDisplay getSidebar() {
+        return sidebar;
     }
 
     private class Default implements State {

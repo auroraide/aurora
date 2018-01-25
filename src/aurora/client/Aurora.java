@@ -24,12 +24,13 @@ public class Aurora implements EntryPoint {
         EventBus eventBus = GWT.create(SimpleEventBus.class);
 
         // views/displays
-        AuroraView view = new AuroraView(eventBus);
+        AuroraView auroraView = new AuroraView(eventBus);
 
         // presenters
-        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, view, new EditorPresenter(view),
-                new SidebarPresenter(view));
+        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, auroraView);
+        SidebarPresenter sidebarPresenter = new SidebarPresenter(eventBus, auroraView.getSidebar());
+        EditorPresenter editorPresenter = new EditorPresenter(eventBus, auroraView.getEditor());
 
-        RootLayoutPanel.get().add(view);
+        RootLayoutPanel.get().add(auroraView);
     }
 }
