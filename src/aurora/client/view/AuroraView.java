@@ -43,8 +43,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
      */
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
-        sidebar = new Sidebar();
-        editor = new Editor();
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
