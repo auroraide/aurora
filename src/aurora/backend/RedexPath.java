@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * A {@link RedexPath} is a series of left and right instructions that point
+ * A {@link RedexPath} is a series of left and right instructions that point.
  * to an {@link Application} within a tree of {@link Term}s.
  */
 public class RedexPath implements Iterable<RedexPath.Direction> {
@@ -54,17 +54,18 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     }
 
     /**
-     * standard getter for the direction
-     * @return the direction to a redex
+     * standard getter for the direction.
+     * @return the direction to a redex.
      */
     public LinkedList<Direction> getPath() {
         return path;
     }
+
     /**
      * Indicate the direction during tree traversal.
      */
     public enum Direction {
-        LEFT, RIGHT, BODY, ROOT
+        LEFT, RIGHT
     }
 
 }

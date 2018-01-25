@@ -2,7 +2,13 @@ package aurora.backend.betareduction.strategies;
 
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Term;
 
 /**
  * The Normalorder is the default reduction strategy, it choses the leftmost redex.
@@ -14,7 +20,6 @@ public class NormalOrder extends ReductionStrategy {
 
         FirstRedexFinderVisitor redexfinder = new FirstRedexFinderVisitor();
         t.accept(redexfinder);
-        redexfinder.path.push(RedexPath.Direction.ROOT);
         if (redexfinder.foundredex) {
             return redexfinder.path;
 
@@ -36,9 +41,9 @@ public class NormalOrder extends ReductionStrategy {
         public RedexPath getPath() {
             return path;
         }
+
         @Override
         public Void visit(Abstraction abs) {
-            path.push(RedexPath.Direction.BODY);
             return abs.body.accept(this);
         }
 
@@ -54,7 +59,7 @@ public class NormalOrder extends ReductionStrategy {
                 path.pop();
                 path.push(RedexPath.Direction.RIGHT);
                 app.right.accept(this);
-                if(foundredex) {
+                if (foundredex) {
                     return null;
                 }
                 path.pop();
