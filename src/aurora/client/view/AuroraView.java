@@ -2,11 +2,9 @@ package aurora.client.view;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.AuroraDisplay;
-import aurora.client.EditorDisplay;
-import aurora.client.SidebarDisplay;
-import aurora.client.view.editor.EditorView;
+import aurora.client.view.editor.Editor;
 import aurora.client.view.popup.ShareDialogBox;
-import aurora.client.view.sidebar.SidebarView;
+import aurora.client.view.sidebar.Sidebar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -21,16 +19,16 @@ import com.google.gwt.user.client.ui.Widget;
  * Look into the aurora.client.event package.
  * TODO this doc is incomplete.
  */
-public class AuroraView extends Composite implements AuroraDisplay, SidebarDisplay, EditorDisplay {
+public class AuroraView extends Composite implements AuroraDisplay {
     interface DesktopViewUiBinder extends UiBinder<Widget, AuroraView> {
     }
 
     private static DesktopViewUiBinder ourUiBinder = GWT.create(DesktopViewUiBinder.class);
 
     @UiField
-    EditorView editor;
+    Editor editor;
     @UiField
-    SidebarView sidebar;
+    Sidebar sidebar;
 
     private final EventBus eventBus;
     private State currentState;
@@ -45,8 +43,8 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
      */
     public AuroraView(EventBus eventBus) {
         this.eventBus = eventBus;
-        sidebar = new SidebarView();
-        editor = new EditorView();
+        sidebar = new Sidebar();
+        editor = new Editor();
         initWidget(ourUiBinder.createAndBindUi(this));
         latexDialogBox = new ShareDialogBox("Share LaTeX");
         shortLinkDialogBox = new ShareDialogBox("Share short link");
@@ -146,187 +144,7 @@ public class AuroraView extends Composite implements AuroraDisplay, SidebarDispl
         //      eventBus.fireevent(step chagned....)
     }
 
-    public EditorDisplay getEditor() {
-        return this;
-    }
-
-    public SidebarDisplay getSidebar() {
-        return this;
-    }
-
-    private interface StateI {
-        default State run() { throw new IllegalStateException(); }
-        default State pause() { throw new IllegalStateException(); }
-        default State resume() { throw new IllegalStateException(); }
-        default State reset() { throw new IllegalStateException(); }
-        default State step() { throw new IllegalStateException(); }
-        void onEntry();
-    }
-
-    private enum State implements StateI {
-        DEFAULT {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        MANUAL_SELECTION{
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        RUNNING {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        PAUSED {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        FINISHED {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        }
-
-    }
-
-   /* private class Default implements State {
+    private class Default implements State {
         public State run() {
             return new Running();
         }

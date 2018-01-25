@@ -6,26 +6,19 @@ import aurora.backend.RedexPath;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.library.Library;
-import aurora.backend.parser.LambdaLexer;
-import aurora.backend.parser.LambdaParser;
-import aurora.backend.parser.exceptions.SemanticException;
-import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.Term;
-import aurora.client.EditorDisplay;
-import aurora.client.event.*;
+import aurora.client.AuroraDisplay;
+import aurora.client.event.StepEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
  * <p>
- * It fetches editor specific user events and acts upon those
- * by using the backend, which presents the model. <code>Aurora Presenter</code> then updates the view through
- * via the {@link EditorDisplay}.
+ <code>Aurora Presenter</code> then updates the view through
+ * via the {@link AuroraDisplay}.
  */
 public class EditorPresenter {
-    private final EventBus eventBus;
-    private final EditorDisplay editorDisplay;
+    private final AuroraDisplay auroraDisplay;
 
     //    private List<Step> steps;
     private final Library userLibrary;
@@ -37,19 +30,12 @@ public class EditorPresenter {
     private ReductionStrategy reductionStrategy;
 
     /**
-     * GWT Timer, allows for "while" loops without blocking the GUI.
-     */
-    private final Timer timer;
-
-    /**
-     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
+     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link AuroraDisplay}.
      *
-     * @param eventBus      The event bus.
-     * @param editorDisplay The {@link aurora.client.view.editor.EditorView}
+     * @param auroraDisplay The {@link AuroraDisplay}
      */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
-        this.eventBus = eventBus;
-        this.editorDisplay = editorDisplay;
+    public EditorPresenter(AuroraDisplay auroraDisplay) {
+        this.auroraDisplay = auroraDisplay;
         standardLibrary = new Library();
         userLibrary = new Library();
 
