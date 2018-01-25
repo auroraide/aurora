@@ -143,9 +143,9 @@
                 destdir="${war.classes.dir}"
                 source="1.8"
                 target="1.8"
-                nowarn="true"
                 debug="true"
-                debuglevel="lines,vars,source">
+                debuglevel="lines,vars,source"
+                includeantruntime="false">
             <classpath refid="project.class.path"/>
         </javac>
     </target>
@@ -158,9 +158,9 @@
                 destdir="${war.classes.dir}"
                 source="1.8"
                 target="1.8"
-                nowarn="true"
                 debug="true"
-                debuglevel="lines,vars,source">
+                debuglevel="lines,vars,source"
+                includeantruntime="false">
             <classpath refid="project.class.path"/>
         </javac>
     </target>
