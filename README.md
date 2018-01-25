@@ -1,5 +1,7 @@
 # Aurora
 
+[![pipeline status](https://git.scc.kit.edu/ap/Aurora/badges/master/pipeline.svg)](https://git.scc.kit.edu/ap/Aurora/commits/master)
+
 The Lambda Calculus IDE
 
 ## Prerequisites
