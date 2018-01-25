@@ -1,5 +1,6 @@
 package aurora.client;
 
+import aurora.client.presenter.AuroraPresenter;
 import aurora.client.presenter.EditorPresenter;
 import aurora.client.presenter.SidebarPresenter;
 import aurora.client.view.AuroraView;
@@ -26,8 +27,8 @@ public class Aurora implements EntryPoint {
         AuroraView view = new AuroraView(eventBus);
 
         // presenters
-        SidebarPresenter sidebarPresenter = new SidebarPresenter(eventBus, view.getSidebar());
-        EditorPresenter editorPresenter = new EditorPresenter(eventBus, view.getEditor());
+        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, view, new EditorPresenter(view),
+                new SidebarPresenter(view));
 
         RootLayoutPanel.get().add(view);
     }
