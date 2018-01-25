@@ -3,8 +3,12 @@ package aurora.backend.betareduction.strategies;
 import static org.junit.Assert.assertEquals;
 
 import aurora.backend.RedexPath;
-import aurora.backend.tree.*;
-
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Term;
 import java.util.LinkedList;
 import org.junit.After;
 import org.junit.Before;
