@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+
 
 public class CallByValueTest {
 
@@ -62,8 +62,6 @@ public class CallByValueTest {
         LinkedList<RedexPath.Direction> list = path.getPath();
         System.out.println(list.toString());
     }
-
-
-    }
+}
 
 

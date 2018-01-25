@@ -54,14 +54,14 @@ public class CallByValue extends ReductionStrategy {
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
             app.right.accept(new ValueFinder());
-            if(foundredex ^ foundvalue ) {
+            if (foundredex ^ foundvalue) {
                 foundvalue = false;
                 foundredex = false;
             }
             while (!foundredex && !foundvalue) {
                 path.push(RedexPath.Direction.LEFT);
                 app.left.accept(this);
-                if(foundredex ^ foundvalue ) {
+                if (foundredex ^ foundvalue) {
                     foundvalue = false;
                     foundredex = false;
                 }
@@ -71,10 +71,10 @@ public class CallByValue extends ReductionStrategy {
                 path.pop();
                 path.push(RedexPath.Direction.RIGHT);
                 app.right.accept(this);
-                    if(foundredex ^ foundvalue ) {
-                        foundvalue = false;
-                        foundredex = false;
-                    }
+                if (foundredex ^ foundvalue) {
+                    foundvalue = false;
+                    foundredex = false;
+                }
                 if (foundredex && foundvalue) {
                     return null;
                 }

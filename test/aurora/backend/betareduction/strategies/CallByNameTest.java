@@ -72,4 +72,5 @@ public class CallByNameTest {
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
+
 }
