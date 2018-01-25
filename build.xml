@@ -1,117 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="Aurora" default="devmode">
 
-    <!-- Arguments to gwtc and devmode targets -->
-    <property name="gwt.args" value=""/>
-
-    <!-- some variables used -->
+    <!-- very important project directories -->
     <property name="lib.dir" value="lib"/>
-    <property name="build.dir" value="build"/>
     <property name="src.dir" value="src"/>
     <property name="test.dir" value="test"/>
+    <property name="war.dir" value="war"/>
+    <property name="war.classes.dir" value="${war.dir}/WEB-INF/classes"/>
+    <property name="war.lib.dir" value="${war.dir}/WEB-INF/lib"/>
     <property name="vendor.dir" value="vendor"/>
     <property name="docs.dir" value="docs"/>
     <property name="tex.dir" value="${docs.dir}/entwurf/tex"/>
     <property name="html.dir" value="${docs.dir}/entwurf/html"/>
-    <property name="war.dir" value="war"/>
 
-    <!-- Configure path to GWT SDK -->
+    <!-- path to gwt sdk -->
     <property name="gwt.sdk" location="../gwt-2.8.2"/>
+    <property name="gwt.args" value=""/>
 
-    <!-- paths used for compilation and run  -->
-    <path id="lib.path.id">
-        <fileset dir="${lib.dir}"/>
-    </path>
-    <path id="run.path.id">
-        <path refid="lib.path.id"/>
-        <path location="${build.dir}"/>
-    </path>
-
+    <!-- the holy class path -->
     <path id="project.class.path">
-        <path id ="project.class.path.gwt">
-            <fileset dir="${gwt.sdk}" includes="*.jar"/>
-        </path>
-
-        <path id="project.class.path.lib">
-            <fileset dir="${lib.dir}" includes="*.jar"/>
-        </path>
-
-        <!-- war crap -->
-        <pathelement location="${war.dir}/WEB-INF/classes"/>
-        <fileset dir="${war.dir}/WEB-INF/lib" includes="**/*.jar" erroronmissingdir="false"/>
+        <pathelement location="${war.classes.dir}"/>
+        <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+        <pathelement location="${gwt.sdk}/gwt-dev.jar"/>
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar"/>
+        <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar"/>
+        <fileset dir="${war.lib.dir}" includes="**/*.jar" erroronmissingdir="false"/>
     </path>
 
-    <!-- =================================
-          target: resolve
-         ================================= -->
-    <target name="resolve" description="--> retreive dependencies with ivy">
-        <ivy:retrieve/>
-    </target>
-
-    <!-- =================================
-          target: report
-         ================================= -->
-    <target name="report" depends="resolve" description="--> generates a report of dependencies">
-        <ivy:report todir="${build.dir}"/>
-    </target>
-
-    <!-- =================================
-          target: run
-         ================================= -->
-    <target name="run" depends="resolve" description="--> compile and run the project">
-        <mkdir dir="${build.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false"/>
-        <property name="msg" value="hello ivy !"/>
-    </target>
-
-    <!-- ===================================
-          target: libs
-         =================================== -->
-    <target name="libs" depends="run" description="Copy libs to WEB-INF/lib">
-        <mkdir dir="${war.dir}/WEB-INF/lib"/>
-        <copy todir="${war.dir}/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar"/>
-        <copy todir="${war.dir}/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar"/>
-        <!-- Add any additional server libs that need to be copied -->
-    </target>
-
-    <!-- =================================
-          target: javac
-         ================================= -->
-    <target name="javac" depends="libs" description="Compile java source to bytecode">
-        <mkdir dir="${war.dir}/WEB-INF/classes"/>
-        <javac srcdir="${src.dir}" includes="**" encoding="utf-8"
-               destdir="${war.dir}/WEB-INF/classes"
-               source="1.8" target="1.8" nowarn="true"
-               debug="true" debuglevel="lines,vars,source">
-            <classpath refid="project.class.path"/>
-        </javac>
-        <copy todir="${war.dir}/WEB-INF/classes">
-            <fileset dir="${src.dir}" excludes="**/*.java"/>
-        </copy>
-    </target>
-
-    <!-- =================================
-          target: gwtc
-         ================================= -->
-    <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
-        <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler" maxmemory="512m">
-            <classpath>
-                <pathelement location="${src.dir}"/>
-                <path refid="project.class.path"/>
-            </classpath>
-            <arg line="-war"/>
-            <arg value="${war.dir}"/>
-            <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-            <arg line="${gwt.args}"/>
-            <arg value="aurora.Aurora"/>
-        </java>
-    </target>
-
-    <!-- =================================
-          target: devmode
-         ================================= -->
-    <target name="devmode" depends="javac"
-            description="Run development mode (pass -Dgwt.args=-nosuperDevMode to fallback to classic DevMode)">
-        <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode" maxmemory="1g">
+    <!-- public ant targets -->
+    <target name="devmode" depends="-javac" description="Run GWT app in development mode.">
+        <java
+                failonerror="true"
+                fork="true"
+                classname="com.google.gwt.dev.DevMode"
+                maxmemory="1g">
             <classpath>
                 <pathelement location="${src.dir}"/>
                 <path refid="project.class.path"/>
@@ -120,47 +42,31 @@
             <arg value="Aurora.html"/>
             <arg line="-war"/>
             <arg value="${war.dir}"/>
-            <!-- Additional arguments like -style PRETTY, -logLevel DEBUG or -nosuperDevMode -->
             <arg line="${gwt.args}"/>
             <arg value="aurora.Aurora"/>
             <arg value="aurora.Aurora"/>
         </java>
+
     </target>
 
-    <!-- =================================
-          target: build
-         ================================= -->
-    <target name="build" depends="gwtc" description="Build this project"/>
+    <target name="build" depends="-gwtc" description="Compile java source to bytecode."/>
 
-    <!-- =================================
-          target: war
-         ================================= -->
-    <target name="war" depends="build" description="Create a war file">
-        <zip destfile="Aurora.war" basedir="${war.dir}"/>
+    <target name="test" description="Build and run test suite.">
+        <antcall target="cs"/>
+        <antcall target="-junit"/>
     </target>
 
-    <!-- =================================
-          target: clean
-         ================================= -->
-    <target name="clean" description="Cleans this project">
-        <delete dir="${war.dir}/WEB-INF/classes" failonerror="false"/>
-        <delete dir="${war.dir}/aurora" failonerror="false"/>
-        <delete dir="${build.dir}" failonerror="false"/>
-        <delete dir="${lib.dir}" failonerror="false"/>
-        <delete dir="${html.dir}" failonerror="false"/>
+    <target name="cs" depends="-libs" description="Run checkstyle.">
+        <taskdef
+                resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+                classpathref="project.class.path"/>
+        <checkstyle config="google_checks_but_120.xml">
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+            <fileset dir="${test.dir}" includes="**/*.java"/>
+        </checkstyle>
     </target>
 
-    <!-- =================================
-          target: clean-cache
-         ================================= -->
-    <target name="clean-cache" description="--> clean the ivy cache">
-        <ivy:cleancache/>
-    </target>
-
-    <!-- =================================
-          target: doc
-         ================================= -->
-    <target name="doc" depends="resolve" description="Generate HTML docs using javadoc">
+    <target name="doc" depends="-libs" description="Generate javadoc.">
         <delete dir="${html.dir}"/>
         <mkdir dir="${html.dir}"/>
         <javadoc
@@ -172,64 +78,53 @@
         </javadoc>
     </target>
 
-    <!-- =================================
-          target: texdoc
-         ================================= -->
-    <target name="texdoc" depends="resolve" description="Generate TeX docs using javadoc and texdoclet">
+    <target name="texdoc" depends="-libs" description="Generate javadoc using TeXDoclet.">
         <delete file="${tex.dir}/javadoc.tex"/>
         <javadoc
                 sourcepath="${src.dir}"
                 packagenames="aurora.*"
                 classpathref="project.class.path"
                 failonerror="true">
-
             <doclet name="org.wonderly.doclets.TexDoclet" path="${vendor.dir}/texdoclet-0.9.3.jar">
                 <param name="-output" value="${tex.dir}/javadoc.tex"/>
             </doclet>
-
         </javadoc>
     </target>
 
-    <!-- =================================
-          target: cs
-         ================================= -->
-    <target name="cs" depends="resolve" description="Checkstyle">
-        <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
-                 classpathref="project.class.path"/>
-        <checkstyle config="google_checks_but_120.xml">
-            <fileset dir="${src.dir}" includes="**/*.java"/>
-            <fileset dir="${test.dir}" includes="**/*.java"/>
-        </checkstyle>
+    <target name="clean" description="Make clean.">
+        <delete dir="${war.dir}/aurora" failonerror="false"/>
+        <delete dir="${war.classes.dir}" failonerror="false"/>
+        <delete dir="${war.lib.dir}" failonerror="false"/>
+        <delete dir="${lib.dir}" failonerror="false"/>
+        <delete dir="${html.dir}" failonerror="false"/>
+        <antcall target="-ivy-clean"/>
     </target>
 
-    <!-- =================================
-          target: test
-         ================================= -->
-    <target name="test" description="Test everything">
-        <antcall target="cs"/>
-        <antcall target="junit"/>
+    <target name="war" depends="build" description="Pack everything into a WAR file.">
+        <zip destfile="aurora.war" basedir="${war.dir}"/>
     </target>
 
-    <!-- =================================
-          target: build-test
-         ================================= -->
-    <target name="build-test" depends="build" description="Compile tests to bytecode">
-        <javac
-                srcdir="${test.dir}" includes="**" encoding="utf-8"
-                destdir="${build.dir}"
-                source="1.8" target="1.8" nowarn="true"
-                debug="true" debuglevel="lines,vars,source">
-
-            <classpath refid="project.class.path"/>
-        </javac>
+    <!-- private ant targets -->
+    <target name="-ivy-resolve">
+        <ivy:retrieve/>
     </target>
 
-    <!-- =================================
-          target: junit
-         ================================= -->
-    <target name="junit" depends="build-test" description="Run JUnit">
+    <target name="-ivy-clean">
+        <ivy:cleancache/>
+    </target>
+
+    <target name="-libs" depends="-ivy-resolve">
+        <mkdir dir="${war.lib.dir}"/>
+        <copy todir="${war.lib.dir}">
+            <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        </copy>
+        <copy todir="${war.lib.dir}" file="${gwt.sdk}/gwt-servlet.jar"/>
+        <copy todir="${war.lib.dir}" file="${gwt.sdk}/gwt-servlet-deps.jar"/>
+    </target>
+
+    <target name="-junit" depends="-javac-test">
         <junit printsummary="yes" haltonfailure="yes">
-            <classpath refid="run.path.id"/>
+            <classpath refid="project.class.path"/>
             <formatter type="plain" usefile="false"/>
             <batchtest fork="yes">
                 <fileset dir="${test.dir}">
@@ -237,6 +132,54 @@
                 </fileset>
             </batchtest>
         </junit>
+    </target>
+
+    <target name="-javac" depends="-libs">
+        <mkdir dir="${war.classes.dir}"/>
+        <javac
+                srcdir="${src.dir}"
+                includes="**"
+                encoding="utf-8"
+                destdir="${war.classes.dir}"
+                source="1.8"
+                target="1.8"
+                debug="true"
+                debuglevel="lines,vars,source"
+                includeantruntime="false">
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <target name="-javac-test" depends="-javac">
+        <javac
+                srcdir="${test.dir}"
+                includes="**"
+                encoding="utf-8"
+                destdir="${war.classes.dir}"
+                source="1.8"
+                target="1.8"
+                debug="true"
+                debuglevel="lines,vars,source"
+                includeantruntime="false">
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <target name="-gwtc" depends="-javac">
+        <java
+                failonerror="true"
+                fork="true"
+                classname="com.google.gwt.dev.Compiler"
+                maxmemory="512m">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <path refid="project.class.path"/>
+            </classpath>
+            <arg line="-war"/>
+            <arg value="${war.dir}"/>
+            <arg line="${gwt.args}"/>
+            <arg value="aurora.Aurora"/>
+        </java>
     </target>
 
 </project>
