@@ -8,8 +8,19 @@ The Lambda Calculus IDE
     - You need to unpack your _GWT SDK_ folder in `../gwt-2.8.2` or adapt the `build.xml` file accordingly.
 - [Ant](http://ant.apache.org)
 - [Ivy](http://ant.apache.org/ivy)
+- [Caddy](https://caddyserver.com) (optional)
 
 ## Build
+
+### Dev mode
+
+Start a local development server with
+
+```
+ant devmode
+```
+
+### Prod mode
 
 Just do
 
@@ -17,19 +28,21 @@ Just do
 ant build
 ```
 
-or
+then start a web server with `war/` as document root.
+
+We're using [Caddy](https://caddyserver.com) for that.
 
 ```
-ant devmode
+caddy
 ```
 
-if you want to start a local development server.
+Now, visit [`http://localhost:4000/Aurora.html`](http://localhost:4000/Aurora.html) in your browser.
+
+
 
 ## Documentation
 
 You can generate the API documentation from the source code as follows.
-
-### HTML
 
 Run
 
@@ -38,19 +51,3 @@ ant doc
 ```
 
 and check out `docs/entwurf/html/index.html`.
-
-### TeX
-
-Run
-
-```bash
-ant texdoc
-```
-
-and build the generated `docs/entwurf/tex/javadoc.tex` by running
-
-```
-pdflatex javadoc.tex
-```
-
-(twice).
