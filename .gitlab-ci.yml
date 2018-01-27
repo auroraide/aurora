@@ -20,4 +20,4 @@ deployjob:
         - master
     script:
         - ant war -lib vendor
-        - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:4000?key=$DEPLOY_KEY"
+        - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"
