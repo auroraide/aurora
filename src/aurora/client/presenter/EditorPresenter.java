@@ -72,9 +72,9 @@ public class EditorPresenter {
 
     private void bind() {
         eventBus.addHandler(RunEvent.TYPE, runEvent -> onRun());
-        eventBus.addHandler(StepEvent.TYPE, this::onStep);
-        eventBus.addHandler(ResetEvent.TYPE, runEvent1 -> onReset());
-        eventBus.addHandler(PauseEvent.TYPE, runEvent -> onPause());
+        eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep());
+        eventBus.addHandler(ResetEvent.TYPE, runEvent -> onReset());
+        eventBus.addHandler(PauseEvent.TYPE, pauseEvent -> onPause());
         eventBus.addHandler(EvaluationStrategyChangedEvent.TYPE, this::onStrategyChange);
     }
 
@@ -145,7 +145,7 @@ public class EditorPresenter {
         steps.clear();
     }
 
-    private void onStep(StepEvent stepEvent) {
+    private void onStep() {
         assert (betaReductionIterator.hasNext());
         Term result = betaReductionIterator.next();
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
