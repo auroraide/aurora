@@ -45,6 +45,7 @@ public class EditorPresenter {
      * GWT Timer, allows for "while" loops without blocking the GUI.
      */
     private final RunTimer runTimer;
+    private final HighlightTimer highlightTimer;
 
     private BetaReductionIterator betaReductionIterator;
     private Term last;
@@ -57,15 +58,18 @@ public class EditorPresenter {
      */
     public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
         this.editorDisplay = editorDisplay;
+        this.eventBus = eventBus;
+
         standardLibrary = new Library();
         userLibrary = new Library();
         steps = new ArrayList<>();
-        runTimer = new RunTimer();
-
-        this.eventBus = eventBus;
-        bind();
         lambdaLexer = new LambdaLexer();
         lambdaParser = new LambdaParser();
+
+        runTimer = new RunTimer();
+        highlightTimer = new HighlightTimer();
+
+        bind();
 
         reset();
     }
@@ -82,11 +86,15 @@ public class EditorPresenter {
         betaReductionIterator = null;
         last = null;
         reductionStrategy = null;
+        highlightTimer.scheduleRepeating(1000);
     }
 
     private class RunTimer extends Timer {
         @Override
         public void run() {
+            assert(betaReductionIterator != null);
+            assert(last != null);
+
             if (betaReductionIterator.hasNext()) {
                 betaReductionIterator.next();
             }
@@ -95,6 +103,23 @@ public class EditorPresenter {
                 reset();
                 cancel();
             }
+        }
+    }
+
+    private class HighlightTimer extends Timer {
+        @Override
+        public void run() {
+            assert(betaReductionIterator == null);
+            String input = editorDisplay.getInput();
+            Term t;
+            try {
+                t = lambdaParser.parse(lambdaLexer.lex(input));
+            } catch (SemanticException | SyntaxException e) {
+                throw new RuntimeException("Not implemented");
+            }
+
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+            editorDisplay.setInput(hle);
         }
     }
 
@@ -111,7 +136,7 @@ public class EditorPresenter {
             last = lambdaParser.parse(lambdaLexer.lex(input));
         } catch (SyntaxException | SemanticException ex) {
             // TODO actually handle input errors.
-            throw new RuntimeException();
+            throw new RuntimeException("Not implemented");
         }
         HighlightedLambdaExpression hle = new HighlightableLambdaExpression(last);
         editorDisplay.setInput(hle);
