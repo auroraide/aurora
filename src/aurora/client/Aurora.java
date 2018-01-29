@@ -4,6 +4,8 @@ import aurora.client.presenter.AuroraPresenter;
 import aurora.client.presenter.EditorPresenter;
 import aurora.client.presenter.SidebarPresenter;
 import aurora.client.view.AuroraView;
+import aurora.client.view.editor.EditorView;
+import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
@@ -23,13 +25,16 @@ public class Aurora implements EntryPoint {
     public void onModuleLoad() {
         EventBus eventBus = GWT.create(SimpleEventBus.class);
 
-        // views/displays
-        AuroraView view = new AuroraView(eventBus);
+        // views/displays, ordering is important
+        SidebarView sidebarView = new SidebarView(eventBus);
+        EditorView editorView = new EditorView(eventBus);
+        AuroraView auroraView = new AuroraView(eventBus, sidebarView, editorView);
 
         // presenters
-        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, view, new EditorPresenter(view),
-                new SidebarPresenter(view));
+        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, auroraView);
+        SidebarPresenter sidebarPresenter = new SidebarPresenter(eventBus, auroraView.getSidebar());
+        EditorPresenter editorPresenter = new EditorPresenter(eventBus, auroraView.getEditor());
 
-        RootLayoutPanel.get().add(view);
+        RootLayoutPanel.get().add(auroraView);
     }
 }

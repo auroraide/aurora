@@ -22,11 +22,13 @@ import java.util.List;
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
  * <p>
- <code>Aurora Presenter</code> then updates the view through
- * via the {@link AuroraDisplay}.
+ * It fetches editor specific user events and acts upon those
+ * by using the backend, which presents the model. <code>Aurora Presenter</code> then updates the view through
+ * via the {@link EditorDisplay}.
  */
 public class EditorPresenter {
-    private final AuroraDisplay auroraDisplay;
+    private final EventBus eventBus;
+    private final EditorDisplay editorDisplay;
 
     private final Library userLibrary;
     private final Library standardLibrary;
@@ -51,7 +53,8 @@ public class EditorPresenter {
     /**
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link AuroraDisplay}.
      *
-     * @param auroraDisplay The {@link AuroraDisplay}
+     * @param eventBus      The event bus.
+     * @param editorDisplay The {@link aurora.client.view.editor.EditorView}
      */
     public EditorPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
         this.auroraDisplay = auroraDisplay;

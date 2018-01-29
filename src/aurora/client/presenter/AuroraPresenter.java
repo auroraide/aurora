@@ -13,8 +13,6 @@ import com.google.gwt.event.shared.EventBus;
 public class AuroraPresenter {
     private final EventBus eventBus;
     private final AuroraDisplay auroraDisplay;
-    private final EditorPresenter editorPresenter;
-    private final SidebarPresenter sidebarPresenter;
 
     /**
      * Creates an <code>AuroraPresenter</code> with an event bus and a {@link AuroraDisplay}.
@@ -22,12 +20,9 @@ public class AuroraPresenter {
      * @param eventBus      The event bus.
      * @param auroraDisplay The aurora display.
      */
-    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, EditorPresenter editorPresenter,
-                           SidebarPresenter sidebarPresenter) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
         this.eventBus = eventBus;
         this.auroraDisplay = auroraDisplay;
-        this.editorPresenter = editorPresenter;
-        this.sidebarPresenter = sidebarPresenter;
 
         bind();
     }
