@@ -11,7 +11,7 @@ import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
-import aurora.client.AuroraDisplay;
+import aurora.client.EditorDisplay;
 import aurora.client.event.*;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
@@ -51,26 +51,26 @@ public class EditorPresenter {
     private ReductionStrategy reductionStrategy;
 
     /**
-     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link AuroraDisplay}.
-     *
-     * @param eventBus      The event bus.
-     * @param editorDisplay The {@link aurora.client.view.editor.EditorView}
+     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
+     *  @param eventBus      The event bus.
+     * @param editorDisplay The {@link EditorDisplay}
      */
-    public EditorPresenter(EventBus eventBus, AuroraDisplay auroraDisplay) {
-        this.auroraDisplay = auroraDisplay;
+    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
+        this.editorDisplay = editorDisplay;
         standardLibrary = new Library();
         userLibrary = new Library();
         steps = new ArrayList<>();
         runTimer = new RunTimer();
 
-        bind(eventBus);
+        this.eventBus = eventBus;
+        bind();
         lambdaLexer = new LambdaLexer();
         lambdaParser = new LambdaParser();
 
         reset();
     }
 
-    private void bind(EventBus eventBus) {
+    private void bind() {
         eventBus.addHandler(RunEvent.TYPE, runEvent -> onRun());
         eventBus.addHandler(StepEvent.TYPE, this::onStep);
         eventBus.addHandler(ResetEvent.TYPE, runEvent1 -> onReset());
@@ -91,7 +91,7 @@ public class EditorPresenter {
                 betaReductionIterator.next();
             }
             else {
-                auroraDisplay.displayResult(new HighlightableLambdaExpression(last));
+                editorDisplay.displayResult(new HighlightableLambdaExpression(last));
                 reset();
                 cancel();
             }
@@ -104,7 +104,7 @@ public class EditorPresenter {
      */
     private void onRun() {
         // view changes its state by itself.
-        String input = auroraDisplay.getInput();
+        String input = editorDisplay.getInput();
 
         // first up, parse the input and display it in the editor for highlighting premium.
         try {
@@ -114,12 +114,12 @@ public class EditorPresenter {
             throw new RuntimeException();
         }
         HighlightedLambdaExpression hle = new HighlightableLambdaExpression(last);
-        auroraDisplay.setInput(hle);
+        editorDisplay.setInput(hle);
 
         betaReductionIterator = new BetaReductionIterator(new BetaReducer(reductionStrategy), last);
         if (!betaReductionIterator.hasNext()) {
             // term is irreducible.
-            auroraDisplay.displayResult(new HighlightableLambdaExpression(last));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last));
         }
         else {
             runTimer.scheduleRepeating(0);
@@ -130,12 +130,12 @@ public class EditorPresenter {
         runTimer.cancel();
         if (!betaReductionIterator.hasNext()) {
             // this is a corner case, and in most cases won't happen.
-            auroraDisplay.displayResult(new HighlightableLambdaExpression(last));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last));
             reset();
         } else {
             // TODO display that the steps list is potentially incomplete
             for (int i = Math.min(0, steps.size() - 10); i < steps.size(); i++) {
-                auroraDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
+                editorDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
             }
         }
     }
@@ -150,9 +150,9 @@ public class EditorPresenter {
         Term result = betaReductionIterator.next();
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
         if (betaReductionIterator.hasNext()) {
-            auroraDisplay.addNextStep(hle);
+            editorDisplay.addNextStep(hle);
         } else {
-            auroraDisplay.displayResult(hle);
+            editorDisplay.displayResult(hle);
         }
     }
 
