@@ -59,7 +59,7 @@
                             <g:customHeader size="70">
                                 <g:FlowPanel>
                                     <g:Label>Icon</g:Label>
-                                    <g:Label>User Library</g:Label>
+                                    <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
                                     <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+
                                     </g:Button>
                                 </g:FlowPanel>
