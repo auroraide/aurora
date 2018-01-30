@@ -6,13 +6,13 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:Label>Description:</g:Label>
+            <g:Label><ui:msg description="Delete LibraryItem Desc">Description:</ui:msg></g:Label>
             <g:TextArea ui:field="messageField"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="submitButton">SUBMIT</g:Button>
-            <g:Button ui:field="cancelButton">CANCEL</g:Button>
+            <g:Button ui:field="submitButton"><ui:msg description="Delete LibraryItem Submit">SUBMIT</ui:msg></g:Button>
+            <g:Button ui:field="cancelButton"><ui:msg description="Delete LibraryItem Cancel">CANCEL</ui:msg></g:Button>
         </g:HorizontalPanel>
 
     </g:VerticalPanel>
