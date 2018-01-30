@@ -80,7 +80,7 @@
 
                 <!-- Night Mode -->
                 <g:FlowPanel>
-                    <g:Label>Night Mode</g:Label>
+                    <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
                     <g:ToggleButton ui:field="nightModeSwitch">On</g:ToggleButton>
                 </g:FlowPanel>
 
