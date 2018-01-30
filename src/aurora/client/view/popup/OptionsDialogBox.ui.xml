@@ -6,15 +6,15 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:Button ui:field="openTabButton">To new Tab</g:Button>
+            <g:Button ui:field="openTabButton"><ui:msg description="to NewTab">To new Tab</ui:msg></g:Button>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="latexExportButton">Export to LaTeX</g:Button>
+            <g:Button ui:field="latexExportButton"><ui:msg description="Export to Latex">Export to LaTeX</ui:msg></g:Button>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="toPastebinButton">To Pastebin</g:Button>
+            <g:Button ui:field="toPastebinButton"><ui:msg description="to Pastebin">To Pastebin</ui:msg></g:Button>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
