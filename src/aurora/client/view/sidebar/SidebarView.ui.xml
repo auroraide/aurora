@@ -86,7 +86,7 @@
 
                 <!--Share and Language Button -->
                 <g:FlowPanel>
-                    <g:Button>Share</g:Button>
+                    <g:Button><ui:msg description="Sidebar Share Option">Share</ui:msg></g:Button>
                     <g:Button>Language</g:Button>
                 </g:FlowPanel>
 
