@@ -1,7 +1,6 @@
 package aurora.client.presenter;
 
 import aurora.backend.HighlightableLambdaExpression;
-import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.BetaReductionIterator;
 import aurora.backend.betareduction.strategies.*;
@@ -17,7 +16,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
@@ -39,7 +37,7 @@ public class EditorPresenter {
     /**
      * Contains all steps in between, so without input and without output fields.
      */
-    private final List<Term> steps;
+    private final ArrayList<Term> steps;
 
     /**
      * GWT Timer, allows for "while" loops without blocking the GUI.
@@ -48,7 +46,6 @@ public class EditorPresenter {
     private final HighlightTimer highlightTimer;
 
     private BetaReductionIterator betaReductionIterator;
-    private Term last;
     private ReductionStrategy reductionStrategy;
 
     /**
@@ -84,24 +81,29 @@ public class EditorPresenter {
 
     private void reset() {
         betaReductionIterator = null;
-        last = null;
         reductionStrategy = null;
+        runTimer.cancel();
         highlightTimer.scheduleRepeating(1000);
+        steps.clear();
+    }
+
+    private void finish() {
+        betaReductionIterator = null;
+        reductionStrategy = null;
+        runTimer.cancel();
+        editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
     }
 
     private class RunTimer extends Timer {
         @Override
         public void run() {
             assert(betaReductionIterator != null);
-            assert(last != null);
 
             if (betaReductionIterator.hasNext()) {
-                betaReductionIterator.next();
+                steps.add(betaReductionIterator.next());
             }
             else {
-                editorDisplay.displayResult(new HighlightableLambdaExpression(last));
-                reset();
-                cancel();
+                finish();
             }
         }
     }
@@ -110,17 +112,27 @@ public class EditorPresenter {
         @Override
         public void run() {
             assert(betaReductionIterator == null);
-            String input = editorDisplay.getInput();
-            Term t;
-            try {
-                t = lambdaParser.parse(lambdaLexer.lex(input));
-            } catch (SemanticException | SyntaxException e) {
-                throw new RuntimeException("Not implemented");
-            }
-
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            editorDisplay.setInput(hle);
+            getAndHighlightInput();
         }
+    }
+
+    private Term last() {
+        assert(!steps.isEmpty());
+        return steps.get(steps.size() - 1);
+    }
+
+    private Term getAndHighlightInput() {
+        String input = editorDisplay.getInput();
+        Term t;
+        try {
+            t = lambdaParser.parse(lambdaLexer.lex(input));
+        } catch (SemanticException | SyntaxException e) {
+            throw new RuntimeException("Not implemented");
+        }
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        editorDisplay.setInput(hle);
+        return t;
     }
 
     /**
@@ -128,23 +140,16 @@ public class EditorPresenter {
      * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
      */
     private void onRun() {
-        // view changes its state by itself.
-        String input = editorDisplay.getInput();
+        highlightTimer.cancel();
+        // what we need to do is run the first step and then let our RunTimer do the rest.
 
         // first up, parse the input and display it in the editor for highlighting premium.
-        try {
-            last = lambdaParser.parse(lambdaLexer.lex(input));
-        } catch (SyntaxException | SemanticException ex) {
-            // TODO actually handle input errors.
-            throw new RuntimeException("Not implemented");
-        }
-        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(last);
-        editorDisplay.setInput(hle);
+        steps.add(getAndHighlightInput());
 
-        betaReductionIterator = new BetaReductionIterator(new BetaReducer(reductionStrategy), last);
+        betaReductionIterator = new BetaReductionIterator(new BetaReducer(reductionStrategy), last());
         if (!betaReductionIterator.hasNext()) {
             // term is irreducible.
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
         }
         else {
             runTimer.scheduleRepeating(0);
@@ -153,21 +158,21 @@ public class EditorPresenter {
     private void onPause() {
         assert (runTimer != null);
         runTimer.cancel();
+
         if (!betaReductionIterator.hasNext()) {
             // this is a corner case, and in most cases won't happen.
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
             reset();
         } else {
-            // TODO display that the steps list is potentially incomplete
+            // TODO make it apparent that the steps list is potentially incomplete
             for (int i = Math.min(0, steps.size() - 10); i < steps.size(); i++) {
                 editorDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
             }
         }
     }
+
     private void onReset() {
-        betaReductionIterator = null;
-        runTimer.cancel();
-        steps.clear();
+        reset();
     }
 
     private void onStep() {
@@ -194,7 +199,7 @@ public class EditorPresenter {
                 reductionStrategy = new NormalOrder();
                 break;
             case MANUALSELECTION:
-                throw new RuntimeException(); // TODO implement UserStrategy
+                throw new RuntimeException("Not implemented"); // TODO implement UserStrategy
 //                reductionStrategy = new UserStrategy();
         }
 
