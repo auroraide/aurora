@@ -52,10 +52,10 @@
         <!-- TUTORIAL Tab-->
         <g:tab>
             <g:header size="7">
-                <b>TUTORIAL</b>
+                <b><ui:msg description="Tutorial tab title">TUTORIAL</ui:msg></b>
             </g:header>
             <g:HTMLPanel>
-                <div>Ich bin ein TUTORIAL!</div>
+                <div><ui:msg description="Tutorial text">Ich bin ein TUTORIAL!</ui:msg></div>
             </g:HTMLPanel>
         </g:tab>
 
