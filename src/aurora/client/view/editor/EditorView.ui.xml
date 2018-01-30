@@ -7,7 +7,7 @@
 
 
     <g:SplitLayoutPanel>
-
+        <!-- TODO: add title to every secion in editor (see GUI)-->
         <g:north size="120" unit="EM">
             <g:FlowPanel>
                 <g:FlexTable ui:field="inputFieldTable"/>
