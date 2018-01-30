@@ -46,7 +46,7 @@
                                 <g:FlowPanel>
                                     <!-- Placeholder for stdlib icon-->
                                     <g:Label addStyleNames="{style.leftAlign}">Icon</g:Label>
-                                    <g:Label addStyleNames="{style.rightAlign}">Standard Library</g:Label>
+                                    <g:Label addStyleNames="{style.rightAlign}"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
                             </g:customHeader>
 
