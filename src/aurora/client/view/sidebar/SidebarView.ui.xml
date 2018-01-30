@@ -31,7 +31,7 @@
                 <g:north size="2.5">
                     <!-- Step Setting -->
                     <g:FlowPanel>
-                        <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
+                        <ui:msg description="Sidebar Step title"><g:Label addStyleNames="{style.leftAlign}">Steps</g:Label></ui:msg>
                         <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
                     </g:FlowPanel>
                 </g:north>
