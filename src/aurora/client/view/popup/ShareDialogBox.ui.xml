@@ -1,5 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
@@ -7,8 +10,8 @@
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="copyToClipboardButton">Copy to Clipboard</g:Button>
-            <g:Button ui:field="cancelButton">CANCEL</g:Button>
+            <g:Button ui:field="copyToClipboardButton"><ui:msg description="Cope To Clipboard">Copy to Clipboard</ui:msg></g:Button>
+            <g:Button ui:field="cancelButton"><ui:msg description="Share Cancel">CANCEL</ui:msg></g:Button>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
