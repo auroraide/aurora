@@ -78,8 +78,6 @@ public class Token {
                 return ")";
             case T_FUNCTION:
                 return "$" + this.name;
-            case T_NUMBER:
-                return "c" + this.name;
             case T_COMMENT:
                 return "#" + this.name;
             default:
