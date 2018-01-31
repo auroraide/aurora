@@ -1,0 +1,90 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+	pdftitle={Implementierungsdokumentation},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\usepackage{amsmath} % for $\text{}$
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+
+
+\begin{titlepage}
+
+\subject{Implementierungsdokumentation}
+\title{$\lambda$urora}
+\subtitle{The Lambda Calculus IDE}
+
+
+\author{Julia Patrusheva, Alexander von Heyden\\
+Younis Bensalah, Max Nowak\\
+Nikolai Polley, Randy Seng}
+
+\end{titlepage}
+
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+%=====================EINLEITUNG=======================
+\section{Einleitung}
+was ist geplannt, worum geht es, Stand, worum ging es in der IPh
+\pagebreak
+
+%=====================ÄNDERUNGEN=====================
+\section{Aenderungen zum Entwurfsdokument}
+\subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
+\pagebreak
+
+%=============IMPLEMENTIERUNGSPROZESS=====================
+\section{Implementierungsprozess}
+\subsection{Vorgenommene Regeln als liste: git branches, git ci usw.}
+\subsection{Ursprüngliche Implementierungsplan}
+was wir uns am Anfang gedacht haben, wie wir die Aufgaben geteilt haben und dass sie ungefähr unabhängig von ein ander sind - Aufwand, unerwartete Schwierigkeiten etc.
+\subsubsection{Prioritaetsliste was muss implementiert werden}
+\subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
+\subsection{Implementierungsplanaenderungen nach der Implementierung}
+\subsubsection{Ablauf von der Implementierung}
+\subsubsection{Was ist geändert und woran liegt es}
+\subsubsection{git übersicht vll}
+ (Realität und wieso es sich unterscheidet von dem Anfangsplan)
+\pagebreak
+
+%=====================UNIT TESTS=====================
+\section{Unit tests}
+\subsection{Backend TestZeug}
+\subsubsection{Ziel}
+\subsubsection{Voraussetzungen}
+\subsubsection{Werkzeuge}
+\subsection{Frontend TestZeug}
+\subsubsection{Ziel}
+\subsubsection{Voraussetzungen&Probleme die auftauchen koennen}
+\subsubsection{Werkzeuge}
+\pagebreak
+
+\end{document}
