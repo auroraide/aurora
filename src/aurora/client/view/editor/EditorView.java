@@ -1,6 +1,8 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
@@ -72,7 +74,12 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void displaySyntaxError(String message) {
+    public void displaySyntaxError(SyntaxException syntaxException) {
+
+    }
+
+    @Override
+    public void displaySemanticError(SemanticException semanticException) {
 
     }
 
