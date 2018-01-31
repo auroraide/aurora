@@ -2,7 +2,10 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:sidebar="urn:import:aurora.client.view.sidebar"
-             xmlns:editor="urn:import:aurora.client.view.editor">
+             xmlns:editor="urn:import:aurora.client.view.editor"
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
     <ui:style>
         .eastPanel {
             background-color: #F60;
@@ -49,10 +52,10 @@
         <!-- TUTORIAL Tab-->
         <g:tab>
             <g:header size="7">
-                <b>TUTORIAL</b>
+                <b><ui:msg description="Tutorial tab title">TUTORIAL</ui:msg></b>
             </g:header>
             <g:HTMLPanel>
-                <div>Ich bin ein TUTORIAL!</div>
+                <div><ui:msg description="Tutorial text">Ich bin ein TUTORIAL!</ui:msg></div>
             </g:HTMLPanel>
         </g:tab>
 
