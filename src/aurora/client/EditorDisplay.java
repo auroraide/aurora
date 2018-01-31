@@ -1,6 +1,8 @@
 package aurora.client;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 
 /**
  * The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
@@ -15,10 +17,15 @@ public interface EditorDisplay {
 
     /**
      * Displays a syntax error message.
-     *
-     * @param message Message to display.
+     * @param syntaxException Contains detailed information about the error.
      */
-    void displaySyntaxError(String message); // TODO there's more than one way to display bad results.
+    void displaySyntaxError(SyntaxException syntaxException);
+
+    /**
+     * Shows the user they made a semantic error in their input.
+     * @param semanticException Contains detailed information about the error.
+     */
+    void displaySemanticError(SemanticException semanticException);
 
     /**
      * Gets the user input String from the code editor.
