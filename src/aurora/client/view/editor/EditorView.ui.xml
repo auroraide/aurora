@@ -1,10 +1,13 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:editor="urn:import:aurora.client.view.editor.actionbar">
+             xmlns:editor="urn:import:aurora.client.view.editor.actionbar"
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
 
 
     <g:SplitLayoutPanel>
-
+        <!-- TODO: add title to input secion in editor (see GUI)-->
         <g:north size="120" unit="EM">
             <g:FlowPanel>
                 <g:FlexTable ui:field="inputFieldTable"/>
@@ -14,14 +17,14 @@
 
         <g:center>
             <g:FlowPanel>
-                <g:Label>Ich bin das StepField</g:Label>
+                <g:Label><ui:msg description="stepField Title">Steps</ui:msg></g:Label>
                 <g:FlexTable ui:field="stepFieldTable"/>
             </g:FlowPanel>
         </g:center>
 
         <g:south size="120" unit="EM">
             <g:FlowPanel>
-                <g:Label>Ich bin das OutputField</g:Label>
+                <g:Label><ui:msg description="OutputField Title">Output</ui:msg></g:Label>
                 <g:FlexTable ui:field="outputFieldTable"/>
             </g:FlowPanel>
         </g:south>
