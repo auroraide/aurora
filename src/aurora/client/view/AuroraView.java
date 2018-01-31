@@ -32,28 +32,39 @@ public class AuroraView extends Composite implements AuroraDisplay {
     SidebarView sidebar;
 
     private final EventBus eventBus;
-    private State currentState;
     private final ShareDialogBox latexDialogBox;
-
     private final ShareDialogBox shortLinkDialogBox;
+
+    private State defaultState;
+    private State runningState;
+    private State pausedState;
+    private State finshedState;
+    private State stepBeforeResultState;
+
+    private State currentState;
 
     /**
      * Constructor.
      *
      * @param eventBus Instance of current {@link EventBus}.
-     * @param sidebar Instance of {@link SidebarView}
-     * @param editor Instance of {@link EditorView}
+     * @param sidebar  Instance of {@link SidebarView}
+     * @param editor   Instance of {@link EditorView}
      */
     public AuroraView(EventBus eventBus, SidebarView sidebar, EditorView editor) {
         this.editor = editor;
         this.sidebar = sidebar;
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        latexDialogBox = new ShareDialogBox("Share LaTeX");
-        shortLinkDialogBox = new ShareDialogBox("Share short link");
 
-        currentState = State.DEFAULT;
+        this.latexDialogBox = new ShareDialogBox("Share LaTeX");
+        this.shortLinkDialogBox = new ShareDialogBox("Share short link");
 
+        this.defaultState = new DefaultState();
+        this.runningState = new RunningState();
+        this.pausedState = new PausedState();
+        this.finshedState = new FinishedState();
+        this.stepBeforeResultState = new StepBeforeResultState();
+        this.currentState = defaultState;
 
         // editor.getActionBar().onRunButtonClick(e -> {
         //     currentState = currentState.run();
@@ -92,309 +103,332 @@ public class AuroraView extends Composite implements AuroraDisplay {
         //      eventBus.fireevent(step chagned....)
     }
 
+    private void changeToDefaultAppearance() {
+
+    }
+
+    private void changeToRunningAppearance() {
+
+    }
+
+    private void changeToPausedAppearance() {
+
+    }
+
+    private void changeToStepBeforeResultAppearance() {
+
+    }
+
+    private void changeToFinishedAppearance() {
+
+    }
+
     public EditorDisplay getEditor() {
-        return editor;
+        return this.editor;
     }
 
     public SidebarDisplay getSidebar() {
-        return sidebar;
+        return this.sidebar;
     }
 
-    private interface StateI {
-        default State run() { throw new IllegalStateException(); }
-        default State pause() { throw new IllegalStateException(); }
-        default State resume() { throw new IllegalStateException(); }
-        default State reset() { throw new IllegalStateException(); }
-        default State step() { throw new IllegalStateException(); }
-        void onEntry();
-    }
+    private class DefaultState extends State {
 
-    private enum State implements StateI {
-        DEFAULT {
-            @Override
-            public State run() {
-                return null;
-            }
 
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        MANUAL_SELECTION{
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        RUNNING {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        PAUSED {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        },
-
-        FINISHED {
-            @Override
-            public State run() {
-                return null;
-            }
-
-            @Override
-            public State pause() {
-                return null;
-            }
-
-            @Override
-            public State resume() {
-                return null;
-            }
-
-            @Override
-            public State reset() {
-                return null;
-            }
-
-            @Override
-            public State step() {
-                return null;
-            }
-
-            @Override
-            public void onEntry() {
-
-            }
-        }
-
-    }
-
-   /* private class Default implements State {
-        public State run() {
-            return new Running();
+        @Override
+        protected void runBtnClicked() {
+            this.state = AuroraView.this.runningState;
         }
 
         @Override
-        public State pause() {
-            return null;
+        protected void pauseBtnClicked() {
+            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
-        public State resume() {
-            return null;
+        protected void resetBtnClicked() {
+            throw new IllegalStateException("Executing resetBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
-        public State reset() {
-            return null;
+        protected void continueBtnClicked() {
+            throw new IllegalStateException("Executing continueBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
-        public State step() {
-            return null;
+        protected void stepBtnClicked() {
+            this.state = AuroraView.this.stepBeforeResultState;
+        }
+
+        @Override
+        protected void resultCalculated() {
+            throw new IllegalStateException("Executing resultCalculated is not allowed in DefaultState!");
+        }
+
+        @Override
+        protected void redexClicked() {
+            this.state = AuroraView.this.stepBeforeResultState;
+        }
+
+        @Override
+        protected void onEntry() {
+            changeToDefaultAppearance();
+        }
+
+        @Override
+        protected void onExit() {
+
+        }
+
+        @Override
+        protected State next() {
+            return this.state;
         }
     }
 
-    private class Finished implements State {
+    private class FinishedState extends State {
+
         @Override
-        public State run() {
-            return null;
+        protected void runBtnClicked() {
+            this.state = AuroraView.this.runningState;
         }
 
         @Override
-        public State pause() {
-            return null;
+        protected void pauseBtnClicked() {
+            throw new IllegalStateException("Executing pauseBtnClicked is not allowed FinishedState!");
         }
 
         @Override
-        public State resume() {
-            return null;
+        protected void resetBtnClicked() {
+            this.state = AuroraView.this.defaultState;
         }
 
         @Override
-        public State reset() {
-            return null;
+        protected void continueBtnClicked() {
+            throw new IllegalStateException("Executing continueBtnClicked is not allowed FinishedState!");
         }
 
         @Override
-        public State step() {
-            return null;
-        }
-    }
-
-    private static class Paused implements State {
-        @Override
-        public State run() {
-            return null;
+        protected void stepBtnClicked() {
+            throw new IllegalStateException("Executing stepBtnClicked is not allowed FinishedState!");
         }
 
         @Override
-        public State pause() {
-            return null;
+        protected void resultCalculated() {
+            throw new IllegalStateException("Executing resultCalculated is not allowed FinishedState!");
         }
 
         @Override
-        public State resume() {
-            return null;
+        protected void redexClicked() {
+            throw new IllegalStateException("Executing resultCalculated is not allowed FinishedState!");
         }
 
         @Override
-        public State reset() {
-            return null;
+        protected void onEntry() {
+            changeToFinishedAppearance();
         }
 
         @Override
-        public State step() {
-            return null;
-        }
-    }
+        protected void onExit() {
 
-    private class Running implements State {
-
-        @Override
-        public State run() {
-            return null;
         }
 
         @Override
-        public State pause() {
-            return null;
-        }
-
-        @Override
-        public State resume() {
-            return null;
-        }
-
-        @Override
-        public State reset() {
-            return null;
-        }
-
-        @Override
-        public State step() {
-            return null;
+        protected State next() {
+            return this.state;
         }
     }
 
-    private interface State {
-        State run();
+    private class PausedState extends State {
 
-        State pause();
+        @Override
+        protected void runBtnClicked() {
+            throw new IllegalStateException("Executing runBtnClicked is not allowed in PausedState!");
+        }
 
-        State resume();
+        @Override
+        protected void pauseBtnClicked() {
+            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in PausedState!");
+        }
 
-        State reset();
+        @Override
+        protected void resetBtnClicked() {
+            this.state = AuroraView.this.defaultState;
+        }
 
-        State step();
+        @Override
+        protected void continueBtnClicked() {
+            this.state = AuroraView.this.runningState;
+        }
 
-        //        default State run() { throw new IllegalStateException(); }
-        //        default State pause() { throw new IllegalStateException(); }
-        //        default State resume() { throw new IllegalStateException(); }
-        //        default State reset() { throw new IllegalStateException(); }
-        //        default State step() { throw new IllegalStateException(); }
-    }*/
+        @Override
+        protected void stepBtnClicked() {
+            this.state = AuroraView.this.pausedState;
+        }
+
+        @Override
+        protected void resultCalculated() {
+            this.state = AuroraView.this.finshedState;
+        }
+
+        @Override
+        protected void redexClicked() {
+            this.state = AuroraView.this.pausedState;
+        }
+
+        @Override
+        protected void onEntry() {
+            changeToPausedAppearance();
+        }
+
+        @Override
+        protected void onExit() {
+
+        }
+
+        @Override
+        protected State next() {
+            return this.state;
+        }
+    }
+
+    private class RunningState extends State {
+
+        @Override
+        protected void runBtnClicked() {
+            throw new IllegalStateException("Executing runBtnClicked is not allowed in RunningState!");
+        }
+
+        @Override
+        protected void pauseBtnClicked() {
+            this.state = AuroraView.this.pausedState;
+        }
+
+        @Override
+        protected void resetBtnClicked() {
+            this.state = AuroraView.this.defaultState;
+        }
+
+        @Override
+        protected void continueBtnClicked() {
+            throw new IllegalStateException("Executing continueBtnClicked is not allowed in RunningState!");
+        }
+
+        @Override
+        protected void stepBtnClicked() {
+            throw new IllegalStateException("Executing stepBtnClicked is not allowed in RunningState!");
+        }
+
+        @Override
+        protected void resultCalculated() {
+            this.state = AuroraView.this.finshedState;
+        }
+
+        @Override
+        protected void redexClicked() {
+            throw new IllegalStateException("Executing redexClicked is not allowed in RunningState!");
+        }
+
+        @Override
+        protected void onEntry() {
+            changeToRunningAppearance();
+        }
+
+        @Override
+        protected void onExit() {
+
+        }
+
+        @Override
+        protected State next() {
+            return this.state;
+        }
+    }
+
+    private class StepBeforeResultState extends State {
+
+        @Override
+        protected void runBtnClicked() {
+            this.state = AuroraView.this.runningState;
+        }
+
+        @Override
+        protected void pauseBtnClicked() {
+            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in StepBeforeResultState!");
+        }
+
+        @Override
+        protected void resetBtnClicked() {
+            this.state = AuroraView.this.defaultState;
+        }
+
+        @Override
+        protected void continueBtnClicked() {
+            throw new IllegalStateException("Executing continueBtnClicked is not allowed in StepBeforeResultState!");
+        }
+
+        @Override
+        protected void stepBtnClicked() {
+            this.state = AuroraView.this.stepBeforeResultState;
+        }
+
+        @Override
+        protected void resultCalculated() {
+            this.state = AuroraView.this.finshedState;
+        }
+
+        @Override
+        protected void redexClicked() {
+            this.state = AuroraView.this.stepBeforeResultState;
+        }
+
+        @Override
+        protected void onEntry() {
+            changeToStepBeforeResultAppearance();
+        }
+
+        @Override
+        protected void onExit() {
+
+        }
+
+        @Override
+        protected State next() {
+            return this.state;
+        }
+    }
+
+    private abstract class State {
+        protected State state;
+
+        protected abstract void runBtnClicked();
+
+        protected abstract void pauseBtnClicked();
+
+        protected abstract void resetBtnClicked();
+
+        protected abstract void continueBtnClicked();
+
+        protected abstract void stepBtnClicked();
+
+        protected abstract void resultCalculated();
+
+        protected abstract void redexClicked();
+
+        protected abstract void onEntry();
+
+        protected abstract void onExit();
+
+        protected abstract State next();
+
+        protected final void stateTransition() {
+            State next = next();
+
+            if (next != this) {
+                this.onExit();
+                next.onEntry();
+                currentState = next;
+            }
+        }
+
+    }
 }
