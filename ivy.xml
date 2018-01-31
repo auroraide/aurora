@@ -5,6 +5,7 @@
         <dependency org="org.geomajas.project" name="geomajas-project-api-annotation" rev="1.0.0"/>
         <dependency org="com.puppycrawl.tools" name="checkstyle" rev="8.7"/>
         <dependency org="junit" name="junit" rev="4.12"/>
+        <dependency org="org.hamcrest" name="hamcrest-core" rev="1.3"/>
         <dependency org="org.mockito" name="mockito-all" rev="1.9.5"/>
         <dependency org="com.google.gwt.gwtmockito" name="gwtmockito" rev="1.1.5"/>
     </dependencies>
