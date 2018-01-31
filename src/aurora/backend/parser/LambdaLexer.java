@@ -240,13 +240,14 @@ public class LambdaLexer {
                 // update line, column, and offset
                 if (whitelines.length > 1) {
                     line += whitelines.length - 1;
-                    column = whitelines[whitelines.length - 1].length();
+                    column = whitelines[whitelines.length - 1].length() + 1;
                 } else {
                     column += name.length();
                 }
                 ++offset;
             } else {
-                throw new SyntaxException("Lex error!", line, column, offset);
+                throw new SyntaxException(
+                        "Lex error at line " + line + ", column " + column + ".", line, column, offset);
             }
         }
 
