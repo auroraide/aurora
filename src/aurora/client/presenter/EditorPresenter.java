@@ -1,17 +1,20 @@
 package aurora.client.presenter;
 
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.BetaReductionIterator;
 import aurora.backend.betareduction.strategies.*;
 import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
 import aurora.client.event.*;
+import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
@@ -41,16 +44,17 @@ public class EditorPresenter {
 
     /**
      * GWT Timer, allows for "while" loops without blocking the GUI.
+     * This will be null when not running, and not null when running.
      */
-    private final RunTimer runTimer;
+    private RunTimer runTimer;
     private final HighlightTimer highlightTimer;
 
-    private BetaReductionIterator betaReductionIterator;
-    private ReductionStrategy reductionStrategy;
+    private StrategyType reductionStrategy;
 
     /**
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
-     *  @param eventBus      The event bus.
+     *
+     * @param eventBus      The event bus.
      * @param editorDisplay The {@link EditorDisplay}
      */
     public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
@@ -63,7 +67,6 @@ public class EditorPresenter {
         lambdaLexer = new LambdaLexer();
         lambdaParser = new LambdaParser();
 
-        runTimer = new RunTimer();
         highlightTimer = new HighlightTimer();
 
         bind();
@@ -73,66 +76,50 @@ public class EditorPresenter {
 
     private void bind() {
         eventBus.addHandler(RunEvent.TYPE, runEvent -> onRun());
-        eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep());
+        eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep(stepEvent.getStepCount()));
         eventBus.addHandler(ResetEvent.TYPE, runEvent -> onReset());
         eventBus.addHandler(PauseEvent.TYPE, pauseEvent -> onPause());
         eventBus.addHandler(EvaluationStrategyChangedEvent.TYPE, this::onStrategyChange);
+        eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent
+                -> onRedexClicked(redexClickedEvent.getToken()));
     }
 
     private void reset() {
-        betaReductionIterator = null;
-        reductionStrategy = null;
+        reductionStrategy = StrategyType.NORMALORDER;
         runTimer.cancel();
         highlightTimer.scheduleRepeating(1000);
         steps.clear();
     }
 
     private void finish() {
-        betaReductionIterator = null;
-        reductionStrategy = null;
         runTimer.cancel();
+        runTimer = null;
         editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
     }
 
-    private class RunTimer extends Timer {
-        @Override
-        public void run() {
-            assert(betaReductionIterator != null);
-
-            if (betaReductionIterator.hasNext()) {
-                steps.add(betaReductionIterator.next());
-            }
-            else {
-                finish();
-            }
-        }
-    }
-
-    private class HighlightTimer extends Timer {
-        @Override
-        public void run() {
-            assert(betaReductionIterator == null);
-            getAndHighlightInput();
-        }
-    }
-
     private Term last() {
-        assert(!steps.isEmpty());
+        assert (!steps.isEmpty());
         return steps.get(steps.size() - 1);
     }
 
-    private Term getAndHighlightInput() {
-        String input = editorDisplay.getInput();
-        Term t;
-        try {
-            t = lambdaParser.parse(lambdaLexer.lex(input));
-        } catch (SemanticException | SyntaxException e) {
-            throw new RuntimeException("Not implemented");
-        }
+    private boolean isRunning() {
+        return runTimer != null;
+    }
+    private boolean isStarted() {
+        return !steps.isEmpty();
+    }
 
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        editorDisplay.setInput(hle);
-        return t;
+    private ReductionStrategy createReductionStrategy() {
+        switch (reductionStrategy) {
+            case CALLBYVALUE:
+                return new CallByValue();
+            case CALLBYNAME:
+                return new CallByName();
+            case NORMALORDER:
+                return new NormalOrder();
+            default:
+                throw new IllegalStateException("Unknown strategy type");
+        }
     }
 
     /**
@@ -140,34 +127,35 @@ public class EditorPresenter {
      * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
      */
     private void onRun() {
-        highlightTimer.cancel();
-        // what we need to do is run the first step and then let our RunTimer do the rest.
+        assert(!isRunning() && !isStarted());
 
-        // first up, parse the input and display it in the editor for highlighting premium.
-        steps.add(getAndHighlightInput());
+        if (!tryStartOrHandleErrors()) {
+            return;
+        }
 
-        betaReductionIterator = new BetaReductionIterator(new BetaReducer(reductionStrategy), last());
-        if (!betaReductionIterator.hasNext()) {
-            // term is irreducible.
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
-        }
-        else {
-            runTimer.scheduleRepeating(0);
-        }
+        BetaReductionIterator betaReductionIterator =
+                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
+        runTimer = new RunTimer(betaReductionIterator);
+        runTimer.scheduleRepeating(0);
     }
-    private void onPause() {
-        assert (runTimer != null);
-        runTimer.cancel();
 
-        if (!betaReductionIterator.hasNext()) {
-            // this is a corner case, and in most cases won't happen.
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
-            reset();
-        } else {
-            // TODO make it apparent that the steps list is potentially incomplete
-            for (int i = Math.min(0, steps.size() - 10); i < steps.size(); i++) {
-                editorDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
-            }
+    private void onContinue() {
+        assert(!isRunning() && isStarted());
+        assert(reductionStrategy != StrategyType.MANUALSELECTION);
+        // TODO hide steps?
+        runTimer = new RunTimer(new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last()));
+        runTimer.scheduleRepeating(0);
+    }
+
+    private void onPause() {
+        assert (isRunning() && isStarted());
+
+        runTimer.cancel();
+        runTimer = null;
+
+        // TODO make it apparent to the user that the steps list is potentially incomplete
+        for (int i = Math.max(0, steps.size() - 10); i < steps.size(); i++) {
+            editorDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
         }
     }
 
@@ -175,33 +163,114 @@ public class EditorPresenter {
         reset();
     }
 
-    private void onStep() {
-        assert (betaReductionIterator.hasNext());
-        Term result = betaReductionIterator.next();
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
-        if (betaReductionIterator.hasNext()) {
-            editorDisplay.addNextStep(hle);
+    /**
+     * Gets everything ready and adds the input to steps.
+     * Sends Syntax/Semantic errors to the editorDisplay.
+     * @return false if syntax/semantic errors.
+     */
+    private boolean tryStartOrHandleErrors() {
+        assert(steps.isEmpty());
+
+        highlightTimer.cancel();
+        Term input = parseInputOrHandleErrors();
+        if (input == null) {
+            return false;
+        }
+        steps.add(input);
+        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(input);
+        editorDisplay.setInput(hle);
+
+        return true;
+    }
+
+    private void onStep(int stepCount) {
+        assert(reductionStrategy != StrategyType.MANUALSELECTION);
+        assert(!isRunning());
+
+        if (!isStarted()) {
+            if (!tryStartOrHandleErrors()) {
+                return;
+            }
+        }
+
+        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
+        if (bri.hasNext()) {
+            Term result = bri.next();
+            steps.add(result);
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
+            if (!bri.hasNext()) {
+                // the result of the input is irreducible.
+                editorDisplay.displayResult(hle);
+            } else {
+                // the most common case
+                editorDisplay.addNextStep(hle);
+            }
         } else {
+            // input term is irreducible already.
+            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(last());
             editorDisplay.displayResult(hle);
         }
     }
 
-    private void onStrategyChange(EvaluationStrategyChangedEvent strat) {
-        switch (strat.getStrategyType()) {
+    private void onRedexClicked(Token token) {
+        assert(!isRunning() && isStarted());
+        // todo impl
+    }
 
-            case CALLBYVALUE:
-                reductionStrategy = new CallByValue();
-                break;
-            case CALLBYNAME:
-                reductionStrategy = new CallByName();
-                break;
-            case NORMALORDER:
-                reductionStrategy = new NormalOrder();
-                break;
-            case MANUALSELECTION:
-                throw new RuntimeException("Not implemented"); // TODO implement UserStrategy
-//                reductionStrategy = new UserStrategy();
+    private void onStrategyChange(EvaluationStrategyChangedEvent strat) {
+        assert(runTimer == null);
+        reductionStrategy = strat.getStrategyType();
+    }
+
+    private class RunTimer extends Timer {
+        private final BetaReductionIterator betaReductionIterator;
+
+        private RunTimer(BetaReductionIterator betaReductionIterator) {
+            this.betaReductionIterator = betaReductionIterator;
         }
 
+        @Override
+        public void run() {
+            assert (this.betaReductionIterator != null);
+            assert (this.betaReductionIterator.hasNext());
+
+            steps.add(this.betaReductionIterator.next());
+
+            if (!this.betaReductionIterator.hasNext()) {
+                editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+                finish();
+            }
+        }
+    }
+
+    /**
+     * Tries to parse the user input and calls the appropriate stuff in case it's wrong.
+     * @return Input or null on bad input.
+     */
+    private Term parseInputOrHandleErrors() {
+        String input = editorDisplay.getInput();
+        Term t;
+        try {
+            t = lambdaParser.parse(lambdaLexer.lex(input));
+        } catch (SemanticException e) {
+            editorDisplay.displaySemanticError(e);
+            return null;
+        } catch (SyntaxException e) {
+            editorDisplay.displaySyntaxError(e);
+            return null;
+        }
+        return t;
+    }
+
+    private class HighlightTimer extends Timer {
+        @Override
+        public void run() {
+            Term t = parseInputOrHandleErrors();
+            if (t == null) {
+                return;
+            }
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+            editorDisplay.setInput(hle);
+        }
     }
 }
