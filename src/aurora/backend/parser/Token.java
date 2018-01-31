@@ -1,5 +1,7 @@
 package aurora.backend.parser;
 
+import java.util.Objects;
+
 /**
  * A single concrete token, as produced by {@link LambdaLexer} and consumed by {@link LambdaParser}.
  */
@@ -78,13 +80,32 @@ public class Token {
                 return ")";
             case T_FUNCTION:
                 return "$" + this.name;
-            case T_NUMBER:
-                return "c" + this.name;
             case T_COMMENT:
                 return "#" + this.name;
             default:
         }
         return this.name;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, name, line, column, offset);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Token token = (Token) o;
+        return line == token.line &&
+                column == token.column &&
+                offset == token.offset &&
+                type == token.type &&
+                Objects.equals(name, token.name);
     }
 
     /**
@@ -100,6 +121,10 @@ public class Token {
         T_NUMBER,
         T_COMMENT,
         T_WHITESPACE
+    }
+
+    public String debug() {
+        return "[" + toString() + " l:" + line + " c:" + column + " o:" + offset + "]";
     }
 
 }
