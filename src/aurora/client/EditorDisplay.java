@@ -16,14 +16,14 @@ import aurora.backend.parser.exceptions.SyntaxException;
 public interface EditorDisplay {
 
     /**
-     * Displays a syntax error message.
-     * @param syntaxException Contains detailed information about the error.
+     * Displays a syntax error.
+     * @param syntaxException Exception as given by LambdaLexer.
      */
     void displaySyntaxError(SyntaxException syntaxException);
 
     /**
-     * Shows the user they made a semantic error in their input.
-     * @param semanticException Contains detailed information about the error.
+     * Displays a semantic error.
+     * @param semanticException Exception as given by LambdaLexer.
      */
     void displaySemanticError(SemanticException semanticException);
 
