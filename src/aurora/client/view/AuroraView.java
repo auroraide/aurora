@@ -3,6 +3,7 @@ package aurora.client.view;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
+import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
@@ -12,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+
 
 
 /**
@@ -38,7 +40,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private State defaultState;
     private State runningState;
     private State pausedState;
-    private State finshedState;
+    private State finishedState;
     private State stepBeforeResultState;
 
     private State currentState;
@@ -62,9 +64,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.defaultState = new DefaultState();
         this.runningState = new RunningState();
         this.pausedState = new PausedState();
-        this.finshedState = new FinishedState();
+        this.finishedState = new FinishedState();
         this.stepBeforeResultState = new StepBeforeResultState();
         this.currentState = defaultState;
+
 
         // editor.getActionBar().onRunButtonClick(e -> {
         //     currentState = currentState.run();
@@ -101,26 +104,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         // on step number change IN EDITOR:
         //      sidebar.stepnumber = ...;
         //      eventBus.fireevent(step chagned....)
-    }
-
-    private void changeToDefaultAppearance() {
-
-    }
-
-    private void changeToRunningAppearance() {
-
-    }
-
-    private void changeToPausedAppearance() {
-
-    }
-
-    private void changeToStepBeforeResultAppearance() {
-
-    }
-
-    private void changeToFinishedAppearance() {
-
     }
 
     public EditorDisplay getEditor() {
@@ -171,7 +154,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
-            changeToDefaultAppearance();
+            AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.DEFAULT_STATE));
         }
 
         @Override
@@ -219,12 +202,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void redexClicked() {
-            throw new IllegalStateException("Executing resultCalculated is not allowed FinishedState!");
+            throw new IllegalStateException("Executing redexClicked is not allowed FinishedState!");
         }
 
         @Override
         protected void onEntry() {
-            changeToFinishedAppearance();
+            AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
         }
 
         @Override
@@ -267,7 +250,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resultCalculated() {
-            this.state = AuroraView.this.finshedState;
+            this.state = AuroraView.this.finishedState;
         }
 
         @Override
@@ -277,12 +260,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
-            changeToPausedAppearance();
+            AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
         }
 
         @Override
         protected void onExit() {
-
         }
 
         @Override
@@ -320,7 +302,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resultCalculated() {
-            this.state = AuroraView.this.finshedState;
+            this.state = AuroraView.this.finishedState;
         }
 
         @Override
@@ -330,7 +312,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
-            changeToRunningAppearance();
+            AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.RUNNING_STATE));
         }
 
         @Override
@@ -373,7 +355,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resultCalculated() {
-            this.state = AuroraView.this.finshedState;
+            this.state = AuroraView.this.finishedState;
         }
 
         @Override
@@ -383,7 +365,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
-            changeToStepBeforeResultAppearance();
+            AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
         }
 
         @Override
@@ -426,7 +408,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
             if (next != this) {
                 this.onExit();
                 next.onEntry();
-                currentState = next;
+                AuroraView.this.currentState = next;
             }
         }
 
