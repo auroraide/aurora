@@ -42,12 +42,11 @@ public class EditorView extends Composite implements EditorDisplay {
 
     // Output Field
     @UiField
-    FlexTable outputFieldTable;
-
-    private EventBus eventBus;
+    DockLayoutPanel outputDockLayoutPanel;
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
+    private EventBus eventBus;
 
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
@@ -57,16 +56,16 @@ public class EditorView extends Composite implements EditorDisplay {
     public EditorView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        setupInputCodeMirror();
-        setupOutputFieldCodeMirror();
+        setupInputField();
+        setupOutputField();
     }
 
-    private void setupInputCodeMirror() {
+    private void setupInputField() {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
+        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
-        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
@@ -75,16 +74,35 @@ public class EditorView extends Composite implements EditorDisplay {
                 String initialContent = "#Aurorascript static syntax highlighting example";
                 initialContent += "\n$plus 2 λs.λz.s(sz)";
                 inputCodeMirror.setValue(initialContent);
+                //autofocus not working???
+                inputCodeMirror.setOption("autofocus", true);
                 inputCodeMirror.setOption("mode", "aurorascript");
+                inputCodeMirror.setOption("autoCloseBrackets", true);
+                inputCodeMirror.setOption("matchBrackets", true);
+                inputCodeMirror.setOption("styleActiveLine", true);
             }
         });
     }
 
-    private void setupOutputFieldCodeMirror() {
-        this.outputOptionButton = new Button();
+    private void setupOutputField() {
+        this.outputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
+        this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4);
+
         this.outputCodeMirror = new CodeMirrorPanel();
-        // TODO Add outputCodeMirror and option button to outputFieldContainer
+        this.outputDockLayoutPanel.add(this.outputCodeMirror);
+        this.outputDockLayoutPanel.setSize("100%", "95%");
+
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                String initialContent = "4";
+                initialContent += "\n#Duh";
+                outputCodeMirror.setValue(initialContent);
+                outputCodeMirror.setOption("readOnly", true);
+                outputCodeMirror.setOption("mode", "aurorascript");
+                outputCodeMirror.setOption("matchBrackets", true);
+            }
+        });
     }
 
 
@@ -163,9 +181,10 @@ public class EditorView extends Composite implements EditorDisplay {
      *
      * @return outputFieldTable
      */
-    public FlexTable getOutputFieldTable() {
-        return outputFieldTable;
-    }
+    //TODO Kann das weg???
+    // public FlexTable getOutputFieldTable() {
+    //     return outputFieldTable;
+    // }
 
     /**
      * Returns the ActionBar.
