@@ -16,7 +16,7 @@ public class ResetEvent extends GwtEvent<ResetEventHandler> {
 
     @Override
     protected void dispatch(ResetEventHandler resetEventHandler) {
-
+        resetEventHandler.onReset(this);
     }
 
 }

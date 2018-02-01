@@ -38,7 +38,7 @@ We're using [Caddy](https://caddyserver.com) for that.
 caddy
 ```
 
-Now, visit [`http://localhost:4000/Aurora.html`](http://localhost:4000/Aurora.html) in your browser.
+Now, visit [`http://localhost:4000`](http://localhost:4000) in your browser.
 
 
 

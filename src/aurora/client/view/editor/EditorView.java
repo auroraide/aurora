@@ -11,9 +11,15 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
+import aurora.client.view.editor.CodeMirrorPanel;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
+
+import java.util.List;
 
 /**
  * This is where the user may view and manipulate code.
@@ -28,7 +34,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     // Input Field
     @UiField
-    FlexTable inputFieldTable;
+    DockLayoutPanel inputDockLayoutPanel;
     private Button inputOptionButton;
     private CodeMirrorPanel inputCodeMirror;
     @UiField
@@ -40,12 +46,11 @@ public class EditorView extends Composite implements EditorDisplay {
 
     // Output Field
     @UiField
-    FlexTable outputFieldTable;
-
-    private EventBus eventBus;
+    DockLayoutPanel outputDockLayoutPanel;
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
+    private EventBus eventBus;
 
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
@@ -55,23 +60,59 @@ public class EditorView extends Composite implements EditorDisplay {
     public EditorView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        setupInputCodeMirror();
-        setupOutputFieldCodeMirror();
+        setupInputField();
+        setupOutputField();
     }
 
-    private void setupInputCodeMirror() {
-        this.inputOptionButton = new Button();
+    private void setupInputField() {
+        this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
+        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
+
         this.inputCodeMirror = new CodeMirrorPanel();
-        // TODO Add inputCodeMirror and option button to inputFieldContainer
+        this.inputDockLayoutPanel.add(this.inputCodeMirror);
+        this.inputDockLayoutPanel.setSize("100%", "100%");
+
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                String initialContent = "#Aurorascript static syntax highlighting example";
+                initialContent += "\n$plus 2 λs.λz.s(sz)";
+                inputCodeMirror.setValue(initialContent);
+                //autofocus not working???
+                inputCodeMirror.setOption("autofocus", true);
+                inputCodeMirror.setOption("mode", "aurorascript");
+                inputCodeMirror.setOption("autoCloseBrackets", true);
+                inputCodeMirror.setOption("matchBrackets", true);
+                inputCodeMirror.setOption("styleActiveLine", true);
+            }
+        });
     }
 
-    private void setupOutputFieldCodeMirror() {
-        this.outputOptionButton = new Button();
+    private void setupOutputField() {
+        this.outputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
+        this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4);
+
         this.outputCodeMirror = new CodeMirrorPanel();
-        // TODO Add outputCodeMirror and option button to outputFieldContainer
+        this.outputDockLayoutPanel.add(this.outputCodeMirror);
+        this.outputDockLayoutPanel.setSize("100%", "100%");
+
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                String initialContent = "4";
+                initialContent += "\n#Duh";
+                outputCodeMirror.setValue(initialContent);
+                outputCodeMirror.setOption("readOnly", true);
+                outputCodeMirror.setOption("mode", "aurorascript");
+                outputCodeMirror.setOption("matchBrackets", true);
+            }
+        });
     }
+
+
+    private native void console(String text) /*-{
+        console.log(text);
+    }-*/;
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
@@ -85,11 +126,11 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public String getInput() {
-        return null;
+        return this.inputCodeMirror.getValue();
     }
 
     @Override
-    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
+    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
 
     }
 
@@ -149,9 +190,10 @@ public class EditorView extends Composite implements EditorDisplay {
      *
      * @return outputFieldTable
      */
-    public FlexTable getOutputFieldTable() {
-        return outputFieldTable;
-    }
+    //TODO Kann das weg???
+    // public FlexTable getOutputFieldTable() {
+    //     return outputFieldTable;
+    // }
 
     /**
      * Returns the ActionBar.

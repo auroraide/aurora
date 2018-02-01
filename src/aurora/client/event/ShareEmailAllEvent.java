@@ -40,6 +40,6 @@ public class ShareEmailAllEvent extends GwtEvent<ShareEmailAllEventHandler> {
 
     @Override
     protected void dispatch(ShareEmailAllEventHandler handler) {
-
+        handler.onShareEmailAll(this);
     }
 }

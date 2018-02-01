@@ -34,7 +34,7 @@ public class ShareLinkAllEvent extends GwtEvent<ShareLinkAllEventHandler> {
 
     @Override
     protected void dispatch(ShareLinkAllEventHandler handler) {
-
+        handler.onShareLinkAll(this);
     }
 
     /**

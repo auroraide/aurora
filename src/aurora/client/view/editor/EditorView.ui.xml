@@ -9,10 +9,12 @@
     <g:SplitLayoutPanel>
         <!-- TODO: add title to input secion in editor (see GUI)-->
         <g:north size="120" unit="EM">
-            <g:FlowPanel>
-                <g:FlexTable ui:field="inputFieldTable"/>
-                <editor:ActionBar ui:field="actionBar"/>
-            </g:FlowPanel>
+            <g:DockLayoutPanel unit="EM" ui:field="inputDockLayoutPanel">
+                <g:south size="2">
+                    <!-- TODO: center actionbar and lock it to input/step border-->
+                    <editor:ActionBar ui:field="actionBar"/>
+                </g:south>
+            </g:DockLayoutPanel>
         </g:north>
 
         <g:center>
@@ -22,11 +24,11 @@
             </g:FlowPanel>
         </g:center>
 
+        <!-- TODO: output label overlay -->
         <g:south size="120" unit="EM">
-            <g:FlowPanel>
-                <g:Label><ui:msg description="OutputField Title">Output</ui:msg></g:Label>
-                <g:FlexTable ui:field="outputFieldTable"/>
-            </g:FlowPanel>
+            <g:DockLayoutPanel unit="EM" ui:field="outputDockLayoutPanel">
+                
+            </g:DockLayoutPanel>
         </g:south>
 
 

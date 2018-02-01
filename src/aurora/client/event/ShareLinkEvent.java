@@ -26,7 +26,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
     @Override
     protected void dispatch(ShareLinkEventHandler shareLinkEventHandler) {
-
+        shareLinkEventHandler.onShareLink(this);
     }
 
     /**

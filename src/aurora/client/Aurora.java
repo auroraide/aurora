@@ -11,6 +11,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.Timer;
 
 /**
  * Responsible for intitalising the Aurora Web Application.

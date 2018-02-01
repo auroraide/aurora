@@ -4,6 +4,8 @@ import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 
+import java.util.List;
+
 /**
  * The implementation of {@link aurora.client.view.editor.EditorView} is hidden behind the
  * <code>EditorDisplay</code> interface.
@@ -42,11 +44,11 @@ public interface EditorDisplay {
     void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 
     /**
-     * Appends a new step to the current step list.
+     * Appends a new list of steps to the current step list.
      *
-     * @param highlightedLambdaExpression Step to append.
+     * @param highlightedLambdaExpressions Steps to append.
      */
-    void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression);
+    void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions);
 
     /**
      * Wipes the step list entirely.

@@ -16,7 +16,7 @@ public class PauseEvent extends GwtEvent<PauseEventHandler> {
 
     @Override
     protected void dispatch(PauseEventHandler pauseEventHandler) {
-
+        pauseEventHandler.onPause(this);
     }
 
 }

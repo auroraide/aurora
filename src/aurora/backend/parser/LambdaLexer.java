@@ -235,18 +235,21 @@ public class LambdaLexer {
                         offset
                 ));
 
-                String[] whitelines = name.split("\r\n|\r|\n");
+                String[] whitelines = name.split("\r\n|\r|\n", -1);
 
                 // update line, column, and offset
                 if (whitelines.length > 1) {
+                    // whitespace contains newlines
                     line += whitelines.length - 1;
-                    column = whitelines[whitelines.length - 1].length();
+                    column = whitelines[whitelines.length - 1].length() + 1;
                 } else {
+                    // whitespace is a single line
                     column += name.length();
                 }
                 ++offset;
             } else {
-                throw new SyntaxException("Lex error!", line, column, offset);
+                throw new SyntaxException(
+                        "Lex error at line " + line + ", column " + column + ".", line, column, offset);
             }
         }
 
