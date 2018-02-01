@@ -91,7 +91,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
         this.outputCodeMirror = new CodeMirrorPanel();
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
-        this.outputDockLayoutPanel.setSize("100%", "95%");
+        this.outputDockLayoutPanel.setSize("100%", "100%");
 
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
@@ -117,7 +117,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public String getInput() {
-        return null;
+        return this.inputCodeMirror.getValue();
     }
 
     @Override
