@@ -9,9 +9,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import org.geomajas.codemirror.client.widget.CodeMirrorPanel;
+import aurora.client.view.editor.CodeMirrorPanel;
+import com.google.gwt.user.client.Timer;
 
 /**
  * This is where the user may view and manipulate code.
@@ -26,7 +28,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     // Input Field
     @UiField
-    FlexTable inputFieldTable;
+    DockLayoutPanel inputDockLayoutPanel;
     private Button inputOptionButton;
     private CodeMirrorPanel inputCodeMirror;
     @UiField
@@ -58,10 +60,12 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupInputCodeMirror() {
-        this.inputOptionButton = new Button();
+        this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
         this.inputCodeMirror = new CodeMirrorPanel();
-        // TODO Add inputCodeMirror and option button to inputFieldContainer
+        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
+        this.inputDockLayoutPanel.add(this.inputCodeMirror);
+        this.inputDockLayoutPanel.setSize("100%", "100%");
     }
 
     private void setupOutputFieldCodeMirror() {
@@ -70,6 +74,19 @@ public class EditorView extends Composite implements EditorDisplay {
         this.outputCodeMirror = new CodeMirrorPanel();
         // TODO Add outputCodeMirror and option button to outputFieldContainer
     }
+
+    /**
+     * This method must ONLY BE CALLED ONCE to activate in-/out CMPanels.
+     */
+    @Deprecated
+    public void reloadCM() {
+        inputCodeMirror.getValue();
+        //outputCodeMirror.getValue();
+    }
+
+    private native void console(String text) /*-{
+        console.log(text);
+    }-*/;
 
     @Override
     public void displaySyntaxError(String message) {
