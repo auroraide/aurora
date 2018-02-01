@@ -19,6 +19,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <code>EditorPresenter</code> is responsible for the presentation logic.
@@ -165,9 +166,11 @@ public class EditorPresenter {
         runTimer = null;
 
         // TODO make it apparent to the user that the steps list is potentially incomplete
+        List<HighlightedLambdaExpression> highlightedSteps = new ArrayList<>();
         for (int i = Math.max(0, steps.size() - 10); i < steps.size(); i++) {
-            editorDisplay.addNextStep(new HighlightableLambdaExpression(steps.get(i)));
+            highlightedSteps.add(new HighlightableLambdaExpression(steps.get(i)));
         }
+        editorDisplay.addNextStep(highlightedSteps);
     }
 
     private void onReset() {
@@ -214,7 +217,9 @@ public class EditorPresenter {
                 editorDisplay.displayResult(hle);
             } else {
                 // the most common case
-                editorDisplay.addNextStep(hle);
+                ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
+                step.add(hle);
+                editorDisplay.addNextStep(step);
             }
         } else {
             // input term is irreducible already.
