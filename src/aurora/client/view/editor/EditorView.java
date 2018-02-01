@@ -60,12 +60,12 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupInputCodeMirror() {
-        this.inputOptionButton = new Button();
+        this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
         this.inputCodeMirror = new CodeMirrorPanel();
+        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
-        // TODO Add inputCodeMirror and option button to inputFieldContainer
     }
 
     private void setupOutputFieldCodeMirror() {
