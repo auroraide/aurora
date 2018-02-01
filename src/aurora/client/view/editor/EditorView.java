@@ -84,7 +84,7 @@ public class EditorView extends Composite implements EditorDisplay {
         inputCodeMirror.getValue();
         //outputCodeMirror.getValue();
     }
-    
+
     public void setContent(String content) {
         inputCodeMirror.setValue("banana");
     }
