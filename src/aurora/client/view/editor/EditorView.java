@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 import aurora.client.view.editor.CodeMirrorPanel;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
 
 /**
  * This is where the user may view and manipulate code.
@@ -62,10 +64,20 @@ public class EditorView extends Composite implements EditorDisplay {
     private void setupInputCodeMirror() {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
+
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
+
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                String initialContent = "#Aurorascript static syntax highlighting example";
+                initialContent += "\n$plus 2 λs.λz.s(sz)";
+                inputCodeMirror.setValue(initialContent);
+                inputCodeMirror.setOption("mode", "aurorascript");
+            }
+        });
     }
 
     private void setupOutputFieldCodeMirror() {
@@ -75,18 +87,6 @@ public class EditorView extends Composite implements EditorDisplay {
         // TODO Add outputCodeMirror and option button to outputFieldContainer
     }
 
-    /**
-     * This method must ONLY BE CALLED ONCE to activate in-/out CMPanels.
-     */
-    @Deprecated
-    public void reloadCM() {
-        inputCodeMirror.getValue();
-        String initialContent = "#Aurorascript static syntax highlighting example";
-        initialContent += "\n$plus 2 λs.λz.s(sz)";
-        inputCodeMirror.setValue(initialContent);
-        inputCodeMirror.setOption("mode", "aurorascript");
-        //outputCodeMirror.getValue();
-    }
 
     private native void console(String text) /*-{
         console.log(text);

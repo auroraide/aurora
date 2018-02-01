@@ -93,7 +93,7 @@ public class CodeMirrorPanel extends SimplePanel {
         return $wnd.CodeMirror.fromTextArea(tae, {lineNumbers: true});
     }-*/;
 
-    public String getEditor() {
+    private String getEditor() {
         return String.valueOf(this.editor);
     }
 }
