@@ -81,6 +81,10 @@ public class EditorView extends Composite implements EditorDisplay {
     @Deprecated
     public void reloadCM() {
         inputCodeMirror.getValue();
+        String initialContent = "#Aurorascript static syntax highlighting example";
+        initialContent += "\n$plus 2 λs.λz.s(sz)";
+        inputCodeMirror.setValue(initialContent);
+        inputCodeMirror.setOption("mode", "aurorascript");
         //outputCodeMirror.getValue();
     }
 
