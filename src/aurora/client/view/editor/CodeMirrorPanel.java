@@ -62,7 +62,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param value  New value of the option.
      */
     public void setOption(String option, Object value) {
-        callCMFunction(editor, option, value);
+        callCMFunction(editor, "setOption", option, value);
     }
 
     private native Object callCMFunction(JavaScriptObject jso, String name) /*-{
@@ -71,6 +71,10 @@ public class CodeMirrorPanel extends SimplePanel {
 
     private native Object callCMFunction(JavaScriptObject jso, String name, Object arg) /*-{
         return jso[name].apply(jso, [arg]);
+    }-*/;
+
+    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg1, Object arg2) /*-{
+        return jso[name].apply(jso, [arg1, arg2]);
     }-*/;
 
     private static native void console(String text) /*-{
@@ -89,4 +93,7 @@ public class CodeMirrorPanel extends SimplePanel {
         return $wnd.CodeMirror.fromTextArea(tae, {lineNumbers: true});
     }-*/;
 
+    public String getEditor() {
+        return String.valueOf(this.editor);
+    }
 }
