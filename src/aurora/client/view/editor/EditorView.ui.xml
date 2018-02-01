@@ -6,10 +6,14 @@
     <g:SplitLayoutPanel>
 
         <g:north size="120" unit="EM">
-            <g:FlowPanel>
-                <g:FlexTable ui:field="inputFieldTable"/>
-                <editor:ActionBar ui:field="actionBar"/>
-            </g:FlowPanel>
+            <g:DockLayoutPanel unit="EM" ui:field="inputDockLayoutPanel">
+                <g:south size="2">
+                    <editor:ActionBar ui:field="actionBar"/>
+                </g:south>
+                <g:west size="4">
+                    <g:Button>Share</g:Button>
+                </g:west>
+            </g:DockLayoutPanel>
         </g:north>
 
         <g:center>
