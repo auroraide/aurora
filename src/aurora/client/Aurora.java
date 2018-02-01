@@ -11,6 +11,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.Timer;
 
 /**
  * Responsible for intitalising the Aurora Web Application.
@@ -36,5 +37,27 @@ public class Aurora implements EntryPoint {
         EditorPresenter editorPresenter = new EditorPresenter(eventBus, auroraView.getEditor());
 
         RootLayoutPanel.get().add(auroraView);
+
+        reloadCodeMirror(editorView);
     }
+
+    /**
+     * Temporary way to get CodeMirror up and running.
+     * Will be replaced with a scheduler in the near future.
+     * Maybe.
+     * Just pretend it's not there...
+     */
+    private void reloadCodeMirror(EditorView editorView) {
+        Timer timer = new Timer() {
+            @Override
+            public void run() {
+                editorView.reloadCM();
+            }
+        };
+        timer.schedule(0);
+    }
+
+    private native void console(String text) /*-{
+        console.log(text);
+    }-*/;
 }
