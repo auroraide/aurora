@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.GwtEvent;
 /**
  * Represents an event, which is triggered, when the view is about to change its state.
  */
-public class ViewStateChangedEvent extends GwtEvent<ViewStateChangedEventHandler>{
+public class ViewStateChangedEvent extends GwtEvent<ViewStateChangedEventHandler> {
     public static GwtEvent.Type<ViewStateChangedEventHandler> TYPE = new GwtEvent.Type<>();
     ViewState viewState;
 
