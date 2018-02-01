@@ -1,10 +1,13 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
 
     <g:FlowPanel>
-        <g:Button ui:field="runPauseContinueButton">run</g:Button>
-        <g:Button ui:field="resetButton">reset</g:Button>
-        <g:Button ui:field="stepButton">step</g:Button>
+        <g:Button ui:field="runPauseContinueButton"><ui:msg description="actionBar run">run</ui:msg></g:Button>
+        <g:Button ui:field="resetButton"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
+        <g:Button ui:field="stepButton"><ui:msg description="actionBar step">step</ui:msg></g:Button>
     </g:FlowPanel>
 
 </ui:UiBinder>

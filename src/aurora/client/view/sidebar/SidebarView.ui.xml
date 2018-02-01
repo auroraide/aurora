@@ -1,6 +1,9 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:strategy2="urn:import:aurora.client.view.sidebar.strategy">
+             xmlns:strategy2="urn:import:aurora.client.view.sidebar.strategy"
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
 
     <ui:style>
         .leftAlign {
@@ -28,7 +31,7 @@
                 <g:north size="2.5">
                     <!-- Step Setting -->
                     <g:FlowPanel>
-                        <g:Label addStyleNames="{style.leftAlign}">Steps</g:Label>
+                        <g:Label addStyleNames="{style.leftAlign}"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
                         <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
                     </g:FlowPanel>
                 </g:north>
@@ -43,7 +46,7 @@
                                 <g:FlowPanel>
                                     <!-- Placeholder for stdlib icon-->
                                     <g:Label addStyleNames="{style.leftAlign}">Icon</g:Label>
-                                    <g:Label addStyleNames="{style.rightAlign}">Standard Library</g:Label>
+                                    <g:Label addStyleNames="{style.rightAlign}"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
                             </g:customHeader>
 
@@ -56,7 +59,7 @@
                             <g:customHeader size="70">
                                 <g:FlowPanel>
                                     <g:Label>Icon</g:Label>
-                                    <g:Label>User Library</g:Label>
+                                    <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
                                     <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+
                                     </g:Button>
                                 </g:FlowPanel>
@@ -77,14 +80,14 @@
 
                 <!-- Night Mode -->
                 <g:FlowPanel>
-                    <g:Label>Night Mode</g:Label>
+                    <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
                     <g:ToggleButton ui:field="nightModeSwitch">On</g:ToggleButton>
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
                 <g:FlowPanel>
-                    <g:Button>Share</g:Button>
-                    <g:Button>Language</g:Button>
+                    <g:Button><ui:msg description="Sidebar Share Option">Share</ui:msg></g:Button>
+                    <g:Button><ui:msg description="Sidebar Language Option">Language</ui:msg></g:Button>
                 </g:FlowPanel>
 
                 <g:ListBox ui:field="shareSelection"/>

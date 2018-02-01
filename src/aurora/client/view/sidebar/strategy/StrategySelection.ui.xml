@@ -1,24 +1,27 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
+             ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
 
 
     <g:FlowPanel>
         <g:HorizontalPanel>
             <g:RadioButton ui:field="callByValue" name="strategyButton" value="false">
-                call by Value
+                <ui:msg description="Strategy callByValue">call by Value</ui:msg>
             </g:RadioButton>
             <g:RadioButton ui:field="normalOrder" name="strategyButton" value="true">
-                NORMAL ORDER
+                <ui:msg description="Strategy normalOrder">NORMAL ORDER</ui:msg>
             </g:RadioButton>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
             <g:RadioButton ui:field="callByName" name="strategyButton" value="false">
-                call by NAME
+                <ui:msg description="Strategy callByName">call by NAME</ui:msg>
             </g:RadioButton>
 
             <g:RadioButton ui:field="manualSelection" name="strategyButton" value="false">
-                MANUAL SELECTION
+                <ui:msg description="Strategy manualSelection">MANUAL SELECTION</ui:msg>
             </g:RadioButton>
         </g:HorizontalPanel>
     </g:FlowPanel>
