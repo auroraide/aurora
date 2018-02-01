@@ -16,7 +16,7 @@ public class ContinueEvent extends GwtEvent<ContinueEventHandler> {
 
     @Override
     protected void dispatch(ContinueEventHandler continueEventHandler) {
-
+        continueEventHandler.onContinue(this);
     }
 
 }

@@ -26,6 +26,7 @@ public class DeleteFunctionEvent extends GwtEvent<DeleteFunctionEventHandler> {
 
     @Override
     protected void dispatch(DeleteFunctionEventHandler handler) {
+        handler.onDeleteFunction(this);
     }
 
     /**

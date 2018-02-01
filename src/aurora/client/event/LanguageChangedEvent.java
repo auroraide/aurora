@@ -16,6 +16,6 @@ public class LanguageChangedEvent extends GwtEvent<LanguageChangedEventHandler> 
 
     @Override
     protected void dispatch(LanguageChangedEventHandler languageChangedEventHandler) {
-
+        languageChangedEventHandler.onLanguageChanged(this);
     }
 }

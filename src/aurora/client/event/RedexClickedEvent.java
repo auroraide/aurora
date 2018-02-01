@@ -26,7 +26,7 @@ public class RedexClickedEvent extends GwtEvent<RedexClickedEventHandler> {
 
     @Override
     protected void dispatch(RedexClickedEventHandler handler) {
-
+        handler.onRedexClicked(this);
     }
 
     /**

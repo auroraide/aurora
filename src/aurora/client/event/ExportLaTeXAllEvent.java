@@ -28,7 +28,7 @@ public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
 
     @Override
     protected void dispatch(ExportLaTeXAllEventHandler handler) {
-
+        handler.onExportLatexAll(this);
     }
 
     public Iterator<HighlightedLambdaExpression> getSteps() {

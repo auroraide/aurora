@@ -26,7 +26,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
 
     @Override
     protected void dispatch(ExportLaTeXEventHandler exportLaTeXEventHandler) {
-
+        exportLaTeXEventHandler.onExportLaTeX(this);
     }
 
     /**

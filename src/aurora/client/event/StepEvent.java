@@ -25,7 +25,7 @@ public class StepEvent extends GwtEvent<StepEventHandler> {
 
     @Override
     protected void dispatch(StepEventHandler stepEventHandler) {
-
+        stepEventHandler.onStep(this);
     }
 
     /**

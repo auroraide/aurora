@@ -33,7 +33,7 @@ public class AddFunctionEvent extends GwtEvent<AddFunctionEventHandler> {
 
     @Override
     protected void dispatch(AddFunctionEventHandler addFunctionEventHandler) {
-
+        addFunctionEventHandler.onAddFunction(this);
     }
 
     /**

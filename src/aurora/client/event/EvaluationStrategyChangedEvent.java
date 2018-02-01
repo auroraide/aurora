@@ -26,7 +26,7 @@ public class EvaluationStrategyChangedEvent extends GwtEvent<EvaluationStrategyC
 
     @Override
     protected void dispatch(EvaluationStrategyChangedEventHandler evaluationStrategyChangedEventHandler) {
-
+        evaluationStrategyChangedEventHandler.onEvaluationStrategyChanged(this);
     }
 
     /**
