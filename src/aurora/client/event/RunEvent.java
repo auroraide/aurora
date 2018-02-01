@@ -16,7 +16,7 @@ public class RunEvent extends GwtEvent<RunEventHandler> {
 
     @Override
     protected void dispatch(RunEventHandler runEventHandler) {
-
+        runEventHandler.onRun(this);
     }
 
 }

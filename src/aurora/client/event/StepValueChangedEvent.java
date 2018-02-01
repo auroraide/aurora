@@ -26,7 +26,7 @@ public class StepValueChangedEvent extends GwtEvent<StepValueChangedEventHandler
 
     @Override
     protected void dispatch(StepValueChangedEventHandler handler) {
-
+        handler.onStepValueChanged(this);
     }
 
     /**

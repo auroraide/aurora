@@ -27,7 +27,7 @@ public class ShareEmailEvent extends GwtEvent<ShareEmailEventHandler> {
 
     @Override
     protected void dispatch(ShareEmailEventHandler openEmailClientEventHandler) {
-
+        openEmailClientEventHandler.onOpenEmailClient(this);
     }
 }
 

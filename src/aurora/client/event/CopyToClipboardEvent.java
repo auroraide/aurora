@@ -17,5 +17,6 @@ public class CopyToClipboardEvent extends GwtEvent<CopyToClipboardEventHandler> 
 
     @Override
     protected void dispatch(CopyToClipboardEventHandler handler) {
+        handler.onCopyToClipboard(this);
     }
 }

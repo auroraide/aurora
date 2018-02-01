@@ -26,7 +26,7 @@ public class ToNewTabEvent extends GwtEvent<ToNewTabEventHandler> {
 
     @Override
     protected void dispatch(ToNewTabEventHandler handler) {
-
+        handler.onToNewTab(this);
     }
 
     /**
