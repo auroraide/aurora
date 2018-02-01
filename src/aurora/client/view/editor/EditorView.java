@@ -17,6 +17,8 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
+import java.util.List;
+
 /**
  * This is where the user may view and manipulate code.
  * Three different kinds of code fields are provided.
@@ -121,7 +123,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression) {
+    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
 
     }
 
