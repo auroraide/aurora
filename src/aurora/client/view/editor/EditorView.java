@@ -81,6 +81,8 @@ public class EditorView extends Composite implements EditorDisplay {
     @Deprecated
     public void reloadCM() {
         inputCodeMirror.getValue();
+        inputCodeMirror.setValue("banana");
+        inputCodeMirror.setOption("mode", "aurorascript");
         //outputCodeMirror.getValue();
     }
 
