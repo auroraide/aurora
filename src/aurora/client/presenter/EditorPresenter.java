@@ -52,26 +52,38 @@ public class EditorPresenter {
     private StrategyType reductionStrategy;
 
     /**
-     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
+     * Creates an <code>EditorPresenter</code> with the given components.
      *
      * @param eventBus      The event bus.
      * @param editorDisplay The {@link EditorDisplay}
+     * @param lambdaLexer   The lexer to use.
+     * @param lambdaParser  The parser to use.
      */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
+    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay, LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
         this.editorDisplay = editorDisplay;
         this.eventBus = eventBus;
+        this.lambdaLexer = lambdaLexer;
+        this.lambdaParser = lambdaParser;
 
         standardLibrary = new Library();
         userLibrary = new Library();
         steps = new ArrayList<>();
-        lambdaLexer = new LambdaLexer();
-        lambdaParser = new LambdaParser();
 
         highlightTimer = new HighlightTimer();
 
         bind();
 
         reset();
+    }
+
+    /**
+     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
+     *
+     * @param eventBus      The event bus.
+     * @param editorDisplay The {@link EditorDisplay}
+     */
+    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
+        this(eventBus, editorDisplay, new LambdaLexer(), new LambdaParser());
     }
 
     private void bind() {
@@ -86,7 +98,6 @@ public class EditorPresenter {
 
     private void reset() {
         reductionStrategy = StrategyType.NORMALORDER;
-        runTimer.cancel();
         highlightTimer.scheduleRepeating(1000);
         steps.clear();
     }
