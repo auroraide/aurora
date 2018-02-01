@@ -80,17 +80,8 @@ public class EditorView extends Composite implements EditorDisplay {
      */
     @Deprecated
     public void reloadCM() {
-        inputCodeMirror.setValue("banana");
         inputCodeMirror.getValue();
         //outputCodeMirror.getValue();
-    }
-
-    public void setContent(String content) {
-        inputCodeMirror.setValue("banana");
-    }
-
-    public String getContent() {
-        return inputCodeMirror.getValue();
     }
 
     private native void console(String text) /*-{
