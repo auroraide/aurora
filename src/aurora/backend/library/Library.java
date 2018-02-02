@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Collection of lambda term definitions.
  */
-public class Library implements Iterable<Library.LibraryItem> {
+public class Library{
 
     private Map<String, LibraryItem> map;
 
@@ -20,11 +20,7 @@ public class Library implements Iterable<Library.LibraryItem> {
     public Library() {
         this.map = new HashMap<>();
     }
-
-    @Override
-    public Iterator<LibraryItem> iterator() {
-        return null;
-    }
+    
 
     /**
      * Get the LibraryItem by name.
@@ -74,7 +70,9 @@ public class Library implements Iterable<Library.LibraryItem> {
      * @param name Name of the LibraryItem that should be removed.
      */
     public void remove(String name) {
-
+        if (exists(name)) {
+            map.remove(name);
+        }
     }
 
     /**
@@ -84,7 +82,7 @@ public class Library implements Iterable<Library.LibraryItem> {
      * @return Whether the LibraryItem exists in the Library.
      */
     public boolean exists(String name) {
-        return false;
+        return map.containsKey(name);
     }
 
     /**
