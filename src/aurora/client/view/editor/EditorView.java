@@ -108,10 +108,6 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
 
-    private native void console(String text) /*-{
-        console.log(text);
-    }-*/;
-
     @Override
     public void displaySyntaxError(String message) {
 
@@ -123,8 +119,15 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
+    public void addNextStep(int startIndex, List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
 
+    }
+
+    private void addStepEntry(int entryIndex, HighlightedLambdaExpression hle) {
+        stepFieldTable.setText(entryIndex - 1, 0, entryIndex.toString());
+        stepFieldTable.setWidget(entryIndex -1, 1, new Button("OptionsButton, config me"));
+        CodeMirrorPanel cmp = new CodeMirrorPanel();
+        stepFieldTable.setWidget(entryIndex - 1, 2, hle.toString());
     }
 
     @Override
@@ -196,6 +199,10 @@ public class EditorView extends Composite implements EditorDisplay {
     public ActionBar getActionBar() {
         return actionBar;
     }
+
+    private native void console(String text) /*-{
+        console.log(text);
+    }-*/;
 
 }
 
