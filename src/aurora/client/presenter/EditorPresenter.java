@@ -4,7 +4,10 @@ import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.BetaReductionIterator;
-import aurora.backend.betareduction.strategies.*;
+import aurora.backend.betareduction.strategies.CallByName;
+import aurora.backend.betareduction.strategies.CallByValue;
+import aurora.backend.betareduction.strategies.NormalOrder;
+import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -13,7 +16,12 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
-import aurora.client.event.*;
+import aurora.client.event.EvaluationStrategyChangedEvent;
+import aurora.client.event.PauseEvent;
+import aurora.client.event.RedexClickedEvent;
+import aurora.client.event.ResetEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
@@ -42,14 +50,12 @@ public class EditorPresenter {
      * Contains all steps in between, so without input and without output fields.
      */
     private final ArrayList<Term> steps;
-
+    private final HighlightTimer highlightTimer;
     /**
      * GWT Timer, allows for "while" loops without blocking the GUI.
      * This will be null when not running, and not null when running.
      */
     private RunTimer runTimer;
-    private final HighlightTimer highlightTimer;
-
     private StrategyType reductionStrategy;
 
     /**
@@ -60,7 +66,12 @@ public class EditorPresenter {
      * @param lambdaLexer   The lexer to use.
      * @param lambdaParser  The parser to use.
      */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay, LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
+    public EditorPresenter(
+            EventBus eventBus,
+            EditorDisplay editorDisplay,
+            LambdaLexer lambdaLexer,
+            LambdaParser lambdaParser)
+    {
         this.editorDisplay = editorDisplay;
         this.eventBus = eventBus;
         this.lambdaLexer = lambdaLexer;
@@ -117,6 +128,7 @@ public class EditorPresenter {
     private boolean isRunning() {
         return runTimer != null;
     }
+
     private boolean isStarted() {
         return !steps.isEmpty();
     }
@@ -139,7 +151,7 @@ public class EditorPresenter {
      * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
      */
     private void onRun() {
-        assert(!isRunning() && !isStarted());
+        assert (!isRunning() && !isStarted());
 
         if (!tryStartOrHandleErrors()) {
             return;
@@ -152,8 +164,8 @@ public class EditorPresenter {
     }
 
     private void onContinue() {
-        assert(!isRunning() && isStarted());
-        assert(reductionStrategy != StrategyType.MANUALSELECTION);
+        assert (!isRunning() && isStarted());
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
         // TODO hide steps?
         runTimer = new RunTimer(new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last()));
         runTimer.scheduleRepeating(0);
@@ -180,10 +192,11 @@ public class EditorPresenter {
     /**
      * Gets everything ready and adds the input to steps.
      * Sends Syntax/Semantic errors to the editorDisplay.
+     *
      * @return false if syntax/semantic errors.
      */
     private boolean tryStartOrHandleErrors() {
-        assert(steps.isEmpty());
+        assert (steps.isEmpty());
 
         highlightTimer.cancel();
         Term input = parseInputOrHandleErrors();
@@ -198,8 +211,8 @@ public class EditorPresenter {
     }
 
     private void onStep(int stepCount) {
-        assert(reductionStrategy != StrategyType.MANUALSELECTION);
-        assert(!isRunning());
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        assert (!isRunning());
 
         if (!isStarted()) {
             if (!tryStartOrHandleErrors()) {
@@ -229,13 +242,33 @@ public class EditorPresenter {
     }
 
     private void onRedexClicked(Token token) {
-        assert(!isRunning() && isStarted());
+        assert (!isRunning() && isStarted());
         // todo impl
     }
 
     private void onStrategyChange(EvaluationStrategyChangedEvent strat) {
-        assert(runTimer == null);
+        assert (runTimer == null);
         reductionStrategy = strat.getStrategyType();
+    }
+
+    /**
+     * Tries to parse the user input and calls the appropriate stuff in case it's wrong.
+     *
+     * @return Input or null on bad input.
+     */
+    private Term parseInputOrHandleErrors() {
+        String input = editorDisplay.getInput();
+        Term t;
+        try {
+            t = lambdaParser.parse(lambdaLexer.lex(input));
+        } catch (SemanticException e) {
+            editorDisplay.displaySemanticError(e);
+            return null;
+        } catch (SyntaxException e) {
+            editorDisplay.displaySyntaxError(e);
+            return null;
+        }
+        return t;
     }
 
     private class RunTimer extends Timer {
@@ -257,25 +290,6 @@ public class EditorPresenter {
                 finish();
             }
         }
-    }
-
-    /**
-     * Tries to parse the user input and calls the appropriate stuff in case it's wrong.
-     * @return Input or null on bad input.
-     */
-    private Term parseInputOrHandleErrors() {
-        String input = editorDisplay.getInput();
-        Term t;
-        try {
-            t = lambdaParser.parse(lambdaLexer.lex(input));
-        } catch (SemanticException e) {
-            editorDisplay.displaySemanticError(e);
-            return null;
-        } catch (SyntaxException e) {
-            editorDisplay.displaySyntaxError(e);
-            return null;
-        }
-        return t;
     }
 
     private class HighlightTimer extends Timer {
