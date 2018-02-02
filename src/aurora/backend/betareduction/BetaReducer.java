@@ -5,6 +5,7 @@ import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.betareduction.visitors.RedexFinderVisitor;
 import aurora.backend.betareduction.visitors.ReplaceVisitor;
 import aurora.backend.betareduction.visitors.SubstitutionVisitor;
+import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.Term;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class BetaReducer {
 
     private ReductionStrategy strategy;
+    private boolean finished;
 
     /**
      * The constructor gets a strategy that is used for the reduction.
@@ -21,6 +23,7 @@ public class BetaReducer {
      */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
+        finished = false;
     }
 
     /**
@@ -30,15 +33,19 @@ public class BetaReducer {
      * @return null if not reducible, otherwise reduced Term.
      */
     public Term reduce(Term term) {
+        finished = false;
         RedexPath path = strategy.getRedexPath(term);
         if (path == null) {
-            return null; // there is no reducible redex left, the given term is our result
+            finished = true;
+            return term; // there is no reducible redex left, the given term is our result
         }
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
-
-        ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substituted);
+        //seems hacky
+        Abstraction subtitutedabs = (Abstraction) substituted;
+        Term substitutedWithoutabs = subtitutedabs.body;
+        ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
         return term.accept(replaceVisitor);
     }
 
@@ -60,6 +67,5 @@ public class BetaReducer {
         term.accept(redexFinderVisitor);
         return redexFinderVisitor.getResult();
     }
-
 
 }

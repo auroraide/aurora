@@ -49,11 +49,14 @@ public class Comparer {
         }
         if (listt1.size() != listt2.size()) {
             System.out.println("The terms are not identical, one is bigger");
+            System.out.println("list1 = " + listt1.toString() + " list2= " + listt2.toString());
             return false;
         }
         for (int a = 0; a < listt1.size(); a++) {
             if (!listt1.get(a).equals(listt2.get(a))) {
                 System.out.println("Term 1 has " + listt1.get(a) + " but Term 2 has " + listt2.get(a));
+                System.out.println("list 1 =" + listt1.toString());
+                System.out.println("list 2 = " + listt2.toString());
                 return false;
             }
         }

@@ -10,6 +10,7 @@ import aurora.backend.tree.Term;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * A {@link RedexPath} is a series of left and right instructions that point.
@@ -42,7 +43,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     }
 
     /**
-     * Deletes the last element of the list.
+     * Deletes the last added element of the list.
      */
     public void pop() {
         this.path.removeLast();
@@ -158,6 +159,30 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
             Abstraction abs = c.getAbstraction();
             abs.accept(this);
             return null;
+        }
+    }
+
+    /**
+     * this is the iterator over the path.
+     */
+    private class PathIterator implements Iterator<Direction> {
+        private int current;
+
+        @Override
+        public boolean hasNext() {
+            if (current < path.size()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public Direction next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return path.get(current++);
         }
     }
 }

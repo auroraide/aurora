@@ -35,7 +35,7 @@ public class ReplaceVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Abstraction abs) {
-        return abs.accept(this);
+        return new Abstraction(abs.body.accept(this),abs.name);
     }
 
     @Override
