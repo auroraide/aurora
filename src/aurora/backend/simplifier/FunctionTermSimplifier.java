@@ -1,15 +1,15 @@
 package aurora.backend.simplifier;
 
 import aurora.backend.library.Library;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 /**
- * Simplify a given Term into a LibraryTerm that is defined in some Library.
+ * Simplify a given Term into a Function that is defined in some Library.
  * <p>
  * Checks if a given Term is in a Library.
  */
-public class LibraryTermSimplifier implements ResultSimplifier<LibraryTerm> {
+public class LibraryTermSimplifier implements ResultSimplifier<Function> {
 
     private Library library;
 
@@ -23,7 +23,7 @@ public class LibraryTermSimplifier implements ResultSimplifier<LibraryTerm> {
     }
 
     @Override
-    public LibraryTerm simplify(Term t) {
+    public Function simplify(Term t) {
         return null;
     }
 
