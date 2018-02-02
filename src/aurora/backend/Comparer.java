@@ -8,21 +8,20 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.LibraryTerm;
 import aurora.backend.tree.Term;
 
-
 import java.util.LinkedList;
 
 /**
- * takes two terms and checks if they are the same
+ * takes two terms and checks if they are the same.
  */
 public class Comparer {
     private Term t1;
     private Term t2;
-    private LinkedList<String>listt1;
-    private LinkedList<String>listt2;
+    private LinkedList<String> listt1;
+    private LinkedList<String> listt2;
 
     /**
-     * takes two terms and checks if they are the same, I use it for debugging, you can too
-     * use the compare method to check
+     * takes two terms and checks if they are the same, I use it for debugging, you can too.
+     * use the compare method to check,
      * @param t1 the first term
      * @param t2 the second term
      */
@@ -53,7 +52,7 @@ public class Comparer {
             return false;
         }
         for (int a = 0; a < listt1.size(); a++) {
-            if (!listt1.get(a).equals(listt2.get(a)) ) {
+            if (!listt1.get(a).equals(listt2.get(a))) {
                 System.out.println("Term 1 has " + listt1.get(a) + " but Term 2 has " + listt2.get(a));
                 return false;
             }
@@ -61,6 +60,7 @@ public class Comparer {
 
         return true;
     }
+
     private class CompareVisitor extends TermVisitor<Void> {
         private LinkedList<String> list;
 
@@ -71,6 +71,7 @@ public class Comparer {
                 this.list = listt2;
             }
         }
+
         @Override
         public Void visit(Abstraction abs) {
             list.add("abs" + abs.name);
@@ -89,25 +90,25 @@ public class Comparer {
         @Override
         public Void visit(BoundVariable bvar) {
 
-            list.add("bv"+Integer.toString(bvar.index));
+            list.add("bv" + Integer.toString(bvar.index));
             return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            list.add("fv"+fvar.name);
+            list.add("fv" + fvar.name);
             return null;
         }
 
         @Override
         public Void visit(LibraryTerm libterm) {
-            list.add("lb"+libterm.name);
+            list.add("lb" + libterm.name);
             return null;
         }
 
         @Override
         public Void visit(ChurchNumber c) {
-            list.add("cn"+Integer.toString(c.value));
+            list.add("cn" + Integer.toString(c.value));
             return null;
         }
     }
