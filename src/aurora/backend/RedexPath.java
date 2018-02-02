@@ -24,7 +24,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     private Term parent;
     private int counter;
     private String parenttype;
-
+    private boolean condition = false;
     /**
      * This constructor initializes an empty {@link RedexPath}.
      */
@@ -63,13 +63,13 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      */
     public Application get(Term term) {
         if (path == null) {
-            System.out.println("There is no Redex here this should never happen");
+            assert(false) : "No Redex here , This should never happen";
             return null;
         }
         Walker walker = new Walker();
         term.accept(walker);
         if (foundapp == false) {
-            System.out.println("THIS SHOULD NEVER HAPPEN");
+            assert(false) : "Didnt find the application. This should never happen";
         }
         return finalapp;
     }
@@ -139,18 +139,19 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
         @Override
         public Void visit(BoundVariable bvar) {
-            System.out.println("THIS SHOULD NEVER HAPPEN");
+           assert(false) : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            System.out.println("THIS SHOULD NEVER HAPPEN");
+            assert(false) : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
         public Void visit(LibraryTerm libterm) {
+            assert(false) : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
