@@ -30,7 +30,7 @@ public class CallByNameTest {
     public void noRedex() throws Exception {
         Term t = new Abstraction(new BoundVariable(1), "s");
         CallByName cbn = new CallByName();
-        RedexPath path =  cbn.getRedex(t);
+        RedexPath path =  cbn.getRedexPath(t);
         assertEquals(null, path);
     }
 
@@ -47,7 +47,7 @@ public class CallByNameTest {
                     "x"
         );
         CallByName cbn = new CallByName();
-        RedexPath path = cbn.getRedex(t);
+        RedexPath path = cbn.getRedexPath(t);
         assertEquals(null,path);
     }
 
@@ -68,7 +68,7 @@ public class CallByNameTest {
                 )
         );
         CallByName cbn = new CallByName();
-        RedexPath path = cbn.getRedex(t);
+        RedexPath path = cbn.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }

@@ -30,7 +30,7 @@ public class BetaReducer {
      * @return null if not reducible, otherwise reduced Term.
      */
     public Term reduce(Term term) {
-        RedexPath path = strategy.getRedex(term);
+        RedexPath path = strategy.getRedexPath(term);
         if (path == null) {
             return null; // there is no reducible redex left, the given term is our result
         }

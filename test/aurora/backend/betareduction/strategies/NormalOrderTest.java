@@ -29,7 +29,7 @@ public class NormalOrderTest {
     public void testNoRedex() throws Exception {
         Term t = new Abstraction(new BoundVariable(1), "s");
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         assertEquals(null, path);
     }
 
@@ -37,7 +37,7 @@ public class NormalOrderTest {
     public void testSimpleRedex() throws Exception {
         Term t = new Application(new Abstraction(new BoundVariable(1), "s"), new FreeVariable("a"));
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
@@ -50,7 +50,7 @@ public class NormalOrderTest {
                             new FreeVariable("z")),
                 "x");
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
 
@@ -66,7 +66,7 @@ public class NormalOrderTest {
                     )
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
@@ -81,7 +81,7 @@ public class NormalOrderTest {
                 new FreeVariable("y")
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[LEFT]",list.toString());
     }
@@ -96,7 +96,7 @@ public class NormalOrderTest {
                     )
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[RIGHT]",list.toString());
     }
@@ -114,7 +114,7 @@ public class NormalOrderTest {
                     ), "y"
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
@@ -132,7 +132,7 @@ public class NormalOrderTest {
                 "x"
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
@@ -154,7 +154,7 @@ public class NormalOrderTest {
                 )
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
@@ -167,8 +167,27 @@ public class NormalOrderTest {
                     new FreeVariable("s")
         );
         NormalOrder normal = new NormalOrder();
-        RedexPath path = normal.getRedex(t);
+        RedexPath path = normal.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
+    }
+
+    @Test
+    public void rightrightleft() {
+        Term t = new Application(
+                new FreeVariable("s"),
+                new Application(
+                        new FreeVariable("y"),
+                        new Application(
+                                new Application(new Abstraction(new BoundVariable(1),"a"),
+                                        new FreeVariable("z")),
+                                new FreeVariable("h")
+                        )
+                )
+        );
+        NormalOrder normal = new NormalOrder();
+        RedexPath path = normal.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[RIGHT, RIGHT, LEFT]",list.toString());
     }
 }

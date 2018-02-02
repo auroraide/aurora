@@ -1,6 +1,11 @@
 package aurora.backend;
 
+import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.LibraryTerm;
 import aurora.backend.tree.Term;
 
 import java.util.Iterator;
@@ -13,12 +18,17 @@ import java.util.LinkedList;
 public class RedexPath implements Iterable<RedexPath.Direction> {
 
     private final LinkedList<Direction> path;
-
+    private Application finalapp;
+    private boolean foundapp = false;
+    private Term parent;
+    private int counter;
+    private String parenttype;
     /**
      * This constructor initializes an empty {@link RedexPath}.
      */
     public RedexPath() {
         this.path = new LinkedList<>();
+        this.counter = 0;
     }
 
     /**
@@ -27,14 +37,14 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      * @param d The enum left or right.
      */
     public void push(Direction d) {
-        this.path.add(d);
+        this.path.addLast(d);
     }
 
     /**
      * Deletes the last element of the list.
      */
     public void pop() {
-        this.path.pop();
+        this.path.removeLast();
     }
 
     @Override
@@ -50,8 +60,18 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      * @return The {@link Application} that we're pointing to.
      */
     public Application get(Term term) {
-        return null;
+        if (path == null) {
+            System.out.println("There is no Redex here this should never happen");
+            return null;
+        }
+        Walker walker = new Walker();
+        term.accept(walker);
+        if (foundapp == false) {
+            System.out.println("THIS SHOULD NEVER HAPPEN");
+        }
+        return finalapp;
     }
+
 
     /**
      * standard getter for the direction.
@@ -61,6 +81,14 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         return path;
     }
 
+    public Term getParent() {
+        return parent;
+    }
+
+    public String getParenttype() {
+        return parenttype;
+    }
+
     /**
      * Indicate the direction during tree traversal.
      */
@@ -68,4 +96,64 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         LEFT, RIGHT
     }
 
+    private class Walker extends TermVisitor<Void> {
+
+
+        @Override
+        public Void visit(Abstraction abs) {
+            parent = abs;
+            parenttype = "Abstraction";
+            return abs.body.accept(this);
+
+        }
+
+        @Override
+        public Void visit(Application app) {
+            if (counter == path.size()) {
+                foundapp = true;
+                finalapp = app;
+
+            } else {
+                parent = app;
+                parenttype = "Application";
+                if (path.get(counter) == Direction.LEFT) {
+                    counter++;
+                    return app.left.accept(this);
+                }
+                if (path.get(counter) == Direction.RIGHT) {
+                    counter++;
+                    return app.right.accept(this);
+                }
+
+
+
+            }
+            return null;
+        }
+
+        @Override
+        public Void visit(BoundVariable bvar) {
+            System.out.println("THIS SHOULD NEVER HAPPEN");
+            return null;
+        }
+
+        @Override
+        public Void visit(FreeVariable fvar) {
+            System.out.println("THIS SHOULD NEVER HAPPEN");
+            return null;
+        }
+
+        @Override
+        public Void visit(LibraryTerm libterm) {
+            return null;
+        }
+
+        @Override
+        public Void visit(ChurchNumber c) {
+            Abstraction abs = c.getAbstraction();
+            abs.accept(this);
+            return null;
+        }
+    }
 }
+
