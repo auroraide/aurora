@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Collection of lambda term definitions.
  */
-public class Library{
+public class Library {
 
     private Map<String, LibraryItem> map;
 
@@ -20,7 +20,7 @@ public class Library{
     public Library() {
         this.map = new HashMap<>();
     }
-    
+
 
     /**
      * Get the LibraryItem by name.
