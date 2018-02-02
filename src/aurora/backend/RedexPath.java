@@ -23,6 +23,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     private Term parent;
     private int counter;
     private String parenttype;
+
     /**
      * This constructor initializes an empty {@link RedexPath}.
      */
@@ -96,6 +97,10 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         LEFT, RIGHT
     }
 
+
+    /**
+     * this visitor finds the application to which the path is pointing.
+     */
     private class Walker extends TermVisitor<Void> {
 
 

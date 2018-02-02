@@ -1,12 +1,18 @@
 package aurora.backend;
 
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Term;
 
 
 import java.util.LinkedList;
 
 /**
- * takes two terms anc checks if they are the same
+ * takes two terms and checks if they are the same
  */
 public class Comparer {
     private Term t1;
@@ -28,7 +34,7 @@ public class Comparer {
     }
 
     /**
-     * use this method to check if the terms you gave this class are identical.
+     * use this method to check if the terms you gave the constructor are identical.
      * @return true if identical, false if not identical
      */
     public boolean compare() {
@@ -43,7 +49,7 @@ public class Comparer {
             return false;
         }
         if (listt1.size() != listt2.size()) {
-            System.out.println("The terms are not identical");
+            System.out.println("The terms are not identical, one is bigger");
             return false;
         }
         for (int a = 0; a < listt1.size(); a++) {

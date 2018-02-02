@@ -1,7 +1,11 @@
 package aurora.backend.betareduction.visitors;
 
 import aurora.backend.Comparer;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
