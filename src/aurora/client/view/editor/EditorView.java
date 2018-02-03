@@ -18,6 +18,9 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
 import java.util.List;
+import java.util.LinkedList;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 
 /**
  * This is where the user may view and manipulate code.
@@ -66,6 +69,20 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
         this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
+
+        //TODO:remove test button
+        Button addStepButton = new Button("add5Steps", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                List<String> strings = new LinkedList<String>();
+                strings.add("#Ugly as a blobfish, but hey, it works :)");
+                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
+                strings.add("third #<- not a comment :)");
+                strings.add("$plus 2 λs.λz.s(sz)");
+                strings.add("whatchaknow\nnever thought you'd make it down here");
+                addNextStepDEBUG(strings);
+            }
+        });
+        this.inputDockLayoutPanel.addWest(addStepButton, 7);
 
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
@@ -119,20 +136,54 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(int startIndex, List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
-
+    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
+        int index = stepFieldTable.getRowCount();
+        highlightedLambdaExpressions.forEach((hle) -> {
+            addStepEntry(index, hle);
+        });
     }
 
     private void addStepEntry(int entryIndex, HighlightedLambdaExpression hle) {
-        stepFieldTable.setText(entryIndex - 1, 0, entryIndex.toString());
-        stepFieldTable.setWidget(entryIndex -1, 1, new Button("OptionsButton, config me"));
+        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
+        stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
-        stepFieldTable.setWidget(entryIndex - 1, 2, hle.toString());
+        //TODO: once hle is done, use its magic
+        cmp.setValue(hle.toString());
+        cmp.setOption("readOnly", true);
+        cmp.setOption("mode", "aurorascript");
+        cmp.setOption("matchBrackets", true);
+        stepFieldTable.setWidget(entryIndex, 2, cmp);
+    }
+
+    //TODO:remove once hle is done
+    private void addNextStepDEBUG(List<String> highlightedLambdaExpressions) {
+        highlightedLambdaExpressions.forEach((hle) -> {
+            addStepEntryDEBUG(stepFieldTable.getRowCount(), hle);
+        });
+    }
+
+    //TODO:remove once hle is done
+    private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
+        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
+        stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
+        CodeMirrorPanel cmp = new CodeMirrorPanel();
+        cmp.setSize("100%", "20%");
+
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                cmp.setValue(notAnHle);
+                cmp.setOption("readOnly", true);
+                cmp.setOption("mode", "aurorascript");
+                cmp.setOption("matchBrackets", true);
+            }
+        });
+
+        stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
 
     @Override
     public void resetSteps() {
-
+        stepFieldTable.removeAllRows();
     }
 
     @Override
