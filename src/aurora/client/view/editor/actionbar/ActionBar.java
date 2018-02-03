@@ -14,6 +14,14 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ActionBar extends Composite {
     private static ActionBarUiBinder ourUiBinder = GWT.create(ActionBarUiBinder.class);
+
+    /**
+     * Represents the three types of button a runPauseContinueButton can have.
+     */
+    public enum ButtonType {
+        RUN, PAUSE, CONTINUE
+    }
+
     @UiField
     Button runPauseContinueButton;
     @UiField
@@ -21,12 +29,14 @@ public class ActionBar extends Composite {
     @UiField
     Button stepButton;
 
+    private ButtonType rpcButtonActive;
+
     /**
      * Generates a new ActionBar.
      */
     public ActionBar() {
+        this.rpcButtonActive = ButtonType.RUN;
         initWidget(ourUiBinder.createAndBindUi(this));
-
     }
 
     /**
@@ -54,6 +64,15 @@ public class ActionBar extends Composite {
      */
     public Button getStepButton() {
         return stepButton;
+    }
+
+    /**
+     * Holds the information, whether a run, pause or continue button is active and displayed in ActionBar.
+     *
+     * @return The type of  button which is currently active and displayed.
+     */
+    public ButtonType getRpcButtonActive() {
+        return rpcButtonActive;
     }
 
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
