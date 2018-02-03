@@ -144,14 +144,19 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void addStepEntry(int entryIndex, HighlightedLambdaExpression hle) {
-        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
+        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
         stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
+
         //TODO: once hle is done, use its magic
-        cmp.setValue(hle.toString());
-        cmp.setOption("readOnly", true);
-        cmp.setOption("mode", "aurorascript");
-        cmp.setOption("matchBrackets", true);
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                cmp.setValue(hle.toString());
+                cmp.setOption("readOnly", true);
+                cmp.setOption("mode", "aurorascript");
+                cmp.setOption("matchBrackets", true);
+            }
+        });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
 
@@ -164,10 +169,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
     //TODO:remove once hle is done
     private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
-        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
+        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
         stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
-        cmp.setSize("100%", "20%");
 
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
@@ -177,7 +181,6 @@ public class EditorView extends Composite implements EditorDisplay {
                 cmp.setOption("matchBrackets", true);
             }
         });
-
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
 
