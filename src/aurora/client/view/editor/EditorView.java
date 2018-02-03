@@ -7,8 +7,8 @@ import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
-import aurora.client.view.editor.actionbar.ActionBar;
 import aurora.client.view.editor.CodeMirrorPanel;
+import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,11 +23,8 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
-import java.util.List;
 import java.util.LinkedList;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import java.util.List;
 
 /**
  * This is where the user may view and manipulate code.
@@ -166,10 +163,6 @@ public class EditorView extends Composite implements EditorDisplay {
     private void wireInputCodeMirror() {
 
     }
-
-    private native void console(String text) /*-{
-        console.log(text);
-    }-*/;
 
     @Override
     public void displaySyntaxError(String message) {
