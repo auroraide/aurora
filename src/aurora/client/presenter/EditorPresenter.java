@@ -70,8 +70,7 @@ public class EditorPresenter {
             EventBus eventBus,
             EditorDisplay editorDisplay,
             LambdaLexer lambdaLexer,
-            LambdaParser lambdaParser)
-    {
+            LambdaParser lambdaParser) {
         this.editorDisplay = editorDisplay;
         this.eventBus = eventBus;
         this.lambdaLexer = lambdaLexer;

@@ -1,8 +1,12 @@
 package aurora.client.presenter;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.MetaTerm;
-import aurora.backend.RedexPath;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.BetaReductionIterator;
 import aurora.backend.betareduction.strategies.NormalOrder;
@@ -11,7 +15,11 @@ import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
 import aurora.client.event.StepEvent;
 import com.google.gwt.core.client.GWT;
@@ -22,11 +30,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class EditorPresenterTest {
@@ -40,12 +43,18 @@ public class EditorPresenterTest {
 
     }
 
+    /**
+     * Some tests.
+     *
+     * @throws SyntaxException   An exception.
+     * @throws SemanticException Another exception.
+     */
     @Before
     public void setUp() throws SyntaxException, SemanticException {
         editorDisplay = mock(EditorDisplay.class);
         strategy = new NormalOrder();
-//        RedexPath redexPath = mock(RedexPath.class);
-//        when(strategy.getRedex(any())).thenReturn(redexPath); // return empty redexPath
+        // RedexPath redexPath = mock(RedexPath.class);
+        // when(strategy.getRedex(any())).thenReturn(redexPath); // return empty redexPath
 
         bus = GWT.create(SimpleEventBus.class);
         LambdaParser parserMock = mock(LambdaParser.class);
@@ -74,7 +83,7 @@ public class EditorPresenterTest {
                 )
         );
         MetaTerm mt = new MetaTerm(root, null);
-//        when(redexPath.get(any())).thenReturn(root);
+        // when(redexPath.get(any())).thenReturn(root);
 
         when(parserMock.parse(any())).thenReturn(mt);
 
