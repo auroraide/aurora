@@ -2,20 +2,25 @@ package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.EditorDisplay;
+import aurora.client.event.ContinueEvent;
+import aurora.client.event.PauseEvent;
+import aurora.client.event.ResetEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import aurora.client.view.editor.CodeMirrorPanel;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.user.client.Command;
 
 import java.util.List;
 
@@ -107,6 +112,41 @@ public class EditorView extends Composite implements EditorDisplay {
         });
     }
 
+
+
+    private void eventWiring() {
+        wireActionBar();
+    }
+
+    /**
+     * Wires the ActionBar buttons with the event bus.
+     */
+    private void wireActionBar() {
+        this.actionBar.getRunPauseContinueButton().addClickHandler(event -> {
+            switch (EditorView.this.actionBar.getRpcButtonActive()) {
+                case RUN:
+                    EditorView.this.eventBus.fireEvent(new RunEvent());
+                    break;
+
+                case PAUSE:
+                    EditorView.this.eventBus.fireEvent(new PauseEvent());
+                    break;
+
+                default:
+                    EditorView.this.eventBus.fireEvent(new ContinueEvent());
+            }
+        });
+
+        this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
+        this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
+    }
+
+    /**
+     *
+     */
+    private void wireInputCodeMirror() {
+
+    }
 
     private native void console(String text) /*-{
         console.log(text);
