@@ -2,6 +2,7 @@ package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.EditorDisplay;
+import aurora.client.view.editor.CodeMirrorPanel;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
