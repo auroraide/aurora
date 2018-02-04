@@ -32,6 +32,9 @@ public class LambdaLexer {
     private final RegExp commentPattern;
     private final RegExp whitespacePattern;
 
+    /**
+     * Default constructor.
+     */
     public LambdaLexer() {
         this.lambdaPattern = RegExp.compile(T_LAMBDA_REGEX);
         this.dotPattern = RegExp.compile(T_DOT_REGEX);
