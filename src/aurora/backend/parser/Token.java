@@ -101,11 +101,11 @@ public class Token {
             return false;
         }
         Token token = (Token) o;
-        return line == token.line &&
-                column == token.column &&
-                offset == token.offset &&
-                type == token.type &&
-                Objects.equals(name, token.name);
+        return line == token.line
+                && column == token.column
+                && offset == token.offset
+                && type == token.type
+                && Objects.equals(name, token.name);
     }
 
     /**

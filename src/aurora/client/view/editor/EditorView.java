@@ -4,24 +4,22 @@ import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.EditorDisplay;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import aurora.client.view.editor.CodeMirrorPanel;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.user.client.Command;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 
 /**
  * This is where the user may view and manipulate code.
@@ -80,7 +78,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 strings.add("third #<- not a comment :)");
                 strings.add("$plus 2 λs.λz.s(sz)");
                 strings.add("whatchaknow\nnever thought you'd make it down here");
-                addNextStepDEBUG(strings);
+                addNextStepDebug(strings);
             }
         });
         this.inputDockLayoutPanel.addWest(addStepButton, 7);
@@ -162,14 +160,14 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     //TODO:remove once hle is done
-    private void addNextStepDEBUG(List<String> highlightedLambdaExpressions) {
+    private void addNextStepDebug(List<String> highlightedLambdaExpressions) {
         highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntryDEBUG(stepFieldTable.getRowCount(), hle);
+            addStepEntryDebug(stepFieldTable.getRowCount(), hle);
         });
     }
 
     //TODO:remove once hle is done
-    private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
+    private void addStepEntryDebug(int entryIndex, String notAnHle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
         stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
