@@ -5,7 +5,7 @@ import aurora.backend.TermVisitor;
 /**
  * Represents a reference to a library term.
  */
-public class LibraryTerm extends Term {
+public class Function extends Term {
 
     public final String name;
 
@@ -15,7 +15,7 @@ public class LibraryTerm extends Term {
      *
      * @param name The name of the library term.
      */
-    public LibraryTerm(String name) {
+    public Function(String name) {
         this.name = name;
     }
 

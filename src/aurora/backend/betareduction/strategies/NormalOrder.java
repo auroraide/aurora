@@ -7,7 +7,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 /**
@@ -78,7 +78,7 @@ public class NormalOrder extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function libterm) {
             return null;
         }
 
@@ -117,7 +117,7 @@ public class NormalOrder extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function libterm) {
                 return null;
             }
 
