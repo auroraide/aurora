@@ -35,7 +35,7 @@
         <g:tab>
 
             <g:header size='7'>
-                <b>Aurora</b>
+
             </g:header>
             <g:DockLayoutPanel unit="EM">
 
