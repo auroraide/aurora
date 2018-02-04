@@ -7,7 +7,6 @@ import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
-import aurora.client.view.editor.CodeMirrorPanel;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -67,6 +66,32 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+    }
+ private void eventWiring() {
+        wireActionBar();
+    }
+
+    /**
+     * Wires the ActionBar buttons with the event bus.
+     */
+    private void wireActionBar() {
+        this.actionBar.getRunPauseContinueButton().addClickHandler(event -> {
+            switch (EditorView.this.actionBar.getRpcButtonActive()) {
+                case RUN:
+                    EditorView.this.eventBus.fireEvent(new RunEvent());
+                    break;
+
+                case PAUSE:
+                    EditorView.this.eventBus.fireEvent(new PauseEvent());
+                    break;
+
+                default:
+                    EditorView.this.eventBus.fireEvent(new ContinueEvent());
+            }
+        });
+
+        this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
+        this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
     }
 
     private void setupInputField() {
@@ -130,39 +155,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
 
 
-    private void eventWiring() {
-        wireActionBar();
-    }
 
-    /**
-     * Wires the ActionBar buttons with the event bus.
-     */
-    private void wireActionBar() {
-        this.actionBar.getRunPauseContinueButton().addClickHandler(event -> {
-            switch (EditorView.this.actionBar.getRpcButtonActive()) {
-                case RUN:
-                    EditorView.this.eventBus.fireEvent(new RunEvent());
-                    break;
-
-                case PAUSE:
-                    EditorView.this.eventBus.fireEvent(new PauseEvent());
-                    break;
-
-                default:
-                    EditorView.this.eventBus.fireEvent(new ContinueEvent());
-            }
-        });
-
-        this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
-        this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
-    }
-
-    /**
-     *
-     */
-    private void wireInputCodeMirror() {
-
-    }
 
     @Override
     public void displaySyntaxError(String message) {
