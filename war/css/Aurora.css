@@ -31,3 +31,46 @@ h1 {
 #closeButton {
     margin: 15px 6px 6px;
 }
+
+
+/** PERSONALIZED **/
+div.gwt-TabLayoutPanelTabs {
+    height: 100%;
+    width: 100vw !important;
+    padding: 0 !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+    background: #33495D !important;
+}
+.gwt-TabLayoutPanelTabs > div {
+    height: 100%;
+    margin: 0 !important;
+}
+.gwt-TabLayoutPanelTabs > div:first-child {
+    background-image: url("../img/aurora_logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 220px;
+    background-color: #33495D;
+}
+
+.gwt-TabLayoutPanelTabs > div:last-child {
+    float:right;
+    background-color: #19BB9B;
+    border-radius: 0;
+    text-transform: capitalize;
+    color: #fff;
+    width: 150px;
+    font-size: 1.5em;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+    background-color: unset;
+}
+
+
+
+
