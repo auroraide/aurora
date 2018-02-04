@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * This is where the user may view and manipulate code.
  * Three different kinds of code fields are provided.
@@ -79,7 +78,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 strings.add("third #<- not a comment :)");
                 strings.add("$plus 2 λs.λz.s(sz)");
                 strings.add("whatchaknow\nnever thought you'd make it down here");
-                addNextStepDebug(strings);
+                addNextStepDEBUG(strings);
             }
         });
         this.inputDockLayoutPanel.addWest(addStepButton, 7);
@@ -161,14 +160,14 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     //TODO:remove once hle is done
-    private void addNextStepDebug(List<String> highlightedLambdaExpressions) {
+    private void addNextStepDEBUG(List<String> highlightedLambdaExpressions) {
         highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntryDebug(stepFieldTable.getRowCount(), hle);
+            addStepEntryDEBUG(stepFieldTable.getRowCount(), hle);
         });
     }
 
     //TODO:remove once hle is done
-    private void addStepEntryDebug(int entryIndex, String notAnHle) {
+    private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
         stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
