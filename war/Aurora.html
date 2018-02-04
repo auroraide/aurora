@@ -11,12 +11,25 @@
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="Aurora.css">
+    <link type="text/css" rel="stylesheet" href="css/Aurora.css">
+    <link type="text/css" rel="stylesheet" href="css/Sidebar.css">
+    <link type="text/css" rel="stylesheet" href="css/Editor.css">
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>Web Application Starter Project</title>
+    <title>Aurora</title>
+    <script>
+        fetch('VERSION')
+            .then(
+                function(response) {
+                    if (response.status === 200) {
+                        return response;
+                    }
+                }
+            ).then(
+                response => response.text()
+            ).then(
+                text => document.title = document.title + "  " + text
+            ).catch(error => error)
+    </script>
 
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
