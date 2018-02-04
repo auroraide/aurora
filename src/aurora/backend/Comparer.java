@@ -5,23 +5,28 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 import java.util.LinkedList;
 
 /**
- * takes two terms and checks if they are the same.
+ * Takes two terms and checks if they are the same.
  */
 public class Comparer {
+
     private Term t1;
+
     private Term t2;
+
     private LinkedList<String> listt1;
+
     private LinkedList<String> listt2;
 
     /**
-     * takes two terms and checks if they are the same, I use it for debugging, you can too.
-     * use the compare method to check,
+     * Takes two terms and checks if they are the same. I use it for debugging, you can too.
+     * Use the compare method to check.
+     *
      * @param t1 the first term
      * @param t2 the second term
      */
@@ -33,7 +38,8 @@ public class Comparer {
     }
 
     /**
-     * use this method to check if the terms you gave the constructor are identical.
+     * Use this method to check if the terms you gave the constructor are identical.
+     *
      * @return true if identical, false if not identical
      */
     public boolean compare() {
@@ -65,6 +71,7 @@ public class Comparer {
     }
 
     private class CompareVisitor extends TermVisitor<Void> {
+
         private LinkedList<String> list;
 
         CompareVisitor(int x) {
@@ -92,7 +99,6 @@ public class Comparer {
 
         @Override
         public Void visit(BoundVariable bvar) {
-
             list.add("bv" + Integer.toString(bvar.index));
             return null;
         }
@@ -104,7 +110,7 @@ public class Comparer {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function libterm) {
             list.add("lb" + libterm.name);
             return null;
         }
@@ -114,5 +120,7 @@ public class Comparer {
             list.add("cn" + Integer.toString(c.value));
             return null;
         }
+
     }
+
 }

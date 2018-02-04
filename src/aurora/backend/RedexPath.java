@@ -5,7 +5,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 import java.util.Iterator;
@@ -19,12 +19,19 @@ import java.util.NoSuchElementException;
 public class RedexPath implements Iterable<RedexPath.Direction> {
 
     private final LinkedList<Direction> path;
+
     private Application finalapp;
+
     private boolean foundapp = false;
+
     private Term parent;
+
     private int counter;
+
     private String parenttype;
+
     private boolean condition = false;
+
     /**
      * This constructor initializes an empty {@link RedexPath}.
      */
@@ -63,13 +70,13 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      */
     public Application get(Term term) {
         if (path == null) {
-            assert(false) : "No Redex here , This should never happen";
+            assert false : "No Redex here , This should never happen";
             return null;
         }
         Walker walker = new Walker();
         term.accept(walker);
         if (foundapp == false) {
-            assert(false) : "Didnt find the application. This should never happen";
+            assert false : "Didnt find the application. This should never happen";
         }
         return finalapp;
     }
@@ -98,12 +105,10 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         LEFT, RIGHT
     }
 
-
     /**
      * this visitor finds the application to which the path is pointing.
      */
     private class Walker extends TermVisitor<Void> {
-
 
         @Override
         public Void visit(Abstraction abs) {
@@ -139,19 +144,19 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
         @Override
         public Void visit(BoundVariable bvar) {
-           assert(false) : "Redexpath is finished but no Application. This should never happen";
+           assert false : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            assert(false) : "Redexpath is finished but no Application. This should never happen";
+            assert false : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
-            assert(false) : "Redexpath is finished but no Application. This should never happen";
+        public Void visit(Function libterm) {
+            assert false : "Redexpath is finished but no Application. This should never happen";
             return null;
         }
 
@@ -186,5 +191,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
             return path.get(current++);
         }
     }
+
 }
 
