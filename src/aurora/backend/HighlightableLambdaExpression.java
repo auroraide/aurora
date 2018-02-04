@@ -6,7 +6,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 import java.util.Iterator;
@@ -123,7 +123,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function libterm) {
             return null;
         }
 

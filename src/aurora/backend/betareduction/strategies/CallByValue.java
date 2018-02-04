@@ -2,13 +2,8 @@ package aurora.backend.betareduction.strategies;
 
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
-import aurora.backend.tree.Abstraction;
-import aurora.backend.tree.Application;
-import aurora.backend.tree.BoundVariable;
-import aurora.backend.tree.ChurchNumber;
-import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
-import aurora.backend.tree.Term;
+import aurora.backend.tree.*;
+import aurora.backend.tree.Function;
 
 /**
  * This is the Call By Value strategy.
@@ -94,7 +89,7 @@ public class CallByValue extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function libterm) {
             return null;
         }
 
@@ -131,7 +126,7 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function libterm) {
                 return null;
             }
 
@@ -168,7 +163,7 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function libterm) {
                 return null;
             }
 
