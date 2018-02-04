@@ -1,11 +1,13 @@
 package aurora.client.presenter;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.MetaTerm;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.BetaReductionIterator;
@@ -22,6 +24,7 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
 import aurora.client.event.StepEvent;
+import aurora.client.event.StepEventHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -30,6 +33,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class EditorPresenterTest {
@@ -38,28 +44,35 @@ public class EditorPresenterTest {
     private Application root;
     private ReductionStrategy strategy;
 
-    @BeforeClass
-    public static void setUpClass() {
+    @Test
+    public void testStep() throws SyntaxException, SemanticException {
+        EditorDisplay editorDisplay = mock(EditorDisplay.class);
+        ReductionStrategy strategy = new NormalOrder();
+        EventBus bus = new SimpleEventBus();
 
-    }
-
-    /**
-     * Some tests.
-     *
-     * @throws SyntaxException   An exception.
-     * @throws SemanticException Another exception.
-     */
-    @Before
-    public void setUp() throws SyntaxException, SemanticException {
-        editorDisplay = mock(EditorDisplay.class);
-        strategy = new NormalOrder();
-        // RedexPath redexPath = mock(RedexPath.class);
-        // when(strategy.getRedex(any())).thenReturn(redexPath); // return empty redexPath
-
-        bus = GWT.create(SimpleEventBus.class);
         LambdaParser parserMock = mock(LambdaParser.class);
         LambdaLexer dumbLexer = mock(LambdaLexer.class);
+        when(parserMock.parse(any())).thenReturn(getSample());
 
+        EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay, dumbLexer, parserMock);
+
+        final int stepCount = 1;
+
+        bus.fireEvent(new StepEvent(stepCount));
+
+        // make sure the input gets set
+        verify(editorDisplay).setInput(new HighlightableLambdaExpression(root));
+        BetaReducer br = new BetaReducer(strategy);
+        List<HighlightedLambdaExpression> steps = new ArrayList<>();
+        Term last = getSample();
+        for (int i = 0; i < stepCount; i++) {
+            last = br.reduce(last);
+            steps.add(new HighlightableLambdaExpression(last));
+        }
+        verify(editorDisplay).addNextStep(steps);
+    }
+
+    private MetaTerm getSample() {
         root = new Application(
                 new Abstraction(
                         new Application(
@@ -82,24 +95,6 @@ public class EditorPresenterTest {
                         "y"
                 )
         );
-        MetaTerm mt = new MetaTerm(root, null);
-        // when(redexPath.get(any())).thenReturn(root);
-
-        when(parserMock.parse(any())).thenReturn(mt);
-
-        new EditorPresenter(bus, null, dumbLexer, parserMock);
-    }
-
-    @Test
-    public void test() throws SyntaxException, SemanticException {
-        when(editorDisplay.getInput()).thenReturn("(\\x.x x a)(\\y.y y y)");
-
-        bus.fireEvent(new StepEvent(1));
-
-        Term unused = new LambdaParser().parse(new LambdaLexer().lex(editorDisplay.getInput()));
-        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(strategy), root);
-
-        verify(editorDisplay).setInput(new HighlightableLambdaExpression(root));
-        verify(editorDisplay).setInput(new HighlightableLambdaExpression(bri.next()));
+        return new MetaTerm(root, null);
     }
 }
