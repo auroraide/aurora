@@ -2,26 +2,24 @@ package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.EditorDisplay;
+import aurora.client.view.editor.CodeMirrorPanel;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import aurora.client.view.editor.CodeMirrorPanel;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.user.client.Command;
 
-import java.util.List;
 import java.util.LinkedList;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import java.util.List;
 
 /**
  * This is where the user may view and manipulate code.
