@@ -27,6 +27,7 @@
 	bookmarks=true,
 }
 \usepackage{csquotes}
+\usepackage{upgreek}
 
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
@@ -35,7 +36,7 @@
 \begin{titlepage}
 
 \subject{Implementierungsdokumentation}
-\title{$\lambda$urora}
+\title{\textbf{$\uplambda$}urora}
 \subtitle{The Lambda Calculus IDE}
 
 
@@ -63,10 +64,49 @@ was ist geplannt, worum geht es, Stand, worum ging es in der IPh
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
-\subsection{Vorgenommene Regeln als liste: git branches, git ci usw.}
-\subsection{Ursprüngliche Implementierungsplan}
+\subsection{Regeln während der Implementierung}
+Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden, wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
+Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
+Wichtig waren vorallem folgende Regeln:
+\begin{itemize}
+    \item Protected master
+        \newline
+        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konntne.
+    \item Git CI runner
+        \newline
+        In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
+        So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
+    \item Continuous Deployment
+        \newline
+        Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
+        Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.        
+\end{itemize}
+
+\subsection{Ursprünglicher Implementierungsplan}
+Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
+Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
+Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde.
+Innerhalb dieser Zuteilung haben wir dann Prioritäten festgelegt, uns also dafür entschieden, welche Pakete vor anderen fertig implementiert werden müssen.
+\newline
 was wir uns am Anfang gedacht haben, wie wir die Aufgaben geteilt haben und dass sie ungefähr unabhängig von ein ander sind - Aufwand, unerwartete Schwierigkeiten etc.
-\subsubsection{Prioritaetsliste was muss implementiert werden}
+
+\subsubsection{Verteilung der Pakete und deren Priorität}
+Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
+\begin{itemize}
+    \item Alexander
+        \newline
+        wird zu großen Teilen die Darstellung des Editor Bereiches implementieren. 
+        Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
+        Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
+    \item Nikolai
+    \item Julia
+    \item Max
+    \item Younis
+    \item Randy
+\end{itemize}
+
+
 \subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
 \subsection{Implementierungsplanaenderungen nach der Implementierung}
 \subsubsection{Ablauf von der Implementierung}
