@@ -58,7 +58,20 @@ was ist geplannt, worum geht es, Stand, worum ging es in der IPh
 \pagebreak
 
 %=====================ÄNDERUNGEN=====================
-\section{Aenderungen zum Entwurfsdokument}
+\section{Änderungen zum Entwurfsdokument}
+Der Entwurf aus der vorherigen Phase hat sich als sehr zuverlässig und gut umsetzbar erwiesen.
+Dennoch haben wir an einigen Stellen kleine Abänderungen vorgenommen, und ihn teilweise leicht erweitert.
+Im Speziellen handelt es sich hierbei um folgendes:
+\begin{itemize}
+    \item CodeMirrorPanel (pkg: aurora.client.view.editor)
+    \newline
+    Ursprünglich war geplant, einen vorhandenen CodeMirror GWT Wrapper als dependency in Aurora einzubinden.
+    Leider hat es sich herausgestellt, dass der Wrapper nicht nur auf einer alten Version von CodeMirror beruht, sondern scheinbar auch einen Bug hatte, der es uns erschwert hat, ihn ohne Fehler zu benutzen.
+    Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
+    Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
+
+    \item NEUE EVENTS???
+\end{itemize}
 \subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
 \pagebreak
 
