@@ -1,8 +1,8 @@
 package aurora.backend.simplifier;
 
 import aurora.backend.library.Library;
-import aurora.backend.tree.*;
 import aurora.backend.tree.Function;
+import aurora.backend.tree.Term;
 
 /**
  * Simplify a given Term into a Function that is defined in some Library.

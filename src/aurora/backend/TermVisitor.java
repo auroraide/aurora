@@ -1,6 +1,10 @@
 package aurora.backend;
 
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 
 /**

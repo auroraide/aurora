@@ -1,8 +1,13 @@
 package aurora.backend.betareduction.visitors;
 
 import aurora.backend.TermVisitor;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
+import aurora.backend.tree.Term;
 
 /**
  * Visitor that traverses the Term tree and substitutes a BoundVariable with a given Term.

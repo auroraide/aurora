@@ -2,8 +2,13 @@ package aurora.backend.betareduction.strategies;
 
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
-import aurora.backend.tree.*;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
+import aurora.backend.tree.Term;
 
 /**
  * The Normalorder is the default reduction strategy, it choses the leftmost redex.
