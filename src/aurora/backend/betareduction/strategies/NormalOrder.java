@@ -16,7 +16,7 @@ import aurora.backend.tree.Term;
 public class NormalOrder extends ReductionStrategy {
 
     @Override
-    public RedexPath getRedex(Term t) {
+    public RedexPath getRedexPath(Term t) {
 
         FirstRedexFinderVisitor redexfinder = new FirstRedexFinderVisitor();
         t.accept(redexfinder);
@@ -51,6 +51,7 @@ public class NormalOrder extends ReductionStrategy {
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
             while (!foundredex) {
+                // remove dupliacte
                 path.push(RedexPath.Direction.LEFT);
                 app.left.accept(this);
                 if (foundredex) {

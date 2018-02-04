@@ -18,7 +18,7 @@ import aurora.backend.tree.Term;
 public class CallByValue extends ReductionStrategy {
 
     @Override
-    public RedexPath getRedex(Term t) {
+    public RedexPath getRedexPath(Term t) {
 
         FirstRedexFinderVisitor redexfinder = new FirstRedexFinderVisitor();
         t.accept(redexfinder);
