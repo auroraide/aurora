@@ -99,7 +99,7 @@ public class EditorPresenter {
 
     private void bind() {
         eventBus.addHandler(RunEvent.TYPE, runEvent -> onRun());
-        eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep(stepEvent.getStepCount()));
+        eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep());
         eventBus.addHandler(ResetEvent.TYPE, runEvent -> onReset());
         eventBus.addHandler(PauseEvent.TYPE, pauseEvent -> onPause());
         eventBus.addHandler(EvaluationStrategyChangedEvent.TYPE, this::onStrategyChange);
@@ -209,7 +209,7 @@ public class EditorPresenter {
         return true;
     }
 
-    private void onStep(int stepCount) {
+    private void onStep() {
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         assert (!isRunning());
 

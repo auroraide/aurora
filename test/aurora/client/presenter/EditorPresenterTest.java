@@ -43,9 +43,7 @@ public class EditorPresenterTest {
 
         EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay, dumbLexer, parserMock);
 
-        final int stepCount = 1;
-
-        bus.fireEvent(new StepEvent(stepCount));
+        bus.fireEvent(new StepEvent());
 
         // make sure the input gets set
         verify(editorDisplay).setInput(new HighlightableLambdaExpression(getSample()));
@@ -53,10 +51,8 @@ public class EditorPresenterTest {
         BetaReducer br = new BetaReducer(strategy);
         List<HighlightedLambdaExpression> steps = new ArrayList<>();
         Term last = getSample();
-        for (int i = 0; i < stepCount; i++) {
-            last = br.reduce(last);
-            steps.add(new HighlightableLambdaExpression(last));
-        }
+        last = br.reduce(last);
+        steps.add(new HighlightableLambdaExpression(last));
         verify(editorDisplay).addNextStep(steps);
     }
 
