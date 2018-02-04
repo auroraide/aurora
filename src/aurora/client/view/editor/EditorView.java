@@ -64,6 +64,7 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+        stepFieldTable.setSize("100%", "100%");
     }
 
     private void setupInputField() {
