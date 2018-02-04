@@ -67,7 +67,8 @@ public class EditorView extends Composite implements EditorDisplay {
         setupInputField();
         setupOutputField();
     }
- private void eventWiring() {
+
+    private void eventWiring() {
         wireActionBar();
     }
 
