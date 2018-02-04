@@ -19,5 +19,6 @@ deployjob:
     only:
         - master
     script:
+        - git rev-parse --short HEAD > war/VERSION
         - ant war -lib vendor
         - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"
