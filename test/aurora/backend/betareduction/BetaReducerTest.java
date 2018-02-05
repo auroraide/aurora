@@ -10,6 +10,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
@@ -273,4 +274,47 @@ public class BetaReducerTest {
 
         assertEquals(cr.compare(),true);
     }
+
+    @Test
+    public void twoplustwowithfunction() {
+        Function plus = new Function("$plus",new Abstraction(
+                new Abstraction(
+                        new Abstraction(
+                                new Abstraction(
+                                        new Application(
+                                                new Application(
+                                                        new BoundVariable(4), new BoundVariable(2)
+                                                ),
+                                                new Application(
+                                                        new Application(
+                                                                new BoundVariable(3), new BoundVariable(2)
+                                                        ), new BoundVariable(1)
+
+                                                )
+
+                                        ), "z"
+                                ),"s"
+                        ),"m"
+                ),"n"
+        ));
+
+        Term t = new Application(
+                new Application(plus,new ChurchNumber(2)), new ChurchNumber(2)
+        );
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        int n = 0;
+        while (n < 100) {
+
+            t = br.reduce(t);
+            if (br.finished) {
+                break;
+            }
+
+        }
+        Comparer cr = new Comparer(t,new ChurchNumber(4).getAbstraction());
+        assertEquals(cr.compare(),true);
+
+    }
+
 }

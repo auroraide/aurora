@@ -67,13 +67,15 @@ public class ReplaceVisitor extends TermVisitor<Term> {
     }
 
     @Override
-    public Term visit(Function libterm) {
-        return libterm;
+    public Term visit(Function function) {
+        Term t = function.term;
+        return t.accept(this);
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        return c;
+        Abstraction abs = c.getAbstraction();
+        return new Abstraction(abs.body.accept(this),abs.name);
     }
 
 }
