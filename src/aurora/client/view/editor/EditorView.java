@@ -52,6 +52,8 @@ public class EditorView extends Composite implements EditorDisplay {
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
+    private InfoDialogBox infoDialogBox;
+
     private EventBus eventBus;
 
     /**
@@ -64,6 +66,7 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+        setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
     }
 
@@ -143,13 +146,16 @@ public class EditorView extends Composite implements EditorDisplay {
         });
     }
 
+    private void setupInfoDialogBox() {
+        this.infoDialogBox = new InfoDialogBox();    
+    }
+
 
     @Override
     public void displaySyntaxError(String message) {
-        InfoDialogBox infoDialog = new InfoDialogBox();
-        infoDialog.setTitle(message);
-        infoDialog.setDescription("42");
-        infoDialog.show();
+        this.infoDialogBox.setTitle(message);
+        this.infoDialogBox.setDescription("42");
+        this.infoDialogBox.show();
     }
 
     @Override
