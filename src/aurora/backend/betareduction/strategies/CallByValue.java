@@ -54,10 +54,10 @@ public class CallByValue extends ReductionStrategy {
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
             app.right.accept(new ValueFinder());
-            if (foundredex && foundvalue) {
+            if (foundredex && foundvalue) { //left is an abstraction right is a value
                 return null;
             }
-            if (foundredex ^ foundvalue) {
+            if (foundredex ^ foundvalue) { // if one of the two is incorrect we dont take it
                 foundvalue = false;
                 foundredex = false;
             }
@@ -111,7 +111,7 @@ public class CallByValue extends ReductionStrategy {
 
 
         /**
-         * Visitor that helps find abstractions inside our Term tree.
+         * Visitor that helps find abstractions inside our Term tree. prints result in foundredex
          */
         private class AbstractionFinder extends TermVisitor<Void> {
 
@@ -151,6 +151,9 @@ public class CallByValue extends ReductionStrategy {
 
         }
 
+        /**
+         * finds values and prints the result in foundvalue.
+         */
         private class ValueFinder extends TermVisitor<Void> {
 
             @Override

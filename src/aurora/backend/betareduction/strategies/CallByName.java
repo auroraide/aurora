@@ -29,6 +29,9 @@ public class CallByName extends ReductionStrategy {
         }
     }
 
+    /**
+     * traverses the tree and seeks out for redexes.
+     */
     private class FirstRedexFinderVisitor extends TermVisitor<Void> {
         private RedexPath path;
         private boolean foundredex = false;
@@ -45,16 +48,16 @@ public class CallByName extends ReductionStrategy {
         @Override
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
-            if (foundredex) {
+            if (foundredex) { // found a redex
                 return null;
             }
 
             path.push(RedexPath.Direction.LEFT);
             app.left.accept(this);
-            if (foundredex) {
+            if (foundredex) { // found a redex
                 return null;
             }
-            path.pop();
+            path.pop(); // there was no redex in this subtree
             path.push(RedexPath.Direction.RIGHT);
             app.right.accept(this);
             if (foundredex) {
@@ -87,6 +90,9 @@ public class CallByName extends ReductionStrategy {
             return null;
         }
 
+        /**
+         * is this element an abstraction.?
+         */
         private class AbstractionFinder extends TermVisitor<Void> {
 
             @Override

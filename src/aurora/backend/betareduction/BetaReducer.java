@@ -1,12 +1,17 @@
 package aurora.backend.betareduction;
 
 import aurora.backend.RedexPath;
+import aurora.backend.TermVisitor;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.betareduction.visitors.RedexFinderVisitor;
 import aurora.backend.betareduction.visitors.ReplaceVisitor;
 import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 import java.util.List;
@@ -15,6 +20,7 @@ public class BetaReducer {
 
     private ReductionStrategy strategy;
     public boolean finished;
+    private boolean alwaystrue;
 
     /**
      * The constructor gets a strategy that is used for the reduction.
@@ -24,6 +30,7 @@ public class BetaReducer {
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
         finished = false;
+        alwaystrue = false;
     }
 
     /**
@@ -43,29 +50,52 @@ public class BetaReducer {
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
         //seems hacky
-        Abstraction subtitutedabs = (Abstraction) substituted;
-        Term substitutedWithoutabs = subtitutedabs.body;
+        Abstraction substitutedabs = substituted.accept(new CastingVisitor());
+        if (substitutedabs == null) {
+            assert false : "The Redexpath was wrong, there is no redex here. This should never happen";
+        }
+        Term substitutedWithoutabs = substitutedabs.body;
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
         return term.accept(replaceVisitor);
     }
 
+    private class CastingVisitor extends TermVisitor<Abstraction> {
 
-    // only for reference / example usage
-    private Term reduceN(Term term, int n) {
-        if (n <= 0) {
-            throw new IllegalArgumentException();
+        @Override
+        public Abstraction visit(Abstraction abs) {
+            alwaystrue = true;
+            return abs;
         }
-        for (; n > 0; n--) {
-            term = reduce(term);
-            // Presenter will read term here and display it.
+
+        @Override
+        public Abstraction visit(Application app) {
+            alwaystrue = false;
+            return null;
         }
-        return term;
-    }
 
-    private List<RedexPath> findAllRedexes(Term term, RedexPath path) {
-        RedexFinderVisitor redexFinderVisitor = new RedexFinderVisitor();
-        term.accept(redexFinderVisitor);
-        return redexFinderVisitor.getResult();
-    }
+        @Override
+        public Abstraction visit(BoundVariable bvar) {
+            alwaystrue = false;
+            return null;
+        }
 
+        @Override
+        public Abstraction visit(FreeVariable fvar) {
+            alwaystrue = false;
+            return null;
+        }
+
+        @Override
+        public Abstraction visit(Function function) {
+            Term t = function.term;
+            t.accept(this);
+            return null;
+        }
+
+        @Override
+        public Abstraction visit(ChurchNumber c) {
+            alwaystrue = true;
+            return c.getAbstraction();
+        }
+    }
 }

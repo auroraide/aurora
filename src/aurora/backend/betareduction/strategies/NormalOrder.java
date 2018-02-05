@@ -28,7 +28,9 @@ public class NormalOrder extends ReductionStrategy {
         }
     }
 
-
+    /**
+     * traverses the tree and seeks out redexes.
+     */
     private class FirstRedexFinderVisitor extends TermVisitor<Void> {
 
         private RedexPath path;
