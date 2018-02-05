@@ -17,6 +17,8 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
+import aurora.client.view.popup.InfoDialogBox;
+
 import java.util.List;
 import java.util.LinkedList;
 
@@ -86,6 +88,23 @@ public class EditorView extends Composite implements EditorDisplay {
         });
         this.inputDockLayoutPanel.addWest(addStepButton, 7);
 
+        //TODO:remove test button
+        Button removeAllStepsButton = new Button("remove Steps", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                resetSteps();
+            }
+        });
+        this.inputDockLayoutPanel.addWest(removeAllStepsButton, 7);
+
+        //TODO: remove test Button
+        Button showErrorDiagButton = new Button("show Error Popup", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                displaySyntaxError("Banana");
+            }
+        });
+        this.inputDockLayoutPanel.addWest(showErrorDiagButton, 7);
+        
+
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
@@ -129,7 +148,10 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(String message) {
-
+        InfoDialogBox infoDialog = new InfoDialogBox();
+        infoDialog.setTitle(message);
+        infoDialog.setDescription("42");
+        infoDialog.show();
     }
 
     @Override
@@ -139,9 +161,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
-        int index = stepFieldTable.getRowCount();
         highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntry(index, hle);
+            addStepEntry(stepFieldTable.getRowCount(), hle);
         });
     }
 
