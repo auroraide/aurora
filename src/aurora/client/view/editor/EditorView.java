@@ -2,24 +2,26 @@ package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.client.EditorDisplay;
-import aurora.client.view.editor.CodeMirrorPanel;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
 
-import java.util.LinkedList;
+import aurora.client.view.popup.InfoDialogBox;
+
 import java.util.List;
+import java.util.LinkedList;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 
 /**
  * This is where the user may view and manipulate code.
@@ -84,6 +86,23 @@ public class EditorView extends Composite implements EditorDisplay {
         });
         this.inputDockLayoutPanel.addWest(addStepButton, 7);
 
+        //TODO:remove test button
+        Button removeAllStepsButton = new Button("remove Steps", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                resetSteps();
+            }
+        });
+        this.inputDockLayoutPanel.addWest(removeAllStepsButton, 7);
+
+        //TODO: remove test Button
+        Button showErrorDiagButton = new Button("show Error Popup", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                displaySyntaxError("Banana");
+            }
+        });
+        this.inputDockLayoutPanel.addWest(showErrorDiagButton, 7);
+        
+
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
@@ -127,7 +146,10 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(String message) {
-
+        InfoDialogBox infoDialog = new InfoDialogBox();
+        infoDialog.setTitle(message);
+        infoDialog.setDescription("42");
+        infoDialog.show();
     }
 
     @Override
@@ -139,7 +161,7 @@ public class EditorView extends Composite implements EditorDisplay {
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
         int index = stepFieldTable.getRowCount();
         highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntry(index, hle);
+            addStepEntry(stepFieldTable.getRowCount(), hle);
         });
     }
 
