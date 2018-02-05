@@ -8,6 +8,7 @@ import aurora.backend.TermVisitor;
 public class Function extends Term {
 
     public final String name;
+    public final Term term;
 
     /**
      * The constructor of the class gets a String (which starts with a $),
@@ -15,8 +16,9 @@ public class Function extends Term {
      *
      * @param name The name of the library term.
      */
-    public Function(String name) {
+    public Function(String name, Term term) {
         this.name = name;
+        this.term = term;
     }
 
     @Override

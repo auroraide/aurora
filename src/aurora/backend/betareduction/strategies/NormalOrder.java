@@ -50,26 +50,30 @@ public class NormalOrder extends ReductionStrategy {
         @Override
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
-            while (!foundredex) {
-                // remove dupliacte
-                path.push(RedexPath.Direction.LEFT);
-                app.left.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
-                path.push(RedexPath.Direction.RIGHT);
-                app.right.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
+            if (foundredex) {
+                return null;
             }
+
+
+            path.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
+            if (foundredex) {
+                return null;
+            }
+            path.pop();
+            path.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            if (foundredex) {
+                return null;
+            }
+            path.pop();
+
             return null;
         }
 
         @Override
         public Void visit(BoundVariable bvar) {
+
             return null;
         }
 
@@ -79,7 +83,9 @@ public class NormalOrder extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(Function libterm) {
+        public Void visit(Function function) {
+            Term term = function.term;
+            term.accept(this);
             return null;
         }
 
@@ -118,7 +124,9 @@ public class NormalOrder extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(Function libterm) {
+            public Void visit(Function function) {
+                Term term = function.term;
+                term.accept(this);
                 return null;
             }
 

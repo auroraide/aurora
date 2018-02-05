@@ -14,7 +14,7 @@ import java.util.List;
 public class BetaReducer {
 
     private ReductionStrategy strategy;
-    private boolean finished;
+    public boolean finished;
 
     /**
      * The constructor gets a strategy that is used for the reduction.

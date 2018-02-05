@@ -54,32 +54,36 @@ public class CallByValue extends ReductionStrategy {
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
             app.right.accept(new ValueFinder());
+            if (foundredex && foundvalue) {
+                return null;
+            }
             if (foundredex ^ foundvalue) {
                 foundvalue = false;
                 foundredex = false;
             }
-            while (!foundredex && !foundvalue) {
-                path.push(RedexPath.Direction.LEFT);
-                app.left.accept(this);
-                if (foundredex ^ foundvalue) {
-                    foundvalue = false;
-                    foundredex = false;
-                }
-                if (foundredex && foundvalue) {
-                    return null;
-                }
-                path.pop();
-                path.push(RedexPath.Direction.RIGHT);
-                app.right.accept(this);
-                if (foundredex ^ foundvalue) {
-                    foundvalue = false;
-                    foundredex = false;
-                }
-                if (foundredex && foundvalue) {
-                    return null;
-                }
-                path.pop();
+
+
+            path.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
+            if (foundredex ^ foundvalue) {
+                foundvalue = false;
+                foundredex = false;
             }
+            if (foundredex && foundvalue) {
+                return null;
+            }
+            path.pop();
+            path.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            if (foundredex ^ foundvalue) {
+                foundvalue = false;
+                foundredex = false;
+            }
+            if (foundredex && foundvalue) {
+                return null;
+            }
+            path.pop();
+
             return null;
         }
 
@@ -94,7 +98,9 @@ public class CallByValue extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(Function libterm) {
+        public Void visit(Function function) {
+            Term t = function.term;
+            t.accept(this);
             return null;
         }
 
@@ -131,12 +137,15 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(Function libterm) {
+            public Void visit(Function function) {
+                Term t = function.term;
+                t.accept(this);
                 return null;
             }
 
             @Override
             public Void visit(ChurchNumber c) {
+                foundredex = true;
                 return null;
             }
 
@@ -168,7 +177,9 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(Function libterm) {
+            public Void visit(Function function) {
+                Term t = function.term;
+                t.accept(this);
                 return null;
             }
 
