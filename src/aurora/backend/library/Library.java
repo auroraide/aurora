@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Collection of lambda term definitions.
  */
-public class Library {
+public class Library implements Iterable {
 
     private Map<String, LibraryItem> map;
 
@@ -84,6 +84,14 @@ public class Library {
     public boolean exists(String name) {
         return map.containsKey(name);
     }
+
+    @Override
+    public Iterator iterator() {
+        java.util.Iterator entries = map.entrySet().iterator();
+        return entries;
+
+    }
+
 
     /**
      * A single item (i.e., lambda term definition) defined in the library.
