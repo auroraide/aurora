@@ -7,7 +7,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
     }
 
     @Override
-    public Void visit(LibraryTerm libterm) {
+    public Void visit(Function libterm) {
         return null; // TODO you need to descend inside it.
     }
 
@@ -105,7 +105,7 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function libterm) {
             return null;
         }
 

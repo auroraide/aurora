@@ -32,6 +32,9 @@ public class LambdaLexer {
     private final RegExp commentPattern;
     private final RegExp whitespacePattern;
 
+    /**
+     * Creates a new (stateless) lexer to convert a String into a list of Tokens.
+     */
     public LambdaLexer() {
         this.lambdaPattern = RegExp.compile(T_LAMBDA_REGEX);
         this.dotPattern = RegExp.compile(T_DOT_REGEX);

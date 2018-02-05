@@ -1,7 +1,7 @@
 image: ubuntu:xenial
 
 before_script:
-    - apt-get update && apt-get install -y build-essential openjdk-8-jdk ant wget curl unzip
+    - apt-get update && apt-get install -y build-essential openjdk-8-jdk ant wget curl unzip git
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
@@ -19,5 +19,6 @@ deployjob:
     only:
         - master
     script:
+        - git rev-parse --short HEAD > war/VERSION
         - ant war -lib vendor
         - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"

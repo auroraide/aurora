@@ -12,8 +12,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
-import aurora.client.view.editor.CodeMirrorPanel;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
@@ -161,6 +159,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
+        int index = stepFieldTable.getRowCount();
         highlightedLambdaExpressions.forEach((hle) -> {
             addStepEntry(stepFieldTable.getRowCount(), hle);
         });

@@ -1,11 +1,11 @@
 package aurora.client.view.editor;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.TextAreaElement;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.dom.client.TextAreaElement;
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Panel containing CodeMirror.
