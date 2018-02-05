@@ -1,18 +1,21 @@
 package aurora.backend.parser;
 
-import aurora.backend.parser.exceptions.SyntaxException;
-import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LambdaLexerTest {
+import aurora.backend.parser.exceptions.SyntaxException;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Test;
+
+/**
+ * Tests LambdaLexer.
+ */
+public class LambdaLexerTest {
     @Test
     public void testLexValidExpression() throws SyntaxException {
         LambdaLexer lexer = new LambdaLexer();

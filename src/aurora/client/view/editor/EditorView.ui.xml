@@ -17,9 +17,9 @@
             </g:DockLayoutPanel>
         </g:north>
 
+        <!--TODO: steps label overlay-->
         <g:center>
             <g:FlowPanel>
-                <g:Label><ui:msg description="stepField Title">Steps</ui:msg></g:Label>
                 <g:FlexTable ui:field="stepFieldTable"/>
             </g:FlowPanel>
         </g:center>
