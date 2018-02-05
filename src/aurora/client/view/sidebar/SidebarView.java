@@ -1,24 +1,29 @@
 package aurora.client.view.sidebar;
 
 import aurora.client.SidebarDisplay;
+import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.StepValueChangedEvent;
+import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
+
 
 /**
  * Provides additional options to the user.
@@ -40,6 +45,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     FlexTable userLibraryTable;
     @UiField
+    Button addFunctionButton;
+    @UiField
     StrategySelection strategySelection;
     @UiField
     ListBox languageSelection;
@@ -57,12 +64,37 @@ public class SidebarView extends Composite implements SidebarDisplay {
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
         nightModeSwitch.addClickHandler(new ClickHandler() {
+
             @Override
             public void onClick(ClickEvent event) {
                 Window.alert("Hello World!");
             }
         });
+
+        eventWiring();
     }
+
+    private void eventWiring() {
+        wireStepNumber();
+        wireAddLibraryFunction();
+
+    }
+
+    private void wireStepNumber() {
+        this.stepNumber.addKeyPressHandler(event -> {
+            try {
+                int stepNumber = Integer.parseInt(SidebarView.this.stepNumber.getText() + event.getCharCode());
+                SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
+            } catch (NumberFormatException nfe) {
+                SidebarView.this.stepNumber.cancelKey();
+            }
+        });
+    }
+
+    private void wireAddLibraryFunction() {
+
+    }
+
 
     @Override
     public void closeAddLibraryItemDialog() {
