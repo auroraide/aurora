@@ -1,9 +1,7 @@
 package aurora.client.view.sidebar;
 
 import aurora.client.SidebarDisplay;
-import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.StepValueChangedEvent;
-import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
@@ -13,8 +11,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -53,6 +49,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     ListBox shareSelection;
     private EventBus eventBus;
+    private int prevStepNumber = 1;
 
     /**
      * Created the Sidebar.
@@ -61,6 +58,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
+        stepNumber.setText(1 + "");
         addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
         nightModeSwitch.addClickHandler(new ClickHandler() {
@@ -80,19 +78,38 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     }
 
+
     private void wireStepNumber() {
-        this.stepNumber.addKeyPressHandler(event -> {
-            try {
-                int stepNumber = Integer.parseInt(SidebarView.this.stepNumber.getText() + event.getCharCode());
-                SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
-            } catch (NumberFormatException nfe) {
-                SidebarView.this.stepNumber.cancelKey();
+        //TODO What to consider, if a number greater than Integer.MAX_VALUE or Integer.MIN_VALUE being typed.
+        this.stepNumber.addKeyUpHandler(event -> {
+            String input = stepNumber.getText();
+
+            if (input.matches("[0-9]+")) {
+                    int stepNumber = Integer.parseInt(input);
+                    eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
+                    prevStepNumber = stepNumber;
+
+            } else {
+                // Allows an input of length 1 to be deleted.
+                if (input.length() != 0) {
+                    stepNumber.setText("" + prevStepNumber);
+                }
             }
         });
     }
 
-    private void wireAddLibraryFunction() {
 
+
+    private void wireAddLibraryFunction() {
+        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
+
+        this.addLibraryItemDialogBox.getAddButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+
+                //SidebarView.this.eventBus.fireEvent(new AddFunctionEvent());
+            }
+        });
     }
 
 
