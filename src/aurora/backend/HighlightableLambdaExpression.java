@@ -91,7 +91,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         // mostly for debug purposes
         StringBuilder builder = new StringBuilder();
         for (Token t : this.tokens) {
-            builder.append(tokens.toString());
+            builder.append(t.toString());
             builder.append(" ");
         }
         return builder.toString();
@@ -106,19 +106,21 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         int column;
         private boolean isapp;
         private boolean isabs;
+
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
             offset = -1;
             column = 0;
         }
+
         @Override
         public Void visit(Abstraction abs) {
-            int length = abs.name.length();
 
             column++;
             offset++;
             tokens.add(new Token(Token.TokenType.T_LAMBDA,line,column,offset));
 
+            int length = abs.name.length();
             column += length;
             offset++;
             tokens.add(new Token(Token.TokenType.T_VARIABLE,abs.name,line,column,offset));
@@ -208,6 +210,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 isapp = false;
                 isabs = false;
             }
+
             @Override
             public Void visit(Abstraction abs) {
                 isapp = false;
