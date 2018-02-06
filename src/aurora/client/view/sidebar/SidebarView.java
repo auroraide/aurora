@@ -82,6 +82,11 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
+    public void displayAddLibraryItemNameAlreadyTaken() {
+
+    }
+
+    @Override
     public void addUserLibraryItem(String name, String description) {
 
     }

@@ -32,6 +32,11 @@ public interface SidebarDisplay {
     void displayAddLibraryItemSemanticError(SemanticException error);
 
     /**
+     * User tried to add a function whose name is already taken.
+     */
+    void displayAddLibraryItemNameAlreadyTaken();
+
+    /**
      * Adds a new function to the views user library.
      *
      * @param name        The name function.
