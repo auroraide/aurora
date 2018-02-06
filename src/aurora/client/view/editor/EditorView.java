@@ -1,6 +1,8 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
@@ -137,7 +139,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
         debugMenuBar.addItem("show Error Popup", new Command() {
             public void execute() {
-                displaySyntaxError("This is an error");
+                infoDialogBox.setTitle("This is an error");
+                infoDialogBox.setDescription("42");
+                infoDialogBox.show();
             }
         });
 
@@ -169,12 +173,12 @@ public class EditorView extends Composite implements EditorDisplay {
         this.infoDialogBox = new InfoDialogBox();    
     }
 
+    @Override
+    public void displaySyntaxError(SyntaxException syntaxException) {
+    }
 
     @Override
-    public void displaySyntaxError(String message) {
-        this.infoDialogBox.setTitle(message);
-        this.infoDialogBox.setDescription("42");
-        this.infoDialogBox.show();
+    public void displaySemanticError(SemanticException semanticException) {
     }
 
     @Override
