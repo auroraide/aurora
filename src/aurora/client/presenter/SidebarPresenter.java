@@ -46,7 +46,11 @@ public class SidebarPresenter {
         bind();
     }
 
-    public SidebarPresenter(EventBus eventBus, SidebarDisplay sidebarDisplay, Library stdLib, Library userLib) {
+    public SidebarPresenter(
+            EventBus eventBus,
+            SidebarDisplay sidebarDisplay,
+            Library stdLib,
+            Library userLib) {
         this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
     }
 
