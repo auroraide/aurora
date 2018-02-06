@@ -25,7 +25,7 @@ public class CodeMirrorPanel extends SimplePanel {
         setSize("100%", "100%");
         textArea = new TextArea();
         setWidget(textArea);
-        attachCm();
+        attachCM();
     }
 
     /**
@@ -34,7 +34,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @return content Content of the panel.
      */
     public String getValue() {
-        return (String) callCmFunction(editor, "getValue");
+        return (String) callCMFunction(editor, "getValue");
     }
 
     /**
@@ -43,7 +43,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param content New content of the panel.
      */
     public void setValue(String content) {
-        callCmFunction(editor, "setValue", content);
+        callCMFunction(editor, "setValue", content);
     }
 
     /**
@@ -52,7 +52,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @return value Status of the option asked.
      */
     public Object getOption(String option) {
-        return callCmFunction(editor, option);
+        return callCMFunction(editor, "getOption", option);
     }
 
     /**
@@ -62,18 +62,18 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param value  New value of the option.
      */
     public void setOption(String option, Object value) {
-        callCmFunction(editor, "setOption", option, value);
+        callCMFunction(editor, "setOption", option, value);
     }
 
-    private native Object callCmFunction(JavaScriptObject jso, String name) /*-{
+    private native Object callCMFunction(JavaScriptObject jso, String name) /*-{
         return jso[name].apply(jso);
     }-*/;
 
-    private native Object callCmFunction(JavaScriptObject jso, String name, Object arg) /*-{
+    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg) /*-{
         return jso[name].apply(jso, [arg]);
     }-*/;
 
-    private native Object callCmFunction(JavaScriptObject jso, String name, Object arg1, Object arg2) /*-{
+    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg1, Object arg2) /*-{
         return jso[name].apply(jso, [arg1, arg2]);
     }-*/;
 
@@ -81,15 +81,15 @@ public class CodeMirrorPanel extends SimplePanel {
         console.log(text);
     }-*/;
 
-    private void attachCm() {
+    private void attachCM() {
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
-                editor = createCm(textArea.getElement().<TextAreaElement>cast());
+                editor = createCM(textArea.getElement().<TextAreaElement>cast());
             }
         });
     }
 
-    private static native JavaScriptObject createCm(TextAreaElement tae) /*-{
+    private static native JavaScriptObject createCM(TextAreaElement tae) /*-{
         return $wnd.CodeMirror.fromTextArea(tae, {lineNumbers: true});
     }-*/;
 

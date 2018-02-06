@@ -7,7 +7,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 /**
@@ -28,7 +28,9 @@ public class NormalOrder extends ReductionStrategy {
         }
     }
 
-
+    /**
+     * traverses the tree and seeks out redexes.
+     */
     private class FirstRedexFinderVisitor extends TermVisitor<Void> {
 
         private RedexPath path;
@@ -50,26 +52,30 @@ public class NormalOrder extends ReductionStrategy {
         @Override
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
-            while (!foundredex) {
-                // remove dupliacte
-                path.push(RedexPath.Direction.LEFT);
-                app.left.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
-                path.push(RedexPath.Direction.RIGHT);
-                app.right.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
+            if (foundredex) {
+                return null;
             }
+
+
+            path.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
+            if (foundredex) {
+                return null;
+            }
+            path.pop();
+            path.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            if (foundredex) {
+                return null;
+            }
+            path.pop();
+
             return null;
         }
 
         @Override
         public Void visit(BoundVariable bvar) {
+
             return null;
         }
 
@@ -79,7 +85,9 @@ public class NormalOrder extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function function) {
+            Term term = function.term;
+            term.accept(this);
             return null;
         }
 
@@ -118,7 +126,9 @@ public class NormalOrder extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function function) {
+                Term term = function.term;
+                term.accept(this);
                 return null;
             }
 

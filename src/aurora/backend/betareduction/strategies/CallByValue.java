@@ -7,7 +7,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 /**
@@ -54,32 +54,36 @@ public class CallByValue extends ReductionStrategy {
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
             app.right.accept(new ValueFinder());
+            if (foundredex && foundvalue) { //left is an abstraction right is a value
+                return null;
+            }
+            if (foundredex ^ foundvalue) { // if one of the two is incorrect we dont take it
+                foundvalue = false;
+                foundredex = false;
+            }
+
+
+            path.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
             if (foundredex ^ foundvalue) {
                 foundvalue = false;
                 foundredex = false;
             }
-            while (!foundredex && !foundvalue) {
-                path.push(RedexPath.Direction.LEFT);
-                app.left.accept(this);
-                if (foundredex ^ foundvalue) {
-                    foundvalue = false;
-                    foundredex = false;
-                }
-                if (foundredex && foundvalue) {
-                    return null;
-                }
-                path.pop();
-                path.push(RedexPath.Direction.RIGHT);
-                app.right.accept(this);
-                if (foundredex ^ foundvalue) {
-                    foundvalue = false;
-                    foundredex = false;
-                }
-                if (foundredex && foundvalue) {
-                    return null;
-                }
-                path.pop();
+            if (foundredex && foundvalue) {
+                return null;
             }
+            path.pop();
+            path.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            if (foundredex ^ foundvalue) {
+                foundvalue = false;
+                foundredex = false;
+            }
+            if (foundredex && foundvalue) {
+                return null;
+            }
+            path.pop();
+
             return null;
         }
 
@@ -94,7 +98,9 @@ public class CallByValue extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(LibraryTerm libterm) {
+        public Void visit(Function function) {
+            Term t = function.term;
+            t.accept(this);
             return null;
         }
 
@@ -105,7 +111,7 @@ public class CallByValue extends ReductionStrategy {
 
 
         /**
-         * Visitor that helps find abstractions inside our Term tree.
+         * Visitor that helps find abstractions inside our Term tree. prints result in foundredex
          */
         private class AbstractionFinder extends TermVisitor<Void> {
 
@@ -131,17 +137,23 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function function) {
+                Term t = function.term;
+                t.accept(this);
                 return null;
             }
 
             @Override
             public Void visit(ChurchNumber c) {
+                foundredex = true;
                 return null;
             }
 
         }
 
+        /**
+         * finds values and prints the result in foundvalue.
+         */
         private class ValueFinder extends TermVisitor<Void> {
 
             @Override
@@ -168,7 +180,9 @@ public class CallByValue extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(LibraryTerm libterm) {
+            public Void visit(Function function) {
+                Term t = function.term;
+                t.accept(this);
                 return null;
             }
 

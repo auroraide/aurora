@@ -5,7 +5,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 
 /**
  * Term tree Visitor with generic return type.
@@ -46,12 +46,12 @@ public abstract class TermVisitor<T> {
     public abstract T visit(FreeVariable fvar);
 
     /**
-     * Called with {@link LibraryTerm}.
+     * Called with {@link Function}.
      *
      * @param libterm The caller.
      * @return Result or null.
      */
-    public abstract T visit(LibraryTerm libterm);
+    public abstract T visit(Function libterm);
 
     /**
      * Called with {@link ChurchNumber}.
