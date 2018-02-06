@@ -29,6 +29,9 @@ public class CallByName extends ReductionStrategy {
         }
     }
 
+    /**
+     * traverses the tree and seeks out for redexes.
+     */
     private class FirstRedexFinderVisitor extends TermVisitor<Void> {
         private RedexPath path;
         private boolean foundredex = false;
@@ -45,20 +48,23 @@ public class CallByName extends ReductionStrategy {
         @Override
         public Void visit(Application app) {
             app.left.accept(new AbstractionFinder());
-            while (!foundredex) {
-                path.push(RedexPath.Direction.LEFT);
-                app.left.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
-                path.push(RedexPath.Direction.RIGHT);
-                app.right.accept(this);
-                if (foundredex) {
-                    return null;
-                }
-                path.pop();
+            if (foundredex) { // found a redex
+                return null;
             }
+
+            path.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
+            if (foundredex) { // found a redex
+                return null;
+            }
+            path.pop(); // there was no redex in this subtree
+            path.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            if (foundredex) {
+                return null;
+            }
+            path.pop();
+
             return null;
         }
 
@@ -73,7 +79,9 @@ public class CallByName extends ReductionStrategy {
         }
 
         @Override
-        public Void visit(Function libterm) {
+        public Void visit(Function function) {
+            Term t = function.term;
+            t.accept(this);
             return null;
         }
 
@@ -82,6 +90,9 @@ public class CallByName extends ReductionStrategy {
             return null;
         }
 
+        /**
+         * is this element an abstraction.?
+         */
         private class AbstractionFinder extends TermVisitor<Void> {
 
             @Override
@@ -106,7 +117,9 @@ public class CallByName extends ReductionStrategy {
             }
 
             @Override
-            public Void visit(Function libterm) {
+            public Void visit(Function function) {
+                Term t = function.term;
+                t.accept(this);
                 return null;
             }
 
