@@ -106,7 +106,7 @@ public class EditorView extends Composite implements EditorDisplay {
         return optionsMenuBar;
     }
 
-    private MenuBar setupInputMenuBarDEBUG(){
+    private MenuBar setupInputMenuBarDEBUG() {
         MenuBar debugMenuBar = new MenuBar(true);
 
         debugMenuBar.addItem("add 5 Steps", new Command() {
