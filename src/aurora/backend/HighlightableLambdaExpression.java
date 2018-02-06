@@ -12,6 +12,7 @@ import aurora.backend.tree.Term;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
@@ -45,6 +46,24 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     public HighlightableLambdaExpression(Term t) {
         this();
         t.accept(new TermToHighlightedLambdaExpressionVisitor());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HighlightableLambdaExpression tokens1 = (HighlightableLambdaExpression) o;
+        return Objects.equals(tokens, tokens1.tokens);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(tokens);
     }
 
     @Override
