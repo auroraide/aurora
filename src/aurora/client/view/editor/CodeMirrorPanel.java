@@ -52,7 +52,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @return value Status of the option asked.
      */
     public Object getOption(String option) {
-        return callCMFunction(editor, option);
+        return callCMFunction(editor, "getOption", option);
     }
 
     /**
