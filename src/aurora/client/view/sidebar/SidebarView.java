@@ -1,6 +1,7 @@
 package aurora.client.view.sidebar;
 
 import aurora.client.SidebarDisplay;
+import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
@@ -85,9 +86,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
             String input = stepNumber.getText();
 
             if (input.matches("[0-9]+")) {
-                    int stepNumber = Integer.parseInt(input);
-                    eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
-                    prevStepNumber = stepNumber;
+                int stepNumber = Integer.parseInt(input);
+                eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
+                prevStepNumber = stepNumber;
 
             } else {
                 // Allows an input of length 1 to be deleted.
@@ -99,17 +100,15 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
 
-
     private void wireAddLibraryFunction() {
-        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
+        addFunctionButton.addClickHandler(event -> addLibraryItemDialogBox.show());
 
-        this.addLibraryItemDialogBox.getAddButton().addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-
-                //SidebarView.this.eventBus.fireEvent(new AddFunctionEvent());
-            }
-        });
+        // TODO Validation for Function Name. No duplicate function name. Only alphabetical
+        // TODO Validation
+        addLibraryItemDialogBox.getAddButton().addClickHandler(event -> eventBus.fireEvent(new AddFunctionEvent(
+                 addLibraryItemDialogBox.getNameField().getText(),
+                 addLibraryItemDialogBox.getFunctionField().getText(),
+                 addLibraryItemDialogBox.getDescriptionField().getText())));
     }
 
 
