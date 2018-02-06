@@ -27,11 +27,13 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class EditorPresenterTest {
+    @Ignore
     @Test
     public void testStep() throws SyntaxException, SemanticException {
         EditorDisplay editorDisplay = mock(EditorDisplay.class);
