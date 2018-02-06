@@ -13,6 +13,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class AddLibraryItemDialogBox extends DialogBox {
     private static AddLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(AddLibraryItemDialogBoxUiBinder.class);
+    private boolean nameFieldValid;
+    private boolean functionFieldValid;
+
     @UiField
     TextBox nameField;
     @UiField
@@ -29,11 +32,17 @@ public class AddLibraryItemDialogBox extends DialogBox {
      * Provides an interface to add new functions to the user library.
      */
     public AddLibraryItemDialogBox() {
-
+        this.nameFieldValid = false;
+        this.functionFieldValid = false;
         setWidget(ourUiBinder.createAndBindUi(this));
-        setAutoHideEnabled(true);
+        setUpDialogBox();
+    }
+
+    private void setUpDialogBox() {
+        setAutoHideEnabled(false);
+        //TODO i18n right down there.
         setText("ADD NEW FUNCTION");
-        setGlassEnabled(true);
+        setGlassEnabled(false);
         center();
         hide();
     }
@@ -45,7 +54,12 @@ public class AddLibraryItemDialogBox extends DialogBox {
      */
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent event) {
-        // TODO More to implement. E.g. clearing TextBoxes.
+        this.nameField.setText("");
+        this.functionField.setText("");
+        this.descriptionField.setText("");
+        this.nameFieldValid = false;
+        this.functionFieldValid = false;
+        this.addButton.setEnabled(false);
         hide();
     }
 
