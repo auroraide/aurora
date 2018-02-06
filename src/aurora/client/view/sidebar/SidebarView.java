@@ -1,5 +1,7 @@
 package aurora.client.view.sidebar;
 
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
@@ -66,6 +68,16 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void closeAddLibraryItemDialog() {
+
+    }
+
+    @Override
+    public void displayAddLibraryItemSyntaxError(SyntaxException error) {
+
+    }
+
+    @Override
+    public void displayAddLibraryItemSemanticError(SemanticException error) {
 
     }
 
