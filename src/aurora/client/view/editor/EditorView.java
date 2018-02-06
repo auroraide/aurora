@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.MenuBar;
 
 import aurora.client.view.popup.InfoDialogBox;
 
@@ -52,6 +53,8 @@ public class EditorView extends Composite implements EditorDisplay {
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
+    private InfoDialogBox infoDialogBox;
+
     private EventBus eventBus;
 
     /**
@@ -64,44 +67,15 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+        setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
     }
 
     private void setupInputField() {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
-        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
-
-        //TODO:remove test button
-        Button addStepButton = new Button("add5Steps", new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                List<String> strings = new LinkedList<String>();
-                strings.add("#Ugly as a blobfish, but hey, it works :)");
-                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
-                strings.add("third #<- not a comment :)");
-                strings.add("$plus 2 λs.λz.s(sz)");
-                strings.add("whatchaknow\nnever thought you'd make it down here");
-                addNextStepDEBUG(strings);
-            }
-        });
-        this.inputDockLayoutPanel.addWest(addStepButton, 7);
-
-        //TODO:remove test button
-        Button removeAllStepsButton = new Button("remove Steps", new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                resetSteps();
-            }
-        });
-        this.inputDockLayoutPanel.addWest(removeAllStepsButton, 7);
-
-        //TODO: remove test Button
-        Button showErrorDiagButton = new Button("show Error Popup", new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                displaySyntaxError("Banana");
-            }
-        });
-        this.inputDockLayoutPanel.addWest(showErrorDiagButton, 7);
-        
+        this.inputDockLayoutPanel.addWest(setupInputMenuBar(), 4);
+        this.inputDockLayoutPanel.addWest(setupInputMenuBarDEBUG(), 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
@@ -120,6 +94,46 @@ public class EditorView extends Composite implements EditorDisplay {
                 inputCodeMirror.setOption("styleActiveLine", true);
             }
         });
+    }
+
+    private MenuBar setupInputMenuBar() {
+        MenuBar optionsMenuBar = new MenuBar(true);
+        optionsMenuBar.addItem("test", new Command() {
+            public void execute() {
+                console("pi2");
+            }
+        });
+        return optionsMenuBar;
+    }
+
+    private MenuBar setupInputMenuBarDEBUG() {
+        MenuBar debugMenuBar = new MenuBar(true);
+
+        debugMenuBar.addItem("add 5 Steps", new Command() {
+            public void execute() {
+                List<String> strings = new LinkedList<String>();
+                strings.add("#Ugly as a blobfish, but hey, it works :)");
+                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
+                strings.add("third #<- not a comment :)");
+                strings.add("$plus 2 λs.λz.s(sz)");
+                strings.add("whatchaknow\nnever thought you'd make it down here");
+                addNextStepDEBUG(strings);
+            }
+        });
+
+        debugMenuBar.addItem("remove Steps", new Command() {
+            public void execute() {
+                resetSteps();
+            }
+        });
+
+        debugMenuBar.addItem("show Error Popup", new Command() {
+            public void execute() {
+                displaySyntaxError("This is an error");
+            }
+        });
+
+        return debugMenuBar;
     }
 
     private void setupOutputField() {
@@ -143,13 +157,16 @@ public class EditorView extends Composite implements EditorDisplay {
         });
     }
 
+    private void setupInfoDialogBox() {
+        this.infoDialogBox = new InfoDialogBox();    
+    }
+
 
     @Override
     public void displaySyntaxError(String message) {
-        InfoDialogBox infoDialog = new InfoDialogBox();
-        infoDialog.setTitle(message);
-        infoDialog.setDescription("42");
-        infoDialog.show();
+        this.infoDialogBox.setTitle(message);
+        this.infoDialogBox.setDescription("42");
+        this.infoDialogBox.show();
     }
 
     @Override
@@ -159,7 +176,6 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
-        int index = stepFieldTable.getRowCount();
         highlightedLambdaExpressions.forEach((hle) -> {
             addStepEntry(stepFieldTable.getRowCount(), hle);
         });
