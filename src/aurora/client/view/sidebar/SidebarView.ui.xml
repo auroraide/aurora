@@ -21,18 +21,22 @@
             right: 0em;
             top: 0em;
         }
+        .stepSettings {}
+        .panelSettings {
+            background-color: #33495D;
+        }
     </ui:style>
 
     <g:DockLayoutPanel unit="EM">
         <g:center>
 
-            <g:DockLayoutPanel unit="EM">
+            <g:DockLayoutPanel unit="EM" addStyleNames="{style.panelSettings}">
 
                 <g:north size="2.5">
                     <!-- Step Setting -->
-                    <g:FlowPanel>
+                    <g:FlowPanel addStyleNames="{style.stepSettings}">
                         <g:Label addStyleNames="{style.leftAlign}"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
-                        <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                        <g:IntegerBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
                     </g:FlowPanel>
                 </g:north>
 
@@ -45,7 +49,6 @@
                             <g:customHeader size="40">
                                 <g:FlowPanel>
                                     <!-- Placeholder for stdlib icon-->
-                                    <g:Label addStyleNames="{style.leftAlign}">Icon</g:Label>
                                     <g:Label addStyleNames="{style.rightAlign}"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
                             </g:customHeader>
@@ -58,7 +61,6 @@
                         <g:stack>
                             <g:customHeader size="70">
                                 <g:FlowPanel>
-                                    <g:Label>Icon</g:Label>
                                     <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
                                     <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+
                                     </g:Button>
