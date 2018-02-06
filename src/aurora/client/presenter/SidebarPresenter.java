@@ -62,14 +62,17 @@ public class SidebarPresenter {
         Term t;
         try {
             t = lambdaParser.parse(lambdaLexer.lex(input.getLambdaTerm()));
-        } catch (SyntaxException | SemanticException e) {
-            throw new RuntimeException("Not implemented");
-            // sidebarDisplay.displayAddUserLibraryError(e);
+        } catch (SyntaxException e) {
+            sidebarDisplay.displayAddLibraryItemSyntaxError(e);
+            return;
+        } catch (SemanticException e) {
+            sidebarDisplay.displayAddLibraryItemSemanticError(e);
+            return;
         }
 
         if (userLib.exists(input.getName())) {
-            throw new RuntimeException("Not implemented");
-            // sidebarDisplay.displayUserLibraryNameAlreadyTakenError();
+            sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
+            return;
         }
 
         userLib.define(input.getName(), input.getDescription(), t);
