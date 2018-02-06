@@ -74,8 +74,12 @@ public class EditorView extends Composite implements EditorDisplay {
     private void setupInputField() {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
-        this.inputDockLayoutPanel.addWest(setupInputMenuBar(), 4);
-        this.inputDockLayoutPanel.addWest(setupInputMenuBarDEBUG(), 4);
+        MenuBar optionsMenu = new MenuBar(true);
+        optionsMenu.addItem("options", setupInputMenuBar());
+        MenuBar debugMenu = new MenuBar(true);
+        debugMenu.addItem("debug", setupInputMenuBarDEBUG());
+        this.inputDockLayoutPanel.addWest(optionsMenu, 4);
+        this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
