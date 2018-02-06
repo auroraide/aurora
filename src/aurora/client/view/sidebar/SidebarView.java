@@ -9,6 +9,8 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -104,6 +106,10 @@ public class SidebarView extends Composite implements SidebarDisplay {
         addFunctionButton.addClickHandler(event -> addLibraryItemDialogBox.show());
 
         // TODO Validation for Function Name. No duplicate function name. Only alphabetical
+        addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
+
+        });
+
         // TODO Validation
         addLibraryItemDialogBox.getAddButton().addClickHandler(event -> eventBus.fireEvent(new AddFunctionEvent(
                  addLibraryItemDialogBox.getNameField().getText(),
@@ -114,7 +120,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void closeAddLibraryItemDialog() {
-
+        addLibraryItemDialogBox.hide();
     }
 
     @Override
