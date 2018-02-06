@@ -12,6 +12,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
+import aurora.backend.encoders.PastebinSessionEncoder;
 /**
  * Responsible for intitalising the Aurora Web Application.
  * <p>
@@ -36,5 +37,7 @@ public class Aurora implements EntryPoint {
         EditorPresenter editorPresenter = new EditorPresenter(eventBus, auroraView.getEditor());
 
         RootLayoutPanel.get().add(auroraView);
+
+        PastebinSessionEncoder pse = new PastebinSessionEncoder();
     }
 }
