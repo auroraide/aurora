@@ -104,10 +104,9 @@ public class EditorView extends Composite implements EditorDisplay {
         MenuBar optionsMenuBar = new MenuBar(true);
         optionsMenuBar.addItem("toggle VIM", new Command() {
             public void execute() {
-                if(inputCodeMirror.getOption("keyMap").equals("default")) {
+                if (inputCodeMirror.getOption("keyMap").equals("default")) {
                     inputCodeMirror.setOption("keyMap", "vim");
-                }
-                else {
+                } else {
                     inputCodeMirror.setOption("keyMap", "default");
                 }
             }
