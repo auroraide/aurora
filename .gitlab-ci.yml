@@ -17,7 +17,6 @@ testjob:
     stage: test
     script:
         - ant test -lib vendor
-        - which wget unzip curl git
 
 deployjob:
     stage: deploy
