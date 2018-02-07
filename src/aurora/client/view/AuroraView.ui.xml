@@ -7,26 +7,12 @@
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
     <ui:style>
-        .eastPanel {
-            background-color: #F60;
-        }
 
         .westPanel {
-            background-color: #EEE;
-        }
-
-        .northPanel {
-            background-color: #ffcccc;
-        }
-
-        .southPanel {
-            background-color: #99C;
         }
 
         .centerPanel {
-            background-color: #FFC;
         }
-
 
     </ui:style>
 
