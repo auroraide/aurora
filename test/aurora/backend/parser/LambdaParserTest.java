@@ -56,6 +56,12 @@ public class LambdaParserTest {
                 "(\\x.(\\y.((((\\z.((3 2) 1)) 2) 1) z)))"
         };
 
+        this.assertParse(input, expected);
+
+
+    }
+
+    private void assertParse(String[] input, String[] expected) {
         for (int i = 0; i < expected.length; ++i) {
             try {
 
@@ -71,6 +77,19 @@ public class LambdaParserTest {
                 fail("SemanticException thrown instead: " + e.getMessage());
             }
         }
+    }
+
+    @Test
+    public void testNumbers() {
+        String[] input = {
+                "(\\x. x x) 42"
+        };
+
+        String[] expected = {
+                "((\\x.(1 1)) c42)"
+        };
+
+        this.assertParse(input, expected);
     }
 
     private class TermPrinter extends TermVisitor<String> {
