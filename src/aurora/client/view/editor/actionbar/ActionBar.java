@@ -23,11 +23,16 @@ public class ActionBar extends Composite {
     }
 
     @UiField
-    Button runPauseContinueButton;
+    Button runButton;
+    @UiField
+    Button pauseButton;
+    @UiField
+    Button continueButton;
     @UiField
     Button resetButton;
     @UiField
     Button stepButton;
+
 
     private ButtonType rpcButtonActive;
 
@@ -40,14 +45,31 @@ public class ActionBar extends Composite {
     }
 
     /**
-     * Getter for runPauseContinueButton.
+     * Getter for Run Button.
      *
-     * @return runPauseContinueButton
+     * @return run button
      */
-    public Button getRunPauseContinueButton() {
-        return runPauseContinueButton;
+    public Button getRunButton() {
+        return runButton;
     }
 
+    /**
+     * Getter for Pause Button.
+     *
+     * @return pause button
+     */
+    public Button getPauseButton() {
+        return pauseButton;
+    }
+
+    /**
+     * Getter for Continue Button.
+     *
+     * @return continue button
+     */
+    public Button getContinueButton() {
+        return continueButton;
+    }
     /**
      * Getter for resetButton.
      *
