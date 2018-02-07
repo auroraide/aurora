@@ -8,6 +8,12 @@ import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.ExportLaTeXAllEvent;
+import aurora.client.event.ExportLaTeXEvent;
+import aurora.client.event.ShareEmailAllEvent;
+import aurora.client.event.ShareEmailEvent;
+import aurora.client.event.ShareLinkAllEvent;
+import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.event.shared.EventBus;
 
 
@@ -56,6 +62,33 @@ public class SidebarPresenter {
 
     private void bind() {
         eventBus.addHandler(AddFunctionEvent.TYPE, this::onAddFunction);
+
+        eventBus.addHandler(ExportLaTeXEvent.TYPE, this::onExportLaTeX);
+        eventBus.addHandler(ExportLaTeXAllEvent.TYPE, this::onExportLaTeXAll);
+        eventBus.addHandler(ShareEmailEvent.TYPE, this::onShareEmail);
+        eventBus.addHandler(ShareEmailAllEvent.TYPE, this::onShareEmailAll);
+        eventBus.addHandler(ShareLinkEvent.TYPE, this::onShareLink);
+        eventBus.addHandler(ShareLinkAllEvent.TYPE, this::onShareLinkAll);
+    }
+
+    private void onShareLinkAll(ShareLinkAllEvent e) {
+    }
+
+    private void onShareLink(ShareLinkEvent e) {
+    }
+
+    private void onShareEmailAll(ShareEmailAllEvent e) {
+    }
+
+    private void onShareEmail(ShareEmailEvent e) {
+    }
+
+    private void onExportLaTeXAll(ExportLaTeXAllEvent e) {
+
+    }
+
+    private void onExportLaTeX(ExportLaTeXEvent e) {
+
     }
 
     private void onAddFunction(AddFunctionEvent input) {
