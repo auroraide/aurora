@@ -75,10 +75,4 @@ public class AuroraPresenter {
         ShareLaTeX shareLaTeX = new ShareLaTeX(hle);
         auroraDisplay.displayLatexSnippetDialog(shareLaTeX.generateLaTeX());
     }
-
-    private void onShareLatex(ExportLaTeXEvent exportLaTeXEvent) {
-        // convert HLE -> LaTeX String
-        // auroraDisplay.displayLatexSnippetDialog();
-    }
-
 }
