@@ -41,7 +41,7 @@ public class Aurora implements EntryPoint {
 
         ArrayList<Term> steps = new ArrayList<>();
         LambdaLexer lexer = new LambdaLexer();
-        LambdaParser parser = new LambdaParser();
+        LambdaParser parser = new LambdaParser(new Library());
 
         // presenters
         AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, auroraView,
