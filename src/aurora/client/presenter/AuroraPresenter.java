@@ -71,7 +71,7 @@ public class AuroraPresenter {
     }
 
     private void onExportLaTeX(ExportLaTeXEvent e) {
-        HighlightedLambdaExpression hle = e.getHighlightableLambdaExpression();
+        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(steps.get(e.getIndex()));
         ShareLaTeX shareLaTeX = new ShareLaTeX(hle);
         auroraDisplay.displayLatexSnippetDialog(shareLaTeX.generateLaTeX());
     }
