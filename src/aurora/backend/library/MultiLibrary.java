@@ -70,6 +70,15 @@ public class MultiLibrary implements Library {
 
             @Override
             public boolean hasNext() {
+                if (currentIterator.hasNext()) {
+                    return true;
+                }
+
+                if (libraryIterator.hasNext()) {
+                    currentIterator = libraryIterator.next().iterator();
+                    return hasNext();
+                }
+
                 return false;
             }
 
