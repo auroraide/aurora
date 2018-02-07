@@ -27,7 +27,8 @@ public class ShareLaTeX {
         for (int i = 0; i < original.length(); i++) {
             char c = original.charAt(i);
             if (c == '\\') {
-                latex += "$\\lambda$";
+                latex += "$\\lambda";
+                continue;
             }
             if (c == '$') {
                 latex += "\\$";

@@ -25,7 +25,7 @@ public class ShareLaTeXTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Abstraction(
                 new BoundVariable(1),"x"));
         ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals(sh.generateLaTeX(),"$\\lambda$ x . 1 ");
+        assertEquals("$\\lambda x . 1 ",sh.generateLaTeX());
     }
 
     @Test
