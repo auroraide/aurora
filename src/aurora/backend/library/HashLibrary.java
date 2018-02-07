@@ -23,7 +23,7 @@ public class HashLibrary implements Library {
 
     @Override
     public Iterator<LibraryItem> iterator() {
-        return null;
+        return map.entrySet().stream().map(Map.Entry::getValue).iterator();
     }
 
     /**
