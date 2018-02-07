@@ -10,6 +10,11 @@ public class BetaReductionIterator implements Iterator<Term> {
     private boolean finished;
     private Term next;
 
+    /**
+     * take a betareducer and a start term. checks if there is atleast one reducible redex.
+     * @param betaReducer the Betareducer
+     * @param start the term that gets reduced
+     */
     public BetaReductionIterator(BetaReducer betaReducer, Term start) {
         this.betaReducer = betaReducer;
         next = start;

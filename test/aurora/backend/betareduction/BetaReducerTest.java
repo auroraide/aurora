@@ -307,7 +307,7 @@ public class BetaReducerTest {
         while (n < 100) {
 
             t = br.reduce(t);
-            if (br.finished) {
+            if (br.getFinished()) {
                 break;
             }
 
