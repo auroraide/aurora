@@ -1,6 +1,5 @@
 package aurora.client.event;
 
-import aurora.backend.HighlightedLambdaExpression;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
@@ -8,17 +7,16 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ShareEmailEvent extends GwtEvent<ShareEmailEventHandler> {
     public static Type<ShareEmailEventHandler> TYPE = new Type<>();
-    private final HighlightedLambdaExpression highlightedLambdaExpression;
+    private final int stepIndex;
 
     /**
-     * Constructor with HighlightedLambdaExpression.
-     *
-     * @param highlightedLambdaExpression Highlighted lambda term of the selected input,
-     *                                    step, or output by the user to be shared.
+     * Create a new event with the step index to create an email with.
+     * @param stepIndex Step index to share. Index 0 means input.
      */
-    public ShareEmailEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.highlightedLambdaExpression = highlightedLambdaExpression;
+    public ShareEmailEvent(int stepIndex) {
+        this.stepIndex = stepIndex;
     }
+
 
     @Override
     public Type<ShareEmailEventHandler> getAssociatedType() {
@@ -28,6 +26,14 @@ public class ShareEmailEvent extends GwtEvent<ShareEmailEventHandler> {
     @Override
     protected void dispatch(ShareEmailEventHandler openEmailClientEventHandler) {
         openEmailClientEventHandler.onOpenEmailClient(this);
+    }
+
+    /**
+     * Step index.
+     * @return Step index, 0 means input.
+     */
+    public int getStepIndex() {
+        return stepIndex;
     }
 }
 

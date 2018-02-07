@@ -19,6 +19,6 @@ public abstract class ReductionStrategy {
      * @param t the term which gets evaluated.
      * @return the tree path to the chosen redex.
      */
-    public abstract RedexPath getRedex(Term t);
+    public abstract RedexPath getRedexPath(Term t);
 
 }

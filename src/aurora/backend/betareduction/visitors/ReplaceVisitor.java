@@ -8,7 +8,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class ReplaceVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Abstraction abs) {
-        return abs.accept(this);
+        return new Abstraction(abs.body.accept(this),abs.name);
     }
 
     @Override
@@ -67,13 +67,15 @@ public class ReplaceVisitor extends TermVisitor<Term> {
     }
 
     @Override
-    public Term visit(LibraryTerm libterm) {
-        return libterm;
+    public Term visit(Function function) {
+        Term t = function.term;
+        return t.accept(this);
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        return c;
+        Abstraction abs = c.getAbstraction();
+        return new Abstraction(abs.body.accept(this),abs.name);
     }
 
 }

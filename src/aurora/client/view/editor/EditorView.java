@@ -1,6 +1,8 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
 import aurora.client.event.PauseEvent;
@@ -24,6 +26,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
+
+import aurora.client.view.popup.InfoDialogBox;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +61,8 @@ public class EditorView extends Composite implements EditorDisplay {
     private Button outputOptionButton;
     private CodeMirrorPanel outputCodeMirror;
 
+    private InfoDialogBox infoDialogBox;
+
     private EventBus eventBus;
 
     /**
@@ -69,14 +75,16 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+        setupInfoDialogBox();
+        stepFieldTable.setSize("100%", "100%");
         eventWiring();
 
     }
-
+    
     private void eventWiring() {
         wireActionBar();
     }
-
+    
     /**
      * Wires the ActionBar buttons with the event bus.
      */
@@ -86,23 +94,23 @@ public class EditorView extends Composite implements EditorDisplay {
                 case RUN:
                     EditorView.this.eventBus.fireEvent(new RunEvent());
                     break;
-
+                    
                 case PAUSE:
                     EditorView.this.eventBus.fireEvent(new PauseEvent());
                     break;
-
+                    
                 default:
                     EditorView.this.eventBus.fireEvent(new ContinueEvent());
             }
         });
-
+        
         this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
         this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
-
-
-
+        
+        
+        
     }
-
+    
     private void eventListeningActionbar() {
         this.eventBus.addHandler(StepEvent.TYPE, new StepEventHandler() {
             @Override
@@ -110,7 +118,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 GWT.log("Handler calling onStep method.");
             }
         });
-
+        
         eventBus.addHandler(ViewStateChangedEvent.TYPE, new ViewStateChangedEventHandler() {
             @Override
             public void onViewStateChanged(ViewStateChangedEvent viewStateChangedEvent) {
@@ -120,9 +128,9 @@ public class EditorView extends Composite implements EditorDisplay {
                         break;
                     default:
                         GWT.log("yo");
-
+                        
                 }
-
+                
             }
         });
     }
@@ -130,21 +138,12 @@ public class EditorView extends Composite implements EditorDisplay {
     private void setupInputField() {
         this.inputOptionButton = new Button("Share");
         // TODO Set styling for optionButton
-        this.inputDockLayoutPanel.addWest(this.inputOptionButton, 4);
-
-        //TODO:remove test button
-        Button addStepButton = new Button("add5Steps", new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                List<String> strings = new LinkedList<String>();
-                strings.add("#Ugly as a blobfish, but hey, it works :)");
-                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
-                strings.add("third #<- not a comment :)");
-                strings.add("$plus 2 λs.λz.s(sz)");
-                strings.add("whatchaknow\nnever thought you'd make it down here");
-                addNextStepDEBUG(strings);
-            }
-        });
-        this.inputDockLayoutPanel.addWest(addStepButton, 7);
+        MenuBar optionsMenu = new MenuBar(true);
+        optionsMenu.addItem("options", setupInputMenuBar());
+        MenuBar debugMenu = new MenuBar(true);
+        debugMenu.addItem("debug", setupInputMenuBarDEBUG());
+        this.inputDockLayoutPanel.addWest(optionsMenu, 4);
+        this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
@@ -163,6 +162,52 @@ public class EditorView extends Composite implements EditorDisplay {
                 inputCodeMirror.setOption("styleActiveLine", true);
             }
         });
+    }
+
+    private MenuBar setupInputMenuBar() {
+        MenuBar optionsMenuBar = new MenuBar(true);
+        optionsMenuBar.addItem("toggle VIM", new Command() {
+            public void execute() {
+                if (inputCodeMirror.getOption("keyMap").equals("default")) {
+                    inputCodeMirror.setOption("keyMap", "vim");
+                } else {
+                    inputCodeMirror.setOption("keyMap", "default");
+                }
+            }
+        });
+        return optionsMenuBar;
+    }
+
+    private MenuBar setupInputMenuBarDEBUG() {
+        MenuBar debugMenuBar = new MenuBar(true);
+
+        debugMenuBar.addItem("add 5 Steps", new Command() {
+            public void execute() {
+                List<String> strings = new LinkedList<String>();
+                strings.add("#Ugly as a blobfish, but hey, it works :)");
+                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
+                strings.add("third #<- not a comment :)");
+                strings.add("$plus 2 λs.λz.s(sz)");
+                strings.add("whatchaknow\nnever thought you'd make it down here");
+                addNextStepDEBUG(strings);
+            }
+        });
+
+        debugMenuBar.addItem("remove Steps", new Command() {
+            public void execute() {
+                resetSteps();
+            }
+        });
+
+        debugMenuBar.addItem("show Error Popup", new Command() {
+            public void execute() {
+                infoDialogBox.setTitle("This is an error");
+                infoDialogBox.setDescription("42");
+                infoDialogBox.show();
+            }
+        });
+
+        return debugMenuBar;
     }
 
     private void setupOutputField() {
@@ -186,10 +231,16 @@ public class EditorView extends Composite implements EditorDisplay {
         });
     }
 
+    private void setupInfoDialogBox() {
+        this.infoDialogBox = new InfoDialogBox();    
+    }
 
     @Override
-    public void displaySyntaxError(String message) {
+    public void displaySyntaxError(SyntaxException syntaxException) {
+    }
 
+    @Override
+    public void displaySemanticError(SemanticException semanticException) {
     }
 
     @Override
@@ -199,9 +250,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
-        int index = stepFieldTable.getRowCount();
         highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntry(index, hle);
+            addStepEntry(stepFieldTable.getRowCount(), hle);
         });
     }
 

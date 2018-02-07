@@ -75,6 +75,45 @@ public class ActionBar extends Composite {
         return rpcButtonActive;
     }
 
+    /**
+     * Makes the run button active in {@link ActionBar}.
+     */
+    public void makeRunButtonActive() {
+        // TODO set name to run. Consider i18n
+        // TODO set css style
+    }
+
+    /**
+     * Makes the pause button active in {@link ActionBar}.
+     */
+    public void makePauseButtonActive() {
+        // TODO set name to pause. Consider i18n
+        // TODO set css style
+    }
+
+    /**
+     * Makes the pause button active in {@link ActionBar}.
+     */
+    public void makeContinueButtonActive() {
+        // TODO set name to continue. Consider i18n
+        // TODO set css style
+    }
+
+    /**
+     * Makes the pause button active in {@link ActionBar}.
+     */
+    public void deactivateRPCButton() {
+        // TODO deactivate RPC-Button
+    }
+
+    public void deactivateStepButton() {
+        // TODO deactivate Continue Button
+    }
+
+    public void deactivateResetButton() {
+        // TODO deactivate Reset Button
+    }
+
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
     }
 }

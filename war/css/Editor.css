@@ -1,0 +1,15 @@
+.centerPanel *{
+    background-color: #33495D;
+}
+
+.centerPanel {
+    border: 1px solid #BFCBBE;
+}
+
+.gwt-SplitLayoutPanel-VDragger {
+    background-color: #177965 !important;
+}
+
+.gwt-MenuBar-vertical {
+    background: #33495D !important;
+}
