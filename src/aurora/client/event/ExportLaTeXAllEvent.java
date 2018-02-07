@@ -9,12 +9,6 @@ import java.util.List;
 public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
     public static Type<ExportLaTeXAllEventHandler> TYPE = new Type<>();
 
-    /**
-     * Simple constructor.
-     */
-    public ExportLaTeXAllEvent(List<HighlightedLambdaExpression> inputAndSteps) {
-    }
-
     @Override
     public Type<ExportLaTeXAllEventHandler> getAssociatedType() {
         return TYPE;

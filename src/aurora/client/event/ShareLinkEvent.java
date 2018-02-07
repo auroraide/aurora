@@ -8,15 +8,14 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     public static Type<ShareLinkEventHandler> TYPE = new Type<>();
-    private final HighlightedLambdaExpression highlightedLambdaExpression;
+    private final int step;
 
     /**
      * Simple constructor.
-     *
-     * @param highlightedLambdaExpression The term (input, step, or output) the user has selected to be shared.
+     * @param step Step index. 0 is input.
      */
-    public ShareLinkEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.highlightedLambdaExpression = highlightedLambdaExpression;
+    public ShareLinkEvent(int step) {
+        this.step = step;
     }
 
     @Override
@@ -30,14 +29,11 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     }
 
     /**
-     * Gets term the user selected for sharing.
-     *
-     * @return Selected term.
+     * Get step index.
+     * @return step index, 0 means input.
      */
-    public HighlightedLambdaExpression getHighlightableLambdaExpression() {
-        return highlightedLambdaExpression;
+    public int getStep() {
+        return step;
     }
-
-
 }
 

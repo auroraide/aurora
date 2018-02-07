@@ -8,15 +8,16 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     public static Type<ExportLaTeXEventHandler> TYPE = new Type<>();
-    private final HighlightedLambdaExpression highlightedLambdaExpression;
+    private final int index;
 
     /**
      * Simple constructor.
      *
-     * @param highlightedLambdaExpression The term the user has selected for exporting to LaTeX.
+     * @param index Gets the index of the selected step. 0 means input, 1 is the first step.
+     *              Last index might be the output, as long as it has already been computed.
      */
-    public ExportLaTeXEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.highlightedLambdaExpression = highlightedLambdaExpression;
+    public ExportLaTeXEvent(int index) {
+        this.index = index;
     }
 
     @Override
@@ -30,11 +31,11 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     }
 
     /**
-     * Gets the term to be exported to LaTeX.
-     *
-     * @return The term in the form the View understands.
+     * Gets the index of the selected step. 0 means input, 1 is the first step. Last index might be the output,
+     * as long as it has already been computed.
+     * @return Step index.
      */
-    public HighlightedLambdaExpression getHighlightableLambdaExpression() {
-        return highlightedLambdaExpression;
+    public int getIndex() {
+        return index;
     }
 }
