@@ -357,5 +357,4 @@ TeXDoclet.jar
 /docs/entwurf/html
 !/docs/entwurf/tex/UML_Klassen.pdf
 aurora.war
-
-\.ivy/
+.ivy
