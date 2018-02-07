@@ -69,15 +69,17 @@ public class EditorPresenter {
     public EditorPresenter(
             EventBus eventBus,
             EditorDisplay editorDisplay,
+            Library standardLibrary,
+            Library userLibrary,
             LambdaLexer lambdaLexer,
             LambdaParser lambdaParser) {
         this.editorDisplay = editorDisplay;
         this.eventBus = eventBus;
+        this.standardLibrary = standardLibrary;
+        this.userLibrary = userLibrary;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
 
-        standardLibrary = new Library();
-        userLibrary = new Library();
         steps = new ArrayList<>();
 
         highlightTimer = new HighlightTimer();
@@ -93,8 +95,8 @@ public class EditorPresenter {
      * @param eventBus      The event bus.
      * @param editorDisplay The {@link EditorDisplay}
      */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay) {
-        this(eventBus, editorDisplay, new LambdaLexer(), new LambdaParser());
+    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay, Library stdLib, Library userLib) {
+        this(eventBus, editorDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
     }
 
     private void bind() {

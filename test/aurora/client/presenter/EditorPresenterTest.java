@@ -11,6 +11,7 @@ import aurora.backend.MetaTerm;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
+import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
@@ -43,7 +44,8 @@ public class EditorPresenterTest {
         LambdaLexer dumbLexer = mock(LambdaLexer.class);
         when(parserMock.parse(any())).thenReturn(getSample());
 
-        EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay, dumbLexer, parserMock);
+        EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay,
+                new Library(), new Library(), dumbLexer, parserMock);
 
         bus.fireEvent(new StepEvent());
 
