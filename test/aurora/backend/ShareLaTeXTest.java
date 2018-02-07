@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ShareLaTeXTest {
 
@@ -22,13 +22,16 @@ public class ShareLaTeXTest {
 
     @Test
     public void testlambdasymbol() {
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Abstraction(new BoundVariable(1),"x"));
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Abstraction(
+                new BoundVariable(1),"x"));
         ShareLaTeX sh = new ShareLaTeX(hle);
         assertEquals(sh.generateLaTeX(),"$\\lambda$ x . 1 ");
     }
+
     @Test
     public void dollar() {
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Function("test", new FreeVariable("x")));
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Function(
+                "test", new FreeVariable("x")));
         ShareLaTeX sh = new ShareLaTeX(hle);
         assertEquals(sh.generateLaTeX(), "\\$test ");
     }

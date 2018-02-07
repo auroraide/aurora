@@ -28,11 +28,11 @@ public class ShareLaTeX {
             char c = original.charAt(i);
             if (c == '\\') {
                 latex += "$\\lambda$";
-            } if (c == '$') {
-                latex += "\\$";
             }
-            else {
-                latex +=original.charAt(i);
+            if (c == '$') {
+                latex += "\\$";
+            } else {
+                latex += original.charAt(i);
             }
         }
         return latex;
