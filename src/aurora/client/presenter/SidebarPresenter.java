@@ -51,7 +51,8 @@ public class SidebarPresenter {
             SidebarDisplay sidebarDisplay,
             Library stdLib,
             Library userLib) {
-        this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
+        // TODO actually merge both libraries into one and pass both to parser
+        this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser(new Library()));
     }
 
     private void bind() {

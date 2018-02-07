@@ -96,7 +96,7 @@ public class EditorPresenter {
      * @param editorDisplay The {@link EditorDisplay}
      */
     public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay, Library stdLib, Library userLib) {
-        this(eventBus, editorDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
+        this(eventBus, editorDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser(new Library()));
     }
 
     private void bind() {

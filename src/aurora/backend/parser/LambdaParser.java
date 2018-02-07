@@ -132,7 +132,7 @@ public class LambdaParser {
                 throw new SemanticException();
             }
 
-            return new MetaTerm(new Function(this.stack.peek().getName()), this.stack.pop());
+            return new MetaTerm(new Function(this.stack.peek().getName(), null), this.stack.pop());
 
         } else if (this.stack.peek().getType()
                 == Token.TokenType.T_NUMBER) {
