@@ -69,5 +69,6 @@ div.gwt-TabLayoutPanelTabs {
     background-color: unset;
 }
 
-
-
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer {
+    border: none !important;
+}
