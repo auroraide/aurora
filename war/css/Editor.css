@@ -45,6 +45,15 @@
     background-color: #AE9945;
 }
 
+.action_bar .continue {
+    background-image: url("../img/icons/icon_run.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #22BEA0;
+    width: 110px;
+}
+
 .action_bar .reset {
     background-image: url("../img/icons/icon_reset.png");
     background-repeat: no-repeat;

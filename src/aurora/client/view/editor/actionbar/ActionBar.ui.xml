@@ -5,8 +5,9 @@
              ui:generateLocales="default">
 
     <g:FlowPanel addStyleNames="action_bar">
-        <g:Button ui:field="runPauseContinueButton" addStyleNames="run"><ui:msg description="actionBar run">run</ui:msg></g:Button>
-        <g:Button ui:field="pauseButton" addStyleNames="pause"><ui:msg description="actionBar run">run</ui:msg></g:Button>
+        <g:Button ui:field="runButton" addStyleNames="run"><ui:msg description="actionBar run">run</ui:msg></g:Button>
+        <g:Button ui:field="pauseButton" addStyleNames="pause"><ui:msg description="actionBar pause">run</ui:msg></g:Button>
+        <g:Button ui:field="continueButton" addStyleNames="continue"><ui:msg description="actionBar continue">continue</ui:msg></g:Button>
         <g:Button ui:field="resetButton" addStyleNames="reset"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
         <g:Button ui:field="stepButton" addStyleNames="step disabled"><ui:msg description="actionBar step">step</ui:msg></g:Button>
     </g:FlowPanel>
