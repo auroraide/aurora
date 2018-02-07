@@ -135,7 +135,7 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     height: 18px;
     width: 18px;
     left: 5px;
-    bottom: 2px;
+    bottom: 3px;
     border-radius: 50%;
     background-color: #fff;
     -webkit-transition: .4s;
@@ -185,4 +185,8 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
 
 .gwt-ListBox {
     display: none;
+}
+
+.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
+    height:80px;
 }

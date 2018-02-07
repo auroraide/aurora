@@ -68,12 +68,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
             }
         });
-        stepNumber.addKeyPressHandler(new KeyPressHandler() {
-            @Override
-            public void onKeyPress(KeyPressEvent event) {
-                Window.alert(String.valueOf(event.getCharCode()));
-            }
-        });
     }
 
     @Override

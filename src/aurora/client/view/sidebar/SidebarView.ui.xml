@@ -15,7 +15,18 @@
 
         .rightAlignButton {
         }
-        .stepSettings {}
+        .stepSettings {
+            color: #fff;
+            background-image: url("../img/icons/icon_step.png");
+            background-repeat: no-repeat;
+            background-size: auto 70%;
+            background-position: 5% center;
+            background-color: #33495D;
+            padding: 10px;
+            display: flex;
+            border-bottom: 0.2em solid #167A66;
+            justify-content: space-between;
+        }
         .panelSettings {
         }
         .standrard_db {}
