@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.Widget;
 
 import aurora.client.view.popup.InfoDialogBox;
@@ -90,7 +91,7 @@ public class EditorView extends Composite implements EditorDisplay {
      */
     private void wireActionBar() {
         this.actionBar.getRunPauseContinueButton().addClickHandler(event -> {
-            switch (EditorView.this.actionBar.getRpcButtonActive()) {
+            /*switch (EditorView.this.actionBar.getRpcButtonActive()) {
                 case RUN:
                     EditorView.this.eventBus.fireEvent(new RunEvent());
                     break;
@@ -101,7 +102,9 @@ public class EditorView extends Composite implements EditorDisplay {
                     
                 default:
                     EditorView.this.eventBus.fireEvent(new ContinueEvent());
-            }
+            }*/
+
+            EditorView.this.eventBus.fireEvent(new RunEvent());
         });
         
         this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
@@ -125,10 +128,13 @@ public class EditorView extends Composite implements EditorDisplay {
                 switch (viewStateChangedEvent.getViewState()) {
                     case DEFAULT_STATE:
                         actionBar.getResetButton().setEnabled(false);
+                        EditorView.this.actionBar.deactivateResetButton();
+
+
                         break;
                     default:
-                        GWT.log("yo");
-                        
+                        GWT.log("ViewStateChangedEvent captured in Default.");
+
                 }
                 
             }
@@ -303,12 +309,12 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
-
+        this.outputCodeMirror.setValue(highlightedLambdaExpression.toString());
+        GWT.log("View shoul display HLE: " + highlightedLambdaExpression.toString());
     }
 
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-
     }
 
     /**

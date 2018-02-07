@@ -23,6 +23,7 @@ import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
 import aurora.client.view.sidebar.strategy.StrategyType;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
@@ -143,9 +144,11 @@ public class EditorPresenter {
      * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
      */
     private void onRun() {
+        GWT.log("RunEvent fired and caught.");
         assert (!isRunning() && !isStarted());
 
         if (!tryStartOrHandleErrors()) {
+            GWT.log("In if statement tryStartOrHandleErrors.");
             return;
         }
 
