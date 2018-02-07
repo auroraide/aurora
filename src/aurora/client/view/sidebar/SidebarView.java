@@ -28,7 +28,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     IntegerBox stepNumber;
     @UiField
-    ToggleButton nightModeSwitch;
+    CheckBox nightModeSwitch;
     @UiField
     FlexTable standardLibraryTable;
     @UiField
@@ -123,7 +123,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      *
      * @return nightModeSwitch
      */
-    public ToggleButton getNightModeSwitch() {
+    public CheckBox getNightModeSwitch() {
         return nightModeSwitch;
     }
 

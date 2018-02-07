@@ -7,24 +7,24 @@
 
     <ui:style>
         .leftAlign {
-            position: absolute;
-            left: 0em;
+
         }
 
         .rightAlign {
-            position: absolute;
-            right: 0em;
         }
 
         .rightAlignButton {
-            position: absolute;
-            right: 0em;
-            top: 0em;
         }
         .stepSettings {}
         .panelSettings {
-            background-color: #33495D;
         }
+        .standrard_db {}
+        .user_db{}
+        .extra_settings{}
+        .strategy{}
+        .night_mode{}
+        .share_language{}
+        .slider_o{}
     </ui:style>
 
     <g:DockLayoutPanel unit="EM">
@@ -45,7 +45,7 @@
                     <g:StackLayoutPanel>
 
                         <!-- Standard Library -->
-                        <g:stack>
+                        <g:stack addStyleNames="{style.standrard_db}">
                             <g:customHeader size="40">
                                 <g:FlowPanel>
                                     <!-- Placeholder for stdlib icon-->
@@ -55,10 +55,10 @@
 
                             <g:FlexTable ui:field="standardLibraryTable"/>
 
-                        </g:stack>
+                        </g:stack >
 
                         <!-- User Library -->
-                        <g:stack>
+                        <g:stack addStyleNames="{style.user_db}">
                             <g:customHeader size="70">
                                 <g:FlowPanel>
                                     <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
@@ -75,19 +75,20 @@
             </g:DockLayoutPanel>
         </g:center>
 
-        <g:south size='10'>
-            <g:HorizontalPanel>
+        <g:south size='12'>
+            <g:HorizontalPanel addStyleNames="{style.extra_settings}">
                 <!-- Strategy Selection -->
-                <strategy2:StrategySelection ui:field="strategySelection"/>
+                <strategy2:StrategySelection ui:field="strategySelection" addStyleNames="{style.strategy}"/>
 
                 <!-- Night Mode -->
-                <g:FlowPanel>
+                <g:FlowPanel addStyleNames="{style.night_mode}">
                     <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
-                    <g:ToggleButton ui:field="nightModeSwitch">On</g:ToggleButton>
+                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="{style.slider_o}">
+                    </g:CheckBox>
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel>
+                <g:FlowPanel addStyleNames="{style.share_language}">
                     <g:Button><ui:msg description="Sidebar Share Option">Share</ui:msg></g:Button>
                     <g:Button><ui:msg description="Sidebar Language Option">Language</ui:msg></g:Button>
                 </g:FlowPanel>
