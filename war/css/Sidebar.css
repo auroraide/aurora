@@ -1,11 +1,11 @@
-.aurora-client-view-AuroraView_DesktopViewUiBinderImpl_GenCss_style-westPanel {
+.westPanel {
     font-size: 1.2em;
     background-color: #167A66;
     font-weight: 200;
     overflow: scroll;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-stepSettings {
+.stepSettings {
     color: #fff;
     background-image: url("../img/icons/icon_step.png");
     background-repeat: no-repeat;
@@ -18,11 +18,11 @@
     justify-content: space-between;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-stepSettings .aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-leftAlign{
+.stepSettings .leftAlign{
     margin-left: 30px;
 }
 
-input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-rightAlign {
+input.rightAlign {
     background-color: #33495D;
     border: 0.5px solid #b2b0b0;
     border-radius: 15%;
@@ -44,22 +44,22 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     padding: 10px;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-extra_settings {
+.extra_settings {
     background: #33495D;
     width: 100%
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-extra_settings tbody tr {
+.extra_settings tbody tr {
     display: flex;
     flex-direction:column;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-extra_settings table {
+.extra_settings table {
     display: block;
     clear:both;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-strategy {
+.style-strategy {
     display: flex;
     flex-wrap: wrap;
 }
@@ -73,13 +73,13 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     text-align: center;
     font-size: 1em;
 }
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-strategy .gwt-RadioButton input[type=radio] {
+.strategy .gwt-RadioButton input[type=radio] {
     position: absolute;
     visibility: hidden;
     display: none;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-strategy .gwt-RadioButton label {
+.strategy .gwt-RadioButton label {
     color: #fff;
     display: inline-block;
     cursor: pointer;
@@ -87,14 +87,14 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     padding: 5px 20px;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-strategy .gwt-RadioButton input[type=radio]:checked + label{
+.strategy .gwt-RadioButton input[type=radio]:checked + label{
     background: #1e9e84;
     width: 70%;
     color: #000;
     
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode {
+.night_mode {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -105,18 +105,18 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     background-color: #167A66;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox {
+.night_mode .gwt-CheckBox {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox input {
+.night_mode .gwt-CheckBox input {
     display:none;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox label {
+.night_mode .gwt-CheckBox label {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -129,28 +129,28 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     transition: .4s;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox label:before {
+.night_mode .gwt-CheckBox label:before {
     position: absolute;
     content: "";
     height: 18px;
     width: 18px;
     left: 5px;
-    bottom: 2px;
+    bottom: 3px;
     border-radius: 50%;
     background-color: #fff;
     -webkit-transition: .4s;
     transition: .4s;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox input:checked + label {
+.night_mode .gwt-CheckBox input:checked + label {
     background-color: #33485c;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox input:focus + label {
+.night_mode .gwt-CheckBox input:focus + label {
     box-shadow: 0 0 1px #33485c;
 }
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-CheckBox input:checked + label:before {
+.night_mode .gwt-CheckBox input:checked + label:before {
     -webkit-transform: translateX(22px);
     -ms-transform: translateX(22px);
     transform: translateX(22px);
@@ -159,18 +159,18 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
 
 
 
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-night_mode .gwt-Label {
+.night_mode .gwt-Label {
     margin-left: 30px;
     color: #fff;
     vertical-align: middle;
     line-height: 2em;
     font-size: 1.2em;
 }
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-share_language {
+.share_language {
     display: flex;
     border-top: 0.5px solid #33485c;
 }
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-share_language .gwt-Button {
+.share_language .gwt-Button {
     width:50%;
     padding: 10px;
     font-size: 1.5em;
@@ -179,10 +179,14 @@ input.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-ri
     border-radius: unset;
     color: #fff;
 }
-.aurora-client-view-sidebar-SidebarView_SidebarUiBinderImpl_GenCss_style-share_language .gwt-Button:first-child {
+.share_language .gwt-Button:first-child {
     border-right: 1px solid #33485c;
 }
 
 .gwt-ListBox {
     display: none;
+}
+
+.panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
+    height:80px;
 }

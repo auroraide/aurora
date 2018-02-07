@@ -1,8 +1,8 @@
-.aurora-client-view-AuroraView_DesktopViewUiBinderImpl_GenCss_style-centerPanel *{
+.centerPanel *{
     background-color: #33495D;
 }
 
-.aurora-client-view-AuroraView_DesktopViewUiBinderImpl_GenCss_style-centerPanel {
+.centerPanel {
     border: 1px solid #BFCBBE;
 }
 
