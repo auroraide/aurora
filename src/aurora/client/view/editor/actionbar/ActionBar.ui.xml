@@ -6,7 +6,7 @@
 
     <g:FlowPanel>
         <g:Button ui:field="runPauseContinueButton"><ui:msg description="actionBar run">run</ui:msg></g:Button>
-        <g:Button ui:field="resetButton"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
+        <g:Button ui:field="resetButton" enabled="false"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
         <g:Button ui:field="stepButton"><ui:msg description="actionBar step">step</ui:msg></g:Button>
     </g:FlowPanel>
 
