@@ -4,10 +4,12 @@
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <g:FlowPanel>
-        <g:Button ui:field="runPauseContinueButton"><ui:msg description="actionBar run">run</ui:msg></g:Button>
-        <g:Button ui:field="resetButton" enabled="false"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
-        <g:Button ui:field="stepButton"><ui:msg description="actionBar step">step</ui:msg></g:Button>
+    <g:FlowPanel addStyleNames="action_bar">
+        <g:Button ui:field="runButton" addStyleNames="run"><ui:msg description="actionBar run">run</ui:msg></g:Button>
+        <g:Button ui:field="pauseButton" addStyleNames="pause"><ui:msg description="actionBar pause">run</ui:msg></g:Button>
+        <g:Button ui:field="continueButton" addStyleNames="continue"><ui:msg description="actionBar continue">continue</ui:msg></g:Button>
+        <g:Button ui:field="resetButton" addStyleNames="reset"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
+        <g:Button ui:field="stepButton" addStyleNames="step disabled"><ui:msg description="actionBar step">step</ui:msg></g:Button>
     </g:FlowPanel>
 
 </ui:UiBinder>

@@ -21,6 +21,21 @@ public class ShareLaTeX {
      * @return A string which contains the LaTeX code.
      */
     public String generateLaTeX() {
-        return null;
+        String original = hle.toString();
+        String latex = "";
+
+        for (int i = 0; i < original.length(); i++) {
+            char c = original.charAt(i);
+            if (c == '\\') {
+                latex += "$\\lambda";
+                continue;
+            }
+            if (c == '$') {
+                latex += "\\$";
+            } else {
+                latex += original.charAt(i);
+            }
+        }
+        return latex;
     }
 }

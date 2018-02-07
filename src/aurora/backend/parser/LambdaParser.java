@@ -1,6 +1,7 @@
 package aurora.backend.parser;
 
 import aurora.backend.MetaTerm;
+import aurora.backend.library.HashLibrary;
 import aurora.backend.library.Library;
 import aurora.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.backend.parser.exceptions.SemanticException;
@@ -28,7 +29,7 @@ public class LambdaParser {
     private Library library;
 
     /**
-     * Construct a new parser that checks for the existence of function names within the given {@link Library}.
+     * Construct a new parser that checks for the existence of function names within the given {@link HashLibrary}.
      */
     public LambdaParser(Library library) {
         this.library = library;
@@ -104,6 +105,11 @@ public class LambdaParser {
     }
 
     private MetaTerm term() throws SyntaxException, SemanticException {
+        if (this.inputStack.isEmpty()) {
+            throw new SyntaxException(
+                    "Parse error: unexpected end of input stream.");
+        }
+
         if (this.inputStack.peek().getType()
                 == Token.TokenType.T_LEFT_PARENS) {
 
@@ -112,7 +118,9 @@ public class LambdaParser {
             this.expect(Token.TokenType.T_RIGHT_PARENS);
             return expr;
 
-        } else if (this.inputStack.peek().getType()
+        }
+
+        if (this.inputStack.peek().getType()
                 == Token.TokenType.T_LAMBDA) {
 
             Token lambda = this.inputStack.pop();
@@ -128,7 +136,9 @@ public class LambdaParser {
 
             return result;
 
-        } else if (this.inputStack.peek().getType()
+        }
+
+        if (this.inputStack.peek().getType()
                 == Token.TokenType.T_VARIABLE) {
 
             Token var = this.inputStack.pop();
@@ -140,7 +150,9 @@ public class LambdaParser {
             }
             return new MetaTerm(new FreeVariable(var.getName()), var);
 
-        } else if (this.inputStack.peek().getType()
+        }
+
+        if (this.inputStack.peek().getType()
                 == Token.TokenType.T_FUNCTION) {
 
             // check function name is defined in library
@@ -169,7 +181,9 @@ public class LambdaParser {
                 throw new RuntimeException(e.getClass().getCanonicalName() + ": " + e.getMessage());
             }
 
-        } else if (this.inputStack.peek().getType()
+        }
+
+        if (this.inputStack.peek().getType()
                 == Token.TokenType.T_NUMBER) {
 
             return new MetaTerm(new ChurchNumber(

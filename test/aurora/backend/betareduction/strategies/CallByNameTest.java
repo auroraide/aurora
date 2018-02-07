@@ -9,6 +9,8 @@ import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Term;
 import java.util.LinkedList;
+
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,6 +73,40 @@ public class CallByNameTest {
         RedexPath path = cbn.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
+    }
+
+    @Test
+    public void redexAfterApp() throws Exception {
+        Term t = new Application(
+                new Application(
+                        new Abstraction(new BoundVariable(1),"x"),
+                        new FreeVariable("a")
+                ),
+                new FreeVariable("y")
+        );
+        CallByName cbn = new CallByName();
+        RedexPath path = cbn.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[LEFT]",list.toString());
+    }
+
+    @Test
+    public void rightrightleft() {
+        Term t = new Application(
+                new FreeVariable("s"),
+                new Application(
+                        new FreeVariable("y"),
+                        new Application(
+                                new Application(new Abstraction(new BoundVariable(1),"a"),
+                                        new FreeVariable("z")),
+                                new FreeVariable("h")
+                        )
+                )
+        );
+        CallByName cbn = new CallByName();
+        RedexPath path = cbn.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[RIGHT, RIGHT, LEFT]",list.toString());
     }
 
 }
