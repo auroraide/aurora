@@ -79,7 +79,7 @@ public class HashLibrary implements Library {
      */
     @Override
     public void remove(String name) {
-
+        map.remove(name);
     }
 
     /**
@@ -90,7 +90,7 @@ public class HashLibrary implements Library {
      */
     @Override
     public boolean exists(String name) {
-        return false;
+        return map.containsKey(name);
     }
 
 }

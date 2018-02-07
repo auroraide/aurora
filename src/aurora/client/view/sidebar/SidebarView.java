@@ -3,6 +3,8 @@ package aurora.client.view.sidebar;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
+import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.StepValueChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
@@ -10,17 +12,16 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 
@@ -36,7 +37,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
     @UiField
-    IntegerBox stepNumber;
+    TextBox stepNumber;
     @UiField
     CheckBox nightModeSwitch;
     @UiField
@@ -44,12 +45,15 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     FlexTable userLibraryTable;
     @UiField
+    Button addFunctionButton;
+    @UiField
     StrategySelection strategySelection;
     @UiField
     ListBox languageSelection;
     @UiField
     ListBox shareSelection;
     private EventBus eventBus;
+    private int prevStepNumber = 1;
     Document document;
 
     /**
@@ -59,20 +63,87 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+        this.stepNumber.setText(1 + "");
+        this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
+        this.deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
         nightModeSwitch.addClickHandler(new ClickHandler() {
+
             @Override
             public void onClick(ClickEvent event) {
                 Window.alert(document.getBody().getClassName());
 
             }
         });
+
+        eventWiring();
     }
+    
+    private void eventWiring() {
+        wireStepNumber();
+        wireAddLibraryFunction();
+
+        
+    }
+    
+    
+    private void wireStepNumber() {
+        this.stepNumber.addKeyUpHandler(event -> {
+            String input = stepNumber.getText();
+            boolean successful = true;
+
+            if (input.matches("[0-9]+")) {
+                int step;
+
+                try {
+                    step = Integer.parseInt(input);
+
+                    // Can only be a positive number in range of [1,2048].
+                    if (step < 1) {
+                        step = 1;
+                        SidebarView.this.stepNumber.setText("" + step);
+                    } else if (step >= 2048) {
+                        step = 2048;
+                        SidebarView.this.stepNumber.setText("" + step);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    // Thrown when number is bigger than Integer.MAX_VALUE.
+                    // Setting step to allowed maximum of 2048, if this is the case.
+                    step = 2048;
+                    SidebarView.this.stepNumber.setText("" + step);
+                }
+
+                SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(step));
+                SidebarView.this.prevStepNumber = step;
+                
+            } else {
+                // Allows an input of length 1 to be deleted.
+                if (input.length() != 0) {
+                    SidebarView.this.stepNumber.setText("" + prevStepNumber);
+                }
+            }
+        });
+    }
+
+
+    private void wireAddLibraryFunction() {
+        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
+        this.addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
+        });
+
+        // SidebarPresenter does validation.
+        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> SidebarView.this.eventBus.fireEvent(
+                new AddFunctionEvent(
+                SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
+                SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
+                SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
+    }
+
 
     @Override
     public void closeAddLibraryItemDialog() {
-
+        this.addLibraryItemDialogBox.clearAddLibraryItemDialogBox();
+        this.addLibraryItemDialogBox.hide();
     }
 
     @Override
@@ -92,7 +163,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void addUserLibraryItem(String name, String description) {
-
     }
 
     @Override
@@ -133,7 +203,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      *
      * @return stepNumber
      */
-    public IntegerBox getStepNumber() {
+    public TextBox getStepNumber() {
         return stepNumber;
     }
 

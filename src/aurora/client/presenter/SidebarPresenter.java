@@ -17,6 +17,7 @@ import aurora.client.event.ShareEmailAllEvent;
 import aurora.client.event.ShareEmailEvent;
 import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,24 +63,34 @@ public class SidebarPresenter {
     }
 
     private void onAddFunction(AddFunctionEvent input) {
+        // TODO remove logs. Only for debug reasons here.
         Term t;
         try {
+            GWT.log("Begin parsing...");
             t = lambdaParser.parse(lambdaLexer.lex(input.getLambdaTerm()));
+            GWT.log("parsing...");
         } catch (SyntaxException e) {
             sidebarDisplay.displayAddLibraryItemSyntaxError(e);
+            GWT.log("syntax exception thrown while parsing lambda term.");
             return;
         } catch (SemanticException e) {
             sidebarDisplay.displayAddLibraryItemSemanticError(e);
+            GWT.log("semantic exception thrown while parsing lambda term.");
             return;
         }
 
         if (userLib.exists(input.getName())) {
             sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
+            GWT.log("Name is already taken.");
             return;
         }
 
         userLib.define(input.getName(), input.getDescription(), t);
         sidebarDisplay.addUserLibraryItem(input.getName(), input.getDescription());
         sidebarDisplay.closeAddLibraryItemDialog();
+
+        // TODO Only for debug reasons here. Should be deleted at some time.
+        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(t);
+        GWT.log("Succesfully parsing lambda term. Parsed Lambda Term:" + hle.toString());
     }
 }
