@@ -70,6 +70,7 @@ public class ActionBar extends Composite {
     public Button getContinueButton() {
         return continueButton;
     }
+
     /**
      * Getter for resetButton.
      *
