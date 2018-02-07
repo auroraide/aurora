@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class EditorPresenterTest {
-    @Ignore
+
     @Test
     public void testStep() throws SyntaxException, SemanticException {
         EditorDisplay editorDisplay = mock(EditorDisplay.class);
