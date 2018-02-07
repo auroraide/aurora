@@ -7,6 +7,9 @@ import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
+import aurora.client.event.StepEventHandler;
+import aurora.client.event.ViewStateChangedEvent;
+import aurora.client.event.ViewStateChangedEventHandler;
 import aurora.client.view.editor.actionbar.ActionBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -66,6 +69,8 @@ public class EditorView extends Composite implements EditorDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         setupInputField();
         setupOutputField();
+        eventWiring();
+
     }
 
     private void eventWiring() {
@@ -93,6 +98,33 @@ public class EditorView extends Composite implements EditorDisplay {
 
         this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
         this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
+
+
+
+    }
+
+    private void eventListeningActionbar() {
+        this.eventBus.addHandler(StepEvent.TYPE, new StepEventHandler() {
+            @Override
+            public void onStep(StepEvent event) {
+                GWT.log("Handler calling onStep method.");
+            }
+        });
+
+        eventBus.addHandler(ViewStateChangedEvent.TYPE, new ViewStateChangedEventHandler() {
+            @Override
+            public void onViewStateChanged(ViewStateChangedEvent viewStateChangedEvent) {
+                switch (viewStateChangedEvent.getViewState()) {
+                    case DEFAULT_STATE:
+                        actionBar.getResetButton().setEnabled(false);
+                        break;
+                    default:
+                        GWT.log("yo");
+
+                }
+
+            }
+        });
     }
 
     private void setupInputField() {
