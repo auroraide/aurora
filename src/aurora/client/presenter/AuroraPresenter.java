@@ -29,7 +29,7 @@ public class AuroraPresenter {
      * Creates an <code>AuroraPresenter</code> with an event bus and a {@link AuroraDisplay}.
      *  @param eventBus      The event bus.
      * @param auroraDisplay The aurora display.
-     * @param steps
+     * @param steps Shared state between presenters. Index 0 is input.
      */
     public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, ArrayList<Term> steps) {
         this.eventBus = eventBus;
