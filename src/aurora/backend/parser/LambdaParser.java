@@ -1,6 +1,7 @@
 package aurora.backend.parser;
 
 import aurora.backend.MetaTerm;
+import aurora.backend.library.HashLibrary;
 import aurora.backend.library.Library;
 import aurora.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.backend.parser.exceptions.SemanticException;
@@ -28,7 +29,7 @@ public class LambdaParser {
     private Library library;
 
     /**
-     * Construct a new parser that checks for the existence of function names within the given {@link Library}.
+     * Construct a new parser that checks for the existence of function names within the given {@link HashLibrary}.
      */
     public LambdaParser(Library library) {
         this.library = library;
