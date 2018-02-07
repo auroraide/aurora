@@ -15,7 +15,7 @@
                     <!-- Step Setting -->
                     <g:FlowPanel addStyleNames="stepSettings">
                         <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
-                        <g:IntegerBox ui:field="stepNumber" visibleLength="2" addStyleNames="rightAlign"/>
+                        <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="rightAlign"/>
                     </g:FlowPanel>
                 </g:north>
 
@@ -41,7 +41,7 @@
                             <g:customHeader size="70">
                                 <g:FlowPanel>
                                     <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
-                                    <g:Button ui:field="addFunction" addStyleNames="rightAlignButton">+
+                                    <g:Button ui:field="addFunctionButton" addStyleNames="rightAlignButton">+
                                     </g:Button>
                                 </g:FlowPanel>
                             </g:customHeader>

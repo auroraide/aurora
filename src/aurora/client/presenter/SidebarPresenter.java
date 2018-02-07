@@ -1,5 +1,8 @@
 package aurora.client.presenter;
 
+import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.ShareLaTeX;
 import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -8,7 +11,18 @@ import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.ExportLaTeXAllEvent;
+import aurora.client.event.ExportLaTeXEvent;
+import aurora.client.event.ShareEmailAllEvent;
+import aurora.client.event.ShareEmailEvent;
+import aurora.client.event.ShareLinkAllEvent;
+import aurora.client.event.ShareLinkEvent;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -25,6 +39,8 @@ public class SidebarPresenter {
     private final Library userLib;
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
+
+    private final RegExp functionName;
 
     /**
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link SidebarDisplay}.
@@ -44,15 +60,7 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
-    }
-
-    public SidebarPresenter(
-            EventBus eventBus,
-            SidebarDisplay sidebarDisplay,
-            Library stdLib,
-            Library userLib) {
-        // TODO actually merge both libraries into one and pass both to parser
-        this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser(new Library()));
+        functionName = RegExp.compile("^[a-z]+$");
     }
 
     private void bind() {
@@ -60,24 +68,41 @@ public class SidebarPresenter {
     }
 
     private void onAddFunction(AddFunctionEvent input) {
+        // TODO remove logs. Only for debug reasons here.
         Term t;
         try {
+            GWT.log("Begin parsing...");
             t = lambdaParser.parse(lambdaLexer.lex(input.getLambdaTerm()));
+            GWT.log("parsing...");
         } catch (SyntaxException e) {
             sidebarDisplay.displayAddLibraryItemSyntaxError(e);
+            GWT.log("syntax exception thrown while parsing lambda term.");
             return;
         } catch (SemanticException e) {
             sidebarDisplay.displayAddLibraryItemSemanticError(e);
+            GWT.log("semantic exception thrown while parsing lambda term.");
             return;
         }
 
-        if (userLib.exists(input.getName())) {
+        MatchResult result = functionName.exec(input.getName());
+        String resultString = result.getGroup(0);
+        if (resultString == null || resultString.isEmpty()) {
+            sidebarDisplay.displayAddLibraryItemInvalidName();
+            return;
+        }
+
+        if (userLib.exists(input.getName()) || stdLib.exists(input.getName())) {
             sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
+            GWT.log("Name is already taken.");
             return;
         }
 
         userLib.define(input.getName(), input.getDescription(), t);
         sidebarDisplay.addUserLibraryItem(input.getName(), input.getDescription());
         sidebarDisplay.closeAddLibraryItemDialog();
+
+        // TODO Only for debug reasons here. Should be deleted at some time.
+        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(t);
+        GWT.log("Succesfully parsing lambda term. Parsed Lambda Term:" + hle.toString());
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class BetaReducer {
 
     private ReductionStrategy strategy;
-    public boolean finished;
+    private boolean finished;
     private boolean alwaystrue;
 
     /**
@@ -42,14 +42,15 @@ public class BetaReducer {
     public Term reduce(Term term) {
         finished = false;
         RedexPath path = strategy.getRedexPath(term);
+
+        // there is no reducible redex left, the given term is our result
         if (path == null) {
             finished = true;
-            return term; // there is no reducible redex left, the given term is our result
+            return term;
         }
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
-        //seems hacky
         Abstraction substitutedabs = substituted.accept(new CastingVisitor());
         if (substitutedabs == null) {
             assert false : "The Redexpath was wrong, there is no redex here. This should never happen";
@@ -57,6 +58,10 @@ public class BetaReducer {
         Term substitutedWithoutabs = substitutedabs.body;
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
         return term.accept(replaceVisitor);
+    }
+
+    public boolean getFinished() {
+        return finished;
     }
 
     private class CastingVisitor extends TermVisitor<Abstraction> {

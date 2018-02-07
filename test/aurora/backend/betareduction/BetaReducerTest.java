@@ -307,7 +307,7 @@ public class BetaReducerTest {
         while (n < 100) {
 
             t = br.reduce(t);
-            if (br.finished) {
+            if (br.getFinished()) {
                 break;
             }
 
@@ -315,6 +315,15 @@ public class BetaReducerTest {
         Comparer cr = new Comparer(t,new ChurchNumber(4).getAbstraction());
         assertEquals(cr.compare(),true);
 
+    }
+
+    @Test
+    public void noreduction() {
+        Term t = new ChurchNumber(4);
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        Term result = br.reduce(t);
+        Comparer cr = new Comparer(result, new ChurchNumber(4));
+        assertEquals(cr.compare(), true);
     }
 
 }
