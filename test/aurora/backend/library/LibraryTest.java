@@ -22,7 +22,7 @@ public class LibraryTest {
 
     @Test
     public void testiterator() {
-        Library library = new Library();
+        Library library = new HashLibrary();
         library.define("ntest1","desctest1",new Abstraction(
                 new BoundVariable(1),"x"
         ));
