@@ -14,7 +14,6 @@
         .centerPanel {
         }
 
-
     </ui:style>
 
     <g:TabLayoutPanel barUnit='EM' barHeight="3">
