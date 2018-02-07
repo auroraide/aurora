@@ -24,11 +24,9 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
     private boolean foundapp = false;
 
-    private Term parent;
 
     private int counter;
 
-    private String parenttype;
 
     private boolean condition = false;
 
@@ -90,14 +88,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         return path;
     }
 
-    public Term getParent() {
-        return parent;
-    }
-
-    public String getParenttype() {
-        return parenttype;
-    }
-
     /**
      * Indicate the direction during tree traversal.
      */
@@ -112,8 +102,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
         @Override
         public Void visit(Abstraction abs) {
-            parent = abs;
-            parenttype = "Abstraction";
             return abs.body.accept(this);
 
         }
@@ -125,8 +113,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
                 finalapp = app;
 
             } else {
-                parent = app;
-                parenttype = "Application";
                 if (path.get(counter) == Direction.LEFT) {
                     counter++;
                     return app.left.accept(this);

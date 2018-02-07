@@ -41,7 +41,6 @@ public class RedexPathTest {
         Application app = path.get(t);
         FreeVariable fv = (FreeVariable) app.right;
         assertEquals("z",fv.name);
-        assertEquals("Application",path.getParenttype());
     }
 
 
