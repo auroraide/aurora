@@ -55,6 +55,7 @@ public class MultiLibrary implements Library {
     @Override
     public boolean exists(String name) {
         return libraryItems.containsKey(name) || libraries.stream().anyMatch(lib -> lib.exists(name));
+
     }
 
     @Override
@@ -64,7 +65,7 @@ public class MultiLibrary implements Library {
             private Iterator<LibraryItem> currentIterator;
 
             {
-                currentIterator = libraryItems.it
+                currentIterator = libraryItems.entrySet().stream().map(Map.Entry::getValue).iterator();
             }
 
             @Override
