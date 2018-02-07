@@ -1,19 +1,20 @@
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.betareduction.BetaReducer;
+import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.tree.Term;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -50,8 +51,15 @@ public class Rudolf extends TelegramLongPollingBot {
 
     private String parseMessage(String query) {
         try {
-            return new HighlightableLambdaExpression(new LambdaParser(new HashLibrary())
-                    .parse(new LambdaLexer().lex(query))).toString();
+            BetaReducer br = new BetaReducer(new NormalOrder());
+
+            Term t = new LambdaParser(new HashLibrary()).parse(new LambdaLexer().lex(query));
+
+            for (int i = 0; (i < 10000) && !br.getFinished(); ++i) {
+                t = br.reduce(t);
+            }
+
+            return new HighlightableLambdaExpression(t).toString();
         } catch (SyntaxException | SemanticException e) {
             return e.getMessage();
         }
