@@ -37,6 +37,11 @@ public interface SidebarDisplay {
     void displayAddLibraryItemNameAlreadyTaken();
 
     /**
+     * Called when the user has entered not a alphabetical name for the function to be added.
+     */
+    void displayAddLibraryItemInvalidName();
+
+    /**
      * Adds a new function to the views user library.
      *
      * @param name        The name function.
@@ -66,5 +71,4 @@ public interface SidebarDisplay {
      * @param name The name of the function to be removed.
      */
     void removeStandardLibraryItem(String name);
-
 }
