@@ -147,6 +147,13 @@ Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
 Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
+	\item Alle haben die benötigten Tools korrekt installiert
+	\newline
+	Am ersten Treffen mussten alle Teammitglieder die benötigten Tools installieren und testen ob sie funktionieren. 
+	Alle Teammitglieder mussten ein Mergetool installiert haben, weil es bereits Probleme im Entwurf wegen fehlerhaften Merges gegeben hatte.
+	Auch mussten die Teammitglieder alle Funktionen auf der Kommandozeile zusätzlich 	zu der IDE ausführen können. Dies wurde vorrausgesetzt, um mögliche Fehler von den IDEs ausschließten zu können.
+	Tools wie Ant, Ivy, Codemirror, Checkstyle, mussten zusätzlich installiert und eingerichtet werden. 
+	
     \item Protected master
         \newline
         Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
@@ -158,12 +165,20 @@ Wichtig waren vorallem folgende Regeln:
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
         So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
+        
     \item Continuous Deployment
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
-        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.        
-\end{itemize}
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
+          
+       \item JUnitTests
+       \newline
+      	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne. 
+      	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
+      	 Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambdaterms berechnet werden.
+      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob die Objekte sich verhalten, wie man es erwartet. 
+      	\end{itemize}
 
 \subsection{Ursprünglicher Implementierungsplan}
 Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
@@ -236,6 +251,7 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
 
 %=====================UNIT TESTS=====================
 \section{Unit tests}
+
 \subsection{Backend TestZeug}
 \subsubsection{Ziel}
 \subsubsection{Voraussetzungen}
