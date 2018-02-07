@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 
 public class BetaReductionIterator implements Iterator<Term> {
     private final BetaReducer betaReducer;
-    private boolean finished;
     private Term next;
 
     /**
@@ -18,15 +17,11 @@ public class BetaReductionIterator implements Iterator<Term> {
     public BetaReductionIterator(BetaReducer betaReducer, Term start) {
         this.betaReducer = betaReducer;
         next = start;
-        // to see if there is atleast one redex we have to test this here in the constructor
-        betaReducer.reduce(start);
-        finished = betaReducer.getFinished();
-
     }
 
     @Override
     public boolean hasNext() {
-        return !finished;
+        return next != null;
     }
 
     @Override
@@ -36,7 +31,6 @@ public class BetaReductionIterator implements Iterator<Term> {
         }
         Term last = next;
         next = betaReducer.reduce(last);
-        finished = betaReducer.getFinished();
         return last;
     }
 }
