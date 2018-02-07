@@ -178,7 +178,8 @@ Wichtig waren vorallem folgende Regeln:
       	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne. 
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
       	 Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambdaterms berechnet werden.
-      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob die Objekte sich verhalten, wie man es erwartet. 
+      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet. 
+      	Falls benötigt mussten mit Mockito Klassen gemocket werden.
       	\item Issues
       	Wenn Probleme im Code von anderen Teammitgliedern gefunden wurden, mussten Issues in Gitlab geöffnet werden, damit keine Informationen verloren gehen konnten.
       	\end{itemize}
@@ -230,9 +231,19 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
 \end{description}
 
 
-\subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
-
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
+
+\begin{description}
+
+\item [Alexander]\hfill \\
+\item [Nikolai]\hfill \\
+Ich habe mich großteilig an den Plan gehalten, Ich habe nur Call By Name und Call by Value vor dem Betareducer geschrieben, weil ich gemerkt hatte, das das Prinzip von denen sehr ähnlich zu der Normalenordnung war und ich zu dem Zeitpunkt nicht in ein komplett neues Thema einsteigen wollte.
+Ich hatte nach dem Betareducer noch den Comparer, für einfacheres debuggen geschrieben. Ich hatte dannach auch noch die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, damit das debuggen einfacher fiel.
+\item [Iuliia]\hfill \\
+\item [Max]\hfill \\
+\item [Younis]\hfill \\
+\item [Randy]\hfill \\
+\end{description}
 
 \subsubsection{Unerwartete Probleme}
 Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
@@ -254,23 +265,9 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
     Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
    
 \end{itemize}
-\subsubsection{Ablauf der Implementierung}
-\subsubsection{Was ist geändert und woran liegt es}
+
 \subsubsection{git übersicht vll}
  (Realität und wieso es sich unterscheidet von dem Anfangsplan)
-\newpage
-
-%=====================UNIT TESTS=====================
-\section{Unit tests}
-
-\subsection{Backend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen}
-\subsubsection{Werkzeuge}
-\subsection{Frontend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen \& Probleme die auftauchen koennen}
-\subsubsection{Werkzeuge}
 \newpage
 
 \end{document}
