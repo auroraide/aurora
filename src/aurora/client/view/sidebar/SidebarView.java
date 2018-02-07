@@ -162,6 +162,11 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
+    public void displayAddLibraryItemInvalidName() {
+
+    }
+
+    @Override
     public void addUserLibraryItem(String name, String description) {
     }
 

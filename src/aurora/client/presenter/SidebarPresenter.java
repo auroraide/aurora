@@ -19,6 +19,8 @@ import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -38,6 +40,8 @@ public class SidebarPresenter {
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
+    private final RegExp functionName;
+
     /**
      * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link SidebarDisplay}.
      *  @param eventBus       The event bus.
@@ -56,6 +60,7 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
+        functionName = RegExp.compile("^[a-z]+$");
     }
 
     private void bind() {
@@ -79,7 +84,14 @@ public class SidebarPresenter {
             return;
         }
 
-        if (userLib.exists(input.getName())) {
+        MatchResult result = functionName.exec(input.getName());
+        String resultString = result.getGroup(0);
+        if (resultString == null || resultString.isEmpty()) {
+            sidebarDisplay.displayAddLibraryItemInvalidName();
+            return;
+        }
+
+        if (userLib.exists(input.getName()) || stdLib.exists(input.getName())) {
             sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
             GWT.log("Name is already taken.");
             return;
