@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class MultiLibrary implements Library {
     private final List<Library> libraries;
@@ -84,7 +85,10 @@ public class MultiLibrary implements Library {
 
             @Override
             public LibraryItem next() {
-                return null;
+                if (hasNext()) {
+                    return currentIterator.next();
+                }
+                throw new NoSuchElementException();
             }
         };
     }
