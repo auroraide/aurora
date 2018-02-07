@@ -71,32 +71,23 @@ public class EditorPresenter {
             EditorDisplay editorDisplay,
             Library standardLibrary,
             Library userLibrary,
+            ArrayList<Term> steps,
             LambdaLexer lambdaLexer,
             LambdaParser lambdaParser) {
         this.editorDisplay = editorDisplay;
         this.eventBus = eventBus;
         this.standardLibrary = standardLibrary;
         this.userLibrary = userLibrary;
+        this.steps = steps;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
 
-        steps = new ArrayList<>();
-
         highlightTimer = new HighlightTimer();
+        runTimer = null;
 
         bind();
 
         reset();
-    }
-
-    /**
-     * Creates an <code>EditorPresenter</code> with an {@link EventBus} and a {@link EditorDisplay}.
-     *
-     * @param eventBus      The event bus.
-     * @param editorDisplay The {@link EditorDisplay}
-     */
-    public EditorPresenter(EventBus eventBus, EditorDisplay editorDisplay, Library stdLib, Library userLib) {
-        this(eventBus, editorDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
     }
 
     private void bind() {

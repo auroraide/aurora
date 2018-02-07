@@ -1,5 +1,8 @@
 package aurora.client.presenter;
 
+import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.ShareLaTeX;
 import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -15,6 +18,8 @@ import aurora.client.event.ShareEmailEvent;
 import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.event.shared.EventBus;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -52,43 +57,8 @@ public class SidebarPresenter {
         bind();
     }
 
-    public SidebarPresenter(
-            EventBus eventBus,
-            SidebarDisplay sidebarDisplay,
-            Library stdLib,
-            Library userLib) {
-        this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser());
-    }
-
     private void bind() {
         eventBus.addHandler(AddFunctionEvent.TYPE, this::onAddFunction);
-
-        eventBus.addHandler(ExportLaTeXEvent.TYPE, this::onExportLaTeX);
-        eventBus.addHandler(ExportLaTeXAllEvent.TYPE, this::onExportLaTeXAll);
-        eventBus.addHandler(ShareEmailEvent.TYPE, this::onShareEmail);
-        eventBus.addHandler(ShareEmailAllEvent.TYPE, this::onShareEmailAll);
-        eventBus.addHandler(ShareLinkEvent.TYPE, this::onShareLink);
-        eventBus.addHandler(ShareLinkAllEvent.TYPE, this::onShareLinkAll);
-    }
-
-    private void onShareLinkAll(ShareLinkAllEvent e) {
-    }
-
-    private void onShareLink(ShareLinkEvent e) {
-    }
-
-    private void onShareEmailAll(ShareEmailAllEvent e) {
-    }
-
-    private void onShareEmail(ShareEmailEvent e) {
-    }
-
-    private void onExportLaTeXAll(ExportLaTeXAllEvent e) {
-
-    }
-
-    private void onExportLaTeX(ExportLaTeXEvent e) {
-
     }
 
     private void onAddFunction(AddFunctionEvent input) {

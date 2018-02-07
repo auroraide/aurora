@@ -8,17 +8,11 @@ import java.util.List;
 
 public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
     public static Type<ExportLaTeXAllEventHandler> TYPE = new Type<>();
-    private final List<HighlightedLambdaExpression> inputAndSteps;
-    private final HighlightedLambdaExpression result;
 
     /**
      * Simple constructor.
-     *
-     * @param result The result.
      */
-    public ExportLaTeXAllEvent(List<HighlightedLambdaExpression> inputAndSteps, HighlightedLambdaExpression result) {
-        this.inputAndSteps = inputAndSteps;
-        this.result = result;
+    public ExportLaTeXAllEvent(List<HighlightedLambdaExpression> inputAndSteps) {
     }
 
     @Override
@@ -29,19 +23,6 @@ public class ExportLaTeXAllEvent extends GwtEvent<ExportLaTeXAllEventHandler> {
     @Override
     protected void dispatch(ExportLaTeXAllEventHandler handler) {
         handler.onExportLatexAll(this);
-    }
-
-    public Iterator<HighlightedLambdaExpression> getSteps() {
-        return inputAndSteps.iterator();
-    }
-
-    /**
-     * Can be null if no result has been calculated (yet).
-     *
-     * @return Return the current HighlightedLambdaExpression
-     */
-    public HighlightedLambdaExpression getResult() {
-        return result;
     }
 }
 
