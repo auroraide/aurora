@@ -1,5 +1,8 @@
 package aurora.client.presenter;
 
+import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.ShareLaTeX;
 import aurora.backend.library.Library;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -8,7 +11,15 @@ import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.ExportLaTeXAllEvent;
+import aurora.client.event.ExportLaTeXEvent;
+import aurora.client.event.ShareEmailAllEvent;
+import aurora.client.event.ShareEmailEvent;
+import aurora.client.event.ShareLinkAllEvent;
+import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.event.shared.EventBus;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -44,15 +55,6 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
-    }
-
-    public SidebarPresenter(
-            EventBus eventBus,
-            SidebarDisplay sidebarDisplay,
-            Library stdLib,
-            Library userLib) {
-        // TODO actually merge both libraries into one and pass both to parser
-        this(eventBus, sidebarDisplay, stdLib, userLib, new LambdaLexer(), new LambdaParser(new Library()));
     }
 
     private void bind() {

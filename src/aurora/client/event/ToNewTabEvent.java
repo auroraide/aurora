@@ -8,15 +8,15 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ToNewTabEvent extends GwtEvent<ToNewTabEventHandler> {
     public static Type<ToNewTabEventHandler> TYPE = new Type<>();
-    private final HighlightedLambdaExpression highlightedLambdaExpression;
+    private final int index;
 
     /**
      * Construct ToNewTabEvent with HighlightedLambdaExpression.
      *
-     * @param highlightedLambdaExpression The {@link HighlightedLambdaExpression}.
+     * @param index Step index. 0 means input, last index is output if it already exists.
      */
-    public ToNewTabEvent(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.highlightedLambdaExpression = highlightedLambdaExpression;
+    public ToNewTabEvent(int index) {
+        this.index = index;
     }
 
     @Override
@@ -30,11 +30,10 @@ public class ToNewTabEvent extends GwtEvent<ToNewTabEventHandler> {
     }
 
     /**
-     * Get HighlightedLambdaExpression.
-     *
-     * @return Return {@link HighlightedLambdaExpression}.
+     * Gets step index.
+     * @return 0 is always input, last step might be output.
      */
-    public HighlightedLambdaExpression getHighlightableLambdaExpression() {
-        return highlightedLambdaExpression;
+    public int getIndex() {
+        return index;
     }
 }

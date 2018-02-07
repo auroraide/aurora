@@ -43,9 +43,10 @@ public class EditorPresenterTest {
         LambdaParser parserMock = mock(LambdaParser.class);
         LambdaLexer dumbLexer = mock(LambdaLexer.class);
         when(parserMock.parse(any())).thenReturn(getSample());
+        ArrayList<Term> stepsForDI = new ArrayList<>();
 
         EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay,
-                new Library(), new Library(), dumbLexer, parserMock);
+                new Library(), new Library(), stepsForDI, dumbLexer, parserMock);
 
         bus.fireEvent(new StepEvent());
 
