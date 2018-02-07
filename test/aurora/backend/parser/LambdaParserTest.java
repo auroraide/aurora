@@ -92,6 +92,23 @@ public class LambdaParserTest {
         this.assertParse(input, expected);
     }
 
+    @Test
+    public void testNumberThatIsReallyHuge() {
+        String input = "(\\x. x x) 9999999999999999999999999999999999999999999999999999999999999999999999999999";
+        boolean thrown = false;
+
+        try {
+            this.parser.parse(this.lexer.lex(input));
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+            fail("SyntaxException thrown instead: " + e.getMessage());
+        } catch (SemanticException e) {
+            thrown = true;
+        }
+
+        assertTrue("No exception thrown.", thrown);
+    }
+
     private class TermPrinter extends TermVisitor<String> {
 
         @Override
