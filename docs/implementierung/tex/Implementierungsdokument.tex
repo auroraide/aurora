@@ -86,8 +86,8 @@ Der Rest übrigens auch...
 %=====================FEATURES=====================
 \section{Kriterien}
 
-\subsection{Pflichtkriterien}
-Alle im Pflichtenheft definierten Pflichtkriterien sind in der aktuellen Version von Aurora umgesetzt worden.
+\subsection{Musskriterien}
+Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
 
 \subsection{Wunschkriterien}
 Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
@@ -102,15 +102,14 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \newline
 \textbf{K4} Syntax-Highlighting
 \newline
-\textbf{K7} STANDARDBIBLIOTHEK \textbf{Nikolai, wie siehts aus?}
+\textbf{K7} Standardbibliothek \textbf{Max wie siehts aus, backend steht}
 \newline
-\textbf{K8} BENUTZERBIBLIOTHEK \textbf{Nikolai, wie siehts aus?}
+\textbf{K8} Benutzerbibliothek \textbf{max, wie siehts aus, backend steht?}
 \bigbreak
-\textbf{K9} Weitere Auswertungsstrategien
+\textbf{K9}Call By Name und Call By Value
 \smallbreak
-\textbf{K11} Mehrere Schritte auswerten \textbf{Nikolai}
+\textbf{K11} Mehrere Schritte auswerten \textbf{Max}
 \newline
-
 \newpage
 
 %=====================ÄNDERUNGEN=====================
@@ -135,9 +134,9 @@ Im Speziellen handelt es sich hierbei um folgendes:
 	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert. 
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
 	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
-	
-	
-	
+	\item Hinzufügung der Klasse aurora.backend.Comparer
+	\newline
+	Es wurde die Klasse Comparer geschrieben, die im Konstruktor zwei Terme erhält und diese dann mit der Methode compare() vergleicht. Die Methode gibt ein true zurück, wenn die zwei übergebenen Terme gleich waren, ein false wenn die zwei Terme nicht gleich waren. Diese Klasse wurde beim Debuggen benutzt, um zu testen ob die Reduktionsstrategien und die Betareduktion einen korrekten Term zurückgibt.
 	
     \item NEUE EVENTS???
 \end{itemize}
@@ -154,6 +153,7 @@ Wichtig waren vorallem folgende Regeln:
     \item Protected master
         \newline
         Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
+        Auf dem master selber durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
     Wir haben uns für die Checkstyleregeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyleregeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
