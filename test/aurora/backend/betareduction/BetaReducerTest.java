@@ -317,4 +317,13 @@ public class BetaReducerTest {
 
     }
 
+    @Test
+    public void noreduction() {
+        Term t = new ChurchNumber(4);
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        Term result = br.reduce(t);
+        Comparer cr = new Comparer(result, new ChurchNumber(4));
+        assertEquals(cr.compare(), true);
+    }
+
 }
