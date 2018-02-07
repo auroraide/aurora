@@ -1,5 +1,7 @@
 package aurora.client.view.sidebar;
 
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.StepValueChangedEvent;
@@ -7,6 +9,7 @@ import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -16,8 +19,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
@@ -38,7 +43,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     TextBox stepNumber;
     @UiField
-    ToggleButton nightModeSwitch;
+    CheckBox nightModeSwitch;
     @UiField
     FlexTable standardLibraryTable;
     @UiField
@@ -53,6 +58,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     ListBox shareSelection;
     private EventBus eventBus;
     private int prevStepNumber = 1;
+    Document document;
 
     /**
      * Created the Sidebar.
@@ -68,30 +74,31 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
             @Override
             public void onClick(ClickEvent event) {
-                Window.alert("Hello World!");
+                Window.alert(document.getBody().getClassName());
+
             }
         });
 
         eventWiring();
     }
-
+    
     private void eventWiring() {
         wireStepNumber();
         wireAddLibraryFunction();
-
+        
     }
-
-
+    
+    
     private void wireStepNumber() {
         //TODO What to consider, if a number greater than Integer.MAX_VALUE or Integer.MIN_VALUE being typed.
         this.stepNumber.addKeyUpHandler(event -> {
             String input = stepNumber.getText();
-
+            
             if (input.matches("[0-9]+")) {
                 int stepNumber = Integer.parseInt(input);
                 eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
                 prevStepNumber = stepNumber;
-
+                
             } else {
                 // Allows an input of length 1 to be deleted.
                 if (input.length() != 0) {
@@ -100,27 +107,42 @@ public class SidebarView extends Composite implements SidebarDisplay {
             }
         });
     }
-
-
+    
+    
     private void wireAddLibraryFunction() {
         addFunctionButton.addClickHandler(event -> addLibraryItemDialogBox.show());
-
+        
         // TODO Validation for Function Name. No duplicate function name. Only alphabetical
         addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
-
+            
         });
-
+        
         // TODO Validation
         addLibraryItemDialogBox.getAddButton().addClickHandler(event -> eventBus.fireEvent(new AddFunctionEvent(
-                 addLibraryItemDialogBox.getNameField().getText(),
-                 addLibraryItemDialogBox.getFunctionField().getText(),
-                 addLibraryItemDialogBox.getDescriptionField().getText())));
+                                                                                                                addLibraryItemDialogBox.getNameField().getText(),
+                                                                                                                addLibraryItemDialogBox.getFunctionField().getText(),
+                                                                                                                addLibraryItemDialogBox.getDescriptionField().getText())));
     }
 
 
     @Override
     public void closeAddLibraryItemDialog() {
         addLibraryItemDialogBox.hide();
+    }
+
+    @Override
+    public void displayAddLibraryItemSyntaxError(SyntaxException error) {
+
+    }
+
+    @Override
+    public void displayAddLibraryItemSemanticError(SemanticException error) {
+
+    }
+
+    @Override
+    public void displayAddLibraryItemNameAlreadyTaken() {
+
     }
 
     @Override
@@ -175,7 +197,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      *
      * @return nightModeSwitch
      */
-    public ToggleButton getNightModeSwitch() {
+    public CheckBox getNightModeSwitch() {
         return nightModeSwitch;
     }
 

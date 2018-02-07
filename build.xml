@@ -13,6 +13,9 @@
     <property name="tex.dir" value="${docs.dir}/entwurf/tex"/>
     <property name="html.dir" value="${docs.dir}/entwurf/html"/>
 
+    <!-- use project specific ivy dir -->
+    <property name="ivy.default.ivy.user.dir" value="${basedir}/.ivy"/>
+
     <!-- path to gwt sdk -->
     <property name="gwt.sdk" location="../gwt-2.8.2"/>
     <property name="gwt.args" value=""/>

@@ -4,25 +4,20 @@
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-
     <g:FlowPanel>
-        <g:HorizontalPanel>
             <g:RadioButton ui:field="callByValue" name="strategyButton" value="false">
-                <ui:msg description="Strategy callByValue">call by Value</ui:msg>
+                <ui:msg description="Strategy callByValue">call by<br /><span>VALUE</span></ui:msg>
             </g:RadioButton>
             <g:RadioButton ui:field="normalOrder" name="strategyButton" value="true">
-                <ui:msg description="Strategy normalOrder">NORMAL ORDER</ui:msg>
+                <ui:msg description="Strategy normalOrder">NORMAL <br />ORDER</ui:msg>
             </g:RadioButton>
-        </g:HorizontalPanel>
 
-        <g:HorizontalPanel>
             <g:RadioButton ui:field="callByName" name="strategyButton" value="false">
-                <ui:msg description="Strategy callByName">call by NAME</ui:msg>
+                <ui:msg description="Strategy callByName">call by<br /><span>NAME</span></ui:msg>
             </g:RadioButton>
 
             <g:RadioButton ui:field="manualSelection" name="strategyButton" value="false">
-                <ui:msg description="Strategy manualSelection">MANUAL SELECTION</ui:msg>
+                <ui:msg description="Strategy manualSelection">MANUAL <br />SELECTION</ui:msg>
             </g:RadioButton>
-        </g:HorizontalPanel>
     </g:FlowPanel>
 </ui:UiBinder>

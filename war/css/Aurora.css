@@ -1,6 +1,4 @@
 /** Add css rules here for your application. */
-
-/** Example rules used by the template application (remove for your app) */
 h1 {
     font-size: 2em;
     font-weight: bold;
@@ -71,6 +69,6 @@ div.gwt-TabLayoutPanelTabs {
     background-color: unset;
 }
 
-
-
-
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer {
+    border: none !important;
+}

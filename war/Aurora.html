@@ -14,11 +14,24 @@
     <link type="text/css" rel="stylesheet" href="css/Aurora.css">
     <link type="text/css" rel="stylesheet" href="css/Sidebar.css">
     <link type="text/css" rel="stylesheet" href="css/Editor.css">
+    <link type="text/css" rel="stylesheet" href="css/CodeMirror.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>Web Application Starter Project</title>
+    <title>Aurora</title>
+    <script>
+        fetch('VERSION')
+            .then(
+                function(response) {
+                    if (response.status === 200) {
+                        return response;
+                    }
+                }
+            ).then(
+                response => response.text()
+            ).then(
+                text => document.title = document.title + "  " + text
+            ).catch(error => error)
+       </script>
 
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
@@ -35,6 +48,7 @@
     <script type="text/javascript" language="javascript" src="codemirror/addon/edit/closebrackets.js"></script>
     <script type="text/javascript" language="javascript" src="codemirror/addon/edit/matchbrackets.js"></script>
     <script type="text/javascript" language="javascript" src="codemirror/addon/selection/active-line.js"></script>
+    <script type="text/javascript" language="javascript" src="codemirror/keymap/vim.js"></script>
     
     <!-- scripts for codemirror END -->
 </head>
