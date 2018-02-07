@@ -5,49 +5,17 @@
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <ui:style>
-        .leftAlign {
-
-        }
-
-        .rightAlign {
-        }
-
-        .rightAlignButton {
-        }
-        .stepSettings {
-            color: #fff;
-            background-image: url("../img/icons/icon_step.png");
-            background-repeat: no-repeat;
-            background-size: auto 70%;
-            background-position: 5% center;
-            background-color: #33495D;
-            padding: 10px;
-            display: flex;
-            border-bottom: 0.2em solid #167A66;
-            justify-content: space-between;
-        }
-        .panelSettings {
-        }
-        .standrard_db {}
-        .user_db{}
-        .extra_settings{}
-        .strategy{}
-        .night_mode{}
-        .share_language{}
-        .slider_o{}
-    </ui:style>
 
     <g:DockLayoutPanel unit="EM">
         <g:center>
 
-            <g:DockLayoutPanel unit="EM" addStyleNames="{style.panelSettings}">
+            <g:DockLayoutPanel unit="EM" addStyleNames="panelSettings">
 
                 <g:north size="2.5">
                     <!-- Step Setting -->
-                    <g:FlowPanel addStyleNames="{style.stepSettings}">
-                        <g:Label addStyleNames="{style.leftAlign}"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
-                        <g:IntegerBox ui:field="stepNumber" visibleLength="2" addStyleNames="{style.rightAlign}"/>
+                    <g:FlowPanel addStyleNames="stepSettings">
+                        <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
+                        <g:IntegerBox ui:field="stepNumber" visibleLength="2" addStyleNames="rightAlign"/>
                     </g:FlowPanel>
                 </g:north>
 
@@ -56,11 +24,11 @@
                     <g:StackLayoutPanel>
 
                         <!-- Standard Library -->
-                        <g:stack addStyleNames="{style.standrard_db}">
+                        <g:stack addStyleNames="standrard_db">
                             <g:customHeader size="40">
                                 <g:FlowPanel>
                                     <!-- Placeholder for stdlib icon-->
-                                    <g:Label addStyleNames="{style.rightAlign}"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
+                                    <g:Label addStyleNames="rightAlign"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
                             </g:customHeader>
 
@@ -69,11 +37,11 @@
                         </g:stack >
 
                         <!-- User Library -->
-                        <g:stack addStyleNames="{style.user_db}">
+                        <g:stack addStyleNames="user_db">
                             <g:customHeader size="70">
                                 <g:FlowPanel>
                                     <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
-                                    <g:Button ui:field="addFunction" addStyleNames="{style.rightAlignButton}">+
+                                    <g:Button ui:field="addFunction" addStyleNames="rightAlignButton">+
                                     </g:Button>
                                 </g:FlowPanel>
                             </g:customHeader>
@@ -87,19 +55,19 @@
         </g:center>
 
         <g:south size='12'>
-            <g:HorizontalPanel addStyleNames="{style.extra_settings}">
+            <g:HorizontalPanel addStyleNames="extra_settings">
                 <!-- Strategy Selection -->
-                <strategy2:StrategySelection ui:field="strategySelection" addStyleNames="{style.strategy}"/>
+                <strategy2:StrategySelection ui:field="strategySelection" addStyleNames="strategy"/>
 
                 <!-- Night Mode -->
-                <g:FlowPanel addStyleNames="{style.night_mode}">
+                <g:FlowPanel addStyleNames="night_mode">
                     <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
-                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="{style.slider_o}">
+                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="slider_o">
                     </g:CheckBox>
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel addStyleNames="{style.share_language}">
+                <g:FlowPanel addStyleNames="share_language">
                     <g:Button><ui:msg description="Sidebar Share Option">Share</ui:msg></g:Button>
                     <g:Button><ui:msg description="Sidebar Language Option">Language</ui:msg></g:Button>
                 </g:FlowPanel>
