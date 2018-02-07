@@ -16,12 +16,12 @@ public class BetaReductionIterator implements Iterator<Term> {
      */
     public BetaReductionIterator(BetaReducer betaReducer, Term start) {
         this.betaReducer = betaReducer;
-        next = start;
+        next = betaReducer.reduce(start);
     }
 
     @Override
     public boolean hasNext() {
-        return next != null;
+        return !betaReducer.getFinished();
     }
 
     @Override
