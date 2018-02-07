@@ -56,6 +56,7 @@ public class EditorPresenterTest {
         List<HighlightedLambdaExpression> steps = new ArrayList<>();
         Term last = getSample();
         last = br.reduce(last);
+        System.out.println(new HighlightableLambdaExpression(last).toString()); // one reduction this is correct
         steps.add(new HighlightableLambdaExpression(last));
         verify(editorDisplay).addNextStep(steps);
     }
