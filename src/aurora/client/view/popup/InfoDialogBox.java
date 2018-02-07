@@ -10,8 +10,6 @@ import com.google.gwt.user.client.ui.Widget;
 public class InfoDialogBox extends DialogBox {
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
     @UiField
-    Label titleLabel;
-    @UiField
     Label descriptionLabel;
 
     /**
@@ -33,7 +31,7 @@ public class InfoDialogBox extends DialogBox {
      * @param title Sets the title.
      */
     public void setTitle(String title) {
-        this.titleLabel.setText(title);
+        super.setTitle(title);
     }
 
     /**

@@ -8,6 +8,7 @@ import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
+import aurora.backend.tree.Term;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,12 +70,16 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
     }
 
     @Override
-    public Void visit(Function libterm) {
-        return null; // TODO you need to descend inside it.
+    public Void visit(Function function) {
+        Term t = function.term;
+        t.accept(this);
+        return null;
     }
 
     @Override
     public Void visit(ChurchNumber c) {
+        Abstraction abs = c.getAbstraction();
+        abs.accept(this);
         return null;
     }
 
@@ -105,12 +110,15 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
         }
 
         @Override
-        public Void visit(Function libterm) {
+        public Void visit(Function function) {
+            Term t = function.term;
+            t.accept(this);
             return null;
         }
 
         @Override
         public Void visit(ChurchNumber c) {
+            redexes.add(currentPath);
             return null;
         }
 

@@ -1,6 +1,8 @@
 package aurora.client;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 
 import java.util.List;
 
@@ -16,11 +18,17 @@ import java.util.List;
 public interface EditorDisplay {
 
     /**
-     * Displays a syntax error message.
-     *
-     * @param message Message to display.
+     * Displays a syntax error.
+     * @param syntaxException Exception as given by LambdaLexer.
      */
-    void displaySyntaxError(String message); // TODO there's more than one way to display bad results.
+    void displaySyntaxError(SyntaxException syntaxException);
+
+    /**
+     * Displays a semantic error.
+     * @param semanticException Exception as given by LambdaLexer.
+     */
+    void displaySemanticError(SemanticException semanticException);
+
 
     /**
      * Gets the user input String from the code editor.
