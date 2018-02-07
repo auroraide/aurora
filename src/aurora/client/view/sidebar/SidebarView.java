@@ -7,20 +7,22 @@ import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
+
 
 /**
  * Provides additional options to the user.
@@ -34,9 +36,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
     @UiField
-    TextBox stepNumber;
+    IntegerBox stepNumber;
     @UiField
-    ToggleButton nightModeSwitch;
+    CheckBox nightModeSwitch;
     @UiField
     FlexTable standardLibraryTable;
     @UiField
@@ -48,6 +50,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     ListBox shareSelection;
     private EventBus eventBus;
+    Document document;
 
     /**
      * Created the Sidebar.
@@ -61,7 +64,14 @@ public class SidebarView extends Composite implements SidebarDisplay {
         nightModeSwitch.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                Window.alert("Hello World!");
+                Window.alert(document.getBody().getClassName());
+
+            }
+        });
+        stepNumber.addKeyPressHandler(new KeyPressHandler() {
+            @Override
+            public void onKeyPress(KeyPressEvent event) {
+                Window.alert(String.valueOf(event.getCharCode()));
             }
         });
     }
@@ -129,7 +139,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      *
      * @return stepNumber
      */
-    public TextBox getStepNumber() {
+    public IntegerBox getStepNumber() {
         return stepNumber;
     }
 
@@ -138,7 +148,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      *
      * @return nightModeSwitch
      */
-    public ToggleButton getNightModeSwitch() {
+    public CheckBox getNightModeSwitch() {
         return nightModeSwitch;
     }
 
