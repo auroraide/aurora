@@ -11,7 +11,7 @@ import aurora.backend.MetaTerm;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
-import aurora.backend.library.Library;
+import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
@@ -28,7 +28,6 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,7 +45,7 @@ public class EditorPresenterTest {
         ArrayList<Term> stepsForDI = new ArrayList<>();
 
         EditorPresenter editorPresenter = new EditorPresenter(bus, editorDisplay,
-                new Library(), new Library(), stepsForDI, dumbLexer, parserMock);
+                new HashLibrary(), new HashLibrary(), stepsForDI, dumbLexer, parserMock);
 
         bus.fireEvent(new StepEvent());
 

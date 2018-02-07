@@ -1,7 +1,7 @@
 package aurora.backend.parser;
 
 import aurora.backend.TermVisitor;
-import aurora.backend.library.Library;
+import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Abstraction;
@@ -10,7 +10,6 @@ import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
-import aurora.backend.tree.Term;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class LambdaParserTest {
     @Before
     public void setUp() {
         this.lexer = new LambdaLexer();
-        this.parser = new LambdaParser(new Library());
+        this.parser = new LambdaParser(new HashLibrary());
     }
 
     @Test
