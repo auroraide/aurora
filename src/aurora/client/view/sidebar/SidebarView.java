@@ -19,6 +19,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
 
+
 /**
  * Provides additional options to the user.
  * Lists available advanced options the user can choose from, such as libraries and different strategies.
