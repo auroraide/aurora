@@ -14,14 +14,15 @@ import aurora.backend.tree.Term;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class LambdaParserTest {
 
-    protected LambdaLexer lexer;
+    private LambdaLexer lexer;
 
-    protected LambdaParser parser;
+    private LambdaParser parser;
 
     @Before
     public void setUp() {
@@ -37,67 +38,74 @@ public class LambdaParserTest {
         } catch (SyntaxException e) {
             thrown = true;
         } catch (SemanticException e) {
-            fail("SemanticException thrown instead.");
+            e.printStackTrace();
+            fail("SemanticException thrown instead: " + e.getMessage());
         }
 
         assertTrue("No exception thrown.", thrown);
     }
 
     @Test
-    public void testParseSomething() {
-        /*TermVisitor<String> tv = new TermVisitor<String>() {
-            @Override
-            public String visit(Abstraction abs) {
-                return "(\\" + abs.name + "." + abs.body.accept(this) + ")";
-            }
-
-            @Override
-            public String visit(Application app) {
-                return "[" + app.left.accept(this) + " " + app.right.accept(this) + "]";
-            }
-
-            @Override
-            public String visit(BoundVariable bvar) {
-                return "" + bvar.index;
-            }
-
-            @Override
-            public String visit(FreeVariable fvar) {
-                return fvar.name;
-            }
-
-            @Override
-            public String visit(Function libterm) {
-                return "$" + libterm.name;
-            }
-
-            @Override
-            public String visit(ChurchNumber c) {
-                return "c" + c.value;
-            }
+    public void testNikosExpressions() {
+        String[] input = {
+                "((\\x.(x x)) (\\y.((x y) z)))",
+                "\\x.\\y.(\\z.x y z) x y z"
         };
 
-        Term root = null;
-        try {
-            root = this.parser.parse(this.lexer.lex("(\\x . x x) (\\y . x y z)"));
-        } catch (SyntaxException e) {
-            e.printStackTrace();
-        } catch (SemanticException e) {
-            e.printStackTrace();
-        }
+        String[] expected = {
+                "((\\x.(1 1)) (\\y.((x 1) z)))",
+                "(\\x.(\\y.((((\\z.((3 2) 1)) 2) 1) z)))"
+        };
 
-        System.out.println(root.accept(tv));*/
+        for (int i = 0; i < expected.length; ++i) {
+            try {
+
+                assertEquals("Testing input[" + i + "]",
+                        expected[i],
+                        this.parser.parse(this.lexer.lex(input[i])).accept(new TermPrinter()));
+
+            } catch (SyntaxException e) {
+                e.printStackTrace();
+                fail("SyntaxException thrown instead: " + e.getMessage());
+            } catch (SemanticException e) {
+                e.printStackTrace();
+                fail("SemanticException thrown instead: " + e.getMessage());
+            }
+        }
     }
 
-    @Test
-    public void ichMachJetztAllesKaputt() {
-        /*try {
-            this.parser.parse(this.lexer.lex("\\x.\\y"));
-        } catch (SyntaxException e) {
-            e.printStackTrace();
-        } catch (SemanticException e) {
-            e.printStackTrace();
-        }*/
+    private class TermPrinter extends TermVisitor<String> {
+
+        @Override
+        public String visit(Abstraction abs) {
+            return "(\\" + abs.name + "." + abs.body.accept(this) + ")";
+        }
+
+        @Override
+        public String visit(Application app) {
+            return "(" + app.left.accept(this) + " " + app.right.accept(this) + ")";
+        }
+
+        @Override
+        public String visit(BoundVariable bvar) {
+            return "" + bvar.index;
+        }
+
+        @Override
+        public String visit(FreeVariable fvar) {
+            return fvar.name;
+        }
+
+        @Override
+        public String visit(Function libterm) {
+            return "$" + libterm.name;
+        }
+
+        @Override
+        public String visit(ChurchNumber c) {
+            return "c" + c.value;
+        }
+
     }
 
 }

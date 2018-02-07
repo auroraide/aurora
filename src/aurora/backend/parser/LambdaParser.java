@@ -2,6 +2,7 @@ package aurora.backend.parser;
 
 import aurora.backend.MetaTerm;
 import aurora.backend.library.Library;
+import aurora.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 
@@ -11,174 +12,210 @@ import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
-import aurora.backend.tree.Term;
 
 import java.util.List;
 import java.util.Stack;
 
 /**
- * Parser for lambda expressions.
+ * Impure recursive descent parser for lambda expressions from {@link Token} streams.
  */
 public class LambdaParser {
 
-    private Stack<Token> stack;
+    private Stack<Token> inputStack;
 
-    private int rightParens;
+    private Stack<String> variableStack;
 
     private Library library;
 
     /**
-     * Constructor.
+     * Construct a new parser that checks for the existence of function names within the given {@link Library}.
      */
     public LambdaParser(Library library) {
         this.library = library;
-        this.stack = new Stack<>();
-        this.rightParens = 0;
+        this.inputStack = new Stack<>();
+        this.variableStack = new Stack<>();
     }
 
     /**
-     * Parse a lambda expression string into a tree of {@link MetaTerm}s.
+     * Parse a {@link Token} stream into a tree of {@link MetaTerm}s.
      * <p>
      * Each {@link MetaTerm} keeps track of a reference to the original {@link Token}.
      *
      * @param stream The {@link Token} stream constituting the lambda expression that shall be parsed.
      * @return The root node of the corresponding {@link MetaTerm} tree if parsing was successful.
      * @throws SyntaxException   In case of a syntax error.
-     * @throws SemanticException In case of a semantic error.
+     * @throws SemanticException In case of a semantic error like using an undefined function.
      */
     public MetaTerm parse(List<Token> stream) throws SyntaxException, SemanticException {
+        // the grammar would look something like this
+        //
         // expr --> term | term expr
-        // term --> ( expr ) | \ var . expr | var | func | num
+        // term --> LEFT_PARENS expr RIGHT_PARENS | LAMBDA VARIABLE DOT expr | VARIABLE | FUNCTION | NUMBER
+        //
 
         // push tokens on stack in reverse order and discard whitespaces and comments
         for (int i = stream.size() - 1; i >= 0; --i) {
             Token t = stream.get(i);
             if (t.getType() != Token.TokenType.T_WHITESPACE
                     && t.getType() != Token.TokenType.T_COMMENT) {
-                this.stack.push(t);
+                this.inputStack.push(t);
             }
         }
 
-        if (this.stack.isEmpty()) {
-            throw new SyntaxException("Parse error: input is empty.");
+        if (this.inputStack.isEmpty()) {
+            throw new SyntaxException("Parse error: input stream is empty.");
         }
 
-        return this.expr();
+        MetaTerm result = this.expr();
+
+        if (!this.inputStack.isEmpty()) {
+            throw new SyntaxException(
+                    "Parse error at line "
+                    + this.inputStack.peek().getLine()
+                    + ", column "
+                    + this.inputStack.peek().getColumn()
+                    + ": unexpected "
+                    + this.inputStack.peek().getType()
+                    + " found.",
+                    this.inputStack.peek().getLine(),
+                    this.inputStack.peek().getColumn(),
+                    this.inputStack.peek().getOffset());
+        }
+
+        return result;
     }
 
     private MetaTerm expr() throws SyntaxException, SemanticException {
         MetaTerm left = this.term();
 
-        if ((this.stack.isEmpty()
-                && this.rightParens == 0)
-                || (!this.stack.isEmpty()
-                && this.stack.peek().getType() == Token.TokenType.T_RIGHT_PARENS
-                && this.rightParens != 0)) {
+        // parse term* as long as possible
+        while (!this.inputStack.isEmpty()
+                && (this.inputStack.peek().getType() == Token.TokenType.T_LEFT_PARENS
+                || this.inputStack.peek().getType() == Token.TokenType.T_LAMBDA
+                || this.inputStack.peek().getType() == Token.TokenType.T_VARIABLE
+                || this.inputStack.peek().getType() == Token.TokenType.T_FUNCTION
+                || this.inputStack.peek().getType() == Token.TokenType.T_NUMBER)) {
 
-            return left;
-
-        }
-
-        if (!this.stack.isEmpty()) {
-
-            return new MetaTerm(new Application(left, this.expr()), left.token);
+            left = new MetaTerm(new Application(left, this.term()), left.token);
 
         }
 
-        throw new SyntaxException(
-                "Parse error at line "
-                + left.token.getLine()
-                + ", column "
-                + left.token.getColumn()
-                + ": unexpected end of input stream after "
-                + left.token.getType()
-                + ".",
-                left.token.getLine(),
-                left.token.getColumn(),
-                left.token.getOffset());
+        return left;
     }
 
     private MetaTerm term() throws SyntaxException, SemanticException {
-        if (this.stack.peek().getType()
+        if (this.inputStack.peek().getType()
                 == Token.TokenType.T_LEFT_PARENS) {
 
-            this.stack.pop();
-            ++this.rightParens;
+            this.inputStack.pop();
             MetaTerm expr = this.expr();
             this.expect(Token.TokenType.T_RIGHT_PARENS);
-            --this.rightParens;
             return expr;
 
-        } else if (this.stack.peek().getType()
+        } else if (this.inputStack.peek().getType()
                 == Token.TokenType.T_LAMBDA) {
 
-            Token lambda = this.stack.pop();
+            Token lambda = this.inputStack.pop();
             String varName = this.expect(Token.TokenType.T_VARIABLE).getName();
             this.expect(Token.TokenType.T_DOT);
-            return new MetaTerm(new Abstraction(this.term(), varName), lambda);
 
-        } else if (this.stack.peek().getType()
+            // push name of potential bound variables on stack
+            this.variableStack.push(varName);
+
+            MetaTerm result = new MetaTerm(new Abstraction(this.expr(), varName), lambda);
+
+            this.variableStack.pop();
+
+            return result;
+
+        } else if (this.inputStack.peek().getType()
                 == Token.TokenType.T_VARIABLE) {
 
-            // TODO free vs bound variable
+            Token var = this.inputStack.pop();
 
-            return new MetaTerm(new FreeVariable(this.stack.peek().getName()), this.stack.pop());
+            // bound or free variable
+            int idx = this.variableStack.search(var.getName());
+            if (idx > 0) {
+                return new MetaTerm(new BoundVariable(idx), var);
+            }
+            return new MetaTerm(new FreeVariable(var.getName()), var);
 
-        } else if (this.stack.peek().getType()
+        } else if (this.inputStack.peek().getType()
                 == Token.TokenType.T_FUNCTION) {
 
-            // TODO function exists check
-            if (false) {
-                throw new SemanticException();
+            // check function name is defined in library
+            if (!this.library.exists(this.inputStack.peek().getName())) {
+                throw new SemanticException("Parse error at line "
+                        + this.inputStack.peek().getLine()
+                        + ", column "
+                        + this.inputStack.peek().getColumn()
+                        + ": function "
+                        + this.inputStack.peek().toString()
+                        + " is undefined.",
+                        this.inputStack.peek().getLine(),
+                        this.inputStack.peek().getColumn(),
+                        this.inputStack.peek().getOffset());
             }
 
-            return new MetaTerm(new Function(this.stack.peek().getName(), null), this.stack.pop());
+            try {
 
-        } else if (this.stack.peek().getType()
+                return new MetaTerm(new Function(
+                        this.inputStack.peek().getName(),
+                        this.library.getItem(this.inputStack.peek().getName()).getTerm()),
+                        this.inputStack.pop());
+
+            } catch (LibraryItemNotFoundException e) {
+                // should never happen as we already checked that the item exists
+                throw new RuntimeException(e.getClass().getCanonicalName() + ": " + e.getMessage());
+            }
+
+        } else if (this.inputStack.peek().getType()
                 == Token.TokenType.T_NUMBER) {
 
-            return new MetaTerm(new ChurchNumber(Integer.parseInt(this.stack.peek().getName())), this.stack.pop());
+            return new MetaTerm(new ChurchNumber(
+                    Integer.parseInt(this.inputStack.peek().getName())),
+                    this.inputStack.pop());
 
         }
 
         throw new SyntaxException(
                 "Parse error at line "
-                + this.stack.peek().getLine()
+                + this.inputStack.peek().getLine()
                 + ", column "
-                + this.stack.peek().getColumn()
+                + this.inputStack.peek().getColumn()
                 + ": unexpected "
-                + this.stack.peek().getType()
+                + this.inputStack.peek().getType()
                 + " found.",
-                this.stack.peek().getLine(),
-                this.stack.peek().getColumn(),
-                this.stack.peek().getOffset());
+                this.inputStack.peek().getLine(),
+                this.inputStack.peek().getColumn(),
+                this.inputStack.peek().getOffset());
     }
 
     private Token expect(Token.TokenType type) throws SyntaxException {
-        if (this.stack.isEmpty()) {
+        if (this.inputStack.isEmpty()) {
             throw new SyntaxException(
                     "Parse error: expecting "
                     + type
                     + ", but end of input stream found.");
         }
 
-        if (this.stack.peek().getType() == type) {
-            return this.stack.pop();
+        if (this.inputStack.peek().getType() == type) {
+            return this.inputStack.pop();
         }
 
         throw new SyntaxException(
                 "Parse error at line "
-                + this.stack.peek().getLine()
+                + this.inputStack.peek().getLine()
                 + ", column "
-                + this.stack.peek().getColumn()
+                + this.inputStack.peek().getColumn()
                 + ": expected "
                 + type
                 + ", but "
-                + this.stack.peek().getType()
+                + this.inputStack.peek().getType()
                 + " found.",
-                this.stack.peek().getLine(),
-                this.stack.peek().getColumn(),
-                this.stack.peek().getOffset());
+                this.inputStack.peek().getLine(),
+                this.inputStack.peek().getColumn(),
+                this.inputStack.peek().getOffset());
     }
 
 }
