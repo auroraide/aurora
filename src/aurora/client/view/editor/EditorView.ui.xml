@@ -19,9 +19,11 @@
 
         <!--TODO: steps label overlay-->
         <g:center>
-            <g:FlowPanel>
-                <g:FlexTable ui:field="stepFieldTable"/>
-            </g:FlowPanel>
+            <g:ScrollPanel>
+                <g:FlowPanel>
+                    <g:FlexTable ui:field="stepFieldTable"/>
+                </g:FlowPanel>
+            </g:ScrollPanel>
         </g:center>
 
         <!-- TODO: output label overlay -->

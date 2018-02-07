@@ -6,7 +6,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.LibraryTerm;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
 /**
@@ -45,16 +45,22 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Application app) {
+        int appindex = index;
         return new Application(
-                app.left.accept(this),
-                app.right.accept(this)
+                app.left.accept(new SubstitutionVisitor(index,with)),
+                app.right.accept(new SubstitutionVisitor(index,with))
         );
     }
 
     @Override
     public Term visit(BoundVariable bvar) {
         if (bvar.index == this.index) {
-            return with.accept(new DebruijnFixVisitor(0));
+            //return with.accept(new DebruijnFixVisitor(0));
+            return with.accept(new DebruijnFixWithVisitor(bvar.index,0));
+        }
+        if (bvar.index > this.index) {
+            int updateindex = bvar.index - 1;
+            return new BoundVariable(updateindex);
         }
         return bvar;
     }
@@ -65,50 +71,52 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
     }
 
     @Override
-    public Term visit(LibraryTerm libterm) {
-        return libterm;
+    public Term visit(Function function) {
+        Term t = function.term;
+        return t.accept(this);
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        return c;
+        Abstraction abs = c.getAbstraction();
+        return abs.accept(this);
     }
 
+
     /**
-     * De Bruijn indices have to be fixed if you execute a substitution.
+     * this class fixes the debruijnindixes in the with term that is given the substitution visitor.
      */
-    private class DebruijnFixVisitor extends TermVisitor<Term> {
+    private class DebruijnFixWithVisitor extends TermVisitor<Term> {
+        int innercounter; //starts with 0
+        int bvindex;
 
-        private final int innerIndex;
+        public DebruijnFixWithVisitor(int index, int innercounter) {
+            this.bvindex = index;
+            this.innercounter = innercounter;
 
-        /**
-         * This gets an index and saves it as innerIndex.
-         *
-         * @param index the index of the abstraction.
-         */
-        private DebruijnFixVisitor(int index) {
-            this.innerIndex = index;
         }
 
         @Override
         public Term visit(Abstraction abs) {
-            return new Abstraction(abs.body.accept(new DebruijnFixVisitor(innerIndex + 1)), abs.name);
+            innercounter++;
+            return new Abstraction(abs.body.accept(this),abs.name);
         }
 
         @Override
         public Term visit(Application app) {
             return new Application(
-                    app.left.accept(this),
-                    app.right.accept(this)
+                    app.left.accept(new DebruijnFixWithVisitor(bvindex, innercounter)),
+                    app.right.accept(new DebruijnFixWithVisitor(bvindex,innercounter))
             );
         }
 
         @Override
         public Term visit(BoundVariable bvar) {
-            if (bvar.index > innerIndex) {
-                return new BoundVariable(bvar.index + index - innerIndex + 1);
+            if (innercounter < bvar.index) {
+                return new BoundVariable(bvindex + bvar.index - 1); //-1 so it isnt a hack
+            } else {
+                return bvar;
             }
-            return bvar;
         }
 
         @Override
@@ -117,15 +125,15 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
         }
 
         @Override
-        public Term visit(LibraryTerm libterm) {
-            return libterm;
+        public Term visit(Function function) {
+            return function;
         }
 
         @Override
         public Term visit(ChurchNumber c) {
             return c;
         }
-
     }
+
 
 }

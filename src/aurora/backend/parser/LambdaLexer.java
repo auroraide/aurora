@@ -33,7 +33,7 @@ public class LambdaLexer {
     private final RegExp whitespacePattern;
 
     /**
-     * Default constructor.
+     * Creates a new (stateless) lexer to convert a String into a list of Tokens.
      */
     public LambdaLexer() {
         this.lambdaPattern = RegExp.compile(T_LAMBDA_REGEX);

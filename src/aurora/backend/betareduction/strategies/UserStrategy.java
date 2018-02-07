@@ -11,7 +11,7 @@ import aurora.backend.tree.Term;
 public class UserStrategy extends ReductionStrategy {
 
     @Override
-    public RedexPath getRedex(Term t) {
+    public RedexPath getRedexPath(Term t) {
         return null;
     }
 

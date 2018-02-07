@@ -37,7 +37,7 @@ public class CallByValueTest {
                 "x"
         );
         CallByValue cbv = new CallByValue();
-        RedexPath path = cbv.getRedex(t);
+        RedexPath path = cbv.getRedexPath(t);
         assertEquals(null,path);
     }
 
@@ -58,9 +58,28 @@ public class CallByValueTest {
                     )
         );
         CallByValue cbv = new CallByValue();
-        RedexPath path = cbv.getRedex(t);
+        RedexPath path = cbv.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
-        System.out.println(list.toString());
+        assertEquals("[RIGHT]",list.toString());
+    }
+
+    @Test
+    public void rightrightleft() {
+        Term t = new Application(
+                new FreeVariable("s"),
+                new Application(
+                        new FreeVariable("y"),
+                        new Application(
+                                new Application(new Abstraction(new BoundVariable(1),"a"),
+                                        new FreeVariable("z")),
+                                new FreeVariable("h")
+                        )
+                )
+        );
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[RIGHT, RIGHT, LEFT]",list.toString());
     }
 }
 
