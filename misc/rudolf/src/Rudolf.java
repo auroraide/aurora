@@ -9,6 +9,14 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Scanner;
+
 public class Rudolf extends TelegramLongPollingBot {
 
     @Override
@@ -56,7 +64,21 @@ public class Rudolf extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "527416526:AAEqHHE-HcsDHzuIuHOwTfypZyM3Xw7leBo";
+        Scanner in = null;
+        try {
+            URL url = getClass().getResource("apitoken.txt");
+            File file = new File(url.getPath());
+            in = new Scanner(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+        while(in.hasNext()) {
+            sb.append(in.next());
+        }
+        in.close();
+        String token = sb.toString();
+        return token;
     }
 
 }
