@@ -2,6 +2,7 @@ package aurora.client;
 
 import aurora.backend.library.HashLibrary;
 import aurora.backend.library.Library;
+import aurora.backend.library.MultiLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.tree.Term;
@@ -42,7 +43,7 @@ public class Aurora implements EntryPoint {
 
         ArrayList<Term> steps = new ArrayList<>();
         LambdaLexer lexer = new LambdaLexer();
-        LambdaParser parser = new LambdaParser(new HashLibrary());
+        LambdaParser parser = new LambdaParser(new MultiLibrary(userLib, stdLib));
 
         // presenters
         AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, auroraView,
