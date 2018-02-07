@@ -11,6 +11,7 @@
 \refoot{\today}
 \pagestyle{scrheadings}
 \usepackage[T1]{fontenc}
+\usepackage[sfdefault]{roboto}
 \usepackage[german]{babel}
 \usepackage[yyyymmdd]{datetime} % must be after babel
 \renewcommand{\dateseparator}{-} % ISO8601 date format
@@ -56,9 +57,55 @@ Nikolai Polley, Randy Seng}
 Die Implementierungsphase.
 Der Teil von PSE, in der wir damit anfangen, unserem Projekt Leben einzuhauchen, und mit einem funktionierenden Prototypen enden.
 \newline
-Ziel dieses Implementierungsdokumentes ist es, der Implementierungsphase einen möglichst geordneten Ablauf zu geben.
-Hierzu haben wir uns unter anderem darüber Gedanken gemacht, wie wir neben der eigentlichen Implementierung auch die sonst notwendige Aufgaben am besten bewerkstelligen können.
-In den folgenden Paragraphen werden wir beschrieben, wie wir anhand unseres Entwurfs aus der vorherigen Phase vorgegangen sind.
+
+Wir haben uns darüber Gedanken gemacht, wie wir neben der eigentlichen Implementierung auch die sonst notwendige Aufgaben am besten bewerkstelligen können.
+In den folgenden Paragraphen wird beschrieben, wie wir anhand unseres Entwurfs aus der vorherigen Phase vorgegangen sind.
+Anfänglich kann man schon mal vorstellen, dass das Team sehr mit dem Entwurf zufrieden war und das meiste so, wie im Entwurf ausgelegt, implementiert werden konnte.
+\newline
+\newpage
+
+%=====================STATISTIKEN=====================
+\section{Statistik}
+
+\subsection{Continuous Integration}
+Anzahl Commits: über 1000\newline
+Anzahl MRs\newline
+Anzahl pipes\newline
+
+Fancy gitlab charts?
+
+\subsection{Testabdekung}
+Wenn Zeit ist, ansonsten kommt das weg.
+Der Rest übrigens auch...
+
+\newpage
+
+%=====================FEATURES=====================
+\section{Kriterien}
+
+\subsection{Musskriterien}
+Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
+
+\subsection{Wunschkriterien}
+Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
+Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
+\newline
+\newline
+\textbf{K1} Zeilennummer
+\newline
+\textbf{K2} Kommentare einfügen
+\newline
+\textbf{K3} Autovervollständigung von Klammern
+\newline
+\textbf{K4} Syntax-Highlighting
+\newline
+\textbf{K7} Standardbibliothek \textbf{Max wie siehts aus, backend steht}
+\newline
+\textbf{K8} Benutzerbibliothek \textbf{max, wie siehts aus, backend steht?}
+\bigbreak
+\textbf{K9}Call By Name und Call By Value
+\smallbreak
+\textbf{K11} Mehrere Schritte auswerten \textbf{Max}
 \newline
 \newpage
 
@@ -84,9 +131,9 @@ Im Speziellen handelt es sich hierbei um folgendes:
 	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert. 
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
 	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
-	
-	
-	
+	\item Hinzufügung der Klasse aurora.backend.Comparer
+	\newline
+	Es wurde die Klasse Comparer geschrieben, die im Konstruktor zwei Terme erhält und diese dann mit der Methode compare() vergleicht. Die Methode gibt ein true zurück, wenn die zwei übergebenen Terme gleich waren, ein false wenn die zwei Terme nicht gleich waren. Diese Klasse wurde beim Debuggen benutzt, um zu testen ob die Reduktionsstrategien und die Betareduktion einen korrekten Term zurückgibt.
 	
     \item NEUE EVENTS???
 \end{itemize}
@@ -100,9 +147,18 @@ Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
 Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
+	\item Alle haben die benötigten Tools korrekt installiert
+	\newline
+	Am ersten Treffen mussten alle Teammitglieder die benötigten Tools installieren und testen ob sie funktionieren. 
+	Alle Teammitglieder mussten ein Mergetool installiert haben, weil es bereits Probleme im Entwurf wegen fehlerhaften Merges gegeben hatte.
+	Auch mussten die Teammitglieder alle Funktionen auf der Kommandozeile zusätzlich 	zu der IDE ausführen können. Dies wurde vorrausgesetzt, um mögliche Fehler von den IDEs ausschließten zu können.
+	Tools wie Ant, Ivy, Codemirror, Checkstyle, mussten zusätzlich installiert und eingerichtet werden. 
+	Natürlich musste auch GWT installiert und in die IDE eingebunden werden. 
+	
     \item Protected master
         \newline
         Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
+        Auf dem master selber durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
     Wir haben uns für die Checkstyleregeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyleregeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
@@ -110,12 +166,22 @@ Wichtig waren vorallem folgende Regeln:
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
         So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
+        
     \item Continuous Deployment
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
-        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.        
-\end{itemize}
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
+          
+       \item JUnitTests
+       \newline
+      	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne. 
+      	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
+      	 Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambdaterms berechnet werden.
+      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob die Objekte sich verhalten, wie man es erwartet. 
+      	\item Issues
+      	Wenn Probleme im Code von anderen Teammitgliedern gefunden wurden, mussten Issues in Gitlab geöffnet werden, damit keine Informationen verloren gehen konnten.
+      	\end{itemize}
 
 \subsection{Ursprünglicher Implementierungsplan}
 Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
@@ -124,6 +190,7 @@ Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstell
 Die Personen hatten bei ihren zugeteilten Paketen auch beim Entwurf mitgearbeitet, damit Wissen aus dem Entwurf nicht verloren gehen konnte.
 Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde. 
 Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen. 
+
 Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werden, damit man die Pakete möglichst schnell testen kann.
 
 
@@ -195,6 +262,7 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
 
 %=====================UNIT TESTS=====================
 \section{Unit tests}
+
 \subsection{Backend TestZeug}
 \subsubsection{Ziel}
 \subsubsection{Voraussetzungen}
