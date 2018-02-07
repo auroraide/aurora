@@ -12,8 +12,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -22,10 +20,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
 
 
@@ -67,9 +63,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        stepNumber.setText(1 + "");
-        addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+        this.stepNumber.setText(1 + "");
+        this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
+        this.deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
         nightModeSwitch.addClickHandler(new ClickHandler() {
 
             @Override
@@ -85,49 +81,69 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private void eventWiring() {
         wireStepNumber();
         wireAddLibraryFunction();
+
         
     }
     
     
     private void wireStepNumber() {
-        //TODO What to consider, if a number greater than Integer.MAX_VALUE or Integer.MIN_VALUE being typed.
         this.stepNumber.addKeyUpHandler(event -> {
             String input = stepNumber.getText();
-            
+            boolean successful = true;
+
             if (input.matches("[0-9]+")) {
-                int stepNumber = Integer.parseInt(input);
-                eventBus.fireEvent(new StepValueChangedEvent(stepNumber));
-                prevStepNumber = stepNumber;
+                int step;
+
+                try {
+                    step = Integer.parseInt(input);
+
+                    // Can only be a positive number in range of [1,2048].
+                    if (step < 1) {
+                        step = 1;
+                        SidebarView.this.stepNumber.setText("" + step);
+                    } else if (step >= 2048) {
+                        step = 2048;
+                        SidebarView.this.stepNumber.setText("" + step);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    // Thrown when number is bigger than Integer.MAX_VALUE.
+                    // Setting step to allowed maximum of 2048, if this is the case.
+                    step = 2048;
+                    SidebarView.this.stepNumber.setText("" + step);
+                }
+
+                SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(step));
+                SidebarView.this.prevStepNumber = step;
                 
             } else {
                 // Allows an input of length 1 to be deleted.
                 if (input.length() != 0) {
-                    stepNumber.setText("" + prevStepNumber);
+                    SidebarView.this.stepNumber.setText("" + prevStepNumber);
                 }
             }
         });
     }
-    
-    
+
+
     private void wireAddLibraryFunction() {
-        addFunctionButton.addClickHandler(event -> addLibraryItemDialogBox.show());
-        
-        // TODO Validation for Function Name. No duplicate function name. Only alphabetical
-        addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
-            
+        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
+        this.addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
         });
-        
-        // TODO Validation
-        addLibraryItemDialogBox.getAddButton().addClickHandler(event -> eventBus.fireEvent(new AddFunctionEvent(
-                                                                                                                addLibraryItemDialogBox.getNameField().getText(),
-                                                                                                                addLibraryItemDialogBox.getFunctionField().getText(),
-                                                                                                                addLibraryItemDialogBox.getDescriptionField().getText())));
+
+        // SidebarPresenter does validation.
+        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> SidebarView.this.eventBus.fireEvent(
+                new AddFunctionEvent(
+                SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
+                SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
+                SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
     }
 
 
     @Override
     public void closeAddLibraryItemDialog() {
-        addLibraryItemDialogBox.hide();
+        this.addLibraryItemDialogBox.clearAddLibraryItemDialogBox();
+        this.addLibraryItemDialogBox.hide();
     }
 
     @Override
@@ -147,7 +163,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void addUserLibraryItem(String name, String description) {
-
     }
 
     @Override
