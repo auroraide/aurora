@@ -13,3 +13,61 @@
 .gwt-MenuBar-vertical {
     background: #33495D !important;
 }
+
+.action_bar {
+    text-align: center;
+}
+
+.action_bar button {
+    padding: 3px 18px;
+    width: 75px;
+    text-align: right;
+    margin: 0 1px;
+    color: #fff;
+    font-size: 1.2em;
+    background-color: #177965;
+    background: unset;
+}
+
+.action_bar .run {
+    background-image: url("../img/icons/icon_run.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #177965;
+}
+
+.action_bar .pause {
+    background-image: url("../img/icons/icon_pause.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #AE9945;
+}
+
+.action_bar .reset {
+    background-image: url("../img/icons/icon_reset.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #893232;
+    width: 90px;
+}
+
+.action_bar .step {
+    background-image: url("../img/icons/icon_steps_2.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #177965;
+    width: 80px;
+}
+
+.action_bar .disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+.action_bar .hidden {
+    display: none;
+}
