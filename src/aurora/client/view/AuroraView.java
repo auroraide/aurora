@@ -3,6 +3,13 @@ package aurora.client.view;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
+import aurora.client.event.ContinueEvent;
+import aurora.client.event.PauseEvent;
+import aurora.client.event.RedexClickedEvent;
+import aurora.client.event.ResetEvent;
+import aurora.client.event.ResultCalculatedEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
@@ -13,7 +20,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
 
 
 /**
@@ -66,13 +72,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.pausedState = new PausedState();
         this.finishedState = new FinishedState();
         this.stepBeforeResultState = new StepBeforeResultState();
-        this.currentState = defaultState;
+        this.currentState = this.defaultState;
 
+        eventWiring();
 
-        // editor.getActionBar().onRunButtonClick(e -> {
-        //     currentState = currentState.run();
-        //     eventBus.fire(new RunEvent());
-        // });
     }
 
     @Override
@@ -90,20 +93,45 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    private void bind() {
-        // on click share latex (ist in sidebar):
-        //      eventBus.fireEvent(new ShareLatexenvetdings(editor.balbalbalba))
+    private void eventWiring() {
+        wireStateMachine();
+    }
 
-        // on click share latex in step (ist in editor):
-        //      eventBus.fireEvent(new ShareLatexenvetdings(editor.step[i].balbalbalba))
+    private void wireStateMachine() {
+        this.eventBus.addHandler(RunEvent.TYPE, event -> {
+            AuroraView.this.currentState.runBtnClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
 
-        // on step number change IN SIDEBAR:
-        //      editor.stepnumber = ...;
-        //      eventBus.fireevent(step chagned....)
+        this.eventBus.addHandler(PauseEvent.TYPE, event -> {
+            AuroraView.this.currentState.pauseBtnClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
 
-        // on step number change IN EDITOR:
-        //      sidebar.stepnumber = ...;
-        //      eventBus.fireevent(step chagned....)
+        this.eventBus.addHandler(ResetEvent.TYPE, event -> {
+            AuroraView.this.currentState.resetBtnClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
+
+        this.eventBus.addHandler(ContinueEvent.TYPE, event -> {
+            AuroraView.this.currentState.continueBtnClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
+
+        this.eventBus.addHandler(StepEvent.TYPE, event -> {
+            AuroraView.this.currentState.stepBtnClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
+
+        this.eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent -> {
+            AuroraView.this.currentState.redexClicked();
+            AuroraView.this.currentState.stateTransition();
+        });
+
+        this.eventBus.addHandler(ResultCalculatedEvent.TYPE, event -> {
+            AuroraView.this.currentState.resultCalculated();
+            AuroraView.this.currentState.stateTransition();
+        });
     }
 
     public EditorDisplay getEditor() {
@@ -119,6 +147,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
+            GWT.log("DEFAULT_STATE: runBtnClicked called.");
             this.state = AuroraView.this.runningState;
         }
 
@@ -139,6 +168,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void stepBtnClicked() {
+            GWT.log("DEFAULT_STATE: stepBtnClicked called.");
             this.state = AuroraView.this.stepBeforeResultState;
         }
 
@@ -149,11 +179,13 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void redexClicked() {
+            GWT.log("DEFAULT_STATE: redexClicked called.");
             this.state = AuroraView.this.stepBeforeResultState;
         }
 
         @Override
         protected void onEntry() {
+            GWT.log("DEFAULT_STATE: onEntry called.");
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.DEFAULT_STATE));
         }
 
@@ -164,6 +196,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected State next() {
+            GWT.log("DEFAULT_STATE: next called");
             return this.state;
         }
     }
@@ -172,6 +205,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
+            GWT.log("FINISHED_STATE: runBtnClicked called.");
             this.state = AuroraView.this.runningState;
         }
 
@@ -182,6 +216,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resetBtnClicked() {
+            GWT.log("FINISHED_STATE: resetBtnClicked called.");
             this.state = AuroraView.this.defaultState;
         }
 
@@ -207,6 +242,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
+            GWT.log("FINISHED_STATE: onEntry called.");
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
         }
 
@@ -217,6 +253,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected State next() {
+            GWT.log("FinishedState: next called.");
             return this.state;
         }
     }
@@ -235,31 +272,37 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resetBtnClicked() {
+            GWT.log("PAUSED_STATE: resetBtnClicked called.");
             this.state = AuroraView.this.defaultState;
         }
 
         @Override
         protected void continueBtnClicked() {
+            GWT.log("PAUSED_STATE: continueBtnClicked called.");
             this.state = AuroraView.this.runningState;
         }
 
         @Override
         protected void stepBtnClicked() {
+            GWT.log("PAUSED_STATE: stepBtnClicked called.");
             this.state = AuroraView.this.pausedState;
         }
 
         @Override
         protected void resultCalculated() {
+            GWT.log("PAUSED_STATE: resultCalculated called.");
             this.state = AuroraView.this.finishedState;
         }
 
         @Override
         protected void redexClicked() {
+            GWT.log("PAUSED_STATE: redexClicked called.");
             this.state = AuroraView.this.pausedState;
         }
 
         @Override
         protected void onEntry() {
+            GWT.log("PAUSED_STATE: onEntry called.");
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
         }
 
@@ -269,6 +312,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected State next() {
+            GWT.log("PAUSED_STATE: next called.");
             return this.state;
         }
     }
@@ -282,11 +326,13 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void pauseBtnClicked() {
+            GWT.log("RUNNING_STATE: pauseBtnClicked called.");
             this.state = AuroraView.this.pausedState;
         }
 
         @Override
         protected void resetBtnClicked() {
+            GWT.log("RUNNING_STATE: resetBtnClicked called.");
             this.state = AuroraView.this.defaultState;
         }
 
@@ -302,6 +348,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resultCalculated() {
+            GWT.log("RUNNING_STATE: resultCalculated called.");
             this.state = AuroraView.this.finishedState;
         }
 
@@ -312,6 +359,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onEntry() {
+            GWT.log("RUNNING_STATE: onEntry called.");
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.RUNNING_STATE));
         }
 
@@ -322,6 +370,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected State next() {
+            GWT.log("RUNNING_STATE: next called.");
             return this.state;
         }
     }
@@ -330,6 +379,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
+            GWT.log("STEP_BEFORE_RESULT: runBtnClicked called.");
             this.state = AuroraView.this.runningState;
         }
 
@@ -340,6 +390,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resetBtnClicked() {
+            GWT.log("STEP_BEFORE_RESULT: resetBtnClicked called.");
             this.state = AuroraView.this.defaultState;
         }
 
@@ -350,21 +401,25 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void stepBtnClicked() {
+            GWT.log("STEP_BEFORE_RESULT: stepBtnClicked called.");
             this.state = AuroraView.this.stepBeforeResultState;
         }
 
         @Override
         protected void resultCalculated() {
+            GWT.log("STEP_BEFORE_RESULT: resultCalculated called.");
             this.state = AuroraView.this.finishedState;
         }
 
         @Override
         protected void redexClicked() {
+            GWT.log("STEP_BEFORE_RESULT: redexClicked called.");
             this.state = AuroraView.this.stepBeforeResultState;
         }
 
         @Override
         protected void onEntry() {
+            GWT.log("STEP_BEFORE_RESULT: onEntryCalled.");
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
         }
 
@@ -375,6 +430,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected State next() {
+            GWT.log("STEP_BEFORE_RESULT: next Called.");
             return this.state;
         }
     }
@@ -403,6 +459,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         protected abstract State next();
 
         protected final void stateTransition() {
+            GWT.log("State transition ...");
             State next = next();
 
             if (next != this) {

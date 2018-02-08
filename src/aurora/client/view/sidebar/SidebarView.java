@@ -180,17 +180,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
     public void addStandardLibraryItem(String name, String description) {
-
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
 
     }
 

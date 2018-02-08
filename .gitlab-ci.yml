@@ -12,6 +12,7 @@ before_script:
 stages:
     - test
     - deploy
+    - tex
 
 testjob:
     stage: test
@@ -26,3 +27,16 @@ deployjob:
         - git rev-parse --short HEAD > war/VERSION
         - ant war -lib vendor
         - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"
+
+texjob:
+    stage: tex
+    image: blang/latex
+    only:
+        - master
+    before_script:
+        - echo "nop"
+    script:
+        - pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex && pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex
+    artifacts:
+        paths:
+            - "docs/implementierung/tex/Implementierungsdokument.pdf"

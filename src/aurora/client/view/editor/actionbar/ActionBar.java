@@ -80,7 +80,6 @@ public class ActionBar extends Composite {
 
     /**
      * Sets the appearance of ActionBar's widgets to fit DEFAULT_STATE.
-     * NOTE: ActionBar's appearance in DEFAULT_STATE and STEP_BEFORE_RESULT.
      */
     public void setDefaultStateAppearance() {
         this.runButton.setStyleName("hidden", false);
@@ -97,7 +96,7 @@ public class ActionBar extends Composite {
         this.runButton.setStyleName("hidden", true);
         this.continueButton.setStyleName("hidden", true);
         this.pauseButton.setStyleName("hidden", false);
-        this.resetButton.setEnabled(false);
+        this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(false);
     }
 
@@ -121,6 +120,17 @@ public class ActionBar extends Composite {
         this.pauseButton.setStyleName("hidden", true);
         this.resetButton.setEnabled(false);
         this.stepButton.setEnabled(false);
+    }
+
+    /**
+     * Sets the appearance of ActionBar's widgets to fit STEP_BEFORE_RESULT_STATE.
+     */
+    public void  setStepBeforeResultAppearance() {
+        this.runButton.setStyleName("hidden", false);
+        this.continueButton.setStyleName("hidden", true);
+        this.pauseButton.setStyleName("hidden", true);
+        this.resetButton.setEnabled(true);
+        this.stepButton.setEnabled(true);
     }
 
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
