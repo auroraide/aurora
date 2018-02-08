@@ -54,21 +54,23 @@ Nikolai Polley, Randy Seng}
 \newpage
 %=====================EINLEITUNG=======================
 \section{Einleitung}
-Die Implementierungsphase.
-Der Teil von PSE, in der wir damit anfangen, unserem Projekt Leben einzuhauchen, und mit einem funktionierenden Prototypen enden.
-\newline
-
-Wir haben uns darüber Gedanken gemacht, wie wir neben der eigentlichen Implementierung auch die sonst notwendige Aufgaben am besten bewerkstelligen können.
-In den folgenden Paragraphen wird beschrieben, wie wir anhand unseres Entwurfs aus der vorherigen Phase vorgegangen sind.
-Anfänglich kann man schon mal vorstellen, dass das Team sehr mit dem Entwurf zufrieden war und das meiste so, wie im Entwurf ausgelegt, implementiert werden konnte.
+Die Implementierung war die dritte Phase unseres PSE-Projekts und streckte sich über vier Wochen.
+Im folgenden erläutern wir, wie aus dem Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
+entstanden ist, welche teschnichen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
+dabei getroffen wurden.
 \newline
 \newpage
 
 %=====================STATISTIKEN=====================
 \section{Statistik}
+\textbf{Machen wir das rein?}
+\subsection{Lines of Code}
+Statistik SLOC? 07.02: src ~Java 3205 ~XML 282 ~CSS 64
+test ~Java 920
+Zeilen Javadoc: kein Plan
 
 \subsection{Continuous Integration}
-Anzahl Commits: ~1200\newline
+Anzahl Commits: \textasciitilde1200\newline
 Anzahl MRs\newline
 Anzahl pipes\newline
 
@@ -76,8 +78,8 @@ Fancy gitlab charts?
 
 \subsection{Testabdekung}
 Das Package aurora.backend hat ungefähr 70 \% codeüberdeckung.
-Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde. 
-Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen, 
+Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
+Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
 ob korrekt geparsed wurde.
 Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
 Fehler des Parsers behoben werden.
@@ -111,6 +113,7 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \smallbreak
 \textbf{K11} Mehrere Schritte auswerten.
 \newline
+
 \newpage
 
 %=====================ÄNDERUNGEN=====================
@@ -128,18 +131,26 @@ Im Speziellen handelt es sich hierbei um folgendes:
 
 	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
 	\newline
-	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in dieser Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function umbenannt.
+	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in
+	diesem Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum
+	nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function
+	umbenannt.
 
 	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
 	\newline
-	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert.
+	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion
+	vorhanden ist und dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und
+	den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der
+	Presenter auch immer nur die aktuellste Bibliothek kennt, würde es zu Schwierigkeiten kommen, wenn sich die
+	Bibliothek während die Visitoren executen ändert.
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
-	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
-	\item Hinzufügung der Klasse aurora.backend.Comparer
-	\newline
-	Es wurde die Klasse Comparer geschrieben, die im Konstruktor zwei Terme erhält und diese dann mit der Methode compare() vergleicht. Die Methode gibt ein true zurück, wenn die zwei übergebenen Terme gleich waren, ein false wenn die zwei Terme nicht gleich waren. Diese Klasse wurde beim Debuggen benutzt, um zu testen ob die Reduktionsstrategien und die Betareduktion einen korrekten Term zurückgibt.
+	Diese werden in Function.term gespeichert. Danach kann nur erneutes Parsen, welches einen neuen abstrakten
+	Syntaxbaum aufbauen würde, die Funktionsassoziation ändern.
 
-    \item Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert. Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren libraries erleichtern soll. Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen. So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
+    \item Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
+Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren Libraries erleichtern soll.
+Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen.
+So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
     \newline
 
     \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
@@ -157,7 +168,8 @@ Im Speziellen handelt es sich hierbei um folgendes:
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
 \subsection{Regeln während der Implementierung}
-Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden, wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
+Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden,
+wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
 Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
@@ -234,30 +246,13 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
     \item [Iuliia]\hfill \\
     \item [Max]\hfill \\
     \item [Younis]\hfill \\
-
     \item [Randy]\hfill \\
-    \begin{enumerate}
-    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
-
-    \end{enumerate}
 \end{description}
 
+
+\subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
 
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
-
-\begin{description}
-
-\item [Alexander]\hfill \\
-\item [Nikolai]\hfill \\
-Ich habe mich großteilig an den Plan gehalten, Ich habe nur Call By Name und Call by Value vor dem Betareducer geschrieben, weil ich gemerkt hatte, das das Prinzip von denen sehr ähnlich zu der Normalenordnung war und ich zu dem Zeitpunkt nicht in ein komplett neues Thema einsteigen wollte.
-Ich hatte nach dem Betareducer noch den Comparer, für einfacheres debuggen geschrieben. Ich hatte dannach auch noch die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, damit das debuggen einfacher fiel.
-\item [Iuliia]\hfill \\
-\item [Max]\hfill \\
-\item [Younis]\hfill \\
-\item [Randy]\hfill \\
-\end{description}
 
 \subsubsection{Unerwartete Probleme}
 Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
@@ -276,12 +271,28 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
+    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis
+	für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer
+	falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der
+	Debruijn-Indizes heraus, die nur bei manchen Reduktionen relevant sind.
 
 \end{itemize}
-
+\subsubsection{Ablauf der Implementierung}
+\subsubsection{Was ist geändert und woran liegt es}
 \subsubsection{git übersicht vll}
  (Realität und wieso es sich unterscheidet von dem Anfangsplan)
+\newpage
+
+%=====================UNIT TESTS=====================
+\section{Unit tests}
+\subsection{Backend TestZeug}
+\subsubsection{Ziel}
+\subsubsection{Voraussetzungen}
+\subsubsection{Werkzeuge}
+\subsection{Frontend TestZeug}
+\subsubsection{Ziel}
+\subsubsection{Voraussetzungen \& Probleme die auftauchen koennen}
+\subsubsection{Werkzeuge}
 \newpage
 
 \end{document}
