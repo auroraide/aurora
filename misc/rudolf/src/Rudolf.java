@@ -33,9 +33,8 @@ public class Rudolf extends TelegramLongPollingBot {
                 }
             }
 
-            String reply = this.parseMessage(query);
-
             System.out.println("< " + query);
+            String reply = this.parseMessage(query);
             System.out.println("> " + reply);
 
             SendMessage message = new SendMessage()
@@ -55,7 +54,7 @@ public class Rudolf extends TelegramLongPollingBot {
 
             Term t = new LambdaParser(new HashLibrary()).parse(new LambdaLexer().lex(query));
 
-            for (int i = 0; (i < 10000) && !br.getFinished(); ++i) {
+            for (int i = 0; (i < 100) && !br.getFinished(); ++i) {
                 t = br.reduce(t);
             }
 
