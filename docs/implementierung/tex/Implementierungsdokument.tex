@@ -101,9 +101,12 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
     \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
-    	\texttt{displayAddLibraryItemSyntaxError} und \newline
-        \texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
-        \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
+    	\begin{itemize}
+        	\item \texttt{displayAddLibraryItemSyntaxError} und \newline
+        	\texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
+        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
+            \item \texttt{removeStandardLibrary}
+        \end{itemize}
 
     \item Es sind ein paar Events, die bei dem Entwurf nicht bedacht wurden, 	hinzugekommen.
 \end{itemize}
@@ -185,7 +188,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
     \item Die Redexpathklasse zu füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen.
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
@@ -194,38 +197,47 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \end{enumerate}
 Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen konnte und deshalb habe ich die Abhängigkeiten zuerst implementiert.
     \item [Iuliia]\hfill \\
-    
-   
+
+
     \begin{enumerate}
-    
-    
+
+
     \item Ermöglichung der Sprachauswahl.  \\(pkg aurora.client.*)
-    
+
     \begin{itemize}
-    
+
 	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
-	
+
 	\item[--] Erzeugen der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
-	
+
 	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
-	
+
     \end{itemize}
-    
+
     \item Für den Sprachwechsel den Menü Button implementieren \\(pkg: aurora.client.*)
-    
+
     \item Frontend styling
-    
+
     \begin{itemize}
-    
+
 	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
-	
+
 	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
-    
+
     \end{enumerate}
-    
+
     \item [Max]\hfill \\
+    	\begin{itemize}
+        	\item Behandlung von Events vom EventBus im Presenter, also:
+            \begin{itemize}
+            	\item Sharing events.
+                \item Run, Pause, Continue, Reset, Step.
+                \item Events die Zustand wichtig für die Ausführung speichern (Anzahl der auf einmal auszuführenden Schritte).
+            \end{itemize}
+            \item Implementation aller möglichen Presenter.
+        \end{itemize}
     \item [Younis]\hfill \\
 	\begin{enumerate}
 		\item Lexer
@@ -274,13 +286,13 @@ Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gef
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. 
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert.
 Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
 Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
     \item Sprachenauswahl (i18n)
     \newline
-GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client). 
+GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client).
 
 Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine konsistente Struktur erwarten würde.
 
