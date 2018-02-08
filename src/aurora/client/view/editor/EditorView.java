@@ -283,17 +283,10 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.removeAllRows();
     }
 
-    /**
-     * Signals the view that no more steps can be displayed. The only action that can be performed now is reset.
-     */
-    @Override
-    public void finishedFinished() {
-        this.eventBus.fireEvent(new FinishFinishEvent());
-    }
-
     @Override
     public void finishedFinished(HighlightedLambdaExpression result) {
-
+        this.eventBus.fireEvent(new FinishFinishEvent());
+        this.outputCodeMirror.setValue(result.toString().replace('\\', 'λ'));
     }
 
     @Override

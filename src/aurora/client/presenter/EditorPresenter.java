@@ -350,7 +350,7 @@ public class EditorPresenter {
                 return;
             }
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            editorDisplay.setInput(hle);
+            // editorDisplay.setInput(hle);
         }
     }
 }
