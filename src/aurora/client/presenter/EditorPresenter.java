@@ -144,11 +144,10 @@ public class EditorPresenter {
      * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
      */
     private void onRun() {
-        GWT.log("RunEvent fired and caught.");
+        GWT.log("EP: RunEvent caught.");
         assert (!isRunning() && !isStarted());
 
         if (!tryStartOrHandleErrors()) {
-            GWT.log("In if statement tryStartOrHandleErrors.");
             return;
         }
 
@@ -159,6 +158,7 @@ public class EditorPresenter {
     }
 
     private void onContinue() {
+        GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         // TODO hide steps?
@@ -167,6 +167,7 @@ public class EditorPresenter {
     }
 
     private void onPause() {
+        GWT.log("EP: PauseEvent caught.");
         assert (isRunning() && isStarted());
 
         runTimer.cancel();
@@ -181,6 +182,7 @@ public class EditorPresenter {
     }
 
     private void onReset() {
+        GWT.log("EP: ResetEvent caught.");
         reset();
     }
 
@@ -206,6 +208,7 @@ public class EditorPresenter {
     }
 
     private void onStep() {
+        GWT.log("EP: StepEvent caught.");
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         assert (!isRunning());
 
@@ -237,6 +240,7 @@ public class EditorPresenter {
     }
 
     private void onRedexClicked(Token token) {
+        GWT.log("EP: RedexClickEvent caught.");
         assert (!isRunning() && isStarted());
         // todo impl
     }
