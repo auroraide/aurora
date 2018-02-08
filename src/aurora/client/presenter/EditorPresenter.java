@@ -156,7 +156,7 @@ public class EditorPresenter {
         BetaReductionIterator betaReductionIterator =
                 new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
         runTimer = new RunTimer(betaReductionIterator);
-        runTimer.scheduleRepeating(0);
+        runTimer.scheduleRepeating(1);
     }
 
     private void onContinue() {
@@ -165,7 +165,7 @@ public class EditorPresenter {
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         // TODO hide steps?
         runTimer = new RunTimer(new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last()));
-        runTimer.scheduleRepeating(0);
+        runTimer.scheduleRepeating(1);
     }
 
     private void onPause() {
