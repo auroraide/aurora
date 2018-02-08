@@ -2,6 +2,7 @@
     font-size: 1.2em;
     background-color: #167A66;
     font-weight: 200;
+}
 
 .stepSettings {
     color: #fff;
@@ -31,17 +32,55 @@ input.rightAlign {
     width: 10%;
 }
 
-.gwt-StackLayoutPanelHeader {
+.standrard_db {
     color: #fff;
-    background-image: url("../img/icons/icon_db.png") !important;
+    background: url("../img/icons/icon_db.png") no-repeat !important;
     background-repeat: no-repeat;
-    background-size: auto 70% !important;
-    background-position: 5% center !important;
+    background-size: auto 60% !important;
+    background-position: 3% center !important;
     border: none !important;
     border-bottom: 0.2em solid #167A66 !important;
-    background: #33495D !important;
     text-align: center;
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_db {
+    color: #fff;
+    background: url("../img/icons/icon_user_db.png") no-repeat !important;
+    background-repeat: no-repeat;
+    background-size: auto 70% !important;
+    background-position: 3% center !important;
+    background-color: #33495D !important;
+    border: none !important;
+    border-bottom: 0.2em solid #167A66 !important;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.standrard_db .gwt-Label, .user_db .gwt-Label {
+    margin-left: 37px;
+    font-size: 16px;
+}
+
+.user_db .addButton {
+    background: url("../img/icons/icon_plus.png") no-repeat center !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 12px;
+    height: 14px;
+    top: 6px;
+    right: 6px;
+    position: relative;
+    border: none;
+}
+.user_db .addButton:focus {
+    border: none;
 }
 
 .extra_settings {
@@ -189,4 +228,5 @@ input.rightAlign {
 
 .panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
     height:80px;
+    background: #33495D !important;
 }
