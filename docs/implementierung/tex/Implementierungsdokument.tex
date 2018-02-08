@@ -257,9 +257,9 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 	\item[--] CSS Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
-    
+
     \end{enumerate}
-    
+
     \item [Max]\hfill \\
     	\begin{itemize}
         	\item Behandlung von Events vom EventBus im Presenter, also:
@@ -322,15 +322,18 @@ Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraV
 \subsubsection{Unerwartete Probleme}
 Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
-    \item ant (Buildsystem)
+    \item Ant
         \newline
-        \textbf{Das sollte vllt. am besten Younis schreiben :)}
+        Es hat sich als schwierig erwiesen, den Java-Classpath IDE-übergreifend zu konfigurieren,
+		da sich das von uns gewählte Buildsystem Ant nur sperrig integrieren ließ.
     \item Continuous Deployment
         \newline
         \textbf{Das vllt. auch...}
     \item Parser
         \newline
-        \textbf{Younis?}
+		Die vom Parser verwendete Grammatik ist keine reine LL(1)-Grammatik geworden, da es zu Problemen mit der
+		Linksassoziativität der Applikationen geführt hat.
+		Desweiteren musste eine GWT-Variante der Java-Regex-Bibliothek verwendet werden.
     \item CodeMirror
         \newline
         Ursprünglich war geplant, einen bereits vorhandenen CodeMirror Wrapper für GWT in unser Projekt einzubinden.
