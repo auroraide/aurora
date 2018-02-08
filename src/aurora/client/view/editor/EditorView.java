@@ -9,14 +9,11 @@ import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
-import aurora.client.event.StepEventHandler;
 import aurora.client.event.ViewStateChangedEvent;
-import aurora.client.event.ViewStateChangedEventHandler;
 import aurora.client.view.editor.actionbar.ActionBar;
+import aurora.client.view.popup.InfoDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,8 +24,6 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.Widget;
-
-import aurora.client.view.popup.InfoDialogBox;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -78,66 +73,69 @@ public class EditorView extends Composite implements EditorDisplay {
         setupOutputField();
         setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
+        this.actionBar.setDefaultStateAppearance();
         eventWiring();
-
     }
     
     private void eventWiring() {
         wireActionBar();
+
+        eventListeningActionbar();
     }
+
     
     /**
      * Wires the ActionBar buttons with the event bus.
      */
     private void wireActionBar() {
-        this.actionBar.getRunPauseContinueButton().addClickHandler(event -> {
-            /*switch (EditorView.this.actionBar.getRpcButtonActive()) {
-                case RUN:
-                    EditorView.this.eventBus.fireEvent(new RunEvent());
-                    break;
-                    
-                case PAUSE:
-                    EditorView.this.eventBus.fireEvent(new PauseEvent());
-                    break;
-                    
-                default:
-                    EditorView.this.eventBus.fireEvent(new ContinueEvent());
-            }*/
-
+        this.actionBar.getRunButton().addClickHandler(event -> {
+            GWT.log("EV: Fire RunEvent.");
             EditorView.this.eventBus.fireEvent(new RunEvent());
         });
-        
-        this.actionBar.getResetButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new ResetEvent()));
-        this.actionBar.getStepButton().addClickHandler(event -> EditorView.this.eventBus.fireEvent(new StepEvent()));
-        
-        
-        
-    }
-    
-    private void eventListeningActionbar() {
-        this.eventBus.addHandler(StepEvent.TYPE, new StepEventHandler() {
-            @Override
-            public void onStep(StepEvent event) {
-                GWT.log("Handler calling onStep method.");
-            }
+
+        this.actionBar.getPauseButton().addClickHandler(event -> {
+            GWT.log("EV: Fire PauseEvent.");
+            EditorView.this.eventBus.fireEvent(new PauseEvent());
         });
-        
-        eventBus.addHandler(ViewStateChangedEvent.TYPE, new ViewStateChangedEventHandler() {
-            @Override
-            public void onViewStateChanged(ViewStateChangedEvent viewStateChangedEvent) {
-                switch (viewStateChangedEvent.getViewState()) {
-                    case DEFAULT_STATE:
-                        actionBar.getResetButton().setEnabled(false);
-                        EditorView.this.actionBar.deactivateResetButton();
 
+        this.actionBar.getContinueButton().addClickHandler(event -> {
+            GWT.log("EV: Fire ContinueEvent");
+            EditorView.this.eventBus.fireEvent(new ContinueEvent());
 
-                        break;
-                    default:
-                        GWT.log("ViewStateChangedEvent captured in Default.");
+        });
 
-                }
-                
+        this.actionBar.getResetButton().addClickHandler(event -> {
+            GWT.log("EV: Fire ResetEvent");
+            EditorView.this.eventBus.fireEvent(new ResetEvent());
+        });
+        this.actionBar.getStepButton().addClickHandler(event -> {
+            GWT.log("EV: Fire StepEvent");
+            EditorView.this.eventBus.fireEvent(new StepEvent());
+        });
+
+    }
+
+    private void eventListeningActionbar() {
+
+        eventBus.addHandler(ViewStateChangedEvent.TYPE, viewStateChangedEvent -> {
+            switch (viewStateChangedEvent.getViewState()) {
+                case DEFAULT_STATE:
+                    EditorView.this.actionBar.setDefaultStateAppearance();
+                    break;
+                case RUNNING_STATE:
+                    EditorView.this.actionBar.setRunningStateAppearance();
+                    break;
+                case PAUSED_STATE:
+                    EditorView.this.actionBar.setPausedStateAppearance();
+                    break;
+                case STEP_BEFORE_RESULT_STATE:
+                    EditorView.this.actionBar.setDefaultStateAppearance();
+                    break;
+                default:
+                    // In FINISHED_STATE
+                    EditorView.this.actionBar.setFinishedStateAppearance();
             }
+
         });
     }
 
@@ -287,7 +285,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     //TODO:remove once hle is done
     private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
-        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
+        stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
         stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
@@ -310,13 +308,12 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.outputCodeMirror.setValue(highlightedLambdaExpression.toString());
-        GWT.log("View shoul display HLE: " + highlightedLambdaExpression.toString());
+        GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.outputCodeMirror.setValue(highlightedLambdaExpression.toString());
-        GWT.log("" + highlightedLambdaExpression.toString());
+        this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
     }
 
     /**
@@ -354,16 +351,6 @@ public class EditorView extends Composite implements EditorDisplay {
     public Button getOutputOptionButton() {
         return outputOptionButton;
     }
-
-    /**
-     * Returns the outputFieldTable.
-     *
-     * @return outputFieldTable
-     */
-    //TODO Kann das weg???
-    // public FlexTable getOutputFieldTable() {
-    //     return outputFieldTable;
-    // }
 
     /**
      * Returns the ActionBar.
