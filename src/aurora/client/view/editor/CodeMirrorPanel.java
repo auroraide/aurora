@@ -26,6 +26,7 @@ public class CodeMirrorPanel extends SimplePanel {
         textArea = new TextArea();
         setWidget(textArea);
         attachCM();
+
     }
 
     /**

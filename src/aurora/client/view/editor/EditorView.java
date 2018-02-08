@@ -18,6 +18,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -158,6 +159,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 String initialContent = "#Aurorascript static syntax highlighting example";
                 initialContent += "\n$plus 2 λs.λz.s(sz)";
                 inputCodeMirror.setValue(initialContent);
+                inputCodeMirror.setOption("theme", "material");
                 //autofocus not working???
                 inputCodeMirror.setOption("autofocus", true);
                 inputCodeMirror.setOption("mode", "aurorascript");
@@ -272,6 +274,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 cmp.setOption("readOnly", true);
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
+                cmp.setOption("theme", "mbo");
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
