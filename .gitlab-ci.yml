@@ -5,7 +5,7 @@ cache:
     - "${CI_PROJECT_DIR}/.ivy"
 
 before_script:
-    - apt-get update && apt-get install -y ant texlive-full
+    - apt-get update && apt-get install -y ant
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
@@ -30,6 +30,7 @@ deployjob:
 
 texjob:
     stage: tex
+    image: blang/latex
     only:
         - master
     script:
