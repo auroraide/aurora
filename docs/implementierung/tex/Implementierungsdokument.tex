@@ -165,7 +165,7 @@ Wichtig waren vorallem folgende Regeln:
 		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
 		WAR-Dateien auf einem öffentlich zugänglichen HTTP-Server entpackt und gehostet hat.
 
-       \item JUnitTests
+       \item JUnit Tests
        \newline
       	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
@@ -230,16 +230,16 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
 
     \begin{enumerate}
-    
-    
+
+
     \item Sprachauswahl ermöglichen.  \\(pkg aurora.client.*)
-    
+
     \begin{itemize}
 
 	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
-	
+
 	\item[--] Erzeugung der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
-	
+
 	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
 
     \end{itemize}
@@ -252,12 +252,12 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
 	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
 
-	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
+	\item[--] CSS Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
-
+    
     \end{enumerate}
-
+    
     \item [Max]\hfill \\
     	\begin{itemize}
         	\item Behandlung von Events vom EventBus im Presenter, also:
@@ -306,6 +306,10 @@ Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüll
 \item [Iuliia]\hfill \\
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
+Die Konfiguration des Buildsystems (Ant) und des CI Runners hat wesentlich mehr Zeit in Ansprung genommen
+als ursprünglich geplant, was dazu geführt hat, dass sich die Implementierung des Lexers und Parsers verzögert hat.
+
+Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 \item [Randy]\hfill \\
 Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
 Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
@@ -334,7 +338,7 @@ Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden u
 Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
 Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
-    \item Sprachenauswahl (i18n)
+    \item Sprachauswahl (i18n)
     \newline
 GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client).
 
@@ -343,7 +347,7 @@ Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine
 
 Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Properties Dateien in andere Pakete zu legen oder die Dateien neu zu erzeugen. Das Problem konnte nicht gelöst werden - GWT kann die i18n Properties nur in dem oben genanntem Paket sehen.
 
-	\item Css Styling
+	\item CSS Styling
     	\newline
 	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
 
