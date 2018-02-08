@@ -45,20 +45,16 @@ Nikolai Polley, Randy Seng}
 \end{titlepage}
 
 
-
-
 \begin{document}
 \maketitle
 \tableofcontents
 \newpage
 %=====================EINLEITUNG=======================
 \section{Einleitung}
-Die Implementierungsphase.
-Der Teil von PSE, in der wir damit anfangen, unserem Projekt Leben einzuhauchen, und mit einem funktionierenden Prototypen enden.
-\newline
-Ziel dieses Implementierungsdokumentes ist es, der Implementierungsphase einen möglichst geordneten Ablauf zu geben.
-Hierzu haben wir uns unter anderem darüber Gedanken gemacht, wie wir neben der eigentlichen Implementierung auch die sonst notwendige Aufgaben am besten bewerkstelligen können.
-In den folgenden Paragraphen werden wir beschrieben, wie wir anhand unseres Entwurfs aus der vorherigen Phase vorgegangen sind.
+Die Implementierung war die dritte Phase unseres PSE-Projekts und streckte sich über vier Wochen.
+Im folgenden erläutern wir, wie aus dem Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
+entstanden ist, welche teschnichen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
+dabei getroffen wurden.
 \newline
 \newpage
 
@@ -91,7 +87,7 @@ Alle im Pflichtenheft definierten Pflichtkriterien sind in der aktuellen Version
 
 \subsection{Wunschkriterien}
 Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
-Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
+Im folgenden ist eine Auflistung aller implementierten Wunschkriterien.
 \newline
 \newline
 \textbf{K1} Zeilennummer
@@ -125,20 +121,28 @@ Im Speziellen handelt es sich hierbei um folgendes:
     Leider hat es sich herausgestellt, dass der Wrapper nicht nur auf einer alten Version von CodeMirror beruht, sondern scheinbar auch einen Bug hatte, der es uns erschwert hat, ihn ohne Fehler zu benutzen.
     Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
     Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
-	
+
 	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
 	\newline
-	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in dieser Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function umbenannt.
-	
+	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in
+	dieser Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum
+	nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function
+	umbenannt.
+
 	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
 	\newline
-	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert. 
+	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion
+	vorhanden ist und dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und
+	den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der
+	Presenter auch immer nur die aktuellste Bibliothek kennt, würde es zu Schwierigkeiten kommen, wenn sich die
+	Bibliothek während die Visitoren executen ändert.
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
-	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
-	
-	
-	
-	
+	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten
+	syntaxbaum aufbauen würde die Funktionsassoziation ändern.
+
+
+
+
     \item NEUE EVENTS???
 \end{itemize}
 \subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
@@ -147,13 +151,14 @@ Im Speziellen handelt es sich hierbei um folgendes:
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
 \subsection{Regeln während der Implementierung}
-Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden, wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
+Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden,
+wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
 Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
     \item Protected master
         \newline
-        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
+        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten.
     \item Checkstyle
     \newline
     Wir haben uns für die Checkstyleregeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyleregeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
@@ -165,7 +170,7 @@ Wichtig waren vorallem folgende Regeln:
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
-        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.        
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
 \end{itemize}
 
 \subsection{Ursprünglicher Implementierungsplan}
@@ -173,8 +178,8 @@ Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen
 Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
 Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstellen und haben so verteilt, dass möglicht alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
 Die Personen hatten bei ihren zugeteilten Paketen auch beim Entwurf mitgearbeitet, damit Wissen aus dem Entwurf nicht verloren gehen konnte.
-Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde. 
-Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen. 
+Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde.
+Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen.
 Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werden, damit man die Pakete möglichst schnell testen kann.
 
 
@@ -184,7 +189,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
 
 
     \item [Alexander]\hfill \\
-      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren. 
+      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren.
         Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
         Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
     \item [Nikolai]\hfill \\
@@ -212,7 +217,8 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
 
 \subsubsection{Unerwartete Probleme}
-Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
+Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen,
+die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
     \item ant (Buildsystem)
         \newline
@@ -228,8 +234,11 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
-   
+    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis
+	für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer
+	falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der
+	Debruijn-Indizes heraus, die nur bei manchen Reduktionen relevant sind.
+
 \end{itemize}
 \subsubsection{Ablauf der Implementierung}
 \subsubsection{Was ist geändert und woran liegt es}
