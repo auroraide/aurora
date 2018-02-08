@@ -315,8 +315,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
+        this.outputCodeMirror.setValue(highlightedLambdaExpression.toString().replace('\\', 'λ'));
         this.eventBus.fireEvent(new ResultCalculatedEvent());
-        this.outputCodeMirror.setValue(highlightedLambdaExpression.toString());
         GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
