@@ -135,8 +135,8 @@ Wichtig waren vorallem folgende Regeln:
         Auf dem master selber durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
-    Wir haben uns für die Checkstyleregeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyleregeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
-    \item Git CI runner
+    Wir haben uns für die Checkstyle-Regeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyle-Regeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
+    \item Git CI Runner
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
         So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
@@ -146,16 +146,20 @@ Wichtig waren vorallem folgende Regeln:
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
         Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
+		Dazu wurde der CI Runner dahingehened angepasst, dass jeder Commit auf dem master Branch zunächst als WAR-Datei
+		gebaut und anschließend an den Deployment-Server gesendet wurde.
+		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
+		WAR-Dateien auf einem öffentlich zugänglichen HTTP-Server entpackt und gehostet hat.
 
        \item JUnitTests
        \newline
-      	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne.
+      	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
-      	 Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambdaterms berechnet werden.
-      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
-      	Falls benötigt mussten mit Mockito Klassen gemocket werden.
+      	Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden, mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambda-Terms berechnet werden.
+      	Da im Frontend keine schnellen JUnit-Tests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
+      	Falls benötigt, mussten Klassen mit Mockito gemocket werden.
       	\item Issues
-      	Wenn Probleme im Code von anderen Teammitgliedern gefunden wurden, mussten Issues in Gitlab geöffnet werden, damit keine Informationen verloren gehen konnten.
+      	Bugs oder andere Anomalien im Code anderer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
       	\end{itemize}
 
 \subsection{Ursprünglicher Implementierungsplan}
@@ -225,6 +229,11 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
     
     \item [Max]\hfill \\
     \item [Younis]\hfill \\
+	\begin{enumerate}
+		\item Lexer
+		\item Parser
+		\item Ehhh... Rudolf?
+	\end{enumerate}
     \item [Randy]\hfill \\
 \end{description}
 
