@@ -5,6 +5,9 @@ import aurora.backend.library.Library;
 import aurora.backend.library.MultiLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.Term;
 import aurora.client.presenter.AuroraPresenter;
 import aurora.client.presenter.EditorPresenter;
@@ -40,6 +43,26 @@ public class Aurora implements EntryPoint {
         // libraries
         Library userLib = new HashLibrary();
         Library stdLib = new HashLibrary();
+        stdLib.define("plus","Addition",new Abstraction(
+                new Abstraction(
+                        new Abstraction(
+                                new Abstraction(
+                                        new Application(
+                                                new Application(
+                                                        new BoundVariable(4), new BoundVariable(2)
+                                                ),
+                                                new Application(
+                                                        new Application(
+                                                                new BoundVariable(3), new BoundVariable(2)
+                                                        ), new BoundVariable(1)
+
+                                                )
+
+                                        ), "z"
+                                ),"s"
+                        ),"m"
+                ),"n"
+        ));
 
         ArrayList<Term> steps = new ArrayList<>();
         LambdaLexer lexer = new LambdaLexer();

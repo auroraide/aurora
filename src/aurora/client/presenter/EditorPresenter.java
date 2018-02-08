@@ -350,7 +350,7 @@ public class EditorPresenter {
                 return;
             }
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            // editorDisplay.setInput(hle);
+            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting
         }
     }
 }

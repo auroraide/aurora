@@ -11,6 +11,7 @@
 \refoot{\today}
 \pagestyle{scrheadings}
 \usepackage[T1]{fontenc}
+\usepackage[sfdefault]{roboto}
 \usepackage[german]{babel}
 \usepackage[yyyymmdd]{datetime} % must be after babel
 \renewcommand{\dateseparator}{-} % ISO8601 date format
@@ -38,7 +39,7 @@
 \subtitle{The Lambda Calculus IDE}
 
 
-\author{Julia Patrusheva, Alexander von Heyden\\
+\author{Iuliia Patrusheva, Alexander von Heyden\\
 Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
@@ -53,64 +54,11 @@ Nikolai Polley, Randy Seng}
 \newpage
 %=====================EINLEITUNG=======================
 \section{Einleitung}
-Die Implementierungsphase.
-Der Teil von PSE, in der wir damit anfangen, unserem Projekt Leben einzuhauchen, und mit einem funktionierenden Prototypen enden.
+Die Implementierung war die dritte Phase unseres PSE-Projekts und streckte sich über vier Wochen.
+Im Folgenden erläutern wir, wie aus dem sehr guten Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
+entstanden ist, welche technischen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
+dabei getroffen wurden.
 \newline
-Ziel dieses Implementierungsdokumentes ist es, der Implementierungsphase einen möglichst geordneten Ablauf zu geben.
-Hierzu haben wir uns unter anderem darüber Gedanken gemacht, wie wir neben der eigentlichen Implementierung auch die sonst notwendige Aufgaben am besten bewerkstelligen können.
-In den folgenden Paragraphen werden wir beschrieben, wie wir anhand unseres Entwurfs aus der vorherigen Phase vorgegangen sind.
-\newline
-\newpage
-
-%=====================STATISTIKEN=====================
-\section{Statistik}
-\textbf{Machen wir das rein?}
-\subsection{Lines of Code}
-Statistik SLOC? 07.02: src ~Java 3205 ~XML 282 ~CSS 64
-test ~Java 920
-Zeilen Javadoc: kein Plan
-
-\subsection{Continuous Integration}
-Anzahl Commits\newline
-Anzahl MRs\newline
-Anzahl pipes\newline
-
-Fancy gitlab charts?
-
-\subsection{Testabdekung}
-Wenn Zeit ist, ansonsten kommt das weg.
-Der Rest übrigens auch...
-
-\newpage
-
-%=====================FEATURES=====================
-\section{Kriterien}
-
-\subsection{Pflichtkriterien}
-Alle im Pflichtenheft definierten Pflichtkriterien sind in der aktuellen Version von Aurora umgesetzt worden.
-
-\subsection{Wunschkriterien}
-Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
-Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
-\newline
-\newline
-\textbf{K1} Zeilennummer
-\newline
-\textbf{K2} Kommentare einfügen
-\newline
-\textbf{K3} Autovervollständigung von Klammern
-\newline
-\textbf{K4} Syntax-Highlighting
-\newline
-\textbf{K7} STANDARDBIBLIOTHEK \textbf{Nikolai, wie siehts aus?}
-\newline
-\textbf{K8} BENUTZERBIBLIOTHEK \textbf{Nikolai, wie siehts aus?}
-\bigbreak
-\textbf{K9} Weitere Auswertungsstrategien
-\smallbreak
-\textbf{K11} Mehrere Schritte auswerten \textbf{Nikolai}
-\newline
-
 \newpage
 
 %=====================ÄNDERUNGEN=====================
@@ -125,56 +73,118 @@ Im Speziellen handelt es sich hierbei um folgendes:
     Leider hat es sich herausgestellt, dass der Wrapper nicht nur auf einer alten Version von CodeMirror beruht, sondern scheinbar auch einen Bug hatte, der es uns erschwert hat, ihn ohne Fehler zu benutzen.
     Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
     Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
-	
-	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
+
+	\item Umbennennung der Klasse (aurora.backend.tree.Libraryterm)
 	\newline
-	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in dieser Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function umbenannt.
-	
-	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
+	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in
+	diesem Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum
+	nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function
+	umbenannt.
+
+	\item Hinzufügung eines Attributs der Klasse (aurora.backend.tree.Function)
 	\newline
-	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert. 
+	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion
+	vorhanden ist und dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und
+	den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der
+	Presenter auch immer nur die aktuellste Bibliothek kennt, würde es zu Schwierigkeiten kommen, wenn sich die
+	Bibliothek während die Visitoren executen ändert.
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
-	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
-	
-	
-	
-	
-    \item NEUE EVENTS???
+	Diese werden in Function.term gespeichert. Danach kann nur erneutes Parsen, welches einen neuen abstrakten
+	Syntaxbaum aufbauen würde, die Funktionsassoziation ändern.
+
+    \item Umbenennung der Klasse (aurora.backend.library.Library)
+    \newline
+     Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
+Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren Libraries erleichtern soll.
+Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen.
+So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
+    \newline
+
+    \item Übergebung der Indizes
+    \newline
+    Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+
+    \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
+    	\begin{itemize}
+        	\item \texttt{displayAddLibraryItemSyntaxError} und \newline
+        	\texttt{displayAddLibraryItemSemanticError} wurden hinzugefügt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wurde hinzugefügt und wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt. Es soll dem Benutzer eine Fehlermeldung angezeigt werden.
+            \item \texttt{removeStandardLibraryItem} und \newline
+            	\texttt{removeUserLibraryItem} wurden entfernt. Diese Funktionen werden nicht gebraucht, da die View den Presenter über ein Event aufrufen soll, und diese Information sowieso schon hat.
+        \end{itemize}
+    \item Der EditorDisplay wurde auch an das moderne Zeitalter angepasst:
+    	\begin{itemize}
+    		\item \texttt{displaySyntaxError(String)} wurde
+            durch \newline \texttt{displaySyntaxError(SyntaxException)} und \newline
+        	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+    	\end{itemize}
+
+    \item Neu hinzugefügte Events:
+    	\begin{itemize}
+    		\item
+    	\end{itemize}
 \end{itemize}
-\subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
-\newpage
+
+
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
-\subsection{Regeln während der Implementierung}
-Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden, wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
+\subsection{Richtlinien}
+Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden,
+wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
 Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
+	\item Alle haben die benötigten Tools korrekt installiert
+	\newline
+	Am ersten Treffen mussten alle Teammitglieder die benötigten Tools installieren und testen ob sie funktionieren.
+	Alle Teammitglieder mussten ein Mergetool installiert haben, weil es bereits Probleme im Entwurf wegen fehlerhaften Merges gegeben hatte.
+	Auch mussten die Teammitglieder alle Funktionen auf der Kommandozeile zusätzlich 	zu der IDE ausführen können. Dies wurde vorrausgesetzt, um mögliche Fehler von den IDEs ausschließten zu können.
+	Tools wie Ant, Ivy, Codemirror, Checkstyle, mussten zusätzlich installiert und eingerichtet werden.
+	Natürlich musste auch GWT installiert und in die IDE eingebunden werden.
+
     \item Protected master
         \newline
-        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
+        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten.
+        Auf dem master selber durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
-    Wir haben uns für die Checkstyleregeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyleregeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
-    \item Git CI runner
+    Wir haben uns für die Checkstyle-Regeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyle-Regeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
+    \item Git CI Runner
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
         So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
+
     \item Continuous Deployment
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
-        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.        
-\end{itemize}
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
+		Dazu wurde der CI Runner dahingehened angepasst, dass jeder Commit auf dem master Branch zunächst als WAR-Datei
+		gebaut und anschließend an den Deployment-Server gesendet wurde.
+		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
+		WAR-Dateien auf einem öffentlich zugänglichen HTTP-Server entpackt und gehostet hat.
 
-\subsection{Ursprünglicher Implementierungsplan}
+       \item JUnitTests
+       \newline
+      	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
+      	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
+      	Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden, mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambda-Terms berechnet werden.
+      	Da im Frontend keine schnellen JUnit-Tests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
+      	Falls benötigt, mussten Klassen mit Mockito gemocket werden.
+      	\item Issues
+        \newline
+      	Bugs und Anomalien im Code unserer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
+      	\end{itemize}
+
+\subsection{Implementierungsplan}
 Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
 Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
 Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstellen und haben so verteilt, dass möglicht alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
 Die Personen hatten bei ihren zugeteilten Paketen auch beim Entwurf mitgearbeitet, damit Wissen aus dem Entwurf nicht verloren gehen konnte.
-Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde. 
-Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen. 
+Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde.
+Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen.
+
 Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werden, damit man die Pakete möglichst schnell testen kann.
 
 
@@ -184,35 +194,123 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
 
 
     \item [Alexander]\hfill \\
-      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren. 
-        Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
-        Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
+    \begin{enumerate}
+        \item CodeMirror
+            \newline
+            Zur Darstellung von Code haben wir uns entschieden, CodeMirror zu benutzen.
+            Hierzu war geplant, einen bereits vorhandenen CodeMirror Wrapper in unser Projekt einzubinden.
+        \item Highlighting
+            \newline
+            CodeMirror ermöglicht durch eine Schnittstelle statisches Syntaxhighlighting.
+            Zur Darstellung dynamischen Syntaxhighlightings reicht diese nicht aus, deswegen benutzen wir hier die HighlightedLambdaExpressions.
+        \item Editor (pkg: aurora.client.view.editor)
+            \newline
+            Den größten Teil der graphischen Oberfläche wird vom EditorPanel eingenommen.
+            Das EditorPanel selbst beinhaltet mehrere CodeMirrorPanel, die ihrer Aufgaben entsprechend konfiguriert werden müssen.
+        \item Encoder (pkg: aurora.backend.encoders)
+            \newline
+            Encoder ermöglochen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
+            Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt auf Pastebin speichert.
+    \end{enumerate}
     \item [Nikolai]\hfill \\
     \begin{enumerate}
     \item Churchnummern in Abstraktionsgestalt von den Integers in denen sie gespeichert sind generieren. \\(class aurora.backend.tree.Churchnumber)
-    \item  Die Libraryfunktionen implementieren \\pkg: aurora.backend.library
-    \item Die Redexpathklasse zu füllen \\class: aurora.backend.RedexPath
-    \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\class: aurora.backend.betareduction.strategies.NormalOrder
-    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen. backend.betareduction
+    \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
+    \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
+    \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
+    \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
 
-\item Die ShareLatex klasse wird implementiert \\(class: aurora.backend.ShareLatex)
+\item Die ShareLatex klasse muss zuletzt implementiert werden\\(class: aurora.backend.ShareLatex)
     \end{enumerate}
-Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen konnte und deshalb habe ich die Abhängigkeiten zuerst implementiert.
+Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und deshalb wurden zuerst die Abhängigkeiten implementiert.
     \item [Iuliia]\hfill \\
+
+
+    \begin{enumerate}
+    
+    
+    \item Sprachauswahl ermöglichen.  \\(pkg aurora.client.*)
+    
+    \begin{itemize}
+
+	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
+	
+	\item[--] Erzeugung der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
+	
+	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
+
+    \end{itemize}
+
+    \item Für den Sprachwechsel den Menü Button implementieren \\(pkg: aurora.client.*)
+
+    \item Frontend styling
+
+    \begin{itemize}
+
+	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
+
+	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
+
+    \end{itemize}
+
+    \end{enumerate}
+
     \item [Max]\hfill \\
+    	\begin{itemize}
+        	\item Behandlung von Events vom EventBus im Presenter, also:
+            \begin{itemize}
+            	\item Sharing events.
+                \item Run, Pause, Continue, Reset, Step.
+                \item Events die Zustand wichtig für die Ausführung speichern (Anzahl der auf einmal auszuführenden Schritte).
+            \end{itemize}
+            \item Implementation aller möglichen Presenter.
+        \end{itemize}
     \item [Younis]\hfill \\
+	\begin{enumerate}
+		\item Lexer
+		\item Parser
+		\item Ehhh... Rudolf?
+	\end{enumerate}
+    
     \item [Randy]\hfill \\
+    \begin{enumerate}
+    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
+    \end{enumerate}
 \end{description}
 
 
-\subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
 
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
 
+\begin{description}
+
+\item [Alexander]\hfill \\
+\item [Nikolai]\hfill \\
+Großteilig wurde sich an den Plan gehalten, es wurde nur Call By Name und Call by Value vor dem Betareducer geschrieben.
+Es wurde  bemerkt, dass das Prinzip dieser Reduktionsstrategien sehr ähnlich zu der Normalenordnung war und zu dem Zeitpunkt es passender erschien diese zu implementieren als in ein komplett neues Thema einzusteigen.
+Nach dem Betareduzierer wurde noch den Comparer geschrieben, der für einfacheres debuggen geeignet war. Ob er sich auch für den Simplifier eignet muss sich in der Qualitätssicherung zeigen.
+Da bei der User Strategy Implemntierung des Frontends, Presenters und Backends benötigt wird und andere Teammitglieder, vitalere Dinge zu erledigen hatten
+wurde die Implementierung dieser Reduktionsstrategie in die Qualitätssicherung verschoben.
+Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, da die Aufgabenverteilung nicht ganz fair gelungen war, da unterschätzt worden war, wie aufwändig die Toolchain einzurichten war.
+
+\item [Iuliia]\hfill \\
+\item [Max]\hfill \\
+\item [Younis]\hfill \\
+\item [Randy]\hfill \\
+Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
+Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
+Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
+    
+\end{description}
+
 \subsubsection{Unerwartete Probleme}
-Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
+Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
     \item ant (Buildsystem)
         \newline
@@ -228,25 +326,83 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
-   
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert.
+Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
+Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
+
+    \item Sprachenauswahl (i18n)
+    \newline
+GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client).
+
+Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine konsistente Struktur erwarten würde.
+
+
+Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Properties Dateien in andere Pakete zu legen oder die Dateien neu zu erzeugen. Das Problem konnte nicht gelöst werden - GWT kann die i18n Properties nur in dem oben genanntem Paket sehen.
+
+	\item Css Styling
+    	\newline
+	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
+
 \end{itemize}
-\subsubsection{Ablauf der Implementierung}
-\subsubsection{Was ist geändert und woran liegt es}
-\subsubsection{git übersicht vll}
- (Realität und wieso es sich unterscheidet von dem Anfangsplan)
+
 \newpage
 
-%=====================UNIT TESTS=====================
-\section{Unit tests}
-\subsection{Backend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen}
-\subsubsection{Werkzeuge}
-\subsection{Frontend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen \& Probleme die auftauchen koennen}
-\subsubsection{Werkzeuge}
+
+%=====================FEATURES=====================
+\section{Implementierte Kriterien}
+
+\subsection{Musskriterien}
+Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
+
+\subsection{Wunschkriterien}
+Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
+Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
+\newline
+\newline
+\textbf{K1} Zeilennummer
+\newline
+\textbf{K2} Kommentare einfügen
+\newline
+\textbf{K3} Autovervollständigung von Klammern
+\newline
+\textbf{K4} Syntax-Highlighting
+\newline
+\textbf{K7} Standardbibliothek
+\newline
+\textbf{K8} Benutzerbibliothek
+\newline
+\textbf{K9} Call By Name und Call By Value
+\newline
+\textbf{K11} Mehrere Schritte auswerten.
+\newline
+
+\subsection{Weggefallene Kriterien}
+Einige Wunschkriterien sind noch nicht vollständig implementiert, aber es wurden keine Kriterien von der Implementierung ausgeschlossen.
 \newpage
+
+
+%=====================STATISTIKEN=====================
+\section{Statistiken}
+
+\subsection{Continuous Integration}
+Anzahl Commits: \textasciitilde  1200\newline
+
+Anzahl Lines of code in Java: \textasciitilde 4200
+Anzahl Lines of code in XML: 255
+
+Anzahl lines of Code in Tests: \textasciitilde 1300
+
+
+\subsection{Testabdeckung}
+Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
+Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
+Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
+Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
+ob korrekt geparsed wurde.
+Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
+Fehler des Parsers behoben werden.
+Später wurde auch die Fähigkeit des Betareduzierens dem Bot hinzugefügt.
+\newpage
+
 
 \end{document}
