@@ -186,9 +186,22 @@ public class LambdaParser {
         if (this.inputStack.peek().getType()
                 == Token.TokenType.T_NUMBER) {
 
-            return new MetaTerm(new ChurchNumber(
-                    Integer.parseInt(this.inputStack.peek().getName())),
-                    this.inputStack.pop());
+            try {
+                return new MetaTerm(new ChurchNumber(
+                        Integer.parseInt(this.inputStack.peek().getName())),
+                        this.inputStack.pop());
+            } catch (NumberFormatException e) {
+                throw new SemanticException("Parse error at line "
+                        + this.inputStack.peek().getLine()
+                        + ", column "
+                        + this.inputStack.peek().getColumn()
+                        + ": number "
+                        + this.inputStack.peek().toString()
+                        + " is too large.",
+                        this.inputStack.peek().getLine(),
+                        this.inputStack.peek().getColumn(),
+                        this.inputStack.peek().getOffset());
+            }
 
         }
 

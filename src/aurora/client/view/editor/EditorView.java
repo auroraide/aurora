@@ -164,6 +164,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 inputCodeMirror.setOption("autoCloseBrackets", true);
                 inputCodeMirror.setOption("matchBrackets", true);
                 inputCodeMirror.setOption("styleActiveLine", true);
+                console(getInput());
             }
         });
     }
@@ -249,7 +250,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public String getInput() {
-        return this.inputCodeMirror.getValue();
+        return this.inputCodeMirror.getValue().replace('λ', '\\');
     }
 
     @Override
