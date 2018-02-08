@@ -5,13 +5,14 @@ cache:
     - "${CI_PROJECT_DIR}/.ivy"
 
 before_script:
-    - apt-get update && apt-get install -y ant
+    - apt-get update && apt-get install -y ant texlive-full
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
 stages:
     - test
     - deploy
+    - tex
 
 testjob:
     stage: test
@@ -26,3 +27,13 @@ deployjob:
         - git rev-parse --short HEAD > war/VERSION
         - ant war -lib vendor
         - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"
+
+texjob:
+    stage: tex
+    only:
+        - master
+    script:
+        - pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex && pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex
+    artifacts:
+        paths:
+            - "docs/implementierung/tex/Implementierungsdokument.pdf"
