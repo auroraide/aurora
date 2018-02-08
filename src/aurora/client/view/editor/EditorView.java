@@ -231,7 +231,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 String initialContent = "4";
                 initialContent += "\n#Duh";
                 outputCodeMirror.setValue(initialContent);
-                inputCodeMirror.setOption("theme", "material");
+                outputCodeMirror.setOption("theme", "material");
                 outputCodeMirror.setOption("readOnly", true);
                 outputCodeMirror.setOption("mode", "aurorascript");
                 outputCodeMirror.setOption("matchBrackets", true);
