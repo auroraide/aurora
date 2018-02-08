@@ -90,7 +90,6 @@
 .stepFieldTable tbody tr {
     display: flex;
     padding: 2px 5px;
-    overflow: scroll;
     border-bottom: 1px solid #949494;
 }
 
