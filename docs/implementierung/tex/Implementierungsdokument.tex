@@ -98,10 +98,7 @@ Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter anne
 So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
     \newline
 
-    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression.
-    Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt,
-    da der Presenter diese Informationen bereits hat.
-    Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
     \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\texttt{displayAddLibraryItemSyntaxError} und \newline
@@ -185,10 +182,11 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item [Nikolai]\hfill \\
     \begin{enumerate}
     \item Churchnummern in Abstraktionsgestalt von den Integers in denen sie gespeichert sind generieren. \\(class aurora.backend.tree.Churchnumber)
-    \item  Die Libraryfunktionen implementieren \\pkg: aurora.backend.library
-    \item Die Redexpathklasse zu füllen \\class: aurora.backend.RedexPath
-    \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\class: aurora.backend.betareduction.strategies.NormalOrder
-    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen. backend.betareduction
+    \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
+    \item Die Redexpathklasse zu füllen \\class: (aurora.backend.RedexPath)
+    \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
+    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen. 
+    \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
 
@@ -276,7 +274,9 @@ Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gef
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. 
+Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
+Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
     \item Sprachenauswahl (i18n)
     \newline
@@ -339,8 +339,10 @@ Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in 
 \subsection{Continuous Integration}
 Anzahl Commits: \textasciitilde  1200\newline
 
-Anzahl MRs\newline
-Anzahl pipes\newline
+Anzahl Lines of code in Java: \textasciitilde 4200
+Anzahl Lines of code in XML: 255
+
+Anzahl lines of Code in Tests: \textasciitilde 1300
 
 
 \subsection{Testabdeckung}
