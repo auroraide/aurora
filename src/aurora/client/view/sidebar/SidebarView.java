@@ -184,20 +184,10 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
-    public void removeUserLibraryItem(String name) {
-
-    }
-
-    @Override
     public void addStandardLibraryItem(String name, String description) {
         int row = this.standardLibraryTable.getRowCount();
         this.standardLibraryTable.setText(row, 0, name);
         this.standardLibraryTable.setText(row, 1, description);
-    }
-
-    @Override
-    public void removeStandardLibraryItem(String name) {
-
     }
 
     /**
