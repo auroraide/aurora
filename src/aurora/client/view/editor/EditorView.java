@@ -258,7 +258,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions) {
+    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
         highlightedLambdaExpressions.forEach((hle) -> {
             addStepEntry(stepFieldTable.getRowCount(), hle);
         });
@@ -311,6 +311,11 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void resetSteps() {
         stepFieldTable.removeAllRows();
+    }
+
+    @Override
+    public void finishedFinished(HighlightedLambdaExpression result) {
+
     }
 
     @Override

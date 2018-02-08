@@ -3,7 +3,6 @@ package aurora.client;
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.Term;
 
 import java.util.List;
 
@@ -49,6 +48,7 @@ public interface EditorDisplay {
      * Appends a new list of steps to the current step list.
      *
      * @param highlightedLambdaExpressions Steps to append.
+     * @param index index of the first item in the given list.
      */
     void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index);
 
@@ -59,9 +59,9 @@ public interface EditorDisplay {
 
     /**
      * Signals the view that no more steps can be displayed. The only action that can be performed now is reset.
-     * @param result
+     * @param result Irreducible lambda expression.
      */
-    void finishedFinished(Term result);
+    void finishedFinished(HighlightedLambdaExpression result);
 
     /**
      * Displays the result and locks any outputs. No further steps can be added after calling this.

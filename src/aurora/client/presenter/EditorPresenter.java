@@ -133,9 +133,7 @@ public class EditorPresenter {
             if (!reStepper.hasNext()) {
                 // current is irreducible => current term is result.
                 Term result = reStepper.next();
-                // editorDisplay.addNextStep(ssss, nextReStepIndex);
-                // nextReStepIndex += i; // i=0: ssss is empty. this will be a no-op. also this whole linda is kinda unnecessary.
-                editorDisplay.finishedFinished(result);
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(result));
                 break;
             } else {
                 Term result = reStepper.next();
@@ -176,8 +174,8 @@ public class EditorPresenter {
     }
 
     private boolean isReStepping() {
-        assert(!isRunning() && isStarted());
-        assert((nextReStepIndex == null) == (reStepper == null));
+        assert (!isRunning() && isStarted());
+        assert ((nextReStepIndex == null) == (reStepper == null));
         return reStepper != null;
     }
 
