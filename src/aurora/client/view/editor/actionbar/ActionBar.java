@@ -118,7 +118,7 @@ public class ActionBar extends Composite {
         this.runButton.setStyleName("hidden", false);
         this.continueButton.setStyleName("hidden", true);
         this.pauseButton.setStyleName("hidden", true);
-        this.resetButton.setEnabled(false);
+        this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(false);
     }
 
