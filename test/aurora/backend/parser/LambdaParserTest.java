@@ -61,6 +61,19 @@ public class LambdaParserTest {
 
     }
 
+
+    @Test
+    public void firstLineComment() {
+        String[] input = {
+            "#Comment\n((\\x.(x x)) (\\y.((x y) z)))"
+        };
+        String[] expected = {
+            "((\\x.(1 1)) (\\y.((x 1) z)))",
+        };
+
+        this.assertParse(input, expected);
+    }
+
     private void assertParse(String[] input, String[] expected) {
         for (int i = 0; i < expected.length; ++i) {
             try {
