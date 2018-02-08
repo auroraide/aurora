@@ -1,5 +1,6 @@
 package aurora.backend;
 
+import aurora.backend.parser.LambdaParser;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -37,7 +38,7 @@ public class HighlightableLambdaExpressionTest {
     public void withparenscauseapp() {
         Abstraction t = new ChurchNumber(2).getAbstraction();
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ s . \\ z . 2 ( 2 1 ) ", hle.toString());
+        assertEquals("\\ s . \\ z . s ( s z ) ", hle.toString());
 
     }
 
@@ -47,7 +48,77 @@ public class HighlightableLambdaExpressionTest {
                 new Abstraction(new BoundVariable(1),"x"), new FreeVariable("y")
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ x . 1 ) y ",hle.toString());
+        assertEquals("( \\ x . x ) y ",hle.toString());
+    }
+
+    @Test
+    public void doublealpha() {
+        Term t = new Abstraction(
+                new Abstraction(
+                        new BoundVariable(1),"x"
+                ),"x"
+        );
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\ x . \\ x . x ", hle.toString());
+    }
+
+    @Test
+    public void triplealpha() {
+        Term t = new Abstraction(
+                    new Abstraction(
+                            new Abstraction(
+                                    new BoundVariable(1),"x"
+                            ),"x"
+                    ),"x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\ x . \\ x . \\ x . x ",hle.toString());
+    }
+
+    @Test
+    public void fvaralpha() {
+        Term t = new Abstraction(
+                        new Abstraction(
+                                new Application(
+                                        new BoundVariable(1), new FreeVariable("x")
+                                ),"x"
+                        ),"x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\ x . \\ x . x x1 ", hle.toString());
+    }
+
+    @Test
+    // just print the boundedvars
+    public void infinity() {
+        Term t = new Application(
+                new Abstraction(
+                        new Application(
+                                new BoundVariable(1), new BoundVariable(1)
+                        ), "x"
+                ),
+                new Abstraction(
+                        new Application(
+                                new BoundVariable(1), new BoundVariable(1)
+                        ), "x"
+                )
+        );
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("( \\ x . x x ) ( \\ x . x x ) ",hle.toString());
+
+    }
+
+    @Test
+    public void morealpha() {
+        Term t = new Abstraction(
+                new Application(
+                        new BoundVariable(1), new FreeVariable("x")
+                ),"x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\ x . x x1 ",hle.toString());
     }
 
 }
