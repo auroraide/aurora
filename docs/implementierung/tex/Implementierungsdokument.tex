@@ -218,7 +218,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
     \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen.
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
@@ -255,9 +255,9 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 	\item[--] CSS Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
-    
+
     \end{enumerate}
-    
+
     \item [Max]\hfill \\
     	\begin{itemize}
         	\item Behandlung von Events vom EventBus im Presenter, also:
@@ -274,12 +274,12 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 		\item Parser
 		\item Ehhh... Rudolf?
 	\end{enumerate}
-    
+
     \item [Randy]\hfill \\
     \begin{enumerate}
     \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
     \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
     \end{enumerate}
 \end{description}
@@ -310,21 +310,24 @@ Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
 Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
 Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
-    
+
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
 Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
-    \item ant (Buildsystem)
+    \item Ant
         \newline
-        \textbf{Das sollte vllt. am besten Younis schreiben :)}
+        Es hat sich als schwierig erwiesen, den Java-Classpath IDE-übergreifend zu konfigurieren,
+		da sich das von uns gewählte Buildsystem Ant nur sperrig integrieren ließ.
     \item Continuous Deployment
         \newline
         \textbf{Das vllt. auch...}
     \item Parser
         \newline
-        \textbf{Younis?}
+		Die vom Parser verwendete Grammatik ist keine reine LL(1)-Grammatik geworden, da es zu Problemen mit der
+		Linksassoziativität der Applikationen geführt hat.
+		Desweiteren musste eine GWT-Variante der Java-Regex-Bibliothek verwendet werden.
     \item CodeMirror
         \newline
         \textbf{Gerade kein Bock, schreib ich später. Alex}
