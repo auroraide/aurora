@@ -236,7 +236,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void addStepEntry(int entryIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex + 1));
-        stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
+        stepFieldTable.setWidget(entryIndex, 1, new Button());
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         //TODO: once hle is done, use its magic
@@ -248,6 +248,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
                 cmp.setOption("theme", "mbo");
+                cmp.setOption("lineNumbers", false);
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
