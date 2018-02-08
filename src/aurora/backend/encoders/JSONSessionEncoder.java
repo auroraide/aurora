@@ -74,7 +74,7 @@ public class JSONSessionEncoder extends SessionEncoder {
             name = libraryString[i][0];
             description = libraryString[i][1];
             try {
-                term = lambdaParser.parse(lambdaLexer.lex(rawInput));
+                term = lambdaParser.parse(lambdaLexer.lex(libraryString[i][2]));
             } catch (SemanticException | SyntaxException e) {
                 throw new DecodeException("Invalid json file");
             } 
