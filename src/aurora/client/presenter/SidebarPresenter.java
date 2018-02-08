@@ -11,6 +11,7 @@ import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.ExportLaTeXAllEvent;
 import aurora.client.event.ExportLaTeXEvent;
 import aurora.client.event.ShareEmailAllEvent;
@@ -65,6 +66,11 @@ public class SidebarPresenter {
 
     private void bind() {
         eventBus.addHandler(AddFunctionEvent.TYPE, this::onAddFunction);
+        eventBus.addHandler(DeleteFunctionEvent.TYPE, this::onDeletFunction);
+    }
+
+    private void onDeletFunction(DeleteFunctionEvent e) {
+        userLib.remove(e.getFunctionName());
     }
 
     private void onAddFunction(AddFunctionEvent input) {

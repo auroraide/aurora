@@ -14,7 +14,7 @@ public class LambdaLexer {
 
     private static final String T_LAMBDA_REGEX = "^\\\\";
     private static final String T_DOT_REGEX = "^\\.";
-    private static final String T_VARIABLE_REGEX = "^([a-z]+)";
+    private static final String T_VARIABLE_REGEX = "^([a-z][a-z0-9]*)";
     private static final String T_LEFT_PARENS_REGEX = "^\\(";
     private static final String T_RIGHT_PARENS_REGEX = "^\\)";
     private static final String T_FUNCTION_REGEX = "^\\$([a-z]+)";

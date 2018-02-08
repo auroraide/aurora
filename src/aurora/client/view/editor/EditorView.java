@@ -18,6 +18,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -158,6 +159,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 String initialContent = "#Aurorascript static syntax highlighting example";
                 initialContent += "\n$plus 2 λs.λz.s(sz)";
                 inputCodeMirror.setValue(initialContent);
+                inputCodeMirror.setOption("theme", "material");
                 //autofocus not working???
                 inputCodeMirror.setOption("autofocus", true);
                 inputCodeMirror.setOption("mode", "aurorascript");
@@ -229,6 +231,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 String initialContent = "4";
                 initialContent += "\n#Duh";
                 outputCodeMirror.setValue(initialContent);
+                outputCodeMirror.setOption("theme", "material");
                 outputCodeMirror.setOption("readOnly", true);
                 outputCodeMirror.setOption("mode", "aurorascript");
                 outputCodeMirror.setOption("matchBrackets", true);
@@ -269,9 +272,11 @@ public class EditorView extends Composite implements EditorDisplay {
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
                 cmp.setValue(hle.toString());
+                cmp.setOption("theme", "material");
                 cmp.setOption("readOnly", true);
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
+                cmp.setOption("theme", "mbo");
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
@@ -287,12 +292,13 @@ public class EditorView extends Composite implements EditorDisplay {
     //TODO:remove once hle is done
     private void addStepEntryDEBUG(int entryIndex, String notAnHle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(entryIndex));
-        stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
+        stepFieldTable.setWidget(entryIndex, 1, new Button(""));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
                 cmp.setValue(notAnHle);
+                cmp.setOption("theme", "material");
                 cmp.setOption("readOnly", true);
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
