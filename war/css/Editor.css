@@ -80,3 +80,50 @@
 .action_bar .hidden {
     display: none;
 }
+
+
+/* STEPS */
+.stepFieldTable span{
+    font-size: 16px;
+}
+
+.stepFieldTable tbody tr {
+    display: flex;
+    padding: 2px 5px;
+    overflow: scroll;
+    border-bottom: 1px solid #949494;
+}
+
+.stepFieldTable tbody tr td:nth-child(1) {
+    width: 2%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #c9c8c8;
+}
+
+.stepFieldTable tbody tr .gwt-Button, .gwt-MenuItem:first-child{
+    background: url("../img/icons/icon_settings.png") no-repeat center !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+td .subMenuItem {
+    display: none;
+}
+
+.stepFieldTable tbody tr .CodeMirror-line {
+    margin-left: 10px;
+}
+
+.CodeMirror {
+    height: unset !important;
+}
+
+.CodeMirror pre {
+    background: inherit !important;
