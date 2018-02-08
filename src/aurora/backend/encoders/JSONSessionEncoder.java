@@ -21,6 +21,21 @@ public class JSONSessionEncoder extends SessionEncoder {
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
+    /**
+     * Neither lexer nor parser are needed to encode to JSON.
+     */
+    public JSONSessionEncoder() {
+        super();
+        this.lambdaLexer = null;
+        this.lambdaParser = null;
+    }
+
+    /**
+     * Decoding requires both lexer and parser.
+     *
+     * @param lambdaLexer The lambdaLexer.
+     * @param lambdaParser The LambdaParser.
+     */
     public JSONSessionEncoder(LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
         super();
         this.lambdaLexer = lambdaLexer;
@@ -33,7 +48,9 @@ public class JSONSessionEncoder extends SessionEncoder {
         setProperty(jso, "rawInput", session.rawInput);
 
         JsArrayMixed lib = JavaScriptObject.createArray().cast();
-        session.library.forEach(item -> lib.push(addLibraryEntry(item.getName(), item.getDescription(), item.getTerm())));
+        session.library.forEach(
+                item -> lib.push(
+                    addLibraryEntry(item.getName(), item.getDescription(), item.getTerm())));
         setProperty(jso, "library", lib);
 
         return JsonUtils.stringify(jso);
@@ -46,24 +63,25 @@ public class JSONSessionEncoder extends SessionEncoder {
         }
         JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
         String rawInput =  getProperty(jso, "rawInput");
-        console(rawInput);
-        String libraryString = getProperty(jso, "library");
-        console("before");
-        console(libraryString);
-        console("after");
-
+        String[][] libraryString = getLibrary(jso);
+        Library library = new HashLibrary();
+        
         String name;
         String description;
         Term term;
-        try {
-            term = lambdaParser.parse(lambdaLexer.lex(rawInput));
-        } catch (SemanticException | SyntaxException e) {
-            throw new DecodeException("Invalid json file");
-        } 
-        
 
+        for (int i = 0; i < libraryString.length; ++i) {
+            name = libraryString[i][0];
+            description = libraryString[i][1];
+            try {
+                term = lambdaParser.parse(lambdaLexer.lex(rawInput));
+            } catch (SemanticException | SyntaxException e) {
+                throw new DecodeException("Invalid json file");
+            } 
+            library.define(name, description, term);
+        }
 
-        return null;
+        return new Session(rawInput, library);
     }
 
     private native void setProperty(JavaScriptObject jso, String property, Object value) /*-{
@@ -76,6 +94,10 @@ public class JSONSessionEncoder extends SessionEncoder {
 
     private native String getProperty(JavaScriptObject jso, String property) /*-{
         return jso[property];
+    }-*/;
+
+    private native String[][] getLibrary(JavaScriptObject jso) /*-{
+        return jso["library"];
     }-*/;
 
     private native void readLibrary(JavaScriptObject jso, Library library) /*-{
