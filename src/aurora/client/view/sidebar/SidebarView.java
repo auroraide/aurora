@@ -64,21 +64,57 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-        setupLanguageMenu();
+        setupShareLanguageMenu();
+
         eventWiring();
     }
 
-    private void setupLanguageMenu() {
+    private void setupShareLanguageMenu() {
         MenuBar languageMenu = new MenuBar(true);
         languageMenu.setAnimationEnabled(false);
-        languageMenu.addStyleName("gwt-Button");
+        languageMenu.addStyleName("languageButton");
         languageMenu.addItem("language", setupLanguageMenuBar());
         this.shareAndLanguage.add(languageMenu);
+
+        MenuBar shareMenu = new MenuBar(true);
+        languageMenu.setAnimationEnabled(false);
+        languageMenu.addStyleName("shareButton");
+        languageMenu.addItem(" ", setupShareMenuBar());
+        this.shareAndLanguage.add(shareMenu);
+    }
+
+    private MenuBar setupShareMenuBar() {
+        MenuBar shareMenuBar = new MenuBar(true);
+        shareMenuBar.addItem("LaTeX", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        shareMenuBar.addItem("Link", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        return shareMenuBar;
     }
 
     private MenuBar setupLanguageMenuBar() {
         MenuBar languageMenuBar = new MenuBar(true);
+        languageMenuBar.addItem("ENG", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
         languageMenuBar.addItem("RU", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        languageMenuBar.addItem("DE", new Command() {
             @Override
             public void execute() {
                 Window.alert("hhh");

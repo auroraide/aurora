@@ -101,7 +101,7 @@
     color: #c9c8c8;
 }
 
-.stepFieldTable tbody tr .gwt-Button, .gwt-MenuItem:first-child{
+.stepFieldTable tbody tr .gwt-Button {
     background: url("../img/icons/icon_settings.png") no-repeat center !important;
     -webkit-background-size: cover;
     -moz-background-size: cover;

@@ -1,10 +1,10 @@
 .westPanel {
-    font-size: 1.2em;
     background-color: #167A66;
     font-weight: 200;
 }
 
 .stepSettings {
+    font-size: 16px;
     color: #fff;
     background-image: url("../img/icons/icon_step.png");
     background-repeat: no-repeat;
@@ -21,7 +21,7 @@
     margin-left: 30px;
 }
 
-input.rightAlign {
+.stepField input.rightAlign {
     background-color: #33495D;
     border: 0.5px solid #b2b0b0;
     border-radius: 15%;
@@ -64,6 +64,7 @@ input.rightAlign {
 .standrard_db .gwt-Label, .user_db .gwt-Label {
     margin-left: 37px;
     font-size: 16px;
+    font-weight: 200;
 }
 
 .user_db .addButton {
@@ -205,19 +206,13 @@ input.rightAlign {
     line-height: 2em;
     font-size: 1.2em;
 }
-.share_language {
+
+.share_language tbody {
     display: flex;
-    border-top: 0.5px solid #33485c;
+    justify-content: space-between;
+    width:100%;
 }
-.share_language .gwt-Button {
-    width:50%;
-    padding: 10px;
-    font-size: 1.5em;
-    background: #167A66;
-    border: none;
-    border-radius: unset;
-    color: #fff;
-}
+
 .share_language .gwt-Button:first-child {
     border-right: 1px solid #33485c;
 }
