@@ -8,7 +8,8 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ViewStateChangedEvent extends GwtEvent<ViewStateChangedEventHandler> {
     public static GwtEvent.Type<ViewStateChangedEventHandler> TYPE = new GwtEvent.Type<>();
-    ViewState viewState;
+    private ViewState viewState;
+
 
     /**
      * Constructs ViewStateChangedEvent with {@link ViewState}.

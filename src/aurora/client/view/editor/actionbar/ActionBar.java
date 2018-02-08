@@ -15,13 +15,6 @@ import com.google.gwt.user.client.ui.Widget;
 public class ActionBar extends Composite {
     private static ActionBarUiBinder ourUiBinder = GWT.create(ActionBarUiBinder.class);
 
-    /**
-     * Represents the three types of button a runPauseContinueButton can have.
-     */
-    public enum ButtonType {
-        RUN, PAUSE, CONTINUE
-    }
-
     @UiField
     Button runButton;
     @UiField
@@ -33,14 +26,10 @@ public class ActionBar extends Composite {
     @UiField
     Button stepButton;
 
-
-    private ButtonType rpcButtonActive;
-
     /**
      * Generates a new ActionBar.
      */
     public ActionBar() {
-        this.rpcButtonActive = ButtonType.RUN;
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -90,51 +79,48 @@ public class ActionBar extends Composite {
     }
 
     /**
-     * Holds the information, whether a run, pause or continue button is active and displayed in ActionBar.
-     *
-     * @return The type of  button which is currently active and displayed.
+     * Sets the appearance of ActionBar's widgets to fit DEFAULT_STATE.
+     * NOTE: ActionBar's appearance in DEFAULT_STATE and STEP_BEFORE_RESULT.
      */
-    public ButtonType getRpcButtonActive() {
-        return rpcButtonActive;
+    public void setDefaultStateAppearance() {
+        this.runButton.setStyleName("hidden", false);
+        this.continueButton.setStyleName("hidden", true);
+        this.pauseButton.setStyleName("hidden", true);
+        this.resetButton.setEnabled(false);
+        this.stepButton.setEnabled(true);
     }
 
     /**
-     * Makes the run button active in {@link ActionBar}.
+     * Sets the appearance of ActionBar's widgets to fit RUNNING_STATE.
      */
-    public void makeRunButtonActive() {
-        // TODO set name to run. Consider i18n
-        // TODO set css style
+    public void setRunningStateAppearance() {
+        this.runButton.setStyleName("hidden", true);
+        this.continueButton.setStyleName("hidden", true);
+        this.pauseButton.setStyleName("hidden", false);
+        this.resetButton.setEnabled(false);
+        this.stepButton.setEnabled(false);
     }
 
     /**
-     * Makes the pause button active in {@link ActionBar}.
+     * Sets the appearance of ActionBar's widgets to fit PAUSED_STATE.
      */
-    public void makePauseButtonActive() {
-        // TODO set name to pause. Consider i18n
-        // TODO set css style
+    public void setPausedStateAppearance() {
+        this.runButton.setStyleName("hidden", true);
+        this.continueButton.setStyleName("hidden", false);
+        this.pauseButton.setStyleName("hidden", true);
+        this.resetButton.setEnabled(true);
+        this.stepButton.setEnabled(true);
     }
 
     /**
-     * Makes the pause button active in {@link ActionBar}.
+     * Sets the appearance of ActionBar's widgets to fit FINISHED_STATE.
      */
-    public void makeContinueButtonActive() {
-        // TODO set name to continue. Consider i18n
-        // TODO set css style
-    }
-
-    /**
-     * Makes the pause button active in {@link ActionBar}.
-     */
-    public void deactivateRPCButton() {
-        // TODO deactivate RPC-Button
-    }
-
-    public void deactivateStepButton() {
-        // TODO deactivate Continue Button
-    }
-
-    public void deactivateResetButton() {
-        // TODO deactivate Reset Button
+    public void setFinishedStateAppearance() {
+        this.runButton.setStyleName("hidden", false);
+        this.continueButton.setStyleName("hidden", true);
+        this.pauseButton.setStyleName("hidden", true);
+        this.resetButton.setEnabled(false);
+        this.stepButton.setEnabled(false);
     }
 
     interface ActionBarUiBinder extends UiBinder<Widget, ActionBar> {
