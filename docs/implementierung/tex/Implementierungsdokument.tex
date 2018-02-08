@@ -379,6 +379,12 @@ Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Prope
     	\newline
 	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
 
+    \item Restepping.
+    \newline
+    Die genaue interaktion mit dem Benutzer bezüglick Run, Pause, Continue, Reset, Step, ist sehr kompliziert. Beim Pausieren werden nur die paar zuletzt reduzierten Schrrite ausgegeben, und beim Fortfahren werden die Schritte wieder gelöscht.
+    \newline
+    Man kann sich das Ergebnis anzeigen lassen, und die Zwischenschritte erst später. Dies war recht schwierig umzusetzen im Presenter, und resultierte in Spaghetti code. Es ist eines der ersten Sachen die zu beheben sein werden in der nächsten Phase.
+
 \end{itemize}
 
 \newpage
