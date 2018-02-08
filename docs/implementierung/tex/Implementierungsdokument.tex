@@ -121,30 +121,9 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
             \item \texttt{finishedFinished} Ist ein Äquivalent zum displayResult, und wird aufgerufen wenn der zweite Durchlauf beendet ist. Mit zweiter Durchlauf ist gemeint, wenn der Benutzer bereits den fertig reduzierten Term in der Ausgabe stehen hat, aber sich (aus Lernzwecken) die Zwischenschritte nacheinander anzeigen lassen will. Wenn es keinen weiteren Schritt zum anzeigen gibt, wird diese Funktion aufgerufen.
     	\end{itemize}
 
-    \item Enum ViewState hinzugefügt (pkg: aurora.client.view)
-    \newline
-    ViewState beschreibt die einzelenen Zustände, die AuroraView haben kann.
-
-    \item Helfermethoden in Klasse ActionBar hinzugefügt.
-
-    \item Neu hinzugefügte Events und EventHandler (pkg: aurora.client.event)
+    \item Neu hinzugefügte Events:
     	\begin{itemize}
-    		\item ReStepEvent und ReStepEventHandler
-    		\newline
-    		Der ReStepEvent wird benötigt damit der Presenter weiß, dass er Schritte, die er bereits berechnet hat, jetzt nacheinander berechnen soll.
-
-    		\item ResultCalculatedEvent und ResultCalculatedEventHandler
-    		\newline
-    		Der ResultCalculatedEvent informiert die State Machine der View, dass eine Berechnung eines Lambdaterms abgeschlossen wurde und im Ergebnisfeld erscheint.
-
-    		\item FinishFinishEvent und FinishFinishEventHandler
-    		\newline
-    		Der FinishFinishEvent informiert die State Machine der View, dass eine Berechnung komplett abgeschlossen wurde. Das bedeutet, dass die Schritte und das Ergebnis in der View angezeigt werden.
-
-    		\item ViewStateChangedEvent und ViewStateChangedEventHandler
-    		\newline
-    		Der ViewStateChangedEvent informiert die einzelnen Widgets der View, dass sich der Zustand sich geändert hat.
-
+    		\item
     	\end{itemize}
 \end{itemize}
 
@@ -426,14 +405,15 @@ Einige Wunschkriterien sind noch nicht vollständig implementiert, aber es wurde
 %=====================STATISTIKEN=====================
 \section{Statistiken}
 
+\subsection{Lines of Code}
+Java: \space\space\space\space6200\newline
+XML: \space\space\space\space 280\newline
+CSS:\space\space\space\space\space\space 419 \newline
+Test: \space\space\space\space\space1300
 \subsection{Continuous Integration}
-Anzahl Commits: \textasciitilde  1250\newline
-Anzahl Klassen: 106
-Anzahl Lines of code in Java: \textasciitilde 6200 ohne blanklines
-Anzahl Lines of code in XML: 280
-
-Anzahl lines of Code in Tests: \textasciitilde 1350
-
+Commits: \space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space1200\newline
+Merge Requests:\space\space\space\space\space143\newline
+Pipelines:\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space776
 
 \subsection{Testabdeckung}
 Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
