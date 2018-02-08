@@ -19,6 +19,9 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import java.util.ArrayList;
 
+import aurora.backend.encoders.JSONSessionEncoder;
+import aurora.backend.encoders.exceptions.DecodeException;
+
 /**
  * Responsible for intitalising the Aurora Web Application.
  * <p>
@@ -54,5 +57,19 @@ public class Aurora implements EntryPoint {
                 stdLib, userLib, steps, lexer, parser);
 
         RootLayoutPanel.get().add(auroraView);
+        HashLibrary hashLib = new HashLibrary();
+        hashLib.define("add", "adds", null);
+        hashLib.define("sub", "subs", null);
+        JSONSessionEncoder jsonse = new JSONSessionEncoder(lexer, parser);
+        String json = jsonse.encode("banana", hashLib);
+        console(json);
+        try {
+            jsonse.decode(json);
+        } catch (DecodeException e) {
+            console("noIdea");
+        }
     }
+    private native void console(String message) /*-{
+        console.log(message);
+    }-*/;
 }

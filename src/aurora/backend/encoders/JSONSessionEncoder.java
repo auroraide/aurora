@@ -10,6 +10,7 @@ import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
+import aurora.backend.library.HashLibrary;
 import aurora.backend.encoders.exceptions.DecodeException;
 
 /**
@@ -44,13 +45,23 @@ public class JSONSessionEncoder extends SessionEncoder {
             throw new DecodeException("Invalid json file");
         }
         JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
-        String rawInput = (String) getProperty(jso, "rawInput");
-        Term inputTerm;
+        String rawInput =  getProperty(jso, "rawInput");
+        console(rawInput);
+        String libraryString = getProperty(jso, "library");
+        console("before");
+        console(libraryString);
+        console("after");
+
+        String name;
+        String description;
+        Term term;
         try {
-            inputTerm = lambdaParser.parse(lambdaLexer.lex(rawInput));
-        } catch (SemanticException | SyntaxException jje) {
+            term = lambdaParser.parse(lambdaLexer.lex(rawInput));
+        } catch (SemanticException | SyntaxException e) {
             throw new DecodeException("Invalid json file");
         } 
+        
+
 
         return null;
     }
@@ -63,8 +74,12 @@ public class JSONSessionEncoder extends SessionEncoder {
         return [name, description, term];
     }-*/;
 
-    private native Object getProperty(JavaScriptObject jso, String property) /*-{
+    private native String getProperty(JavaScriptObject jso, String property) /*-{
         return jso[property];
+    }-*/;
+
+    private native void readLibrary(JavaScriptObject jso, Library library) /*-{
+
     }-*/;
 
     private native void console(String message) /*-{
