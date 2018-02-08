@@ -1,5 +1,6 @@
 package aurora.backend;
 
+import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.parser.Token;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
@@ -118,6 +120,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     /**
      * Compute the {@link HighlightableLambdaExpression} representation of the {@link Term} it is applied on.
+     * builds tokenlist of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
         int line;
@@ -125,16 +128,18 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         int column;
         private boolean isapp;
         private boolean isabs;
+        int index;
 
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
             offset = -1;
             column = 0;
+            index = 0;
         }
+
 
         @Override
         public Void visit(Abstraction abs) {
-
             column++;
             offset++;
             tokens.add(new Token(Token.TokenType.T_LAMBDA,line,column,offset));
@@ -147,7 +152,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             column++;
             offset++;
             tokens.add(new Token(Token.TokenType.T_DOT,line,column,offset));
-            abs.body.accept(this);
+            // replace all BoundVariables with Free Variables and perform alphaconversion
+            Term t = abs.body.accept(new BoundVariableFinder(abs.name));
+            t.accept(this);
 
             return null;
         }
@@ -273,6 +280,75 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             }
         }
 
+        /**
+         * this class removes all bounded variables with free variables and performs alpha conversion.
+         */
+        private class BoundVariableFinder extends TermVisitor<Term> {
+            String name;
+            int index;
+            int alpha;
+            int counter;
+
+            BoundVariableFinder(String name) {
+                alpha = 0;
+                this.name = name;
+                index = 1;
+            }
+
+            @Override
+            public Term visit(Abstraction abs) {
+                index++;
+                if (abs.name.equals(name)) {
+                    alpha = alpha + 1;
+                    // i is for deepcopy and storage
+                    int i = alpha;
+                    String newname = abs.name + Integer.toString(i);
+                    return  new Abstraction(abs.body.accept(this), newname);
+                }
+                return new Abstraction(abs.body.accept(this),abs.name);
+
+            }
+
+            @Override
+            public Term visit(Application app) {
+
+                Term left = app.left.accept(this);
+                Term right = app.right.accept(this);
+                return new Application(left, right);
+            }
+
+            @Override
+            public Term visit(BoundVariable bvar) {
+                if (bvar.index == index) {
+                    return new FreeVariable(name);
+                } else {
+                    return bvar;
+                }
+            }
+
+            @Override
+            public Term visit(FreeVariable fvar) {
+                // the free variable
+                if (fvar.name.equals(name)) {
+                    int newindex = alpha + 1;
+                    // TODO I dislike this way of alphaconversion but it works for now
+                    // It is imossible that there is a name after the \ and before the . that has the same name as FV
+                    return new FreeVariable(fvar.name + Integer.toString(newindex));
+                }
+                return fvar;
+            }
+
+            @Override
+            public Term visit(Function function) {
+                Term t = function.term;
+                return t.accept(this);
+            }
+
+            @Override
+            public Term visit(ChurchNumber c) {
+                return c;
+            }
+        }
 
     }
 
