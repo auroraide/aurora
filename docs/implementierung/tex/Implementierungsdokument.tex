@@ -39,7 +39,7 @@
 \subtitle{The Lambda Calculus IDE}
 
 
-\author{Julia Patrusheva, Alexander von Heyden\\
+\author{Iuliia Patrusheva, Alexander von Heyden\\
 Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
@@ -55,8 +55,8 @@ Nikolai Polley, Randy Seng}
 %=====================EINLEITUNG=======================
 \section{Einleitung}
 Die Implementierung war die dritte Phase unseres PSE-Projekts und streckte sich über vier Wochen.
-Im folgenden erläutern wir, wie aus dem Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
-entstanden ist, welche teschnichen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
+Im Folgenden erläutern wir, wie aus dem sehr guten Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
+entstanden ist, welche technischen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
 dabei getroffen wurden.
 \newline
 \newpage
@@ -74,14 +74,14 @@ Im Speziellen handelt es sich hierbei um folgendes:
     Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
     Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
 
-	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
+	\item Umbennennung der Klasse (aurora.backend.tree.Libraryterm)
 	\newline
 	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in
 	diesem Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum
 	nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function
 	umbenannt.
 
-	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
+	\item Hinzufügung eines Attributs der Klasse (aurora.backend.tree.Function)
 	\newline
 	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion
 	vorhanden ist und dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und
@@ -92,13 +92,17 @@ Im Speziellen handelt es sich hierbei um folgendes:
 	Diese werden in Function.term gespeichert. Danach kann nur erneutes Parsen, welches einen neuen abstrakten
 	Syntaxbaum aufbauen würde, die Funktionsassoziation ändern.
 
-    \item Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
+    \item Umbenennung der Klasse (aurora.backend.library.Library)
+    \newline
+     Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
 Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren Libraries erleichtern soll.
 Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen.
 So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
     \newline
 
-    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+    \item Übergebung der Indizes
+    \newline
+    Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
     \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\begin{itemize}
@@ -125,7 +129,7 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
-\subsection{Regeln während der Implementierung}
+\subsection{Richtlinien}
 Bevor wir mit der Implementierung begonnen haben, haben wir uns gemeinsam dafür entschieden,
 wärend des gesamten Prozesses einige grundlegende Regeln einzuhalten.
 Hiervon haben wir uns einen saubereren Implementierungsprozess erhofft.
@@ -169,10 +173,11 @@ Wichtig waren vorallem folgende Regeln:
       	Da im Frontend keine schnellen JUnit-Tests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
       	Falls benötigt, mussten Klassen mit Mockito gemocket werden.
       	\item Issues
-      	Bugs oder andere Anomalien im Code anderer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
+        \newline
+      	Bugs und Anomalien im Code unserer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
       	\end{itemize}
 
-\subsection{Ursprünglicher Implementierungsplan}
+\subsection{Implementierungsplan}
 Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
 Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
 Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstellen und haben so verteilt, dass möglicht alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
@@ -189,37 +194,52 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
 
 
     \item [Alexander]\hfill \\
-      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren.
-        Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
-        Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
+    \begin{enumerate}
+        \item CodeMirror
+            \newline
+            Zur Darstellung von Code haben wir uns entschieden, CodeMirror zu benutzen.
+            Hierzu war geplant, einen bereits vorhandenen CodeMirror Wrapper in unser Projekt einzubinden.
+        \item Highlighting
+            \newline
+            CodeMirror ermöglicht durch eine Schnittstelle statisches Syntaxhighlighting.
+            Zur Darstellung dynamischen Syntaxhighlightings reicht diese nicht aus, deswegen benutzen wir hier die HighlightedLambdaExpressions.
+        \item Editor (pkg: aurora.client.view.editor)
+            \newline
+            Den größten Teil der graphischen Oberfläche wird vom EditorPanel eingenommen.
+            Das EditorPanel selbst beinhaltet mehrere CodeMirrorPanel, die ihrer Aufgaben entsprechend konfiguriert werden müssen.
+        \item Encoder (pkg: aurora.backend.encoders)
+            \newline
+            Encoder ermöglochen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
+            Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt auf Pastebin speichert.
+    \end{enumerate}
     \item [Nikolai]\hfill \\
     \begin{enumerate}
     \item Churchnummern in Abstraktionsgestalt von den Integers in denen sie gespeichert sind generieren. \\(class aurora.backend.tree.Churchnumber)
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
-    \item Die Redexpathklasse zu füllen \\class: (aurora.backend.RedexPath)
+    \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen.
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
 
-\item Die ShareLatex klasse wird implementiert \\(class: aurora.backend.ShareLatex)
+\item Die ShareLatex klasse muss zuletzt implementiert werden\\(class: aurora.backend.ShareLatex)
     \end{enumerate}
-Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen konnte und deshalb habe ich die Abhängigkeiten zuerst implementiert.
+Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und deshalb wurden zuerst die Abhängigkeiten implementiert.
     \item [Iuliia]\hfill \\
 
 
     \begin{enumerate}
-
-
-    \item Ermöglichung der Sprachauswahl.  \\(pkg aurora.client.*)
-
+    
+    
+    \item Sprachauswahl ermöglichen.  \\(pkg aurora.client.*)
+    
     \begin{itemize}
 
 	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
-
-	\item[--] Erzeugen der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
-
+	
+	\item[--] Erzeugung der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
+	
 	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
 
     \end{itemize}
@@ -254,11 +274,17 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
 		\item Parser
 		\item Ehhh... Rudolf?
 	\end{enumerate}
+    
     \item [Randy]\hfill \\
+    \begin{enumerate}
+    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
+    \end{enumerate}
 \end{description}
 
 
-\subsubsection{Verteilung nach Module, die ungefähr unabhängig von ein ander implementiert werden können}
 
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
 
@@ -277,6 +303,10 @@ Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüll
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
 \item [Randy]\hfill \\
+Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
+Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
+Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
+    
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
@@ -340,18 +370,14 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \textbf{K7} Standardbibliothek
 \newline
 \textbf{K8} Benutzerbibliothek
-\bigbreak
+\newline
 \textbf{K9} Call By Name und Call By Value
-\smallbreak
+\newline
 \textbf{K11} Mehrere Schritte auswerten.
 \newline
 
-\subsection{Kriterien die wegfielen}
-Es gibt zwar einige Wunschkriterien, die noch nicht implementiert wurden,
-aber zu diesem Zeitpunkt wird kein Kriterium ausgeschlossen. Es wurde sich
-vorgenommen die meisten Kriterien, die noch nicht implementiert wurden,
-in der Qualitätstsicherungsphase zu implementieren.
-Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in der internen Abnahme notiert.
+\subsection{Weggefallene Kriterien}
+Einige Wunschkriterien sind noch nicht vollständig implementiert, aber es wurden keine Kriterien von der Implementierung ausgeschlossen.
 \newpage
 
 
