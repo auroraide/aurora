@@ -19,16 +19,19 @@ import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.PauseEvent;
+import aurora.client.event.ReStepEvent;
 import aurora.client.event.RedexClickedEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
+import aurora.client.event.StepValueChangedEvent;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -58,7 +61,11 @@ public class EditorPresenter {
      * This will be null when not running, and not null when running.
      */
     private RunTimer runTimer;
+    private int stepNumber;
     private StrategyType reductionStrategy;
+
+    private Iterator<Term> reStepper;
+    private Integer nextReStepIndex;
 
     /**
      * Creates an <code>EditorPresenter</code> with the given components.
@@ -86,6 +93,8 @@ public class EditorPresenter {
 
         highlightTimer = new HighlightTimer();
         runTimer = null;
+        reStepper = null;
+        stepNumber = 1;
 
         bind();
 
@@ -101,11 +110,47 @@ public class EditorPresenter {
         eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent
                 -> onRedexClicked(redexClickedEvent.getToken()));
         eventBus.addHandler(ContinueEvent.TYPE, e -> onContinue());
+
+        eventBus.addHandler(ReStepEvent.TYPE, e -> onReStep());
+
+        eventBus.addHandler(StepValueChangedEvent.TYPE, e -> stepNumber = e.getStepNumber());
+    }
+
+    private void onReStep() {
+        if (!isReStepping()) {
+            // if not yet restepping, initialize.
+            reStepper = steps.iterator();
+            nextReStepIndex = 1;
+            editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
+        }
+
+        GWT.log("EP: ReStepEvent caught.");
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+
+        ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
+
+        for (int i = 0; i < stepNumber; i++) {
+            if (!reStepper.hasNext()) {
+                // current is irreducible => current term is result.
+                Term result = reStepper.next();
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(result));
+                break;
+            } else {
+                Term result = reStepper.next();
+                ssss.add(new HighlightableLambdaExpression(result));
+            }
+        }
+
+        editorDisplay.addNextStep(ssss, nextReStepIndex);
+        nextReStepIndex += stepNumber;
     }
 
     private void reset() {
         reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer.scheduleRepeating(1000);
+        editorDisplay.resetSteps();
+        reStepper = null;
+        nextReStepIndex = null;
         steps.clear();
     }
 
@@ -128,6 +173,12 @@ public class EditorPresenter {
         return !steps.isEmpty();
     }
 
+    private boolean isReStepping() {
+        // assert (!isRunning() && isStarted());
+        assert ((nextReStepIndex == null) == (reStepper == null));
+        return reStepper != null;
+    }
+
     private ReductionStrategy createReductionStrategy() {
         switch (reductionStrategy) {
             case CALLBYVALUE:
@@ -147,7 +198,8 @@ public class EditorPresenter {
      */
     private void onRun() {
         GWT.log("EP: RunEvent caught.");
-        assert (!isRunning() && !isStarted());
+        assert (!isRunning() && !isStarted() && !isReStepping());
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
 
         if (!tryStartOrHandleErrors()) {
             return;
@@ -161,26 +213,25 @@ public class EditorPresenter {
 
     private void onContinue() {
         GWT.log("EP: ContinueEvent caught.");
-        assert (!isRunning() && isStarted());
+        assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        // TODO hide steps?
+        editorDisplay.resetSteps();
         runTimer = new RunTimer(new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last()));
         runTimer.scheduleRepeating(1);
     }
 
     private void onPause() {
         GWT.log("EP: PauseEvent caught.");
-        assert (isRunning() && isStarted());
+        assert (isRunning() && isStarted() && !isReStepping());
 
         runTimer.cancel();
         runTimer = null;
 
-        // TODO make it apparent to the user that the steps list is potentially incomplete
         List<HighlightedLambdaExpression> highlightedSteps = new ArrayList<>();
-        for (int i = Math.max(0, steps.size() - 10); i < steps.size(); i++) {
+        for (int i = Math.max(0, steps.size() - stepNumber); i < steps.size(); i++) {
             highlightedSteps.add(new HighlightableLambdaExpression(steps.get(i)));
         }
-        editorDisplay.addNextStep(highlightedSteps);
+        editorDisplay.addNextStep(highlightedSteps, steps.size() - stepNumber - 1);
     }
 
     private void onReset() {
@@ -212,7 +263,7 @@ public class EditorPresenter {
     private void onStep() {
         GWT.log("EP: StepEvent caught.");
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        assert (!isRunning());
+        assert (!isRunning() && !isReStepping());
 
         if (!isStarted()) {
             if (!tryStartOrHandleErrors()) {
@@ -221,24 +272,23 @@ public class EditorPresenter {
         }
 
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        if (bri.hasNext()) {
-            Term result = bri.next();
-            steps.add(result);
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
+        ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
+
+        for (int i = 0; i < stepNumber; i++) {
             if (!bri.hasNext()) {
-                // the result of the input is irreducible.
-                editorDisplay.displayResult(hle);
+                // current is irreducible => current term is result.
+                Term result = bri.next();
+                steps.add(result);
+                editorDisplay.displayResult(new HighlightableLambdaExpression(result));
+                break;
             } else {
-                // the most common case
-                ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
-                step.add(hle);
-                editorDisplay.addNextStep(step);
+                Term result = bri.next();
+                steps.add(result);
+                step.add(new HighlightableLambdaExpression(result));
             }
-        } else {
-            // input term is irreducible already.
-            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(last());
-            editorDisplay.displayResult(hle);
         }
+
+        editorDisplay.addNextStep(step, steps.size() - stepNumber);
     }
 
     private void onRedexClicked(Token token) {
@@ -287,7 +337,6 @@ public class EditorPresenter {
             steps.add(this.betaReductionIterator.next());
 
             if (!this.betaReductionIterator.hasNext()) {
-                editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
                 finish();
             }
         }
@@ -301,7 +350,7 @@ public class EditorPresenter {
                 return;
             }
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            editorDisplay.setInput(hle);
+            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting
         }
     }
 }
