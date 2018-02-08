@@ -103,12 +103,22 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\begin{itemize}
         	\item \texttt{displayAddLibraryItemSyntaxError} und \newline
-        	\texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
-        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
-            \item \texttt{removeStandardLibrary}
+        	\texttt{displayAddLibraryItemSemanticError} wurden hinzugefügt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wurde hinzugefügt und wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt. Es soll dem Benutzer eine Fehlermeldung angezeigt werden.
+            \item \texttt{removeStandardLibraryItem} und \newline
+            	\texttt{removeUserLibraryItem} wurden entfernt. Diese Funktionen werden nicht gebraucht, da die View den Presenter über ein Event aufrufen soll, und diese Information sowieso schon hat.
         \end{itemize}
+    \item Der EditorDisplay wurde auch an das moderne Zeitalter angepasst:
+    	\begin{itemize}
+    		\item \texttt{displaySyntaxError(String)} wurde
+            durch \newline \texttt{displaySyntaxError(SyntaxException)} und \newline
+        	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+    	\end{itemize}
 
-    \item Es sind ein paar Events, die bei dem Entwurf nicht bedacht wurden, 	hinzugekommen.
+    \item Neu hinzugefügte Events:
+    	\begin{itemize}
+    		\item
+    	\end{itemize}
 \end{itemize}
 
 
