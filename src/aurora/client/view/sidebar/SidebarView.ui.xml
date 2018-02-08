@@ -54,7 +54,7 @@
             </g:DockLayoutPanel>
         </g:center>
 
-        <g:south size='12'>
+        <g:south size='14'>
             <g:HorizontalPanel addStyleNames="extra_settings">
                 <!-- Strategy Selection -->
                 <strategy2:StrategySelection ui:field="strategySelection" addStyleNames="strategy"/>
