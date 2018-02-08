@@ -7,6 +7,7 @@ import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
+import aurora.client.event.ResultCalculatedEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
@@ -308,6 +309,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
+        this.eventBus.fireEvent(new ResultCalculatedEvent());
         this.outputCodeMirror.setValue(highlightedLambdaExpression.toString());
         GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
