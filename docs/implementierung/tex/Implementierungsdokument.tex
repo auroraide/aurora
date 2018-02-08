@@ -104,7 +104,8 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     \newline
     Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
-    \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
+    \item Fehlerbehbungs,aßnahmen 
+    Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\begin{itemize}
         	\item \texttt{displayAddLibraryItemSyntaxError} und \newline
         	\texttt{displayAddLibraryItemSemanticError} wurden hinzugefügt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
@@ -211,7 +212,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
             Das EditorPanel selbst beinhaltet mehrere CodeMirrorPanel, die ihrer Aufgaben entsprechend konfiguriert werden müssen.
         \item Encoder (pkg: aurora.backend.encoders)
             \newline
-            Encoder ermöglochen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
+            Encoder ermöglichen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
             Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt auf Pastebin speichert.
     \end{enumerate}
     \item [Nikolai]\hfill \\
@@ -279,9 +280,9 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
     \item [Randy]\hfill \\
     \begin{enumerate}
-    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
+    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine leere Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend entwickeln, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
     \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
     \end{enumerate}
 \end{description}
@@ -294,7 +295,7 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
 \item [Alexander]\hfill \\
 Der erste Punkt des Implementierungsplans, CodeMirror, hat sich als wesentlich schwieriger als erwartet herausgestellt.
-Anstatt wir urspünglich geplant eine Dependency einzubiden, wurde extra Zeit damit verbracht, einen eigenen Wrapper zu schreiben.
+Anstatt wie urspünglich geplant eine Dependency einzubinden, wurde extra Zeit damit verbracht, einen eigenen Wrapper zu schreiben.
 Dies hatte zur Folge, dass sich der Zeitplan stark nach hinten verschoben hat.
 Abgesehen von dieser Verschiebung sind keine weiteren Abweichungen aufgetreten.
 \item [Nikolai]\hfill \\
@@ -313,7 +314,7 @@ als ursprünglich geplant, was dazu geführt hat, dass sich die Implementierung 
 
 Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 \item [Randy]\hfill \\
-Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
+Es wurde sich im großen und ganzen an den Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
 Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
 Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
 
