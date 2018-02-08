@@ -65,11 +65,10 @@ public class LambdaParserTest {
     @Test
     public void firstLineComment() {
         String[] input = {
-            "#Comment",
-            "\\x.x"
+            "#Comment\n((\\x.(x x)) (\\y.((x y) z)))"
         };
         String[] expected = {
-            "\\ x . 1 "
+            "((\\x.(1 1)) (\\y.((x 1) z)))",
         };
 
         this.assertParse(input, expected);
