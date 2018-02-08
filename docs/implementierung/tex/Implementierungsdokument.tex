@@ -55,8 +55,8 @@ Nikolai Polley, Randy Seng}
 %=====================EINLEITUNG=======================
 \section{Einleitung}
 Die Implementierung war die dritte Phase unseres PSE-Projekts und streckte sich über vier Wochen.
-Im folgenden erläutern wir, wie aus dem Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
-entstanden ist, welche teschnichen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
+Im Folgenden erläutern wir, wie aus dem sehr guten Entwurf der vorherigen Phase ein lauffähiger Prototyp unserer Webanwendung
+entstanden ist, welche technischen Hürden wir dabei überwinden mussten und welche organisatorischen Entscheidungen
 dabei getroffen wurden.
 \newline
 \newpage
@@ -74,14 +74,14 @@ Im Speziellen handelt es sich hierbei um folgendes:
     Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
     Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
 
-	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
+	\item Umbennennung der Klasse (aurora.backend.tree.Libraryterm)
 	\newline
 	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in
 	diesem Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum
 	nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function
 	umbenannt.
 
-	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
+	\item Hinzufügung eines Attributs der Klasse (aurora.backend.tree.Function)
 	\newline
 	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion
 	vorhanden ist und dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und
@@ -92,15 +92,21 @@ Im Speziellen handelt es sich hierbei um folgendes:
 	Diese werden in Function.term gespeichert. Danach kann nur erneutes Parsen, welches einen neuen abstrakten
 	Syntaxbaum aufbauen würde, die Funktionsassoziation ändern.
 
-    \item Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
+    \item Umbenennung der Klasse (aurora.backend.library.Library)
+    \newline
+     Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert.
 Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren Libraries erleichtern soll.
 Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen.
 So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
     \newline
 
-    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+    \item Übergebung der Indizes
+    \newline
+    Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
-    \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
+    \item Hinzufügung von Fehlerbehandlungsmaßnahmen
+    \newline
+    Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\texttt{displayAddLibraryItemSyntaxError} und \newline
         \texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
         \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
@@ -183,16 +189,16 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \begin{enumerate}
     \item Churchnummern in Abstraktionsgestalt von den Integers in denen sie gespeichert sind generieren. \\(class aurora.backend.tree.Churchnumber)
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
-    \item Die Redexpathklasse zu füllen \\class: (aurora.backend.RedexPath)
+    \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist die Betareducer klassepackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
 
-\item Die ShareLatex klasse wird implementiert \\(class: aurora.backend.ShareLatex)
+\item Die ShareLatex klasse muss zuletzt implementiert werden\\(class: aurora.backend.ShareLatex)
     \end{enumerate}
-Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen konnte und deshalb habe ich die Abhängigkeiten zuerst implementiert.
+Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und deshalb wurden zuerst die Abhängigkeiten implementiert.
     \item [Iuliia]\hfill \\
     
    
@@ -318,9 +324,9 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \textbf{K7} Standardbibliothek
 \newline
 \textbf{K8} Benutzerbibliothek
-\bigbreak
+\newline
 \textbf{K9} Call By Name und Call By Value
-\smallbreak
+\newline
 \textbf{K11} Mehrere Schritte auswerten.
 \newline
 
