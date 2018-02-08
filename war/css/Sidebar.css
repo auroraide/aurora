@@ -227,6 +227,7 @@
     width:49.5%;
     background-color: #167A66;
 }
+/* SHARE LANGUAGE HOVERING*/
 .share_language .gwt-MenuItem-selected{
     background: rgba(255,255,255,0.2) !important;
 }

@@ -85,6 +85,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     private MenuBar setupShareMenuBar() {
         MenuBar shareMenuBar = new MenuBar(true);
+        shareMenuBar.
+        shareMenuBar.addStyleName("shareMenuBar");
         shareMenuBar.addItem("LaTeX", new Command() {
             @Override
             public void execute() {
@@ -102,6 +104,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     private MenuBar setupLanguageMenuBar() {
         MenuBar languageMenuBar = new MenuBar(true);
+        languageMenuBar.addStyleName("languageMenuBar");
         languageMenuBar.addItem("ENG", new Command() {
             @Override
             public void execute() {
