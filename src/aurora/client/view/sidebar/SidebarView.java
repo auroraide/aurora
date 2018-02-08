@@ -6,7 +6,6 @@ import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
-import aurora.client.view.popup.DeleteLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -24,6 +23,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import java.util.ArrayList;
+
 
 /**
  * Provides additional options to the user.
@@ -35,7 +36,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddLibraryItemDialogBox addLibraryItemDialogBox;
-    private final DeleteLibraryItemDialogBox deleteLibraryItemDialogBox;
+    private ArrayList<String> userlib;
+
     @UiField
     TextBox stepNumber;
     @UiField
@@ -65,7 +67,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        this.deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
+        this.userlib = new ArrayList<>();
         nightModeSwitch.addClickHandler(new ClickHandler() {
 
             @Override
@@ -89,7 +91,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private void wireStepNumber() {
         this.stepNumber.addKeyUpHandler(event -> {
             String input = stepNumber.getText();
-            boolean successful = true;
 
             if (input.matches("[0-9]+")) {
                 int step;
@@ -139,7 +140,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
                 SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
     }
 
-
     @Override
     public void closeAddLibraryItemDialog() {
         this.addLibraryItemDialogBox.clearAddLibraryItemDialogBox();
@@ -148,31 +148,46 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void displayAddLibraryItemSyntaxError(SyntaxException error) {
-
+        Window.alert("Syntax error at col: " + error.getColumn() + " !");
     }
 
     @Override
     public void displayAddLibraryItemSemanticError(SemanticException error) {
-
+        Window.alert("Semantic error at col: " + error.getColumn() + " !");
     }
 
     @Override
     public void displayAddLibraryItemNameAlreadyTaken() {
-
+        Window.alert("Function name is already taken!");
     }
 
     @Override
     public void displayAddLibraryItemInvalidName() {
-
+        Window.alert("Function name is incorrect!");
     }
 
     @Override
     public void addUserLibraryItem(String name, String description) {
+        int row = userLibraryTable.getRowCount();
+        this.userlib.add(name);
+        this.userLibraryTable.setText(row, 0, name);
+        this.userLibraryTable.setText(row, 1, description);
+
+        Button removeLibraryItemButton = new Button("x");
+
+        removeLibraryItemButton.addClickHandler(event -> {
+            int removedIndex = userlib.indexOf(name);
+            SidebarView.this.userlib.remove(removedIndex);
+            SidebarView.this.userLibraryTable.removeRow(removedIndex);
+        });
+        userLibraryTable.setWidget(row, 2, removeLibraryItemButton);
     }
 
     @Override
     public void addStandardLibraryItem(String name, String description) {
-
+        int row = this.standardLibraryTable.getRowCount();
+        this.standardLibraryTable.setText(row, 0, name);
+        this.standardLibraryTable.setText(row, 1, description);
     }
 
     /**
