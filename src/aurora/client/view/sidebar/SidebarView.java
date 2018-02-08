@@ -72,13 +72,13 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private void setupShareLanguageMenu() {
-        MenuBar languageMenu = new MenuBar(true);
+        final MenuBar languageMenu = new MenuBar(true);
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("languageButton");
         languageMenu.addItem("language", setupLanguageMenuBar());
         this.shareAndLanguage.add(languageMenu);
 
-        MenuBar shareMenu = new MenuBar(true);
+        final MenuBar shareMenu = new MenuBar(true);
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("shareButton");
         languageMenu.addItem(" ", setupShareMenuBar());
