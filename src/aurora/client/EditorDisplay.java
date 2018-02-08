@@ -57,6 +57,11 @@ public interface EditorDisplay {
     void resetSteps();
 
     /**
+     * Signals the view that no more steps can be displayed. The only action that can be performed now is reset.
+     */
+    void finishedFinished();
+
+    /**
      * Displays the result and locks any outputs. No further steps can be added after calling this.
      *
      * @param highlightedLambdaExpression Result to display.
