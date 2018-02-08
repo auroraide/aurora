@@ -68,14 +68,16 @@ Anfänglich kann man schon mal vorstellen, dass das Team sehr mit dem Entwurf zu
 \section{Statistik}
 
 \subsection{Continuous Integration}
-Anzahl Commits: ~1200\newline
+Anzahl Commits: \textasciitilde  1200\newline
+
 Anzahl MRs\newline
 Anzahl pipes\newline
 
 Fancy gitlab charts?
 
 \subsection{Testabdekung}
-Das Package aurora.backend hat ungefähr 70 \% codeüberdeckung.
+Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
+Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
 Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde. 
 Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen, 
 ob korrekt geparsed wurde.
@@ -103,9 +105,9 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \newline
 \textbf{K4} Syntax-Highlighting
 \newline
-\textbf{K7} Standardbibliothek \textbf{Max wie siehts aus, backend steht}
+\textbf{K7} Standardbibliothek
 \newline
-\textbf{K8} Benutzerbibliothek \textbf{max, wie siehts aus, backend steht?}
+\textbf{K8} Benutzerbibliothek
 \bigbreak
 \textbf{K9}Call By Name und Call By Value
 \smallbreak
@@ -149,9 +151,14 @@ Im Speziellen handelt es sich hierbei um folgendes:
         \texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
         \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
 
-    \item NEUE EVENTS???
+    \item Es sind ein paar Events, die bei dem Entwurf nicht bedacht wurden, 	hinzugekommen.
 \end{itemize}
-\subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
+\subsection{Kriterien die weggefallen sind}
+Es gibt zwar einige Wunschkriterien, die noch nicht implementiert wurden, 
+aber zu diesem Zeitpunkt wird kein Kriterium ausgeschlossen. Es wurde sich 
+vorgenommen die meisten Kriterien, die noch nicht implementiert wurden, 
+in der Qualitätstsicherungsphase zu implementieren.
+Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in der internen Abnahme notiert.
 \newpage
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
@@ -260,7 +267,7 @@ Ich hatte nach dem Betareducer noch den Comparer, für einfacheres debuggen gesc
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
-Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
+Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
     \item ant (Buildsystem)
         \newline
@@ -276,12 +283,10 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
 \end{itemize}
 
-\subsubsection{git übersicht vll}
- (Realität und wieso es sich unterscheidet von dem Anfangsplan)
 \newpage
 
 \end{document}
