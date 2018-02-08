@@ -238,7 +238,14 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 		\item Parser
 		\item Ehhh... Rudolf?
 	\end{enumerate}
+    
     \item [Randy]\hfill \\
+    \begin{enumerate}
+    \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
+    \end{enumerate}
 \end{description}
 
 
@@ -260,6 +267,10 @@ Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüll
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
 \item [Randy]\hfill \\
+Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
+Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
+Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
+    
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
