@@ -202,8 +202,13 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
 
 \item [Alexander]\hfill \\
 \item [Nikolai]\hfill \\
-Ich habe mich großteilig an den Plan gehalten, Ich habe nur Call By Name und Call by Value vor dem Betareducer geschrieben, weil ich gemerkt hatte, das das Prinzip von denen sehr ähnlich zu der Normalenordnung war und ich zu dem Zeitpunkt nicht in ein komplett neues Thema einsteigen wollte.
-Ich hatte nach dem Betareducer noch den Comparer, für einfacheres debuggen geschrieben. Ich hatte dannach auch noch die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, damit das debuggen einfacher fiel.
+Großteilig wurde sich an den Plan gehalten, es wurde nur Call By Name und Call by Value vor dem Betareducer geschrieben.
+Es wurde  bemerkt, dass das Prinzip dieser Reduktionsstrategien sehr ähnlich zu der Normalenordnung war und zu dem Zeitpunkt es passender erschien diese zu implementieren als in ein komplett neues Thema einzusteigen.
+Nach dem Betareduzierer wurde noch den Comparer geschrieben, der für einfacheres debuggen geeignet war. Ob er sich auch für den Simplifier eignet muss sich in der Qualitätssicherung zeigen.
+Da bei der User Strategy Implemntierung des Frontends, Presenters und Backends benötigt wird und andere Teammitglieder, vitalere Dinge zu erledigen hatten
+wurde die Implementierung dieser Reduktionsstrategie in die Qualitätssicherung verschoben.
+Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, da die Aufgabenverteilung nicht ganz fair gelungen war, da unterschätzt worden war, wie aufwändig die Toolchain einzurichten war.
+
 \item [Iuliia]\hfill \\
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
@@ -289,7 +294,7 @@ Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
 ob korrekt geparsed wurde.
 Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
 Fehler des Parsers behoben werden.
-Später wurde auch die Fähigkeit der Betareduktion dem Bot hinzugefügt.
+Später wurde auch die Fähigkeit des Betareduzierens dem Bot hinzugefügt.
 \newpage
 
 
