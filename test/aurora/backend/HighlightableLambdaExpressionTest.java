@@ -1,5 +1,6 @@
 package aurora.backend;
 
+import aurora.backend.parser.LambdaParser;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -59,7 +60,7 @@ public class HighlightableLambdaExpressionTest {
         );
 
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . x1 ", hle.toString());
+        assertEquals("\\ x . \\ x . x ", hle.toString());
     }
 
     @Test
@@ -72,7 +73,7 @@ public class HighlightableLambdaExpressionTest {
                     ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . \\ x2 . x2 ",hle.toString());
+        assertEquals("\\ x . \\ x . \\ x . x ",hle.toString());
     }
 
     @Test
@@ -85,10 +86,11 @@ public class HighlightableLambdaExpressionTest {
                         ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . x1 x2 ", hle.toString());
+        assertEquals("\\ x . \\ x . x x1 ", hle.toString());
     }
 
     @Test
+    // just print the boundedvars
     public void infinity() {
         Term t = new Application(
                 new Abstraction(
@@ -108,5 +110,15 @@ public class HighlightableLambdaExpressionTest {
 
     }
 
+    @Test
+    public void morealpha() {
+        Term t = new Abstraction(
+                new Application(
+                        new BoundVariable(1), new FreeVariable("x")
+                ),"x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\ x . x x1 ",hle.toString());
+    }
 
 }

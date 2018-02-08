@@ -286,11 +286,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         private class BoundVariableFinder extends TermVisitor<Term> {
             String name;
             int index;
-            int alpha;
-            int counter;
+
 
             BoundVariableFinder(String name) {
-                alpha = 0;
                 this.name = name;
                 index = 1;
             }
@@ -298,13 +296,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(Abstraction abs) {
                 index++;
-                if (abs.name.equals(name)) {
-                    alpha = alpha + 1;
-                    // i is for deepcopy and storage
-                    int i = alpha;
-                    String newname = abs.name + Integer.toString(i);
-                    return  new Abstraction(abs.body.accept(this), newname);
-                }
                 return new Abstraction(abs.body.accept(this),abs.name);
 
             }
@@ -328,12 +319,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Term visit(FreeVariable fvar) {
-                // the free variable
+                // alphaconversion is needed.
                 if (fvar.name.equals(name)) {
-                    int newindex = alpha + 1;
-                    // TODO I dislike this way of alphaconversion but it works for now
-                    // It is imossible that there is a name after the \ and before the . that has the same name as FV
-                    return new FreeVariable(fvar.name + Integer.toString(newindex));
+                    return new FreeVariable(fvar.name + "1");
                 }
                 return fvar;
             }
