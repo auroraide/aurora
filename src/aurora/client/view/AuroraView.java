@@ -3,6 +3,12 @@ package aurora.client.view;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
+import aurora.client.event.ContinueEvent;
+import aurora.client.event.PauseEvent;
+import aurora.client.event.RedexClickedEvent;
+import aurora.client.event.ResetEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
@@ -13,7 +19,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
 
 
 /**
@@ -68,11 +73,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.stepBeforeResultState = new StepBeforeResultState();
         this.currentState = defaultState;
 
+        eventWiring();
 
-        // editor.getActionBar().onRunButtonClick(e -> {
-        //     currentState = currentState.run();
-        //     eventBus.fire(new RunEvent());
-        // });
     }
 
     @Override
@@ -90,20 +92,23 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     }
 
-    private void bind() {
-        // on click share latex (ist in sidebar):
-        //      eventBus.fireEvent(new ShareLatexenvetdings(editor.balbalbalba))
+    private void eventWiring() {
+        wireStateMachine();
+    }
 
-        // on click share latex in step (ist in editor):
-        //      eventBus.fireEvent(new ShareLatexenvetdings(editor.step[i].balbalbalba))
+    private void wireStateMachine() {
+        this.eventBus.addHandler(RunEvent.TYPE, event -> AuroraView.this.currentState.runBtnClicked());
 
-        // on step number change IN SIDEBAR:
-        //      editor.stepnumber = ...;
-        //      eventBus.fireevent(step chagned....)
+        this.eventBus.addHandler(PauseEvent.TYPE, event -> AuroraView.this.currentState.pauseBtnClicked());
 
-        // on step number change IN EDITOR:
-        //      sidebar.stepnumber = ...;
-        //      eventBus.fireevent(step chagned....)
+        this.eventBus.addHandler(ResetEvent.TYPE, event -> AuroraView.this.currentState.resetBtnClicked());
+
+        this.eventBus.addHandler(ContinueEvent.TYPE, event -> AuroraView.this.currentState.continueBtnClicked());
+
+        this.eventBus.addHandler(StepEvent.TYPE, event -> AuroraView.this.currentState.stepBtnClicked());
+
+        this.eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent ->
+                AuroraView.this.currentState.redexClicked());
     }
 
     public EditorDisplay getEditor() {
