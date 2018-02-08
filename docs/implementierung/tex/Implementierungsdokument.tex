@@ -64,57 +64,6 @@ Anfänglich kann man schon mal vorstellen, dass das Team sehr mit dem Entwurf zu
 \newline
 \newpage
 
-%=====================STATISTIKEN=====================
-\section{Statistik}
-
-\subsection{Continuous Integration}
-Anzahl Commits: \textasciitilde  1200\newline
-
-Anzahl MRs\newline
-Anzahl pipes\newline
-
-Fancy gitlab charts?
-
-\subsection{Testabdekung}
-Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
-Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
-Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde. 
-Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen, 
-ob korrekt geparsed wurde.
-Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
-Fehler des Parsers behoben werden.
-Später wurde auch die Fähigkeit der Betareduktion dem Bot hinzugefügt.
-\newpage
-
-%=====================FEATURES=====================
-\section{Kriterien}
-
-\subsection{Musskriterien}
-Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
-
-\subsection{Wunschkriterien}
-Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
-Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
-\newline
-\newline
-\textbf{K1} Zeilennummer
-\newline
-\textbf{K2} Kommentare einfügen
-\newline
-\textbf{K3} Autovervollständigung von Klammern
-\newline
-\textbf{K4} Syntax-Highlighting
-\newline
-\textbf{K7} Standardbibliothek
-\newline
-\textbf{K8} Benutzerbibliothek
-\bigbreak
-\textbf{K9}Call By Name und Call By Value
-\smallbreak
-\textbf{K11} Mehrere Schritte auswerten.
-\newline
-\newpage
-
 %=====================ÄNDERUNGEN=====================
 \section{Änderungen zum Entwurfsdokument}
 Der Entwurf aus der vorherigen Phase hat sich als sehr zuverlässig und gut umsetzbar erwiesen.
@@ -153,13 +102,8 @@ Im Speziellen handelt es sich hierbei um folgendes:
 
     \item Es sind ein paar Events, die bei dem Entwurf nicht bedacht wurden, 	hinzugekommen.
 \end{itemize}
-\subsection{Kriterien die weggefallen sind}
-Es gibt zwar einige Wunschkriterien, die noch nicht implementiert wurden, 
-aber zu diesem Zeitpunkt wird kein Kriterium ausgeschlossen. Es wurde sich 
-vorgenommen die meisten Kriterien, die noch nicht implementiert wurden, 
-in der Qualitätstsicherungsphase zu implementieren.
-Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in der internen Abnahme notiert.
-\newpage
+
+
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
@@ -288,5 +232,65 @@ Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden u
 \end{itemize}
 
 \newpage
+
+
+%=====================FEATURES=====================
+\section{Implementierte Kriterien}
+
+\subsection{Musskriterien}
+Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
+
+\subsection{Wunschkriterien}
+Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
+Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
+\newline
+\newline
+\textbf{K1} Zeilennummer
+\newline
+\textbf{K2} Kommentare einfügen
+\newline
+\textbf{K3} Autovervollständigung von Klammern
+\newline
+\textbf{K4} Syntax-Highlighting
+\newline
+\textbf{K7} Standardbibliothek
+\newline
+\textbf{K8} Benutzerbibliothek
+\bigbreak
+\textbf{K9} Call By Name und Call By Value
+\smallbreak
+\textbf{K11} Mehrere Schritte auswerten.
+\newline
+
+\subsection{Kriterien die wegfielen}
+Es gibt zwar einige Wunschkriterien, die noch nicht implementiert wurden,
+aber zu diesem Zeitpunkt wird kein Kriterium ausgeschlossen. Es wurde sich
+vorgenommen die meisten Kriterien, die noch nicht implementiert wurden,
+in der Qualitätstsicherungsphase zu implementieren.
+Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in der internen Abnahme notiert.
+\newpage
+
+
+%=====================STATISTIKEN=====================
+\section{Statistiken}
+
+\subsection{Continuous Integration}
+Anzahl Commits: \textasciitilde  1200\newline
+
+Anzahl MRs\newline
+Anzahl pipes\newline
+
+
+\subsection{Testabdeckung}
+Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
+Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
+Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
+Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
+ob korrekt geparsed wurde.
+Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
+Fehler des Parsers behoben werden.
+Später wurde auch die Fähigkeit der Betareduktion dem Bot hinzugefügt.
+\newpage
+
 
 \end{document}
