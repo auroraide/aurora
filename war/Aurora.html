@@ -15,25 +15,26 @@
     <link type="text/css" rel="stylesheet" href="css/Sidebar.css">
     <link type="text/css" rel="stylesheet" href="css/Editor.css">
     <link type="text/css" rel="stylesheet" href="css/CodeMirror.css">
-    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+     <link rel="stylesheet" href="css/CodeMirror/material.css">
+     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 
-    <title>Aurora</title>
-    <script>
-        fetch('VERSION')
-            .then(
-                function(response) {
-                    if (response.status === 200) {
-                        return response;
-                    }
-                }
-            ).then(
-                response => response.text()
-            ).then(
-                text => document.title = document.title + "  " + text
-            ).catch(error => error)
-       </script>
+     <title>Aurora</title>
+     <script>
+         fetch('VERSION')
+             .then(
+                 function(response) {
+                     if (response.status === 200) {
+                         return response;
+                     }
+                 }
+             ).then(
+                 response => response.text()
+             ).then(
+                 text => document.title = document.title + "  " + text
+             ).catch(error => error)
+        </script>
 
-    <!--                                           -->
+     <!--                                           -->
     <!-- This script loads your compiled module.   -->
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
