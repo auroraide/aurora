@@ -61,61 +61,6 @@ dabei getroffen wurden.
 \newline
 \newpage
 
-%=====================STATISTIKEN=====================
-\section{Statistik}
-\textbf{Machen wir das rein?}
-\subsection{Lines of Code}
-Statistik SLOC? 07.02: src ~Java 3205 ~XML 282 ~CSS 64
-test ~Java 920
-Zeilen Javadoc: kein Plan
-
-\subsection{Continuous Integration}
-Anzahl Commits: \textasciitilde1200\newline
-Anzahl MRs\newline
-Anzahl pipes\newline
-
-Fancy gitlab charts?
-
-\subsection{Testabdekung}
-Das Package aurora.backend hat ungefähr 70 \% codeüberdeckung.
-Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
-Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
-ob korrekt geparsed wurde.
-Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
-Fehler des Parsers behoben werden.
-Später wurde auch die Fähigkeit der Betareduktion dem Bot hinzugefügt.
-\newpage
-
-%=====================FEATURES=====================
-\section{Kriterien}
-
-\subsection{Musskriterien}
-Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
-
-\subsection{Wunschkriterien}
-Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
-Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
-\newline
-\newline
-\textbf{K1} Zeilennummer
-\newline
-\textbf{K2} Kommentare einfügen
-\newline
-\textbf{K3} Autovervollständigung von Klammern
-\newline
-\textbf{K4} Syntax-Highlighting
-\newline
-\textbf{K7} Standardbibliothek \textbf{Max wie siehts aus, backend steht}
-\newline
-\textbf{K8} Benutzerbibliothek \textbf{max, wie siehts aus, backend steht?}
-\bigbreak
-\textbf{K9}Call By Name und Call By Value
-\smallbreak
-\textbf{K11} Mehrere Schritte auswerten.
-\newline
-
-\newpage
-
 %=====================ÄNDERUNGEN=====================
 \section{Änderungen zum Entwurfsdokument}
 Der Entwurf aus der vorherigen Phase hat sich als sehr zuverlässig und gut umsetzbar erwiesen.
@@ -153,17 +98,20 @@ Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter anne
 So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
     \newline
 
-    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression.
+    Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt,
+    da der Presenter diese Informationen bereits hat.
+    Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
     \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\texttt{displayAddLibraryItemSyntaxError} und \newline
         \texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
         \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
 
-    \item NEUE EVENTS???
+    \item Es sind ein paar Events, die bei dem Entwurf nicht bedacht wurden, 	hinzugekommen.
 \end{itemize}
-\subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
-\newpage
+
+
 
 %=============IMPLEMENTIERUNGSPROZESS=====================
 \section{Implementierungsprozess}
@@ -254,8 +202,25 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
 
 \subsection{Änderungen des Implementierungsplans während der Implementierung}
 
+\begin{description}
+
+\item [Alexander]\hfill \\
+\item [Nikolai]\hfill \\
+Großteilig wurde sich an den Plan gehalten, es wurde nur Call By Name und Call by Value vor dem Betareducer geschrieben.
+Es wurde  bemerkt, dass das Prinzip dieser Reduktionsstrategien sehr ähnlich zu der Normalenordnung war und zu dem Zeitpunkt es passender erschien diese zu implementieren als in ein komplett neues Thema einzusteigen.
+Nach dem Betareduzierer wurde noch den Comparer geschrieben, der für einfacheres debuggen geeignet war. Ob er sich auch für den Simplifier eignet muss sich in der Qualitätssicherung zeigen.
+Da bei der User Strategy Implemntierung des Frontends, Presenters und Backends benötigt wird und andere Teammitglieder, vitalere Dinge zu erledigen hatten
+wurde die Implementierung dieser Reduktionsstrategie in die Qualitätssicherung verschoben.
+Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, da die Aufgabenverteilung nicht ganz fair gelungen war, da unterschätzt worden war, wie aufwändig die Toolchain einzurichten war.
+
+\item [Iuliia]\hfill \\
+\item [Max]\hfill \\
+\item [Younis]\hfill \\
+\item [Randy]\hfill \\
+\end{description}
+
 \subsubsection{Unerwartete Probleme}
-Während der Implementierung sind wir nur auf wenige wirklich unerwartete Probleme gestoßen, die uns dafür aber um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
+Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
     \item ant (Buildsystem)
         \newline
@@ -271,28 +236,70 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-    Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis
-	für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer
-	falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der
-	Debruijn-Indizes heraus, die nur bei manchen Reduktionen relevant sind.
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
 \end{itemize}
-\subsubsection{Ablauf der Implementierung}
-\subsubsection{Was ist geändert und woran liegt es}
-\subsubsection{git übersicht vll}
- (Realität und wieso es sich unterscheidet von dem Anfangsplan)
+
 \newpage
 
-%=====================UNIT TESTS=====================
-\section{Unit tests}
-\subsection{Backend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen}
-\subsubsection{Werkzeuge}
-\subsection{Frontend TestZeug}
-\subsubsection{Ziel}
-\subsubsection{Voraussetzungen \& Probleme die auftauchen koennen}
-\subsubsection{Werkzeuge}
+
+%=====================FEATURES=====================
+\section{Implementierte Kriterien}
+
+\subsection{Musskriterien}
+Alle im Pflichtenheft definierten Musskriterien sind in der aktuellen Version von Aurora umgesetzt worden.
+
+\subsection{Wunschkriterien}
+Neben den Pflichtkriterien wurden in der ersten Phase auch Wunschkriterien definiert.
+Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
+\newline
+\newline
+\textbf{K1} Zeilennummer
+\newline
+\textbf{K2} Kommentare einfügen
+\newline
+\textbf{K3} Autovervollständigung von Klammern
+\newline
+\textbf{K4} Syntax-Highlighting
+\newline
+\textbf{K7} Standardbibliothek
+\newline
+\textbf{K8} Benutzerbibliothek
+\bigbreak
+\textbf{K9} Call By Name und Call By Value
+\smallbreak
+\textbf{K11} Mehrere Schritte auswerten.
+\newline
+
+\subsection{Kriterien die wegfielen}
+Es gibt zwar einige Wunschkriterien, die noch nicht implementiert wurden,
+aber zu diesem Zeitpunkt wird kein Kriterium ausgeschlossen. Es wurde sich
+vorgenommen die meisten Kriterien, die noch nicht implementiert wurden,
+in der Qualitätstsicherungsphase zu implementieren.
+Falls dennoch Wunschkriterien in der Qualitätssicherung wegfallen wird dies in der internen Abnahme notiert.
 \newpage
+
+
+%=====================STATISTIKEN=====================
+\section{Statistiken}
+
+\subsection{Continuous Integration}
+Anzahl Commits: \textasciitilde  1200\newline
+
+Anzahl MRs\newline
+Anzahl pipes\newline
+
+
+\subsection{Testabdeckung}
+Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
+Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
+Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
+Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
+ob korrekt geparsed wurde.
+Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
+Fehler des Parsers behoben werden.
+Später wurde auch die Fähigkeit des Betareduzierens dem Bot hinzugefügt.
+\newpage
+
 
 \end{document}
