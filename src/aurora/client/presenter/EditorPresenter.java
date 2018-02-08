@@ -16,6 +16,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
+import aurora.client.event.ContinueEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.RedexClickedEvent;
@@ -99,6 +100,7 @@ public class EditorPresenter {
         eventBus.addHandler(EvaluationStrategyChangedEvent.TYPE, this::onStrategyChange);
         eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent
                 -> onRedexClicked(redexClickedEvent.getToken()));
+        eventBus.addHandler(ContinueEvent.TYPE, e -> onContinue());
     }
 
     private void reset() {
