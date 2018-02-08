@@ -117,32 +117,13 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     		\item \texttt{displaySyntaxError(String)} wurde
             durch \newline \texttt{displaySyntaxError(SyntaxException)} und \newline
         	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+            \item \texttt{addNextStep} verfügt jetzt über eine Liste von HighlightedLambdaExpressions. Grund ist, dass sehr oft mehr als ein Schritt auf ein mal ausgeführt werden. Es wird auch der start-index des ersten Schrittes in der übergebenen Liste übergeben, damit die View die korrekten Schritt Inidizes anzeigen kann.
+            \item \texttt{finishedFinished} Ist ein Äquivalent zum displayResult, und wird aufgerufen wenn der zweite Durchlauf beendet ist. Mit zweiter Durchlauf ist gemeint, wenn der Benutzer bereits den fertig reduzierten Term in der Ausgabe stehen hat, aber sich (aus Lernzwecken) die Zwischenschritte nacheinander anzeigen lassen will. Wenn es keinen weiteren Schritt zum anzeigen gibt, wird diese Funktion aufgerufen.
     	\end{itemize}
 
-    \item Enum ViewState hinzugefügt (pkg: aurora.client.view)
-    \newline
-    ViewState beschreibt die einzelenen Zustände, die AuroraView haben kann.
-
-    \item Helfermethoden in Klasse ActionBar hinzugefügt.
-
-    \item Neu hinzugefügte Events und EventHandler (pkg: aurora.client.event)
+    \item Neu hinzugefügte Events:
     	\begin{itemize}
-    		\item ReStepEvent und ReStepEventHandler
-    		\newline
-    		Der ReStepEvent wird benötigt damit der Presenter weiß, dass er Schritte, die er bereits berechnet hat, jetzt nacheinander berechnen soll.
-
-    		\item ResultCalculatedEvent und ResultCalculatedEventHandler
-    		\newline
-    		Der ResultCalculatedEvent informiert die State Machine der View, dass eine Berechnung eines Lambdaterms abgeschlossen wurde und im Ergebnisfeld erscheint.
-
-    		\item FinishFinishEvent und FinishFinishEventHandler
-    		\newline
-    		Der FinishFinishEvent informiert die State Machine der View, dass eine Berechnung komplett abgeschlossen wurde. Das bedeutet, dass die Schritte und das Ergebnis in der View angezeigt werden.
-
-    		\item ViewStateChangedEvent und ViewStateChangedEventHandler
-    		\newline
-    		Der ViewStateChangedEvent informiert die einzelnen Widgets der View, dass sich der Zustand sich geändert hat.
-
+    		\item
     	\end{itemize}
 \end{itemize}
 
@@ -186,7 +167,7 @@ Wichtig waren vorallem folgende Regeln:
 		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
 		WAR-Dateien auf einem öffentlich zugänglichen HTTP-Server entpackt und gehostet hat.
 
-       \item JUnitTests
+       \item JUnit Tests
        \newline
       	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
@@ -239,7 +220,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
     \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen.
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
@@ -251,16 +232,16 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
 
     \begin{enumerate}
-    
-    
+
+
     \item Sprachauswahl ermöglichen.  \\(pkg aurora.client.*)
-    
+
     \begin{itemize}
 
 	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
-	
+
 	\item[--] Erzeugung der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
-	
+
 	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
 
     \end{itemize}
@@ -273,7 +254,7 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 
 	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
 
-	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
+	\item[--] CSS Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
 
@@ -291,16 +272,16 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
         \end{itemize}
     \item [Younis]\hfill \\
 	\begin{enumerate}
-		\item Lexer
-		\item Parser
-		\item Ehhh... Rudolf?
+		\item Implementierung von Lexer und Parser
+		\item Implementierung von HighligtedLambdaExpression
+		\item Implementierung der Simplifier Klassen (pkg: aurora.backend.simplifier.*)
 	\end{enumerate}
-    
+
     \item [Randy]\hfill \\
     \begin{enumerate}
     \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
     \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
     \end{enumerate}
 \end{description}
@@ -312,6 +293,10 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 \begin{description}
 
 \item [Alexander]\hfill \\
+Der erste Punkt des Implementierungsplans, CodeMirror, hat sich als wesentlich schwieriger als erwartet herausgestellt.
+Anstatt wir urspünglich geplant eine Dependency einzubiden, wurde extra Zeit damit verbracht, einen eigenen Wrapper zu schreiben.
+Dies hatte zur Folge, dass sich der Zeitplan stark nach hinten verschoben hat.
+Abgesehen von dieser Verschiebung sind keine weiteren Abweichungen aufgetreten.
 \item [Nikolai]\hfill \\
 Großteilig wurde sich an den Plan gehalten, es wurde nur Call By Name und Call by Value vor dem Betareducer geschrieben.
 Es wurde  bemerkt, dass das Prinzip dieser Reduktionsstrategien sehr ähnlich zu der Normalenordnung war und zu dem Zeitpunkt es passender erschien diese zu implementieren als in ein komplett neues Thema einzusteigen.
@@ -323,35 +308,44 @@ Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüll
 \item [Iuliia]\hfill \\
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
+Die Konfiguration des Buildsystems (Ant) und des CI Runners hat wesentlich mehr Zeit in Ansprung genommen
+als ursprünglich geplant, was dazu geführt hat, dass sich die Implementierung des Lexers und Parsers verzögert hat.
+
+Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 \item [Randy]\hfill \\
 Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
 Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
 Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
-    
+
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
 Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gefunden, welche aber dafür um so mehr Zeit gekostet haben, um wirklich vollends behoben werden zu können:
 \begin{itemize}
-    \item ant (Buildsystem)
+    \item Ant
         \newline
-        \textbf{Das sollte vllt. am besten Younis schreiben :)}
+        Es hat sich als schwierig erwiesen, den Java-Classpath IDE-übergreifend zu konfigurieren,
+		da sich das von uns gewählte Buildsystem Ant nur sperrig integrieren ließ.
     \item Continuous Deployment
         \newline
         \textbf{Das vllt. auch...}
     \item Parser
         \newline
-        \textbf{Younis?}
+		Die vom Parser verwendete Grammatik ist keine reine LL(1)-Grammatik geworden, da es zu Problemen mit der
+		Linksassoziativität der Applikationen geführt hat.
+		Desweiteren musste eine GWT-Variante der Java-Regex-Bibliothek verwendet werden.
     \item CodeMirror
         \newline
-        \textbf{Gerade kein Bock, schreib ich später. Alex}
+        Ursprünglich war geplant, einen bereits vorhandenen CodeMirror Wrapper für GWT in unser Projekt einzubinden.
+        Leider hat sich herausgestellt, dass dieser Wrapper auf einer veralteten Version von CodeMirror basiert, und einige Bugs aufweist.
+        Deshalb haben wir den ursprünglichen Plan verworfen und einen eigenen Wrapper geschrieben.
     \item BetaReducer
     \newline
 Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert.
 Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
 Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
-    \item Sprachenauswahl (i18n)
+    \item Sprachauswahl (i18n)
     \newline
 GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client).
 
@@ -360,9 +354,15 @@ Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine
 
 Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Properties Dateien in andere Pakete zu legen oder die Dateien neu zu erzeugen. Das Problem konnte nicht gelöst werden - GWT kann die i18n Properties nur in dem oben genanntem Paket sehen.
 
-	\item Css Styling
+	\item CSS Styling
     	\newline
 	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
+
+    \item Restepping.
+    \newline
+    Die genaue interaktion mit dem Benutzer bezüglick Run, Pause, Continue, Reset, Step, ist sehr kompliziert. Beim Pausieren werden nur die paar zuletzt reduzierten Schrrite ausgegeben, und beim Fortfahren werden die Schritte wieder gelöscht.
+    \newline
+    Man kann sich das Ergebnis anzeigen lassen, und die Zwischenschritte erst später. Dies war recht schwierig umzusetzen im Presenter, und resultierte in Spaghetti code. Es ist eines der ersten Sachen die zu beheben sein werden in der nächsten Phase.
 
 \end{itemize}
 
@@ -405,14 +405,15 @@ Einige Wunschkriterien sind noch nicht vollständig implementiert, aber es wurde
 %=====================STATISTIKEN=====================
 \section{Statistiken}
 
+\subsection{Lines of Code}
+Java: \space\space\space\space6200\newline
+XML: \space\space\space\space 280\newline
+CSS:\space\space\space\space\space\space 419 \newline
+Test: \space\space\space\space\space1300
 \subsection{Continuous Integration}
-Anzahl Commits: \textasciitilde  1200\newline
-
-Anzahl Lines of code in Java: \textasciitilde 4200
-Anzahl Lines of code in XML: 255
-
-Anzahl lines of Code in Tests: \textasciitilde 1300
-
+Commits: \space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space1200\newline
+Merge Requests:\space\space\space\space\space143\newline
+Pipelines:\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space776
 
 \subsection{Testabdeckung}
 Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
