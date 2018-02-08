@@ -5,6 +5,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
+import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.ResultCalculatedEvent;
@@ -80,41 +81,7 @@ public class EditorView extends Composite implements EditorDisplay {
     }
     
     private void eventWiring() {
-        wireActionBar();
-
         eventListeningActionbar();
-    }
-
-    
-    /**
-     * Wires the ActionBar buttons with the event bus.
-     */
-    private void wireActionBar() {
-        this.actionBar.getRunButton().addClickHandler(event -> {
-            GWT.log("EV: Fire RunEvent.");
-            EditorView.this.eventBus.fireEvent(new RunEvent());
-        });
-
-        this.actionBar.getPauseButton().addClickHandler(event -> {
-            GWT.log("EV: Fire PauseEvent.");
-            EditorView.this.eventBus.fireEvent(new PauseEvent());
-        });
-
-        this.actionBar.getContinueButton().addClickHandler(event -> {
-            GWT.log("EV: Fire ContinueEvent");
-            EditorView.this.eventBus.fireEvent(new ContinueEvent());
-
-        });
-
-        this.actionBar.getResetButton().addClickHandler(event -> {
-            GWT.log("EV: Fire ResetEvent");
-            EditorView.this.eventBus.fireEvent(new ResetEvent());
-        });
-        this.actionBar.getStepButton().addClickHandler(event -> {
-            GWT.log("EV: Fire StepEvent");
-            EditorView.this.eventBus.fireEvent(new StepEvent());
-        });
-
     }
 
     private void eventListeningActionbar() {
@@ -133,9 +100,12 @@ public class EditorView extends Composite implements EditorDisplay {
                 case STEP_BEFORE_RESULT_STATE:
                     EditorView.this.actionBar.setStepBeforeResultAppearance();
                     break;
-                default:
-                    // In FINISHED_STATE
+                case FINISHED_STATE:
                     EditorView.this.actionBar.setFinishedStateAppearance();
+                    break;
+                default:
+                    // In FINISHED_FINISHED_STATE
+                    EditorView.this.actionBar.setFinishedFinishedAppearance();
             }
 
         });
@@ -318,7 +288,7 @@ public class EditorView extends Composite implements EditorDisplay {
      */
     @Override
     public void finishedFinished() {
-
+        this.eventBus.fireEvent(new FinishFinishEvent());
     }
 
     @Override
