@@ -287,7 +287,6 @@ public class EditorPresenter {
             steps.add(this.betaReductionIterator.next());
 
             if (!this.betaReductionIterator.hasNext()) {
-                editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
                 finish();
             }
         }
