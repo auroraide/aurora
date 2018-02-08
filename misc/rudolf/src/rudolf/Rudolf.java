@@ -1,3 +1,5 @@
+package rudolf;
+
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.strategies.NormalOrder;
