@@ -61,6 +61,20 @@ public class LambdaParserTest {
 
     }
 
+
+    @Test
+    public void firstLineComment() {
+        String[] input = {
+            "#Comment",
+            "\\x.x"
+        };
+        String[] expected = {
+            "\\ x . 1 "
+        };
+
+        this.assertParse(input, expected);
+    }
+
     private void assertParse(String[] input, String[] expected) {
         for (int i = 0; i < expected.length; ++i) {
             try {
