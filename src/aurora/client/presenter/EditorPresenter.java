@@ -174,7 +174,7 @@ public class EditorPresenter {
     }
 
     private boolean isReStepping() {
-        assert (!isRunning() && isStarted());
+        // assert (!isRunning() && isStarted());
         assert ((nextReStepIndex == null) == (reStepper == null));
         return reStepper != null;
     }
@@ -277,18 +277,18 @@ public class EditorPresenter {
         for (int i = 0; i < stepNumber; i++) {
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = reStepper.next();
+                Term result = bri.next();
                 steps.add(result);
                 editorDisplay.displayResult(new HighlightableLambdaExpression(result));
                 break;
             } else {
-                Term result = reStepper.next();
+                Term result = bri.next();
                 steps.add(result);
                 step.add(new HighlightableLambdaExpression(result));
             }
         }
 
-        editorDisplay.addNextStep(step, steps.size() - stepNumber - 1);
+        editorDisplay.addNextStep(step, steps.size() - stepNumber);
     }
 
     private void onRedexClicked(Token token) {

@@ -57,7 +57,7 @@ public class EditorPresenterTest {
         Term last = getSample();
         last = br.reduce(last);
         steps.add(new HighlightableLambdaExpression(last));
-        verify(editorDisplay).addNextStep(steps);
+        verify(editorDisplay).addNextStep(steps, 1);
     }
 
     private MetaTerm getSample() {
