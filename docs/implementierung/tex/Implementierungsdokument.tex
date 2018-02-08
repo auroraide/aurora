@@ -192,6 +192,37 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \end{enumerate}
 Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen konnte und deshalb habe ich die Abhängigkeiten zuerst implementiert.
     \item [Iuliia]\hfill \\
+    
+   
+    \begin{enumerate}
+    
+    
+    \item Ermöglichung der Sprachauswahl.  \\(pkg aurora.client.*)
+    
+    \begin{itemize}
+    
+	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
+	
+	\item[--] Erzeugen der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
+	
+	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
+	
+    \end{itemize}
+    
+    \item Für den Sprachwechsel den Menü Button implementieren \\(pkg: aurora.client.*)
+    
+    \item Frontend styling
+    
+    \begin{itemize}
+    
+	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
+	
+	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
+
+    \end{itemize}
+    
+    \end{enumerate}
+    
     \item [Max]\hfill \\
     \item [Younis]\hfill \\
     \item [Randy]\hfill \\
@@ -237,6 +268,19 @@ Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gef
     \item BetaReducer
     \newline
 Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
+
+    \item Sprachenauswahl (i18n)
+    \newline
+GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client). 
+
+Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine konsistente Struktur erwarten würde.
+
+
+Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Properties Dateien in andere Pakete zu legen oder die Dateien neu zu erzeugen. Das Problem konnte nicht gelöst werden - GWT kann die i18n Properties nur in dem oben genanntem Paket sehen.
+
+	\item Css Styling
+    	\newline
+	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
 
 \end{itemize}
 
