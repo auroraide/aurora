@@ -154,7 +154,7 @@ Wichtig waren vorallem folgende Regeln:
 		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
 		WAR-Dateien auf einem öffentlich zugänglichen HTTP-Server entpackt und gehostet hat.
 
-       \item JUnitTests
+       \item JUnit Tests
        \newline
       	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
@@ -177,7 +177,7 @@ Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werde
 
 
 \subsubsection{Verteilung der Pakete und deren Priorität}
-Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
+Im Folgenden ist das Ergebnis unserer Paketeverteilung.
 \begin{description}
 
 
@@ -191,7 +191,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
     \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen.
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
@@ -200,50 +200,50 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \end{enumerate}
 Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und deshalb wurden zuerst die Abhängigkeiten implementiert.
     \item [Iuliia]\hfill \\
-    
-   
+
+
     \begin{enumerate}
-    
-    
+
+
     \item Sprachauswahl ermöglichen.  \\(pkg aurora.client.*)
-    
+
     \begin{itemize}
-    
+
 	\item[--] Verknüpfungen der UiBinder Labels, die beim Sprachwechsel übersetzt werden sollen
-	
+
 	\item[--] Erzeugung der gesamten Sprachbibliothek für jede Sprache (2 Sprachen)
-	
+
 	\item[--] Anlegen einer Struktur für die Sprachdokumente (pkg aurora.client.*)
-	
-    \end{itemize}
-    
-    \item Für den Sprachwechsel den Menü Button implementieren \\(pkg: aurora.client.*)
-    
-    \item Frontend styling
-    
-    \begin{itemize}
-    
-	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
-	
-	\item[--] Css Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
 
     \end{itemize}
-    
+
+    \item Für den Sprachwechsel den Menü Button implementieren \\(pkg: aurora.client.*)
+
+    \item Frontend styling
+
+    \begin{itemize}
+
+	\item[--] Anpassen der GWT UiBinder Struktur für die css Styling Zwecke
+
+	\item[--] CSS Dateien mit entsprechendem Styling (anhand des GUI Entwurfs der 1.Phase)
+
+    \end{itemize}
+
     \end{enumerate}
-    
+
     \item [Max]\hfill \\
     \item [Younis]\hfill \\
 	\begin{enumerate}
-		\item Lexer
-		\item Parser
-		\item Ehhh... Rudolf?
+		\item Implementierung von Lexer und Parser
+		\item Implementierung von HighligtedLambdaExpression
+		\item Implementierung der Simplifier Klassen (aurora.backend.simplifier.*)
 	\end{enumerate}
     \item [Randy]\hfill \\
 \end{description}
 
 
 
-\subsection{Änderungen des Implementierungsplans während der Implementierung}
+\subsection{Änderungen am Implementierungsplan}
 
 \begin{description}
 
@@ -259,6 +259,10 @@ Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüll
 \item [Iuliia]\hfill \\
 \item [Max]\hfill \\
 \item [Younis]\hfill \\
+Die Konfiguration des Buildsystems (Ant) und des CI Runners hat wesentlich mehr Zeit in Ansprung genommen
+als ursprünglich geplant, was dazu geführt hat, dass sich die Implementierung des Lexers und Parsers verzögert hat.
+
+Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 \item [Randy]\hfill \\
 \end{description}
 
@@ -279,20 +283,20 @@ Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gef
         \textbf{Gerade kein Bock, schreib ich später. Alex}
     \item BetaReducer
     \newline
-Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert. 
+Es war bereits im Entwurf ein Prototyp eines Betareduzieres geschrieben worden und er hatte, mit etwas hardcoding, ein richtiges Ergebnis für eine Beispielrechnung geliefert.
 Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste recht lange debuggt werden.
 Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant waren und der Bug deswegen gut versteckt war.
 
-    \item Sprachenauswahl (i18n)
+    \item Sprachauswahl (i18n)
     \newline
-GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client). 
+GWT liefert eine Möglichkeit die i18n Lokalisierung zu verwenden. Pro Klasse, in der es eine Nachricht gibt, die Übersetzt werden soll, wird eine Properties Datei mit Hashwerten und entsprechenden Nachrichten erzeugt. Nachdem man alle i18n Properties Dateien erzeugt hat, fügt man  sie in einer umfassenden Protpertiesdatei zusammen, um die Nachrichten schnell wieder anpassen zu können, ohne die Dateien einzeln durchgehen zu müssen. Für das GWT ist es aber wichtig, dass die endgültige Properties Dateien in einem bestimmten Paket liegen müssen (nämlich aurora.com.google.gwt.i18n.client).
 
 Das Paket lag in einem Package das zu weit entfernt gewesen wäre, wenn man eine konsistente Struktur erwarten würde.
 
 
 Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Properties Dateien in andere Pakete zu legen oder die Dateien neu zu erzeugen. Das Problem konnte nicht gelöst werden - GWT kann die i18n Properties nur in dem oben genanntem Paket sehen.
 
-	\item Css Styling
+	\item CSS Styling
     	\newline
 	GWT generiert die Struktur des endgültigen Endprojekts so, dass die html Struktur am Ende sehr verschachtelt ist. Dies ergab Schwierigkeiten bei dem Zugriff auf einzelne html Blöcke.
 
