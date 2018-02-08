@@ -105,7 +105,7 @@ Im folgenden ist eine Auflistung aller implementierten Wunschkriterien zu sehen.
 \bigbreak
 \textbf{K9}Call By Name und Call By Value
 \smallbreak
-\textbf{K11} Mehrere Schritte auswerten \textbf{Max}
+\textbf{K11} Mehrere Schritte auswerten.
 \newline
 \newpage
 
@@ -121,20 +121,30 @@ Im Speziellen handelt es sich hierbei um folgendes:
     Leider hat es sich herausgestellt, dass der Wrapper nicht nur auf einer alten Version von CodeMirror beruht, sondern scheinbar auch einen Bug hatte, der es uns erschwert hat, ihn ohne Fehler zu benutzen.
     Deswegen haben wir uns dazu entschieden, einen eigenen Wrapper für CodeMirror zu schreiben.
     Bei Bedarf könnte er wieder ausgegliedert werden, uns als dependency eingebunden werden.
-	
+
 	\item Umbennennung der Klasse aurora.backend.tree.Libraryterm
 	\newline
 	Zuallererst wurde diese Klasse von Libraryterm in Function umbenannt. Wir fanden es unschön, dass alle Klassen in dieser Package von Term erben, aber bei dieser Klasse dies extra dazustand. Auch ist für den abstrakten Syntaxbaum nicht relevant, ob die Funktion aus einer Library oder etwas anderem kommt. Deswegen wurde diese Klasse in Function umbenannt.
-	
+
 	\item Hinzufügung eines Attributs der Klasse aurora.backend.tree.Function
 	\newline
-	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert. 
+	Viele Visitoren müssen den Funktionsnamen mit den Bibliotheken abgleichen und nachschauen, ob der Name der Funktion vorhanden ist und 		dann den Term bekommen, der mit dem Namen assoziiert ist. Da die Visitoren die Bibliotheken und den Presenter nicht kennen, müsste der 	Presenter jedem einzelnen Visitor die Bibliotheken übergeben. Da der Presenter auch immer nur die aktuellste Bibliothek kennt, würde 		es zu Schwierigkeiten kommen, wenn sich die Bibliothek während die Visitoren executen ändert.
 	Deshalb werden jetzt schon beim Parsen den Funktionen ihre Terme, die sie repräsentieren, vom Presenter übergeben.
 	Diese werden in Function.term gespeichert. Dannach kann nur ein neues parsen, welches einen neuen abstrakten syntaxbaum aufbauen würde 	die Funktionsassoziation ändern.
 	\item Hinzufügung der Klasse aurora.backend.Comparer
 	\newline
 	Es wurde die Klasse Comparer geschrieben, die im Konstruktor zwei Terme erhält und diese dann mit der Methode compare() vergleicht. Die Methode gibt ein true zurück, wenn die zwei übergebenen Terme gleich waren, ein false wenn die zwei Terme nicht gleich waren. Diese Klasse wurde beim Debuggen benutzt, um zu testen ob die Reduktionsstrategien und die Betareduktion einen korrekten Term zurückgibt.
-	
+
+    \item Library wurde in HashLibrary umbenannt, dann ein Interface namens Library extrahiert. Es wurde MultiLibrary eingeführt, welche die Abrfrage von LibraryItems aus mehreren libraries erleichtern soll. Jetzt muss z.B. der LambdaParser nur eine Library als Konstruktor-Parameter annehmen, hinter der sich der Benutzer- und Standardbibliotheken verbergen. So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaParser zu verändern.
+    \newline
+
+    \item Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
+
+    \item Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
+    	\texttt{displayAddLibraryItemSyntaxError} und \newline
+        \texttt{displayAddLibraryItemSemanticError} werden aufgerufen wenn Lexen oder Parsen fehlschlägt.
+        \texttt{displayAddLibraryItemNameAlreadyTaken} wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt.
+
     \item NEUE EVENTS???
 \end{itemize}
 \subsection{Kriterien die weggefallen sind (Krierien nummer + ein Grund)}
@@ -149,15 +159,15 @@ Wichtig waren vorallem folgende Regeln:
 \begin{itemize}
 	\item Alle haben die benötigten Tools korrekt installiert
 	\newline
-	Am ersten Treffen mussten alle Teammitglieder die benötigten Tools installieren und testen ob sie funktionieren. 
+	Am ersten Treffen mussten alle Teammitglieder die benötigten Tools installieren und testen ob sie funktionieren.
 	Alle Teammitglieder mussten ein Mergetool installiert haben, weil es bereits Probleme im Entwurf wegen fehlerhaften Merges gegeben hatte.
 	Auch mussten die Teammitglieder alle Funktionen auf der Kommandozeile zusätzlich 	zu der IDE ausführen können. Dies wurde vorrausgesetzt, um mögliche Fehler von den IDEs ausschließten zu können.
-	Tools wie Ant, Ivy, Codemirror, Checkstyle, mussten zusätzlich installiert und eingerichtet werden. 
-	Natürlich musste auch GWT installiert und in die IDE eingebunden werden. 
-	
+	Tools wie Ant, Ivy, Codemirror, Checkstyle, mussten zusätzlich installiert und eingerichtet werden.
+	Natürlich musste auch GWT installiert und in die IDE eingebunden werden.
+
     \item Protected master
         \newline
-        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten. 
+        Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten.
         Auf dem master selber durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
@@ -166,19 +176,19 @@ Wichtig waren vorallem folgende Regeln:
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
         So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
-        
+
     \item Continuous Deployment
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
         Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
-          
+
        \item JUnitTests
        \newline
-      	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne. 
+      	Es wurde von den Backendentwickler, die komplett in Java programmieren, JUnit 4 Tests zu schreibne.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
       	 Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambdaterms berechnet werden.
-      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet. 
+      	Da im Frontend keine schnellen JunitTests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
       	Falls benötigt mussten mit Mockito Klassen gemocket werden.
       	\item Issues
       	Wenn Probleme im Code von anderen Teammitgliedern gefunden wurden, mussten Issues in Gitlab geöffnet werden, damit keine Informationen verloren gehen konnten.
@@ -189,8 +199,8 @@ Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen
 Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
 Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstellen und haben so verteilt, dass möglicht alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
 Die Personen hatten bei ihren zugeteilten Paketen auch beim Entwurf mitgearbeitet, damit Wissen aus dem Entwurf nicht verloren gehen konnte.
-Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde. 
-Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen. 
+Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde.
+Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen.
 
 Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werden, damit man die Pakete möglichst schnell testen kann.
 
@@ -201,7 +211,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
 
 
     \item [Alexander]\hfill \\
-      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren. 
+      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren.
         Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
         Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
     \item [Nikolai]\hfill \\
@@ -224,8 +234,8 @@ Ich habe diese Reihenfolge gewählt, damit ich möglichst alles gleich testen ko
     \item [Randy]\hfill \\
     \begin{enumerate}
     \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
 
     \end{enumerate}
 \end{description}
@@ -263,7 +273,7 @@ Während der Implementierung sind wir nur auf wenige wirklich unerwartete Proble
     \item BetaReducer
     \newline
     Wir hatten im Entwurf bereits ein Prototyp eines Betareduzieres geschrieben und er hatte ein richtiges Ergebnis für eine Beispielrechnung geliefert. Dass dieses richtige Ergebnis purer Zufall war und dass der Betareduzierer falsch gerechnet hatte musste ich recht lange debuggen. Als das Problem stellte sich am Ende ein falscher Shift der DebruijnIndizes heraus, die nur bei manchen Reduktionen relevant sind.
-   
+
 \end{itemize}
 
 \subsubsection{git übersicht vll}
