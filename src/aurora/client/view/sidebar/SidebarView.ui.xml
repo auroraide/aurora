@@ -24,9 +24,9 @@
                     <g:StackLayoutPanel>
 
                         <!-- Standard Library -->
-                        <g:stack addStyleNames="standrard_db">
+                        <g:stack >
                             <g:customHeader size="40">
-                                <g:FlowPanel>
+                                <g:FlowPanel addStyleNames="standrard_db">
                                     <!-- Placeholder for stdlib icon-->
                                     <g:Label addStyleNames="rightAlign"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
@@ -37,11 +37,11 @@
                         </g:stack >
 
                         <!-- User Library -->
-                        <g:stack addStyleNames="user_db">
-                            <g:customHeader size="70">
-                                <g:FlowPanel>
+                        <g:stack >
+                            <g:customHeader size="40">
+                                <g:FlowPanel addStyleNames="user_db">
                                     <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
-                                    <g:Button ui:field="addFunctionButton" addStyleNames="rightAlignButton">+
+                                    <g:Button ui:field="addFunctionButton" addStyleNames="addButton">
                                     </g:Button>
                                 </g:FlowPanel>
                             </g:customHeader>
