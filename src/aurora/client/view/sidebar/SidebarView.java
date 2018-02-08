@@ -12,17 +12,17 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -49,9 +49,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     StrategySelection strategySelection;
     @UiField
-    ListBox languageSelection;
-    @UiField
-    ListBox shareSelection;
+    FlowPanel shareAndLanguage;
     private EventBus eventBus;
     private int prevStepNumber = 1;
     Document document;
@@ -66,18 +64,29 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.deleteLibraryItemDialogBox = new DeleteLibraryItemDialogBox();
-        nightModeSwitch.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                Window.alert(document.getBody().getClassName());
-
-            }
-        });
-
+        setupLanguageMenu();
         eventWiring();
     }
-    
+
+    private void setupLanguageMenu() {
+        MenuBar languageMenu = new MenuBar(true);
+        languageMenu.setAnimationEnabled(false);
+        languageMenu.addStyleName("gwt-Button");
+        languageMenu.addItem("language", setupLanguageMenuBar());
+        this.shareAndLanguage.add(languageMenu);
+    }
+
+    private MenuBar setupLanguageMenuBar() {
+        MenuBar languageMenuBar = new MenuBar(true);
+        languageMenuBar.addItem("RU", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        return languageMenuBar;
+    }
+
     private void eventWiring() {
         wireStepNumber();
         wireAddLibraryFunction();
@@ -186,24 +195,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for languageSelection.
-     *
-     * @return languageSelection
-     */
-    public ListBox getLanguageSelection() {
-        return languageSelection;
-    }
-
-    /**
-     * Getter for shareSelection.
-     *
-     * @return shareSelection
-     */
-    public ListBox getShareSelection() {
-        return shareSelection;
-    }
-
-    /**
      * Getter for stepNumber.
      *
      * @return stepNumber
@@ -220,6 +211,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public CheckBox getNightModeSwitch() {
         return nightModeSwitch;
     }
+
 
 }
 

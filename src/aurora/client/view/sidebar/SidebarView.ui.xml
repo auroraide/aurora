@@ -67,15 +67,10 @@
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel addStyleNames="share_language">
-                    <g:Button><ui:msg description="Sidebar Share Option">Share</ui:msg></g:Button>
-                    <g:Button><ui:msg description="Sidebar Language Option">Language</ui:msg></g:Button>
+                <g:FlowPanel addStyleNames="share_language" ui:field="shareAndLanguage">
+
                 </g:FlowPanel>
 
-                <g:ListBox ui:field="shareSelection"/>
-                <!-- Presenter rendert -->
-                <g:ListBox ui:field="languageSelection"/>
-                <!-- language selection should load the list with available languages from properties files i18n -->
             </g:HorizontalPanel>
         </g:south>
     </g:DockLayoutPanel>
