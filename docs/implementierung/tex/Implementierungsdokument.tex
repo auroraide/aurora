@@ -39,7 +39,7 @@
 \subtitle{The Lambda Calculus IDE}
 
 
-\author{Julia Patrusheva, Alexander von Heyden\\
+\author{Iuliia Patrusheva, Alexander von Heyden\\
 Younis Bensalah, Max Nowak\\
 Nikolai Polley, Randy Seng}
 
@@ -156,7 +156,8 @@ Wichtig waren vorallem folgende Regeln:
       	Da im Frontend keine schnellen JUnit-Tests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
       	Falls benötigt, mussten Klassen mit Mockito gemocket werden.
       	\item Issues
-      	Bugs oder andere Anomalien im Code anderer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
+        \newline
+      	Bugs und Anomalien im Code unserer Teammitglieder wurden stets in Form von Issues auf GitLab kommuniziert.
       	\end{itemize}
 
 \subsection{Ursprünglicher Implementierungsplan}
@@ -176,9 +177,24 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
 
 
     \item [Alexander]\hfill \\
-      wird zu großen Teilen die Darstellung des Editor Bereiches implementieren.
-        Hierzu zählt zu aller erst das Anzeigen von Code, was unter anderem Zeilennummerierung und Syntaxhighlighting beinhaltet.
-        Im Anschluss daran wird er den Encoder implentieren, der es erlauben wird, Sessions zu teilen.
+    \begin{enumerate}
+        \item CodeMirror
+            \newline
+            Zur Darstellung von Code haben wir uns entschieden, CodeMirror zu benutzen.
+            Hierzu war geplant, einen bereits vorhandenen CodeMirror Wrapper in unser Projekt einzubinden.
+        \item Highlighting
+            \newline
+            CodeMirror ermöglicht durch eine Schnittstelle statisches Syntaxhighlighting.
+            Zur Darstellung dynamischen Syntaxhighlightings reicht diese nicht aus, deswegen benutzen wir hier die HighlightedLambdaExpressions.
+        \item Editor (pkg: aurora.client.view.editor)
+            \newline
+            Den größten Teil der graphischen Oberfläche wird vom EditorPanel eingenommen.
+            Das EditorPanel selbst beinhaltet mehrere CodeMirrorPanel, die ihrer Aufgaben entsprechend konfiguriert werden müssen.
+        \item Encoder (pkg: aurora.backend.encoders)
+            \newline
+            Encoder ermöglochen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
+            Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt auf Pastebin speichert.
+    \end{enumerate}
     \item [Nikolai]\hfill \\
     \begin{enumerate}
     \item Churchnummern in Abstraktionsgestalt von den Integers in denen sie gespeichert sind generieren. \\(class aurora.backend.tree.Churchnumber)
