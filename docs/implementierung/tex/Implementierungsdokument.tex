@@ -117,6 +117,8 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     		\item \texttt{displaySyntaxError(String)} wurde
             durch \newline \texttt{displaySyntaxError(SyntaxException)} und \newline
         	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
+            \item \texttt{addNextStep} verfügt jetzt über eine Liste von HighlightedLambdaExpressions. Grund ist, dass sehr oft mehr als ein Schritt auf ein mal ausgeführt werden. Es wird auch der start-index des ersten Schrittes in der übergebenen Liste übergeben, damit die View die korrekten Schritt Inidizes anzeigen kann.
+            \item \texttt{finishedFinished} Ist ein Äquivalent zum displayResult, und wird aufgerufen wenn der zweite Durchlauf beendet ist. Mit zweiter Durchlauf ist gemeint, wenn der Benutzer bereits den fertig reduzierten Term in der Ausgabe stehen hat, aber sich (aus Lernzwecken) die Zwischenschritte nacheinander anzeigen lassen will. Wenn es keinen weiteren Schritt zum anzeigen gibt, wird diese Funktion aufgerufen.
     	\end{itemize}
 
     \item Neu hinzugefügte Events:
@@ -218,7 +220,7 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
     \item  Die Libraryfunktionen implementieren \\(pkg: aurora.backend.library)
     \item Die Redexpathklasse füllen \\class: (aurora.backend.RedexPath)
     \item Mit der fertigen RedexPathklasse die Normalorder implementieren. Die Normalorder erstellt als Ergebnis einen Redexpath. \\(class: aurora.backend.betareduction.strategies.NormalOrder)
-    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen. 
+    \item Wenn die Normalorder fertig ist das Betareducerpackage implementieren und dann mit der fertigen Normalorder testen.
     \\ (pkg: backend.betareduction)
     \item Wenn dies klappt werden Call by Value und Call by Name implementiert  \\(pkg: aurora.backend.betareduction.strategies)
 \item Dannach wird die User Strategy implementiert \\(pkg: aurora.backend.betareduction.strategies)
@@ -274,12 +276,12 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
 		\item Parser
 		\item Ehhh... Rudolf?
 	\end{enumerate}
-    
+
     \item [Randy]\hfill \\
     \begin{enumerate}
     \item Einen Bug beheben, der beim Starten der Aurora WebApp, nicht die GUI, sondern eine blanke Seite anzeigt. Der Bug muss zuerst behoben werden, da sonst alle, die im Frontend, ihre Ergebnisse nicht einsehen können. Zuerst wurde vermutet, dass der Fehler sich im Package aurora.client.view befindet. Letzendlich hatte sich die Vermutung als falsch rausgestellt und der Fehler musste in der Klasse aurora.client.Aurora behoben werden. \\(pkg: aurora.client.Aurora)
-    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren. 
-    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView) 
+    \item Die Aufgabe ist es, sich für die Benutzung von GWTTestCase zu informieren.
+    \item Die State Machine in AuroraView implementieren. Die State Machine konnte unabhängig von allen anderen Klassen implementiert werden. \\(class: aurora.client.view.AuroraView)
     \item Aushilfe beim Presenter. Vor allem war der Schwerpunkt darauf gelegt, sich um das Event Wiring auf der View Seite zu kümmern.
     \end{enumerate}
 \end{description}
@@ -314,7 +316,7 @@ Desweiteren wurde zusätzlich ein Continuous Deployment-Server eingerichtet.
 Es wurde sich im großen und ganzen am Implementierungsplan gehalten. Anzumerken ist es, dass die Aushilfe beim Presenter, dessen Schwerpunkt auf das EventWiring lag, nun gegen
 Ende der Implementierungsphase etwas genauer beschrieben werden kann. Zuerst wurde die SidebarView und dann die EditorView mit dem EventBus gekoppelt.
 Letztendlich war es die Aufgabe, die implementierte StateMachine mit der AuroraView zu koppeln.
-    
+
 \end{description}
 
 \subsubsection{Unerwartete Probleme}
