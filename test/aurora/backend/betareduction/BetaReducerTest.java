@@ -1,10 +1,17 @@
 package aurora.backend.betareduction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import aurora.backend.Comparer;
+import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.betareduction.strategies.CallByName;
 import aurora.backend.betareduction.strategies.NormalOrder;
+import aurora.backend.library.HashLibrary;
+import aurora.backend.parser.LambdaLexer;
+import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -29,6 +36,9 @@ public class BetaReducerTest {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * check in qualityassurance.
+     */
     @Ignore
     public void noReductionPossible() {
         BetaReducer br = new BetaReducer(new CallByName());
@@ -275,6 +285,9 @@ public class BetaReducerTest {
         assertEquals(cr.compare(),true);
     }
 
+    /**
+     * check in qualityassurance.
+     */
     @Ignore
     public void twoplustwowithfunction() {
         Function plus = new Function("$plus",new Abstraction(
@@ -317,6 +330,9 @@ public class BetaReducerTest {
 
     }
 
+    /**
+     * check in qualityassurance.
+     */
     @Ignore
     public void noreduction() {
         Term t = new ChurchNumber(4);
@@ -324,6 +340,71 @@ public class BetaReducerTest {
         Term result = br.reduce(t);
         Comparer cr = new Comparer(result, new ChurchNumber(4));
         assertEquals(cr.compare(), true);
+    }
+
+    @Test
+    public void namedebug() {
+        HashLibrary library = new HashLibrary();
+        library.define("plus", "addition",new Abstraction(
+                new Abstraction(
+                new Abstraction(
+                        new Abstraction(
+                                new Application(
+                                        new Application(
+                                                new BoundVariable(4), new BoundVariable(2)
+                                        ),
+                                        new Application(
+                                                new Application(
+                                                        new BoundVariable(3), new BoundVariable(2)
+                                                ), new BoundVariable(1)
+
+                                        )
+
+                                ), "z"
+                        ),"s"
+                ),"m"
+        ),"n"
+        ));
+        String input = "$plus 2 2";
+        LambdaLexer lexer = new LambdaLexer();
+        LambdaParser parser = new LambdaParser(library);
+        Term t = null;
+        try {
+            t = parser.parse(lexer.lex(input));
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        }
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        t = br.reduce(t);
+        HighlightableLambdaExpression hel1 = new HighlightableLambdaExpression(t);
+        assertEquals("( \\ m . \\ s . \\ z . ( 2 ) s ( m s z ) ) ( 2 ) ", hel1.toString());
+        t = br.reduce(t);
+        Comparer cr = new Comparer(t, new Abstraction(
+                new Abstraction(
+
+                        new Application(
+                                new Application(
+                                        new ChurchNumber(2).getAbstraction(), new BoundVariable(2)
+                                ),
+                                new Application(
+                                        new Application(
+                                                new ChurchNumber(2), new BoundVariable(2)
+                                        ), new BoundVariable(1)
+
+                                )
+
+
+                        ),"z"
+                ),"s"
+        ));
+        assertTrue(cr.compare());
+
+        HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
+        assertEquals("\\ s . \\ z . ( \\ s . \\ z . s ( s z ) ) s ( ( 2 ) s z ) ", hel2.toString());
+
     }
 
 }

@@ -192,6 +192,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
+            assert false : "found a bvar after truning them into fvars";
             int length = String.valueOf(bvar.index).length();
             column += length;
             offset++;
@@ -293,6 +294,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 index = 1;
             }
 
+            BoundVariableFinder(String name, int index) {
+                this.name = name;
+                this.index = index;
+            }
+
             @Override
             public Term visit(Abstraction abs) {
                 index++;
@@ -303,8 +309,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(Application app) {
 
-                Term left = app.left.accept(this);
-                Term right = app.right.accept(this);
+                Term left = app.left.accept(new BoundVariableFinder(name, index));
+                Term right = app.right.accept(new BoundVariableFinder(name, index));
                 return new Application(left, right);
             }
 
