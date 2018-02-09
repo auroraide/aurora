@@ -37,7 +37,7 @@ public class BetaReducer {
      * This method performs one beta reduction.
      *
      * @param term The Term that will get reduced.
-     * @return null if not reducible, otherwise reduced Term.
+     * @return something.
      */
     public Term reduce(Term term) {
         finished = false;
