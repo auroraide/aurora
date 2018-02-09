@@ -104,28 +104,47 @@ So können in Zukunft mehr Bibliotheken hinzugefügt werden, ohne den LambdaPars
     \newline
     Alle Share-Events übergeben jetzt den Step index anstatt ein HighligtedLambdaExpression. Auch wurden die Listen von HighlightedLambdaExpression aus den Share-Events entfernt, da der Presenter diese Informationen bereits hat. Die View soll keine Liste von Steps speichern, nur ihre GWT-spezifische Darstellung.
 
-    \item Fehlerbehbungs,aßnahmen 
+    \item Fehlerbehbungsmaßnahmen  \newline
     Dem SidebarDisplay wurden mehrere neue Funktionen zur Behandlung von Fehlern hinzugefügt, die beim Hinzufügen einer neuen Benutzerbibliotheksfunktion entstehen können:
     	\begin{itemize}
         	\item \texttt{displayAddLibraryItemSyntaxError} und \newline
-        	\texttt{displayAddLibraryItemSemanticError} wurden hinzugefügt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
-        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wurde hinzugefügt und wird aufgerufen wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt. Es soll dem Benutzer eine Fehlermeldung angezeigt werden.
+        	\texttt{displayAddLibraryItemSemanticError} wurden hinzugefügt und werden aufgerufen, wenn LambdaLexer oder LambdaParser fehlschlägt und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben, die detailierte Informationen enthalten und wo und wie der Fehler beschaffen ist.
+        	\item \texttt{displayAddLibraryItemNameAlreadyTaken} wurde hinzugefügt und wird aufgerufen, wenn es den gewünschten Funktionsnamen bereits in der Standard- oder Benutzerbibliotk gibt. Es soll dem Benutzer eine Fehlermeldung angezeigt werden.
             \item \texttt{removeStandardLibraryItem} und \newline
-            	\texttt{removeUserLibraryItem} wurden entfernt. Diese Funktionen werden nicht gebraucht, da die View den Presenter über ein Event aufrufen soll, und diese Information sowieso schon hat.
+            	\texttt{removeUserLibraryItem} wurden entfernt. Diese Funktionen werden nicht gebraucht, da die View den Presenter über ein Event aufrufen soll, und er diese Information sowieso schon hat.
         \end{itemize}
-    \item Der EditorDisplay wurde auch an das moderne Zeitalter angepasst:
+    \item Das EditorDisplay wurde auch an das moderne Zeitalter angepasst:
     	\begin{itemize}
     		\item \texttt{displaySyntaxError(String)} wurde
             durch \newline \texttt{displaySyntaxError(SyntaxException)} und \newline
-        	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben die detailierte Informationen enthalten was und wo genau der Fehler ist.
-            \item \texttt{addNextStep} verfügt jetzt über eine Liste von HighlightedLambdaExpressions. Grund ist, dass sehr oft mehr als ein Schritt auf ein mal ausgeführt werden. Es wird auch der start-index des ersten Schrittes in der übergebenen Liste übergeben, damit die View die korrekten Schritt Inidizes anzeigen kann.
-            \item \texttt{finishedFinished} Ist ein Äquivalent zum displayResult, und wird aufgerufen wenn der zweite Durchlauf beendet ist. Mit zweiter Durchlauf ist gemeint, wenn der Benutzer bereits den fertig reduzierten Term in der Ausgabe stehen hat, aber sich (aus Lernzwecken) die Zwischenschritte nacheinander anzeigen lassen will. Wenn es keinen weiteren Schritt zum anzeigen gibt, wird diese Funktion aufgerufen.
+        	\texttt{displaySemanticError(SemanticException)} ersetzt und werden aufgerufen wenn LambdaLexer oder LambdaParser fehlschlägt, und dienen dazu, dem Benutzer den Fehler anzuzeigen. Es werden Objekte übergeben, die detailierte Informationen enthalten was und wo genau der Fehler ist.
+            \item \texttt{addNextStep} verfügt jetzt über eine Liste von HighlightedLambdaExpressions. Grund ist, dass sehr oft mehr als ein Schritt auf einmal ausgeführt werden soll. Es wird auch der Startindex des ersten Schrittes in der übergebenen Liste übergeben, damit die View die korrekten Schritt Inidizes anzeigen kann.
+            \item \texttt{finishedFinished} Ist ein Äquivalent zum displayResult, und wird aufgerufen, wenn der zweite Durchlauf beendet ist. Mit zweiter Durchlauf ist gemeint, wenn der Benutzer bereits den fertig reduzierten Term in der Ausgabe stehen hat, aber sich (aus Lernzwecken) die Zwischenschritte nacheinander anzeigen lassen will. Wenn es keinen weiteren Schritt zum Anzeigen gibt, wird diese Funktion aufgerufen.
+    	\end{itemize}
+    	 \item Enum ViewState hinzugefügt (pkg: aurora.client.view)
+    \newline
+    ViewState beschreibt die einzelenen Zustände, die AuroraView haben kann.
+
+    \item Neu hinzugefügte Events und EventHandler (pkg: aurora.client.event)
+	\begin{itemize}
+    		\item ReStepEvent und ReStepEventHandler
+    		\newline
+    		Der ReStepEvent wird benötigt damit der Presenter weiß, dass er Schritte, die er bereits berechnet hat, jetzt nacheinander berechnen soll.
+
+    		\item ResultCalculatedEvent und ResultCalculatedEventHandler
+    		\newline
+    		Der ResultCalculatedEvent informiert die State Machine der View, dass eine Berechnung eines Lambdaterms abgeschlossen wurde und im Ergebnisfeld erscheint.
+
+    		\item FinishFinishEvent und FinishFinishEventHandler
+    		\newline
+    		Der FinishFinishEvent informiert die State Machine der View, dass eine Berechnung komplett abgeschlossen wurde. Das bedeutet, dass die Schritte und das Ergebnis in der View angezeigt werden.
+
+    		\item ViewStateChangedEvent und ViewStateChangedEventHandler
+    		\newline
+    		Der ViewStateChangedEvent informiert die einzelnen Widgets der View, dass sich der Zustand sich geändert hat.
+
     	\end{itemize}
 
-    \item Neu hinzugefügte Events:
-    	\begin{itemize}
-    		\item
-    	\end{itemize}
 \end{itemize}
 
 
@@ -149,20 +168,20 @@ Wichtig waren vorallem folgende Regeln:
     \item Protected master
         \newline
         Der git master branch wurde so konfiguriert, dass nur noch die Phasenverantwortlichen andere Branches in den master mergen konnten.
-        Auf dem master selber durfte nicht geschrieben werde.
+        Auf dem master selbst durfte nicht geschrieben werde.
     \item Checkstyle
     \newline
     Wir haben uns für die Checkstyle-Regeln von Google entschieden. Nur die maximale Linienlänge haben wir von 100 auf 120 Zeichen erhöht, da wir alle mit Widescreen Monitoren arbeiten und entwickeln. Die Checkstyle-Regeln waren Pflicht und mussten von allen Gruppenmitgliedern eingehalten werden.
     \item Git CI Runner
         \newline
         In unserem git Repository haben wir einen CI Runner eingerichtet, der für alle Commits Aurora kompiliert hat, unsere Testfälle durchgegangen ist, sowie Checkstyle überprüft hat.
-        So konnten wir sicherstellen, dass nur guter Code in den master Branch gemerged wurde.
+        So konnten wir sicherstellen, dass nur funktionierender Code in den master Branch gemerged wurde.
 
     \item Continuous Deployment
         \newline
         Auf einem externen Server hatten wir durchgehend den aktuellen master Commit bereitgestellt.
         Zum Einen hat uns dies erlaubt, Aurora ohne großen Aufwand auf verschiedenen Endgeräten zu testen.
-        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen ohne Fehler ausgeführt werden kann.
+        Zum Anderen haben wir dadurch gewährlsiten können, dass unser Code nicht nur lokal sondern auch von einem Server geladen und ohne Fehler ausgeführt werden kann.
 		Dazu wurde der CI Runner dahingehened angepasst, dass jeder Commit auf dem master Branch zunächst als WAR-Datei
 		gebaut und anschließend an den Deployment-Server gesendet wurde.
 		Außerdem wurde ein Skript geschrieben, welches auf dem Deployment-Server ausgeführt wurde und hochgeladene
@@ -170,9 +189,9 @@ Wichtig waren vorallem folgende Regeln:
 
        \item JUnit Tests
        \newline
-      	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, JUnit-Tests zu schreiben.
+      	Es wurde von den Backend-Entwicklern, die komplett in Java programmieren, gefordert JUnit-Tests zu schreiben.
       	Es wurde zwar keine Testüberdeckung vorrausgesetzt, aber man musste kontrollieren, dass der Code bei normaler Bedienung fehlerfrei funktioniert.
-      	Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden, mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim berechnen eines Lambda-Terms berechnet werden.
+      	Die Algorithmen, die zum Parsen und zum Reduzieren benutzt werden, mussten auf Implementierungsfehler übreprüft werden, damit korrekte Ergebnise beim Berechnen eines Lambda-Terms erzeugt werden.
       	Da im Frontend keine schnellen JUnit-Tests verwendet werden konnten, sollten die Entwickler von Hand testen, ob sich die Objekte verhalten, wie man es erwartet.
       	Falls benötigt, mussten Klassen mit Mockito gemocket werden.
       	\item Issues
@@ -182,10 +201,10 @@ Wichtig waren vorallem folgende Regeln:
 
 \subsection{Implementierungsplan}
 Nachdem wir uns darauf geeinigt hatten, wie der Implementierungsprozess ablaufen sollte, mussten wir uns nun dafür entscheiden, was von wem implementiert werden musste.
-Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten, und Pakete einzelnen Personen zugewiesen.
-Wir haben versucht abzuschätzen wie viel Aufwand die jeweiligen Pakete darstellen und haben so verteilt, dass möglicht alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
+Hierzu haben wir uns an die in der Entwurfsphase erstellte Struktur gehalten und Pakete einzelnen Personen zugewiesen.
+Wir haben versucht abzuschätzen, wie viel Aufwand die jeweiligen Pakete darstellen und haben sie so verteilt, dass möglichst alle Gruppenmitglieder gleich viel Arbeit zu verrichten hatten.
 Die Personen hatten bei ihren zugeteilten Paketen auch beim Entwurf mitgearbeitet, damit Wissen aus dem Entwurf nicht verloren gehen konnte.
-Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurde.
+Kleinere Pakete wurden direkt einer Person zugeteilt, wohingegen größere Pakete immer noch ein weiterer \enquote{Helfer} zugeteilt wurden.
 Die Personen haben dann jeweils in ihren Pakten Prioritäten festgelegt, um eine Reihenfolge der Implementierung festzulegen.
 
 Es mussten hierbei natürlich auch die Abhängigkeiten der Pakete beachtet werden, damit man die Pakete möglichst schnell testen kann.
@@ -204,16 +223,16 @@ Im Folgenden ist das Ergebnis unsere Paketeverteilung zu sehen.
             Hierzu war geplant, einen bereits vorhandenen CodeMirror Wrapper in unser Projekt einzubinden.
         \item Highlighting
             \newline
-            CodeMirror ermöglicht durch eine Schnittstelle statisches Syntaxhighlighting.
-            Zur Darstellung dynamischen Syntaxhighlightings reicht diese nicht aus, deswegen benutzen wir hier die HighlightedLambdaExpressions.
+            CodeMirror ermöglicht, durch eine Schnittstelle, statisches Syntaxhighlighting.
+            Zur Darstellung dynamischen Syntaxhighlightings reicht diese allerdings nicht aus, deswegen benutzen wir hier die HighlightedLambdaExpressions.
         \item Editor (pkg: aurora.client.view.editor)
             \newline
             Den größten Teil der graphischen Oberfläche wird vom EditorPanel eingenommen.
             Das EditorPanel selbst beinhaltet mehrere CodeMirrorPanel, die ihrer Aufgaben entsprechend konfiguriert werden müssen.
         \item Encoder (pkg: aurora.backend.encoders)
             \newline
-            Encoder ermöglichen es uns, vorhandenen Input und Bibliotheken zu serialisieren, und wieder einzulesen.
-            Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt auf Pastebin speichert.
+            Encoder ermöglichen es uns, vorhandenen Input und Bibliotheken zu serialisieren und wieder einzulesen.
+            Hier existiert unter anderem die Kombination eines JSON und Pastebin Encoders, der ein erstelltes JSON Objekt in Pastebin speichert.
     \end{enumerate}
     \item [Nikolai]\hfill \\
     \begin{enumerate}
@@ -260,22 +279,24 @@ Diese Reihenfolge wurde gewählt, damit möglichst alles gleich testbar war und 
     \end{itemize}
 
     \end{enumerate}
-
+	
+	\newpage
+	
     \item [Max]\hfill \\
-    	\begin{itemize}
+    	\begin{enumerate}
         	\item Behandlung von Events vom EventBus im Presenter, also:
             \begin{itemize}
             	\item Sharing events.
                 \item Run, Pause, Continue, Reset, Step.
-                \item Events die Zustand wichtig für die Ausführung speichern (Anzahl der auf einmal auszuführenden Schritte).
+                \item Events die Zustände für die Ausführung speichern (Anzahl der auf einmal auszuführenden Schritte).
             \end{itemize}
             \item Implementation aller möglichen Presenter.
-        \end{itemize}
+        \end{enumerate}
     \item [Younis]\hfill \\
 	\begin{enumerate}
-		\item Implementierung von Lexer und Parser
-		\item Implementierung von HighligtedLambdaExpression
-		\item Implementierung der Simplifier Klassen (pkg: aurora.backend.simplifier.*)
+		\item Implementierung von Lexer und Parser \\(pkg: aurora.backend.parser)
+		\item Implementierung von HighligtedLambdaExpression \\(class: aurora.backend.HighlightedLambdaExpression)
+		\item Implementierung der Simplifier Klassen \\(pkg: aurora.backend.simplifier.*)
 	\end{enumerate}
 
     \item [Randy]\hfill \\
@@ -301,13 +322,11 @@ Abgesehen von dieser Verschiebung sind keine weiteren Abweichungen aufgetreten.
 \item [Nikolai]\hfill \\
 Großteilig wurde sich an den Plan gehalten, es wurde nur Call By Name und Call by Value vor dem Betareducer geschrieben.
 Es wurde  bemerkt, dass das Prinzip dieser Reduktionsstrategien sehr ähnlich zu der Normalenordnung war und zu dem Zeitpunkt es passender erschien diese zu implementieren als in ein komplett neues Thema einzusteigen.
-Nach dem Betareduzierer wurde noch den Comparer geschrieben, der für einfacheres debuggen geeignet war. Ob er sich auch für den Simplifier eignet muss sich in der Qualitätssicherung zeigen.
-Da bei der User Strategy Implemntierung des Frontends, Presenters und Backends benötigt wird und andere Teammitglieder, vitalere Dinge zu erledigen hatten
+Nach dem Betareduzierer wurde noch den Comparer geschrieben, der für einfacheres debuggen geeignet war. Ob er sich auch für den Simplifier eignet, muss sich in der Qualitätssicherung zeigen.
+Da bei der User Strategy Implementierungen des Frontends, Presenters und Backends benötigt wird und andere Teammitglieder, vitalere Dinge zu erledigen hatten,
 wurde die Implementierung dieser Reduktionsstrategie in die Qualitätssicherung verschoben.
-Dannach wurde von Younis Aufgaben die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, da die Aufgabenverteilung nicht ganz fair gelungen war, da unterschätzt worden war, wie aufwändig die Toolchain einzurichten war.
+Dannach wurde von Younis' Aufgaben die Klasse HighlightedLambdaExpression gefüllt und  Highlightedlambdaexpression.toString(t) geschrieben, da die Aufgabenverteilung nicht ganz fair gelungen war, da unterschätzt worden war, wie aufwändig die Toolchain einzurichten war.
 
-\item [Iuliia]\hfill \\
-\item [Max]\hfill \\
 \item [Younis]\hfill \\
 Die Konfiguration des Buildsystems (Ant) und des CI Runners hat wesentlich mehr Zeit in Ansprung genommen
 als ursprünglich geplant, was dazu geführt hat, dass sich die Implementierung des Lexers und Parsers verzögert hat.
@@ -327,9 +346,7 @@ Während der Implementierung wurden nur wenige wirklich unerwartete Probleme gef
         \newline
         Es hat sich als schwierig erwiesen, den Java-Classpath IDE-übergreifend zu konfigurieren,
 		da sich das von uns gewählte Buildsystem Ant nur sperrig integrieren ließ.
-    \item Continuous Deployment
-        \newline
-        \textbf{Das vllt. auch...}
+
     \item Parser
         \newline
 		Die vom Parser verwendete Grammatik ist keine reine LL(1)-Grammatik geworden, da es zu Problemen mit der
@@ -361,9 +378,9 @@ Um die Projektstruktur doch einheitlich zu haben, gab es Versuche die i18n Prope
 
     \item Restepping.
     \newline
-    Die genaue interaktion mit dem Benutzer bezüglick Run, Pause, Continue, Reset, Step, ist sehr kompliziert. Beim Pausieren werden nur die paar zuletzt reduzierten Schrrite ausgegeben, und beim Fortfahren werden die Schritte wieder gelöscht.
+    Die genaue Interaktion mit dem Benutzer bezüglick Run, Pause, Continue, Reset, Step, ist sehr kompliziert. Beim Pausieren werden nur die paar zuletzt reduzierten Schrrite ausgegeben, und beim Fortfahren werden die Schritte wieder gelöscht.
     \newline
-    Man kann sich das Ergebnis anzeigen lassen, und die Zwischenschritte erst später. Dies war recht schwierig umzusetzen im Presenter, und resultierte in Spaghetti code. Es ist eines der ersten Sachen die zu beheben sein werden in der nächsten Phase.
+    Man kann sich das Ergebnis anzeigen lassen, und die Zwischenschritte erst später. Dies war recht schwierig umzusetzen im Presenter, und führte zu Spaghetti-Code. Dies muss eine der ersten Sache sein, die in der nächsten Phase behoben wird.
 
 \end{itemize}
 
@@ -420,7 +437,7 @@ Pipelines:\space\space\space\space\space\space\space\space\space\space\space\spa
 Das Package aurora.backend hat ungefähr 70 \% Codeüberdeckung.
 Die Strategien, die einen Redexpath liefern und die Betareduktion wurden ausgiebig getestet.
 Der Parser konnte zusätzlich einfach getestet werden, da er als Chatbot in einem Messenger integriert wurde.
-Dort konnte die Teammitglieder korrekte und falsche eingaben parsen und schauen,
+Dort konnte die Teammitglieder korrekte und falsche Eingaben parsen und schauen,
 ob korrekt geparsed wurde.
 Es wurden mehr als 127 Messages and den Bot geschickt und dadurch konnten zwei
 Fehler des Parsers behoben werden.
