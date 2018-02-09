@@ -120,6 +120,7 @@ public class EditorPresenter {
         if (!isReStepping()) {
             // if not yet restepping, initialize.
             reStepper = steps.iterator();
+            reStepper.next();
             nextReStepIndex = 1;
             editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
         }

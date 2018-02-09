@@ -223,9 +223,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
-        highlightedLambdaExpressions.forEach((hle) -> {
-            addStepEntry(stepFieldTable.getRowCount(), index, hle);
-        });
+        for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
+            addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
+        }
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
