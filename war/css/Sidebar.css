@@ -1,10 +1,10 @@
 .westPanel {
-    font-size: 1.2em;
     background-color: #167A66;
     font-weight: 200;
 }
 
 .stepSettings {
+    font-size: 16px;
     color: #fff;
     background-image: url("../img/icons/icon_step.png");
     background-repeat: no-repeat;
@@ -19,11 +19,12 @@
 
 .stepSettings .leftAlign{
     margin-left: 30px;
+    position: relative;
+    bottom: 7px;
 }
-
-input.rightAlign {
+.stepSettings .gwt-TextBox {
     background-color: #33495D;
-    border: 0.5px solid #b2b0b0;
+    border: 1px solid #b2b0b0;
     border-radius: 15%;
     position: relative;
     bottom: 6px;
@@ -64,6 +65,7 @@ input.rightAlign {
 .standrard_db .gwt-Label, .user_db .gwt-Label {
     margin-left: 37px;
     font-size: 16px;
+    font-weight: 200;
 }
 
 .user_db .addButton {
@@ -205,21 +207,48 @@ input.rightAlign {
     line-height: 2em;
     font-size: 1.2em;
 }
-.share_language {
-    display: flex;
-    border-top: 0.5px solid #33485c;
-}
-.share_language .gwt-Button {
-    width:50%;
-    padding: 10px;
-    font-size: 1.5em;
-    background: #167A66;
-    border: none;
-    border-radius: unset;
+.share_language, .share_language >div, .share_language table {
+    height: 40px;
     color: #fff;
 }
-.share_language .gwt-Button:first-child {
+
+.share_language tbody {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    height: 100%;
+    border-top: 2px solid #33485c;
+}
+
+.share_language tbody tr:first-child {
     border-right: 1px solid #33485c;
+}
+.share_language tbody tr{
+    width:49.5%;
+    background-color: #167A66;
+}
+/* SHARE LANGUAGE HOVERING*/
+.share_language .gwt-MenuItem-selected{
+    background: rgba(255,255,255,0.2) !important;
+}
+
+.share_language .gwt-MenuItem {
+    height: 100%;
+    width: 100%;
+    padding: 7px 0 !important;
+    text-align: center ;
+    vertical-align: middle;
+    font-size: 16px
+}
+.share_language .subMenuIcon{
+    display: none;
+}
+
+.share_language tbody tr:nth-child(2) {
+    background-image: url("../img/icons/icon_share.png");
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center center;
 }
 
 .gwt-ListBox {

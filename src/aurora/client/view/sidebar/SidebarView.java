@@ -9,17 +9,17 @@ import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -51,9 +51,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     StrategySelection strategySelection;
     @UiField
-    ListBox languageSelection;
-    @UiField
-    ListBox shareSelection;
+    FlowPanel shareAndLanguage;
     private EventBus eventBus;
     private int prevStepNumber = 1;
     Document document;
@@ -68,18 +66,67 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.userlib = new ArrayList<>();
-        nightModeSwitch.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                Window.alert(document.getBody().getClassName());
-
-            }
-        });
+        setupShareLanguageMenu();
 
         eventWiring();
     }
-    
+
+    private void setupShareLanguageMenu() {
+        final MenuBar languageMenu = new MenuBar(true);
+        languageMenu.setAnimationEnabled(false);
+        languageMenu.addStyleName("languageButton");
+        languageMenu.addItem("language", setupLanguageMenuBar());
+        this.shareAndLanguage.add(languageMenu);
+
+        final MenuBar shareMenu = new MenuBar(true);
+        languageMenu.setAnimationEnabled(false);
+        languageMenu.addStyleName("shareButton");
+        languageMenu.addItem(" ", setupShareMenuBar());
+        this.shareAndLanguage.add(shareMenu);
+    }
+
+    private MenuBar setupShareMenuBar() {
+        MenuBar shareMenuBar = new MenuBar(true);
+        shareMenuBar.addStyleName("shareMenuBar");
+        shareMenuBar.addItem("LaTeX", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        shareMenuBar.addItem("Link", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        return shareMenuBar;
+    }
+
+    private MenuBar setupLanguageMenuBar() {
+        MenuBar languageMenuBar = new MenuBar(true);
+        languageMenuBar.addStyleName("languageMenuBar");
+        languageMenuBar.addItem("ENG", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        languageMenuBar.addItem("RU", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        languageMenuBar.addItem("DE", new Command() {
+            @Override
+            public void execute() {
+                Window.alert("hhh");
+            }
+        });
+        return languageMenuBar;
+    }
+
     private void eventWiring() {
         wireStepNumber();
         wireAddLibraryFunction();
@@ -191,24 +238,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
-     * Getter for languageSelection.
-     *
-     * @return languageSelection
-     */
-    public ListBox getLanguageSelection() {
-        return languageSelection;
-    }
-
-    /**
-     * Getter for shareSelection.
-     *
-     * @return shareSelection
-     */
-    public ListBox getShareSelection() {
-        return shareSelection;
-    }
-
-    /**
      * Getter for stepNumber.
      *
      * @return stepNumber
@@ -225,6 +254,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public CheckBox getNightModeSwitch() {
         return nightModeSwitch;
     }
+
 
 }
 

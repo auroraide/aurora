@@ -46,7 +46,7 @@ public class BetaReducer {
         // there is no reducible redex left, the given term is our result
         if (path == null) {
             finished = true;
-            return term;
+            return null;
         }
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
