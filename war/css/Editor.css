@@ -1,11 +1,11 @@
-.centerPanel *{
-    background-color: #33495D;
-}
-
 .centerPanel {
     border: 1px solid #BFCBBE;
+    font-size: 16px;
 }
 
+.inputFieldCenter, .centerPanel div:nth-child(6), .outputDockLayoutPanel {
+    background-color: #33485c;
+}
 .gwt-SplitLayoutPanel-VDragger {
     background-color: #177965 !important;
 }
@@ -127,4 +127,12 @@ td .subMenuItem {
 
 .CodeMirror pre {
     background: inherit !important;
+}
+
+.outputShare {
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center center;
+    background: url("../img/icons/icon_share.png") no-repeat center !important;
+    background-color: #177965;
 }
