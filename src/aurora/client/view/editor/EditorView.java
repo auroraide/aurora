@@ -4,13 +4,8 @@ import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
-import aurora.client.event.ContinueEvent;
 import aurora.client.event.FinishFinishEvent;
-import aurora.client.event.PauseEvent;
-import aurora.client.event.ResetEvent;
 import aurora.client.event.ResultCalculatedEvent;
-import aurora.client.event.RunEvent;
-import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.actionbar.ActionBar;
 import aurora.client.view.popup.InfoDialogBox;
@@ -20,7 +15,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -127,9 +121,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
-                String initialContent = "#Aurorascript static syntax highlighting example";
-                initialContent += "\n$plus 2 λs.λz.s(sz)";
-                inputCodeMirror.setValue(initialContent);
+                //String initialContent = "#Aurorascript static syntax highlighting example";
+                //initialContent += "\n$plus 2 λs.λz.s(sz)";
+                //inputCodeMirror.setValue(initialContent);
                 inputCodeMirror.setOption("theme", "material");
                 //autofocus not working???
                 inputCodeMirror.setOption("autofocus", true);
@@ -199,9 +193,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
         Scheduler.get().scheduleDeferred(new Command() {
             public void execute() {
-                String initialContent = "4";
-                initialContent += "\n#Duh";
-                outputCodeMirror.setValue(initialContent);
+                //String initialContent = "4";
+                //initialContent += "\n#Duh";
+                //outputCodeMirror.setValue(initialContent);
                 outputCodeMirror.setOption("theme", "material");
                 outputCodeMirror.setOption("readOnly", true);
                 outputCodeMirror.setOption("mode", "aurorascript");
@@ -285,15 +279,25 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
+    public void resetResult() {
+        Scheduler scheduler = Scheduler.get();
+        scheduler.scheduleDeferred((Command) () -> EditorView.this.outputCodeMirror.setValue(""));
+    }
+
+    @Override
     public void finishedFinished(HighlightedLambdaExpression result) {
-        this.eventBus.fireEvent(new FinishFinishEvent());
+        Scheduler scheduler = Scheduler.get();
+        scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new FinishFinishEvent()));
         this.outputCodeMirror.setValue(result.toString().replace('\\', 'λ'));
     }
 
     @Override
     public void displayResult(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.outputCodeMirror.setValue(highlightedLambdaExpression.toString().replace('\\', 'λ'));
-        this.eventBus.fireEvent(new ResultCalculatedEvent());
+
+        Scheduler scheduler = Scheduler.get();
+        scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new ResultCalculatedEvent()));
+
         GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
