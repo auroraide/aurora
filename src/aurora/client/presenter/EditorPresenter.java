@@ -276,27 +276,30 @@ public class EditorPresenter {
         }
 
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
+        ArrayList<HighlightedLambdaExpression> stepsToDisplay = new ArrayList<>();
 
+        // is input reducible?
         if (!bri.hasNext()) {
             editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
             assert (last() == steps.get(0));
+            return;
         }
 
-        Term result = bri.next();
-        steps.add(result);
+        // at this point steps.size() == 1.
 
         for (int i = 0; i < stepNumber; i++) {
+            Term result = bri.next();
+            steps.add(result);
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
                 editorDisplay.displayResult(new HighlightableLambdaExpression(result));
                 break;
             } else {
-                step.add(new HighlightableLambdaExpression(result));
+                stepsToDisplay.add(new HighlightableLambdaExpression(result));
             }
         }
 
-        editorDisplay.addNextStep(step, steps.size() - stepNumber);
+        editorDisplay.addNextStep(stepsToDisplay, steps.size() - stepNumber);
     }
 
     private void onRedexClicked(Token token) {
