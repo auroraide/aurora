@@ -356,12 +356,12 @@ public class EditorPresenter {
     private class HighlightTimer extends Timer {
         @Override
         public void run() {
-            Term t = parseInputOrHandleErrors();
+           /* Term t = parseInputOrHandleErrors();
             if (t == null) {
                 return;
             }
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting
+            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting*/
         }
     }
 }
