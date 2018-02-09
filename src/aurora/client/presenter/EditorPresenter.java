@@ -131,6 +131,7 @@ public class EditorPresenter {
 
         if (!reStepper.hasNext()) {
             editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+            return;
         }
 
         for (int i = 0; i < stepNumber; i++) {
