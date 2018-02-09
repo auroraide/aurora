@@ -8,11 +8,11 @@
 */
 
 .cm-s-material.CodeMirror {
-  background-color: #263238;
+  background-color: #33495D;
   color: rgba(233, 237, 237, 1);
 }
 .cm-s-material .CodeMirror-gutters {
-  background: #263238;
+  background: #33495D;
   color: rgb(83,127,126);
   border: none;
 }

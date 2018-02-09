@@ -1,4 +1,4 @@
-.centerPanel div:nth-child(2n-1){
+.centerPanel > div:nth-child(2n){
     background-color: #33495D;
 }
 
