@@ -236,7 +236,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        stepFieldTable.setWidget(entryIndex, 1, new Button("OptionsButton, config me"));
+        stepFieldTable.setWidget(entryIndex, 1, new Button());
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         //TODO: once hle is done, use its magic
