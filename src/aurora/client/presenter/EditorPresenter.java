@@ -162,7 +162,6 @@ public class EditorPresenter {
     private void finish() {
         runTimer.cancel();
         runTimer = null;
-        editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
     }
 
     private Term last() {
@@ -197,24 +196,6 @@ public class EditorPresenter {
         }
     }
 
-    /**
-     * Before entering this, we can only be in the default state.
-     * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
-     */
-    private void onRun() {
-        GWT.log("EP: RunEvent caught.");
-        assert (!isRunning() && !isStarted() && !isReStepping());
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
-
-        if (!tryStartOrHandleErrors()) {
-            return;
-        }
-
-        BetaReductionIterator betaReductionIterator =
-                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        runTimer = new RunTimer(betaReductionIterator);
-        runTimer.scheduleRepeating(1);
-    }
 
     private void onContinue() {
         GWT.log("EP: ContinueEvent caught.");
@@ -334,6 +315,30 @@ public class EditorPresenter {
         return t;
     }
 
+    /**
+     * Before entering this, we can only be in the default state.
+     * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
+     */
+    private void onRun() {
+        GWT.log("EP: RunEvent caught.");
+        assert (!isRunning() && !isStarted() && !isReStepping());
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+
+        if (!tryStartOrHandleErrors()) {
+            return;
+        }
+
+        BetaReductionIterator betaReductionIterator =
+                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
+
+        if (!betaReductionIterator.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+        }
+
+        runTimer = new RunTimer(betaReductionIterator);
+        runTimer.scheduleRepeating(1);
+    }
+
     private class RunTimer extends Timer {
         private final BetaReductionIterator betaReductionIterator;
 
@@ -343,12 +348,16 @@ public class EditorPresenter {
 
         @Override
         public void run() {
+            // we have already been started by our onRun function.
             assert (this.betaReductionIterator != null);
             assert (this.betaReductionIterator.hasNext());
 
-            steps.add(this.betaReductionIterator.next());
+            Term current = betaReductionIterator.next();
+            steps.add(current);
 
-            if (!this.betaReductionIterator.hasNext()) {
+            if (!betaReductionIterator.hasNext()) {
+                // current is irreducible => result.
+                editorDisplay.displayResult(new HighlightableLambdaExpression(current));
                 finish();
             }
         }
