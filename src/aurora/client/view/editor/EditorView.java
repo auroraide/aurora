@@ -112,8 +112,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupInputField() {
-        this.inputOptionButton = new Button("Share");
+        this.inputOptionButton = new Button(" ");
         // TODO Set styling for optionButton
+        inputOptionButton.addStyleName("outputShare");
         MenuBar optionsMenu = new MenuBar(true);
         optionsMenu.addItem("options", setupInputMenuBar());
         MenuBar debugMenu = new MenuBar(true);
@@ -189,8 +190,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupOutputField() {
-        this.outputOptionButton = new Button("Share");
+        this.outputOptionButton = new Button("");
         // TODO Set styling for optionButton
+        outputOptionButton.addStyleName("outputShare");
         this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4);
 
         this.outputCodeMirror = new CodeMirrorPanel();

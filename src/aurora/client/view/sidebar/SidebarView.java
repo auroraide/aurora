@@ -106,16 +106,16 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private MenuBar setupLanguageMenuBar() {
         MenuBar languageMenuBar = new MenuBar(true);
         languageMenuBar.addStyleName("languageMenuBar");
-        languageMenuBar.addItem("ENG", new Command() {
-            @Override
-            public void execute() {
-                Window.alert("hhh");
-            }
-        });
         languageMenuBar.addItem("RU", new Command() {
             @Override
             public void execute() {
-                Window.alert("hhh");
+                Window.Location.assign("https://aurora.younishd.fr/?locale=ru");
+            }
+        });
+        languageMenuBar.addItem("ENG", new Command() {
+            @Override
+            public void execute() {
+                Window.Location.assign("https://aurora.younishd.fr/");
             }
         });
         languageMenuBar.addItem("DE", new Command() {

@@ -8,9 +8,9 @@
 
     <g:SplitLayoutPanel>
         <!-- TODO: add title to input secion in editor (see GUI)-->
-        <g:north size="120" unit="EM">
-            <g:DockLayoutPanel unit="EM" ui:field="inputDockLayoutPanel">
-                <g:south size="2">
+        <g:north size="120" unit="EM" addStyleNames="inputFieldUp">
+            <g:DockLayoutPanel unit="EM" ui:field="inputDockLayoutPanel" addStyleNames="inputFieldCenter">
+                <g:south size="2" addStyleNames="actionbar">
                     <!-- TODO: center actionbar and lock it to input/step border-->
                     <editor:ActionBar ui:field="actionBar"/>
                 </g:south>
@@ -18,17 +18,17 @@
         </g:north>
 
         <!--TODO: steps label overlay-->
-        <g:center>
+        <g:center addStyleNames="stepFieldWindow">
             <g:ScrollPanel>
-                <g:FlowPanel>
+                <g:FlowPanel addStyleNames="stepFieldWindow">
                     <g:FlexTable ui:field="stepFieldTable" addStyleNames="stepFieldTable"/>
                 </g:FlowPanel>
             </g:ScrollPanel>
         </g:center>
 
         <!-- TODO: output label overlay -->
-        <g:south size="120" unit="EM">
-            <g:DockLayoutPanel unit="EM" ui:field="outputDockLayoutPanel">
+        <g:south size="120" unit="EM" addStyleNames="outputFieldWindow">
+            <g:DockLayoutPanel unit="EM" ui:field="outputDockLayoutPanel" addStyleNames="outputDockLayoutPanel">
                 
             </g:DockLayoutPanel>
         </g:south>
