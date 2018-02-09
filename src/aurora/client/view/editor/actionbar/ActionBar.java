@@ -83,8 +83,11 @@ public class ActionBar extends Composite {
      */
     public void setDefaultStateAppearance() {
         this.runButton.setStyleName("hidden", false);
+        this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
+        this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);
+        this.pauseButton.setEnabled(false);
         this.resetButton.setEnabled(false);
         this.stepButton.setEnabled(true);
     }
@@ -94,8 +97,11 @@ public class ActionBar extends Composite {
      */
     public void setRunningStateAppearance() {
         this.runButton.setStyleName("hidden", true);
+        this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
+        this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", false);
+        this.pauseButton.setEnabled(true);
         this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(false);
     }
@@ -105,8 +111,11 @@ public class ActionBar extends Composite {
      */
     public void setPausedStateAppearance() {
         this.runButton.setStyleName("hidden", true);
+        this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", false);
+        this.continueButton.setEnabled(true);
         this.pauseButton.setStyleName("hidden", true);
+        this.pauseButton.setEnabled(false);
         this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(true);
     }
@@ -118,7 +127,9 @@ public class ActionBar extends Composite {
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
+        this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);
+        this.pauseButton.setEnabled(false);
         this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(true);
     }
@@ -128,8 +139,11 @@ public class ActionBar extends Composite {
      */
     public void  setStepBeforeResultAppearance() {
         this.runButton.setStyleName("hidden", false);
+        this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
+        this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);
+        this.pauseButton.setEnabled(false);
         this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(true);
     }
@@ -141,7 +155,9 @@ public class ActionBar extends Composite {
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
+        this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);
+        this.pauseButton.setEnabled(false);
         this.resetButton.setEnabled(true);
         this.stepButton.setEnabled(false);
     }
