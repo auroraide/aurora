@@ -154,6 +154,7 @@ public class EditorPresenter {
         reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
+        editorDisplay.resetResult();
         reStepper = null;
         nextReStepIndex = null;
         steps.clear();
