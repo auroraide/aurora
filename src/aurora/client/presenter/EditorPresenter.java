@@ -129,15 +129,19 @@ public class EditorPresenter {
 
         ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
 
+        if (!reStepper.hasNext()) {
+            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+        }
+
         for (int i = 0; i < stepNumber; i++) {
+            Term current = reStepper.next();
+
             if (!reStepper.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = reStepper.next();
-                editorDisplay.finishedFinished(new HighlightableLambdaExpression(result));
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
                 break;
             } else {
-                Term result = reStepper.next();
-                ssss.add(new HighlightableLambdaExpression(result));
+                ssss.add(new HighlightableLambdaExpression(current));
             }
         }
 
@@ -274,16 +278,20 @@ public class EditorPresenter {
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
         ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
 
+        if (!bri.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            assert (last() == steps.get(0));
+        }
+
+        Term result = bri.next();
+        steps.add(result);
+
         for (int i = 0; i < stepNumber; i++) {
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = bri.next();
-                steps.add(result);
                 editorDisplay.displayResult(new HighlightableLambdaExpression(result));
                 break;
             } else {
-                Term result = bri.next();
-                steps.add(result);
                 step.add(new HighlightableLambdaExpression(result));
             }
         }
