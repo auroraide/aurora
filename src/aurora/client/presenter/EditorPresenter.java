@@ -129,15 +129,19 @@ public class EditorPresenter {
 
         ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
 
+        if (!reStepper.hasNext()) {
+            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+        }
+
         for (int i = 0; i < stepNumber; i++) {
+            Term current = reStepper.next();
+
             if (!reStepper.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = reStepper.next();
-                editorDisplay.finishedFinished(new HighlightableLambdaExpression(result));
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
                 break;
             } else {
-                Term result = reStepper.next();
-                ssss.add(new HighlightableLambdaExpression(result));
+                ssss.add(new HighlightableLambdaExpression(current));
             }
         }
 
@@ -272,23 +276,30 @@ public class EditorPresenter {
         }
 
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
+        ArrayList<HighlightedLambdaExpression> stepsToDisplay = new ArrayList<>();
+
+        // is input reducible?
+        if (!bri.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            assert (last() == steps.get(0));
+            return;
+        }
+
+        // at this point steps.size() == 1.
 
         for (int i = 0; i < stepNumber; i++) {
+            Term result = bri.next();
+            steps.add(result);
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = bri.next();
-                steps.add(result);
                 editorDisplay.displayResult(new HighlightableLambdaExpression(result));
                 break;
             } else {
-                Term result = bri.next();
-                steps.add(result);
-                step.add(new HighlightableLambdaExpression(result));
+                stepsToDisplay.add(new HighlightableLambdaExpression(result));
             }
         }
 
-        editorDisplay.addNextStep(step, steps.size() - stepNumber);
+        editorDisplay.addNextStep(stepsToDisplay, steps.size() - stepNumber);
     }
 
     private void onRedexClicked(Token token) {
