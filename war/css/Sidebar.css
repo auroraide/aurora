@@ -100,6 +100,10 @@
     clear:both;
 }
 
+.extra_settings tr:nth-child(3) {
+    z-index: 100;
+}
+
 .style-strategy {
     display: flex;
     flex-wrap: wrap;
@@ -258,4 +262,16 @@
 .panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
     height:80px;
     background: #33495D !important;
+}
+
+.gwt-MenuBarPopup {
+    left:0 !important;
+    bottom: 0;
+    width: 130px;
+    height: 10px;
+    /* margin-bottom: 100px; */
+    padding-bottom: 100px;
+}
+.gwt-MenuBarPopup table {
+    width: 100%;
 }
