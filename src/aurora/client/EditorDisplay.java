@@ -58,6 +58,11 @@ public interface EditorDisplay {
     void resetSteps();
 
     /**
+     * Clears the result field.
+     */
+    void resetResult();
+
+    /**
      * Signals the view that no more steps can be displayed. The only action that can be performed now is reset.
      * @param result Irreducible lambda expression.
      */

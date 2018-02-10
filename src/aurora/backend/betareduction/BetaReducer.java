@@ -37,7 +37,7 @@ public class BetaReducer {
      * This method performs one beta reduction.
      *
      * @param term The Term that will get reduced.
-     * @return null if not reducible, otherwise reduced Term.
+     * @return something.
      */
     public Term reduce(Term term) {
         finished = false;
@@ -46,7 +46,7 @@ public class BetaReducer {
         // there is no reducible redex left, the given term is our result
         if (path == null) {
             finished = true;
-            return term;
+            return null;
         }
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);

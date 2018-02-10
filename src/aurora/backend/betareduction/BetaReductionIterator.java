@@ -21,7 +21,7 @@ public class BetaReductionIterator implements Iterator<Term> {
 
     @Override
     public boolean hasNext() {
-        return !betaReducer.getFinished();
+        return next != null;
     }
 
     @Override

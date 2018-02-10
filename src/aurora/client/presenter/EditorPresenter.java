@@ -120,6 +120,7 @@ public class EditorPresenter {
         if (!isReStepping()) {
             // if not yet restepping, initialize.
             reStepper = steps.iterator();
+            reStepper.next();
             nextReStepIndex = 1;
             editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
         }
@@ -129,15 +130,20 @@ public class EditorPresenter {
 
         ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
 
+        if (!reStepper.hasNext()) {
+            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+            return;
+        }
+
         for (int i = 0; i < stepNumber; i++) {
+            Term current = reStepper.next();
+
             if (!reStepper.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = reStepper.next();
-                editorDisplay.finishedFinished(new HighlightableLambdaExpression(result));
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
                 break;
             } else {
-                Term result = reStepper.next();
-                ssss.add(new HighlightableLambdaExpression(result));
+                ssss.add(new HighlightableLambdaExpression(current));
             }
         }
 
@@ -149,6 +155,7 @@ public class EditorPresenter {
         reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
+        editorDisplay.resetResult();
         reStepper = null;
         nextReStepIndex = null;
         steps.clear();
@@ -157,7 +164,6 @@ public class EditorPresenter {
     private void finish() {
         runTimer.cancel();
         runTimer = null;
-        editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
     }
 
     private Term last() {
@@ -192,24 +198,6 @@ public class EditorPresenter {
         }
     }
 
-    /**
-     * Before entering this, we can only be in the default state.
-     * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
-     */
-    private void onRun() {
-        GWT.log("EP: RunEvent caught.");
-        assert (!isRunning() && !isStarted() && !isReStepping());
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
-
-        if (!tryStartOrHandleErrors()) {
-            return;
-        }
-
-        BetaReductionIterator betaReductionIterator =
-                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        runTimer = new RunTimer(betaReductionIterator);
-        runTimer.scheduleRepeating(1);
-    }
 
     private void onContinue() {
         GWT.log("EP: ContinueEvent caught.");
@@ -272,23 +260,30 @@ public class EditorPresenter {
         }
 
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        ArrayList<HighlightedLambdaExpression> step = new ArrayList<>();
+        ArrayList<HighlightedLambdaExpression> stepsToDisplay = new ArrayList<>();
+
+        // is input reducible?
+        if (!bri.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            assert (last() == steps.get(0));
+            return;
+        }
+
+        // at this point steps.size() == 1.
 
         for (int i = 0; i < stepNumber; i++) {
+            Term result = bri.next();
+            steps.add(result);
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
-                Term result = bri.next();
-                steps.add(result);
                 editorDisplay.displayResult(new HighlightableLambdaExpression(result));
                 break;
             } else {
-                Term result = bri.next();
-                steps.add(result);
-                step.add(new HighlightableLambdaExpression(result));
+                stepsToDisplay.add(new HighlightableLambdaExpression(result));
             }
         }
 
-        editorDisplay.addNextStep(step, steps.size() - stepNumber);
+        editorDisplay.addNextStep(stepsToDisplay, steps.size() - stepNumber);
     }
 
     private void onRedexClicked(Token token) {
@@ -322,6 +317,30 @@ public class EditorPresenter {
         return t;
     }
 
+    /**
+     * Before entering this, we can only be in the default state.
+     * Reminder: Run doesn't show the steps, only starts evaluation in the background until completion.
+     */
+    private void onRun() {
+        GWT.log("EP: RunEvent caught.");
+        assert (!isRunning() && !isStarted() && !isReStepping());
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+
+        if (!tryStartOrHandleErrors()) {
+            return;
+        }
+
+        BetaReductionIterator betaReductionIterator =
+                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
+
+        if (!betaReductionIterator.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+        }
+
+        runTimer = new RunTimer(betaReductionIterator);
+        runTimer.scheduleRepeating(1);
+    }
+
     private class RunTimer extends Timer {
         private final BetaReductionIterator betaReductionIterator;
 
@@ -331,12 +350,16 @@ public class EditorPresenter {
 
         @Override
         public void run() {
+            // we have already been started by our onRun function.
             assert (this.betaReductionIterator != null);
             assert (this.betaReductionIterator.hasNext());
 
-            steps.add(this.betaReductionIterator.next());
+            Term current = betaReductionIterator.next();
+            steps.add(current);
 
-            if (!this.betaReductionIterator.hasNext()) {
+            if (!betaReductionIterator.hasNext()) {
+                // current is irreducible => result.
+                editorDisplay.displayResult(new HighlightableLambdaExpression(current));
                 finish();
             }
         }
@@ -345,12 +368,12 @@ public class EditorPresenter {
     private class HighlightTimer extends Timer {
         @Override
         public void run() {
-            Term t = parseInputOrHandleErrors();
+           /* Term t = parseInputOrHandleErrors();
             if (t == null) {
                 return;
             }
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting
+            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting*/
         }
     }
 }
