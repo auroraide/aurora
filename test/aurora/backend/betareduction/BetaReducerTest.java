@@ -405,6 +405,21 @@ public class BetaReducerTest {
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
         assertEquals("\\ s . \\ z . ( \\ s . \\ z . s ( s z ) ) s ( ( 2 ) s z ) ", hel2.toString());
 
+        String test = "( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y )  ";
+        try {
+            t = parser.parse(lexer.lex(test));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        }
+
+        HighlightableLambdaExpression hs = new HighlightableLambdaExpression(t);
+        assertEquals("( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y ) ", hs.toString());
+        t = br.reduce(t);
+        HighlightableLambdaExpression neg = new HighlightableLambdaExpression(t);
+        assertEquals(neg.toString(), "( \\ y . y x y ) x ( \\ y . y x y ) ( \\ y . y x y ) ");
+
     }
 
 }
