@@ -219,7 +219,7 @@ public class EditorPresenter {
         for (int i = Math.max(0, steps.size() - stepNumber); i < steps.size(); i++) {
             highlightedSteps.add(new HighlightableLambdaExpression(steps.get(i)));
         }
-        editorDisplay.addNextStep(highlightedSteps, steps.size() - stepNumber - 1);
+        editorDisplay.addNextStep(highlightedSteps, steps.size() - stepNumber);
     }
 
     private void onReset() {
