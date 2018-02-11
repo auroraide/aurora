@@ -1,16 +1,15 @@
 package aurora.backend.parser;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import aurora.backend.parser.exceptions.SyntaxException;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests LambdaLexer.
@@ -76,6 +75,19 @@ public class LambdaLexerTest {
             assertEquals(2, e.getLine());
             assertEquals(2, e.getColumn());
             assertEquals(11, e.getOffset());
+        }
+        assertTrue("lex() should have thrown a SyntaxException", thrown);
+    }
+
+    @Test
+    public void testLexInvalidExpressionJp() {
+        LambdaLexer lexer = new LambdaLexer();
+        boolean thrown = false;
+        try {
+            lexer.lex("(\\光.光 水) 火");
+        } catch (SyntaxException e) {
+            thrown = true;
+            assertEquals(1, e.getLine());
         }
         assertTrue("lex() should have thrown a SyntaxException", thrown);
     }
