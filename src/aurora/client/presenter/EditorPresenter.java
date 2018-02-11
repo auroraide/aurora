@@ -116,40 +116,7 @@ public class EditorPresenter {
         eventBus.addHandler(StepValueChangedEvent.TYPE, e -> stepNumber = e.getStepNumber());
     }
 
-    private void onReStep() {
-        if (!isReStepping()) {
-            // if not yet restepping, initialize.
-            reStepper = steps.iterator();
-            reStepper.next();
-            nextReStepIndex = 1;
-            editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
-        }
 
-        GWT.log("EP: ReStepEvent caught.");
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
-
-        ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
-
-        if (!reStepper.hasNext()) {
-            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
-            return;
-        }
-
-        for (int i = 0; i < stepNumber; i++) {
-            Term current = reStepper.next();
-
-            if (!reStepper.hasNext()) {
-                // current is irreducible => current term is result.
-                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
-                break;
-            } else {
-                ssss.add(new HighlightableLambdaExpression(current));
-            }
-        }
-
-        editorDisplay.addNextStep(ssss, nextReStepIndex);
-        nextReStepIndex += stepNumber;
-    }
 
     private void reset() {
         reductionStrategy = StrategyType.NORMALORDER;
@@ -286,6 +253,41 @@ public class EditorPresenter {
         editorDisplay.addNextStep(stepsToDisplay, steps.size() - stepNumber);
     }
 
+    private void onReStep() {
+        if (!isReStepping()) {
+            // if not yet restepping, initialize.
+            reStepper = steps.iterator();
+            reStepper.next();
+            nextReStepIndex = 1;
+            editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
+        }
+
+        GWT.log("EP: ReStepEvent caught.");
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+
+        ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
+
+        if (!reStepper.hasNext()) {
+            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+            return;
+        }
+
+        for (int i = 0; i < stepNumber; i++) {
+            Term current = reStepper.next();
+
+            if (!reStepper.hasNext()) {
+                // current is irreducible => current term is result.
+                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
+                break;
+            } else {
+                ssss.add(new HighlightableLambdaExpression(current));
+            }
+        }
+
+        editorDisplay.addNextStep(ssss, nextReStepIndex);
+        nextReStepIndex += stepNumber;
+    }
+    
     private void onRedexClicked(Token token) {
         GWT.log("EP: RedexClickEvent caught.");
         assert (!isRunning() && isStarted());
