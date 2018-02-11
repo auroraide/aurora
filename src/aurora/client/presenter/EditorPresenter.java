@@ -250,7 +250,13 @@ public class EditorPresenter {
             }
         }
 
-        editorDisplay.addNextStep(stepsToDisplay, steps.size() - stepNumber);
+        int stepsSize = steps.size();
+        /*
+         * In the case of stepNumber being greater than the actual size of steps,
+         * that can be displayed, we should set it to index 1.
+         */
+        int stepIndex = (stepsSize - stepNumber > 0) ? stepsSize -  stepNumber : 1;
+        editorDisplay.addNextStep(stepsToDisplay, stepIndex);
     }
 
     private void onReStep() {
