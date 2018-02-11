@@ -4,11 +4,14 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
+import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -130,11 +133,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private void eventWiring() {
         wireStepNumber();
         wireAddLibraryFunction();
-
-        
+        wireStrategySelection();
     }
-    
-    
+
     private void wireStepNumber() {
         this.stepNumber.addKeyUpHandler(event -> {
             String input = stepNumber.getText();
@@ -185,6 +186,22 @@ public class SidebarView extends Composite implements SidebarDisplay {
                 SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
                 SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
                 SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
+    }
+
+    private void wireStrategySelection() {
+        this.strategySelection.getCallByName().addValueChangeHandler(
+                event -> fireStrategyEvent(event, StrategyType.CALLBYNAME));
+        this.strategySelection.getCallByValue().addValueChangeHandler(
+                event -> fireStrategyEvent(event, StrategyType.CALLBYVALUE));
+        this.strategySelection.getNormalOrder().addValueChangeHandler(
+                event -> fireStrategyEvent(event, StrategyType.NORMALORDER));
+        // TODO Wire MANUALSELECTION
+    }
+
+    private void fireStrategyEvent(ValueChangeEvent<Boolean> event, StrategyType strategyType) {
+        if (event.getValue()) {
+            SidebarView.this.eventBus.fireEvent(new EvaluationStrategyChangedEvent(strategyType));
+        }
     }
 
     @Override
