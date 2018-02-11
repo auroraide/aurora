@@ -120,20 +120,15 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
-        Scheduler.get().scheduleDeferred(new Command() {
-            public void execute() {
-                //String initialContent = "#Aurorascript static syntax highlighting example";
-                //initialContent += "\n$plus 2 λs.λz.s(sz)";
-                //inputCodeMirror.setValue(initialContent);
-                inputCodeMirror.setOption("theme", "material");
-                //autofocus not working???
-                inputCodeMirror.setOption("autofocus", true);
-                inputCodeMirror.setOption("mode", "aurorascript");
-                inputCodeMirror.setOption("autoCloseBrackets", true);
-                inputCodeMirror.setOption("matchBrackets", true);
-                inputCodeMirror.setOption("styleActiveLine", true);
-                console(getInput());
-            }
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            inputCodeMirror.setOption("theme", "material");
+            //autofocus not working???
+            inputCodeMirror.setOption("autofocus", true);
+            inputCodeMirror.setOption("mode", "aurorascript");
+            inputCodeMirror.setOption("autoCloseBrackets", true);
+            inputCodeMirror.setOption("matchBrackets", true);
+            inputCodeMirror.setOption("styleActiveLine", true);
+            console(getInput());
         });
     }
 
@@ -193,16 +188,11 @@ public class EditorView extends Composite implements EditorDisplay {
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
 
-        Scheduler.get().scheduleDeferred(new Command() {
-            public void execute() {
-                //String initialContent = "4";
-                //initialContent += "\n#Duh";
-                //outputCodeMirror.setValue(initialContent);
-                outputCodeMirror.setOption("theme", "material");
-                outputCodeMirror.setOption("readOnly", true);
-                outputCodeMirror.setOption("mode", "aurorascript");
-                outputCodeMirror.setOption("matchBrackets", true);
-            }
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            outputCodeMirror.setOption("theme", "material");
+            outputCodeMirror.setOption("readOnly", true);
+            outputCodeMirror.setOption("mode", "aurorascript");
+            outputCodeMirror.setOption("matchBrackets", true);
         });
     }
 
