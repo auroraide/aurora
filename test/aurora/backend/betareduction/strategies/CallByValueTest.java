@@ -3,12 +3,16 @@ package aurora.backend.betareduction.strategies;
 import static org.junit.Assert.assertEquals;
 
 import aurora.backend.RedexPath;
+
+import java.util.LinkedList;
+
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
-import java.util.LinkedList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,6 +84,58 @@ public class CallByValueTest {
         RedexPath path = cbv.getRedexPath(t);
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[RIGHT, RIGHT, LEFT]",list.toString());
+    }
+
+    @Test
+    public void noredexleftleft() {
+        Term t = new Application(
+                    new Application(
+                            new FreeVariable("y"), new FreeVariable("x")
+                    ), new FreeVariable("z")
+        );
+
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        assertEquals(null, path);
+    }
+
+    @Test
+    public void functionright() {
+        Function f = new Function("test", new Application(new Abstraction(new BoundVariable(1),"x"),
+                new FreeVariable("y")));
+        Term t = new Application(new FreeVariable("y"),f);
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[RIGHT]",list.toString());
+    }
+
+    @Test
+    public void functionleft() {
+        Function f = new Function("test", new Application(new Abstraction(new BoundVariable(1),"x"),
+                new FreeVariable("y")));
+        Term t = new Application(f,new FreeVariable("y"));
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[LEFT]",list.toString());
+    }
+
+    @Test
+    public void ischurchabs() {
+        Term t = new Application(new ChurchNumber(2), new FreeVariable("x"));
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        LinkedList<RedexPath.Direction> list = path.getPath();
+        assertEquals("[]",list.toString());
+    }
+
+    @Test
+    public void ischurchvalue() {
+        Term t = new Application(new FreeVariable("x"),new ChurchNumber(2));
+        CallByValue cbv = new CallByValue();
+        RedexPath path = cbv.getRedexPath(t);
+        assertEquals(null,path);
     }
 }
 
