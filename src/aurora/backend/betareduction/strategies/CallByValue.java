@@ -41,9 +41,6 @@ public class CallByValue extends ReductionStrategy {
             path = new RedexPath();
         }
 
-        public RedexPath getPath() {
-            return path;
-        }
 
         @Override
         public Void visit(Abstraction abs) {
@@ -65,23 +62,30 @@ public class CallByValue extends ReductionStrategy {
 
             path.push(RedexPath.Direction.LEFT);
             app.left.accept(this);
+
+            /*
             if (foundredex ^ foundvalue) {
                 foundvalue = false;
                 foundredex = false;
             }
+            */
             if (foundredex && foundvalue) {
                 return null;
             }
+
             path.pop();
             path.push(RedexPath.Direction.RIGHT);
             app.right.accept(this);
+            /*
             if (foundredex ^ foundvalue) {
                 foundvalue = false;
                 foundredex = false;
             }
+            */
             if (foundredex && foundvalue) {
                 return null;
             }
+
             path.pop();
 
             return null;
@@ -89,6 +93,7 @@ public class CallByValue extends ReductionStrategy {
 
         @Override
         public Void visit(BoundVariable bvar) {
+            assert false : "found BoundVariable outside Abstraction search for Parser/reducer errors";
             return null;
         }
 
@@ -128,6 +133,7 @@ public class CallByValue extends ReductionStrategy {
 
             @Override
             public Void visit(BoundVariable bvar) {
+                assert false : "found BoundVariable outside Abstraction search for Parser/reducer errors";
                 return null;
             }
 
@@ -169,6 +175,7 @@ public class CallByValue extends ReductionStrategy {
 
             @Override
             public Void visit(BoundVariable bvar) {
+                assert false : "found BoundVariable outside Abstraction search for Parser/reducer errors";
                 foundvalue = true;
                 return null;
             }

@@ -221,4 +221,20 @@ public class NormalOrderTest {
         LinkedList<RedexPath.Direction> list = path.getPath();
         assertEquals("[]",list.toString());
     }
+
+    @Test
+    public void traverseappsfindnothing() {
+        Term t = new Application(new FreeVariable("x"), new FreeVariable("y"));
+        NormalOrder normal = new NormalOrder();
+        RedexPath path = normal.getRedexPath(t);
+        assertEquals(null, path);
+    }
+
+    @Test
+    public void church() {
+        Term t = new ChurchNumber(3);
+        NormalOrder normal = new NormalOrder();
+        RedexPath path = normal.getRedexPath(t);
+        assertEquals(null, path);
+    }
 }
