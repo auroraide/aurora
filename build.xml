@@ -27,6 +27,8 @@
         <pathelement location="${gwt.sdk}/gwt-dev.jar"/>
         <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar"/>
         <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar"/>
+        <pathelement location="${src.dir}"/>
+        <pathelement location="${test.dir}"/>
         <fileset dir="${war.lib.dir}" includes="**/*.jar" erroronmissingdir="false"/>
     </path>
 
