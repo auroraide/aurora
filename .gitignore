@@ -350,8 +350,6 @@ local.properties
 
 .classpath
 .project
-.idea
-*.iml
 *.class
 
 TeXDoclet.jar
@@ -359,6 +357,10 @@ TeXDoclet.jar
 !/docs/entwurf/tex/UML_Klassen.pdf
 aurora.war
 .ivy
+
+# IntelliJ user-specific stuff only
+/.idea/workspace.xml
+/.idea/tasks.xml
 
 apitoken.txt
 
