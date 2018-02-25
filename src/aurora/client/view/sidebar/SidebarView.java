@@ -203,7 +203,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
                     setEnabledSidebarWidgets(false, false, false, false);
                     break;
                 case FINISHED_STATE:
-                    setEnabledSidebarWidgets(true, true, true, true);
+                    setEnabledSidebarWidgets(true, false, true, true);
                     break;
                 case FINISHED_FINISHED_STATE:
                     setEnabledSidebarWidgets(true, true, true, true);
