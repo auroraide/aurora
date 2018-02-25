@@ -40,10 +40,6 @@ public class NormalOrder extends ReductionStrategy {
             path = new RedexPath();
         }
 
-        public RedexPath getPath() {
-            return path;
-        }
-
         @Override
         public Void visit(Abstraction abs) {
             return abs.body.accept(this);
@@ -91,11 +87,14 @@ public class NormalOrder extends ReductionStrategy {
             return null;
         }
 
+
+        //There can't be a redex in a churchnumber
         @Override
         public Void visit(ChurchNumber c) {
-            Abstraction abs = c.getAbstraction();
-            abs.body.accept(this);
             return null;
+            //Abstraction abs = c.getAbstraction();
+            //abs.body.accept(this);
+            //return null;
         }
 
 
