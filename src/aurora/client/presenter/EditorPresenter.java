@@ -119,6 +119,11 @@ public class EditorPresenter {
 
 
     private void reset() {
+        if (runTimer != null) {
+            runTimer.cancel();
+            runTimer = null;
+        }
+
         reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
