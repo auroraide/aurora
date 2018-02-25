@@ -4,27 +4,27 @@
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <g:VerticalPanel>
-        <g:HorizontalPanel>
+    <g:VerticalPanel addStyleNames="add_library_box">
+        <g:HorizontalPanel addStyleNames="add_library_box-name">
             <g:Label><ui:msg description="Add LibraryItem name">Name:</ui:msg></g:Label>
             <g:TextBox ui:field="nameField" focus="true"/>
             <g:Label ui:field="nameFieldError" visible="false"/>
         </g:HorizontalPanel>
 
-        <g:HorizontalPanel>
+        <g:HorizontalPanel addStyleNames="add_library_box-term">
             <g:Label><ui:msg description="Add LibraryItem LambdaTerm">Lambda-Term:</ui:msg></g:Label>
             <g:TextBox ui:field="functionField"/>
             <g:Label ui:field="functionFieldError" visible="false"/>
         </g:HorizontalPanel>
 
-        <g:HorizontalPanel>
+        <g:HorizontalPanel addStyleNames="add_library_box-description">
             <g:Label><ui:msg description="Add LibraryItem Desc">Description:</ui:msg></g:Label>
             <g:TextArea ui:field="descriptionField"/>
         </g:HorizontalPanel>
 
-        <g:HorizontalPanel>
-            <g:Button ui:field="addButton" enabled="true"><ui:msg description="Add LibraryItem ADD">ADD</ui:msg></g:Button>
-            <g:Button ui:field="cancelButton"><ui:msg description="Add LibraryItem CANCEL">CANCEL</ui:msg></g:Button>
+        <g:HorizontalPanel addStyleNames="add_library_box-buttons">
+            <g:Button ui:field="addButton" enabled="true" addStyleNames="add_library_box-ADD"><ui:msg description="Add LibraryItem ADD">ADD</ui:msg></g:Button>
+            <g:Button ui:field="cancelButton" addStyleNames="add_library_box-CANCEL"><ui:msg description="Add LibraryItem CANCEL">CANCEL</ui:msg></g:Button>
         </g:HorizontalPanel>
 
     </g:VerticalPanel>

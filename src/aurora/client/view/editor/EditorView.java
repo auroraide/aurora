@@ -121,7 +121,6 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
         Scheduler.get().scheduleDeferred((Command) () -> {
-            inputCodeMirror.setOption("theme", "material");
             //autofocus not working???
             inputCodeMirror.setOption("autofocus", true);
             inputCodeMirror.setOption("mode", "aurorascript");
@@ -129,6 +128,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
             console(getInput());
+            inputCodeMirror.setOption("theme", "material");
         });
     }
 

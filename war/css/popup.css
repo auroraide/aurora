@@ -1,0 +1,16 @@
+.gwt-DialogBox {
+    background: rgba(56, 185, 159, 0.8);
+    border-radius: 5%;
+    color: #fff;
+}
+
+.gwt-DialogBox tbody tr *, .gwt-DialogBox .Caption {
+    background: none !important;
+    border: none !important;
+}
+.gwt-DialogBox .Caption {
+    text-align: center;
+}
+.gwt-DialogBox tr.dialogTop {
+    border-bottom: 1px solid #f5f5f5;
+}
