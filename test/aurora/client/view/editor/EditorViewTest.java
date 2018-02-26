@@ -13,7 +13,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Tests {@link EditorView}.
+ */
 public class EditorViewTest extends GWTTestCase {
     private CountingEventBus eventBus;
     private EditorView editorView;
@@ -22,6 +24,7 @@ public class EditorViewTest extends GWTTestCase {
         return (elem.nodeName || "").toLowerCase();
     }-*/;
 
+    
     public String getModuleName() {
         return "aurora.Aurora";
     }
@@ -77,7 +80,7 @@ public class EditorViewTest extends GWTTestCase {
     }
 
     /**
-     *
+     * Test widgets, if properly enabled or disabled in DefaultState.
      */
     public void testDefaultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.DEFAULT_STATE));
@@ -93,6 +96,9 @@ public class EditorViewTest extends GWTTestCase {
                 && !editorView.getActionBar().getResetButton().isVisible());
     }
 
+    /**
+     * Test widgets, if properly enabled or disabled in RunningState.
+     */
     public void testRunningState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.RUNNING_STATE));
         assertFalse(editorView.getActionBar().getRunButton().isEnabled()
@@ -107,6 +113,9 @@ public class EditorViewTest extends GWTTestCase {
                 && !editorView.getActionBar().getResetButton().isVisible());
     }
 
+    /**
+     * Test widgets, if properly enabled or disabled in PausedState.
+     */
     public void testPausedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
         assertFalse(editorView.getActionBar().getRunButton().isEnabled()
@@ -121,6 +130,9 @@ public class EditorViewTest extends GWTTestCase {
                 && editorView.getActionBar().getResetButton().isVisible());
     }
 
+    /**
+     * Test widgets, if properly enabled or disabled in FinishedState.
+     */
     public void testFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
         assertFalse(editorView.getActionBar().getRunButton().isEnabled()
@@ -135,6 +147,9 @@ public class EditorViewTest extends GWTTestCase {
                 && editorView.getActionBar().getResetButton().isVisible());
     }
 
+    /**
+     * Test widgets, if properly enabled or disabled in FinishedFinishedState.
+     */
     public void testFinishedFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_FINISHED_STATE));
         assertFalse(editorView.getActionBar().getRunButton().isEnabled()
@@ -149,6 +164,9 @@ public class EditorViewTest extends GWTTestCase {
                 && editorView.getActionBar().getResetButton().isVisible());
     }
 
+    /**
+     * Test widgets, if properly enabled or disabled in StepBeforeResultState.
+     */
     public void testStepBeforeResultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
         assertTrue(editorView.getActionBar().getRunButton().isEnabled()
@@ -163,5 +181,4 @@ public class EditorViewTest extends GWTTestCase {
                 && editorView.getActionBar().getResetButton().isVisible());
     }
 
-    publi
 }
