@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Aurora.iml" filepath="$PROJECT_DIR$/Aurora.iml" />
-      <module fileurl="file://$PROJECT_DIR$/misc/rudolf/rudolf.iml" filepath="$PROJECT_DIR$/misc/rudolf/rudolf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aurora.iml" filepath="$PROJECT_DIR$/aurora.iml" />
     </modules>
   </component>
 </project>
