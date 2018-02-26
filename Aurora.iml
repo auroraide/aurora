@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="IvyIDEA" name="IvyIDEA">
+      <configuration ivyFile="$MODULE_DIR$/ivy.xml" useProjectSettings="false" useCustomIvySettings="false" ivySettingsFile="" onlyResolveSelectedConfigs="false">
+        <propertiesSettings>
+          <propertiesFiles includeProjectLevelPropertiesFiles="true" />
+        </propertiesSettings>
+      </configuration>
+    </facet>
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
@@ -21,13 +28,6 @@
         <setting name="gwtSdkUrl" value="file://$MODULE_DIR$/../gwt-2.8.2" />
       </configuration>
     </facet>
-    <facet type="IvyIDEA" name="IvyIDEA">
-      <configuration ivyFile="$MODULE_DIR$/ivy.xml" useProjectSettings="true" useCustomIvySettings="true" ivySettingsFile="" onlyResolveSelectedConfigs="false">
-        <propertiesSettings>
-          <propertiesFiles includeProjectLevelPropertiesFiles="true" />
-        </propertiesSettings>
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -37,7 +37,105 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="gwt-user-2.7.0" level="project" />
+    <orderEntry type="library" name="hamcrest-core-1.3" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="gwtmockito-1.1.6" level="project" />
+    <orderEntry type="library" name="junit-4.12" level="project" />
+    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="gwt-dev-2.7.0" level="project" />
+    <orderEntry type="library" name="mockito-core-1.9.5" level="project" />
     <orderEntry type="library" name="gwt-user" level="project" />
+    <orderEntry type="module-library">
+      <library name="IvyIDEA">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/jars/checkstyle-8.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/antlr/antlr/jars/antlr-2.7.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.antlr/antlr4-runtime/jars/antlr4-runtime-4.7.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-beanutils/commons-beanutils/jars/commons-beanutils-1.9.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-cli/commons-cli/jars/commons-cli-1.4.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/bundles/guava-23.6-jre.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-1.3.9.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.checkerframework/checker-compat-qual/jars/checker-compat-qual-2.0.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.errorprone/error_prone_annotations/jars/error_prone_annotations-2.1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.j2objc/j2objc-annotations/jars/j2objc-annotations-1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.mojo/animal-sniffer-annotations/jars/animal-sniffer-annotations-1.14.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/jars/Saxon-HE-9.8.0-7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.ant/ant/jars/ant-1.10.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.ant/ant-launcher/jars/ant-launcher-1.10.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/junit/junit/jars/junit-4.12.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm/jars/asm-5.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-util/jars/asm-util-5.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-tree/jars/asm-tree-5.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-commons/jars/asm-commons-5.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/javax.validation/validation-api/jars/validation-api-1.0.0.GA-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/jars/gwtmockito-1.1.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/jars/gwt-dev-2.7.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/jars/gwt-user-2.7.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/jars/mockito-core-1.9.5.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.17.1-GA.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/javadocs/checkstyle-8.7-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.antlr/antlr4-runtime/javadocs/antlr4-runtime-4.7.1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-beanutils/commons-beanutils/javadocs/commons-beanutils-1.9.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-logging/commons-logging/javadocs/commons-logging-1.2-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/javadocs/commons-collections-3.2.2-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-cli/commons-cli/javadocs/commons-cli-1.4-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/javadocs/guava-23.6-jre-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.checkerframework/checker-compat-qual/javadocs/checker-compat-qual-2.0.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.errorprone/error_prone_annotations/javadocs/error_prone_annotations-2.1.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.j2objc/j2objc-annotations/javadocs/j2objc-annotations-1.1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.mojo/animal-sniffer-annotations/javadocs/animal-sniffer-annotations-1.14-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/javadocs/Saxon-HE-9.8.0-7-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.ant/ant/javadocs/ant-1.10.1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/junit/junit/javadocs/junit-4.12-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.hamcrest/hamcrest-core/javadocs/hamcrest-core-1.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm/javadocs/asm-5.0.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-util/javadocs/asm-util-5.0.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-tree/javadocs/asm-tree-5.0.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-commons/javadocs/asm-commons-5.0.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/javax.validation/validation-api/javadocs/validation-api-1.0.0.GA-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/javadocs/gwtmockito-1.1.6-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/javadocs/gwt-dev-2.7.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/javadocs/gwt-user-2.7.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/javadocs/mockito-core-1.9.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/javadocs/objenesis-1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/sources/checkstyle-8.7-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.antlr/antlr4-runtime/sources/antlr4-runtime-4.7.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-beanutils/commons-beanutils/sources/commons-beanutils-1.9.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-logging/commons-logging/sources/commons-logging-1.2-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/sources/commons-collections-3.2.2-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-cli/commons-cli/sources/commons-cli-1.4-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/sources/guava-23.6-jre-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.checkerframework/checker-compat-qual/sources/checker-compat-qual-2.0.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.errorprone/error_prone_annotations/sources/error_prone_annotations-2.1.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.j2objc/j2objc-annotations/sources/j2objc-annotations-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.mojo/animal-sniffer-annotations/sources/animal-sniffer-annotations-1.14-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/sources/Saxon-HE-9.8.0-7-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.ant/ant/sources/ant-1.10.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.ant/ant-launcher/sources/ant-launcher-1.10.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/junit/junit/sources/junit-4.12-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.hamcrest/hamcrest-core/sources/hamcrest-core-1.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm/sources/asm-5.0.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-util/sources/asm-util-5.0.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-tree/sources/asm-tree-5.0.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.ow2.asm/asm-commons/sources/asm-commons-5.0.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/javax.validation/validation-api/sources/validation-api-1.0.0.GA-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/sources/gwtmockito-1.1.6-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/sources/gwt-dev-2.7.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/sources/gwt-user-2.7.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/sources/mockito-core-1.9.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/sources/objenesis-1.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/sources/javassist-3.17.1-GA-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
