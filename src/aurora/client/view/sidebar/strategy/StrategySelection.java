@@ -64,6 +64,18 @@ public class StrategySelection extends Composite {
         return manualSelection;
     }
 
+    /**
+     * Enables or disables the StrategySelection widget.
+     *
+     * @param enabled set true to enable or false to disable.
+     */
+    public void setEnabled(boolean enabled) {
+        this.normalOrder.setEnabled(enabled);
+        this.callByName.setEnabled(enabled);
+        this.callByValue.setEnabled(enabled);
+        this.manualSelection.setEnabled(enabled);
+    }
+
     interface StrategySelectionUiBinder extends UiBinder<Widget, StrategySelection> {
     }
 }
