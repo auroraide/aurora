@@ -92,7 +92,7 @@ public class HighlightableLambdaExpressionTest {
                         ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x . x x1 ", hle.toString());
+        assertEquals("\\ x . \\ x . x x_alpha ", hle.toString());
     }
 
     @Test
@@ -124,7 +124,7 @@ public class HighlightableLambdaExpressionTest {
                 ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . x x1 ",hle.toString());
+        assertEquals("\\ x . x x_alpha ",hle.toString());
     }
 
     @Test
