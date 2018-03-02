@@ -4,6 +4,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
@@ -285,6 +286,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
             int removedIndex = userlib.indexOf(name);
             SidebarView.this.userlib.remove(removedIndex);
             SidebarView.this.userLibraryTable.removeRow(removedIndex);
+            SidebarView.this.eventBus.fireEvent(new DeleteFunctionEvent(name));
         });
         userLibraryTable.setWidget(row, 2, removeLibraryItemButton);
     }
