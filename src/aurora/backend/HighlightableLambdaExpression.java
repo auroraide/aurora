@@ -47,12 +47,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      */
     public HighlightableLambdaExpression(Term t) {
         this();
-        Term y = t.accept(new InitializeRenameAbsVisitor());
+        //Term y = t.accept(new InitializeRenameAbsVisitor());
 
 
-        //Term x = y.accept(new FindAbsForAlpha());
-        //x.accept(new TermToHighlightedLambdaExpressionVisitor());
-        y.accept(new TermToHighlightedLambdaExpressionVisitor()); //TODO delete this
+        Term x = t.accept(new FindAbsForAlpha());
+        x.accept(new TermToHighlightedLambdaExpressionVisitor());
+
     }
 
     @Override
@@ -121,6 +121,163 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             builder.append(" ");
         }
         return builder.toString();
+    }
+
+
+
+
+    /**
+     * Traverse the entire Term and initialize on every Abstraction the rename Abstraction Visitor
+     * and the Free Variable Conversion Visitor.
+     */
+    private class FindAbsForAlpha extends TermVisitor<Term> {
+
+        @Override
+        public Term visit(Abstraction abs) {
+            Abstraction absWithAbsConversion = new Abstraction(abs.body.accept(new RenameAbsVisitor(abs.name)),
+                    abs.name);
+            Abstraction absWithFvConversion = new  Abstraction(absWithAbsConversion.body.accept(
+                    new AlphaconversionVisitorFV(absWithAbsConversion.name)), abs.name);
+
+
+            return new Abstraction(absWithFvConversion.body.accept(this), absWithFvConversion.name);
+
+        }
+
+        @Override
+        public Term visit(Application app) {
+            Term left = app.left.accept(this);
+            Term right = app.right.accept(this);
+            return new Application(left, right);
+        }
+
+        @Override
+        public Term visit(BoundVariable bvar) {
+            return bvar;
+        }
+
+        @Override
+        public Term visit(FreeVariable fvar) {
+            return fvar;
+        }
+
+        @Override
+        public Term visit(Function libterm) {
+            return libterm;
+        }
+
+        @Override
+        public Term visit(ChurchNumber c) {
+            return c;
+        }
+
+
+        /**
+         * If Abstraction A has an Abstraction B in its Body and both have the same name, rename Abstraction B.
+         */
+        private class RenameAbsVisitor extends TermVisitor<Term> {
+            private String name;
+            private int counter;
+
+            RenameAbsVisitor(String name) {
+                this.name = name;
+                counter = 0;
+            }
+
+            RenameAbsVisitor(String name, int counter) {
+                this.name = name;
+                this.counter = counter;
+            }
+
+            @Override
+            public Term visit(Abstraction abs) {
+                if (abs.name.equals(name)) {
+                    counter++;
+                    int mycounter = counter;
+                    String newname = name + Integer.toString(counter);
+                    return new Abstraction(abs.body.accept(this),name + Integer.toString(mycounter));
+                } else {
+                    return new Abstraction(abs.body.accept(this),abs.name);
+                }
+            }
+
+            @Override
+            public Term visit(Application app) {
+                Term left = app.left.accept(new RenameAbsVisitor(name, counter));
+                Term right = app.right.accept(new RenameAbsVisitor(name, counter));
+                return new Application(left, right);
+            }
+
+            @Override
+            public Term visit(BoundVariable bvar) {
+                return bvar;
+            }
+
+            @Override
+            public Term visit(FreeVariable fvar) {
+                return fvar;
+            }
+
+            @Override
+            public Term visit(Function libterm) {
+                return libterm;
+            }
+
+            @Override
+            public Term visit(ChurchNumber c) {
+                return c;
+            }
+        }
+
+        /**
+         * If a Free Variable is in the body of an Abstraction and both names are identical, change the name of the
+         * Free Variable to name_alpha.
+         */
+        private class AlphaconversionVisitorFV extends TermVisitor<Term> {
+            private String name;
+
+            public AlphaconversionVisitorFV(String name) {
+                this.name = name;
+            }
+
+            @Override
+            public Term visit(Abstraction abs) {
+                return new Abstraction(abs.body.accept(this), abs.name);
+            }
+
+            @Override
+            public Term visit(Application app) {
+                Term left = app.left.accept(new AlphaconversionVisitorFV(name));
+                Term right = app.right.accept(new AlphaconversionVisitorFV(name));
+                return new Application(left, right);
+            }
+
+            @Override
+            public Term visit(BoundVariable bvar) {
+                return bvar;
+            }
+
+            @Override
+            public Term visit(FreeVariable fvar) {
+                if (fvar.name.equals(name)) {
+                    return new FreeVariable(fvar.name + "_alpha");
+                } else {
+                    return fvar;
+                }
+            }
+
+            @Override
+            public Term visit(Function function) {
+                return function;
+            }
+
+            @Override
+            public Term visit(ChurchNumber c) {
+                return c;
+            }
+        }
+
+
     }
 
     /**
@@ -232,7 +389,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             return null;
         }
 
-
+        /**
+         * this vVisitor checks if the given Term is an Application or Abstraction.
+         */
         private class AppAbschecker extends TermVisitor<Void> {
 
             AppAbschecker() {
@@ -284,7 +443,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         /**
-         * this class removes all bounded variables with free variables and performs alpha conversion.
+         * this visitor removes all bounded variables with free variables.
          */
         private class BoundVariableFinder extends TermVisitor<Term> {
             String name;
@@ -327,12 +486,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Term visit(FreeVariable fvar) {
-                // alphaconversion is needed.
-                /**
-                if (fvar.name.equals(name)) {
-                    return new FreeVariable(fvar.name + "1");
-                }
-                 */
                 return fvar;
             }
 
@@ -349,182 +502,5 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
     }
-
-    private class AlphaconversionVisitorFV extends TermVisitor<Term> {
-        private String name;
-        public AlphaconversionVisitorFV() {
-            name = "12$Error"; // it is impossible to have this name in our code
-        }
-        public AlphaconversionVisitorFV(String name) {
-            this.name = name;
-        }
-        @Override
-        public Term visit(Abstraction abs) {
-            return new Abstraction(abs.body.accept(this), abs.name);
-        }
-
-        @Override
-        public Term visit(Application app) {
-            Term left = app.left.accept(new AlphaconversionVisitorFV(name));
-            Term right = app.right.accept(new AlphaconversionVisitorFV(name));
-            return new Application(left, right);
-        }
-
-        @Override
-        public Term visit(BoundVariable bvar) {
-            return bvar;
-        }
-
-        @Override
-        public Term visit(FreeVariable fvar) {
-            if (fvar.name.equals(name)) {
-                return new FreeVariable(fvar.name + "_alpha");
-            }
-            else {
-                return fvar;
-            }
-        }
-
-        @Override
-        public Term visit(Function function) {
-            return function;
-        }
-
-        @Override
-        public Term visit(ChurchNumber c) {
-            return c;
-        }
-    }
-
-
-    private class FindAbsForAlpha extends TermVisitor<Term> {
-
-        @Override
-        public Term visit(Abstraction abs) {
-            return new Abstraction(abs.body.accept(new AlphaconversionVisitorFV(abs.name)),
-                    abs.name);
-
-        }
-
-        @Override
-        public Term visit(Application app) {
-            Term left = app.left.accept(new FindAbsForAlpha());
-            Term right = app.right.accept(new FindAbsForAlpha());
-            return new Application(left, right);
-        }
-
-        @Override
-        public Term visit(BoundVariable bvar) {
-            return bvar;
-        }
-
-        @Override
-        public Term visit(FreeVariable fvar) {
-            return fvar;
-        }
-
-        @Override
-        public Term visit(Function libterm) {
-            return libterm.term.accept(this);
-        }
-
-        @Override
-        public Term visit(ChurchNumber c) {
-            return c.getAbstraction().accept(this);
-        }
-    }
-
-
-    private class InitializeRenameAbsVisitor extends TermVisitor<Term>{
-
-        @Override
-        public Term visit(Abstraction abs) {
-            Abstraction newabsnew = new Abstraction(abs.body.accept(new RenameAbsVisitor(abs.name)),abs.name);
-            return new Abstraction(newabsnew.body.accept(this), newabsnew.name);
-
-        }
-
-        @Override
-        public Term visit(Application app) {
-            Term left = app.left.accept(this);
-            Term right = app.right.accept(this);
-            return new Application(left, right);
-        }
-
-        @Override
-        public Term visit(BoundVariable bvar) {
-            return bvar;
-        }
-
-        @Override
-        public Term visit(FreeVariable fvar) {
-            return fvar;
-        }
-
-        @Override
-        public Term visit(Function libterm) {
-            return libterm.term.accept(this);
-        }
-
-        @Override
-        public Term visit(ChurchNumber c) {
-            return c.getAbstraction().accept(this);
-        }
-    }
-
-
-    private class RenameAbsVisitor extends TermVisitor<Term> {
-        private String name;
-        private int counter;
-        RenameAbsVisitor(String name) {
-            this.name = name;
-            counter = 0;
-        }
-
-        RenameAbsVisitor(String name, int counter) {
-            this.name = name;
-            this.counter = counter;
-        }
-        @Override
-        public Term visit(Abstraction abs) {
-            if (abs.name == name) {
-                counter++;
-                String newname = name + Integer.toString(counter);
-                return new Abstraction(abs.body.accept(this),name + Integer.toString(counter));
-            }
-            else {
-                return new Abstraction(abs.body.accept(this),abs.name);
-            }
-        }
-
-        @Override
-        public Term visit(Application app) {
-            Term left = app.left.accept(new RenameAbsVisitor(name, counter));
-            Term right = app.right.accept(new RenameAbsVisitor(name, counter));
-            return new Application(left, right);
-        }
-
-        @Override
-        public Term visit(BoundVariable bvar) {
-            return bvar;
-        }
-
-        @Override
-        public Term visit(FreeVariable fvar) {
-            return fvar;
-        }
-
-        @Override
-        public Term visit(Function libterm) {
-            return libterm.term.accept(this);
-        }
-
-        @Override
-        public Term visit(ChurchNumber c) {
-            return c;
-        }
-    }
-
-
 
 }
