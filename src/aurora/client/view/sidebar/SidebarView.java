@@ -12,8 +12,6 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -168,7 +166,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
                 SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(step));
                 SidebarView.this.prevStepNumber = step;
-                
+
             } else {
                 // Allows an input of length 1 to be deleted.
                 if (input.length() != 0) {
@@ -178,7 +176,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         });
 
         this.stepNumber.addBlurHandler(event -> {
-           SidebarView.this.stepNumber.setText("" + prevStepNumber);
+            SidebarView.this.stepNumber.setText("" + prevStepNumber);
         });
     }
 
