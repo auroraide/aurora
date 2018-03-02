@@ -12,6 +12,10 @@ h1 {
     font-size: 16pt;
 }
 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs{
+    z-index: 1000;
+}
+
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
 }
@@ -70,4 +74,12 @@ div.gwt-TabLayoutPanelTabs {
 
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer {
     border: none !important;
+}
+
+.zindex {
+    z-index: 1000;
+    position: relative;
+}
+.block {
+    display: block;
 }
