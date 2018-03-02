@@ -119,6 +119,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit PAUSED_STATE.
      */
     public void setPausedStateAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", true);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", false);
@@ -133,6 +134,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit FINISHED_STATE.
      */
     public void setFinishedStateAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
@@ -147,6 +149,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit STEP_BEFORE_RESULT_STATE.
      */
     public void  setStepBeforeResultAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
@@ -161,6 +164,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit FINISHED_FINISHED_STATE.
      */
     public void setFinishedFinishedAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
