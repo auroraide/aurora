@@ -12,6 +12,8 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -173,6 +175,10 @@ public class SidebarView extends Composite implements SidebarDisplay {
                     SidebarView.this.stepNumber.setText("" + prevStepNumber);
                 }
             }
+        });
+
+        this.stepNumber.addBlurHandler(event -> {
+           SidebarView.this.stepNumber.setText("" + prevStepNumber);
         });
     }
 
