@@ -47,7 +47,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      */
     public HighlightableLambdaExpression(Term t) {
         this();
-        t.accept(new TermToHighlightedLambdaExpressionVisitor());
+        Term x = t.accept(new FindAbsForAlpha());
+        x.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
     @Override
@@ -197,9 +198,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             column += length;
             offset++;
             tokens.add(new Token(Token.TokenType.T_VARIABLE,String.valueOf(bvar.index),line,column,offset));
-            /**
-             * ALPHACONVERSION AND analyze BOUNDVARIABLENAME TO STring HERE
-             */
             return null;
         }
 
@@ -326,9 +324,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(FreeVariable fvar) {
                 // alphaconversion is needed.
+                /**
                 if (fvar.name.equals(name)) {
                     return new FreeVariable(fvar.name + "1");
                 }
+                 */
                 return fvar;
             }
 
@@ -344,6 +344,89 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             }
         }
 
+    }
+
+    private class AlphaconversionVisitor extends TermVisitor<Term> {
+        private String name;
+        public AlphaconversionVisitor() {
+            name = "12$Error"; // it is impossible to have this name in our code
+        }
+        public AlphaconversionVisitor(String name) {
+            this.name = name;
+        }
+        @Override
+        public Term visit(Abstraction abs) {
+            return new Abstraction(abs.body.accept(this), abs.name);
+        }
+
+        @Override
+        public Term visit(Application app) {
+            Term left = app.left.accept(new AlphaconversionVisitor(name));
+            Term right = app.right.accept(new AlphaconversionVisitor(name));
+            return new Application(left, right);
+        }
+
+        @Override
+        public Term visit(BoundVariable bvar) {
+            return bvar;
+        }
+
+        @Override
+        public Term visit(FreeVariable fvar) {
+            if (fvar.name.equals(name)) {
+                return new FreeVariable(fvar.name + "1");
+            }
+            else {
+                return fvar;
+            }
+        }
+
+        @Override
+        public Term visit(Function function) {
+            return function;
+        }
+
+        @Override
+        public Term visit(ChurchNumber c) {
+            return c;
+        }
+    }
+
+    private class FindAbsForAlpha extends TermVisitor<Term> {
+
+        @Override
+        public Term visit(Abstraction abs) {
+            return new Abstraction(abs.body.accept(new AlphaconversionVisitor(abs.name)),
+                    abs.name);
+
+        }
+
+        @Override
+        public Term visit(Application app) {
+            Term left = app.left.accept(new FindAbsForAlpha());
+            Term right = app.right.accept(new FindAbsForAlpha());
+            return new Application(left, right);
+        }
+
+        @Override
+        public Term visit(BoundVariable bvar) {
+            return bvar;
+        }
+
+        @Override
+        public Term visit(FreeVariable fvar) {
+            return fvar;
+        }
+
+        @Override
+        public Term visit(Function libterm) {
+            return libterm.term.accept(this);
+        }
+
+        @Override
+        public Term visit(ChurchNumber c) {
+            return c.getAbstraction().accept(this);
+        }
     }
 
 

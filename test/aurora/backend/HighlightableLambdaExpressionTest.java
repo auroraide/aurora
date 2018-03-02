@@ -1,6 +1,12 @@
 package aurora.backend;
 
+import aurora.backend.betareduction.BetaReducer;
+import aurora.backend.betareduction.strategies.NormalOrder;
+import aurora.backend.library.HashLibrary;
+import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -121,4 +127,27 @@ public class HighlightableLambdaExpressionTest {
         assertEquals("\\ x . x x1 ",hle.toString());
     }
 
+    @Test
+    public void alphaconv() {
+        LambdaLexer lexer = new LambdaLexer();
+        LambdaParser parser = new LambdaParser(new HashLibrary());
+        String input = "2 2";
+        Term t = null;
+        try {
+            t = parser.parse(lexer.lex(input));
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        for (int n = 0; n < 6; n++) {
+
+            t = br.reduce(t);
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+            System.out.println(hle.toString());
+        }
+
+    }
 }
