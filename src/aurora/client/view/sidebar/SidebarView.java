@@ -6,6 +6,7 @@ import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.StepValueChangedEvent;
+import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
@@ -133,6 +134,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private void eventWiring() {
+        wireOnViewStateChanged();
         wireStepNumber();
         wireAddLibraryFunction();
         wireStrategySelection();
@@ -188,6 +190,46 @@ public class SidebarView extends Composite implements SidebarDisplay {
                 SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
                 SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
                 SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
+    }
+
+    private void wireOnViewStateChanged() {
+        this.eventBus.addHandler(ViewStateChangedEvent.TYPE, viewStateChangedEvent -> {
+            switch (viewStateChangedEvent.getViewState()) {
+                case STEP_BEFORE_RESULT_STATE:
+                    setEnabledSidebarWidgets(true, false, true, true);
+                    break;
+                case PAUSED_STATE:
+                    setEnabledSidebarWidgets(true, false, true, true);
+                    break;
+                case RUNNING_STATE:
+                    setEnabledSidebarWidgets(false, false, false, false);
+                    break;
+                case FINISHED_STATE:
+                    setEnabledSidebarWidgets(true, false, true, true);
+                    break;
+                case FINISHED_FINISHED_STATE:
+                    setEnabledSidebarWidgets(true, true, true, true);
+                    break;
+                default:
+                    setEnabledSidebarWidgets(true, true, true, true);
+            }
+        });
+    }
+
+    /**
+     * Disables or enables Sidebar's widgets.
+     *
+     * @param stepNumber enable true, disable false
+     * @param addFunctionButton enable true, disable false
+     * @param strategySelection enable true, disable false
+     * @param nightModeSwitch enable true, disable false
+     */
+    private void setEnabledSidebarWidgets(boolean stepNumber, boolean addFunctionButton, boolean strategySelection,
+                                          boolean nightModeSwitch) {
+        this.stepNumber.setEnabled(stepNumber);
+        this.addFunctionButton.setEnabled(addFunctionButton);
+        this.strategySelection.setEnabled(strategySelection);
+        this.nightModeSwitch.setEnabled(nightModeSwitch);
     }
 
     private void wireStrategySelection() {
