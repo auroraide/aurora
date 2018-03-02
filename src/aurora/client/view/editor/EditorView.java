@@ -11,7 +11,6 @@ import aurora.client.view.editor.actionbar.ActionBar;
 import aurora.client.view.popup.InfoDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -58,7 +57,6 @@ public class EditorView extends Composite implements EditorDisplay {
     private InfoDialogBox infoDialogBox;
 
     private EventBus eventBus;
-    private Document document;
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
      *
