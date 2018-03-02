@@ -27,6 +27,7 @@
     font-size: 1.2em;
     background-color: #177965;
     background: unset;
+    position: relative;
 }
 
 .action_bar .run {
@@ -80,6 +81,10 @@
 }
 .action_bar .hidden {
     display: none;
+}
+
+.action_bar .up {
+    z-index: 1000;
 }
 
 
