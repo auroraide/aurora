@@ -58,11 +58,13 @@ public class ReplaceVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(BoundVariable bvar) {
+        assert false : "there can't be an application below a bvar";
         return bvar;
     }
 
     @Override
     public Term visit(FreeVariable fvar) {
+        assert false : "there can't be an application below a fvar";
         return fvar;
     }
 

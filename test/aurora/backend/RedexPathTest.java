@@ -30,7 +30,7 @@ public class RedexPathTest {
                 new Application(
                         new FreeVariable("y"),
                         new Application(
-                                new Application(new Abstraction(new BoundVariable(1),"a"),
+                                new Application(new Abstraction(new BoundVariable(1), "a"),
                                         new FreeVariable("z")),
                                 new FreeVariable("h")
                         )
@@ -40,8 +40,6 @@ public class RedexPathTest {
         RedexPath path = normal.getRedexPath(t);
         Application app = path.get(t);
         FreeVariable fv = (FreeVariable) app.right;
-        assertEquals("z",fv.name);
+        assertEquals("z", fv.name);
     }
-
-
 }

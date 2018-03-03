@@ -130,26 +130,24 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
         @Override
         public Void visit(BoundVariable bvar) {
-           assert false : "Redexpath is finished but no Application. This should never happen";
+           assert false : "Tree is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            assert false : "Redexpath is finished but no Application. This should never happen";
+            assert false : "Tree is finished but no Application. This should never happen";
             return null;
         }
 
         @Override
         public Void visit(Function libterm) {
-            assert false : "Redexpath is finished but no Application. This should never happen";
-            return null;
+            return libterm.term.accept(this);
         }
 
         @Override
         public Void visit(ChurchNumber c) {
-            Abstraction abs = c.getAbstraction();
-            abs.accept(this);
+            assert false : "Searching for a Redex below Churchnumber, this can't happen";
             return null;
         }
     }
