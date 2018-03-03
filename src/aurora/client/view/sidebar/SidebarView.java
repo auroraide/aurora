@@ -42,6 +42,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
     private final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    private EventBus eventBus;
+    private int prevStepNumber = 1;
     private ArrayList<String> userlib;
 
     @UiField
@@ -60,8 +62,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     FlowPanel languageButton;
     @UiField
     FlowPanel shareButton;
-    private EventBus eventBus;
-    private int prevStepNumber = 1;
     Document document;
 
     /**
