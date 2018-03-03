@@ -410,6 +410,31 @@ public class BetaReducerTest {
     }
 
     @Test
+    public void infinityfunction() {
+        Term t = new Function("inf",new Application(
+                new Abstraction(
+                        new Application(
+                                new BoundVariable(1), new BoundVariable(1)
+                        ), "x"),
+                        new Abstraction(
+                                new Application(
+                                        new BoundVariable(1), new BoundVariable(1)
+                                ),"x"
+                        )
+                )
+        );
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        for (int n = 0; n < 50; n++) {
+            t = br.reduce(t);
+        }
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("( \\ x . x x ) ( \\ x . x x ) ", hle.toString());
+
+
+    }
+
+    @Test
     public void testfucntion() {
         Function function = new Function("test", new Abstraction(new BoundVariable(1),"y"));
         Function t = new Function("t",new Application(function, new FreeVariable("x")));
