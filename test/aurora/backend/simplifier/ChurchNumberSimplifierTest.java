@@ -1,8 +1,12 @@
 package aurora.backend.simplifier;
 
 import aurora.backend.HighlightableLambdaExpression;
-import aurora.backend.tree.*;
-import com.google.gwt.dev.jjs.impl.Simplifier;
+import aurora.backend.tree.Abstraction;
+import aurora.backend.tree.Application;
+import aurora.backend.tree.BoundVariable;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +25,7 @@ public class ChurchNumberSimplifierTest {
 
     @Test
     public void isachurcheasy() {
-        Term zero = new ChurchNumber(0);
+
         Term t = new ChurchNumber(1);
         ChurchNumberSimplifier simplifier = new ChurchNumberSimplifier();
         ChurchNumber resultone = simplifier.simplify(t);
@@ -35,7 +39,7 @@ public class ChurchNumberSimplifierTest {
         ChurchNumber resultfive = simplifier.simplify(new ChurchNumber(5));
         HighlightableLambdaExpression hle5 = new HighlightableLambdaExpression(resultfive);
         assertEquals("5 ", hle5.toString());
-
+        Term zero = new ChurchNumber(0);
         Term zeroresult = simplifier.simplify(zero);
         HighlightableLambdaExpression hle0 = new HighlightableLambdaExpression(zeroresult);
         assertEquals("0 ", hle0.toString());
