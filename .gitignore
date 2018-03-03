@@ -349,3 +349,5 @@ atlassian-ide-plugin.xml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+
+target/
