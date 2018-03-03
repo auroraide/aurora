@@ -57,7 +57,7 @@ public class EditorView extends Composite implements EditorDisplay {
     private InfoDialogBox infoDialogBox;
 
     private EventBus eventBus;
-
+    
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
      *
@@ -87,6 +87,7 @@ public class EditorView extends Composite implements EditorDisplay {
                     break;
                 case RUNNING_STATE:
                     EditorView.this.actionBar.setRunningStateAppearance();
+                    GWT.log("hallo");
                     break;
                 case PAUSED_STATE:
                     EditorView.this.actionBar.setPausedStateAppearance();

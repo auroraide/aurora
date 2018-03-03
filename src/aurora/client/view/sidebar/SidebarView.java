@@ -57,7 +57,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     StrategySelection strategySelection;
     @UiField
-    FlowPanel shareAndLanguage;
+    FlowPanel languageButton;
+    @UiField
+    FlowPanel shareButton;
     private EventBus eventBus;
     private int prevStepNumber = 1;
     Document document;
@@ -82,13 +84,13 @@ public class SidebarView extends Composite implements SidebarDisplay {
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("languageButton");
         languageMenu.addItem("language", setupLanguageMenuBar());
-        this.shareAndLanguage.add(languageMenu);
+        this.languageButton.add(languageMenu);
 
         final MenuBar shareMenu = new MenuBar(true);
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("shareButton");
         languageMenu.addItem(" ", setupShareMenuBar());
-        this.shareAndLanguage.add(shareMenu);
+        this.shareButton.add(shareMenu);
     }
 
     private MenuBar setupShareMenuBar() {
@@ -168,13 +170,17 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
                 SidebarView.this.eventBus.fireEvent(new StepValueChangedEvent(step));
                 SidebarView.this.prevStepNumber = step;
-                
+
             } else {
                 // Allows an input of length 1 to be deleted.
                 if (input.length() != 0) {
                     SidebarView.this.stepNumber.setText("" + prevStepNumber);
                 }
             }
+        });
+
+        this.stepNumber.addBlurHandler(event -> {
+            SidebarView.this.stepNumber.setText("" + prevStepNumber);
         });
     }
 
