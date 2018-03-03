@@ -12,6 +12,7 @@ import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
@@ -283,10 +284,13 @@ public class SidebarView extends Composite implements SidebarDisplay {
         Button removeLibraryItemButton = new Button("x");
 
         removeLibraryItemButton.addClickHandler(event -> {
+            Scheduler scheduler = Scheduler.get();
+            scheduler.scheduleDeferred((Command) () -> {
+                SidebarView.this.eventBus.fireEvent(new DeleteFunctionEvent(name));
+            });
             int removedIndex = userlib.indexOf(name);
             SidebarView.this.userlib.remove(removedIndex);
             SidebarView.this.userLibraryTable.removeRow(removedIndex);
-            SidebarView.this.eventBus.fireEvent(new DeleteFunctionEvent(name));
         });
         userLibraryTable.setWidget(row, 2, removeLibraryItemButton);
     }
