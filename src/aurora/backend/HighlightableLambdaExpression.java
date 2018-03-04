@@ -282,7 +282,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         /**
-         * this class removes all bounded variables with free variables and performs alpha conversion.
+         * this class removes all bound variables with free variables and performs alpha conversion.
          */
         private class BoundVariableFinder extends TermVisitor<Term> {
             String name;
