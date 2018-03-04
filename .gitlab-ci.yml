@@ -8,7 +8,6 @@ before_script:
     - apt-get update && apt-get install -y ant
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - wget -q https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip && unzip -qq -d .. chromedriver_linux64.zip
-    - ls
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
 stages:
