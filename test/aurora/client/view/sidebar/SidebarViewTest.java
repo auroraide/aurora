@@ -210,4 +210,12 @@ public class SidebarViewTest extends GWTTestCase {
 
 
     }
+
+    /**
+     * Regression test. Add library function and remove it. Repeating the procedure twice should not fail.
+     */
+    public void testAddRemoveAddLibraryFunction() {
+        testRemoveLibraryFunction();
+        testRemoveLibraryFunction();
+    }
 }
