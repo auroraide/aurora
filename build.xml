@@ -47,6 +47,9 @@
             <arg value="Aurora.html"/>
             <arg line="-war"/>
             <arg value="${war.dir}"/>
+            <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+            <arg value="-style"/>
+            <arg value="DETAILED"/>
             <arg line="${gwt.args}"/>
             <arg value="aurora.Aurora"/>
             <arg value="aurora.Aurora"/>
@@ -182,6 +185,7 @@
             </classpath>
             <arg line="-war"/>
             <arg value="${war.dir}"/>
+            <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
             <arg line="${gwt.args}"/>
             <arg value="aurora.Aurora"/>
         </java>
