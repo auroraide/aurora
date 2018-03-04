@@ -1,10 +1,12 @@
 package aurora.client.view.editor.actionbar;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -25,6 +27,8 @@ public class ActionBar extends Composite {
     Button resetButton;
     @UiField
     Button stepButton;
+    @UiField
+    HTML overlay;
 
     /**
      * Generates a new ActionBar.
@@ -82,6 +86,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit DEFAULT_STATE.
      */
     public void setDefaultStateAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
@@ -96,20 +101,25 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit RUNNING_STATE.
      */
     public void setRunningStateAppearance() {
+        this.overlay.setVisible(true);
         this.runButton.setStyleName("hidden", true);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
         this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", false);
+        this.pauseButton.setStyleName("up", true);
         this.pauseButton.setEnabled(true);
         this.resetButton.setEnabled(true);
+        this.resetButton.setStyleName("up", true);
         this.stepButton.setEnabled(false);
+
     }
 
     /**
      * Sets the appearance of ActionBar's widgets to fit PAUSED_STATE.
      */
     public void setPausedStateAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", true);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", false);
@@ -124,6 +134,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit FINISHED_STATE.
      */
     public void setFinishedStateAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);
@@ -138,6 +149,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit STEP_BEFORE_RESULT_STATE.
      */
     public void  setStepBeforeResultAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
@@ -152,6 +164,7 @@ public class ActionBar extends Composite {
      * Sets the appearance of ActionBar's widgets to fit FINISHED_FINISHED_STATE.
      */
     public void setFinishedFinishedAppearance() {
+        this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
         this.runButton.setEnabled(false);
         this.continueButton.setStyleName("hidden", true);

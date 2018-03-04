@@ -142,8 +142,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
         @Override
         public Void visit(Function libterm) {
-            assert false : "Redexpath is finished but no Application. This should never happen";
-            return null;
+            return libterm.term.accept(this);
         }
 
         @Override

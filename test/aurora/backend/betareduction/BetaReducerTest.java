@@ -403,7 +403,7 @@ public class BetaReducerTest {
         assertTrue(cr.compare());
 
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
-        assertEquals("\\ s . \\ z . ( \\ s . \\ z . s ( s z ) ) s ( ( 2 ) s z ) ", hel2.toString());
+        assertEquals("\\ s . \\ z . ( \\ s1 . \\ z1 . s1 ( s1 z1 ) ) s ( ( 2 ) s z ) ", hel2.toString());
 
         String test = "( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y )  ";
         try {
@@ -419,6 +419,31 @@ public class BetaReducerTest {
         t = br.reduce(t);
         HighlightableLambdaExpression neg = new HighlightableLambdaExpression(t);
         assertEquals(neg.toString(), "( \\ y . y x y ) x ( \\ y . y x y ) ( \\ y . y x y ) ");
+
+    }
+
+    @Test
+    public void infinityfunction() {
+        Term t = new Function("inf",new Application(
+                new Abstraction(
+                        new Application(
+                                new BoundVariable(1), new BoundVariable(1)
+                        ), "x"),
+                        new Abstraction(
+                                new Application(
+                                        new BoundVariable(1), new BoundVariable(1)
+                                ),"x"
+                        )
+                )
+        );
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        for (int n = 0; n < 50; n++) {
+            t = br.reduce(t);
+        }
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("( \\ x . x x ) ( \\ x . x x ) ", hle.toString());
+
 
     }
 
