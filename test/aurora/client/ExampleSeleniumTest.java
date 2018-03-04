@@ -15,7 +15,13 @@ public class ExampleSeleniumTest {
 
     @Test
     public void startWebDriver() {
-        System.setProperty("webdriver.chrome.driver", "../chromedriver");
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("windows")) {
+            System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
+        } else {
+            System.setProperty("webdriver.chrome.driver", "../chromedriver");
+        }
+
         WebDriver driver = new ChromeDriver();
         driver.navigate().to("http://127.0.0.1:8888/Aurora.html");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
