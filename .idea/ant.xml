@@ -5,6 +5,7 @@
       <additionalClassPath>
         <entry path="file://$APPLICATION_HOME_DIR$/lib/ant/lib/ivy.jar" />
         <entry path="file:///usr/local/Cellar/ant/1.10.1/libexec/lib/ivy-2.4.0.jar" /> <!-- Randy -->
+        <entry path="file:///usr/share/apache-ant/lib/ivy.jar" /> <!-- Younis -->
       </additionalClassPath>
     </buildFile>
   </component>
