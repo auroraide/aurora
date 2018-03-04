@@ -65,6 +65,56 @@ public class LambdaLexerTest {
     }
 
     @Test
+    public void testFunctionNames() throws SyntaxException {
+        LambdaLexer lexer = new LambdaLexer();
+        List<Token> actual = lexer.lex("$Func42 $Foo_Bar_42 $foo1337__baR");
+        List<Token> expected = Arrays.asList(
+                new Token(Token.TokenType.T_FUNCTION,
+                        "Func42",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_WHITESPACE,
+                        " ",
+                        1, 8, 1),
+                new Token(Token.TokenType.T_FUNCTION,
+                        "Foo_Bar_42",
+                        1, 9, 2),
+                new Token(Token.TokenType.T_WHITESPACE,
+                        " ",
+                        1, 20, 3),
+                new Token(Token.TokenType.T_FUNCTION,
+                        "foo1337__baR",
+                        1, 21, 4)
+        );
+
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void testVariableNames() throws SyntaxException {
+        LambdaLexer lexer = new LambdaLexer();
+        List<Token> actual = lexer.lex("Func42 Foo_Bar_42 foo1337__baR");
+        List<Token> expected = Arrays.asList(
+                new Token(Token.TokenType.T_VARIABLE,
+                        "Func42",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_WHITESPACE,
+                        " ",
+                        1, 7, 1),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "Foo_Bar_42",
+                        1, 8, 2),
+                new Token(Token.TokenType.T_WHITESPACE,
+                        " ",
+                        1, 18, 3),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "foo1337__baR",
+                        1, 19, 4)
+        );
+
+        assertThat(actual, is(expected));
+    }
+
+    @Test
     public void testLexInvalidExpression() {
         LambdaLexer lexer = new LambdaLexer();
         boolean thrown = false;
