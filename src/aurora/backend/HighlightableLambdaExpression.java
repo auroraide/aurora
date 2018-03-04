@@ -443,7 +443,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         /**
-         * this visitor removes all bounded variables with free variables.
+         * this visitor removes all bound variables with free variables.
          */
         private class BoundVariableFinder extends TermVisitor<Term> {
             String name;

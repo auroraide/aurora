@@ -3,7 +3,7 @@ package aurora.backend.simplifier;
 import aurora.backend.tree.Term;
 
 /**
- * Simplify a given result Term into some predefined Term, that has a name.
+ * Simplify a given result Term into some predefined Term.
  * <p>
  * This can be helpful to get back to a more compact form (e.g., a number).
  * As an example \s.\z.(s (s (s (s z)))) can be detected as a Church Number and be printed as 4
