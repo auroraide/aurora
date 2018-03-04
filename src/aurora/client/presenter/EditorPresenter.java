@@ -348,6 +348,7 @@ public class EditorPresenter {
 
         if (!betaReductionIterator.hasNext()) {
             editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            return;
         }
 
         runTimer = new RunTimer(betaReductionIterator);

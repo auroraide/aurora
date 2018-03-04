@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="aurora" type="GWT.ConfigurationType" factoryName="GWT Configuration">
+    <module name="Aurora" />
+    <option name="SHELL_PARAMETERS" value="-style detailed" />
+    <option name="RUN_PAGE" value="http://127.0.0.1:8888/Aurora.html" />
+    <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
+    <option name="BROWSER" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+    <option name="USE_SUPER_DEV_MODE" value="true" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <method />
+  </configuration>
+</component>

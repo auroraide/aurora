@@ -27,6 +27,7 @@
     font-size: 1.2em;
     background-color: #177965;
     background: unset;
+    position: relative;
 }
 
 .action_bar .run {
@@ -82,8 +83,17 @@
     display: none;
 }
 
+.action_bar .up {
+    z-index: 1000;
+}
+
 
 /* STEPS */
+
+.stepFieldTable .CodeMirror {
+    height: auto !important;
+}
+
 .stepFieldTable span{
     font-size: 16px;
 }
@@ -95,7 +105,7 @@
 }
 
 .stepFieldTable tbody tr td:nth-child(1) {
-    width: 2%;
+    margin-right: 1%;
     text-align: center;
     font-size: 16px;
     font-weight: 600;
@@ -119,10 +129,6 @@ td .subMenuItem {
 
 .stepFieldTable tbody tr .CodeMirror-line {
     margin-left: 10px;
-}
-
-.CodeMirror {
-    height: unset !important;
 }
 
 .CodeMirror pre {

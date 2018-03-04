@@ -50,7 +50,31 @@
     <script type="text/javascript" language="javascript" src="codemirror/addon/edit/matchbrackets.js"></script>
     <script type="text/javascript" language="javascript" src="codemirror/addon/selection/active-line.js"></script>
     <script type="text/javascript" language="javascript" src="codemirror/keymap/vim.js"></script>
-    
+    <style>
+        #overlay {
+            position: fixed;
+            /*display change to block*/
+            display: block;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            text-align: center;
+        }
+        .gear {
+            animation: spin1 4s infinite linear;
+            top: 40%;
+            position: relative;
+        }
+        @-webkit-keyframes spin1 {
+            0% { -webkit-transform: rotate(0deg);}
+            100% { -webkit-transform: rotate(360deg);}
+        }
+    </style>
     <!-- scripts for codemirror END -->
 </head>
 
@@ -60,7 +84,7 @@
 <!-- to create a completely dynamic UI.        -->
 <!--                                           -->
 <body>
-
+<!--<div id="overlay"><img src="img/icons/icon_gear.png" alt="" class="gear"></div>-->
 <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
 <noscript>
     <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
