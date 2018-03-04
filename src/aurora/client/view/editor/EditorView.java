@@ -4,6 +4,7 @@ import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
+import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.ResultCalculatedEvent;
 import aurora.client.event.ViewStateChangedEvent;
@@ -15,6 +16,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -203,10 +205,23 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
+        GWT.log("Display syntax error.");
+        // TODO Change to more meaningful error message with popup.
+        Window.alert("Syntax Error!");
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
+        });
+
     }
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
+        GWT.log("Display semantic error.");
+        // TODO Change to more meaningful error message with popup.
+        Window.alert("Semantic Error!");
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
+        });
     }
 
     @Override
