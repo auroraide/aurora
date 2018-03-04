@@ -41,11 +41,11 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
     private EventBus eventBus;
     private int prevStepNumber = 1;
     private ArrayList<String> userlib;
 
+    final AddLibraryItemDialogBox addLibraryItemDialogBox;
     @UiField
     TextBox stepNumber;
     @UiField
@@ -288,7 +288,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
-
+        removeLibraryItemButton.ensureDebugId("removeLibraryItemButton-" + row);
         removeLibraryItemButton.addClickHandler(event -> {
             Scheduler scheduler = Scheduler.get();
             scheduler.scheduleDeferred((Command) () -> {

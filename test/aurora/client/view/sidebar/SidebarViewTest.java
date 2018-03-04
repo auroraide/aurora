@@ -1,10 +1,15 @@
 package aurora.client.view.sidebar;
 
+import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.ViewState;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.testing.CountingEventBus;
 import com.google.gwt.junit.client.GWTTestCase;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -49,6 +54,7 @@ public class SidebarViewTest extends GWTTestCase {
 
         eventBus = new CountingEventBus();
         sidebarView = new SidebarView(eventBus);
+        RootPanel.get().add(sidebarView);
     }
 
 
@@ -159,5 +165,49 @@ public class SidebarViewTest extends GWTTestCase {
         assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
         // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
         // TODO Check if share and language button (Sidebar) are enabled in StepBeforeResultState
+    }
+
+    /**
+     * Tests if a user library function is correctly added to the user library and if an AddFunctionEvent is fired.
+     */
+    public void testAddLibraryFunction() {
+        sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
+        sidebarView.addLibraryItemDialogBox.getFunctionField().setText("(\\x.x x) (\\x.x x)");
+        sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
+
+        sidebarView.addLibraryItemDialogBox.getAddButton().click();
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            assertTrue("userLibraryTable should have one entry", sidebarView.userLibraryTable.getRowCount() == 1);
+            assertTrue("userLibraryTabel should have 2 column entries",
+                    sidebarView.userLibraryTable.getCellCount(0) == 2);
+            assertTrue("AddFunctionEvent should be fired once", eventBus.getFiredCount(AddFunctionEvent.TYPE) == 1);
+        });
+    }
+
+    /**
+     * Tests if a user library function is correctly removed from the user library.
+     * A DeleteFunctionEvent should be also fired.
+     */
+    public void testRemoveLibraryFunction() {
+        // Add a function to the user library
+        sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
+        sidebarView.addLibraryItemDialogBox.getFunctionField().setText("(\\x.x x) (\\x.x x)");
+        sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
+        sidebarView.addLibraryItemDialogBox.getAddButton().click();
+
+        // view.getSubmitButton.getElement().<ButtonElement>cast().click();
+        Scheduler.get().scheduleDeferred((Command) () ->
+                sidebarView.userLibraryTable.getWidget(0, 2).getElement().<ButtonElement>cast().click());
+
+        Scheduler.get().scheduleDeferred((Command) () -> {
+
+            assertTrue("userLibraryTable should have no entry",
+                    sidebarView.userLibraryTable.getRowCount() == 0);
+            assertTrue("DeleteFunctionEvent should be fired once",
+                    eventBus.getFiredCount(DeleteFunctionEvent.TYPE) == 1);
+
+        });
+
+
     }
 }
