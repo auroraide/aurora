@@ -17,6 +17,7 @@ import aurora.client.view.editor.EditorView;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -33,6 +34,9 @@ public class Aurora implements EntryPoint {
      * This is the entry point method. Sets up and initialises the Aurora Web Application.
      */
     public void onModuleLoad() {
+        // Remove the need to specify a debugId prefix.
+        DebugInfo.setDebugIdPrefix("");
+
         EventBus eventBus = GWT.create(SimpleEventBus.class);
 
         // views/displays, ordering is important
