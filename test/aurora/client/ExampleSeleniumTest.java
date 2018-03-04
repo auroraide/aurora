@@ -16,6 +16,7 @@ public class ExampleSeleniumTest {
     @Test
     public void startWebDriver() {
         String os = System.getProperty("os.name").toLowerCase();
+        System.out.println(os);
         if (os.contains("windows")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
         } else {
