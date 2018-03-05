@@ -1,6 +1,5 @@
 package aurora.backend;
 
-import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.parser.Token;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
@@ -10,11 +9,11 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Stack;
 
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
@@ -37,7 +36,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      */
     public HighlightableLambdaExpression(List<Token> stream) {
         // deep copy
-        this.tokens = null;
+        this.tokens = new ArrayList<Token>(stream);
     }
 
     /**
@@ -47,12 +46,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      */
     public HighlightableLambdaExpression(Term t) {
         this();
-        //Term y = t.accept(new InitializeRenameAbsVisitor());
-
 
         Term x = t.accept(new FindAbsForAlpha());
         x.accept(new TermToHighlightedLambdaExpressionVisitor());
-
     }
 
     @Override
@@ -74,7 +70,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     @Override
-    public Iterator<aurora.backend.parser.Token> iterator() {
+    public Iterator<Token> iterator() {
         return this.tokens.iterator();
     }
 
@@ -114,11 +110,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     @Override
     public String toString() {
-        // mostly for debug purposes
         StringBuilder builder = new StringBuilder();
         for (Token t : this.tokens) {
             builder.append(t.toString());
-            builder.append(" ");
         }
         return builder.toString();
     }
@@ -282,7 +276,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     /**
      * Compute the {@link HighlightableLambdaExpression} representation of the {@link Term} it is applied on.
-     * builds tokenlist of the term.
+     * builds token list of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
         int line;
@@ -314,7 +308,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             column++;
             offset++;
             tokens.add(new Token(Token.TokenType.T_DOT,line,column,offset));
-            // replace all BoundVariables with Free Variables and perform alphaconversion
+
+            column++;
+            offset++;
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
+
+            // replace all BoundVariables with Free Variables and perform alpha conversion
             Term t = abs.body.accept(new BoundVariableFinder(abs.name));
             t.accept(this);
 
@@ -336,6 +335,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             } else {
                 app.left.accept(this);
             }
+
+            column++;
+            offset++;
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
+
             AppAbschecker absappchecker = new AppAbschecker();
             app.right.accept(absappchecker);
             if (isabs || isapp) {
@@ -390,7 +394,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         /**
-         * this vVisitor checks if the given Term is an Application or Abstraction.
+         * This Visitor checks if the given Term is an Application or Abstraction.
          */
         private class AppAbschecker extends TermVisitor<Void> {
 
@@ -443,7 +447,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         /**
-         * this visitor removes all bound variables with free variables.
+         * This visitor removes all bound variables with free variables.
          */
         private class BoundVariableFinder extends TermVisitor<Term> {
             String name;

@@ -367,7 +367,7 @@ public class BetaReducerTest {
         BetaReducer br = new BetaReducer(new NormalOrder());
         t = br.reduce(t);
         HighlightableLambdaExpression hel1 = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ m . \\ s . \\ z . ( 2 ) s ( m s z ) ) ( 2 ) ", hel1.toString());
+        assertEquals("(\\m. \\s. \\z. (2) s (m s z)) (2)", hel1.toString());
         t = br.reduce(t);
         Comparer cr = new Comparer(t, new Abstraction(
                 new Abstraction(
@@ -390,9 +390,9 @@ public class BetaReducerTest {
         assertTrue(cr.compare());
 
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
-        assertEquals("\\ s . \\ z . ( \\ s1 . \\ z1 . s1 ( s1 z1 ) ) s ( ( 2 ) s z ) ", hel2.toString());
+        assertEquals("\\s. \\z. (\\s1. \\z1. s1 (s1 z1)) s ((2) s z)", hel2.toString());
 
-        String test = "( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y )  ";
+        String test = "(\\y. y x y) (\\y. y x y) (\\y. y x y)";
         try {
             t = parser.parse(lexer.lex(test));
         } catch (SemanticException e) {
@@ -402,10 +402,10 @@ public class BetaReducerTest {
         }
 
         HighlightableLambdaExpression hs = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y ) ", hs.toString());
+        assertEquals("(\\y. y x y) (\\y. y x y) (\\y. y x y)", hs.toString());
         t = br.reduce(t);
         HighlightableLambdaExpression neg = new HighlightableLambdaExpression(t);
-        assertEquals(neg.toString(), "( \\ y . y x y ) x ( \\ y . y x y ) ( \\ y . y x y ) ");
+        assertEquals(neg.toString(), "(\\y. y x y) x (\\y. y x y) (\\y. y x y)");
 
     }
 
@@ -429,7 +429,7 @@ public class BetaReducerTest {
             t = br.reduce(t);
         }
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ x . x x ) ( \\ x . x x ) ", hle.toString());
+        assertEquals("(\\x. x x) (\\x. x x)", hle.toString());
 
 
     }

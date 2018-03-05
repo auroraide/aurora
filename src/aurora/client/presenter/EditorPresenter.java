@@ -209,13 +209,23 @@ public class EditorPresenter {
         assert (steps.isEmpty());
 
         highlightTimer.cancel();
-        Term input = parseInputOrHandleErrors();
-        if (input == null) {
+
+        // lex input
+        List<Token> stream = lexInputOrHandleErrors();
+        if (stream == null) {
             return false;
         }
-        steps.add(input);
-        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(input);
-        editorDisplay.setInput(hle);
+
+        // parse input
+        Term term = parseInputOrHandleErrors(stream);
+        if (term == null) {
+            return false;
+        }
+
+        steps.add(term);
+
+        // use original token stream to preserve exact input with whitespaces and stuff
+        editorDisplay.setInput(new HighlightableLambdaExpression(stream));
 
         return true;
     }
@@ -311,15 +321,14 @@ public class EditorPresenter {
     }
 
     /**
-     * Tries to parse the user input and calls the appropriate stuff in case it's wrong.
+     * Tries to parse the given token stream calls the appropriate stuff in case it's wrong.
      *
-     * @return Input or null on bad input.
+     * @return Term tree or null on bad input.
      */
-    private Term parseInputOrHandleErrors() {
-        String input = editorDisplay.getInput();
+    private Term parseInputOrHandleErrors(List<Token> stream) {
         Term t;
         try {
-            t = lambdaParser.parse(lambdaLexer.lex(input));
+            t = lambdaParser.parse(stream);
         } catch (SemanticException e) {
             editorDisplay.displaySemanticError(e);
             return null;
@@ -327,7 +336,28 @@ public class EditorPresenter {
             editorDisplay.displaySyntaxError(e);
             return null;
         }
+
         return t;
+    }
+
+    /**
+     * Tries to lex the user input and calls the appropriate stuff in case it's wrong.
+     *
+     * @return Token stream or null on bad input.
+     */
+    private List<Token> lexInputOrHandleErrors() {
+        String input = editorDisplay.getInput();
+
+        // lex input
+        List<Token> stream = null;
+        try {
+            stream = lambdaLexer.lex(input);
+        } catch (SyntaxException e) {
+            editorDisplay.displaySyntaxError(e);
+            return null;
+        }
+
+        return stream;
     }
 
     /**

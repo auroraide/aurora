@@ -37,7 +37,7 @@ public class HighlightableLambdaExpressionTest {
     public void onetoken() {
         Term t = new FreeVariable("x");
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("x ",hle.toString());
+        assertEquals("x",hle.toString());
 
     }
 
@@ -45,7 +45,7 @@ public class HighlightableLambdaExpressionTest {
     public void withparenscauseapp() {
         Abstraction t = new ChurchNumber(2).getAbstraction();
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ s . \\ z . s ( s z ) ", hle.toString());
+        assertEquals("\\s. \\z. s (s z)", hle.toString());
 
     }
 
@@ -55,7 +55,7 @@ public class HighlightableLambdaExpressionTest {
                 new Abstraction(new BoundVariable(1),"x"), new FreeVariable("y")
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ x . x ) y ",hle.toString());
+        assertEquals("(\\x. x) y",hle.toString());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class HighlightableLambdaExpressionTest {
         );
 
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . x1 ", hle.toString());
+        assertEquals("\\x. \\x1. x1", hle.toString());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class HighlightableLambdaExpressionTest {
                     ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . \\ x2 . x2 ",hle.toString());
+        assertEquals("\\x. \\x1. \\x2. x2",hle.toString());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class HighlightableLambdaExpressionTest {
                 ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . \\ x2 . x1 ",hle.toString());
+        assertEquals("\\x. \\x1. \\x2. x1",hle.toString());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class HighlightableLambdaExpressionTest {
                         ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . \\ x1 . x1 x_alpha ", hle.toString());
+        assertEquals("\\x. \\x1. x1 x_alpha", hle.toString());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class HighlightableLambdaExpressionTest {
         );
 
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ x . x x ) ( \\ x . x x ) ",hle.toString());
+        assertEquals("(\\x. x x) (\\x. x x)",hle.toString());
 
     }
 
@@ -138,7 +138,7 @@ public class HighlightableLambdaExpressionTest {
                 ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\ x . x x_alpha ",hle.toString());
+        assertEquals("\\x. x x_alpha",hle.toString());
     }
 
     @Test
@@ -162,7 +162,7 @@ public class HighlightableLambdaExpressionTest {
         }
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
 
-        assertEquals("\\ z . \\ z1 . z ( z ( z ( z z1 ) ) ) ", hle.toString());
+        assertEquals("\\z. \\z1. z (z (z (z z1)))", hle.toString());
 
     }
 
@@ -173,10 +173,10 @@ public class HighlightableLambdaExpressionTest {
     public void dontChangeNames() {
         Term t = new ChurchNumber(1);
         HighlightableLambdaExpression hle1 = new HighlightableLambdaExpression(t);
-        assertEquals("1 ",hle1.toString());
+        assertEquals("1",hle1.toString());
 
         Term x = new Function("name", new FreeVariable("x"));
         HighlightableLambdaExpression hle2 = new HighlightableLambdaExpression(x);
-        assertEquals("$name ", hle2.toString());
+        assertEquals("$name", hle2.toString());
     }
 }
