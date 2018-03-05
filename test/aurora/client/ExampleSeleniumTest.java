@@ -17,17 +17,20 @@ public class ExampleSeleniumTest {
     @Test
     public void startWebDriver() {
         ChromeOptions options = new ChromeOptions();
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("windows")) {
-            System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
-        } else if (os.contains("mac os x")) {
-            System.setProperty("webdriver.chrome.driver", "../chromedriver");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
-            options.setBinary("/usr/bin/google-chrome-unstable");
-        }
+        // String os = System.getProperty("os.name").toLowerCase();
+        // if (os.contains("windows")) {
+        //     System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
+        // } else if (os.contains("mac os x")) {
+        //     System.setProperty("webdriver.chrome.driver", "../chromedriver");
+        // } else {
+        //     System.setProperty("webdriver.chrome.driver", "chromedriver");
+        //     options.setBinary("/usr/bin/google-chrome-unstable");
+        // }
 
-        options.addArguments("headless");
+        System.setProperty("webdriver.chrome.driver", "./chromedriver");
+        options.setBinary("/usr/bin/google-chrome-unstable");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
         WebDriver driver = new ChromeDriver(options);
         driver.navigate().to("http://localhost:4000");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
