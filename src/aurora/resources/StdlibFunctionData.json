@@ -1,0 +1,44 @@
+[
+    {
+        "name" : "add",
+        "function" : "(\\m. \\n. \\s. \\z. m s (n s z))",
+        "description" : ""
+    },
+
+    {
+        "name" : "times",
+        "function" : "(\\m. \\n. \\s. n (m s))" ,
+        "description" : ""
+    },
+
+    {
+        "name" : "exp",
+        "function" : "(\\m. \\n. n m)",
+        "description" : ""
+    },
+
+    {
+        "name" : "true",
+        "function" : "(\\t. \\f. t)",
+        "description" : ""
+    },
+
+    {
+        "name" : "false",
+        "function" : "(\\t. \\f. f)",
+        "description" : ""
+    },
+
+    {
+        "name" : "inc",
+        "function" : "(\\n. \\s. \\z. s (n s z))",
+        "description" : ""
+    },
+
+    {
+        "name"  : "Y",
+        "function" : "(\\f. (\\x. f (x x)) (\\x. f (x x)))",
+        "description" : ""
+    }
+
+]
