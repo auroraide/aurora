@@ -29,7 +29,7 @@ public class ExampleSeleniumTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
-        driver.navigate().to("http://127.0.0.1:8888/Aurora.html");
+        driver.navigate().to("http://localhost:4000");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
     }
 

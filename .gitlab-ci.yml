@@ -7,7 +7,6 @@ cache:
 before_script:
     - apt-get update && apt-get install -y ant chromedriver
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
-    - wget -q https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip && unzip -qq -d .. chromedriver_linux64.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
 stages:
@@ -18,6 +17,9 @@ stages:
 testjob:
     stage: test
     script:
+        - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
+        - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
+        - nohup ./caddy_linux_amd64 & 
         - ant test -lib vendor
 
 deployjob:
