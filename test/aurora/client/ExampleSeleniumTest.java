@@ -23,7 +23,7 @@ public class ExampleSeleniumTest {
         } else if (os.contains("mac os x")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver");
         } else {
-            System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "chromedriver");
             options.setBinary("/usr/bin/google-chrome-unstable");
         }
 
@@ -34,4 +34,3 @@ public class ExampleSeleniumTest {
     }
 
 }
-

