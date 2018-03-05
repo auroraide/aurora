@@ -20,8 +20,10 @@ public class ExampleSeleniumTest {
         System.out.println(os);
         if (os.contains("windows")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
-        } else {
+        } else if (os.contains("mac os x")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver");
+        } else {
+            System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium/chromedriver");
         }
 
         ChromeOptions options = new ChromeOptions();
