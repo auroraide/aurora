@@ -1,15 +1,9 @@
 package aurora.backend.parser;
 
-import aurora.backend.TermVisitor;
+import aurora.backend.TermPrinter;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.Abstraction;
-import aurora.backend.tree.Application;
-import aurora.backend.tree.BoundVariable;
-import aurora.backend.tree.ChurchNumber;
-import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.Function;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +28,21 @@ public class LambdaParserTest {
         boolean thrown = false;
         try {
             this.parser.parse(this.lexer.lex("# lorem ipsum"));
+        } catch (SyntaxException e) {
+            thrown = true;
+        } catch (SemanticException e) {
+            e.printStackTrace();
+            fail("SemanticException thrown instead: " + e.getMessage());
+        }
+
+        assertTrue("No exception thrown.", thrown);
+    }
+
+    @Test
+    public void testParseReallyEmptyString() {
+        boolean thrown = false;
+        try {
+            this.parser.parse(this.lexer.lex(""));
         } catch (SyntaxException e) {
             thrown = true;
         } catch (SemanticException e) {
@@ -120,40 +129,6 @@ public class LambdaParserTest {
         }
 
         assertTrue("No exception thrown.", thrown);
-    }
-
-    private class TermPrinter extends TermVisitor<String> {
-
-        @Override
-        public String visit(Abstraction abs) {
-            return "(\\" + abs.name + "." + abs.body.accept(this) + ")";
-        }
-
-        @Override
-        public String visit(Application app) {
-            return "(" + app.left.accept(this) + " " + app.right.accept(this) + ")";
-        }
-
-        @Override
-        public String visit(BoundVariable bvar) {
-            return "" + bvar.index;
-        }
-
-        @Override
-        public String visit(FreeVariable fvar) {
-            return fvar.name;
-        }
-
-        @Override
-        public String visit(Function libterm) {
-            return "$" + libterm.name;
-        }
-
-        @Override
-        public String visit(ChurchNumber c) {
-            return "c" + c.value;
-        }
-
     }
 
 }

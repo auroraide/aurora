@@ -4,6 +4,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
+import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
@@ -11,6 +12,7 @@ import aurora.client.view.popup.AddLibraryItemDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
@@ -39,9 +41,11 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    private final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    private EventBus eventBus;
+    private int prevStepNumber = 1;
     private ArrayList<String> userlib;
 
+    final AddLibraryItemDialogBox addLibraryItemDialogBox;
     @UiField
     TextBox stepNumber;
     @UiField
@@ -58,8 +62,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     FlowPanel languageButton;
     @UiField
     FlowPanel shareButton;
-    private EventBus eventBus;
-    private int prevStepNumber = 1;
     Document document;
 
     /**
@@ -286,8 +288,12 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
-
+        removeLibraryItemButton.ensureDebugId("removeLibraryItemButton-" + row);
         removeLibraryItemButton.addClickHandler(event -> {
+            Scheduler scheduler = Scheduler.get();
+            scheduler.scheduleDeferred((Command) () -> {
+                SidebarView.this.eventBus.fireEvent(new DeleteFunctionEvent(name));
+            });
             int removedIndex = userlib.indexOf(name);
             SidebarView.this.userlib.remove(removedIndex);
             SidebarView.this.userLibraryTable.removeRow(removedIndex);

@@ -89,6 +89,11 @@
 
 
 /* STEPS */
+
+.stepFieldTable .CodeMirror {
+    height: auto !important;
+}
+
 .stepFieldTable span{
     font-size: 16px;
 }
@@ -100,7 +105,7 @@
 }
 
 .stepFieldTable tbody tr td:nth-child(1) {
-    width: 2%;
+    margin-right: 2px;
     text-align: center;
     font-size: 16px;
     font-weight: 600;
@@ -124,10 +129,6 @@ td .subMenuItem {
 
 .stepFieldTable tbody tr .CodeMirror-line {
     margin-left: 10px;
-}
-
-.CodeMirror {
-    height: unset !important;
 }
 
 .CodeMirror pre {
