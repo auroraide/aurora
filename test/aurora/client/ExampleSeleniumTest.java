@@ -3,6 +3,7 @@ package aurora.client;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -23,7 +24,9 @@ public class ExampleSeleniumTest {
             System.setProperty("webdriver.chrome.driver", "../chromedriver");
         }
 
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.navigate().to("http://127.0.0.1:8888/Aurora.html");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
     }
