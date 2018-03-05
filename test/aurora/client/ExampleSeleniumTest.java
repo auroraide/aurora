@@ -2,8 +2,9 @@ package aurora.client;
 
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.Settings;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -16,19 +17,8 @@ public class ExampleSeleniumTest {
 
     @Test
     public void startWebDriver() {
-        ChromeOptions options = new ChromeOptions();
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("windows")) {
-            System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
-        } else if (os.contains("mac os x")) {
-            System.setProperty("webdriver.chrome.driver", "../chromedriver");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium/chromedriver");
-            options.setBinary("/usr/bin/google-chrome-unstable");
-        }
 
-        options.addArguments("headless");
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new JBrowserDriver(Settings.builder().headless(isHeadless()).build());
         driver.navigate().to("http://localhost:4000");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
     }
