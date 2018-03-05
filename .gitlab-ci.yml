@@ -5,7 +5,7 @@ cache:
     - "${CI_PROJECT_DIR}/.ivy"
 
 before_script:
-    - apt-get update && apt-get install -y ant
+    - apt-get update && apt-get install -y ant openjfx
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
 
