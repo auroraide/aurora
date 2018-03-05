@@ -5,6 +5,8 @@ import aurora.backend.library.Library;
 import aurora.backend.library.MultiLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.simplifier.ChurchNumberSimplifier;
+import aurora.backend.simplifier.LibraryTermSimplifier;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -69,16 +71,36 @@ public class Aurora implements EntryPoint {
         ));
 
         ArrayList<Term> steps = new ArrayList<>();
+
+        Library library = new MultiLibrary(userLib, stdLib);
+
         LambdaLexer lexer = new LambdaLexer();
-        LambdaParser parser = new LambdaParser(new MultiLibrary(userLib, stdLib));
+        LambdaParser parser = new LambdaParser(library);
 
         // presenters
-        AuroraPresenter auroraPresenter = new AuroraPresenter(eventBus, auroraView,
+        AuroraPresenter auroraPresenter = new AuroraPresenter(
+                eventBus,
+                auroraView,
                 steps);
-        SidebarPresenter sidebarPresenter = new SidebarPresenter(eventBus, auroraView.getSidebar(),
-                stdLib, userLib, lexer, parser);
-        EditorPresenter editorPresenter = new EditorPresenter(eventBus, auroraView.getEditor(),
-                stdLib, userLib, steps, lexer, parser);
+
+        SidebarPresenter sidebarPresenter = new SidebarPresenter(
+                eventBus,
+                auroraView.getSidebar(),
+                stdLib,
+                userLib,
+                lexer,
+                parser);
+
+        EditorPresenter editorPresenter = new EditorPresenter(
+                eventBus,
+                auroraView.getEditor(),
+                stdLib,
+                userLib,
+                new ChurchNumberSimplifier(),
+                new LibraryTermSimplifier(library),
+                steps,
+                lexer,
+                parser);
 
         RootLayoutPanel.get().add(auroraView);
     }

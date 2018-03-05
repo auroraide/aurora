@@ -14,6 +14,8 @@ import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.simplifier.ChurchNumberSimplifier;
+import aurora.backend.simplifier.LibraryTermSimplifier;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
@@ -48,6 +50,9 @@ public class EditorPresenter {
     private final Library userLibrary;
     private final Library standardLibrary;
 
+    private final ChurchNumberSimplifier churchNumberSimplifier;
+    private final LibraryTermSimplifier libraryTermSimplifier;
+
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
@@ -80,6 +85,8 @@ public class EditorPresenter {
             EditorDisplay editorDisplay,
             Library standardLibrary,
             Library userLibrary,
+            ChurchNumberSimplifier churchNumberSimplifier,
+            LibraryTermSimplifier libraryTermSimplifier,
             ArrayList<Term> steps,
             LambdaLexer lambdaLexer,
             LambdaParser lambdaParser) {
@@ -87,6 +94,8 @@ public class EditorPresenter {
         this.eventBus = eventBus;
         this.standardLibrary = standardLibrary;
         this.userLibrary = userLibrary;
+        this.churchNumberSimplifier = churchNumberSimplifier;
+        this.libraryTermSimplifier = libraryTermSimplifier;
         this.steps = steps;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
@@ -141,6 +150,19 @@ public class EditorPresenter {
     private Term last() {
         assert (!steps.isEmpty());
         return steps.get(steps.size() - 1);
+    }
+
+    private Term simplify(Term t) {
+        Term simplified = null;
+
+        if ((simplified = this.churchNumberSimplifier.simplify(t)) != null) {
+            return simplified;
+        }
+        if ((simplified = this.libraryTermSimplifier.simplify(t)) != null) {
+            return simplified;
+        }
+
+        return t;
     }
 
     private boolean isRunning() {
@@ -246,7 +268,7 @@ public class EditorPresenter {
 
         // is input reducible?
         if (!bri.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last())));
             assert (last() == steps.get(0));
             return;
         }
@@ -258,7 +280,7 @@ public class EditorPresenter {
             steps.add(result);
             if (!bri.hasNext()) {
                 // current is irreducible => current term is result.
-                editorDisplay.displayResult(new HighlightableLambdaExpression(result));
+                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(result)));
                 break;
             } else {
                 stepsToDisplay.add(new HighlightableLambdaExpression(result));
@@ -377,7 +399,7 @@ public class EditorPresenter {
                 new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
 
         if (!betaReductionIterator.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(last()));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last())));
             return;
         }
 
@@ -403,7 +425,7 @@ public class EditorPresenter {
 
             if (!betaReductionIterator.hasNext()) {
                 // current is irreducible => result.
-                editorDisplay.displayResult(new HighlightableLambdaExpression(current));
+                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(current)));
                 finish();
             }
         }
