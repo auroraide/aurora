@@ -60,7 +60,7 @@ public class LibraryTermSimplifier implements ResultSimplifier<Function> {
 
         @Override
         public String visit(FreeVariable fvar) {
-            return "*";
+            return "*" + fvar.name;
         }
 
         @Override
