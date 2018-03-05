@@ -19,7 +19,6 @@ import java.util.List;
 public class BetaReducer {
 
     private ReductionStrategy strategy;
-    private boolean finished;
     private boolean alwaystrue;
 
     /**
@@ -29,7 +28,6 @@ public class BetaReducer {
      */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
-        finished = false;
         alwaystrue = false;
     }
 
@@ -40,12 +38,10 @@ public class BetaReducer {
      * @return something.
      */
     public Term reduce(Term term) {
-        finished = false;
         RedexPath path = strategy.getRedexPath(term);
 
         // there is no reducible redex left, the given term is our result
         if (path == null) {
-            finished = true;
             return null;
         }
         Application app = path.get(term);
@@ -60,38 +56,35 @@ public class BetaReducer {
         return term.accept(replaceVisitor);
     }
 
-    public boolean getFinished() {
-        return finished;
-    }
 
     private class CastingVisitor extends TermVisitor<Abstraction> {
 
         @Override
         public Abstraction visit(Abstraction abs) {
-            alwaystrue = true;
             return abs;
         }
 
         @Override
         public Abstraction visit(Application app) {
-            alwaystrue = false;
+            assert false : "This can't happen";
             return null;
         }
 
         @Override
         public Abstraction visit(BoundVariable bvar) {
-            alwaystrue = false;
+            assert false : "This can't happen";
             return null;
         }
 
         @Override
         public Abstraction visit(FreeVariable fvar) {
-            alwaystrue = false;
+            assert false : "This can't happen";
             return null;
         }
 
         @Override
         public Abstraction visit(Function function) {
+            assert false : "the function got changed it isn't a function anymore this can'T happen";
             Term t = function.term;
             t.accept(this);
             return null;
@@ -99,8 +92,8 @@ public class BetaReducer {
 
         @Override
         public Abstraction visit(ChurchNumber c) {
-            alwaystrue = true;
-            return c.getAbstraction();
+            assert false : "the churchnumber got changed it isn't a Churchnumber anymore";
+            return null;
         }
     }
 }

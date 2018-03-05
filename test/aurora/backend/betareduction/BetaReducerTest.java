@@ -39,7 +39,7 @@ public class BetaReducerTest {
     /**
      * check in qualityassurance.
      */
-    @Ignore
+    @Test
     public void noReductionPossible() {
         BetaReducer br = new BetaReducer(new CallByName());
         // \x.\s.s a
@@ -53,17 +53,8 @@ public class BetaReducerTest {
                 "x"
         );
         Term result = br.reduce(t);
-        Term correct = new Abstraction(
-                new Application(
-                        new Abstraction(
-                                new BoundVariable(1),"s"
-                        ),
-                        new FreeVariable("a")
-                ),
-                "x"
-        );
-        Comparer cr = new Comparer(correct, result);
-        assertEquals(cr.compare(),true);
+
+        assertEquals(null,result);
     }
 
     @Test
@@ -320,10 +311,6 @@ public class BetaReducerTest {
         while (n < 100) {
 
             t = br.reduce(t);
-            if (br.getFinished()) {
-                break;
-            }
-
         }
         Comparer cr = new Comparer(t,new ChurchNumber(4).getAbstraction());
         assertEquals(cr.compare(),true);
@@ -445,6 +432,17 @@ public class BetaReducerTest {
         assertEquals("( \\ x . x x ) ( \\ x . x x ) ", hle.toString());
 
 
+    }
+
+    @Test
+    public void testfucntion() {
+        Function function = new Function("test", new Abstraction(new BoundVariable(1),"y"));
+        Function t = new Function("t",new Application(function, new FreeVariable("x")));
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        Term result = br.reduce(t);
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
+        assertEquals("x ", hle.toString());
     }
 
 }
