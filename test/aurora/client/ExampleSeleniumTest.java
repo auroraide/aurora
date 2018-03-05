@@ -16,17 +16,17 @@ public class ExampleSeleniumTest {
 
     @Test
     public void startWebDriver() {
+        ChromeOptions options = new ChromeOptions();
         String os = System.getProperty("os.name").toLowerCase();
-        System.out.println(os);
         if (os.contains("windows")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver.exe");
         } else if (os.contains("mac os x")) {
             System.setProperty("webdriver.chrome.driver", "../chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium/chromedriver");
+            options.setBinary("/usr/lib/chromium");
         }
 
-        ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         WebDriver driver = new ChromeDriver(options);
         driver.navigate().to("http://localhost:4000");

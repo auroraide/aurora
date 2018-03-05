@@ -20,7 +20,7 @@ testjob:
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
         - ant build -lib vendor
-        - nohup ./caddy_linux_amd64 &
+        - nohup ./caddy &
         - ant test -lib vendor
 
 deployjob:
