@@ -27,10 +27,10 @@ public class ExampleSeleniumTest {
         //     options.setBinary("/usr/bin/google-chrome-unstable");
         // }
 
-        System.setProperty("webdriver.chrome.driver", "./chromedriver");
+        //System.setProperty("webdriver.chrome.driver", "./chromedriver");
         options.setBinary("/usr/bin/google-chrome-unstable");
-        options.addArguments("--headless");
-        options.addArguments("--disable-gpu");
+        options.addArguments("headless");
+        options.addArguments("disable-gpu");
         WebDriver driver = new ChromeDriver(options);
         driver.navigate().to("http://localhost:4000");
         assertTrue("Aurora WebApp's title should be Aurora", driver.getTitle().equals("Aurora"));
