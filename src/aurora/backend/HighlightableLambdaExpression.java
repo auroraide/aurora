@@ -1,6 +1,5 @@
 package aurora.backend;
 
-import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.parser.Token;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
@@ -10,7 +9,11 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
