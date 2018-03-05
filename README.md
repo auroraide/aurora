@@ -11,7 +11,10 @@ The Lambda Calculus IDE
 - [Ant](http://ant.apache.org)
 - [Ivy](http://ant.apache.org/ivy)
 - [Caddy](https://caddyserver.com) (optional)
-
+- [Selenium](https://www.seleniumhq.org)
+    - You need to download chromedriver, if you intend to use Chrome as your default Webbrowser
+    - Download link: https://sites.google.com/a/chromium.org/chromedriver/
+    - You need to put the downloaded chromedriver file in Aurora's parent directory
 ## Build
 
 ### Dev mode
