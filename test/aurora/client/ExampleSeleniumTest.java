@@ -24,7 +24,7 @@ public class ExampleSeleniumTest {
             System.setProperty("webdriver.chrome.driver", "../chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium/chromedriver");
-            options.setBinary("/usr/lib/chromium");
+            options.setBinary("/usr/bin/google-chrome-unstable");
         }
 
         options.addArguments("headless");
