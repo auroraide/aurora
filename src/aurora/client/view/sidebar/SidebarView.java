@@ -13,7 +13,6 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -26,6 +25,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.StackLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -62,7 +62,9 @@ public class SidebarView extends Composite implements SidebarDisplay {
     FlowPanel languageButton;
     @UiField
     FlowPanel shareButton;
-    Document document;
+    @UiField
+    StackLayoutPanel stackLibraries;
+
 
     /**
      * Created the Sidebar.
@@ -75,6 +77,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.userlib = new ArrayList<>();
         setupShareLanguageMenu();
+        stackLibraries.showWidget(1);
 
         eventWiring();
     }

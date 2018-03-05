@@ -21,7 +21,7 @@
 
                 <g:center>
                     <!-- Standard Library, User Library -->
-                    <g:StackLayoutPanel>
+                    <g:StackLayoutPanel ui:field="stackLibraries">
 
                         <!-- Standard Library -->
                         <g:stack >
