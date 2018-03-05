@@ -442,7 +442,7 @@ public class BetaReducerTest {
         BetaReducer br = new BetaReducer(new NormalOrder());
         Term result = br.reduce(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
-        assertEquals("x ", hle.toString());
+        assertEquals("x", hle.toString());
     }
 
 }

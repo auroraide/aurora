@@ -30,19 +30,19 @@ public class ChurchNumberSimplifierTest {
         ChurchNumberSimplifier simplifier = new ChurchNumberSimplifier();
         ChurchNumber resultone = simplifier.simplify(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(resultone);
-        assertEquals("1 ", hle.toString());
+        assertEquals("1", hle.toString());
 
         ChurchNumber resulttwo = simplifier.simplify(new ChurchNumber(2));
         HighlightableLambdaExpression hle2 = new HighlightableLambdaExpression(resulttwo);
-        assertEquals("2 ", hle2.toString());
+        assertEquals("2", hle2.toString());
 
         ChurchNumber resultfive = simplifier.simplify(new ChurchNumber(5));
         HighlightableLambdaExpression hle5 = new HighlightableLambdaExpression(resultfive);
-        assertEquals("5 ", hle5.toString());
+        assertEquals("5", hle5.toString());
         Term zero = new ChurchNumber(0);
         Term zeroresult = simplifier.simplify(zero);
         HighlightableLambdaExpression hle0 = new HighlightableLambdaExpression(zeroresult);
-        assertEquals("0 ", hle0.toString());
+        assertEquals("0", hle0.toString());
     }
 
     /**
@@ -62,7 +62,7 @@ public class ChurchNumberSimplifierTest {
         ChurchNumberSimplifier simplifier = new ChurchNumberSimplifier();
         Term result = simplifier.simplify(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
-        assertEquals("2 ", hle.toString());
+        assertEquals("2", hle.toString());
     }
 
     @Test
