@@ -71,6 +71,7 @@ public class SidebarPresenter {
 
     private void onDeletFunction(DeleteFunctionEvent e) {
         userLib.remove(e.getFunctionName());
+        GWT.log("Delete userllib function.");
     }
 
     private void onAddFunction(AddFunctionEvent input) {

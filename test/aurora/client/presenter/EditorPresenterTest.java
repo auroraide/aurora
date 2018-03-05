@@ -9,6 +9,7 @@ import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
@@ -64,6 +65,10 @@ public class EditorPresenterTest {
         return parser.parse(lexer.lex(code));
     }
 
+    private List<Token> lex(String code) throws SyntaxException {
+        return lexer.lex(code);
+    }
+
     private void assertAlphaEquivalent(Term expected, Term actual) {
         Comparer cmp = new Comparer(expected, actual);
         assertTrue(cmp.compare());
@@ -77,12 +82,13 @@ public class EditorPresenterTest {
     public void testStep() throws SyntaxException, SemanticException {
         String sampleString = "(\\x. x x a) \\y. y y b";
         setUpPresenterWithInput(sampleString);
+        List<Token> stream = lex(sampleString);
         Term sample = parse(sampleString);
 
         bus.fireEvent(new StepEvent());
 
         // make sure the input gets set
-        verify(editorDisplay).setInput(new HighlightableLambdaExpression(sample));
+        verify(editorDisplay).setInput(new HighlightableLambdaExpression(stream));
         ReductionStrategy strategy = new NormalOrder();
         BetaReducer br = new BetaReducer(strategy);
         List<HighlightedLambdaExpression> steps = new ArrayList<>();

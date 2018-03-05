@@ -39,7 +39,7 @@ public class BetaReducerTest {
     /**
      * check in qualityassurance.
      */
-    @Ignore
+    @Test
     public void noReductionPossible() {
         BetaReducer br = new BetaReducer(new CallByName());
         // \x.\s.s a
@@ -53,17 +53,8 @@ public class BetaReducerTest {
                 "x"
         );
         Term result = br.reduce(t);
-        Term correct = new Abstraction(
-                new Application(
-                        new Abstraction(
-                                new BoundVariable(1),"s"
-                        ),
-                        new FreeVariable("a")
-                ),
-                "x"
-        );
-        Comparer cr = new Comparer(correct, result);
-        assertEquals(cr.compare(),true);
+
+        assertEquals(null,result);
     }
 
     @Test
@@ -320,10 +311,6 @@ public class BetaReducerTest {
         while (n < 100) {
 
             t = br.reduce(t);
-            if (br.getFinished()) {
-                break;
-            }
-
         }
         Comparer cr = new Comparer(t,new ChurchNumber(4).getAbstraction());
         assertEquals(cr.compare(),true);
@@ -380,7 +367,7 @@ public class BetaReducerTest {
         BetaReducer br = new BetaReducer(new NormalOrder());
         t = br.reduce(t);
         HighlightableLambdaExpression hel1 = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ m . \\ s . \\ z . ( 2 ) s ( m s z ) ) ( 2 ) ", hel1.toString());
+        assertEquals("(\\m. \\s. \\z. (2) s (m s z)) (2)", hel1.toString());
         t = br.reduce(t);
         Comparer cr = new Comparer(t, new Abstraction(
                 new Abstraction(
@@ -403,9 +390,9 @@ public class BetaReducerTest {
         assertTrue(cr.compare());
 
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
-        assertEquals("\\ s . \\ z . ( \\ s . \\ z . s ( s z ) ) s ( ( 2 ) s z ) ", hel2.toString());
+        assertEquals("\\s. \\z. (\\s1. \\z1. s1 (s1 z1)) s ((2) s z)", hel2.toString());
 
-        String test = "( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y )  ";
+        String test = "(\\y. y x y) (\\y. y x y) (\\y. y x y)";
         try {
             t = parser.parse(lexer.lex(test));
         } catch (SemanticException e) {
@@ -415,10 +402,10 @@ public class BetaReducerTest {
         }
 
         HighlightableLambdaExpression hs = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ y . y x y ) ( \\ y . y x y ) ( \\ y . y x y ) ", hs.toString());
+        assertEquals("(\\y. y x y) (\\y. y x y) (\\y. y x y)", hs.toString());
         t = br.reduce(t);
         HighlightableLambdaExpression neg = new HighlightableLambdaExpression(t);
-        assertEquals(neg.toString(), "( \\ y . y x y ) x ( \\ y . y x y ) ( \\ y . y x y ) ");
+        assertEquals(neg.toString(), "(\\y. y x y) x (\\y. y x y) (\\y. y x y)");
 
     }
 
@@ -442,9 +429,20 @@ public class BetaReducerTest {
             t = br.reduce(t);
         }
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("( \\ x . x x ) ( \\ x . x x ) ", hle.toString());
+        assertEquals("(\\x. x x) (\\x. x x)", hle.toString());
 
 
+    }
+
+    @Test
+    public void testfucntion() {
+        Function function = new Function("test", new Abstraction(new BoundVariable(1),"y"));
+        Function t = new Function("t",new Application(function, new FreeVariable("x")));
+
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        Term result = br.reduce(t);
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
+        assertEquals("x", hle.toString());
     }
 
 }

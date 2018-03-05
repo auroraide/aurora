@@ -5,6 +5,7 @@ import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.ContinueEvent;
+import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ReStepEvent;
@@ -150,6 +151,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.stateTransition();
         });
 
+        this.eventBus.addHandler(ErrorDisplayedEvent.TYPE, event -> {
+            AuroraView.this.currentState.errorDisplayed();
+            AuroraView.this.currentState.stateTransition();
+        });
+
         // TODO Wire RedexClickedEvent in AuroraView
         /*this.eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent -> {
             AuroraView.this.currentState.redexClicked();
@@ -169,6 +175,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     private class DefaultState extends State {
 
+
+        @Override
+        protected void errorDisplayed() {
+            GWT.log("DefaultState.errorDisplayed()");
+            throw new IllegalStateException("Executing errorDisplayed is not allowed in DefaultState!");
+        }
 
         @Override
         protected void runBtnClicked() {
@@ -243,6 +255,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private class FinishedState extends State {
 
         @Override
+        protected void errorDisplayed() {
+            throw new IllegalStateException("Executing errorDisplayed is not allowed in FinishedState!");
+        }
+
+        @Override
         protected void runBtnClicked() {
             throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedState");
         }
@@ -308,6 +325,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private class PausedState extends State {
+
+        @Override
+        protected void errorDisplayed() {
+            throw new IllegalStateException("Executing errorDisplayed is not allowed in PausedState!");
+        }
 
         @Override
         protected void runBtnClicked() {
@@ -378,6 +400,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private class RunningState extends State {
 
         @Override
+        protected void errorDisplayed() {
+            GWT.log("RunningState.errorDisplayed()");
+            this.state = AuroraView.this.defaultState;
+        }
+
+        @Override
         protected void runBtnClicked() {
             throw new IllegalStateException("Executing runBtnClicked is not allowed in RunningState!");
         }
@@ -441,6 +469,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private class StepBeforeResultState extends State {
+
+        @Override
+        protected void errorDisplayed() {
+            GWT.log("StepBeforeResultState.errorDisplayed()");
+            this.state = AuroraView.this.defaultState;
+        }
 
         @Override
         protected void runBtnClicked() {
@@ -515,6 +549,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private class FinishedFinishedState extends State {
 
         @Override
+        protected void errorDisplayed() {
+            throw new IllegalStateException("Executing errorDisplayed is not allowed in FinishedFinishedState!");
+        }
+
+        @Override
         protected void runBtnClicked() {
             GWT.log("Executing runBtnClicked is not allowed in FinishedFinishedState!");
             throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedFinishedState!");
@@ -583,6 +622,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     private abstract class State {
         protected State state;
+
+        protected abstract void errorDisplayed();
 
         protected abstract void runBtnClicked();
 
