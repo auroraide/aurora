@@ -28,6 +28,9 @@ import aurora.backend.encoders.exceptions.DecodeException;
  */
 public class GistSessionEncoderDecorator extends SessionEncoderDecorator {
 
+    private static final String POST_URL = "https://api.github.com/gists";
+    public String url;
+    
     public GistSessionEncoderDecorator() {
         // This page is intentionally left blank.
     }
@@ -59,63 +62,50 @@ public class GistSessionEncoderDecorator extends SessionEncoderDecorator {
     }
 
 
-    public String testPaste(String code) {
-        return new Paste(code).upload();
-    }
-
-
-
-    private class Paste {
-        private static final String POST_URL = "https://api.github.com/gists";
-        
-        private String code;
-        private String url;
-
-        public Paste(String code) {
-            this.code = code;
-        }
-        
-        private native void console(String message) /*-{
-            console.log(message);
-        }-*/;
-    
-        private native String getProperty(JavaScriptObject jso, String property) /*-{
-            return jso[property];
-        }-*/;
-
-        private String upload() {
-            RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, POST_URL);
-            try {
-                Request response = builder.sendRequest(
-                        "{ \"files\" :{"
-                            + "\"file1.txt\": {"
-                                + "\"content\": \"" + code + "\""
-                            + "}"
-                        + "}}",
-                        new RequestCallback() {
+    public String postGist(String code) {
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, POST_URL);
+        try {
+            Request response = builder.sendRequest(
+                "{ \"files\" :{"
+                    + "\"file1.txt\": {"
+                        + "\"content\": \"" + code + "\""
+                    + "}"
+                + "}}",
+                
+                new RequestCallback() {
                     public void onError(Request request, Throwable exception) {
                         throw new RuntimeException("Error retrieving from gist.github.com");
                     }
+
                     public void onResponseReceived(Request request, Response response) {
                         if (!JsonUtils.safeToEval(response.getText())) {
                             throw new RuntimeException("gist file is invalid");
                         }
                         JavaScriptObject jso = JsonUtils.safeEval(response.getText());
                         url = getProperty(jso, "html_url");
+                        
                         if (url.lastIndexOf("/") == -1) {
                             throw new RuntimeException("shit happened with gist");
                         }
                         url = url.substring(url.lastIndexOf("/") + 1);
-                        console(url);
+                        //XXX: url is what it should be
                     }
                 });
             } catch (RequestException e) {
                 throw new RuntimeException("Error while getting gist or whatever");
             }
-            return url;
-
-        }
-
+        //XXX: url IS WHAT IT WAS AT THE FREAKING BEGINNIGN OF EVERYTHING DAAAAAAAARRRRRRRR!!!
+        return url;
     }
 
+
+    private native void console(String message) /*-{
+        console.log(message);
+    }-*/;
+        
+    private native String getProperty(JavaScriptObject jso, String property) /*-{
+        return jso[property];
+    }-*/;
+
 }
+
