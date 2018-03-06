@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="caddy, codeserver, debugger" type="Multirun" factoryName="Multirun" separateTabs="false" startOneByOne="false" markFailedProcess="true" hideSuccessProcess="false" delayTime="1">
+    <runConfiguration name="run caddy" type="Ant Target" />
+    <runConfiguration name="GWTCodeServer JS debugger (Chrome)" type="JavaScript Debug" />
+    <method />
+  </configuration>
+</component>
