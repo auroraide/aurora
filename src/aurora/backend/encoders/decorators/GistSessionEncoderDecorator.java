@@ -62,38 +62,42 @@ public class GistSessionEncoderDecorator extends SessionEncoderDecorator {
     }
 
 
+    /**
+     * Just for fooling around with Gist.
+     *
+     * @param code code which to post
+     */
     public String postGist(String code) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, POST_URL);
         try {
             Request response = builder.sendRequest(
-                "{ \"files\" :{"
+                    "{ \"files\" :{"
                     + "\"file1.txt\": {"
-                        + "\"content\": \"" + code + "\""
+                    + "\"content\": \"" + code + "\""
                     + "}"
-                + "}}",
-                
-                new RequestCallback() {
-                    public void onError(Request request, Throwable exception) {
-                        throw new RuntimeException("Error retrieving from gist.github.com");
-                    }
+                    + "}}",
+                    new RequestCallback() {
+                        public void onError(Request request, Throwable exception) {
+                            throw new RuntimeException("Error retrieving from gist.github.com");
+                        }
 
-                    public void onResponseReceived(Request request, Response response) {
-                        if (!JsonUtils.safeToEval(response.getText())) {
-                            throw new RuntimeException("gist file is invalid");
-                        }
-                        JavaScriptObject jso = JsonUtils.safeEval(response.getText());
-                        url = getProperty(jso, "html_url");
+                        public void onResponseReceived(Request request, Response response) {
+                            if (!JsonUtils.safeToEval(response.getText())) {
+                                throw new RuntimeException("gist file is invalid");
+                            }
+                            JavaScriptObject jso = JsonUtils.safeEval(response.getText());
+                            url = getProperty(jso, "html_url");
                         
-                        if (url.lastIndexOf("/") == -1) {
-                            throw new RuntimeException("shit happened with gist");
+                            if (url.lastIndexOf("/") == -1) {
+                                throw new RuntimeException("shit happened with gist");
+                            }
+                            url = url.substring(url.lastIndexOf("/") + 1);
+                            //XXX: url is what it should be
                         }
-                        url = url.substring(url.lastIndexOf("/") + 1);
-                        //XXX: url is what it should be
-                    }
-                });
-            } catch (RequestException e) {
-                throw new RuntimeException("Error while getting gist or whatever");
-            }
+                    });
+        } catch (RequestException e) {
+            throw new RuntimeException("Error while getting gist or whatever");
+        }
         //XXX: url IS WHAT IT WAS AT THE FREAKING BEGINNIGN OF EVERYTHING DAAAAAAAARRRRRRRR!!!
         return url;
     }
