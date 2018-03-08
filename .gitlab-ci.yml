@@ -1,8 +1,8 @@
 image: java:8
 
-cache:
-  paths:
-    - "${CI_PROJECT_DIR}/.ivy"
+#cache:
+#  paths:
+#    - "${CI_PROJECT_DIR}/.ivy"
 
 before_script:
     - apt-get update && apt-get install -y ant openjfx
