@@ -48,7 +48,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private ArrayList<String> userlib;
 
     final AddLibraryItemDialogBox addLibraryItemDialogBox;
-    final ShareDialogBox shareLatexAllDialogBox;
     final MenuBar languageMenu;
     final MenuBar shareMenu;
     @UiField
@@ -81,7 +80,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
-        this.shareLatexAllDialogBox = new ShareDialogBox("LaTeX Snippet");
         this.languageMenu = new MenuBar(true);
         this.shareMenu = new MenuBar(true);
         this.userlib = new ArrayList<>();
@@ -265,12 +263,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @Override
     public void displayAddLibraryItemInvalidName() {
         Window.alert("Function name is incorrect!");
-    }
-
-    @Override
-    public void displayLatexAllText(String latexAllText) {
-        this.shareLatexAllDialogBox.setShareText(latexAllText);
-        this.shareLatexAllDialogBox.show();
     }
 
     @Override
