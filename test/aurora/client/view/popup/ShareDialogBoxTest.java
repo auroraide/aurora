@@ -31,7 +31,7 @@ public class ShareDialogBoxTest extends GWTTestCase {
      * Tests the copy to clipboard feature.
      */
     public void testCopyToClipboard() {
-        this.shareDialogBox.shareText.setText("I am text to be copied to clipboard.");
+        this.shareDialogBox.setShareText("I am text to be copied to clipboard.");
         assertEquals("I am text to be copied to clipboard.", this.shareDialogBox.shareText.getText());
         // sidebarView.userLibraryTable.getWidget(0, 2).getElement().<ButtonElement>cast().click());
 
@@ -41,6 +41,21 @@ public class ShareDialogBoxTest extends GWTTestCase {
                 assertEquals(
                         "I am text to be copied to clipboard.", TestingUtilities.getDataFromClipboard()));
 
+    }
+
+    /**
+     * Tests the close button.
+     */
+    public void testCloseButton() {
+        this.shareDialogBox.setShareText("Test 1.");
+        assertEquals("Test 1.", this.shareDialogBox.shareText.getText());
+        this.shareDialogBox.closeButton.click();
+        Scheduler.get().scheduleDeferred(new Command() {
+            @Override
+            public void execute() {
+                assertEquals("", ShareDialogBoxTest.this.shareDialogBox.shareText.getText());
+            }
+        });
     }
 
 
