@@ -12,7 +12,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
     /**
      * Simple constructor.
-     * @param step Step index. 0 is input.
+     * @param step Step index. 0 is input. -1 is result.
      */
     public ShareLinkEvent(int step) {
         this.step = step;
@@ -30,7 +30,7 @@ public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
 
     /**
      * Get step index.
-     * @return step index, 0 means input.
+     * @return step index, 0 means input and -1 means result.
      */
     public int getStep() {
         return step;
