@@ -13,8 +13,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     /**
      * Simple constructor.
      *
-     * @param index Gets the index of the selected step. 0 means input, 1 is the first step.
-     *              Last index might be the output, as long as it has already been computed.
+     * @param index Gets the index of the selected step. 0 means input, 1 is the first step and -1 means result.
      */
     public ExportLaTeXEvent(int index) {
         this.index = index;
@@ -31,8 +30,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     }
 
     /**
-     * Gets the index of the selected step. 0 means input, 1 is the first step. Last index might be the output,
-     * as long as it has already been computed.
+     * Gets the index of the selected step. 0 means input, 1 is the first step and -1 means result.
      * @return Step index.
      */
     public int getIndex() {
