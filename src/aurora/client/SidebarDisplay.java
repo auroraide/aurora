@@ -42,6 +42,13 @@ public interface SidebarDisplay {
     void displayAddLibraryItemInvalidName();
 
     /**
+     * Display the LaTeX Snippet to the user to copy.
+     *
+     * @param latexAllText The LaTeX snippet.
+     */
+    void displayLatexAllText(String latexAllText);
+
+    /**
      * Adds a new function to the views user library.
      *
      * @param name        The name function.
