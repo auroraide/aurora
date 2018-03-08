@@ -7,6 +7,7 @@ import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.ExportLaTeXAllEvent;
+import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
@@ -107,7 +108,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         MenuBar shareMenuBar = new MenuBar(true);
         shareMenuBar.addStyleName("shareMenuBar");
         shareMenuBar.addItem("LaTeX", (Command) () -> SidebarView.this.eventBus.fireEvent(new ExportLaTeXAllEvent()));
-        shareMenuBar.addItem("Link", (Command) () -> Window.alert("hhh"));
+        shareMenuBar.addItem("Link", (Command) () -> SidebarView.this.eventBus.fireEvent(new ShareLinkAllEvent()));
         return shareMenuBar;
     }
 
