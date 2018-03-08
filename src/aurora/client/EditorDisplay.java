@@ -29,6 +29,13 @@ public interface EditorDisplay {
      */
     void displaySemanticError(SemanticException semanticException);
 
+    /**
+     * Displays the LaTeX snippet for the user to copy.
+     *
+     * @param latexSnippet The LaTeX snippet.
+     */
+    void displayLaTeXSnippet(String latexSnippet);
+
 
     /**
      * Gets the user input String from the code editor.
