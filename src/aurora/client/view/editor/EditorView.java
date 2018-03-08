@@ -38,11 +38,16 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
+    private CodeMirrorPanel inputCodeMirror;
+    private CodeMirrorPanel outputCodeMirror;
+    private Button inputOptionButton;
+    private Button outputOptionButton;
+    private InfoDialogBox infoDialogBox;
+    private EventBus eventBus;
+
     // Input Field
     @UiField
     DockLayoutPanel inputDockLayoutPanel;
-    private Button inputOptionButton;
-    private CodeMirrorPanel inputCodeMirror;
     @UiField
     ActionBar actionBar;
 
@@ -53,13 +58,7 @@ public class EditorView extends Composite implements EditorDisplay {
     // Output Field
     @UiField
     DockLayoutPanel outputDockLayoutPanel;
-    private Button outputOptionButton;
-    private CodeMirrorPanel outputCodeMirror;
 
-    private InfoDialogBox infoDialogBox;
-
-    private EventBus eventBus;
-    
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
      *
@@ -305,7 +304,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
         Scheduler scheduler = Scheduler.get();
         scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new ResultCalculatedEvent()));
-
+        // TODO Remove log, when not needed anymore
         GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
