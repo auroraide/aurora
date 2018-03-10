@@ -112,7 +112,7 @@
         <zip destfile="aurora.war" basedir="${war.dir}"/>
     </target>
 
-    <target name="depedency-tree" depends="-ivy-resolve">
+    <target name="dependency-tree" depends="-ivy-resolve">
         <ivy:dependencytree/>
     </target>
 
