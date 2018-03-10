@@ -10,8 +10,6 @@ import static junit.framework.TestCase.assertTrue;
 
 /**
  * An example test using selenium.
- *
- * "How to create a simple Selenium WebDriver test using Java and IntelliJ"</a>.
  */
 public class ExampleSeleniumTest {
 
