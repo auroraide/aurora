@@ -8,6 +8,15 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ShareLinkEvent extends GwtEvent<ShareLinkEventHandler> {
     public static Type<ShareLinkEventHandler> TYPE = new Type<>();
+    /**
+     * Represents the index of the result step.
+     */
+    public static final int RESULT = -1;
+
+    /**
+     * Represents the index of input.
+     */
+    public static final int INPUT = 0;
     private final int step;
 
     /**
