@@ -8,6 +8,7 @@ import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.ExportLaTeXEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.ResultCalculatedEvent;
+import aurora.client.event.ShareLinkEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.actionbar.ActionBar;
 import aurora.client.view.popup.InfoDialogBox;
@@ -92,7 +93,6 @@ public class EditorView extends Composite implements EditorDisplay {
                     break;
                 case RUNNING_STATE:
                     EditorView.this.actionBar.setRunningStateAppearance();
-                    GWT.log("hallo");
                     break;
                 case PAUSED_STATE:
                     EditorView.this.actionBar.setPausedStateAppearance();
@@ -148,7 +148,8 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         });
 
-        optionsMenuBar.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(0)));
+        optionsMenuBar.addItem("LaTeX", (Command) () ->
+                EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(ExportLaTeXEvent.INPUT)));
         return optionsMenuBar;
     }
 
@@ -185,11 +186,12 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupOutputField() {
-        this.outputOptionButton = new Button("");
+        MenuBar shareMenuBar = createShareMenu("outputShare", "", ExportLaTeXEvent.RESULT);
+        //this.outputOptionButton = new Button(""); TODO delete if not needed
         // TODO Set styling for optionButton
-        outputOptionButton.addStyleName("outputShare");
-        this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4);
-
+        //outputOptionButton.addStyleName("outputShare");
+        //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
+        this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
@@ -200,6 +202,20 @@ public class EditorView extends Composite implements EditorDisplay {
             outputCodeMirror.setOption("mode", "aurorascript");
             outputCodeMirror.setOption("matchBrackets", true);
         });
+    }
+
+    private MenuBar createShareMenu(String shareMenuStyleName, String optionstyleName, int index) {
+        MenuBar shareMenu = new MenuBar(true);
+        MenuBar options = new MenuBar(true);
+
+        // TODO Set styling for option button
+        //shareMenu.addStyleName(shareMenuStyleName);
+        //optionMenu.addStyleName(optionsStyleName);
+        options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
+        options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
+        shareMenu.addItem("option", options);
+
+        return shareMenu;
     }
 
     private void setupInfoDialogBox() {
@@ -247,7 +263,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        stepFieldTable.setWidget(entryIndex, 1, new Button());
+        //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
+        // TODO set shareMenu Style and optionMenuStyle
+        stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         //TODO: once hle is done, use its magic
