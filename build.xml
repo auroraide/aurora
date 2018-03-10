@@ -112,6 +112,10 @@
         <zip destfile="aurora.war" basedir="${war.dir}"/>
     </target>
 
+    <target name="depedency-tree" depends="-ivy-resolve">
+        <ivy:dependencytree/>
+    </target>
+
     <!-- private ant targets -->
     <target name="-ivy-resolve">
         <ivy:retrieve/>
