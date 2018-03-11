@@ -18,9 +18,11 @@ testjob:
     stage: test
     script:
         - find $JAVA_HOME -name tools.jar
+        - find $HOME/.ivy2
+        - cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar $HOME/.ivy2/local
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-        - ant build -lib vendor
+        - ant build-ci -lib vendor
         - nohup ./caddy &
         - ant test -lib vendor
 
