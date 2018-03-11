@@ -24,9 +24,9 @@ testjob:
         - find $HOME/.ivy2
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-        - ant build -lib vendor
+        - ant build -debug -lib vendor
         - nohup ./caddy &
-        - ant test -lib vendor
+        - ant test -debub -lib vendor
 
 deployjob:
     stage: deploy
