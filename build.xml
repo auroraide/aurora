@@ -123,7 +123,7 @@
         <ivy:cleancache/>
     </target>
 
-    <target name="-ivy-publish">
+    <target name="-ivy-publish" depends="-ivy-resolve">
         <ivy:publish/>
     </target>
 
