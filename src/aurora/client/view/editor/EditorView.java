@@ -244,12 +244,6 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void displayLaTeXSnippet(String latexSnippet) {
-        this.shareLaTexSnippetDialogBox.setShareText(latexSnippet);
-        this.shareLaTexSnippetDialogBox.show();
-    }
-
-    @Override
     public String getInput() {
         return this.inputCodeMirror.getValue().replace('λ', '\\');
     }
