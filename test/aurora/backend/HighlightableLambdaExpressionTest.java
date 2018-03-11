@@ -181,7 +181,7 @@ public class HighlightableLambdaExpressionTest {
     }
 
     @Test
-    public void double_alpha() {
+    public void double_alphaEasiy() {
         Term t = new Abstraction(new FreeVariable("x_alpha"), "x_alpha");
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
         assertEquals("\\x_alpha_alpha. x_alpha", hle.toString());
@@ -197,5 +197,28 @@ public class HighlightableLambdaExpressionTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
         assertEquals("\\x. \\x1_alpha. x1", hle.toString());
     }
+
+    @Test
+    public void double_alphaHard() {
+        Term t = new Abstraction(
+                new Application(
+                        new FreeVariable("x"), new FreeVariable("x_alpha")
+                ), "x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\x_alpha_alpha. x x_alpha", hle.toString());
+
+        Term f = new Abstraction(
+                new Application(
+                        new Application(
+                                new FreeVariable("x"), new FreeVariable("x_alpha")
+                        ), new FreeVariable("x_alpha_alpha")
+                ), "x"
+        );
+
+        HighlightableLambdaExpression hle3 = new HighlightableLambdaExpression(f);
+        assertEquals("\\x_alpha_alpha_alpha. x x_alpha x_alpha_alpha", hle3.toString());
+    }
+
 
 }
