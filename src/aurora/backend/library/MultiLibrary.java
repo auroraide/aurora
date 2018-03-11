@@ -1,6 +1,8 @@
 package aurora.backend.library;
 
 import aurora.backend.library.exceptions.LibraryItemNotFoundException;
+
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,6 +68,7 @@ public class MultiLibrary implements Library {
             private Iterator<LibraryItem> currentIterator;
 
             {
+                libraryIterator = libraries.iterator();
                 currentIterator = libraryItems.entrySet().stream().map(Map.Entry::getValue).iterator();
             }
 

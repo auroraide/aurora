@@ -11,7 +11,10 @@ The Lambda Calculus IDE
 - [Ant](http://ant.apache.org)
 - [Ivy](http://ant.apache.org/ivy)
 - [Caddy](https://caddyserver.com) (optional)
-
+- [Selenium](https://www.seleniumhq.org)
+    - [How to use Selenium Webdriver](https://www.seleniumhq.org/docs/03_webdriver.jsp)
+    - We are using JBrowser as our webdriver. Have a look at the ExampleSeleniumTest.java, which is located in 
+      Aurora/test/client.
 ## Build
 
 ### Dev mode
