@@ -57,7 +57,7 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
-        functionName = RegExp.compile("^[a-z]+$");
+        functionName = RegExp.compile("^([A-Za-z][A-Za-z0-9_]*)");
         readInStdLibFunctions();
     }
 
