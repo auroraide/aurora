@@ -6,13 +6,19 @@
     },
 
     {
-        "name" : "times",
+        "name" : "sub",
+        "function" : "(\\m.\\n.n (\\n.\\f.\\x.n (\\g.\\h.h (g f)) (\\u.x) (\\u.u)) m)",
+        "description" : ""
+    },
+
+    {
+        "name" : "mul",
         "function" : "(\\m. \\n. \\s. n (m s))" ,
         "description" : ""
     },
 
     {
-        "name" : "exp",
+        "name" : "pow",
         "function" : "(\\m. \\n. n m)",
         "description" : ""
     },
@@ -30,8 +36,62 @@
     },
 
     {
-        "name" : "inc",
+        "name" : "and",
+        "function" : "(\\p.\\q.p q p)",
+        "description" : ""
+    },
+
+    {
+        "name" : "or",
+        "function" : "(\\p.\\q.p p q)",
+        "description" : ""
+    },
+
+    {
+        "name" : "not",
+        "function" : "(\\p.p (\\t. \\f. f) (\\t. \\f. t))",
+        "description" : ""
+    },
+
+    {
+        "name" : "ifthenelse",
+        "function" : "(\\b.\\x.\\y.b x y)",
+        "description" : ""
+    },
+
+    {
+        "name" : "isZero",
+        "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
+        "description" : ""
+    },
+
+    {
+        "name" : "fst",
+        "function" : "(\\p. p (\\a. \\b. a))",
+        "description" : ""
+    },
+
+    {
+        "name" : "snd",
+        "function" : "(\\p. p (\\a. \\b. b))",
+        "description" : ""
+    },
+
+    {
+        "name" : "pair",
+        "function" : "(\\a. \\b. \\f. f a b)",
+        "description" : ""
+    },
+
+    {
+        "name" : "succ",
         "function" : "(\\n. \\s. \\z. s (n s z))",
+        "description" : ""
+    },
+
+    {
+        "name" : "pred",
+        "function" : "(\\n.\\f.\\x.n (\\g.\\h.h (g f)) (\\u.x) (\\u.u))",
         "description" : ""
     },
 
