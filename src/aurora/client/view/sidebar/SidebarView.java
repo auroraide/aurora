@@ -11,7 +11,6 @@ import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
-import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.popup.InfoDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
