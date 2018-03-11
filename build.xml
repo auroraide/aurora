@@ -59,6 +59,8 @@
 
     <target name="build" depends="-gwtc" description="Compile java source to bytecode."/>
 
+    <target name="build-ci" depends="-ivy-publish,-gwtc" description="Compile java source to bytecode."/>
+
     <target name="test" description="Build and run test suite.">
         <antcall target="cs"/>
         <antcall target="-junit"/>
@@ -119,6 +121,10 @@
 
     <target name="-ivy-clean">
         <ivy:cleancache/>
+    </target>
+
+    <target name="-ivy-publish">
+        <ivy:publish/>
     </target>
 
     <target name="-libs" depends="-ivy-resolve">
