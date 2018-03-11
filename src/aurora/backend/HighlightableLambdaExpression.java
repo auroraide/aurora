@@ -8,7 +8,7 @@ import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
-import net.sf.saxon.functions.Abs;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
