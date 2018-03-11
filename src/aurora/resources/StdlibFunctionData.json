@@ -60,7 +60,7 @@
     },
 
     {
-        "name" : "isZero",
+        "name" : "iszero",
         "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
         "description" : ""
     },
