@@ -13,7 +13,11 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -71,6 +75,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
     public SidebarView(EventBus eventBus) {
+        Document.get().getBody().addClassName("darkMode");
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
@@ -78,9 +83,24 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userlib = new ArrayList<>();
         setupShareLanguageMenu();
         stackLibraries.showWidget(1);
+        this.nightModeSwitch.setValue(true);
+        this.nightModeSwitch.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                boolean checked = ((CheckBox) event.getSource()).getValue();
+                if (!checked) {
+                    Document.get().getBody().addClassName("lightMode");
+                    Document.get().getBody().removeClassName("darkMode");
+                } else if (checked) {
+                    Document.get().getBody().removeClassName("lightMode");
+                    Document.get().getBody().addClassName("darkMode");
+                }
 
+            }
+        });
         eventWiring();
     }
+
 
     private void setupShareLanguageMenu() {
         final MenuBar languageMenu = new MenuBar(true);
@@ -239,7 +259,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.addFunctionButton.setEnabled(addFunctionButton);
         this.strategySelection.setEnabled(strategySelection);
         //this.nightModeSwitch.setEnabled(nightModeSwitch);
-        this.nightModeSwitch.setValue(false);
     }
 
     private void wireStrategySelection() {
