@@ -156,7 +156,7 @@ public class SidebarPresenter {
                 return;
             }
 
-            /*MatchResult result = functionName.exec(name);
+            MatchResult result = functionName.exec(name);
             String resultString = result.getGroup(0);
             if (resultString == null || resultString.isEmpty()) {
                 GWT.log(name + " is an invalid function name!");
@@ -167,7 +167,7 @@ public class SidebarPresenter {
                 sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
                 GWT.log("Function name " + name + "is already taken!");
                 return;
-            }*/
+            }
 
             stdLib.define(name, description, t);
             sidebarDisplay.addStandardLibraryItem(name, description);
