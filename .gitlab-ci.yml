@@ -9,12 +9,11 @@ before_script:
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
     - mkdir -p /builds/ap/Aurora/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.8.0/jars/
-    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.8.0/jars/
+    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
+    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
     - cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar /builds/ap/Aurora/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - cp ../gwt-2.8.2/gwt-dev.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.8.0/jars/
-    - cp ../gwt-2.8.2/gwt-user.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.8.0/jars/gwt-user.jar
-
+    - cp ../gwt-2.8.2/gwt-dev.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
+    - cp ../gwt-2.8.2/gwt-user.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
 
 stages:
     - test
@@ -26,7 +25,7 @@ testjob:
     script:
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-        - ant build -debug -lib vendor
+        - ant build -lib vendor
         - nohup ./caddy &
         - ant test -lib vendor
 
