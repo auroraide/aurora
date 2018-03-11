@@ -99,12 +99,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
     @Override
     public void displayLatexSnippetDialog(String latexCode) {
-
+        this.latexDialogBox.setShareText(latexCode);
+        this.latexDialogBox.show();
     }
 
     @Override
     public void displayShortLinkDialog(String shortLink) {
-
+        this.shortLinkDialogBox.setShareText(shortLink);
+        this.shortLinkDialogBox.show();
     }
 
     @Override
