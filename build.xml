@@ -23,7 +23,6 @@
     <!-- the holy class path -->
     <path id="project.class.path">
         <pathelement location="${war.classes.dir}"/>
-        <pathelement location="${gwt.sdk}"/>
         <pathelement location="${gwt.sdk}/gwt-user.jar"/>
         <pathelement location="${gwt.sdk}/gwt-dev.jar"/>
         <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar"/>
