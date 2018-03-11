@@ -238,7 +238,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setEnabled(stepNumber);
         this.addFunctionButton.setEnabled(addFunctionButton);
         this.strategySelection.setEnabled(strategySelection);
-        this.nightModeSwitch.setEnabled(nightModeSwitch);
+        //this.nightModeSwitch.setEnabled(nightModeSwitch);
+        this.nightModeSwitch.setValue(false);
     }
 
     private void wireStrategySelection() {

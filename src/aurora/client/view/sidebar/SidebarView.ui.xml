@@ -62,7 +62,7 @@
                 <!-- Night Mode -->
                 <g:FlowPanel addStyleNames="night_mode">
                     <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
-                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="slider_o">
+                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="nightMode" value="true">
                     </g:CheckBox>
                 </g:FlowPanel>
 
