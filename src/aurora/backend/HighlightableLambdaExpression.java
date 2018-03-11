@@ -9,6 +9,7 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -125,13 +126,32 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * and the Free Variable Conversion Visitor.
      */
     private class FindAbsForAlpha extends TermVisitor<Term> {
+        // this bool is true if alphaconversion with fvar is needed
+        boolean chg = false;
 
         @Override
         public Term visit(Abstraction abs) {
+            chg = false;
             Abstraction absWithAbsConversion = new Abstraction(abs.body.accept(new RenameAbsVisitor(abs.name)),
                     abs.name);
-            Abstraction absWithFvConversion = new  Abstraction(absWithAbsConversion.body.accept(
-                    new AlphaconversionVisitorFV(absWithAbsConversion.name)), abs.name);
+            AlphaconversionVisitorFV x = new AlphaconversionVisitorFV(absWithAbsConversion.name);
+            Term body = absWithAbsConversion.body.accept(x);
+            Abstraction absWithFvConversion;
+            if (chg) {
+                absWithFvConversion = new Abstraction(body,absWithAbsConversion.name + "_alpha");
+                while (chg) {
+                    chg = false;
+                    x = new AlphaconversionVisitorFV(absWithFvConversion.name);
+                    body = absWithFvConversion.body.accept(x);
+
+                    if (chg) {
+                        absWithFvConversion = new Abstraction(body, absWithFvConversion.name + "_alpha");
+                    }
+                }
+            }   else {
+                absWithFvConversion = new Abstraction(body, absWithAbsConversion.name);
+            }
+
 
 
             return new Abstraction(absWithFvConversion.body.accept(this), absWithFvConversion.name);
@@ -229,9 +249,19 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
          */
         private class AlphaconversionVisitorFV extends TermVisitor<Term> {
             private String name;
+            private boolean changed;
 
             public AlphaconversionVisitorFV(String name) {
                 this.name = name;
+                changed = false;
+            }
+
+            public boolean getChanged() {
+                return changed;
+            }
+
+            public String getName() {
+                return name;
             }
 
             @Override
@@ -254,10 +284,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(FreeVariable fvar) {
                 if (fvar.name.equals(name)) {
-                    return new FreeVariable(fvar.name + "_alpha");
-                } else {
-                    return fvar;
+                    chg  = true;
+
                 }
+                return fvar;
+
             }
 
             @Override
