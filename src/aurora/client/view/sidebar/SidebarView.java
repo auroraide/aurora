@@ -6,9 +6,12 @@ import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
+import aurora.client.event.ExportLaTeXAllEvent;
+import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
+import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
@@ -51,6 +54,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private ArrayList<String> userlib;
 
     final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    final MenuBar languageMenu;
+    final MenuBar shareMenu;
     @UiField
     TextBox stepNumber;
     @UiField
@@ -83,6 +88,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     LinkElement linkDarkCMStyle;
 
 
+
     /**
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
@@ -93,6 +99,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
+        this.languageMenu = new MenuBar(true);
+        this.shareMenu = new MenuBar(true);
         this.userlib = new ArrayList<>();
         setupShareLanguageMenu();
         stackLibraries.showWidget(1);
@@ -167,13 +175,13 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
 
     private void setupShareLanguageMenu() {
-        final MenuBar languageMenu = new MenuBar(true);
+        // sets up language menu
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("languageButton");
         languageMenu.addItem("language", setupLanguageMenuBar());
         this.languageButton.add(languageMenu);
 
-        final MenuBar shareMenu = new MenuBar(true);
+        // sets up share menu
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("shareButton");
         languageMenu.addItem(" ", setupShareMenuBar());
@@ -183,42 +191,17 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private MenuBar setupShareMenuBar() {
         MenuBar shareMenuBar = new MenuBar(true);
         shareMenuBar.addStyleName("shareMenuBar");
-        shareMenuBar.addItem("LaTeX", new Command() {
-            @Override
-            public void execute() {
-                Window.alert("hhh");
-            }
-        });
-        shareMenuBar.addItem("Link", new Command() {
-            @Override
-            public void execute() {
-                Window.alert("hhh");
-            }
-        });
+        shareMenuBar.addItem("LaTeX", (Command) () -> SidebarView.this.eventBus.fireEvent(new ExportLaTeXAllEvent()));
+        shareMenuBar.addItem("Link", (Command) () -> SidebarView.this.eventBus.fireEvent(new ShareLinkAllEvent()));
         return shareMenuBar;
     }
 
     private MenuBar setupLanguageMenuBar() {
         MenuBar languageMenuBar = new MenuBar(true);
         languageMenuBar.addStyleName("languageMenuBar");
-        languageMenuBar.addItem("RU", new Command() {
-            @Override
-            public void execute() {
-                Window.Location.assign("https://aurora.younishd.fr/?locale=ru");
-            }
-        });
-        languageMenuBar.addItem("ENG", new Command() {
-            @Override
-            public void execute() {
-                Window.Location.assign("https://aurora.younishd.fr/");
-            }
-        });
-        languageMenuBar.addItem("DE", new Command() {
-            @Override
-            public void execute() {
-                Window.alert("hhh");
-            }
-        });
+        languageMenuBar.addItem("RU", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/?locale=ru"));
+        languageMenuBar.addItem("ENG", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/"));
+        languageMenuBar.addItem("DE", (Command) () -> Window.alert("hhh"));
         return languageMenuBar;
     }
 

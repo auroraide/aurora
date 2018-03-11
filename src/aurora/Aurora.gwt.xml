@@ -36,6 +36,7 @@
     <source path='client'/>
     <source path='backend'/>
     <source path="resources"/>
+    <source path="utils"/>
 
 
     <!-- allow Super Dev Mode -->
