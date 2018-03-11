@@ -5,11 +5,14 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
 import aurora.client.event.ErrorDisplayedEvent;
+import aurora.client.event.ExportLaTeXEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.ResultCalculatedEvent;
+import aurora.client.event.ShareLinkEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.actionbar.ActionBar;
 import aurora.client.view.popup.InfoDialogBox;
+import aurora.client.view.popup.ShareDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.shared.EventBus;
@@ -38,11 +41,17 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private static final EditorUiBinder ourUiBinder = GWT.create(EditorUiBinder.class);
 
+    private CodeMirrorPanel inputCodeMirror;
+    private CodeMirrorPanel outputCodeMirror;
+    private Button inputOptionButton;
+    private Button outputOptionButton;
+    private InfoDialogBox infoDialogBox;
+    private ShareDialogBox shareLaTexSnippetDialogBox;
+    private EventBus eventBus;
+
     // Input Field
     @UiField
     DockLayoutPanel inputDockLayoutPanel;
-    private Button inputOptionButton;
-    private CodeMirrorPanel inputCodeMirror;
     @UiField
     ActionBar actionBar;
 
@@ -53,13 +62,7 @@ public class EditorView extends Composite implements EditorDisplay {
     // Output Field
     @UiField
     DockLayoutPanel outputDockLayoutPanel;
-    private Button outputOptionButton;
-    private CodeMirrorPanel outputCodeMirror;
 
-    private InfoDialogBox infoDialogBox;
-
-    private EventBus eventBus;
-    
     /**
      * Creates the EditorView contents and adds them to their respective parts of the window.
      *
@@ -68,6 +71,7 @@ public class EditorView extends Composite implements EditorDisplay {
     public EditorView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
+        this.shareLaTexSnippetDialogBox = new ShareDialogBox("");
         setupInputField();
         setupOutputField();
         setupInfoDialogBox();
@@ -89,7 +93,6 @@ public class EditorView extends Composite implements EditorDisplay {
                     break;
                 case RUNNING_STATE:
                     EditorView.this.actionBar.setRunningStateAppearance();
-                    GWT.log("hallo");
                     break;
                 case PAUSED_STATE:
                     EditorView.this.actionBar.setPausedStateAppearance();
@@ -137,15 +140,16 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private MenuBar setupInputMenuBar() {
         MenuBar optionsMenuBar = new MenuBar(true);
-        optionsMenuBar.addItem("toggle VIM", new Command() {
-            public void execute() {
-                if (inputCodeMirror.getOption("keyMap").equals("default")) {
-                    inputCodeMirror.setOption("keyMap", "vim");
-                } else {
-                    inputCodeMirror.setOption("keyMap", "default");
-                }
+        optionsMenuBar.addItem("toggle VIM", (Command) () -> {
+            if (inputCodeMirror.getOption("keyMap").equals("default")) {
+                inputCodeMirror.setOption("keyMap", "vim");
+            } else {
+                inputCodeMirror.setOption("keyMap", "default");
             }
         });
+
+        optionsMenuBar.addItem("LaTeX", (Command) () ->
+                EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(ExportLaTeXEvent.INPUT)));
         return optionsMenuBar;
     }
 
@@ -182,11 +186,12 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private void setupOutputField() {
-        this.outputOptionButton = new Button("");
+        MenuBar shareMenuBar = createShareMenu("outputShare", "", ExportLaTeXEvent.RESULT);
+        //this.outputOptionButton = new Button(""); TODO delete if not needed
         // TODO Set styling for optionButton
-        outputOptionButton.addStyleName("outputShare");
-        this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4);
-
+        //outputOptionButton.addStyleName("outputShare");
+        //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
+        this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
@@ -197,6 +202,20 @@ public class EditorView extends Composite implements EditorDisplay {
             outputCodeMirror.setOption("mode", "aurorascript");
             outputCodeMirror.setOption("matchBrackets", true);
         });
+    }
+
+    private MenuBar createShareMenu(String shareMenuStyleName, String optionstyleName, int index) {
+        MenuBar shareMenu = new MenuBar(true);
+        MenuBar options = new MenuBar(true);
+
+        // TODO Set styling for option button
+        //shareMenu.addStyleName(shareMenuStyleName);
+        //optionMenu.addStyleName(optionsStyleName);
+        options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
+        options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
+        shareMenu.addItem("option", options);
+
+        return shareMenu;
     }
 
     private void setupInfoDialogBox() {
@@ -238,20 +257,20 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        stepFieldTable.setWidget(entryIndex, 1, new Button());
+        //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
+        // TODO set shareMenu Style and optionMenuStyle
+        stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         //TODO: once hle is done, use its magic
-        Scheduler.get().scheduleDeferred(new Command() {
-            public void execute() {
-                cmp.setValue(hle.toString());
-                cmp.setOption("theme", "material");
-                cmp.setOption("readOnly", true);
-                cmp.setOption("mode", "aurorascript");
-                cmp.setOption("matchBrackets", true);
-                cmp.setOption("theme", "mbo");
-                cmp.setOption("lineNumbers", false);
-            }
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            cmp.setValue(hle.toString());
+            cmp.setOption("theme", "material");
+            cmp.setOption("readOnly", true);
+            cmp.setOption("mode", "aurorascript");
+            cmp.setOption("matchBrackets", true);
+            cmp.setOption("theme", "mbo");
+            cmp.setOption("lineNumbers", false);
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
@@ -305,7 +324,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
         Scheduler scheduler = Scheduler.get();
         scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new ResultCalculatedEvent()));
-
+        // TODO Remove log, when not needed anymore
         GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 

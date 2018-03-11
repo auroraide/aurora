@@ -29,7 +29,6 @@ public interface EditorDisplay {
      */
     void displaySemanticError(SemanticException semanticException);
 
-
     /**
      * Gets the user input String from the code editor.
      *
