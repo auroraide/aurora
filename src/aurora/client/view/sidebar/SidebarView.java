@@ -300,7 +300,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public void addUserLibraryItem(String name, String description) {
         int row = userLibraryTable.getRowCount();
         this.userlib.add(name);
-        this.userLibraryTable.setText(row, 0, name);
+        this.userLibraryTable.setText(row, 0, "$" + name);
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
@@ -320,7 +320,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @Override
     public void addStandardLibraryItem(String name, String description) {
         int row = this.standardLibraryTable.getRowCount();
-        this.standardLibraryTable.setText(row, 0, name);
+        this.standardLibraryTable.setText(row, 0, "$" + name);
         this.standardLibraryTable.setText(row, 1, description);
     }
 
