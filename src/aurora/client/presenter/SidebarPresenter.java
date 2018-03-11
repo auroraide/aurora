@@ -134,13 +134,8 @@ public class SidebarPresenter {
             JSONObject stdlibFunctionData = (JSONObject) stdlibFunctionArray.get(i);
 
             String name =  stdlibFunctionData.get("name").isString().stringValue();
-            GWT.log(name);
-
             String function = stdlibFunctionData.get("function").isString().stringValue();
-            GWT.log(function);
-
             String description = stdlibFunctionData.get("description").isString().stringValue();
-            GWT.log(description);
 
             try {
                 t = lambdaParser.parse(lambdaLexer.lex(function));
