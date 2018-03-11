@@ -133,9 +133,9 @@ public class SidebarPresenter {
         for (int i = 0; i < stdlibFunctionArray.size(); i++) {
             JSONObject stdlibFunctionData = (JSONObject) stdlibFunctionArray.get(i);
 
-            String name =  stdlibFunctionData.get("name").isString().stringValue();
-            String function = stdlibFunctionData.get("function").isString().stringValue();
-            String description = stdlibFunctionData.get("description").isString().stringValue();
+            final String name = stdlibFunctionData.get("name").isString().stringValue();
+            final String function = stdlibFunctionData.get("function").isString().stringValue();
+            final String description = stdlibFunctionData.get("description").isString().stringValue();
 
             try {
                 t = lambdaParser.parse(lambdaLexer.lex(function));
@@ -150,7 +150,6 @@ public class SidebarPresenter {
                 GWT.log("Semantic Exception! Failed to lex " + "[" + function + "]" + "of function " + name + ".");
                 return;
             }
-
             MatchResult result = functionName.exec(name);
             String resultString = result.getGroup(0);
             if (resultString == null || resultString.isEmpty()) {
