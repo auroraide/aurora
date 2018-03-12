@@ -18,8 +18,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.LinkElement;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -177,7 +175,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         linkDarkCMStyle = Document.get().createLinkElement();
         linkDarkCMStyle.setHref("css/CodeMirror/material.css");
         linkDarkCMStyle.setRel("stylesheet");
-
 
     }
 
