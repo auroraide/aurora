@@ -52,8 +52,8 @@ public class SidebarViewTest extends GWTTestCase {
         assertFalse(sidebarView.strategySelection.getCallByValue().getValue());
         assertFalse(sidebarView.strategySelection.getManualSelection().getValue());
 
-        // check, if nighMode is disabled on initialisation
-        assertFalse(sidebarView.nightModeSwitch.getValue());
+        // check, if nighMode is enabled on initialisation
+        assertTrue(sidebarView.nightModeSwitch.getValue());
     }
 
     /**
