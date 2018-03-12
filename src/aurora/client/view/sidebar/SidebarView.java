@@ -11,7 +11,7 @@ import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.StepValueChangedEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.popup.AddLibraryItemDialogBox;
-import aurora.client.view.popup.ShareDialogBox;
+import aurora.client.view.popup.InfoDialogBox;
 import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
@@ -49,6 +49,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private ArrayList<String> userlib;
 
     final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    private final InfoDialogBox errorMessageDialogBox;
+
     final MenuBar languageMenu;
     final MenuBar shareMenu;
     @UiField
@@ -71,7 +73,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     StackLayoutPanel stackLibraries;
 
 
-
     /**
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
@@ -81,6 +82,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
+        this.errorMessageDialogBox = new InfoDialogBox();
         this.languageMenu = new MenuBar(true);
         this.shareMenu = new MenuBar(true);
         this.userlib = new ArrayList<>();
@@ -267,10 +269,16 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
+    public void displayErrorMessage(String errorMessage) {
+        this.errorMessageDialogBox.setDescription(errorMessage);
+        this.errorMessageDialogBox.show();
+    }
+
+    @Override
     public void addUserLibraryItem(String name, String description) {
         int row = userLibraryTable.getRowCount();
         this.userlib.add(name);
-        this.userLibraryTable.setText(row, 0, name);
+        this.userLibraryTable.setText(row, 0, "$" + name);
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
@@ -290,7 +298,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @Override
     public void addStandardLibraryItem(String name, String description) {
         int row = this.standardLibraryTable.getRowCount();
-        this.standardLibraryTable.setText(row, 0, name);
+        this.standardLibraryTable.setText(row, 0, "$" + name);
         this.standardLibraryTable.setText(row, 1, description);
     }
 
