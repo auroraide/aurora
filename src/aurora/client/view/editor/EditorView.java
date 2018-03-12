@@ -123,6 +123,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
+        this.inputCodeMirror.ensureDebugId("inputCodeMirror");
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
@@ -193,6 +194,7 @@ public class EditorView extends Composite implements EditorDisplay {
         //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
         this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
+        this.outputCodeMirror.ensureDebugId("outputCodeMirror");
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
 
