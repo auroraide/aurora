@@ -216,6 +216,7 @@ public class EditorView extends Composite implements EditorDisplay {
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
         shareMenu.addItem("option", options);
+        shareMenu.ensureDebugId("shareMenu-step-" + index);
 
         return shareMenu;
     }
@@ -259,10 +260,12 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
+
         //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
         // TODO set shareMenu Style and optionMenuStyle
         stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
+        cmp.ensureDebugId("codeMirrorPanel-step-" + visibleIndex);
 
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
