@@ -274,16 +274,16 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.eventBus.addHandler(ViewStateChangedEvent.TYPE, viewStateChangedEvent -> {
             switch (viewStateChangedEvent.getViewState()) {
                 case STEP_BEFORE_RESULT_STATE:
-                    setEnabledSidebarWidgets(true, false, true, true);
+                    setEnabledSidebarWidgets(true, true, true, true);
                     break;
                 case PAUSED_STATE:
-                    setEnabledSidebarWidgets(true, false, true, true);
+                    setEnabledSidebarWidgets(true, true, true, true);
                     break;
                 case RUNNING_STATE:
                     setEnabledSidebarWidgets(false, false, false, false);
                     break;
                 case FINISHED_STATE:
-                    setEnabledSidebarWidgets(true, false, true, true);
+                    setEnabledSidebarWidgets(true, true, true, true);
                     break;
                 case FINISHED_FINISHED_STATE:
                     setEnabledSidebarWidgets(true, true, true, true);
@@ -307,7 +307,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setEnabled(stepNumber);
         this.addFunctionButton.setEnabled(addFunctionButton);
         this.strategySelection.setEnabled(strategySelection);
-        //this.nightModeSwitch.setEnabled(nightModeSwitch);
+        this.nightModeSwitch.setEnabled(nightModeSwitch);
     }
 
     private void wireStrategySelection() {
