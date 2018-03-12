@@ -3,6 +3,7 @@ package aurora.backend.betareduction.visitors;
 import aurora.backend.RedexPath;
 import aurora.backend.RedexPath.Direction;
 import aurora.backend.TermVisitor;
+import aurora.backend.betareduction.Replacer;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -18,66 +19,42 @@ import java.util.Iterator;
  */
 public class ReplaceVisitor extends TermVisitor<Term> {
 
-    private final Term with;
+    Replacer replacer;
 
-    private final Iterator<Direction> pathIterator;
-
-    /**
-     * Constructor that initializes the ReplaceVisitor.
-     *
-     * @param path Location of the Application to be replaced.
-     * @param with The Term that the Application shall be replaced with.
-     */
     public ReplaceVisitor(RedexPath path, Term with) {
-        this.with = with;
-        this.pathIterator = path.iterator();
+        this.replacer = new Replacer(path, with);
     }
 
     @Override
     public Term visit(Abstraction abs) {
-        return new Abstraction(abs.body.accept(this),abs.name);
+        return this.replacer.replace(abs);
     }
 
     @Override
     public Term visit(Application app) {
-        if (!pathIterator.hasNext()) {
-            return with;
-        }
-        if (pathIterator.next() == Direction.LEFT) {
-            return new Application(
-                    app.left.accept(this),
-                    app.right
-            );
-        } else {
-            return new Application(
-                    app.left,
-                    app.right.accept(this)
-            );
-        }
+        return this.replacer.replace(app);
     }
 
     @Override
     public Term visit(BoundVariable bvar) {
-        assert false : "there can't be an application below a bvar";
-        return bvar;
+        assert false;
+        return null;
     }
 
     @Override
     public Term visit(FreeVariable fvar) {
-        assert false : "there can't be an application below a fvar";
-        return fvar;
+        assert false;
+        return null;
     }
 
     @Override
     public Term visit(Function function) {
-        Term t = function.term;
-        return t.accept(this);
+        return this.replacer.replace(function);
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        Abstraction abs = c.getAbstraction();
-        return new Abstraction(abs.body.accept(this),abs.name);
+        return this.replacer.replace(c);
     }
 
 }

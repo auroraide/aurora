@@ -16,6 +16,9 @@ import aurora.backend.tree.Term;
 
 import java.util.List;
 
+/**
+ * Performs beta reduction on {@link Term} trees.
+ */
 public class BetaReducer {
 
     private ReductionStrategy strategy;
@@ -28,14 +31,14 @@ public class BetaReducer {
      */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
-        alwaystrue = false;
+        this.alwaystrue = false;
     }
 
     /**
-     * This method performs one beta reduction.
+     * This method performs a single beta reduction step.
      *
-     * @param term The Term that will get reduced.
-     * @return something.
+     * @param term The {@link Term} that will get reduced.
+     * @return The reduced {@link Term} or null if no further beta reduction was possible.
      */
     public Term reduce(Term term) {
         RedexPath path = strategy.getRedexPath(term);
@@ -44,6 +47,7 @@ public class BetaReducer {
         if (path == null) {
             return null;
         }
+
         Application app = path.get(term);
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
