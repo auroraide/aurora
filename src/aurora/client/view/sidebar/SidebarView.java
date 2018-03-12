@@ -21,7 +21,6 @@ import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -180,17 +179,17 @@ public class SidebarView extends Composite implements SidebarDisplay {
         // sets up language menu
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("languageButton");
-        languageMenu.addItem("language", setupLanguageMenuBar());
+        languageMenu.addItem("language", createLanguageMenuBar());
         this.languageButton.add(languageMenu);
 
         // sets up share menu
         languageMenu.setAnimationEnabled(false);
         languageMenu.addStyleName("shareButton");
-        languageMenu.addItem(" ", setupShareMenuBar());
+        languageMenu.addItem(" ", createShareMenuBar());
         this.shareButton.add(shareMenu);
     }
 
-    private MenuBar setupShareMenuBar() {
+    private MenuBar createShareMenuBar() {
         MenuBar shareMenuBar = new MenuBar(true);
         shareMenuBar.addStyleName("shareMenuBar");
         shareMenuBar.addItem("LaTeX", (Command) () -> SidebarView.this.eventBus.fireEvent(new ExportLaTeXAllEvent()));
@@ -198,7 +197,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         return shareMenuBar;
     }
 
-    private MenuBar setupLanguageMenuBar() {
+    private MenuBar createLanguageMenuBar() {
         MenuBar languageMenuBar = new MenuBar(true);
         languageMenuBar.addStyleName("languageMenuBar");
         languageMenuBar.addItem("RU", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/?locale=ru"));
