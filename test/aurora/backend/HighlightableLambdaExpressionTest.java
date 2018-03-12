@@ -106,7 +106,7 @@ public class HighlightableLambdaExpressionTest {
                         ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\x. \\x1. x1 x_alpha", hle.toString());
+        assertEquals("\\x_alpha. \\x1. x1 x", hle.toString());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class HighlightableLambdaExpressionTest {
                 ),"x"
         );
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        assertEquals("\\x. x x_alpha",hle.toString());
+        assertEquals("\\x_alpha. x_alpha x",hle.toString());
     }
 
     @Test
@@ -179,4 +179,46 @@ public class HighlightableLambdaExpressionTest {
         HighlightableLambdaExpression hle2 = new HighlightableLambdaExpression(x);
         assertEquals("$name", hle2.toString());
     }
+
+    @Test
+    public void double_alphaEasiy() {
+        Term t = new Abstraction(new FreeVariable("x_alpha"), "x_alpha");
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\x_alpha_alpha. x_alpha", hle.toString());
+    }
+
+    @Test
+    public void x1_fvar() {
+        Term t = new Abstraction(
+                new Abstraction(
+                        new FreeVariable("x1"), "x"
+                ), "x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\x. \\x1_alpha. x1", hle.toString());
+    }
+
+    @Test
+    public void double_alphaHard() {
+        Term t = new Abstraction(
+                new Application(
+                        new FreeVariable("x"), new FreeVariable("x_alpha")
+                ), "x"
+        );
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\x_alpha_alpha. x x_alpha", hle.toString());
+
+        Term f = new Abstraction(
+                new Application(
+                        new Application(
+                                new FreeVariable("x"), new FreeVariable("x_alpha")
+                        ), new FreeVariable("x_alpha_alpha")
+                ), "x"
+        );
+
+        HighlightableLambdaExpression hle3 = new HighlightableLambdaExpression(f);
+        assertEquals("\\x_alpha_alpha_alpha. x x_alpha x_alpha_alpha", hle3.toString());
+    }
+
+
 }
