@@ -17,7 +17,7 @@ public class ShareDialogBox extends DialogBox {
     @UiField
     Button copyToClipboardButton;
     @UiField
-    Button cancelButton;
+    Button closeButton;
 
     /**
      * Builds a new ShareDialogBox.
@@ -32,12 +32,30 @@ public class ShareDialogBox extends DialogBox {
         hide();
     }
 
+    private static native boolean copyToClipboard() /*-{
+        return $doc.execCommand('copy');
+    }-*/;
+
     /**
      * Executes once the cancelButton is pressed.
      */
-    @UiHandler("cancelButton")
+    @UiHandler("closeButton")
     void onCancelButtonClicked(ClickEvent event) {
-        hide();
+        ShareDialogBox.this.shareText.setText("");
+        ShareDialogBox.this.hide();
+    }
+
+    @UiHandler("copyToClipboardButton")
+    void onCopyToClipboardButtonClicked(ClickEvent event) {
+        this.shareText.setFocus(true);
+        this.shareText.selectAll();
+        boolean successful = copyToClipboard();
+
+        if (successful) {
+            // TODO Notify user, that copying to clipboard was succesful
+        } else {
+            // TODO Notify user, that copying to clipboard was not succesful
+        }
     }
 
     /**
@@ -56,6 +74,8 @@ public class ShareDialogBox extends DialogBox {
      */
     public void setShareText(String shareText) {
         this.shareText.setText(shareText);
+        this.shareText.setFocus(true);
+        this.shareText.selectAll();
     }
 
     interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {
