@@ -46,7 +46,7 @@ import java.util.ArrayList;
 public class SidebarView extends Composite implements SidebarDisplay {
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
-    
+
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
 
     @UiField
@@ -94,55 +94,62 @@ public class SidebarView extends Composite implements SidebarDisplay {
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
     public SidebarView(EventBus eventBus) {
-        createCssLinks();
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        this.stepNumber.setText(1 + "");
+
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.errorMessageDialogBox = new InfoDialogBox();
         this.languageMenu = new MenuBar(true);
         this.shareMenu = new MenuBar(true);
         this.userlib = new ArrayList<>();
-        setupShareLanguageMenu();
-        stackLibraries.showWidget(1);
+
+        this.stepNumber.setText(1 + "");
+        this.stackLibraries.showWidget(1);
         this.nightModeSwitch.setValue(true);
-        this.nightModeSwitch.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                boolean checked = ((CheckBox) event.getSource()).getValue();
-                if (!checked) {
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeAuroraStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeSidebarStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeEditorStyle);
 
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeAuroraStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeSidebarStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeEditorStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkCMStyle);
-
-                    Document.get().getBody().addClassName("lightMode");
-                    Document.get().getBody().removeClassName("darkMode");
-                } else if (checked) {
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeAuroraStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeSidebarStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeEditorStyle);
-
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
-                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
-                    Document.get().getBody().removeClassName("lightMode");
-                    Document.get().getBody().addClassName("darkMode");
-                }
-
-            }
-        });
+        setupShareLanguageMenu();
+        createCssLinks();
         eventWiring();
+        setupDefaultAuroraCSS();
+
+    }
+
+    private void setupDefaultAuroraCSS() {
         Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
         Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
         Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
         Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
+    }
 
+    private void wireNightModeSwitch() {
+        this.nightModeSwitch.addClickHandler(event -> {
+            boolean checked = ((CheckBox) event.getSource()).getValue();
+            if (!checked) {
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeAuroraStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeSidebarStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeEditorStyle);
+
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeAuroraStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeSidebarStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeEditorStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkCMStyle);
+
+                Document.get().getBody().addClassName("lightMode");
+                Document.get().getBody().removeClassName("darkMode");
+            } else if (checked) {
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeAuroraStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeSidebarStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeEditorStyle);
+
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
+                Document.get().getBody().removeClassName("lightMode");
+                Document.get().getBody().addClassName("darkMode");
+            }
+
+        });
     }
 
     private void createCssLinks() {
@@ -211,6 +218,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         wireStepNumber();
         wireAddLibraryFunction();
         wireStrategySelection();
+        wireNightModeSwitch();
     }
 
     private void wireStepNumber() {
