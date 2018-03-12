@@ -16,7 +16,12 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.LinkElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -72,12 +77,25 @@ public class SidebarView extends Composite implements SidebarDisplay {
     @UiField
     StackLayoutPanel stackLibraries;
 
+    LinkElement linkDarkModeAuroraStyle;
+    LinkElement linkLightModeAuroraStyle;
+
+    LinkElement linkDarkModeSidebarStyle;
+    LinkElement linkLightModeSidebarStyle;
+
+    LinkElement linkDarkModeEditorStyle;
+    LinkElement linkLightModeEditorStyle;
+
+    LinkElement linkLightCMStyle;
+    LinkElement linkDarkCMStyle;
+
 
     /**
      * Created the Sidebar.
      * In addition the add and remove library entry buttons are generated and added to the bar.
      */
     public SidebarView(EventBus eventBus) {
+        createCssLinks();
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.stepNumber.setText(1 + "");
@@ -88,9 +106,75 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userlib = new ArrayList<>();
         setupShareLanguageMenu();
         stackLibraries.showWidget(1);
+        this.nightModeSwitch.setValue(true);
+        this.nightModeSwitch.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                boolean checked = ((CheckBox) event.getSource()).getValue();
+                if (!checked) {
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeAuroraStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeSidebarStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeEditorStyle);
 
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeAuroraStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeSidebarStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeEditorStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkCMStyle);
+
+                    Document.get().getBody().addClassName("lightMode");
+                    Document.get().getBody().removeClassName("darkMode");
+                } else if (checked) {
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeAuroraStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeSidebarStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeEditorStyle);
+
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
+                    Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
+                    Document.get().getBody().removeClassName("lightMode");
+                    Document.get().getBody().addClassName("darkMode");
+                }
+
+            }
+        });
         eventWiring();
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
+
     }
+
+    private void createCssLinks() {
+        linkDarkModeAuroraStyle = Document.get().createLinkElement();
+        linkDarkModeAuroraStyle.setHref("css/AuroraDark.css");
+        linkDarkModeAuroraStyle.setRel("stylesheet");
+        linkLightModeAuroraStyle = Document.get().createLinkElement();
+        linkLightModeAuroraStyle.setHref("css/AuroraLight.css");
+        linkLightModeAuroraStyle.setRel("stylesheet");
+
+        linkDarkModeSidebarStyle = Document.get().createLinkElement();
+        linkDarkModeSidebarStyle.setHref("css/SidebarDark.css");
+        linkDarkModeSidebarStyle.setRel("stylesheet");
+        linkLightModeSidebarStyle = Document.get().createLinkElement();
+        linkLightModeSidebarStyle.setHref("css/SidebarLight.css");
+        linkLightModeSidebarStyle.setRel("stylesheet");
+
+        linkDarkModeEditorStyle = Document.get().createLinkElement();
+        linkDarkModeEditorStyle.setHref("css/EditorDark.css");
+        linkDarkModeEditorStyle.setRel("stylesheet");
+        linkLightModeEditorStyle = Document.get().createLinkElement();
+        linkLightModeEditorStyle.setHref("css/EditorLight.css");
+        linkLightModeEditorStyle.setRel("stylesheet");
+
+        linkDarkCMStyle = Document.get().createLinkElement();
+        linkDarkCMStyle.setHref("css/CodeMirror/material.css");
+        linkDarkCMStyle.setRel("stylesheet");
+
+
+    }
+
 
     private void setupShareLanguageMenu() {
         // sets up language menu
@@ -223,7 +307,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.stepNumber.setEnabled(stepNumber);
         this.addFunctionButton.setEnabled(addFunctionButton);
         this.strategySelection.setEnabled(strategySelection);
-        this.nightModeSwitch.setEnabled(nightModeSwitch);
+        //this.nightModeSwitch.setEnabled(nightModeSwitch);
     }
 
     private void wireStrategySelection() {

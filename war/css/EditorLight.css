@@ -1,0 +1,144 @@
+.centerPanel {
+    border: 1px solid #BFCBBE;
+    font-size: 16px;
+}
+
+.inputFieldCenter, .centerPanel div:nth-child(6), .outputDockLayoutPanel {
+    background-color: #fff !important;
+}
+.gwt-SplitLayoutPanel-VDragger {
+    background-color: rgb(232, 232, 232) !important;
+}
+
+.gwt-MenuBar-vertical {
+    background: rgb(232, 232, 232) !important;
+}
+
+.action_bar {
+    text-align: center;
+}
+
+.action_bar button {
+    padding: 3px 18px;
+    width: 75px;
+    text-align: right;
+    margin: 0 1px;
+    color: #fff;
+    font-size: 1.2em;
+    background-color: #177965;
+    background: unset;
+    position: relative;
+}
+
+.action_bar .run {
+    background-image: url("../img/icons/icon_run.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #177965;
+}
+
+.action_bar .pause {
+    background-image: url("../img/icons/icon_pause.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #AE9945;
+    width: 95px;
+}
+
+.action_bar .continue {
+    background-image: url("../img/icons/icon_run.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #AE9945;
+    width: 110px;
+}
+
+.action_bar .reset {
+    background-image: url("../img/icons/icon_reset.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #893232;
+    width: 90px;
+}
+
+.action_bar .step {
+    background-image: url("../img/icons/icon_steps_2.png");
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    background-color: #177965;
+    width: 80px;
+}
+
+.action_bar .disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+.action_bar .hidden {
+    display: none;
+}
+
+.action_bar .up {
+    z-index: 1000;
+}
+
+
+/* STEPS */
+
+.stepFieldTable .CodeMirror {
+    height: auto !important;
+}
+
+.stepFieldTable span{
+    font-size: 16px;
+}
+
+.stepFieldTable tbody tr {
+    display: flex;
+    padding: 2px 5px;
+    border-bottom: 1px solid #949494;
+}
+
+.stepFieldTable tbody tr td:nth-child(1) {
+    margin-right: 2px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #c9c8c8;
+}
+
+.stepFieldTable tbody tr .gwt-Button {
+    background: url("../img/icons/icon_settings.png") no-repeat center !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+td .subMenuItem {
+    display: none;
+}
+
+.stepFieldTable tbody tr .CodeMirror-line {
+    margin-left: 10px;
+}
+
+.CodeMirror pre {
+    background: inherit !important;
+}
+
+.outputShare {
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center center;
+    background: url("../img/icons/icon_share.png") no-repeat center !important;
+    background-color: rgb(232, 232, 232);
+}

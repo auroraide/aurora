@@ -51,8 +51,10 @@ div.gwt-TabLayoutPanelTabs {
     background-image: url("../img/aurora_logo.png");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 250px;
+    width: 260px;
     background-color: #33495D;
+    border-radius: 0;
+    background-position-y: 30%;
 }
 
 .gwt-TabLayoutPanelTabs > div:last-child {
