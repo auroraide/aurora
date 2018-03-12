@@ -46,17 +46,9 @@ import java.util.ArrayList;
 public class SidebarView extends Composite implements SidebarDisplay {
     interface SidebarUiBinder extends UiBinder<Widget, SidebarView> {
     }
-
+    
     private static SidebarUiBinder ourUiBinder = GWT.create(SidebarUiBinder.class);
-    private EventBus eventBus;
-    private int prevStepNumber = 1;
-    private ArrayList<String> userlib;
 
-    final AddLibraryItemDialogBox addLibraryItemDialogBox;
-    private final InfoDialogBox errorMessageDialogBox;
-
-    final MenuBar languageMenu;
-    final MenuBar shareMenu;
     @UiField
     TextBox stepNumber;
     @UiField
@@ -75,18 +67,26 @@ public class SidebarView extends Composite implements SidebarDisplay {
     FlowPanel shareButton;
     @UiField
     StackLayoutPanel stackLibraries;
+    final AddLibraryItemDialogBox addLibraryItemDialogBox;
+    final MenuBar languageMenu;
+    final MenuBar shareMenu;
 
-    LinkElement linkDarkModeAuroraStyle;
-    LinkElement linkLightModeAuroraStyle;
+    private final InfoDialogBox errorMessageDialogBox;
+    private EventBus eventBus;
+    private int prevStepNumber = 1;
+    private ArrayList<String> userlib;
 
-    LinkElement linkDarkModeSidebarStyle;
-    LinkElement linkLightModeSidebarStyle;
+    private LinkElement linkDarkModeAuroraStyle;
+    private LinkElement linkLightModeAuroraStyle;
 
-    LinkElement linkDarkModeEditorStyle;
-    LinkElement linkLightModeEditorStyle;
+    private LinkElement linkDarkModeSidebarStyle;
+    private LinkElement linkLightModeSidebarStyle;
 
-    LinkElement linkLightCMStyle;
-    LinkElement linkDarkCMStyle;
+    private LinkElement linkDarkModeEditorStyle;
+    private LinkElement linkLightModeEditorStyle;
+
+    private LinkElement linkLightCMStyle;
+    private LinkElement linkDarkCMStyle;
 
 
     /**
