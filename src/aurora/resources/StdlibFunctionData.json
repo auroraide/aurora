@@ -54,32 +54,44 @@
     },
 
     {
+        "name" : "EQ",
+        "function" : "(\\m.\\n. (\\p.\\q.p q p) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) m n) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) n m))",
+        "description" : ""
+    },
+
+    {
+        "name" : "LEQ",
+        "function" : "(\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a))))",
+        "description" : ""
+    },
+
+    {
+        "name" : "IsZero",
+        "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
+        "description" : ""
+    },
+
+    {
         "name" : "ifthenelse",
         "function" : "(\\b.\\x.\\y.b x y)",
         "description" : ""
     },
 
     {
-        "name" : "iszero",
-        "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
+        "name" : "pair",
+        "function" : "(\\a. \\b. \\f. f a b)",
         "description" : ""
     },
 
     {
-        "name" : "fst",
+        "name" : "first",
         "function" : "(\\p. p (\\a. \\b. a))",
         "description" : ""
     },
 
     {
-        "name" : "snd",
+        "name" : "second",
         "function" : "(\\p. p (\\a. \\b. b))",
-        "description" : ""
-    },
-
-    {
-        "name" : "pair",
-        "function" : "(\\a. \\b. \\f. f a b)",
         "description" : ""
     },
 
