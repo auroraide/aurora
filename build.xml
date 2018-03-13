@@ -62,7 +62,7 @@
     <target name="test" description="Build and run test suite.">
         <antcall target="cs"/>
         <antcall target="build"/>
-        <antcall target="-junit"/>
+        <antcall target="junit"/>
     </target>
 
     <target name="cs" depends="-libs" description="Run checkstyle.">
@@ -111,6 +111,18 @@
 
     <target name="war" depends="build" description="Pack everything into a WAR file.">
         <zip destfile="aurora.war" basedir="${war.dir}"/>
+    </target>
+
+    <target name="junit" depends="-javac-test" description="Run JUnit tests only.">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="project.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest fork="yes">
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
     <target name="dependency-tree" depends="-ivy-resolve">
