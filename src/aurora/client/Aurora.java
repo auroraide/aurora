@@ -22,7 +22,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.json.client.*;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONException;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -101,8 +105,6 @@ public class Aurora implements EntryPoint {
         try {
             value = JSONParser.parseStrict(json);
         } catch (JSONException e) {
-//            scheduler.scheduleDeferred((Command) () ->
-//                    sidebarDisplay.displayErrorMessage(errorMessage));
             GWT.log(errorMessage);
             return;
         }
@@ -123,13 +125,9 @@ public class Aurora implements EntryPoint {
             try {
                 t = lambdaParser.parse(lambdaLexer.lex(function));
             } catch (SyntaxException e) {
-//                scheduler.scheduleDeferred((Command) () ->
-//                        sidebarDisplay.displayErrorMessage(errorMessage));
                 GWT.log("Syntax Exception! Failed to lex " + "[" + function + "]" + "of function " + name + ".");
                 return;
             } catch (SemanticException e) {
-//                scheduler.scheduleDeferred((Command) () ->
-//                        sidebarDisplay.displayErrorMessage(errorMessage));
                 GWT.log("Semantic Exception! Failed to lex " + "[" + function + "]" + "of function " + name + ".");
                 return;
             }
@@ -143,13 +141,11 @@ public class Aurora implements EntryPoint {
             }
 
             if (stdLib.exists(name)) {
-//                sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
                 GWT.log("Function name " + name + "is already taken!");
                 return;
             }
 
             stdLib.define(name, description, t);
-//            sidebarDisplay.addStandardLibraryItem(name, description);
         }
     }
 }
