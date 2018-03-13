@@ -52,7 +52,8 @@ texjob:
         - echo "nop"
     script:
         #- pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex && pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex
-        - pdflatex -output-directory docs/testbericht/tex docs/testbericht/tex/testbericht.tex && pdflatex -output-directory docs/testbericht/tex docs/testbericht/tex/testbericht.tex
+        - pdflatex -output-directory docs/testbericht/tex docs/testbericht/tex/Testbericht.tex && pdflatex -output-directory docs/testbericht/tex docs/testbericht/tex/Testbericht.tex
     artifacts:
         paths:
-            - "docs/implementierung/tex/Implementierungsdokument.pdf"
+            #- "docs/implementierung/tex/Implementierungsdokument.pdf"
+            - "docs/testbericht/tex/Testbericht.pdf"
