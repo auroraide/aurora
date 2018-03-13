@@ -55,10 +55,6 @@ public class EditorPresenterTest {
     public void setUp() {
         editorDisplay = mock(EditorDisplay.class);
         bus = new SimpleEventBus();
-    }
-
-    private void setUpPresenterWithInput(String code) {
-        when(editorDisplay.getInput()).thenReturn(code);
         editorPresenter = new EditorPresenter(
                 bus,
                 editorDisplay,
@@ -70,6 +66,10 @@ public class EditorPresenterTest {
                 lexer,
                 parser
         );
+    }
+
+    private void setUpPresenterWithInput(String code) {
+        when(editorDisplay.getInput()).thenReturn(code);
     }
 
     private Term parse(String code) throws SyntaxException, SemanticException {
@@ -118,5 +118,16 @@ public class EditorPresenterTest {
         verify(editorDisplay).setInput(any());
         bus.fireEvent(new ResetEvent());
         bus.fireEvent(new StepEvent());
+    }
+
+    @Test
+    public void testRegression179SemanticErrorThenValid() {
+        setUpPresenterWithInput("$invalidname 2 3");
+        bus.fireEvent(new RunEvent());
+        verify(editorDisplay).displaySemanticError(any());
+
+        setUpPresenterWithInput("$add 2 3");
+        bus.fireEvent(new RunEvent());
+        verify(editorDisplay).displayResult(any());
     }
 }
