@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertEquals;
 
-public class EditorSeleniumTest {
+public class EditorSeleniumIntegrationTest {
     private final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
     private static WebDriver driver;
     private WebElement codeEditor;
