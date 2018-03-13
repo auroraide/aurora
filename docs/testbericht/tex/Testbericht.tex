@@ -118,6 +118,17 @@ bookmarks=true,
     }{
         Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
     }
+    
+    \regrtext{Hinzufügen einer benutzerdefinierten Bibliotheksfunktion soll in allen Zuständen der View außer RunningState möglich sein}{172}{
+    	Gibt man einen gültigen $\lambda$-Term in das Feld ein und klickt auf den Run Button. 
+		Dann ist das Hinzufügen einer benutzerdefinierte Bibliotheksfunktion nicht möglich.
+    }{
+    	Der SidebarView wird mitgeteilt, dass nur in den Zuständen DefaultState und 
+		FinishedFinishedState das Hinzufügen von benutzerdefinierten Bibliotheksfunktionen möglich ist.
+    }{
+    	Wir erlauben das Betätigen des AddFunctionButton in allen Zuständen außer RunningState,
+		indem wir auf den AddFunctionButton die Methode setEnabled(true) aufrufen.
+    }
 
     \regrtest{Ungültige Funktionsnamen bewirken Exception}{179}{
         Stand: Dialog zum Hinzufügen von einer neuen Benutzerbibliotheksfunktion is offen.
