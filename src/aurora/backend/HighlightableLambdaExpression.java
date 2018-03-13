@@ -526,8 +526,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Term visit(Function function) {
-                Term t = function.term;
-                return t.accept(this);
+                return function;
             }
 
             @Override
