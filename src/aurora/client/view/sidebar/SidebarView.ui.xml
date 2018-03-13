@@ -4,14 +4,12 @@
              ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
-
-
     <g:DockLayoutPanel unit="EM">
         <g:center>
 
             <g:DockLayoutPanel unit="EM" addStyleNames="panelSettings">
 
-                <g:north size="2.5">
+                <g:north size="3.5">
                     <!-- Step Setting -->
                     <g:FlowPanel addStyleNames="stepSettings">
                         <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
