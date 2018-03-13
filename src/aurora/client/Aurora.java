@@ -49,27 +49,6 @@ public class Aurora implements EntryPoint {
         // libraries
         Library userLib = new HashLibrary();
         Library stdLib = new HashLibrary();
-        stdLib.define("plus","Addition",new Abstraction(
-                new Abstraction(
-                        new Abstraction(
-                                new Abstraction(
-                                        new Application(
-                                                new Application(
-                                                        new BoundVariable(4), new BoundVariable(2)
-                                                ),
-                                                new Application(
-                                                        new Application(
-                                                                new BoundVariable(3), new BoundVariable(2)
-                                                        ), new BoundVariable(1)
-
-                                                )
-
-                                        ), "z"
-                                ),"s"
-                        ),"m"
-                ),"n"
-        ));
-
         ArrayList<Term> steps = new ArrayList<>();
 
         Library library = new MultiLibrary(userLib, stdLib);
