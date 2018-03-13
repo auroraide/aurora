@@ -83,6 +83,19 @@ bookmarks=true,
 
     \section{Regression Tests}
     Gesquäschte Bugs: 1337.
+    
+    \regrtest{Leerer Input in StepNumber TextBox führt zu nicht valide, dargestellten Wert}{133}{
+        Lösche den gesamten Input in StepNumber TextBox, so dass diese leer ist. Klicke auf eine beliebige Stelle in der Aurora WebApp.
+        Klicke zum Beispiel auf den Input Editor, so dass die StepNumber TextBox den Fokus verliert. Die StepNumber TextBox bleibt leer,
+        obwohl sie eigentlich eine valide Schrittzahl anzeigen sollte.
+    }{
+        Die StepNumber TextBox überprüft den Input nach jeder neuen Eingabe. Falls diese nicht valide ist, wird der letzte valide Wert angenommen.
+        Zudem wird auch eine leere TextBox akzeptiert, da auch valide Werte der Länge 1 eingegeben werden sollen. Wenn die TextBox leer ist und
+        den Fokus verliert, dann wird nicht der letzte valide Wert angenommen, da kein BlurHandler der StepNumber Textbox registriert wurde, 
+        der den Wert wieder auf den letzten validen Wert setzt.
+    }{
+        Der StepNumber TextBox wird ein BlurHandler hinzugefügt, der den letzten validen Wert der StepNumber TextBox zuweist.
+    }
 
     \regrtest{Kommentare mitgeparst}{151}{
         Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
@@ -102,7 +115,7 @@ bookmarks=true,
         Der Fehler ist klassisch. Es wurde vergessen, den Rückgabewert von \texttt{RegExp.exec(..)} auf \texttt{null} zu überprüfen.
     }{
         Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
-    }
+  }
 
     \section{Entfallene Kriterien und Testfallszenarien}
 
