@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class SidebarPresenterTest {
@@ -46,6 +47,7 @@ public class SidebarPresenterTest {
 
     @Test
     public void addingDollarPrefixFunctionNameInUserLibraryRegressionTest() {
-//        bus.fireEvent(new AddFunctionEvent("$plus a b", "x", "asdf"));
+        bus.fireEvent(new AddFunctionEvent("$plus a b", "x", "asdf"));
+        verify(sidebarDisplay).displayAddLibraryItemInvalidName();
     }
 }
