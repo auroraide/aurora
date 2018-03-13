@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,15 +40,64 @@ public class EditorSeleniumTest {
     }
 
     /**
-     * Tests T4.1 as described in Pflichtenheft.
+     * Tests T4.1
+     *
+     * Precondition: Aurora WebApp is opened and in DefaultState.
+     * Action: The User types in the lambda term "λx.x" in the input code editor and clicks on the run button.
+     * Reaction: The programm can't execute a beta-reduction and outputs "" in the result field.
      */
     @Test
     public void testIrreducibleLambdaTerm() {
-        codeEditor.sendKeys("λx.x x");
+        codeEditor.sendKeys("λx.x");
         driver.findElement(By.id("runButton")).click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        String content = driver.findElements(By.tagName("pre")).get(1).getText();
-        System.out.println(content);
-        assertEquals("λx. x x", content);
+        String resultContent = driver.findElements(By.tagName("pre")).get(1).getText();
+        assertEquals("λx. x", resultContent);
+    }
+
+    /**
+     * Tests T4.2
+     *
+     * Precondition: Aurora WebApp is opened and in DefaultState.
+     * Action: The User types in the lambda term "(λx.x x) z" in the input code editor and clicks on the run button.
+     * Reaction: The programm executes one beta-reduction and outputs "z" in the result field.
+     */
+    @Test
+    public void testOneBetaReduction() {
+        codeEditor.sendKeys("(λx.x) z");
+        driver.findElement(By.id("runButton")).click();
+        String resultContent = driver.findElements(By.tagName("pre")).get(2).getText();
+        assertEquals("z", resultContent);
+    }
+
+    /**
+     * Tests T4.3
+     *
+     * Precondition: Aurora WebApp is opened and in DefaultState.
+     * Action: The User types in the lambda term "(λn.λm.λs.λz.n s (m s z)) (λs.λz.s(s z)) (λs.λz.s(s z))"
+     *         in the input code editor and clicks on the run button.
+     * Reaction: The programm executes one beta-reduction and outputs "4" in the result field.
+     */
+    @Test
+    public void testPlusTwoTwoReduction() {
+        codeEditor.sendKeys("(λn.λm.λs.λz.n s (m s z)) (λs.λz.s(s z)) (λs.λz.s(s z))");
+        driver.findElement(By.id("runButton")).click();
+        String resultContent = driver.findElements(By.tagName("pre")).get(2).getText();
+        assertEquals("4", resultContent);
+    }
+
+    /**
+     * Tests T4.5
+     *
+     * Precondition: Aurora WebApp is calculating a lambda term and therefore is in RunningState.
+     * Action: The user clicks on the reset button.
+     * Reaction: The programm terminates the current calculation and does not output anything.
+     */
+    @Test
+    public void testNoResultOnResetBtnClicked() {
+        codeEditor.sendKeys("$pow 5 5");
+        driver.findElement(By.id("runButton")).click();
+        String resultContent = driver.findElements(By.tagName("pre")).get(1).getText();
+        assertEquals("", resultContent);
+
     }
 }
