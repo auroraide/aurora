@@ -25,7 +25,7 @@ public class ShareLaTeXTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Abstraction(
                 new BoundVariable(1),"x"));
         ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals("$\\lambda$x. x",sh.generateLaTeX());
+        assertEquals("$ \\lambda x. \\ x $",sh.generateLaTeX());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ShareLaTeXTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Function(
                 "test_", new FreeVariable("x")));
         ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals(sh.generateLaTeX(), "$\\$$test$\\_$");
+        assertEquals(sh.generateLaTeX(), "$ \\$ test\\_  $");
     }
 
     @Test
@@ -42,6 +42,6 @@ public class ShareLaTeXTest {
                 new Function("_test", new FreeVariable("a")), "x"
         ));
         ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals("$\\lambda$x. $\\$$$\\_$test", sh.generateLaTeX());
+        assertEquals("$ \\lambda x. \\ \\$ \\_ test $", sh.generateLaTeX());
     }
 }
