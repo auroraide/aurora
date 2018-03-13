@@ -84,6 +84,20 @@ bookmarks=true,
     \section{Regression Tests}
     Gesquäschte Bugs: 1337.
     
+    
+    \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
+    	Wir stellen die Schrittzahl auf 2 ein.
+		Es wird ($\lambda$x. x x)($\lambda$x. x x) in den Code-Editor eingegeben,  
+		dann auf den Run Button klickt, dann ein paar Sekunden gewartet und auf den Pause-Button geklickt. Es werden 2 Schritte im Schrittfenster angezeigt. Beispielsweise tragen diese die Nummern 101 und 102.
+		Klickt man nun auf den Step Button, dann werden die 2 Schritte, die ausgegeben werden, die Nummern 104 und 105.
+		Dabei wird die Nummer 103 ausgelassen.
+    }{
+    	Der EditorPresenter übergibt der EditorView via dem EditorDisplay den falschen Schrittindex. 
+		Der EditorPresenter hat bei der Berechnung des Schrittindex einen falschen Offset angegeben, welcher zum Fehler führt.
+    }{
+    	Es wird beim EditorPresenter der richtige Offset zur Berechnung des Schrittindex angegeben. 
+    }
+    
     \regrtest{Leerer Input in StepNumber TextBox führt zu nicht valide, dargestellten Wert}{133}{
         Lösche den gesamten Input in StepNumber TextBox, so dass diese leer ist. Klicke auf eine beliebige Stelle in der Aurora WebApp.
         Klicke zum Beispiel auf den Input Editor, so dass die StepNumber TextBox den Fokus verliert. Die StepNumber TextBox bleibt leer,
