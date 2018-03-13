@@ -96,6 +96,18 @@ bookmarks=true,
     }{
         Der StepNumber TextBox wird ein BlurHandler hinzugefügt, der den letzten validen Wert der StepNumber TextBox zuweist.
     }
+    
+    \regrtest{Das Ausführen einer nicht definierten Bibliotheksfunktion sollte einen Fehler anzeigen}{143}{
+    	Man gibt einen regulären $\lambda$-Term ein, der eine nicht definierte Bibliotheksfunktion enthält, ein und drückt auf den Run Button
+		Es wird keine Fehlermeldung angezeigt.
+    }{
+    	Das Anzeigen von Fehlern, bei Eingabe eines ungültigen $\lambda$-Terms, 
+		wurde noch nicht implementiert.
+    }{
+    	Implementiere die Funktionen displaySemanticError und displaySyntaxError in der Klasse EditorView.
+		Bei Ausführen der Berechnung eines ungültigen $\lambda$-Terms sollte in ein Zustandsübergang von RunningState auf DefaultState erfolgen.
+		Deswegen wird jedem Zustand eine neue Kante errorDisplayed hinzugefügt und implementiert.
+    }
 
     \regrtest{Kommentare mitgeparst}{151}{
         Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
