@@ -73,7 +73,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param func what to execute
      */
     public void on(String event, String func) {
-        applyCMFunction(editor, "on", event, "(" + func + ")");
+        addCMEvent(editor, "on", event, "(" + func + ")");
     }
 
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
@@ -90,7 +90,7 @@ public class CodeMirrorPanel extends SimplePanel {
 
     //Do NOT rename the JavaScriptObject editor!
     //It WILL break stuff.
-    private native Object applyCMFunction(JavaScriptObject editor, String key, String event, Object func) /*-{
+    private native Object addCMEvent(JavaScriptObject editor, String key, String event, Object func) /*-{
         return editor[key].apply(editor, [event, eval(func)]);
     }-*/;
 
