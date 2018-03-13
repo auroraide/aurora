@@ -6,7 +6,7 @@
 .stepSettings {
     font-size: 16px;
     color: #fff;
-    background-image: url("../img/icons/icon_step.png");
+    background-image: url("../img/icons/icon_step_turkis.png");
     background-repeat: no-repeat;
     background-size: auto 70%;
     background-position: 5% center;
@@ -263,8 +263,8 @@
     height:80px;
     background: #33495D !important;
 }
-.panelSettings .gwt-StackLayoutPanel div:nth-child(2), .panelSettings .gwt-StackLayoutPanel div:nth-child(4) {
-    overflow-y: scroll;
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2), .panelSettings .gwt-StackLayoutPanel > div:nth-child(4) {
+    overflow-y: scroll !important;
 }
 /*
 .gwt-MenuBarPopup {
