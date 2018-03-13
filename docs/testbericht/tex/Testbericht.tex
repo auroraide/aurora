@@ -94,6 +94,16 @@ bookmarks=true,
         Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
     }
 
+    \regrtest{Ungültige Funktionsnamen bewirken Exception}{179}{
+        Stand: Dialog zum Hinzufügen von einer neuen Benutzerbibliotheksfunktion is offen.
+        Gibt man einen ungültigen Namen ein und drückt auf Add, schließt sich der Dialog und die Funktion wird nicht
+        hinzugefügt. Auch sieht man eine UmbrellaException in der JavaScript Konsole.
+    }{
+        Der Fehler ist klassisch. Es wurde vergessen, den Rückgabewert von \texttt{RegExp.exec(..)} auf \texttt{null} zu überprüfen.
+    }{
+        Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
+    }
+
     \section{Entfallene Kriterien und Testfallszenarien}
 
     \section{Glossar}
