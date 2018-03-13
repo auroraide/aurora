@@ -24,6 +24,8 @@ stages:
 
 testjob:
     stage: test
+    except:
+        - testbericht
     script:
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
