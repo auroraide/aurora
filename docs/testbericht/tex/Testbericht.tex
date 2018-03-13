@@ -30,7 +30,26 @@ bookmarks=true,
 
 \usepackage{amsmath} % for $\text{}$
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
-\newcommand{\issueref}[1]{\href{https://git.scc.kit.edu/ap/Aurora/issues/#1}{(#1)}}
+\newcommand{\issueref}[1]{
+    \href{https://git.scc.kit.edu/ap/Aurora/issues/#1}{(#1)}
+}
+% Titel GitLab issue number, Symptome, Grund, Behebung.
+\newcommand{\regrtest}[5]{
+    \subsection{#1 \issueref{#2}}
+    \begin{itemize}
+        \item \textbf{Symptom}
+            #3
+            %Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
+            %fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+        \item \textbf{Grund}
+            #4
+            %Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
+            %Regex-Shorthand \texttt{\textbackslash v}.
+        \item \textbf{Ursache}
+            #5
+            %Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    \end{itemize}
+}
 
 \begin{titlepage}
 
@@ -65,18 +84,15 @@ bookmarks=true,
     \section{Regression Tests}
     Gesquäschte Bugs: 1337.
 
-    \subsection{Kommentare mitgeparst \issueref{151}}
-
-    \begin{itemize}
-        \item \textbf{Symptom}
-            Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
-            fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
-        \item \textbf{Symptom}
-            Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
-            Regex-Shorthand \texttt{\textbackslash v}.
-        \item \textbf{Symptom}
-            Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
-    \end{itemize}
+    \regrtest{Kommentare mitgeparst}{151}{
+        Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
+        fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+    }{
+        Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
+        Regex-Shorthand \texttt{\textbackslash v}.
+    }{
+        Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    }
 
     \section{Entfallene Kriterien und Testfallszenarien}
 
