@@ -65,16 +65,33 @@ public class CodeMirrorPanel extends SimplePanel {
         callCMFunction(editor, "setOption", option, value);
     }
 
-    private native Object callCMFunction(JavaScriptObject jso, String name) /*-{
-        return jso[name].apply(jso);
+    /**
+     * Allows setting of events.
+     * Referencing the the CodeMirrorPanel from within the function is done using "editor".
+     *
+     * @param event which event to set
+     * @param func what to execute
+     */
+    public void on(String event, String func) {
+        applyCMFunction(editor, "on", event, "(" + func + ")");
+    }
+
+    private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
+        return jso[key].apply(jso);
     }-*/;
 
-    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg) /*-{
-        return jso[name].apply(jso, [arg]);
+    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg) /*-{
+        return jso[key].apply(jso, [arg]);
     }-*/;
 
-    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg1, Object arg2) /*-{
-        return jso[name].apply(jso, [arg1, arg2]);
+    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2) /*-{
+        return jso[key].apply(jso, [arg1, arg2]);
+    }-*/;
+
+    //Do NOT rename the JavaScriptObject editor!
+    //It WILL break stuff.
+    private native Object applyCMFunction(JavaScriptObject editor, String key, String event, Object func) /*-{
+        return editor[key].apply(editor, [event, eval(func)]);
     }-*/;
 
     private static native void console(String text) /*-{
