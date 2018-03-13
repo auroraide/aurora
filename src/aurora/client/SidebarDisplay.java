@@ -42,6 +42,11 @@ public interface SidebarDisplay {
     void displayAddLibraryItemInvalidName();
 
     /**
+     * Displays an error message.
+     */
+    void displayErrorMessage(String errorMessage);
+
+    /**
      * Adds a new function to the views user library.
      *
      * @param name        The name function.

@@ -8,13 +8,21 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     public static Type<ExportLaTeXEventHandler> TYPE = new Type<>();
+    /**
+     * Represents the index of the result step.
+     */
+    public static final int RESULT = -1;
+
+    /**
+     * Represents the index of input.
+     */
+    public static final int INPUT = 0;
     private final int index;
 
     /**
      * Simple constructor.
      *
-     * @param index Gets the index of the selected step. 0 means input, 1 is the first step.
-     *              Last index might be the output, as long as it has already been computed.
+     * @param index Gets the index of the selected step. 0 means input, 1 is the first step and -1 means result.
      */
     public ExportLaTeXEvent(int index) {
         this.index = index;
@@ -31,8 +39,7 @@ public class ExportLaTeXEvent extends GwtEvent<ExportLaTeXEventHandler> {
     }
 
     /**
-     * Gets the index of the selected step. 0 means input, 1 is the first step. Last index might be the output,
-     * as long as it has already been computed.
+     * Gets the index of the selected step. 0 means input, 1 is the first step and -1 means result.
      * @return Step index.
      */
     public int getIndex() {

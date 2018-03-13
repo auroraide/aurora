@@ -11,7 +11,7 @@
 
         <g:HorizontalPanel>
             <g:Button ui:field="copyToClipboardButton"><ui:msg description="Cope To Clipboard">Copy to Clipboard</ui:msg></g:Button>
-            <g:Button ui:field="cancelButton"><ui:msg description="Share Cancel">CANCEL</ui:msg></g:Button>
+            <g:Button ui:field="closeButton"><ui:msg description="Share Cancel">CANCEL</ui:msg></g:Button>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
