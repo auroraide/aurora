@@ -3,6 +3,7 @@ package aurora.client.presenter;
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.library.Library;
+import aurora.backend.library.LibraryItem;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
@@ -11,18 +12,10 @@ import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
-import aurora.resources.Resources;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONException;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
-import com.google.gwt.user.client.Command;
 
 
 /**
@@ -52,7 +45,9 @@ public class SidebarPresenter {
                             Library stdLib,
                             Library userLib,
                             LambdaLexer lambdaLexer,
-                            LambdaParser lambdaParser) {
+                            LambdaParser lambdaParser)
+    {
+        functionName = RegExp.compile("^([A-Za-z][A-Za-z0-9_]*)");
         this.eventBus = eventBus;
         this.sidebarDisplay = sidebarDisplay;
         this.stdLib = stdLib;
@@ -60,18 +55,27 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
-        functionName = RegExp.compile("^([A-Za-z][A-Za-z0-9_]*)");
-        readInStdLibFunctions();
+        populateStdLibInView();
+    }
+
+    private void populateStdLibInView() {
+        for (LibraryItem item : stdLib) {
+            sidebarDisplay.addStandardLibraryItem(item.getName(), item.getDescription());
+        }
     }
 
     private void bind() {
         eventBus.addHandler(AddFunctionEvent.TYPE, this::onAddFunction);
-        eventBus.addHandler(DeleteFunctionEvent.TYPE, this::onDeletFunction);
+        eventBus.addHandler(DeleteFunctionEvent.TYPE, this::onDeleteFunction);
     }
 
-    private void onDeletFunction(DeleteFunctionEvent e) {
+    private void onDeleteFunction(DeleteFunctionEvent e) {
         userLib.remove(e.getFunctionName());
-        GWT.log("Delete userllib function.");
+        GWT.log("Delete userlib function.");
+    }
+
+    private boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 
     private void onAddFunction(AddFunctionEvent input) {
@@ -92,8 +96,7 @@ public class SidebarPresenter {
         }
 
         MatchResult result = functionName.exec(input.getName());
-        String resultString = result.getGroup(0);
-        if (resultString == null || resultString.isEmpty()) {
+        if (result == null || isNullOrEmpty(result.getGroup(0))) {
             sidebarDisplay.displayAddLibraryItemInvalidName();
             return;
         }
@@ -113,59 +116,4 @@ public class SidebarPresenter {
         GWT.log("Succesfully parsing lambda term. Parsed Lambda Term:" + hle.toString());
     }
 
-    private void readInStdLibFunctions() {
-        final String errorMessage = "Failed initialising the standard library";
-        Scheduler scheduler = Scheduler.get();
-        String json = Resources.INSTANCE.stdlibFunctionData().getText();
-        JSONValue value;
-        try {
-            value = JSONParser.parseStrict(json);
-        } catch (JSONException e) {
-            scheduler.scheduleDeferred((Command) () ->
-                    sidebarDisplay.displayErrorMessage(errorMessage));
-            GWT.log(errorMessage);
-            return;
-        }
-
-        JSONArray stdlibFunctionArray = (JSONArray) value;
-        Term t;
-
-        for (int i = 0; i < stdlibFunctionArray.size(); i++) {
-            JSONObject stdlibFunctionData = (JSONObject) stdlibFunctionArray.get(i);
-
-            final String name = stdlibFunctionData.get("name").isString().stringValue();
-            final String function = stdlibFunctionData.get("function").isString().stringValue();
-            final String description = stdlibFunctionData.get("description").isString().stringValue();
-
-            try {
-                t = lambdaParser.parse(lambdaLexer.lex(function));
-            } catch (SyntaxException e) {
-                scheduler.scheduleDeferred((Command) () ->
-                        sidebarDisplay.displayErrorMessage(errorMessage));
-                GWT.log("Syntax Exception! Failed to lex " + "[" + function + "]" + "of function " + name + ".");
-                return;
-            } catch (SemanticException e) {
-                scheduler.scheduleDeferred((Command) () ->
-                        sidebarDisplay.displayErrorMessage(errorMessage));
-                GWT.log("Semantic Exception! Failed to lex " + "[" + function + "]" + "of function " + name + ".");
-                return;
-            }
-            MatchResult result = functionName.exec(name);
-            String resultString = result.getGroup(0);
-            if (resultString == null || resultString.isEmpty()) {
-                GWT.log(name + " is an invalid function name!");
-                return;
-            }
-
-            if (stdLib.exists(name)) {
-                sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
-                GWT.log("Function name " + name + "is already taken!");
-                return;
-            }
-
-            stdLib.define(name, description, t);
-            sidebarDisplay.addStandardLibraryItem(name, description);
-        }
-
-    }
 }
