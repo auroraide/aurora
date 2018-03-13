@@ -16,6 +16,9 @@ import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Tests SidebarPresenter.
+ */
 @RunWith(GwtMockitoTestRunner.class)
 public class SidebarPresenterTest {
     private static LambdaParser parser;
@@ -31,6 +34,9 @@ public class SidebarPresenterTest {
         parser = new LambdaParser(new HashLibrary());
     }
 
+    /**
+     * Sets up sidebarDisplay, bus, sidebarPresenter.
+     */
     @Before
     public void setUp() {
         sidebarDisplay = mock(SidebarDisplay.class);
