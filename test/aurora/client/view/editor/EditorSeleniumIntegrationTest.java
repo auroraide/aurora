@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EditorSeleniumIntegrationTest {
     private final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
@@ -22,7 +23,7 @@ public class EditorSeleniumIntegrationTest {
      */
     @BeforeClass
     public static void startWebDriver() {
-        driver = new JBrowserDriver(Settings.builder().headless(false).build());
+        driver = new JBrowserDriver(Settings.builder().headless(true).build());
     }
 
     @AfterClass
@@ -96,8 +97,28 @@ public class EditorSeleniumIntegrationTest {
     public void testNoResultOnResetBtnClicked() {
         codeEditor.sendKeys("$pow 5 5");
         driver.findElement(By.id("runButton")).click();
-        String resultContent = driver.findElements(By.tagName("pre")).get(1).getText();
-        assertEquals("", resultContent);
+        int resultContent = driver.findElements(By.tagName("pre")).get(1).getText().hashCode();
+        assertEquals(8203, resultContent);
+    }
+
+    /**
+     * Tests T4.7
+     *
+     * Precondition: Aurora WebApp is calculating a lambda term and therefore is in RunningState.
+     * Action: The user clicks on the pause button.
+     * Reaction:
+     */
+    @Test
+    public void testContinueButtonClickedPossible() {
+        codeEditor.sendKeys("$pow 5 5");
+        driver.findElement(By.id("runButton")).click();
+        driver.findElement(By.id("pauseButton")).click();
+
+        boolean continueBtnDisplayedAndEnabled = driver.findElement(By.id("continueButton")).isDisplayed()
+                && driver.findElement(By.id("continueButton")).isEnabled();
+
+        assertTrue("Continue button is displayed and visible", continueBtnDisplayedAndEnabled);
+
 
     }
 }
