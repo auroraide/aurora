@@ -24,13 +24,17 @@
 }
 .stepSettings .gwt-TextBox {
     background-color: #fff;
-    border: 1px solid #33495D;
-    border-radius: 15%;
+    border: none !important;
+    border-bottom: 1px solid #b2b0b0 !important;
+    text-align: center;
+    /*border-radius: 15%;*/
     position: relative;
     bottom: 6px;
-    color: #1e9e84;
+    line-height: 1em;
     height: 90%;
-    width: 10%;
+    width: 13%;
+    color: #1e9e84;
+
 }
 
 .standrard_db {
