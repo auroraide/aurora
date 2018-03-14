@@ -21,6 +21,7 @@
 \usepackage[section]{placeins}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{colortbl}
 \hypersetup{
 pdftitle={Testbericht},
 bookmarks=true,
@@ -76,7 +77,163 @@ bookmarks=true,
 
 
     \section{Testfallszenarien}
+    Die Testfallszenarien kommen aus dem Pflichtenheft. (Einführungstxt)
+    
+    \subsection{Sprachenauswahl}
+    Getestet: Sprache ist auswählbar (F37)
 
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T1.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T1.2} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\subsection{Teilen-Funktion}
+    Getestet: LaTeX-Export (F55)
+
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T2.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T2.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T2.3} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+	\subsection{Darstellung in Chrome}
+    Getestet: Korrekte Darstellung in Google Chrome (N1), Eingabefeld (F1), Zeilennummern (F2), Night Mode (F38), Mobile Darstellung (F39)
+
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T3.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T3.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T3.3} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+	
+		\subsection{Eingabe und korrektes Ergebnis}
+    Getestet: Eingabefeld (F1), Zeilennummern (F2), Eingabefeld bearbeiten (F3), Autovervollständigung von Klammern (F4), Keine Änderungen während der Auswertung (F6), Schleifenerkennung (F42), Kein Timeout (F43), Run (F14), Normalreihenfolge (F27), $\beta$-Reduktion (F40), Auswertung beendet (F41), Ausgabefeld (F32), Reset (F16), Pause (F17), Continue (F18), Ausgabefeld nicht editierbar (F33), Kommentare (F8)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T4.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T4.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.3} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.4} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T4.5} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.6} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.7} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T4.8} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.9} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T4.10} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T4.11} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Testen von Highlighting}
+    Getestet: Highlighting von Lambdas und Punkten (F9), Highlighting von Klammern (F10), Highlighting von Funktionsnamen (F11), Highlighting des nächsten auszuwertenden Redex (F12), Highlighting des zuletzt ausgeführten Redex (F13)
+
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T5.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T5.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T5.3} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Testen der Standard- und Benutzerbibliotheken}
+    Getestet: Eingabefeld (F1), Zeilennummern (F2), Eingabefeld bearbeiten (F3), Autovervollständigung von Klammern (F4), Run (F14), Funktionsnamen-Konvention (F25), Standardbibliothek (F20), Benutzerbibliothek (F21), Erweitern der Benutzerbibliothek (F22), Definition einer Funktion (F24), Normalreihenfolge (F27), $\beta$-Reduktion (F40), Auswertung beendet (F41), Ausgabefeld (F32), Entfernen aus der Benutzerbibliothek (F23), Äquivalenz von Funktionen und deren Definition (F26), $\beta$-Reduktionen angezeigen (F34), Anzahl von dargestellten Schritten auswählen (F5)
+
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T6.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T6.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.3} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.4} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T6.5} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.6} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.7} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T6.8} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.9} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T6.10} & \cellcolor{green!20}JA \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Auswertungsstrategie und de Brujin}
+    Getestet:  Normalreihenfolge (F27), Call-by-Name (F28), Call-by-Value (F29), Auswahl der Auswertungsstrategie (F30), Benutzerdefinierte Redex Wahl (F31), Share (F19), De Bruijn-Indizes (F35)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T7.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T7.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T7.3} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Sharing und Speichern}
+    Getestet: In neuem Tab öffnen (F54), Historie (F44), Permanenz der Historie (F45), Wiederherstellen der Historie (F46), Benutzerbibliothek in der Historie (F48), Löschen der Historie (F47), Share (F19), E-Mail Link (F56)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T8.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T8.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T8.3} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T8.4} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T8.5} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T8.6} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Tutorial und Prettyprint}
+    Getestet: Tutorial (F57), Pretty Print (F7)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T9.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T9.2} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Ausgabe von Zwischenschritten}
+    Getestet: Anzahl der angezeigten Schritte (F36), Step (F15)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T10.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T10.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T10.3} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+
+\subsection{Shortcuts}
+    Getestet: Lambda-Shortcut (F49), Run-Shortcut (F50), Reset-Shortcut (F51), Pause-Shortcut (F52), Step-Shortcut (F53)
+	\label{shortcuts}
+	\begin{center}
+		\begin{tabular}{ p{9cm} p{4cm}}
+    			Testfall & Abdeckung \\ \hline
+    			\texttt{T11.1} & \cellcolor{green!20}JA \\ \hline
+    			\texttt{T11.2} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T11.3} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T11.4} & \cellcolor{red!20}NEIN \\ \hline
+			\texttt{T11.5} & \cellcolor{red!20}NEIN \\ \hline
+		\end{tabular}
+	\end{center}
+	
     \section{Testfallüberdeckung per Package}
     % Viele Screenshots von den überdeckungsberichtdingers.
     % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
