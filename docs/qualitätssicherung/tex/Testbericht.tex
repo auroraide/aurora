@@ -50,6 +50,15 @@ bookmarks=true,
             %Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
     \end{itemize}
 }
+\newcommand{\testcase}[3]{
+    \item \textbf{#1 #2}
+        \begin{itemize}
+            #3
+        \end{itemize}
+}
+\newcommand{\testcasestep}[3]{
+    \item \textbf{#1 #2} #3
+}
 
 \begin{titlepage}
 
@@ -76,6 +85,19 @@ bookmarks=true,
 
 
     \section{Testfallszenarien}
+    Testfallszenarien werden in Selenium geschrieben.
+    \begin{itemize}
+        \testcase{T1}{Sprachauswahl}{
+        }
+        \testcase{T2}{Teilen-Funktion}{
+        }
+        \testcase{T3}{Darstellung in Chrome}{
+        }
+        \testcase{T4}{Eingabe und korrektes Ergebnis}{
+            \testcasestep{T4.4}{Endlosschleifenerkennung}{wurde nicht getestet da das Wunschkriterium \textbf{K19}
+            weggefallen ist.}
+        }
+    \end{itemize}
 
     \section{Testfallüberdeckung per Package}
     % Viele Screenshots von den überdeckungsberichtdingers.
@@ -233,7 +255,7 @@ bookmarks=true,
 }
 
 
-    \section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
+    \section{Entfallene/Adaptierte Kriterien}
     \subsection{Ausgabe mit De Brujin-Indizes (K22)}
     Es wird immer noch intern mit De Brujin-Indizes gerechnet, jedoch hat das Hinzufügen und Testen einer zusätzlichen
     Option, die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
