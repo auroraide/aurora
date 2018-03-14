@@ -24,6 +24,7 @@ public class ShareDialogBox extends DialogBox {
      * A popup containing the exportable text snippet.
      */
     public ShareDialogBox(String captionText) {
+        this.setStyleName("shareDialogBox");
         setWidget(ourUiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
         setText(captionText);
