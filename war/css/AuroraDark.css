@@ -85,3 +85,76 @@ div.gwt-TabLayoutPanelTabs {
 .block {
     display: block;
 }
+
+/*ADD NEW FUNCTION*/
+.addLibraryItem {
+    background: #4f5356;
+    border-radius: 3%;
+    -webkit-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    left: 40vw !important;
+    top: 20vh !important;
+}
+
+.addLibraryItem .Caption {
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+    font-weight: 700;
+    font-size: 14px;
+    background: #177965;
+    border-radius: 3%;
+}
+
+.addLibraryItem .dialogMiddleCenter {
+    padding: 10px;
+}
+
+.addLibraryItem > div > table > tbody > .dialogMiddle > .dialogMiddleCenter > div > table > tbody > tr > td > table {
+    margin-bottom: 10px;
+}
+
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > input, .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > textarea {
+    background: #4f5356;
+    border: none;
+    border-bottom: 1px solid #fff;
+}
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) {
+    vertical-align: top;
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-right: 10px;
+    line-height: 15px;
+    vertical-align: middle;
+}
+
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) >.gwt-Label {
+    padding-top: 10px;
+    margin-right: 10px;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(1) > button {
+    min-width: 80px;
+    background: #177965 !important;
+    border: none;
+    color: #fff;
+    margin-right: 5px;
+    border: 1px solid #145f4f;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2) > button {
+    background: #81333d !important;
+    min-width: 80px;
+    border: none;
+    color: #fff;
+    border: 1px solid #692730;
+}

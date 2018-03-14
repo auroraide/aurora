@@ -30,6 +30,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
      * Provides an interface to add new functions to the user library.
      */
     public AddLibraryItemDialogBox() {
+        this.setStyleName("addLibraryItem");
         setWidget(ourUiBinder.createAndBindUi(this));
         setUpDialogBox();
     }
