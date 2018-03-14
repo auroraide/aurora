@@ -120,22 +120,26 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void displayAddLibraryItemSyntaxError(SyntaxException error) {
-        Window.alert("Syntax error at col: " + error.getColumn() + " !");
+        this.errorMessageDialogBox.setDescription("Syntax error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemSemanticError(SemanticException error) {
-        Window.alert("Semantic error at col: " + error.getColumn() + " !");
+       this.errorMessageDialogBox.setDescription("Semantic error detected at column " + error.getColumn() + ".");
+       this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemNameAlreadyTaken() {
-        Window.alert("Function name is already taken!");
+        this.errorMessageDialogBox.setDescription("The function name is already taken. Please choose another one.");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemInvalidName() {
-        Window.alert("Function name is incorrect!");
+        this.errorMessageDialogBox.setDescription("The function name is not valid.");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
