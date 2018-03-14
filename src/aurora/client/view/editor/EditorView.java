@@ -134,7 +134,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("autoCloseBrackets", true);
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
-            console(getInput());
+            inputCodeMirror.setOption("back2Lambda", null);
         });
     }
 
@@ -268,7 +268,6 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("readOnly", true);
             cmp.setOption("mode", "aurorascript");
             cmp.setOption("matchBrackets", true);
-            cmp.setOption("theme", "mbo");
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
         });
