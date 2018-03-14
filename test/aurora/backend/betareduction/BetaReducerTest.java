@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import aurora.backend.Comparer;
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.SimplifierVisitor;
+import aurora.backend.TermPrinter;
 import aurora.backend.betareduction.strategies.CallByName;
 import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.library.HashLibrary;
@@ -71,6 +73,30 @@ public class BetaReducerTest {
         Abstraction correct = new Abstraction(new FreeVariable("a"),"y");
         Comparer cr = new Comparer(result,correct);
         assertEquals(cr.compare(),true);
+    }
+
+    @Test
+    @Ignore
+    public void stackOverflow() {
+        Term t = new Application(
+                new ChurchNumber(6),
+                new ChurchNumber(6)
+        );
+
+        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(new NormalOrder()), t);
+
+        int i = 0;
+        while (bri.hasNext()) {
+            t = bri.next();
+            System.out.println("Step: " + ++i);
+        }
+
+        /*Term expected = new ChurchNumber(823543).getAbstraction();
+
+        assertEquals(
+                t.accept(new SimplifierVisitor()),
+                expected.accept(new SimplifierVisitor())
+        );*/
     }
 
     @Test
