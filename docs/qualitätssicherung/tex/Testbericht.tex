@@ -1,0 +1,160 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+\usepackage[T1]{fontenc}
+\usepackage[sfdefault]{roboto}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+pdftitle={Testbericht},
+bookmarks=true,
+}
+\usepackage{csquotes}
+\usepackage{upgreek}
+
+\usepackage{amsmath} % for $\text{}$
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\newcommand{\issueref}[1]{
+    \href{https://git.scc.kit.edu/ap/Aurora/issues/#1}{(#1)}
+}
+% Titel GitLab issue number, Symptome, Grund, Behebung.
+\newcommand{\regrtest}[5]{
+    \subsection{#1 \issueref{#2}}
+    \begin{itemize}
+        \item \textbf{Symptom}
+            #3
+            %Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
+            %fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+        \item \textbf{Grund}
+            #4
+            %Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
+            %Regex-Shorthand \texttt{\textbackslash v}.
+        \item \textbf{Behebung}
+            #5
+            %Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    \end{itemize}
+}
+
+\begin{titlepage}
+
+    \subject{Testbericht}
+    \title{\textbf{$\uplambda$}urora}
+    \subtitle{The Lambda Calculus IDE}
+
+
+    \author{Iuliia Patrusheva, Alexander von Heyden\\
+    Younis Bensalah, Max Nowak\\
+    Nikolai Polley, Randy Seng}
+
+\end{titlepage}
+
+
+
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+
+    \section{Einleitung}
+
+
+    \section{Testfallszenarien}
+
+    \section{Testfallüberdeckung per Package}
+    % Viele Screenshots von den überdeckungsberichtdingers.
+    % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
+
+    \section{Regression Tests}
+    Gesquäschte Bugs: 1337.
+    
+    
+    \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
+    	Wir stellen die Schrittzahl auf 2 ein.
+		Es wird ($\lambda$x. x x)($\lambda$x. x x) in den Code-Editor eingegeben,  
+		dann auf den Run Button klickt, dann ein paar Sekunden gewartet und auf den Pause-Button geklickt. Es werden 2 Schritte im Schrittfenster angezeigt. Beispielsweise tragen diese die Nummern 101 und 102.
+		Klickt man nun auf den Step Button, dann werden die 2 Schritte, die ausgegeben werden, die Nummern 104 und 105.
+		Dabei wird die Nummer 103 ausgelassen.
+    }{
+    	Der EditorPresenter übergibt der EditorView via dem EditorDisplay den falschen Schrittindex. 
+		Der EditorPresenter hat bei der Berechnung des Schrittindex einen falschen Offset angegeben, welcher zum Fehler führt.
+    }{
+    	Es wird beim EditorPresenter der richtige Offset zur Berechnung des Schrittindex angegeben. 
+    }
+    
+    \regrtest{Leerer Input in StepNumber TextBox führt zu nicht valide, dargestellten Wert}{133}{
+        Lösche den gesamten Input in StepNumber TextBox, so dass diese leer ist. Klicke auf eine beliebige Stelle in der Aurora WebApp.
+        Klicke zum Beispiel auf den Input Editor, so dass die StepNumber TextBox den Fokus verliert. Die StepNumber TextBox bleibt leer,
+        obwohl sie eigentlich eine valide Schrittzahl anzeigen sollte.
+    }{
+        Die StepNumber TextBox überprüft den Input nach jeder neuen Eingabe. Falls diese nicht valide ist, wird der letzte valide Wert angenommen.
+        Zudem wird auch eine leere TextBox akzeptiert, da auch valide Werte der Länge 1 eingegeben werden sollen. Wenn die TextBox leer ist und
+        den Fokus verliert, dann wird nicht der letzte valide Wert angenommen, da kein BlurHandler der StepNumber Textbox registriert wurde, 
+        der den Wert wieder auf den letzten validen Wert setzt.
+    }{
+        Der StepNumber TextBox wird ein BlurHandler hinzugefügt, der den letzten validen Wert der StepNumber TextBox zuweist.
+    }
+    
+    \regrtest{Das Ausführen einer nicht definierten Bibliotheksfunktion sollte einen Fehler anzeigen}{143}{
+    	Man gibt einen regulären $\lambda$-Term ein, der eine nicht definierte Bibliotheksfunktion enthält, ein und drückt auf den Run Button
+		Es wird keine Fehlermeldung angezeigt.
+    }{
+    	Das Anzeigen von Fehlern, bei Eingabe eines ungültigen $\lambda$-Terms, 
+		wurde noch nicht implementiert.
+    }{
+    	Implementiere die Funktionen displaySemanticError und displaySyntaxError in der Klasse EditorView.
+		Bei Ausführen der Berechnung eines ungültigen $\lambda$-Terms sollte in ein Zustandsübergang von RunningState auf DefaultState erfolgen.
+		Deswegen wird jedem Zustand eine neue Kante errorDisplayed hinzugefügt und implementiert.
+    }
+
+    \regrtest{Kommentare mitgeparst}{151}{
+        Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
+        fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+    }{
+        Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
+        Regex-Shorthand \texttt{\textbackslash v}.
+    }{
+        Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    }
+    
+    \regrtest{Hinzufügen einer benutzerdefinierten Bibliotheksfunktion soll in allen Zuständen der View außer RunningState möglich sein}{172}{
+    	Gibt man einen gültigen $\lambda$-Term in das Feld ein und klickt auf den Run Button. 
+		Dann ist das Hinzufügen einer benutzerdefinierte Bibliotheksfunktion nicht möglich.
+    }{
+    	Der SidebarView wird mitgeteilt, dass nur in den Zuständen DefaultState und 
+		FinishedFinishedState das Hinzufügen von benutzerdefinierten Bibliotheksfunktionen möglich ist.
+    }{
+    	Wir erlauben das Betätigen des AddFunctionButton in allen Zuständen außer RunningState,
+		indem wir auf den AddFunctionButton die Methode setEnabled(true) aufrufen.
+    }
+
+    \regrtest{Ungültige Funktionsnamen bewirken Exception}{179}{
+        Stand: Dialog zum Hinzufügen von einer neuen Benutzerbibliotheksfunktion is offen.
+        Gibt man einen ungültigen Namen ein und drückt auf Add, schließt sich der Dialog und die Funktion wird nicht
+        hinzugefügt. Auch sieht man eine UmbrellaException in der JavaScript Konsole.
+    }{
+        Der Fehler ist klassisch. Es wurde vergessen, den Rückgabewert von \texttt{RegExp.exec(..)} auf \texttt{null} zu überprüfen.
+    }{
+        Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
+  }
+
+    \section{Entfallene Kriterien und Testfallszenarien}
+
+    \section{Glossar}
+\end{document}
