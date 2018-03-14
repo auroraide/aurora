@@ -147,18 +147,6 @@
         <copy todir="${war.lib.dir}" file="${gwt.sdk}/gwt-servlet-deps.jar"/>
     </target>
 
-    <target name="-junit" depends="-javac-test">
-        <junit printsummary="yes" haltonfailure="yes">
-            <classpath refid="project.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <batchtest fork="yes">
-                <fileset dir="${test.dir}">
-                    <include name="**/*Test.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
-
     <target name="-javac" depends="-libs">
         <mkdir dir="${war.classes.dir}"/>
         <javac
