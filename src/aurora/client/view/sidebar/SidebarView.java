@@ -143,12 +143,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     @Override
-    public void displayErrorMessage(String errorMessage) {
-        this.errorMessageDialogBox.setDescription(errorMessage);
-        this.errorMessageDialogBox.show();
-    }
-
-    @Override
     public void addUserLibraryItem(String name, String description) {
         int row = userLibraryTable.getRowCount();
         this.userlib.add(name);
