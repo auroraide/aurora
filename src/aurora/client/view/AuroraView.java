@@ -178,7 +178,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
             if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()){
-                nativeEvent.preventDefault();
                 Scheduler.get().scheduleDeferred((Command) () -> {
                     GWT.log("Hotkey pressed for reset");
                     AuroraView.this.currentState.resetBtnClicked();
