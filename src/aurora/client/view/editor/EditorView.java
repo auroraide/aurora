@@ -275,7 +275,6 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("readOnly", true);
             cmp.setOption("mode", "aurorascript");
             cmp.setOption("matchBrackets", true);
-            cmp.setOption("theme", "mbo");
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
         });
