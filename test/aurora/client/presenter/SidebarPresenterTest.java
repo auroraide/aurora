@@ -34,6 +34,9 @@ public class SidebarPresenterTest {
         parser = new LambdaParser(new HashLibrary());
     }
 
+    /**
+     * Sets up sidebarDisplay, bus, sidebarPresenter.
+     */
     @Before
     public void setUp() {
         sidebarDisplay = mock(SidebarDisplay.class);
