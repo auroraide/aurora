@@ -43,11 +43,12 @@ public class ShareLaTeX {
                     sb.append(")");
                     break;
                 case T_FUNCTION:
-                    sb.append("\\$");
+                    sb.append("\\texttt{\\$");
                     sb.append(t.getName());
+                    sb.append("}");
                     break;
                 case T_NUMBER:
-                    sb.append("\\color{red}{");
+                    sb.append("\\textbf{");
                     sb.append(t.getName());
                     sb.append("}");
                     break;
