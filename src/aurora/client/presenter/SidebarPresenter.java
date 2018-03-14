@@ -6,6 +6,7 @@ import aurora.backend.library.Library;
 import aurora.backend.library.LibraryItem;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
@@ -16,6 +17,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
+
+import java.util.List;
 
 
 /**
@@ -94,8 +97,14 @@ public class SidebarPresenter {
             return;
         }
 
-        MatchResult result = functionName.exec(input.getName());
-        if (result == null || isNullOrEmpty(result.getGroup(0))) {
+        List<Token> tokens;
+        try {
+            tokens = lambdaLexer.lex("$" + functionName);
+        } catch (SyntaxException ex) {
+            sidebarDisplay.displayAddLibraryItemInvalidName();
+            return;
+        }
+        if (tokens.size() != 1 || tokens.get(0).getType() != Token.TokenType.T_FUNCTION) {
             sidebarDisplay.displayAddLibraryItemInvalidName();
             return;
         }
