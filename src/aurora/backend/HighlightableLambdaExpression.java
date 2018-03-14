@@ -310,18 +310,14 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * builds token list of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
-        int line;
-        int offset;
-        int column;
-        private boolean isapp;
-        private boolean isabs;
-        int index;
+        private int line;
+        private int offset;
+        private int column;
 
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
             offset = -1;
             column = 0;
-            index = 0;
         }
 
 
@@ -353,9 +349,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Application app) {
-            AppAbschecker abschecker = new AppAbschecker();
-            app.left.accept(abschecker);
-            if (isabs) {
+            DetermineIfParenthesisNecessary determineIfParenthesisNecessary = new DetermineIfParenthesisNecessary();
+            if (app.left.accept(determineIfParenthesisNecessary)) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -371,9 +366,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             offset++;
             tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
 
-            AppAbschecker absappchecker = new AppAbschecker();
-            app.right.accept(absappchecker);
-            if (isabs || isapp) {
+            if (app.right.accept(determineIfParenthesisNecessary)) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -427,56 +420,38 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         /**
          * This Visitor checks if the given Term is an Application or Abstraction.
          */
-        private class AppAbschecker extends TermVisitor<Void> {
+        private class DetermineIfParenthesisNecessary extends TermVisitor<Boolean> {
 
-            AppAbschecker() {
-                isapp = false;
-                isabs = false;
+            @Override
+            public Boolean visit(Abstraction abs) {
+                return true;
             }
 
             @Override
-            public Void visit(Abstraction abs) {
-                isapp = false;
-                isabs = true;
-                return null;
+            public Boolean visit(Application app) {
+                return false;
             }
 
             @Override
-            public Void visit(Application app) {
-                isapp = true;
-                isabs = false;
-                return null;
+            public Boolean visit(BoundVariable bvar) {
+                return false;
             }
 
             @Override
-            public Void visit(BoundVariable bvar) {
-                isapp = false;
-                isabs = false;
-                return null;
+            public Boolean visit(FreeVariable fvar) {
+                return false;
             }
 
             @Override
-            public Void visit(FreeVariable fvar) {
-                isapp = false;
-                isabs = false;
-                return null;
+            public Boolean visit(Function libterm) {
+                return false;
             }
 
             @Override
-            public Void visit(Function libterm) {
-                Term t  = libterm.term;
-                t.accept(this);
-                return null;
-            }
-
-            @Override
-            public Void visit(ChurchNumber c) {
-                isapp = false;
-                isabs = true;
-                return null;
+            public Boolean visit(ChurchNumber c) {
+                return false;
             }
         }
-
         /**
          * This visitor removes all bound variables with free variables.
          */
