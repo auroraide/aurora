@@ -152,29 +152,5 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         }
     }
 
-    /**
-     * this is the iterator over the path.
-     */
-    private class PathIterator implements Iterator<Direction> {
-        private int current;
-
-        @Override
-        public boolean hasNext() {
-            if (current < path.size()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        public Direction next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            return path.get(current++);
-        }
-    }
-
 }
 
