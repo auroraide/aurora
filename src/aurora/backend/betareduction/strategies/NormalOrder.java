@@ -57,9 +57,9 @@ public class NormalOrder extends ReductionStrategy {
         assert this.callStack.size() >= cs;
 
         while (this.intStack.size() > is) this.intStack.pop();
-        while (this.boolStack.size() > is) this.boolStack.pop();
-        while (this.termStack.size() > is) this.termStack.pop();
-        while (this.callStack.size() > is) this.callStack.pop();
+        while (this.boolStack.size() > bs) this.boolStack.pop();
+        while (this.termStack.size() > ts) this.termStack.pop();
+        while (this.callStack.size() > cs) this.callStack.pop();
     }
 
     private void discardStack() {
@@ -80,15 +80,9 @@ public class NormalOrder extends ReductionStrategy {
         Term eax = null;
         boolean ebx = false;
 
-        while (!this.callStack.isEmpty()) {
+        while (!callStack.isEmpty()) {
             Call call = this.callStack.pop();
             switch (call) {
-                case CALL_APPLICATION:
-                    break;
-                case CALL_ABSTRACTION:
-                    break;
-                case CALL_BOUND_VARIABLE:
-                    break;
                 case CALL_FIND_REDEX:
                     eax = termStack.pop();
                     eax.accept(redexFinder);
@@ -102,12 +96,6 @@ public class NormalOrder extends ReductionStrategy {
                     break;
                 case CALL_PATH_PUSH_RIGHT:
                     redexPath.push(RedexPath.Direction.RIGHT);
-                    break;
-                case CALL_RETURN_IF_FOUND:
-                    break;
-                case STACK_SAVE:
-                    break;
-                case JUMP_IF:
                     break;
                 case CALL_PATH_POP:
                     redexPath.pop();
@@ -129,11 +117,12 @@ public class NormalOrder extends ReductionStrategy {
                     restoreStack();
                     boolStack.push(true);
                     break;
+                case DISCARD_STACK:
+                    discardStack();
+                    break;
                 case RETURN_FALSE:
                     restoreStack();
                     boolStack.push(false);
-                    break;
-                case STACK_RESTORE:
                     break;
                 default:
             }
@@ -141,7 +130,7 @@ public class NormalOrder extends ReductionStrategy {
 
         // return redex path if found
         if (boolStack.pop()) {
-            return this.redexPath;
+            return redexPath;
         }
         return null;
     }
@@ -178,6 +167,7 @@ public class NormalOrder extends ReductionStrategy {
 
             saveStack();
             callStack.push(Call.RETURN_TRUE);
+            callStack.push(Call.DISCARD_STACK);
             callStack.push(Call.IF);
 
             callStack.push(Call.CALL_FIND_REDEX);
@@ -187,6 +177,8 @@ public class NormalOrder extends ReductionStrategy {
 
             saveStack();
             callStack.push(Call.RETURN_TRUE);
+            callStack.push(Call.DISCARD_STACK);
+            callStack.push(Call.DISCARD_STACK);
             callStack.push(Call.IF);
 
             callStack.push(Call.CALL_FIND_ABSTRACTION);
@@ -268,16 +260,15 @@ public class NormalOrder extends ReductionStrategy {
 
     private enum Call {
 
-        CALL_APPLICATION,
-        CALL_ABSTRACTION,
-        CALL_BOUND_VARIABLE,
         CALL_FIND_REDEX,
         CALL_FIND_ABSTRACTION,
         CALL_PATH_PUSH_LEFT,
         CALL_PATH_PUSH_RIGHT,
-        CALL_RETURN_IF_FOUND,
-        STACK_SAVE,
-        JUMP_IF, CALL_PATH_POP, RETURN_BOOL, IF, RETURN_TRUE, RETURN_FALSE, STACK_RESTORE
+        CALL_PATH_POP,
+        IF,
+        RETURN_BOOL,
+        RETURN_TRUE,
+        DISCARD_STACK, RETURN_FALSE
 
     }
 
