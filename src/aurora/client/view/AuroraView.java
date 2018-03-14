@@ -1,6 +1,5 @@
 package aurora.client.view;
 
-import aurora.client.Aurora;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
@@ -9,7 +8,6 @@ import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ReStepEvent;
-import aurora.client.event.RedexClickedEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.ResultCalculatedEvent;
 import aurora.client.event.RunEvent;
@@ -19,21 +17,16 @@ import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-
-import com.google.web.bindery.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Event.NativePreviewHandler;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 
 
 /**
@@ -127,9 +120,24 @@ public class AuroraView extends Composite implements AuroraDisplay {
     }
 
     private void wireStateMachine() {
+
+
         this.editor.getActionBar().getRunButton().addClickHandler(event -> {
             AuroraView.this.currentState.runBtnClicked();
             AuroraView.this.currentState.stateTransition();
+        });
+
+        HandlerRegistration logHandler = Event.addNativePreviewHandler(event -> {
+            NativeEvent ne = event.getNativeEvent();
+            if (ne.getCtrlKey() && (ne.getKeyCode() == 'l' || ne.getKeyCode() == 'L')) {
+                ne.preventDefault();
+
+                Scheduler.get().scheduleDeferred((Command) () -> {
+                    AuroraView.this.currentState.runBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
+
+                });
+            }
         });
 
         this.editor.getActionBar().getPauseButton().addClickHandler(event -> {
@@ -200,21 +208,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         }
         
         
-        HandlerRegistration logHandler = Event.addNativePreviewHandler(new NativePreviewHandler() {
-            @Override
-            public void onPreviewNativeEvent(NativePreviewEvent event) {
-                NativeEvent ne = event.getNativeEvent();
-                    if (ne.getCtrlKey() && (ne.getKeyCode()=='l' || ne.getKeyCode()=='L')) {
-                        ne.preventDefault();
-                        DeferredCommand.addCommand(new Command() {
-                            @Override
-                            public void execute() {
-                                GWT.log("something pressed");
-                            }
-                        });
-                    }
-                }
-        });
+
 
         @Override
         protected void pauseBtnClicked() {
