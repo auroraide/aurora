@@ -152,8 +152,8 @@ public class EditorSeleniumIntegrationTest {
     public void testCommentsIgnoredInCalculation() {
         codeEditor.sendKeys("#dies ist ein test (λz.z) a");
         codeEditor.sendKeys(Keys.RETURN);
-        System.out.println(driver.findElement(By.id("inputCodeMirror")).
-                findElements(By.tagName("pre")).get(0).getText());
+        System.out.println(driver.findElement(By.id("inputCodeMirror"))
+                .findElements(By.tagName("pre")).get(0).getText());
         codeEditor.sendKeys("(λ x. x) y");
         driver.findElement(By.id("runButton")).click();
         String result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0).getText();
