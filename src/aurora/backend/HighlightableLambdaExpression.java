@@ -349,8 +349,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Application app) {
-            DetermineIfParenthesisNecessary determineIfParenthesisNecessary = new DetermineIfParenthesisNecessary();
-            if (app.left.accept(determineIfParenthesisNecessary)) {
+            if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -366,7 +365,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             offset++;
             tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
 
-            if (app.right.accept(determineIfParenthesisNecessary)) {
+            if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -417,11 +416,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             return null;
         }
 
-        /**
-         * This Visitor checks if the given Term is an Application or Abstraction.
-         */
-        private class DetermineIfParenthesisNecessary extends TermVisitor<Boolean> {
-
+        private class DetermineIfParenthesisNecessaryOnTheLeft extends TermVisitor<Boolean> {
             @Override
             public Boolean visit(Abstraction abs) {
                 return true;
@@ -444,12 +439,43 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Boolean visit(Function libterm) {
-                return false;
+                return libterm.term.accept(this);
             }
 
             @Override
             public Boolean visit(ChurchNumber c) {
+                return true;
+            }
+        }
+        private class DetermineIfParenthesisNecessaryOnTheRight extends TermVisitor<Boolean> {
+            @Override
+            public Boolean visit(Abstraction abs) {
+                return true;
+            }
+
+            @Override
+            public Boolean visit(Application app) {
+                return true;
+            }
+
+            @Override
+            public Boolean visit(BoundVariable bvar) {
                 return false;
+            }
+
+            @Override
+            public Boolean visit(FreeVariable fvar) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(Function libterm) {
+                return libterm.term.accept(this);
+            }
+
+            @Override
+            public Boolean visit(ChurchNumber c) {
+                return true;
             }
         }
         /**
