@@ -154,7 +154,23 @@ bookmarks=true,
         Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
   }
 
-    \section{Entfallene Kriterien und Testfallszenarien}
+    \section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
+    \subsection{Ausgabe mit De Brujin-Indizes (K22)}
+    Es wird immer noch intern mit De Brujin-Indizes gerechnet, jedoch hat das Hinzufügen und Testen einer zusätzlichen
+    Option, die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
+    Die ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
+
+    %\subsection{Benutzerdefinierte Reduktionsstrategie (K10)}
+    % TODO kann gut sein, dass das noch implementiert wird.
+    % Das selbe gilt für:
+    % K5: Redexe highlighten.
+    % K16: Öffnen im neuen Tab.
+    % K20: Aurora Tutorial.
+
+    \subsection{Mobile Darstellung (K25)}
+    Eine mobile Darstellung würde eine sehr grundlegende Änderung vom graphischen Benutzerinterfacekonzept erfordern.
+    Es wurde sehr früh entschieden, dieses Wunschkriterium auszuschließen.
+    % TODO oder machen wirs doch noch :P ?
 
     \section{Glossar}
 \end{document}
