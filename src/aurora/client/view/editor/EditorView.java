@@ -46,6 +46,7 @@ public class EditorView extends Composite implements EditorDisplay {
     private Button inputOptionButton;
     private Button outputOptionButton;
     private InfoDialogBox infoDialogBox;
+    private InfoDialogBox errorMessageDialogBox;
     private ShareDialogBox shareLaTexSnippetDialogBox;
     private EventBus eventBus;
 
@@ -231,9 +232,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
-        GWT.log("Display syntax error.");
-        // TODO Change to more meaningful error message with popup.
-        Window.alert("Syntax Error!");
+        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException
+                + " and column " + syntaxException.getColumn() + ".");
+        this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
@@ -242,9 +243,9 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
-        GWT.log("Display semantic error.");
-        // TODO Change to more meaningful error message with popup.
-        Window.alert("Semantic Error!");
+        this.errorMessageDialogBox.setDescription("Semantic error detected at line " + semanticException.getLine()
+                + " and column " + semanticException.getColumn() + ".");
+        this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
