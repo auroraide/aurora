@@ -27,6 +27,14 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.google.web.bindery.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event.NativePreviewHandler;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Event;
+
 
 /**
  * Knows the layout of the component tree.
@@ -190,6 +198,23 @@ public class AuroraView extends Composite implements AuroraDisplay {
             this.state = AuroraView.this.runningState;
             AuroraView.this.eventBus.fireEvent(new RunEvent());
         }
+        
+        
+        HandlerRegistration logHandler = Event.addNativePreviewHandler(new NativePreviewHandler() {
+            @Override
+            public void onPreviewNativeEvent(NativePreviewEvent event) {
+                NativeEvent ne = event.getNativeEvent();
+                    if (ne.getCtrlKey() && (ne.getKeyCode()=='l' || ne.getKeyCode()=='L')) {
+                        ne.preventDefault();
+                        DeferredCommand.addCommand(new Command() {
+                            @Override
+                            public void execute() {
+                                GWT.log("something pressed");
+                            }
+                        });
+                    }
+                }
+        });
 
         @Override
         protected void pauseBtnClicked() {
