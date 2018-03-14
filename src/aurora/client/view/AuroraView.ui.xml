@@ -41,7 +41,14 @@
                 <b><ui:msg description="Tutorial tab title">TUTORIAL</ui:msg></b>
             </g:header>
             <g:HTMLPanel>
-                <div><ui:msg description="Tutorial text">Ich bin ein TUTORIAL!</ui:msg></div>
+                <div class="title">
+                    <h2>overview</h2>
+                </div>
+                <section>
+                    <div class="left"></div>
+                    <div class="center"></div>
+                    <div class="right"></div>
+                </section>
             </g:HTMLPanel>
         </g:tab>
 

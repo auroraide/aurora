@@ -65,6 +65,7 @@ div.gwt-TabLayoutPanelTabs {
     color: #fff;
     width: 150px;
     font-size: 1.5em;
+    line-height: 2em;
 }
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
     margin: 0 !important;
@@ -153,6 +154,7 @@ div.gwt-TabLayoutPanelTabs {
     margin-right: 5px;
     border: 1px solid #145f4f;
     width: 100% !important;
+    border-radius: 0;
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2) > button {
@@ -162,12 +164,15 @@ div.gwt-TabLayoutPanelTabs {
     color: #fff;
     border: 1px solid #692730;
     width: 100% !important;
+    border-radius: 0;
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td {
     width: 50% !important;
 }
 
+
+/*SHARE POPUP*/
 .shareDialogBox .Caption {
     font-size: 15px;
 }
@@ -212,4 +217,11 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(2) > button {
     background: #81333d !important;
+}
+
+
+/* TUTORIAL */
+body > div:nth-child(6) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div {
+    background: #33485c;
+    color: #fff;
 }
