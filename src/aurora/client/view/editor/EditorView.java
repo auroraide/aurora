@@ -135,14 +135,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("autoCloseBrackets", true);
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
-            //inputCodeMirror.on("change",
-            //        "function(cm){"
-            //        + "if(editor.getValue().includes(\"\\\\\")) {"
-            //        + "var position = editor.getCursor();"
-            //        + "editor.setValue(editor.getValue().replace(/\\\\/g, \"λ\"));"
-            //        + "editor.setCursor(position);"
-            //        + "}"
-            //        + "}");
+            inputCodeMirror.setOption("back2Lambda", null);
         });
     }
 
