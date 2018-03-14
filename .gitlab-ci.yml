@@ -10,12 +10,12 @@ before_script:
     - apt-get update && apt-get install -y ant openjfx
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - (cd vendor && wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar)
-    - mkdir -p "$CI_PROJECT_DIR"/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - mkdir -p "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
-    - mkdir -p "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
-    - cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar "$CI_PROJECT_DIR"/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - cp ../gwt-2.8.2/gwt-dev.jar "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
-    - cp ../gwt-2.8.2/gwt-user.jar "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
+    - mkdir -p /builds/ap/Aurora/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
+    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
+    - mkdir -p /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
+    - cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar /builds/ap/Aurora/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
+    - cp ../gwt-2.8.2/gwt-dev.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
+    - cp ../gwt-2.8.2/gwt-user.jar /builds/ap/Aurora/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
 
 stages:
     - test
@@ -27,6 +27,7 @@ testjob:
     script:
         - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
         - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
+#        - ant build -lib vendor
         - nohup ./caddy &
         - ant test -lib vendor
 
@@ -47,7 +48,7 @@ texjob:
     before_script:
         - echo "nop"
     script:
-        - pdflatex -output-directory docs/qualitätssicherung/tex docs/qualitätssicherung/tex/Testbericht.tex && pdflatex -output-directory docs/qualitätssicherung/tex docs/qualitätssicherung/tex/Testbericht.tex
+        - pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex && pdflatex -output-directory docs/implementierung/tex docs/implementierung/tex/Implementierungsdokument.tex
     artifacts:
         paths:
-            - "docs/qualitätssicherung/tex/Testbericht.pdf"
+            - "docs/implementierung/tex/Implementierungsdokument.pdf"
