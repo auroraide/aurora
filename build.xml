@@ -65,12 +65,6 @@
         <antcall target="-junit"/>
     </target>
 
-    <target name="test" description="Build and run test suite.">
-        <antcall target="cs"/>
-        <antcall target="build"/>
-        <antcall target="-junit"/>
-    </target>
-
     <target name="junit" description="Build and run test suite without fucking checkstyle.">
         <antcall target="build"/>
         <antcall target="-junit"/>
