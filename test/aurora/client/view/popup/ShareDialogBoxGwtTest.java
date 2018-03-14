@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import aurora.utils.GWTTestCaseSetup;
 import aurora.utils.TestingUtilities;
 
-public class ShareDialogBoxTest extends GWTTestCase {
+public class ShareDialogBoxGwtTest extends GWTTestCase {
     private ShareDialogBox shareDialogBox;
 
     public String getModuleName() {
@@ -53,7 +53,7 @@ public class ShareDialogBoxTest extends GWTTestCase {
         Scheduler.get().scheduleDeferred(new Command() {
             @Override
             public void execute() {
-                assertEquals("", ShareDialogBoxTest.this.shareDialogBox.shareText.getText());
+                assertEquals("", ShareDialogBoxGwtTest.this.shareDialogBox.shareText.getText());
             }
         });
     }

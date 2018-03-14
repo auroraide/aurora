@@ -37,7 +37,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class EditorPresenterTest {
+public class EditorPresenterGwtTest {
     private static LambdaParser parser;
     private static LambdaLexer lexer;
 
