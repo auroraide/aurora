@@ -62,7 +62,18 @@
     <target name="test" description="Build and run test suite.">
         <antcall target="cs"/>
         <antcall target="build"/>
-        <antcall target="junit"/>
+        <antcall target="-junit"/>
+    </target>
+
+    <target name="test" description="Build and run test suite.">
+        <antcall target="cs"/>
+        <antcall target="build"/>
+        <antcall target="-junit"/>
+    </target>
+
+    <target name="junit" description="Build and run test suite without fucking checkstyle.">
+        <antcall target="build"/>
+        <antcall target="-junit"/>
     </target>
 
     <target name="cs" depends="-libs" description="Run checkstyle.">
@@ -113,7 +124,7 @@
         <zip destfile="aurora.war" basedir="${war.dir}"/>
     </target>
 
-    <target name="junit" depends="-javac-test" description="Run JUnit tests only.">
+    <target name="-junit" depends="-javac-test">
         <junit printsummary="yes" haltonfailure="yes">
             <classpath refid="project.class.path"/>
             <formatter type="plain" usefile="false"/>
