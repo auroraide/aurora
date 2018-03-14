@@ -153,6 +153,85 @@ bookmarks=true,
     }{
         Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
   }
+\regrtest{Reduktion mit einer Libraryfunktion schlägt fehl}{172}{
+	Als die Funktion $\$$infinity mit dem Term ($\lambda$x. x x)($\lambda$x. x x) der
+	Benutzerbibliothek hinzugefügt wurde und sie in
+	das Eingabefeld geschrieben wurde, wurde der Term nicht reduziert.
+}{ Die Strategie baut einen Redexpath, der auf eine Applikation zeigt. Als die Applikation aber in einer
+	Funktion war, wurde sie nicht gefunden und es wurde ein Error geworfen. Bei der Entwicklung des Betareduzierers
+	wurde vernachlässigt, dass es auch Redexe in Funktionen geben kann. Die meisten Funktionen sind zwar nicht
+	mit sich selbst	reduzierbar, da man sonst die Funktion zuerst reduzieren würde und dann hinzufügen würde.
+	Dennoch muss es möglich sein auch Funktionen nicht in Normalform hinzuzufügen.
+}{
+	Wenn der Redexpath entlanggegangen wird und er auf eine Funktion zeigt, wird diese in ihren Term umgewandelt und
+	dann wird dieser Term abgestiegen
+}
+\regrtest{Alphakonversion ist nicht korrekt}{134}{
+	als 2 2 in das Inputfeld gegeben wurde und der Simplifier noch nicht implementiert war, wurde im Resultfeld das
+	Ergebnis: $\lambda$z.$\lambda$z.z1(z1(z1(z1 z)) gezeigt.
+	Intern war die Berechnung zwar korrekt und die Churchzahl 4 war berechnet worden,
+	aber die Alphakonversion war inkorrekt, da festgelegt wurde, dass jede
+	Variable, der eine Nummer angehängt wurde, eine Freie Variable und keine Gebundene Variable ist.
+}{
+	Zu diesem Zeitpunk lief Alphakonversion folgendermaßen ab.
+	Jede Abstraktion suchte nach Freien Variablen, die den gleichen Namen wie
+	die Abstraktion hatten. Falls dies der Fall war, wurde der freien Variable eine 1 angefügt.
+	Bei der Suche nach den Freien Variablen wurde gleichzeitig jede gebundene Variable, die auf die Abstraktion zeigt,
+	mit einer Freien Variable mit dem Namen der Abstraktion ersetzt.
+	Das Ergebnis ohne Alphakonversion wäre in Debruijnindizes:
+	
+	$\lambda$z. $\lambda$z. 2 (2(2(2 1))).
+	
+	Nach diesem ersten Schritt wäre es $\lambda$z. $\lambda$z. z(z(z(z 1))) wobei die $z$ freie Variablen wären und nicht
+	mehr gebundene Variablen.
+	Vergessen wurde, dass es möglich ist, dass eine Abstraktion eine andere Abstraktion mit selben Namen im Body hat.
+	Jetzt wurden bei der zweiten Abstraktion erkannt, dass die freien Variablen den gleichen Namen wie die zweite
+	Abstraktion haben und dann wurden sie alle alphakonvertiert zu z1 was dem Nutzer gesagt hätte, dass dies Freie
+	Variablen wären. Durch die gebundene Variable $z$ am Schluss ist ein weiteres Problem aufgefallen:
+	
+	Wie lassen sich diese  zwei unterschiedliche Ausdrücke noch in Debruijndarstellung mit Alphakonversion
+	kenntlich machen
+	
+	$\lambda x.\lambda x. 1$
+	
+	$\lambda x. \lambda x. 2$
+	
+	Dies wurde zu diesem Zeitpunkt noch nicht berücksichtigt.
+}{
+	Da dieses erste Problem dadurch herrührte, das die Gebundenen Variablen gleichzeitig mit der Suche nach den freien
+	Variablen passierte, wurde dies in einen extra Schritt verfrachtet.
+	Es wurden zuerst Freie Variablen auf Alphakonversion
+	überprüft und erst dann die gebundenen Variablen ersetzt.
+	Um das zweite Problem zu beheben, wurde ein Visitor vor die Suche nach den Freien Variablen gesetzt, der Namen von
+	Abstraktionen ändert, sollten sie gleich heißen wie eine Abstraktion in deren Body sie sind.
+	Dies führte zu einer funktionellen Alphakonversion, allerdings wurde uns mitgeteilt, dass man nicht den Namen von
+	Freien Variablen ändern sollte.
+	Sollte eine Freie Variable mit gleichen Namen gefunden werden, muss der Name der Abstraktion geändert werden, nicht
+	der Name der freien Variable.
+	
+	Dies führt final zu folgender Struktur:
+	Es gibt einen Visitor, der den Term traversiert und bei jeder Abstraktion folgende Aktionen ausführt:
+	Er initialisiert einen weiteren Visitor, der den Term traversiert und nach Abstraktionen sucht, die den gleichen Namen
+	haben wie die Abstraktion, von der der Visitor gestartet ist. Falls eine gefunden wurde, wird der Name dieser zweiten
+	Abstraktion eine Zahl angehängt. Als Beispiel: $\lambda z. \lambda z. \lambda z. ...$ wird zu $\lambda z. \lambda z1. \lambda z1. ...$ und wenn der ursprüngliche Visitor zu der zweiten Abstraktion kommt, wird daraus $\lambda z. \lambda z1. \lambda z2. ...$.
+	Dann wird nach Freien Variablen gesucht, die den gleichen Namen haben wie die ursprüngliche Abstraktion. Falls dies
+	der Fall ist, wird der ursprünglichen Abstraktion ein $\_ alpha$ hinzugefügt. In dem Beispiel $\lambda z. z$, bei dem
+	das zweite $z$ eine Freie Variable ist, wird dies zu $\lambda z \_ alpha. \  z$ verändert.
+	Hier wird keine Zahl an die Abstraktion gehängt, um dem Benutzer, klar zu machen, welche Form von Alphakonversion
+	stattgefunden hat.
+	Wenn der Name der Abstraktion geändert wird, muss  nach neuen Freien Variablen gesucht werden, die den
+	gleichen Namen wie die neue Abstraktion haben. Es könnte vorkommen,
+	dass ein Tester diesen folgenden Term auf Alphakonversion testet: $\lambda z. z \ z\_ alpha$ wobei $z$ und
+	$z\_ alpha$ Freie Variablen sind.
+	Hier wäre nach nur einem Schritt $z\_ alpha$ als gebundene Variable zu erkennen und nicht als Freie Variable.
+	Deswegen muss erneut nach freien Variablen gesucht werden die den gleichen Namen besitzen.
+	In diesem Sonderfall würde erneut ein $\_ alpha$ an den Abstraktionsnamen angehängt werden.
+	
+	Wenn dies vollbracht ist, werden Gebundene Variablen durch Freie Variablen mit dem Namen der Abstraktion ersetzt.
+	
+	
+}
+
 
     \section{Entfallene Kriterien und Testfallszenarien}
 
