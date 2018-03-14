@@ -127,16 +127,18 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.stateTransition();
         });
 
-        HandlerRegistration logHandler = Event.addNativePreviewHandler(event -> {
-            NativeEvent ne = event.getNativeEvent();
-            if (ne.getCtrlKey() && (ne.getKeyCode() == 'l' || ne.getKeyCode() == 'L')) {
-                ne.preventDefault();
-
-                Scheduler.get().scheduleDeferred((Command) () -> {
-                    AuroraView.this.currentState.runBtnClicked();
-                    AuroraView.this.currentState.stateTransition();
-
-                });
+        HandlerRegistration logHandlerRun = Event.addNativePreviewHandler(event -> {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            //Return key has keyCode 13
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13){
+                nativeEvent.preventDefault();
+                if(nativeEvent.getType().equals("keyup")) {
+                    Scheduler.get().scheduleDeferred((Command) () -> {
+                        GWT.log("Hotkey pressed for run");
+                        AuroraView.this.currentState.runBtnClicked();
+                        AuroraView.this.currentState.stateTransition();
+                    });
+                }
             }
         });
 
@@ -144,6 +146,23 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.pauseBtnClicked();
             AuroraView.this.currentState.stateTransition();
         });
+
+        HandlerRegistration logHandlerPause = Event.addNativePreviewHandler(event -> {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            //Space key has keyCode 32
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 32){
+                nativeEvent.preventDefault();
+                if(nativeEvent.getType().equals("keyup")) {
+                    Scheduler.get().scheduleDeferred((Command) () -> {
+                        GWT.log("Hotkey pressed for pause");
+                        AuroraView.this.currentState.pauseBtnClicked();
+                        AuroraView.this.currentState.stateTransition();
+                    });
+                }
+            }
+        });
+
+
         this.editor.getActionBar().getContinueButton().addClickHandler(event -> {
             AuroraView.this.currentState.continueBtnClicked();
             AuroraView.this.currentState.stateTransition();
@@ -154,9 +173,36 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.stateTransition();
         });
 
+        HandlerRegistration logHandlerReset = Event.addNativePreviewHandler(event -> {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            //Backspace key has keyCode 8
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 8){
+                nativeEvent.preventDefault();
+                if(nativeEvent.getType().equals("keyup")) {
+                    Scheduler.get().scheduleDeferred((Command) () -> {
+                        GWT.log("Hotkey pressed for reset");
+                        AuroraView.this.currentState.resetBtnClicked();
+                        AuroraView.this.currentState.stateTransition();
+                    });
+                }
+            }
+        });
+
         this.editor.getActionBar().getStepButton().addClickHandler(event -> {
             AuroraView.this.currentState.stepBtnClicked();
             AuroraView.this.currentState.stateTransition();
+        });
+
+        HandlerRegistration logHandlerStep = Event.addNativePreviewHandler(event -> {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()){
+                nativeEvent.preventDefault();
+                Scheduler.get().scheduleDeferred((Command) () -> {
+                    GWT.log("Hotkey pressed for step");
+                    AuroraView.this.currentState.stepBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
+                });
+            }
         });
 
         this.eventBus.addHandler(ResultCalculatedEvent.TYPE, event -> {
@@ -197,7 +243,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void errorDisplayed() {
             GWT.log("DefaultState.errorDisplayed()");
-            throw new IllegalStateException("Executing errorDisplayed is not allowed in DefaultState!");
         }
 
         @Override
@@ -213,19 +258,16 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void pauseBtnClicked() {
             GWT.log("Executing pauseBtnClicked is not allowed in DefaultState!");
-            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
         protected void resetBtnClicked() {
             GWT.log("Executing resetBtnClicked is not allowed in DefaultState!");
-            throw new IllegalStateException("Executing resetBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
         protected void continueBtnClicked() {
             GWT.log("Executing continueBtnClicked is not allowed in DefaultState!");
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in DefaultState!");
         }
 
         @Override
@@ -238,7 +280,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void resultCalculated() {
             GWT.log("Executing resultCalculated is not allowed in DefaultState!");
-            throw new IllegalStateException("Executing resultCalculated is not allowed in DefaultState!");
         }
 
         @Override
@@ -252,7 +293,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void finishedFinished() {
             GWT.log("Executing finishedFinished is not allowed in DefaultState!");
-            throw new IllegalStateException("Executing finishedFinished is not allowed in StepBeforeResultState!");
         }
 
         @Override
@@ -277,17 +317,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void errorDisplayed() {
-            throw new IllegalStateException("Executing errorDisplayed is not allowed in FinishedState!");
         }
 
         @Override
         protected void runBtnClicked() {
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedState");
         }
 
         @Override
         protected void pauseBtnClicked() {
-            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in FinishedState!");
         }
 
         @Override
@@ -299,7 +336,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void continueBtnClicked() {
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in FinishedState!");
         }
 
         @Override
@@ -311,7 +347,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void resultCalculated() {
-            throw new IllegalStateException("Executing resultCalculated is not allowed in FinishedState!");
         }
 
         @Override
@@ -349,17 +384,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void errorDisplayed() {
-            throw new IllegalStateException("Executing errorDisplayed is not allowed in PausedState!");
         }
 
         @Override
         protected void runBtnClicked() {
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in PausedState!");
         }
 
         @Override
         protected void pauseBtnClicked() {
-            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in PausedState!");
         }
 
         @Override
@@ -398,7 +430,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void finishedFinished() {
-            throw new IllegalStateException("Executing finishedFinished is not allowed in PauseState!");
         }
 
         @Override
@@ -428,7 +459,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in RunningState!");
         }
 
         @Override
@@ -447,12 +477,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void continueBtnClicked() {
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in RunningState!");
         }
 
         @Override
         protected void stepBtnClicked() {
-            throw new IllegalStateException("Executing stepBtnClicked is not allowed in RunningState!");
         }
 
         @Override
@@ -463,12 +491,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void redexClicked() {
-            throw new IllegalStateException("Executing redexClicked is not allowed in RunningState!");
         }
 
         @Override
         protected void finishedFinished() {
-            throw new IllegalStateException("Executing finishedFinished is not allowed in RunningState!\"");
         }
 
         @Override
@@ -507,7 +533,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void pauseBtnClicked() {
             GWT.log("Executing pauseBtnClicked is not allowed in StepBeforeResultState!");
-            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in StepBeforeResultState!");
         }
 
         @Override
@@ -520,7 +545,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void continueBtnClicked() {
             GWT.log("Executing continueBtnClicked is not allowed in StepBeforeResultState!");
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in StepBeforeResultState!");
         }
 
         @Override
@@ -546,7 +570,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void finishedFinished() {
             GWT.log("Executing finishedBtnClicked is not allowed in StepBeforeResultState!");
-            throw new IllegalStateException("Executing finishedFinished is not allowed in StepBeforeResultState!");
         }
 
         @Override
@@ -571,19 +594,16 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void errorDisplayed() {
-            throw new IllegalStateException("Executing errorDisplayed is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void runBtnClicked() {
             GWT.log("Executing runBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void pauseBtnClicked() {
             GWT.log("Executing pauseBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing pauseBtnClicked is not allowed in FinishedFinishedState!");
         }
 
         @Override
@@ -596,31 +616,26 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void continueBtnClicked() {
             GWT.log("Executing continueBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void stepBtnClicked() {
             GWT.log("Executing stepBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing stepBtnClicked is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void resultCalculated() {
             GWT.log("Executing resultBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing resultCalculated is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void redexClicked() {
             GWT.log("Executing redexBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing redexClicked is not allowed in FinishedFinishedState!");
         }
 
         @Override
         protected void finishedFinished() {
             GWT.log("Executing finishedFinished is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing finishedFinished is not allowed in FinishedFinishedState!");
         }
 
         @Override
