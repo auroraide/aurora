@@ -73,6 +73,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.shareLaTexSnippetDialogBox = new ShareDialogBox("");
+        this.errorMessageDialogBox = new InfoDialogBox();
         setupInputField();
         setupOutputField();
         setupInfoDialogBox();
@@ -232,7 +233,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
-        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException
+        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException.getLine()
                 + " and column " + syntaxException.getColumn() + ".");
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
