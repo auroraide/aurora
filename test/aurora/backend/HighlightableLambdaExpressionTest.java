@@ -221,4 +221,27 @@ public class HighlightableLambdaExpressionTest {
     }
 
 
+    @Test
+    public void bugfinder() {
+        LambdaParser parser;
+        LambdaLexer lexer;
+        Term t = new FreeVariable("a");
+        HashLibrary lib = new HashLibrary();
+        lib.define("true", "true", new Abstraction(new Abstraction(new BoundVariable(2),
+                "x"), "y"));
+        try {
+            parser = new LambdaParser(lib);
+            lexer = new LambdaLexer();
+            t = parser.parse(lexer.lex("\\m. $true"));
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals("\\m. $true", hle.toString());
+    }
+
 }
