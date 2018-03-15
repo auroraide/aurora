@@ -5,6 +5,7 @@ import aurora.backend.library.Library;
 import aurora.backend.library.MultiLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.simplifier.ChurchNumberSimplifier;
@@ -32,6 +33,7 @@ import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Responsible for intitalising the Aurora Web Application.
@@ -132,10 +134,14 @@ public class Aurora implements EntryPoint {
                 return;
             }
 
-            final RegExp functionName = RegExp.compile("^([A-Za-z][A-Za-z0-9_]*)");
-
-            MatchResult result = functionName.exec(name);
-            if (result == null || isNullOrEmpty(result.getGroup(0))) {
+            List<Token> tokens;
+            try {
+                tokens = lambdaLexer.lex("$" + name);
+            } catch (SyntaxException ex) {
+                GWT.log(name + " is an invalid function name!");
+                return;
+            }
+            if (tokens.size() != 1 || tokens.get(0).getType() != Token.TokenType.T_FUNCTION) {
                 GWT.log(name + " is an invalid function name!");
                 return;
             }
