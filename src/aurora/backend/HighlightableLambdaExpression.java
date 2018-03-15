@@ -253,13 +253,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 changed = false;
             }
 
-            public boolean getChanged() {
-                return changed;
-            }
-
-            public String getName() {
-                return name;
-            }
 
             @Override
             public Term visit(Abstraction abs) {
