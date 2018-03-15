@@ -33,6 +33,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.StackLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import javafx.geometry.Side;
 
 import java.util.ArrayList;
 
@@ -310,11 +311,24 @@ public class SidebarView extends Composite implements SidebarDisplay {
         });
 
         // SidebarPresenter does validation.
-        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> SidebarView.this.eventBus.fireEvent(
-                new AddFunctionEvent(
-                SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
-                SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
-                SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
+        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> {
+
+            if (SidebarView.this.addLibraryItemDialogBox.getNameField().getText().isEmpty()) {
+                SidebarView.this.errorMessageDialogBox.setDescription("Please enter a name.");
+                SidebarView.this.errorMessageDialogBox.show();
+                return;
+            } else if  (SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText().isEmpty()) {
+                SidebarView.this.errorMessageDialogBox.setDescription("Please enter a λ-term.");
+                SidebarView.this.errorMessageDialogBox.show();
+                return;
+            }
+
+            SidebarView.this.eventBus.fireEvent(
+                    new AddFunctionEvent(
+                            SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
+                            SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
+                            SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText()));
+        });
     }
 
     private void wireOnViewStateChanged() {
