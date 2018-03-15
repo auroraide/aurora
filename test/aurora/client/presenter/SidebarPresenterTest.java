@@ -3,29 +3,29 @@ package aurora.client.presenter;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.simplifier.ChurchNumberSimplifier;
+import aurora.backend.simplifier.LibraryTermSimplifier;
+import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-/**
- * Tests SidebarPresenter.
- */
-@RunWith(GwtMockitoTestRunner.class)
 public class SidebarPresenterTest {
     private static LambdaParser parser;
     private static LambdaLexer lexer;
 
-    private EventBus bus;
     private SidebarDisplay sidebarDisplay;
+    private EventBus bus;
     private SidebarPresenter sidebarPresenter;
 
     @BeforeClass
@@ -49,6 +49,12 @@ public class SidebarPresenterTest {
                 lexer,
                 parser
         );
+    }
+
+    @Test
+    public void regressionTest178AddingFunctionnameWithWhitespaceWorksBug() {
+        bus.fireEvent(new AddFunctionEvent("hello there", "x", "descr"));
+        verify(sidebarDisplay).displayAddLibraryItemInvalidName();
     }
 
     @Test

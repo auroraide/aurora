@@ -61,6 +61,7 @@
 
     <target name="test" description="Build and run test suite.">
         <antcall target="cs"/>
+        <antcall target="build"/>
         <antcall target="-junit"/>
     </target>
 

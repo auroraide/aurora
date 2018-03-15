@@ -7,6 +7,7 @@ import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
@@ -142,5 +143,18 @@ public class SubstitutionVisitorTest {
         );
         Comparer cr = new Comparer(result, correct);
         assertEquals(cr.compare(),true);
+    }
+
+    @Test
+    public void substitutefunction()  {
+        Abstraction abs = new Abstraction(
+                new BoundVariable(1), "a"
+        );
+        Term with = new Function("test", new BoundVariable(1));
+        SubstitutionVisitor sv = new SubstitutionVisitor(with);
+        Term result = abs.accept(sv);
+        Term correct = new Abstraction(new Function("test", new BoundVariable(1)), "a");
+        Comparer cr = new Comparer(result, correct);
+        assertEquals(cr.compare(), true);
     }
 }
