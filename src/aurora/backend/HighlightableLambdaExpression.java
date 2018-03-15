@@ -20,14 +20,15 @@ import java.util.Objects;
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
 public class HighlightableLambdaExpression implements HighlightedLambdaExpression {
-
     private final List<Token> tokens;
+    private final List<Redex> redexes;
 
     /**
      * Standard constructor that initializes with an empty {@link Token} list.
      */
     public HighlightableLambdaExpression() {
         this.tokens = new LinkedList<>();
+        redexes = new LinkedList<>();
     }
 
     /**
@@ -37,7 +38,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      */
     public HighlightableLambdaExpression(List<Token> stream) {
         // deep copy
-        this.tokens = new ArrayList<Token>(stream);
+        this.tokens = new ArrayList<>(stream);
+        redexes = new LinkedList<>();
     }
 
     /**
@@ -77,17 +79,17 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     @Override
     public Redex getPreviousRedex() {
-        return null;
+        return null; // TODO why does this exist?
     }
 
     @Override
     public Redex getNextRedex() {
-        return null;
+        return null; // TODO why?
     }
 
     @Override
     public List<Redex> getAllRedexes() {
-        return null;
+        return redexes;
     }
 
     /**
@@ -97,16 +99,18 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * @return {@link RedexPath} pointing to the given {@link Token}.
      */
     public RedexPath getRedexPathFromToken(Token token) {
-        return null;
-    }
+        Redex smallest = new Redex(-1, Integer.MAX_VALUE, Integer.MAX_VALUE, null);
+        for (Redex r : redexes) {
+            if (token.getOffset() < r.startToken) {
+                continue;
+            }
 
-    public void highlightRedex(Redex redex) {
-    }
-
-    public void highlightPreviousRedex(Redex redex) {
-    }
-
-    public void highlightNextRedex(Redex redex) {
+            if (smallest.startToken <= r.startToken) {
+                smallest = r;
+            }
+        }
+        
+        return smallest.redex;
     }
 
     @Override
