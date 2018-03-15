@@ -2,10 +2,7 @@ package aurora.client.view.editor;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.Settings;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -149,6 +146,7 @@ public class EditorSeleniumIntegrationTest {
      * Tests T4.11 (See Pflichtenheft).
      */
     @Test
+    @Ignore
     public void testCommentsIgnoredInCalculation() {
         codeEditor.sendKeys("#dies ist ein test (λz.z) a");
         codeEditor.sendKeys(Keys.RETURN);
