@@ -1,6 +1,5 @@
 package aurora.client.view;
 
-import aurora.client.Aurora;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
@@ -9,7 +8,6 @@ import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ReStepEvent;
-import aurora.client.event.RedexClickedEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.ResultCalculatedEvent;
 import aurora.client.event.RunEvent;
@@ -19,18 +17,16 @@ import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.core.client.Scheduler;
 
 
 /**
@@ -54,6 +50,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private final ShareDialogBox latexDialogBox;
     private final ShareDialogBox shortLinkDialogBox;
 
+    private HandlerRegistration logHandlerRunHotkey;
+    private HandlerRegistration logHandlerPauseHotkey;
+    private HandlerRegistration logHandlerStepHotKey;
+    private HandlerRegistration logHandlerResetHotKey;
+
     private State defaultState;
     private State runningState;
     private State pausedState;
@@ -75,6 +76,11 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.sidebar = sidebar;
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
+
+        this.logHandlerRunHotkey = getRunHotkey();
+        this.logHandlerStepHotKey = getStepHotkey();
+        this.logHandlerResetHotKey = null;
+        this.logHandlerPauseHotkey = null;
 
         this.latexDialogBox = new ShareDialogBox("Share LaTeX");
         this.shortLinkDialogBox = new ShareDialogBox("Share short link");
@@ -127,9 +133,9 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
             //Return key has keyCode 13
-            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13){
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13) {
                 nativeEvent.preventDefault();
-                if(nativeEvent.getType().equals("keyup")) {
+                if (nativeEvent.getType().equals("keyup")) {
                     Scheduler.get().scheduleDeferred((Command) () -> {
                         GWT.log("Hotkey pressed for run");
                         AuroraView.this.currentState.runBtnClicked();
@@ -137,16 +143,16 @@ public class AuroraView extends Composite implements AuroraDisplay {
                     });
                 }
             }
-        });    
+        });
     }
 
     private HandlerRegistration getPauseHotkey() {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
             //Space key has keyCode 32
-            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 32){
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 32) {
                 nativeEvent.preventDefault();
-                if(nativeEvent.getType().equals("keyup")) {
+                if (nativeEvent.getType().equals("keyup")) {
                     Scheduler.get().scheduleDeferred((Command) () -> {
                         GWT.log("Hotkey pressed for pause");
                         AuroraView.this.currentState.pauseBtnClicked();
@@ -161,9 +167,9 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
             //Backspace key has keyCode 8 
-            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 8){
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 8) {
                 nativeEvent.preventDefault();
-                if(nativeEvent.getType().equals("keyup")) {
+                if (nativeEvent.getType().equals("keyup")) {
                     Scheduler.get().scheduleDeferred((Command) () -> {
                         GWT.log("Hotkey pressed for reset");
                         AuroraView.this.currentState.resetBtnClicked();
@@ -177,15 +183,15 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private HandlerRegistration getStepHotkey() {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
-            if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()){
+            if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()) {
                 Scheduler.get().scheduleDeferred((Command) () -> {
-                    GWT.log("Hotkey pressed for reset");
-                    AuroraView.this.currentState.resetBtnClicked();
+                    GWT.log("Hotkey pressed for step");
+                    AuroraView.this.currentState.stepBtnClicked();
                     AuroraView.this.currentState.stateTransition();
                 });
             }
         });
-    
+
     }
 
     private void wireStateMachine() {
@@ -194,14 +200,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.stateTransition();
         });
 
-        HandlerRegistration logHandlerRun = getRunHotkey();
-
         this.editor.getActionBar().getPauseButton().addClickHandler(event -> {
             AuroraView.this.currentState.pauseBtnClicked();
             AuroraView.this.currentState.stateTransition();
         });
-
-        HandlerRegistration logHandlerPause = getPauseHotkey();
 
         this.editor.getActionBar().getContinueButton().addClickHandler(event -> {
             AuroraView.this.currentState.continueBtnClicked();
@@ -213,14 +215,10 @@ public class AuroraView extends Composite implements AuroraDisplay {
             AuroraView.this.currentState.stateTransition();
         });
         
-        HandlerRegistration logHandlerReset = getResetHotkey();
-
         this.editor.getActionBar().getStepButton().addClickHandler(event -> {
             AuroraView.this.currentState.stepBtnClicked();
             AuroraView.this.currentState.stateTransition();
         });
-
-        HandlerRegistration logHandlerStep = getStepHotkey();
 
         this.eventBus.addHandler(ResultCalculatedEvent.TYPE, event -> {
             AuroraView.this.currentState.resultCalculated();
@@ -318,12 +316,15 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("DefaultState.onEntry()");
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getRunHotkey();
+            AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.DEFAULT_STATE));
         }
 
         @Override
         protected void onExit() {
-
+            AuroraView.this.logHandlerRunHotkey.removeHandler();
+            AuroraView.this.logHandlerStepHotKey.removeHandler();
         }
 
         @Override
@@ -390,12 +391,15 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("FinishedState.onEntry()");
+            AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
+            AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
         }
 
         @Override
         protected void onExit() {
-
+            AuroraView.this.logHandlerStepHotKey.removeHandler();
+            AuroraView.this.logHandlerResetHotKey.removeHandler();
         }
 
         @Override
@@ -464,11 +468,15 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("PausedState.onEntry()");
+            AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
+            AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
         }
 
         @Override
         protected void onExit() {
+            AuroraView.this.logHandlerResetHotKey.removeHandler();
+            AuroraView.this.logHandlerStepHotKey.removeHandler();
         }
 
         @Override
@@ -534,12 +542,15 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("RunningState.onEntry()");
+            AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
+            AuroraView.this.logHandlerPauseHotkey = AuroraView.this.getPauseHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.RUNNING_STATE));
         }
 
         @Override
         protected void onExit() {
-
+            AuroraView.this.logHandlerResetHotKey.removeHandler();
+            AuroraView.this.logHandlerPauseHotkey.removeHandler();
         }
 
         @Override
@@ -612,12 +623,17 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("StepBeforeResultState.onEntryCalled()");
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getRunHotkey();
+            AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
+            AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
         }
 
         @Override
         protected void onExit() {
-
+            AuroraView.this.logHandlerRunHotkey.removeHandler();
+            AuroraView.this.logHandlerStepHotKey.removeHandler();
+            AuroraView.this.logHandlerResetHotKey.removeHandler();
         }
 
         @Override
@@ -686,12 +702,13 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("FinishedFinishedState.onEntry()");
+            AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_FINISHED_STATE));
         }
 
         @Override
         protected void onExit() {
-
+            AuroraView.this.logHandlerResetHotKey.removeHandler();
         }
 
         @Override
