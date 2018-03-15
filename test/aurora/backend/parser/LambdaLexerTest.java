@@ -1,7 +1,6 @@
 package aurora.backend.parser;
 
 import aurora.backend.parser.exceptions.SyntaxException;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -145,10 +144,10 @@ public class LambdaLexerTest {
     public void testCommentFollowedByNewline() throws SyntaxException {
         LambdaLexer lexer = new LambdaLexer();
 
-        List<Token> actual;
-        List<Token> expected = Arrays.asList(
+        // LF
+        List<Token> expectedLF = Arrays.asList(
                 new Token(Token.TokenType.T_COMMENT,
-                        " foo",
+                        " foo\n",
                         1, 1, 0),
                 new Token(Token.TokenType.T_LAMBDA,
                         2, 1, 1),
@@ -161,14 +160,27 @@ public class LambdaLexerTest {
                         "x",
                         2, 4, 4)
         );
-
-        // LF
-        actual = lexer.lex("# foo\n\\x.x");
-        assertThat(actual, is(expected));
+        List<Token> actualLF = lexer.lex("# foo\n\\x.x");
+        assertThat(actualLF, is(expectedLF));
 
         // CR LF
-        actual = lexer.lex("# foo\r\n\\x.x");
-        assertThat(actual, is(expected));
+        List<Token> expectedCRLF = Arrays.asList(
+                new Token(Token.TokenType.T_COMMENT,
+                        " foo\r\n",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_LAMBDA,
+                        2, 1, 1),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 2, 2),
+                new Token(Token.TokenType.T_DOT,
+                        2, 3, 3),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 4, 4)
+        );
+        List<Token> actualCRLF = lexer.lex("# foo\r\n\\x.x");
+        assertThat(actualCRLF, is(expectedCRLF));
     }
 
     @Test
