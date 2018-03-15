@@ -321,8 +321,15 @@ bookmarks=true,
 
 \section{Regression Tests}
     \textbf{Was das?}
+    Diese Tests, sollen verhindern, dass Modifikationen in der Software, 
+    keine neuen Fehler verursachen. Seit Beginn der Implementierung wurden Regression Tests
+    geschrieben, die eine korrekte Ausgabe überprüften.
+    Im folgenden, werden Bugs vorgestellt, die im Laufe der Implementierung entstanden
+    sind. Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
+    Nach jeder Behebung mussten Regression Test geschrieben werden, die verhindern, dass die Bugs erneut entstehen.
+    Jeder Bug wurde in einem Issue festgehalten, und die Issue-Nummer wird der Beschreibung des Bugs mitgeliefert.
+    
     Gesquäschte Bugs: 1337.
-
 
     \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
         Wir stellen die Schrittzahl auf 2 ein.
@@ -461,12 +468,38 @@ bookmarks=true,
 
            Wenn dies vollbracht ist, werden gebundene Variablen durch freie Variablen mit dem Namen der Abstraktion ersetzt.
     }
+    
+    \regrtest{ShareLateX Ausgabe kompiliert nicht in Latex}{171}
+    {
+	    Texte, die von dem Share Latex Button kopiert wurden, kompilierte nicht in Latex
+    }{
+	    Die Math Umgebung wurde nicht korrekt geschlossen und nicht alle Sonderzeichen wurden abgefangen.
+    }{
+	    Die Methode wurde so restrukturiert, damit der Latextext komplett in der Math Umgebung residiert und
+	    bei Notwendigkeit von anderen Textarten $\backslash$texttt$\{ \}$  und $\backslash$texttt$\{ \}$
+	    verwendet werden.
+    }
+    
+    \regrtest{Funktion wird nicht mit Funktionsname dargestellt, obwohl sie nicht reduziert wurde}{200}
+    {
+    	Die Eingabe $\lambda x. \$ \texttt{true}$ ist nicht reduzierbar und sollte nicht verändert werden.
+    	Dennoch wird im Ausgabefeld $\lambda x. \lambda t. \lambda f. t$ ausgegeben.
+    }{
+    	Der Visitor, der nach gebundenen Variablen sucht, traversiert auch in die Funktion.
+    	Bei der Implementierung wurde ignoriert, dass es unmöglich ist, dass eine Funktion eine gebundene Variable besitzt,
+    	die nach außerhalb der Funktion zeigt.
+    }{
+    	Bei der Suche nach gebundenen Variablen wird nicht mehr durch Funktionen traversiert sondern nur der Name
+    	der Funktion zurückgegeben.
+    	Damit wird nicht mehr nach nicht vorhandenen gebundenen Variablen gesucht und der Name der Funktion wird 
+    	immer angezeigt, wenn sie nicht verändert wurde.
+    }
 
 \section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
 \subsection{Ausgabe mit De Brujin-Indizes (K22)}
     Es wird immer noch intern mit De Brujin-Indizes gerechnet, jedoch hat das Hinzufügen und Testen einer zusätzlichen Option,
         die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
-    Die ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
+    Die Ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
 
 %\subsection{Benutzerdefinierte Reduktionsstrategie (K10)}
     % TODO kann gut sein, dass das noch implementiert wird.
@@ -476,10 +509,47 @@ bookmarks=true,
     % K20: Aurora Tutorial.
 
 \subsection{Mobile Darstellung (K25)}
-    Eine mobile Darstellung würde eine sehr grundlegende Änderung vom graphischen Benutzerinterfacekonzept erfordern.
-    Es wurde sehr früh entschieden, dieses Wunschkriterium auszuschließen.
+	Eine explizite Anpassung der Graphischen Oberfläche an mobile Endgeräte wurde sehr früh in der Implementierung
+	ausgeschlossen.
+    Der Aufwand für den endgültigen Nutzen wäre zu groß gewesen, unter der Annahme das nicht viele Benutzter Lambda
+    Kalkül auf ihrem Smartphone programmieren.
+    Die Funktionalität des Programms ist auf einem modernen Smartphone dennoch gegeben.
     % TODO oder machen wirs doch noch :P ?
 
+\subsection{Anzahl von dargestellten Schritten auswählen (M6)}
+	In Funktionaler Anforderung \textbf{5.1} wurde für dieses Musskriterium ein "3-Punkte-Button"
+	vorgestellt.
+	Alle Funktionalität des "3-Punkte-Button" wurde in den Step-Button integriert, da die zwei Buttons nahezu identisch waren. 
+
+\subsection{Pretty Print(K6)}
+	Wie bereits im Entwurfsdokument beschrieben ist kein Pretty Print implementiert.
+	
+\subsection{Standardbibliothek (K7)}
+	In der Beschreibung der Standardbibliothek wird die Aussage getroffen, dass
+	Churchzahlen in der Bibliothek sind.
+	Die Churchzahlen sind implementiert sind aber nicht in der Standardbibliothek,
+	da Funktionen in der Standardbibliothek namentlich in der Sidebar stehen und mit 
+	einem $\$$ vorangestellt werden müssen.
+	Beides ist nicht der Fall bei Churchzahlen
+
+\subsection{Schleifenerkennung (K19)}
+	Wie bereits im Entwurfsdokument beschrieben ist dieses Wunschkriterium 
+	wegen zu geringen Nutzen nicht implementiert worden. 
+	Hiermit wird auch Nicht-Funktionale Anforderung \textbf{N10} nicht
+	mehr benötigt.
+	
+\subsection{Lokale Sessions (K23)}
+	Auch dies wurde wie im Entwurfsdokument beschrieben nicht implementiert.
+
+\subsection{Standardbibliothek und Benutzerbibliothek (N11) und (N22)}
+	Es gibt keine Beschränkung der Anzahl der Funktionen in den Bibliotheken
+\subsection{Variablennamen (N17)}
+	Eine Variable darf groß oder kleingeschrieben werden, sie dürfen Zahlen
+	beinhalten, aber nicht als erstes Zeichen.
+	Das Sonderzeichen $\_ $ ist auch erlaubt worden, aber nicht als erstes Zeichen 
+\subsection{Funktionennamen (N18)}
+	Eine Funktion hat nun die gleichen Regeln wie eine Variable, sie muss aber 
+	weiterhin mit einem $\$$ beginnen.
 \section{Glossar}
 
 \end{document}
