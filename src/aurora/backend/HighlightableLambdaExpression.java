@@ -109,7 +109,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 smallest = r;
             }
         }
-        
+
         return smallest.redex;
     }
 
@@ -310,12 +310,14 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         private boolean isapp;
         private boolean isabs;
         int index;
+        private RedexPath currentPath;
 
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
             offset = -1;
             column = 0;
             index = 0;
+            currentPath = new RedexPath();
         }
 
 
@@ -347,9 +349,19 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Application app) {
+            boolean amRedex = app.left.accept(new AbstractionFinder());
+            // these are used to construct Redex start/end token offsets for the view.
+            int startToken = -1;
+            int middleToken = -1;
+            int lastToken = -1;
+
+            currentPath.push(RedexPath.Direction.LEFT);
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
                 column++;
                 offset++;
+                if (amRedex) {
+                    startToken = offset;
+                }
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 app.left.accept(this);
                 column++;
@@ -358,6 +370,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             } else {
                 app.left.accept(this);
             }
+            currentPath.pop();
 
             column++;
             offset++;
@@ -366,6 +379,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
                 column++;
                 offset++;
+                if (amRedex) {
+                    middleToken = offset;
+                }
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 app.right.accept(this);
                 column++;
@@ -374,7 +390,48 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             } else {
                 app.right.accept(this);
             }
+
+            if (amRedex) {
+                lastToken = offset;
+                redexes.add(new Redex(startToken, middleToken, lastToken, ));
+            }
             return null;
+        }
+
+        /**
+         * Visitor that helps find abstractions inside our Term tree.
+         */
+        private class AbstractionFinder extends TermVisitor<Boolean> {
+
+            @Override
+            public Boolean visit(Abstraction abs) {
+                return true;
+            }
+
+            @Override
+            public Boolean visit(Application app) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(BoundVariable bvar) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(FreeVariable fvar) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(Function libterm) {
+                return libterm.accept(this);
+            }
+
+            @Override
+            public Boolean visit(ChurchNumber c) {
+                return true;
+            }
         }
 
         @Override

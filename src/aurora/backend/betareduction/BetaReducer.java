@@ -3,7 +3,6 @@ package aurora.backend.betareduction;
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
-import aurora.backend.betareduction.visitors.RedexFinderVisitor;
 import aurora.backend.betareduction.visitors.ReplaceVisitor;
 import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.tree.Abstraction;
@@ -13,8 +12,6 @@ import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
-
-import java.util.List;
 
 public class BetaReducer {
 
