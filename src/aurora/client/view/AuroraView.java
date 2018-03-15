@@ -94,18 +94,6 @@ public class AuroraView extends Composite implements AuroraDisplay {
         this.currentState = this.defaultState;
 
         eventWiring();
-
-        /*currentState.stepBtnClicked();
-        currentState.stateTransition();
-
-        currentState.resultCalculated();
-        currentState.stateTransition();
-
-        currentState.resetBtnClicked();
-        currentState.stateTransition();
-
-        currentState.stepBtnClicked();
-        currentState.stateTransition();*/
     }
 
     @Override
@@ -136,11 +124,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
             if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13) {
                 nativeEvent.preventDefault();
                 if (nativeEvent.getType().equals("keyup")) {
-                    Scheduler.get().scheduleDeferred((Command) () -> {
-                        GWT.log("Hotkey pressed for run");
-                        AuroraView.this.currentState.runBtnClicked();
-                        AuroraView.this.currentState.stateTransition();
-                    });
+                    AuroraView.this.currentState.runBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
                 }
             }
         });
@@ -149,15 +134,12 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private HandlerRegistration getPauseHotkey() {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
-            //Space key has keyCode 32
-            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 32) {
+            //Return key has keycode 13
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13) {
                 nativeEvent.preventDefault();
                 if (nativeEvent.getType().equals("keyup")) {
-                    Scheduler.get().scheduleDeferred((Command) () -> {
-                        GWT.log("Hotkey pressed for pause");
-                        AuroraView.this.currentState.pauseBtnClicked();
-                        AuroraView.this.currentState.stateTransition();
-                    });
+                    AuroraView.this.currentState.pauseBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
                 }
             }
         });
@@ -170,11 +152,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
             if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 8) {
                 nativeEvent.preventDefault();
                 if (nativeEvent.getType().equals("keyup")) {
-                    Scheduler.get().scheduleDeferred((Command) () -> {
-                        GWT.log("Hotkey pressed for reset");
-                        AuroraView.this.currentState.resetBtnClicked();
-                        AuroraView.this.currentState.stateTransition();
-                    });
+                    AuroraView.this.currentState.resetBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
                 }
             }
         });
@@ -184,11 +163,24 @@ public class AuroraView extends Composite implements AuroraDisplay {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
             if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()) {
-                Scheduler.get().scheduleDeferred((Command) () -> {
-                    GWT.log("Hotkey pressed for step");
-                    AuroraView.this.currentState.stepBtnClicked();
+                AuroraView.this.currentState.stepBtnClicked();
+                AuroraView.this.currentState.stateTransition();
+            }
+        });
+
+    }
+
+
+    private HandlerRegistration getContinueHotkey() {
+        return Event.addNativePreviewHandler(event -> {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            //Return key has keyCode 13
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 13) {
+                nativeEvent.preventDefault();
+                if (nativeEvent.getType().equals("keyup")) {
+                    AuroraView.this.currentState.continueBtnClicked();
                     AuroraView.this.currentState.stateTransition();
-                });
+                }
             }
         });
 
@@ -468,6 +460,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("PausedState.onEntry()");
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getContinueHotkey();
             AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
@@ -475,6 +468,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onExit() {
+            AuroraView.this.logHandlerRunHotkey.removeHandler();
             AuroraView.this.logHandlerResetHotKey.removeHandler();
             AuroraView.this.logHandlerStepHotKey.removeHandler();
         }
@@ -570,9 +564,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
-            GWT.log("StepBeforeResultState.runBtnClicked()");
-            this.state = AuroraView.this.runningState;
-            AuroraView.this.eventBus.fireEvent(new RunEvent());
+            GWT.log("Executing runBtnClicked is not allowed in StepBeforeResultState");
+            throw new IllegalStateException("Executing runBtnClicked is not allowed in StepBeforeResultState");
         }
 
         @Override
@@ -591,7 +584,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void continueBtnClicked() {
             GWT.log("Executing continueBtnClicked is not allowed in StepBeforeResultState!");
-            throw new IllegalStateException("Executing continueBtnClicked is not allowed in StepBeforeResultState!");
+            this.state = AuroraView.this.runningState;
+            AuroraView.this.eventBus.fireEvent(new ContinueEvent());
         }
 
         @Override
@@ -623,7 +617,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("StepBeforeResultState.onEntryCalled()");
-            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getRunHotkey();
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getContinueHotkey();
             AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
             AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
