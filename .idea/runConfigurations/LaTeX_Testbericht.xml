@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LaTeX Testbericht" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <texify>
+      <compiler>PDFLATEX</compiler>
+      <compiler-path />
+      <compiler-arguments>-output-directory .</compiler-arguments>
+      <main-file>$PROJECT_DIR$/docs/qualitätssicherung/tex/Testbericht.tex</main-file>
+      <aux-dir>false</aux-dir>
+      <output-format>PDF</output-format>
+      <bib-run-config />
+    </texify>
+    <method />
+  </configuration>
+</component>

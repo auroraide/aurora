@@ -6,6 +6,7 @@ import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
 import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
+import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
@@ -97,5 +98,43 @@ public class ChurchNumberSimplifierTest {
         result1 = simple1.simplify(y);
         assertEquals(null,result1);
 
+        Term a = new Abstraction(new BoundVariable(1), "a");
+        result1 = simple1.simplify(a);
+        assertEquals(null, result1);
+
+        Term c = new Abstraction(new Abstraction(new Abstraction(new FreeVariable("a"), "a"),
+                "a"), "a");
+        result1 = simple1.simplify(c);
+        assertEquals(null, result1);
+
+        Term d = new Abstraction(new Abstraction(new FreeVariable("a"), "a"), "a");
+        result1 = simple1.simplify(d);
+        assertEquals(null, result1);
+
+        Term e = new Abstraction(new Abstraction(new ChurchNumber(1), "a"), "a");
+        result1 = simple1.simplify(e);
+        assertEquals(null, result1);
+    }
+
+    @Test
+    public void isachruchwithfunction() {
+        ChurchNumberSimplifier simpl = new ChurchNumberSimplifier();
+        Term t = new Function("test", new ChurchNumber(0).getAbstraction());
+        Term result = null;
+        result = simpl.simplify(t);
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
+        assertEquals("0", hle.toString());
+
+        Function b = new Function("b",new Abstraction(new BoundVariable(1),"a"));
+        Term a = new Abstraction(b, "x");
+        result = simpl.simplify(a);
+        HighlightableLambdaExpression hle1 = new HighlightableLambdaExpression(result);
+        assertEquals("0", hle1.toString());
+
+        Function d = new Function("a", new BoundVariable(1));
+        Term c = new Abstraction(new Abstraction(d,"a"),"x");
+        result = simpl.simplify(c);
+        HighlightableLambdaExpression hle2 = new HighlightableLambdaExpression(result);
+        assertEquals("0", hle2.toString());
     }
 }
