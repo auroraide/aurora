@@ -1,5 +1,8 @@
 package aurora.client.view.editor;
 
+import aurora.client.event.ContinueEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.ViewState;
 import com.google.gwt.core.client.Scheduler;
@@ -172,9 +175,10 @@ public class EditorViewTest extends GWTTestCase {
             assertTrue(editorView.getActionBar().getContinueButton().isEnabled());
             editorView.getActionBar().getContinueButton().click();
             assertEquals("256", editorView.getOutputCodeMirror().getValue());
+            assertEquals(1, eventBus.getFiredCount(StepEvent.TYPE));
+            assertEquals(1, eventBus.getFiredCount(ContinueEvent.TYPE));
+            assertEquals(0, eventBus.getFiredCount(RunEvent.TYPE));
         });
-
-
     }
 
 }
