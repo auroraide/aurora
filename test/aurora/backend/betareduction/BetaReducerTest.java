@@ -367,7 +367,7 @@ public class BetaReducerTest {
         BetaReducer br = new BetaReducer(new NormalOrder());
         t = br.reduce(t);
         HighlightableLambdaExpression hel1 = new HighlightableLambdaExpression(t);
-        assertEquals("(\\m. \\s. \\z. (2) s (m s z)) (2)", hel1.toString());
+        assertEquals("(\\m. \\s. \\z. 2 s (m s z)) 2", hel1.toString());
         t = br.reduce(t);
         Comparer cr = new Comparer(t, new Abstraction(
                 new Abstraction(
@@ -390,7 +390,7 @@ public class BetaReducerTest {
         assertTrue(cr.compare());
 
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
-        assertEquals("\\s. \\z. (\\s1. \\z1. s1 (s1 z1)) s ((2) s z)", hel2.toString());
+        assertEquals("\\s. \\z. (\\s1. \\z1. s1 (s1 z1)) s (2 s z)", hel2.toString());
 
         String test = "(\\y. y x y) (\\y. y x y) (\\y. y x y)";
         try {
@@ -444,4 +444,6 @@ public class BetaReducerTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
         assertEquals("x", hle.toString());
     }
+
+
 }

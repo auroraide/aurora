@@ -18,10 +18,10 @@ public class ShareLaTeXTest {
                 "($true $true $true ($true) 2 2 2 ($true 1) \\x.($true x \\x.x)) 3"
         };
         final String[] expected = {
-                "$(\\texttt{\\$true})\\ a\\ (\\textbf{578})$",
+                "$(\\texttt{\\$true})\\ a\\ \\textbf{578}$",
                 "$(\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ "
-                        + "(\\textbf{2})\\ (\\textbf{2})\\ (\\textbf{2})\\ ((\\texttt{\\$true})\\ (\\textbf{1}))\\ "
-                        + "(\\lambda x.\\ (\\texttt{\\$true})\\ x\\ (\\lambda x1.\\ x1))\\ (\\textbf{3})$"
+                        + "\\textbf{2}\\ \\textbf{2}\\ \\textbf{2}\\ ((\\texttt{\\$true})\\ \\textbf{1})\\ "
+                        + "(\\lambda x.\\ (\\texttt{\\$true})\\ x\\ (\\lambda x1.\\ x1))\\ \\textbf{3}$"
         };
 
         HashLibrary library = new HashLibrary();
