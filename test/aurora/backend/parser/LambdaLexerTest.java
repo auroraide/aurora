@@ -151,15 +151,15 @@ public class LambdaLexerTest {
                         " foo",
                         1, 1, 0),
                 new Token(Token.TokenType.T_LAMBDA,
-                        2, 1, 0),
+                        2, 1, 1),
                 new Token(Token.TokenType.T_VARIABLE,
                         "x",
-                        2, 2, 1),
+                        2, 2, 2),
                 new Token(Token.TokenType.T_DOT,
-                        2, 3, 2),
+                        2, 3, 3),
                 new Token(Token.TokenType.T_VARIABLE,
                         "x",
-                        2, 4, 3)
+                        2, 4, 4)
         );
 
         // LF

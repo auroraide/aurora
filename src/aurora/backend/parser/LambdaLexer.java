@@ -220,7 +220,7 @@ public class LambdaLexer {
                 // update line, column, and offset
                 ++line;
                 column = 1;
-                offset = 0;
+                ++offset;
             } else if (this.whitespacePattern.test(code)) {
                 // capture regex group
                 MatchResult match = this.whitespacePattern.exec(code);
