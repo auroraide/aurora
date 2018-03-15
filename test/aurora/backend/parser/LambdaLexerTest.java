@@ -1,6 +1,7 @@
 package aurora.backend.parser;
 
 import aurora.backend.parser.exceptions.SyntaxException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -137,6 +138,36 @@ public class LambdaLexerTest {
                         1, 5, 4)
         );
 
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void testCommentFollowedByNewline() throws SyntaxException {
+        LambdaLexer lexer = new LambdaLexer();
+
+        List<Token> actual;
+        List<Token> expected = Arrays.asList(
+                new Token(Token.TokenType.T_COMMENT,
+                        " foo",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_LAMBDA,
+                        2, 1, 0),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 2, 1),
+                new Token(Token.TokenType.T_DOT,
+                        2, 3, 2),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 4, 3)
+        );
+
+        // LF
+        actual = lexer.lex("# foo\n\\x.x");
+        assertThat(actual, is(expected));
+
+        // CR LF
+        actual = lexer.lex("# foo\r\n\\x.x");
         assertThat(actual, is(expected));
     }
 

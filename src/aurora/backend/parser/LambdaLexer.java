@@ -19,7 +19,7 @@ public class LambdaLexer {
     private static final String T_RIGHT_PARENS_REGEX = "^\\)";
     private static final String T_FUNCTION_REGEX = "^\\$([A-Za-z][A-Za-z0-9_]*)";
     private static final String T_NUMBER_REGEX = "^([0-9]+)";
-    private static final String T_COMMENT_REGEX = "^\\#([^\\v]*)\\v?";
+    private static final String T_COMMENT_REGEX = "^\\#([^\r\n]*)(?:\n|\r\n)?";
     private static final String T_WHITESPACE_REGEX = "^(\\s+)";
 
     private final RegExp lambdaPattern;
@@ -220,7 +220,7 @@ public class LambdaLexer {
                 // update line, column, and offset
                 ++line;
                 column = 1;
-                ++offset;
+                offset = 0;
             } else if (this.whitespacePattern.test(code)) {
                 // capture regex group
                 MatchResult match = this.whitespacePattern.exec(code);
