@@ -5,25 +5,12 @@ import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
-import aurora.backend.tree.*;
-import org.junit.After;
-import org.junit.Before;
+import aurora.backend.tree.Term;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class ShareLaTeXTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void testManyTerms() throws SyntaxException, SemanticException {
         final String[] originals = {
@@ -32,9 +19,9 @@ public class ShareLaTeXTest {
         };
         final String[] expected = {
                 "$(\\texttt{\\$true})\\ a\\ (\\textbf{578})$",
-                "$(\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ " +
-                        "(\\textbf{2})\\ (\\textbf{2})\\ (\\textbf{2})\\ ((\\texttt{\\$true})\\ (\\textbf{1}))\\ " +
-                        "(\\lambda x.\\ (\\texttt{\\$true})\\ x\\ (\\lambda x1.\\ x1))\\ (\\textbf{3})$"
+                "$(\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ "
+                        + "(\\textbf{2})\\ (\\textbf{2})\\ (\\textbf{2})\\ ((\\texttt{\\$true})\\ (\\textbf{1}))\\ "
+                        + "(\\lambda x.\\ (\\texttt{\\$true})\\ x\\ (\\lambda x1.\\ x1))\\ (\\textbf{3})$"
         };
 
         HashLibrary library = new HashLibrary();

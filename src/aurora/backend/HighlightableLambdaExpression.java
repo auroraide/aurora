@@ -447,6 +447,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 return true;
             }
         }
+
         private class DetermineIfParenthesisNecessaryOnTheRight extends TermVisitor<Boolean> {
             @Override
             public Boolean visit(Abstraction abs) {
@@ -478,6 +479,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 return true;
             }
         }
+
         /**
          * This visitor removes all bound variables with free variables.
          */
