@@ -22,11 +22,14 @@ import aurora.client.event.StepEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
+import org.apache.tools.ant.taskdefs.Classloader;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,31 +41,32 @@ import static org.mockito.Mockito.when;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class EditorPresenterTest {
-    private static LambdaParser parser;
-    private static LambdaLexer lexer;
+    private LambdaParser parser;
+    private LambdaLexer lexer;
 
     private EditorDisplay editorDisplay;
     private EventBus bus;
     private EditorPresenter editorPresenter;
 
-    @BeforeClass
-    public static void setUpClass() {
-        lexer = new LambdaLexer();
-        parser = new LambdaParser(new HashLibrary());
-    }
-
     /**
-     * Sets up editorDisplay, bus, editorPresenter.
+     * Sets up editorDisplay, bus, editorPresenter, and adds add to stdlib.
+     * @throws SyntaxException lexer error.
+     * @throws SemanticException parser error.
      */
     @Before
-    public void setUp() {
+    public void setUp() throws SyntaxException, SemanticException {
+        lexer = new LambdaLexer();
+        HashLibrary stdlib = new HashLibrary();
+        parser = new LambdaParser(stdlib);
+        stdlib.define("add", "", parser.parse(lexer.lex("(\\m. \\n. \\s. \\z. m s (n s z))")));
+
         editorDisplay = mock(EditorDisplay.class);
         bus = new SimpleEventBus();
         editorPresenter = new EditorPresenter(
                 bus,
                 editorDisplay,
                 new HashLibrary(),
-                new HashLibrary(),
+                stdlib,
                 new ChurchNumberSimplifier(),
                 new LibraryTermSimplifier(new HashLibrary()),
                 new ArrayList<>(),
