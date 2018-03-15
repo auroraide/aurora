@@ -25,17 +25,11 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     private boolean foundapp = false;
 
 
-    private int counter;
-
-
-    private boolean condition = false;
-
     /**
      * This constructor initializes an empty {@link RedexPath}.
      */
     public RedexPath() {
         this.path = new LinkedList<>();
-        this.counter = 0;
     }
 
     public RedexPath(LinkedList<Direction> path) {
@@ -47,8 +41,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         RedexPath r = new RedexPath((LinkedList<Direction>) path.clone());
         r.finalapp = finalapp;
         r.foundapp = foundapp;
-        r.counter = counter;
-        r.condition = condition;
         return r;
     }
 
@@ -114,6 +106,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      */
     private class Walker extends TermVisitor<Void> {
 
+        private int counter = 0;
         @Override
         public Void visit(Abstraction abs) {
             return abs.body.accept(this);
