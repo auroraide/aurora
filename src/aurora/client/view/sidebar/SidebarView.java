@@ -33,6 +33,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.StackLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import javafx.geometry.Side;
 
 import java.util.ArrayList;
 
@@ -120,27 +121,25 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void displayAddLibraryItemSyntaxError(SyntaxException error) {
-        Window.alert("Syntax error at col: " + error.getColumn() + " !");
+        this.errorMessageDialogBox.setDescription("Syntax error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemSemanticError(SemanticException error) {
-        Window.alert("Semantic error at col: " + error.getColumn() + " !");
+        this.errorMessageDialogBox.setDescription("Semantic error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemNameAlreadyTaken() {
-        Window.alert("Function name is already taken!");
+        this.errorMessageDialogBox.setDescription("The function name is already taken. Please choose another one.");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemInvalidName() {
-        Window.alert("Function name is incorrect!");
-    }
-
-    @Override
-    public void displayErrorMessage(String errorMessage) {
-        this.errorMessageDialogBox.setDescription(errorMessage);
+        this.errorMessageDialogBox.setDescription("The function name is not valid.");
         this.errorMessageDialogBox.show();
     }
 
@@ -312,11 +311,24 @@ public class SidebarView extends Composite implements SidebarDisplay {
         });
 
         // SidebarPresenter does validation.
-        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> SidebarView.this.eventBus.fireEvent(
-                new AddFunctionEvent(
-                SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
-                SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
-                SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText())));
+        this.addLibraryItemDialogBox.getAddButton().addClickHandler(event -> {
+
+            if (SidebarView.this.addLibraryItemDialogBox.getNameField().getText().isEmpty()) {
+                SidebarView.this.errorMessageDialogBox.setDescription("Please enter a name.");
+                SidebarView.this.errorMessageDialogBox.show();
+                return;
+            } else if  (SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText().isEmpty()) {
+                SidebarView.this.errorMessageDialogBox.setDescription("Please enter a λ-term.");
+                SidebarView.this.errorMessageDialogBox.show();
+                return;
+            }
+
+            SidebarView.this.eventBus.fireEvent(
+                    new AddFunctionEvent(
+                            SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
+                            SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
+                            SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText()));
+        });
     }
 
     private void wireOnViewStateChanged() {
