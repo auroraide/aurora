@@ -127,8 +127,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void displayAddLibraryItemSemanticError(SemanticException error) {
-       this.errorMessageDialogBox.setDescription("Semantic error detected at column " + error.getColumn() + ".");
-       this.errorMessageDialogBox.show();
+        this.errorMessageDialogBox.setDescription("Semantic error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.show();
     }
 
     @Override
