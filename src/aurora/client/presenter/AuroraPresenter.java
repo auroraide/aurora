@@ -52,6 +52,8 @@ public class AuroraPresenter {
     }
 
     private void onShareLink(ShareLinkEvent e) {
+        HighlightedLambdaExpression hle = new HighlightableLambdaExpression(steps.get(e.getStep()));
+        auroraDisplay.displayShortLinkDialog();
     }
 
     private void onShareEmailAll(ShareEmailAllEvent e) {
