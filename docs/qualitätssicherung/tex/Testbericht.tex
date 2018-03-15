@@ -30,6 +30,8 @@ bookmarks=true,
 \usepackage{csquotes}
 \usepackage{upgreek}
 
+\usepackage{ifthen}
+
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
 \newcommand{\issueref}[1]{
     \href{https://git.scc.kit.edu/ap/Aurora/issues/#1}{(#1)}
@@ -54,6 +56,10 @@ bookmarks=true,
     \end{itemize}
 }
 
+\newcommand{\testline}[2]{
+    \texttt{#1} & \ifthenelse{\equal{#2}{JA}}{\cellcolor{green!20}}{\cellcolor{red!20}}#2 \\ \hline
+}
+
 \begin{titlepage}
     \subject{Testbericht}
     \title{\textbf{$\uplambda$}urora}
@@ -76,7 +82,7 @@ bookmarks=true,
 
 \section{Testfallszenarien}
     Die Testfallszenarien kommen aus dem Pflichtenheft. (Einführungstxt)
-    
+
 \subsection{Sprachenauswahl}
     Getestet:
     Sprache ist auswählbar (F37)
@@ -85,22 +91,22 @@ bookmarks=true,
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T1.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T1.2} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T1.1}{JA}
+            \testline{T1.2}{NEIN}
         \end{tabular}
     \end{center}
 
 \subsection{Teilen-Funktion}
     Getestet:
     LaTeX-Export (F55)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T2.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T2.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T2.3} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T2.1}{JA}
+            \testline{T2.2}{NEIN}
+            \testline{T2.3}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -111,14 +117,14 @@ bookmarks=true,
     Zeilennummern (F2),
     Night Mode (F38),
     Mobile Darstellung (F39)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T3.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T3.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T3.3} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T3.1}{JA}
+            \testline{T3.2}{NEIN}
+            \testline{T3.3}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -146,17 +152,17 @@ bookmarks=true,
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T4.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T4.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.3} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.4} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T4.5} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.6} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.7} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T4.8} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.9} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T4.10} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T4.11} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T4.1}{JA}
+            \testline{T4.2}{NEIN}
+            \testline{T4.3}{NEIN}
+            \testline{T4.4}{JA}
+            \testline{T4.5}{NEIN}
+            \testline{T4.6}{NEIN}
+            \testline{T4.7}{JA}
+            \testline{T4.8}{NEIN}
+            \testline{T4.9}{NEIN}
+            \testline{T4.10}{JA}
+            \testline{T4.11}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -167,14 +173,14 @@ bookmarks=true,
     Highlighting von Funktionsnamen (F11),
     Highlighting des nächsten auszuwertenden Redex (F12),
     Highlighting des zuletzt ausgeführten Redex (F13)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T5.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T5.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T5.3} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T5.1}{JA}
+            \testline{T5.2}{NEIN}
+            \testline{T5.3}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -198,21 +204,21 @@ bookmarks=true,
     Äquivalenz von Funktionen und deren Definition (F26),
     $\beta$-Reduktionen angezeigen (F34),
     Anzahl von dargestellten Schritten auswählen (F5)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T6.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T6.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.3} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.4} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T6.5} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.6} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.7} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T6.8} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.9} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T6.10} & \cellcolor{green!20}JA \\ \hline
+            \testline{T6.1}{JA}
+            \testline{T6.2}{NEIN}
+            \testline{T6.3}{NEIN}
+            \testline{T6.4}{JA}
+            \testline{T6.5}{NEIN}
+            \testline{T6.6}{NEIN}
+            \testline{T6.7}{JA}
+            \testline{T6.8}{NEIN}
+            \testline{T6.9}{NEIN}
+            \testline{T6.10}{JA}
         \end{tabular}
     \end{center}
 
@@ -230,9 +236,9 @@ bookmarks=true,
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T7.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T7.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T7.3} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T7.1}{JA}
+            \testline{T7.2}{NEIN}
+            \testline{T7.3}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -251,12 +257,12 @@ bookmarks=true,
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T8.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T8.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T8.3} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T8.4} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T8.5} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T8.6} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T8.1}{JA}
+            \testline{T8.2}{NEIN}
+            \testline{T8.3}{NEIN}
+            \testline{T8.4}{JA}
+            \testline{T8.5}{NEIN}
+            \testline{T8.6}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -264,13 +270,13 @@ bookmarks=true,
     Getestet:
     Tutorial (F57),
     Pretty Print (F7)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T9.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T9.2} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T9.1}{JA}
+            \testline{T9.1}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -278,14 +284,14 @@ bookmarks=true,
     Getestet:
     Anzahl der angezeigten Schritte (F36),
     Step (F15)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T10.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T10.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T10.3} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T10.1}{JA}
+            \testline{T10.2}{NEIN}
+            \testline{T10.3}{NEIN}
         \end{tabular}
     \end{center}
 
@@ -296,19 +302,19 @@ bookmarks=true,
     Reset-Shortcut (F51),
     Pause-Shortcut (F52),
     Step-Shortcut (F53)
-    
+
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Abdeckung \\ \hline
-            \texttt{T11.1} & \cellcolor{green!20}JA \\ \hline
-            \texttt{T11.2} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T11.3} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T11.4} & \cellcolor{red!20}NEIN \\ \hline
-            \texttt{T11.5} & \cellcolor{red!20}NEIN \\ \hline
+            \testline{T11.1}{JA}
+            \testline{T11.2}{NEIN}
+            \testline{T11.3}{NEIN}
+            \testline{T11.4}{NEIN}
+            \testline{T11.5}{NEIN}
         \end{tabular}
     \end{center}
-    
+
 \section{Testfallüberdeckung per Package}
     % Viele Screenshots von den überdeckungsberichtdingers.
     % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
@@ -316,23 +322,23 @@ bookmarks=true,
 \section{Regression Tests}
     \textbf{Was das?}
     Gesquäschte Bugs: 1337.
-    
-    
+
+
     \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
         Wir stellen die Schrittzahl auf 2 ein.
-        Es wird ($\lambda$x. x x)($\lambda$x. x x) in den Code-Editor eingegeben,  
+        Es wird ($\lambda$x. x x)($\lambda$x. x x) in den Code-Editor eingegeben,
             dann auf den Run Button klickt, dann ein paar Sekunden gewartet und auf den Pause-Button geklickt.
         Es werden 2 Schritte im Schrittfenster angezeigt.
         Beispielsweise tragen diese die Nummern 101 und 102.
         Klickt man nun auf den Step Button, dann werden die 2 Schritte, die ausgegeben werden, die Nummern 104 und 105.
         Dabei wird die Nummer 103 ausgelassen.
     }{
-        Der EditorPresenter übergibt der EditorView via dem EditorDisplay den falschen Schrittindex. 
+        Der EditorPresenter übergibt der EditorView via dem EditorDisplay den falschen Schrittindex.
         Der EditorPresenter hat bei der Berechnung des Schrittindex einen falschen Offset angegeben, welcher zum Fehler führt.
     }{
-        Es wird beim EditorPresenter der richtige Offset zur Berechnung des Schrittindex angegeben. 
+        Es wird beim EditorPresenter der richtige Offset zur Berechnung des Schrittindex angegeben.
     }
-    
+
     \regrtest{Leerer Input in StepNumber TextBox führt zu nicht valide, dargestellten Wert}{133}{
         Lösche den gesamten Input in StepNumber TextBox, so dass diese leer ist. Klicke auf eine beliebige Stelle in der Aurora WebApp.
         Klicke zum Beispiel auf den Input Editor, so dass die StepNumber TextBox den Fokus verliert.
@@ -341,12 +347,12 @@ bookmarks=true,
         Die StepNumber TextBox überprüft den Input nach jeder neuen Eingabe.
         Falls diese nicht valide ist, wird der letzte valide Wert angenommen.
         Zudem wird auch eine leere TextBox akzeptiert, da auch valide Werte der Länge 1 eingegeben werden sollen.
-        Wenn die TextBox leer ist und den Fokus verliert, dann wird nicht der letzte valide Wert angenommen, da kein BlurHandler der StepNumber Textbox registriert wurde, 
+        Wenn die TextBox leer ist und den Fokus verliert, dann wird nicht der letzte valide Wert angenommen, da kein BlurHandler der StepNumber Textbox registriert wurde,
             der den Wert wieder auf den letzten validen Wert setzt.
     }{
         Der StepNumber TextBox wird ein BlurHandler hinzugefügt, der den letzten validen Wert der StepNumber TextBox zuweist.
     }
-    
+
     \regrtest{Das Ausführen einer nicht definierten Bibliotheksfunktion sollte einen Fehler anzeigen}{143}{
         Man gibt einen regulären $\lambda$-Term ein, der eine nicht definierte Bibliotheksfunktion enthält, ein und drückt auf den Run Button.
         Es wird keine Fehlermeldung angezeigt.
@@ -365,12 +371,12 @@ bookmarks=true,
     }{
         Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
     }
-    
+
     \regrtest{Hinzufügen einer benutzerdefinierten Bibliotheksfunktion soll in allen Zuständen der View außer RunningState möglich sein}{172}{
-        Gibt man einen gültigen $\lambda$-Term in das Feld ein und klickt auf den Run Button. 
+        Gibt man einen gültigen $\lambda$-Term in das Feld ein und klickt auf den Run Button.
         Dann ist das Hinzufügen einer benutzerdefinierte Bibliotheksfunktion nicht möglich.
     }{
-        Der SidebarView wird mitgeteilt, dass nur in den Zuständen DefaultState und 
+        Der SidebarView wird mitgeteilt, dass nur in den Zuständen DefaultState und
             FinishedFinishedState das Hinzufügen von benutzerdefinierten Bibliotheksfunktionen möglich ist.
     }{
         Wir erlauben das Betätigen des AddFunctionButton in allen Zuständen außer RunningState,
@@ -402,7 +408,7 @@ bookmarks=true,
     }
 
     \regrtest{Alphakonversion ist nicht korrekt}{134}{
-        Als 2 2 in das Inputfeld gegeben wurde und der Simplifier noch nicht implementiert war, wurde im Resultfeld das Ergebnis: 
+        Als 2 2 in das Inputfeld gegeben wurde und der Simplifier noch nicht implementiert war, wurde im Resultfeld das Ergebnis:
         $\lambda$z.$\lambda$z.z1(z1(z1(z1 z)) angezeigt.
         Intern war die Berechnung zwar korrekt und die Churchzahl 4 war berechnet worden,
             aber die Alphakonversion war inkorrekt, da festgelegt wurde, dass jede Variable, der eine Nummer angehängt wurde,
@@ -415,7 +421,7 @@ bookmarks=true,
             mit einer freien Variable mit dem Namen der Abstraktion ersetzt.
         Das Ergebnis ohne Alphakonversion wäre in Debruijnindizes:
             $\lambda$z. $\lambda$z. 2 (2(2(2 1))).
-    
+
         Nach diesem ersten Schritt wäre es $\lambda$z. $\lambda$z. z(z(z(z 1))) wobei die $z$ freie Variablen wären und nicht mehr gebundene Variablen.
         Vergessen wurde, dass es möglich ist, dass eine Abstraktion eine andere Abstraktion mit selben Namen im Body hat.
         Jetzt wurden bei der zweiten Abstraktion erkannt, dass die freien Variablen den gleichen Namen wie die zweite Abstraktion haben,
@@ -433,13 +439,13 @@ bookmarks=true,
             sollten sie gleich heißen wie eine Abstraktion in deren Body sie sind.
         Dies führte zu einer funktionellen Alphakonversion, allerdings wurde uns mitgeteilt, dass man nicht den Namen von freien Variablen ändern sollte.
         Sollte eine freie Variable mit gleichen Namen gefunden werden, muss der Name der Abstraktion geändert werden, nicht der Name der freien Variable.
-    
+
         Dies führt final zu folgender Struktur:
            Es gibt einen Visitor, der den Term traversiert und bei jeder Abstraktion folgende Aktionen ausführt:
            Er initialisiert einen weiteren Visitor, der den Term traversiert und nach Abstraktionen sucht, die den gleichen Namen haben wie die Abstraktion,
             von der der Visitor gestartet ist.
         Falls eine gefunden wurde, wird der Name dieser zweiten Abstraktion eine Zahl angehängt.
-        
+
         Als Beispiel: $\lambda z. \lambda z. \lambda z. ...$ wird zu $\lambda z. \lambda z1. \lambda z1. ...$
             und wenn der ursprüngliche Visitor zu der zweiten Abstraktion kommt, wird daraus $\lambda z. \lambda z1. \lambda z2. ...$.
            Dann wird nach freien Variablen gesucht, die den gleichen Namen haben wie die ursprüngliche Abstraktion.
@@ -452,9 +458,9 @@ bookmarks=true,
            Hier wäre nach nur einem Schritt $z\_ alpha$ als gebundene Variable zu erkennen und nicht als freie Variable.
            Deswegen muss erneut nach freien Variablen gesucht werden die den gleichen Namen besitzen.
            In diesem Sonderfall würde erneut ein $\_ alpha$ an den Abstraktionsnamen angehängt werden.
-           
+
            Wenn dies vollbracht ist, werden gebundene Variablen durch freie Variablen mit dem Namen der Abstraktion ersetzt.
-}
+    }
 
 \section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
 \subsection{Ausgabe mit De Brujin-Indizes (K22)}
