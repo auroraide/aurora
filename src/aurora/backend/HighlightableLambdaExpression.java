@@ -444,7 +444,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Boolean visit(ChurchNumber c) {
-                return true;
+                return false;
             }
         }
 
@@ -476,7 +476,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Boolean visit(ChurchNumber c) {
-                return true;
+                return false;
             }
         }
 
