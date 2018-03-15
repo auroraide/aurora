@@ -496,7 +496,16 @@ bookmarks=true,
     }
 
 \section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
-\subsection{Ausgabe mit De Brujin-Indizes (K22)}
+\subsection{Musskriterien}
+
+\subsubsection{Anzahl von dargestellten Schritten auswählen (M6)}
+	In Funktionaler Anforderung \textbf{5.1} wurde für dieses Musskriterium ein \enquote{3-Punkte-Button}
+	vorgestellt.
+	Alle Funktionalität des \enquote{3-Punkte-Button} wurde in den Step-Button integriert, da die zwei Buttons nahezu identisch waren. 
+
+\subsection{Wunschkriterien}
+
+\subsubsection{Ausgabe mit De Brujin-Indizes (K22)}
     Es wird immer noch intern mit De Brujin-Indizes gerechnet, jedoch hat das Hinzufügen und Testen einer zusätzlichen Option,
         die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
     Die Ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
@@ -508,7 +517,7 @@ bookmarks=true,
     % K16: Öffnen im neuen Tab.
     % K20: Aurora Tutorial.
 
-\subsection{Mobile Darstellung (K25)}
+\subsubsection{Mobile Darstellung (K25)}
 	Eine explizite Anpassung der Graphischen Oberfläche an mobile Endgeräte wurde sehr früh in der Implementierung
 	ausgeschlossen.
     Der Aufwand für den endgültigen Nutzen wäre zu groß gewesen, unter der Annahme das nicht viele Benutzter Lambda
@@ -516,15 +525,12 @@ bookmarks=true,
     Die Funktionalität des Programms ist auf einem modernen Smartphone dennoch gegeben.
     % TODO oder machen wirs doch noch :P ?
 
-\subsection{Anzahl von dargestellten Schritten auswählen (M6)}
-	In Funktionaler Anforderung \textbf{5.1} wurde für dieses Musskriterium ein "3-Punkte-Button"
-	vorgestellt.
-	Alle Funktionalität des "3-Punkte-Button" wurde in den Step-Button integriert, da die zwei Buttons nahezu identisch waren. 
 
-\subsection{Pretty Print(K6)}
+
+\subsubsection{Pretty Print(K6)}
 	Wie bereits im Entwurfsdokument beschrieben ist kein Pretty Print implementiert.
 	
-\subsection{Standardbibliothek (K7)}
+\subsubsection{Standardbibliothek (K7)}
 	In der Beschreibung der Standardbibliothek wird die Aussage getroffen, dass
 	Churchzahlen in der Bibliothek sind.
 	Die Churchzahlen sind implementiert sind aber nicht in der Standardbibliothek,
@@ -532,24 +538,43 @@ bookmarks=true,
 	einem $\$$ vorangestellt werden müssen.
 	Beides ist nicht der Fall bei Churchzahlen
 
-\subsection{Schleifenerkennung (K19)}
+\subsubsection{Schleifenerkennung (K19)}
 	Wie bereits im Entwurfsdokument beschrieben ist dieses Wunschkriterium 
 	wegen zu geringen Nutzen nicht implementiert worden. 
 	Hiermit wird auch Nicht-Funktionale Anforderung \textbf{N10} nicht
 	mehr benötigt.
 	
-\subsection{Lokale Sessions (K23)}
+\subsubsection{Lokale Sessions (K23)}
 	Auch dies wurde wie im Entwurfsdokument beschrieben nicht implementiert.
+\subsection{Nichtfunktionale Anforderungen}
 
-\subsection{Standardbibliothek und Benutzerbibliothek (N11) und (N22)}
+\subsubsection{Standardbibliothek und Benutzerbibliothek (N11) und (N22)}
 	Es gibt keine Beschränkung der Anzahl der Funktionen in den Bibliotheken
-\subsection{Variablennamen (N17)}
+\subsubsection{Variablennamen (N17)}
 	Eine Variable darf groß oder kleingeschrieben werden, sie dürfen Zahlen
 	beinhalten, aber nicht als erstes Zeichen.
 	Das Sonderzeichen $\_ $ ist auch erlaubt worden, aber nicht als erstes Zeichen 
-\subsection{Funktionennamen (N18)}
+\subsubsection{Funktionsnamen (N18)}
 	Eine Funktion hat nun die gleichen Regeln wie eine Variable, sie muss aber 
 	weiterhin mit einem $\$$ beginnen.
+	
+\subsection{Testfälle}
+	Die Testfälle, die eine der vorher genannte Funktion referenzieren die adaptiert oder
+	gelöscht wurden.
+\subsubsection{Teilen Funktion (T2)}
+	In T2.3 wird beschrieben, dass ein Popup mit einer Bestätigung erscheint.
+	Dies wurde geänder.
+	Der Share Latex Knopf öffnet ein unterschiedliches Popup.
+	Dieses Popup entählt den Latextext und zwei Buttons.
+	Der eine Button Kopiert den Text in die Zwischenablage, der andere
+	schließt das Popup.
+	Es wurde sich dafür entschieden, damit der Benutzer voher nochmal den
+	kopierten Text sieht und bei Bedarf nur Teile des Textes kopieren kann.
+	
+\subsubsection{Darstellung in Chrome (T3)}
+	In T3.3 wird erwähnt, dass der Nachtmodus durch den Button aktiviert werden muss.
+	Es wurde entschieden, dass der Nachtmodus der Default Modus ist und die Helle
+	Oberfläche durch den Button aktiviert wird.
 \section{Glossar}
 
 \end{document}
