@@ -444,5 +444,4 @@ public class BetaReducerTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
         assertEquals("x", hle.toString());
     }
-
 }

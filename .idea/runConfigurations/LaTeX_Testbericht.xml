@@ -4,7 +4,7 @@
       <compiler>PDFLATEX</compiler>
       <compiler-path />
       <compiler-arguments>-output-directory .</compiler-arguments>
-      <main-file>$PROJECT_DIR$/docs/testbericht/tex/Testbericht.tex</main-file>
+      <main-file>$PROJECT_DIR$/docs/qualitätssicherung/tex/Testbericht.tex</main-file>
       <aux-dir>false</aux-dir>
       <output-format>PDF</output-format>
       <bib-run-config />
