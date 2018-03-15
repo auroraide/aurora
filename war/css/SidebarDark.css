@@ -6,10 +6,10 @@
 .stepSettings {
     font-size: 16px;
     color: #fff;
-    background-image: url("../img/icons/icon_step.png");
+    background-image: url("../img/icons/icon_step_turkis.png");
     background-repeat: no-repeat;
-    background-size: auto 70%;
-    background-position: 5% center;
+    background-size: auto 50%;
+    background-position: 3% center;
     background-color: #33495D;
     padding: 10px;
     display: flex;
@@ -20,17 +20,19 @@
 .stepSettings .leftAlign{
     margin-left: 30px;
     position: relative;
-    bottom: 7px;
 }
 .stepSettings .gwt-TextBox {
     background-color: #33495D;
-    border: 1px solid #b2b0b0;
-    border-radius: 15%;
+    border: none !important;
+    border-bottom: 1px solid #b2b0b0 !important;
+    text-align: center;
+    /*border-radius: 15%;*/
     position: relative;
     bottom: 6px;
+    line-height: 1em;
     color: #fff;
     height: 90%;
-    width: 10%;
+    width: 13%;
 }
 
 .standrard_db {
@@ -262,6 +264,9 @@
 .panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
     height:80px;
     background: #33495D !important;
+}
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2), .panelSettings .gwt-StackLayoutPanel > div:nth-child(4) {
+    overflow-y: scroll !important;
 }
 /*
 .gwt-MenuBarPopup {

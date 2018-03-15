@@ -48,42 +48,47 @@ public class LambdaParser {
      * @throws SemanticException In case of a semantic error like using an undefined function.
      */
     public MetaTerm parse(List<Token> stream) throws SyntaxException, SemanticException {
-        // the grammar would look something like this
-        //
-        // expr --> term | term expr
-        // term --> LEFT_PARENS expr RIGHT_PARENS | LAMBDA VARIABLE DOT expr | VARIABLE | FUNCTION | NUMBER
-        //
+        try {
+            // the grammar would look something like this
+            //
+            // expr --> term | term expr
+            // term --> LEFT_PARENS expr RIGHT_PARENS | LAMBDA VARIABLE DOT expr | VARIABLE | FUNCTION | NUMBER
+            //
 
-        // push tokens on stack in reverse order and discard whitespaces and comments
-        for (int i = stream.size() - 1; i >= 0; --i) {
-            Token t = stream.get(i);
-            if (t.getType() != Token.TokenType.T_WHITESPACE
-                    && t.getType() != Token.TokenType.T_COMMENT) {
-                this.inputStack.push(t);
+            // push tokens on stack in reverse order and discard whitespaces and comments
+            for (int i = stream.size() - 1; i >= 0; --i) {
+                Token t = stream.get(i);
+                if (t.getType() != Token.TokenType.T_WHITESPACE
+                        && t.getType() != Token.TokenType.T_COMMENT) {
+                    this.inputStack.push(t);
+                }
             }
+
+            if (this.inputStack.isEmpty()) {
+                throw new SyntaxException("Parse error: input stream is empty.");
+            }
+
+            MetaTerm result = this.expr();
+
+            if (!this.inputStack.isEmpty()) {
+                throw new SyntaxException(
+                        "Parse error at line "
+                                + this.inputStack.peek().getLine()
+                                + ", column "
+                                + this.inputStack.peek().getColumn()
+                                + ": unexpected "
+                                + this.inputStack.peek().getType()
+                                + " found.",
+                        this.inputStack.peek().getLine(),
+                        this.inputStack.peek().getColumn(),
+                        this.inputStack.peek().getOffset());
+            }
+
+            return result;
+        } finally {
+            this.inputStack.clear();
+            this.variableStack.clear();
         }
-
-        if (this.inputStack.isEmpty()) {
-            throw new SyntaxException("Parse error: input stream is empty.");
-        }
-
-        MetaTerm result = this.expr();
-
-        if (!this.inputStack.isEmpty()) {
-            throw new SyntaxException(
-                    "Parse error at line "
-                    + this.inputStack.peek().getLine()
-                    + ", column "
-                    + this.inputStack.peek().getColumn()
-                    + ": unexpected "
-                    + this.inputStack.peek().getType()
-                    + " found.",
-                    this.inputStack.peek().getLine(),
-                    this.inputStack.peek().getColumn(),
-                    this.inputStack.peek().getOffset());
-        }
-
-        return result;
     }
 
     private MetaTerm expr() throws SyntaxException, SemanticException {

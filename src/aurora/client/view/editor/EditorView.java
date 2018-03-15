@@ -134,7 +134,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("autoCloseBrackets", true);
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
-            console(getInput());
+            inputCodeMirror.setOption("back2Lambda", null);
         });
     }
 
@@ -265,12 +265,11 @@ public class EditorView extends Composite implements EditorDisplay {
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
             cmp.setValue(hle.toString());
-            cmp.setOption("theme", "material");
             cmp.setOption("readOnly", true);
             cmp.setOption("mode", "aurorascript");
             cmp.setOption("matchBrackets", true);
-            cmp.setOption("theme", "mbo");
             cmp.setOption("lineNumbers", false);
+            cmp.setOption("theme", "material");
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }

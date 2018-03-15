@@ -9,7 +9,7 @@
 
             <g:DockLayoutPanel unit="EM" addStyleNames="panelSettings">
 
-                <g:north size="2.5">
+                <g:north size="3.5">
                     <!-- Step Setting -->
                     <g:FlowPanel addStyleNames="stepSettings">
                         <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
