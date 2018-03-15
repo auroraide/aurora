@@ -362,6 +362,7 @@ aurora.war
 # IntelliJ user-specific stuff only
 /.idea/workspace.xml
 /.idea/tasks.xml
+/.idea/ant.xml
 
 apitoken.txt
 
