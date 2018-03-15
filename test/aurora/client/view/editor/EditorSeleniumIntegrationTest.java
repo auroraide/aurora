@@ -7,6 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -146,15 +152,26 @@ public class EditorSeleniumIntegrationTest {
      * Tests T4.11 (See Pflichtenheft).
      */
     @Test
-    @Ignore
     public void testCommentsIgnoredInCalculation() {
-        codeEditor.sendKeys("#dies ist ein test (λz.z) a");
+        codeEditor.sendKeys("(λ x. x) z");
         codeEditor.sendKeys(Keys.RETURN);
+        codeEditor.sendKeys("#dies ist ein test (λz.z) a");
         System.out.println(driver.findElement(By.id("inputCodeMirror"))
                 .findElements(By.tagName("pre")).get(0).getText());
-        codeEditor.sendKeys("(λ x. x) y");
         driver.findElement(By.id("runButton")).click();
-        String result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0).getText();
-        assertEquals("z", result);
+
+        Wait<WebDriver> waiter = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(20))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class);
+
+        String outputStr = waiter.until(dr -> {
+            WebElement output = dr.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0);
+            String o = output.getText();
+            System.out.println("o = \""+ o + "\"");
+            return o.hashCode() == 8203 ? null : o;
+        });
+
+        assertEquals("z", outputStr);
     }
 }
