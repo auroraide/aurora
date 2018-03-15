@@ -38,6 +38,20 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         this.counter = 0;
     }
 
+    public RedexPath(LinkedList<Direction> path) {
+        this.path = path;
+    }
+
+    @Override
+    public RedexPath clone() {
+        RedexPath r = new RedexPath((LinkedList<Direction>) path.clone());
+        r.finalapp = finalapp;
+        r.foundapp = foundapp;
+        r.counter = counter;
+        r.condition = condition;
+        return r;
+    }
+
     /**
      * Add a new enum to the List.
      *

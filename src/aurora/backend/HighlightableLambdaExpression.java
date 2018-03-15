@@ -376,6 +376,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             offset++;
             tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
+            currentPath.push(RedexPath.Direction.RIGHT);
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
                 column++;
                 offset++;
@@ -390,10 +391,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             } else {
                 app.right.accept(this);
             }
+            currentPath.pop();
 
             if (amRedex) {
                 lastToken = offset;
-                redexes.add(new Redex(startToken, middleToken, lastToken, ));
+                redexes.add(new Redex(startToken, middleToken, lastToken, currentPath.clone()));
             }
             return null;
         }
