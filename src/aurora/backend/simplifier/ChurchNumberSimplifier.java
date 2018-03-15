@@ -1,6 +1,5 @@
 package aurora.backend.simplifier;
 
-import aurora.backend.Comparer;
 import aurora.backend.TermVisitor;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
@@ -47,39 +46,6 @@ public class ChurchNumberSimplifier implements ResultSimplifier<ChurchNumber> {
             return null;
         }
         return null;
-    }
-
-    private class CompareVisitor extends TermVisitor<Void> {
-
-        @Override
-        public Void visit(Abstraction abs) {
-            return null;
-        }
-
-        @Override
-        public Void visit(Application app) {
-            return null;
-        }
-
-        @Override
-        public Void visit(BoundVariable bvar) {
-            return null;
-        }
-
-        @Override
-        public Void visit(FreeVariable fvar) {
-            return null;
-        }
-
-        @Override
-        public Void visit(Function libterm) {
-            return null;
-        }
-
-        @Override
-        public Void visit(ChurchNumber c) {
-            return null;
-        }
     }
 
     private class Absfinder extends TermVisitor<Abstraction> {

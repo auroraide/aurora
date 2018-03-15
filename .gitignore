@@ -14,6 +14,7 @@ war/aurora/*
 war/WEB-INF/deploy/*
 war/WEB-INF/classes/*
 war/aurora.Aurora.JUnit/*
+war/aurora.Testing.JUnit/*
 lib/*
 
 # merge backup files

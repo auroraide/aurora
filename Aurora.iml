@@ -45,6 +45,9 @@
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="gwt-dev-2.7.0" level="project" />
     <orderEntry type="library" name="mockito-core-1.9.5" level="project" />
+    <orderEntry type="library" name="jbrowserdriver-1.0.0-RC1" level="project"/>
+    <orderEntry type="library" name="selenium-remote-driver-3.10.0" level="project"/>
+    <orderEntry type="library" name="selenium-api-3.10.0" level="project"/>
     <orderEntry type="library" name="gwt-user" level="project" />
     <orderEntry type="module-library">
       <library name="IvyIDEA">

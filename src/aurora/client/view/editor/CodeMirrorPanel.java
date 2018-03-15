@@ -65,16 +65,16 @@ public class CodeMirrorPanel extends SimplePanel {
         callCMFunction(editor, "setOption", option, value);
     }
 
-    private native Object callCMFunction(JavaScriptObject jso, String name) /*-{
-        return jso[name].apply(jso);
+    private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
+        return jso[key].apply(jso);
     }-*/;
 
-    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg) /*-{
-        return jso[name].apply(jso, [arg]);
+    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg) /*-{
+        return jso[key].apply(jso, [arg]);
     }-*/;
 
-    private native Object callCMFunction(JavaScriptObject jso, String name, Object arg1, Object arg2) /*-{
-        return jso[name].apply(jso, [arg1, arg2]);
+    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2) /*-{
+        return jso[key].apply(jso, [arg1, arg2]);
     }-*/;
 
     private static native void console(String text) /*-{

@@ -1,0 +1,215 @@
+/** Add css rules here for your application. */
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #777777;
+    margin: 40px 0px 70px;
+    text-align: center;
+}
+
+.sendButton {
+    display: block;
+    font-size: 16pt;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs{
+    z-index: 1000;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+}
+
+.dialogVPanel {
+    margin: 5px;
+}
+
+.serverResponseLabelError {
+    color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+    margin: 15px 6px 6px;
+}
+
+
+/** PERSONALIZED **/
+div.gwt-TabLayoutPanelTabs {
+    height: 100%;
+    width: 100% !important;
+    padding: 0 !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+    background: #33495D !important;
+}
+.gwt-TabLayoutPanelTabs > div {
+    height: 100%;
+    margin: 0 !important;
+}
+.gwt-TabLayoutPanelTabs > div:first-child {
+    background-image: url("../img/aurora_logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 260px;
+    background-color: #33495D;
+    border-radius: 0;
+    background-position-y: 30%;
+}
+
+.gwt-TabLayoutPanelTabs > div:last-child {
+    float:right;
+    background-color: #19BB9B;
+    border-radius: 0;
+    text-transform: capitalize;
+    color: #fff;
+    width: 150px;
+    font-size: 1.5em;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+    background-color: unset;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer {
+    border: none !important;
+}
+
+.zindex {
+    z-index: 1000;
+    position: relative;
+}
+.block {
+    display: block;
+}
+
+/*ADD NEW FUNCTION*/
+.addLibraryItem, .shareDialogBox {
+    background: #4f5356;
+    border-radius: 3%;
+    -webkit-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
+    left: 40vw !important;
+    top: 20vh !important;
+    width: 40vw;
+
+}
+
+.addLibraryItem .Caption, .shareDialogBox .Caption {
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+    font-weight: 700;
+    font-size: 14px;
+    background: #177965;
+    border-radius: 3%;
+}
+
+.addLibraryItem > div > table > tbody > .dialogMiddle > .dialogMiddleCenter > div > table > tbody > tr > td > table {
+    width: 90%;
+    margin: 5px auto 0;
+}
+
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > input, .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > textarea {
+    background: #4f5356;
+    border: none;
+    border-bottom: 1px solid #fff;
+    width: 90%;
+}
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) {
+    vertical-align: top;
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-right: 10px;
+    line-height: 15px;
+    vertical-align: middle;
+}
+
+.addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) >.gwt-Label {
+    padding-top: 10px;
+    margin-right: 10px;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table {
+    width: 100%
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(1) > button {
+    background: #177965 !important;
+    border: none;
+    color: #fff;
+    margin-right: 5px;
+    border: 1px solid #145f4f;
+    width: 100% !important;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2) > button {
+    background: #81333d !important;
+    min-width: 80px;
+    border: none;
+    color: #fff;
+    border: 1px solid #692730;
+    width: 100% !important;
+}
+
+.addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td {
+    width: 50% !important;
+}
+
+.shareDialogBox .Caption {
+    font-size: 15px;
+}
+
+.shareDialogBox table, .addLibraryItem table {
+    width:100%;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div {
+    margin-top: 15px;
+}
+
+body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr > td {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr > td > textarea {
+    width: 90%;
+    color: #fff;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table {
+    margin-bottom: 10px;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td {
+    width:50%;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > button {
+    width: 100%;
+    border: none;
+    color: #fff;
+    border-radius: 0;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(1) > button {
+    background: #177965 !important;
+    border-right: 1px solid #0C1021;
+}
+
+.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(2) > button {
+    background: #81333d !important;
+}

@@ -1,5 +1,7 @@
 package aurora.backend;
 
+import aurora.backend.parser.Token;
+
 /**
  * This class generates a LaTeX snippet which can be pasted into a LaTeX document.
  */
@@ -21,21 +23,46 @@ public class ShareLaTeX {
      * @return A string which contains the LaTeX code.
      */
     public String generateLaTeX() {
-        String original = hle.toString();
-        String latex = "";
+        StringBuilder sb = new StringBuilder("$");
 
-        for (int i = 0; i < original.length(); i++) {
-            char c = original.charAt(i);
-            if (c == '\\') {
-                latex += "$\\lambda ";
-                continue;
-            }
-            if (c == '$') {
-                latex += "\\$";
-            } else {
-                latex += original.charAt(i);
+        for (Token t : hle) {
+            switch (t.getType()) {
+                case T_LAMBDA:
+                    sb.append("\\lambda ");
+                    break;
+                case T_DOT:
+                    sb.append(".");
+                    break;
+                case T_VARIABLE:
+                    sb.append(t.getName());
+                    break;
+                case T_LEFT_PARENS:
+                    sb.append("(");
+                    break;
+                case T_RIGHT_PARENS:
+                    sb.append(")");
+                    break;
+                case T_FUNCTION:
+                    sb.append("\\texttt{\\$");
+                    sb.append(t.getName());
+                    sb.append("}");
+                    break;
+                case T_NUMBER:
+                    sb.append("\\textbf{");
+                    sb.append(t.getName());
+                    sb.append("}");
+                    break;
+                case T_COMMENT:
+                    throw new IllegalStateException("Unknown token type");
+                case T_WHITESPACE:
+                    sb.append("\\ ");
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown token type");
             }
         }
-        return latex;
+
+        sb.append("$");
+        return sb.toString();
     }
 }
