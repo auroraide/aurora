@@ -2,7 +2,10 @@ package aurora.client.view.editor;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.Settings;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -168,7 +171,7 @@ public class EditorSeleniumIntegrationTest {
         String outputStr = waiter.until(dr -> {
             WebElement output = dr.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0);
             String o = output.getText();
-            System.out.println("o = \""+ o + "\"");
+            System.out.println("o = \"" + o + "\"");
             return o.hashCode() == 8203 ? null : o;
         });
 
