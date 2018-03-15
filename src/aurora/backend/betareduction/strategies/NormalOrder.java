@@ -21,6 +21,7 @@ public class NormalOrder extends ReductionStrategy {
     private final Stack<Term> termStack;
     private final Stack<Boolean> boolStack;
     private final Stack<Integer> intStack;
+
     private final Stack<Integer> returnStack;
 
     private final RedexPath redexPath;
@@ -77,8 +78,8 @@ public class NormalOrder extends ReductionStrategy {
         RedexFinderVisitor redexFinder = new RedexFinderVisitor();
         AbstractionFinder absFinder = new AbstractionFinder();
 
-        Term eax = null;
-        boolean ebx = false;
+        Term eax;
+        boolean ebx;
 
         while (!callStack.isEmpty()) {
             Call call = this.callStack.pop();
@@ -208,7 +209,7 @@ public class NormalOrder extends ReductionStrategy {
 
         @Override
         public Void visit(ChurchNumber c) {
-            boolStack.push(true);
+            boolStack.push(false);
             return null;
         }
 
@@ -268,7 +269,8 @@ public class NormalOrder extends ReductionStrategy {
         IF,
         RETURN_BOOL,
         RETURN_TRUE,
-        DISCARD_STACK, RETURN_FALSE
+        RETURN_FALSE,
+        DISCARD_STACK
 
     }
 
