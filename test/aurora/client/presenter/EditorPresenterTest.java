@@ -51,6 +51,9 @@ public class EditorPresenterTest {
         parser = new LambdaParser(new HashLibrary());
     }
 
+    /**
+     * Sets up editorDisplay, bus, editorPresenter.
+     */
     @Before
     public void setUp() {
         editorDisplay = mock(EditorDisplay.class);
