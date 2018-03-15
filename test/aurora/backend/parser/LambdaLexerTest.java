@@ -141,6 +141,49 @@ public class LambdaLexerTest {
     }
 
     @Test
+    public void testCommentFollowedByNewline() throws SyntaxException {
+        LambdaLexer lexer = new LambdaLexer();
+
+        // LF
+        List<Token> expectedLF = Arrays.asList(
+                new Token(Token.TokenType.T_COMMENT,
+                        " foo\n",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_LAMBDA,
+                        2, 1, 1),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 2, 2),
+                new Token(Token.TokenType.T_DOT,
+                        2, 3, 3),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 4, 4)
+        );
+        List<Token> actualLF = lexer.lex("# foo\n\\x.x");
+        assertThat(actualLF, is(expectedLF));
+
+        // CR LF
+        List<Token> expectedCRLF = Arrays.asList(
+                new Token(Token.TokenType.T_COMMENT,
+                        " foo\r\n",
+                        1, 1, 0),
+                new Token(Token.TokenType.T_LAMBDA,
+                        2, 1, 1),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 2, 2),
+                new Token(Token.TokenType.T_DOT,
+                        2, 3, 3),
+                new Token(Token.TokenType.T_VARIABLE,
+                        "x",
+                        2, 4, 4)
+        );
+        List<Token> actualCRLF = lexer.lex("# foo\r\n\\x.x");
+        assertThat(actualCRLF, is(expectedCRLF));
+    }
+
+    @Test
     public void testLexInvalidExpression() {
         LambdaLexer lexer = new LambdaLexer();
         boolean thrown = false;
