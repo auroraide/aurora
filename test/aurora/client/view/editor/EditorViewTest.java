@@ -146,16 +146,35 @@ public class EditorViewTest extends GWTTestCase {
      */
     public void testStepBeforeResultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
-        assertTrue(editorView.getActionBar().getRunButton().isEnabled()
+        assertFalse(editorView.getActionBar().getRunButton().isEnabled()
                 && editorView.getActionBar().getRunButton().isVisible());
         assertFalse(editorView.getActionBar().getPauseButton().isEnabled()
                 && editorView.getActionBar().getPauseButton().isVisible());
-        assertFalse(editorView.getActionBar().getContinueButton().isEnabled()
+        assertTrue(editorView.getActionBar().getContinueButton().isEnabled()
                 && editorView.getActionBar().getContinueButton().isVisible());
         assertTrue(editorView.getActionBar().getStepButton().isEnabled()
                 && editorView.getActionBar().getStepButton().isVisible());
         assertTrue(editorView.getActionBar().getResetButton().isEnabled()
                 && editorView.getActionBar().getResetButton().isVisible());
+    }
+
+    /**
+     * Regression test. Typing 4 4 in inputCodeMirror, clicking step button and then continue button should not fail.
+     */
+    public void testStepRun() {
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            editorView.getInputCodeMirror().setValue("4 4");
+            editorView.getActionBar().getStepButton().click();
+        });
+
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            assertFalse(editorView.getActionBar().getRunButton().isEnabled());
+            assertTrue(editorView.getActionBar().getContinueButton().isEnabled());
+            editorView.getActionBar().getContinueButton().click();
+            assertEquals("256", editorView.getOutputCodeMirror().getValue());
+        });
+
+
     }
 
 }
