@@ -306,7 +306,7 @@ public class EditorView extends Composite implements EditorDisplay {
     private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
         GWT.log("getTokenPosition");
         int tokenPosition = 0;
-        for(Token token: hle) {
+        for (Token token: hle) {
             if (token.getOffset() == index) {
                 break;
             }
@@ -315,7 +315,7 @@ public class EditorView extends Composite implements EditorDisplay {
         
         int line = 0;
         int ch = 0;
-        for(int i = 0; i < cm.lineCount(); ++i) {
+        for (int i = 0; i < cm.lineCount(); ++i) {
             if (tokenPosition >= cm.getLine(i).length()) {
                 tokenPosition -= cm.getLine(i).length();
             } else {
