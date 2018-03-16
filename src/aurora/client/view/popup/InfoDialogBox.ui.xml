@@ -6,6 +6,7 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
+            <g:Label ui:field="title" addStyleNames="popup_title"><ui:msg description="InfoPopup title">error</ui:msg></g:Label>
             <g:Label ui:field="descriptionLabel"><ui:msg description="InfoPopup desc">Hier könnte Ihre Info stehen:</ui:msg></g:Label>
         </g:HorizontalPanel>
     </g:VerticalPanel>

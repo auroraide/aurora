@@ -331,3 +331,41 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
     overflow-y: scroll !important;
 }
+
+#errorMessageDialogBox {
+    background: rgba(204, 83, 83, 0.4);
+    min-height: 100px;
+    border-radius: 10px;
+    min-width: 350px;
+    padding: 10px;
+}
+
+#errorMessageDialogBox > div {
+    margin: 20px auto;
+    width: 250px;
+}
+
+#errorMessageDialogBox table {
+    margin: 0 auto;
+}
+
+#errorMessageDialogBox .gwt-Label {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    padding: 5px 0;
+    color: #fff;
+}
+
+#errorMessageDialogBox .popup_title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid #bdbcbc;
+    background: rgba(125, 35, 35, 0.8);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
