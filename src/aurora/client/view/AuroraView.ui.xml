@@ -41,7 +41,89 @@
                 <b><ui:msg description="Tutorial tab title">TUTORIAL</ui:msg></b>
             </g:header>
             <g:HTMLPanel>
-                <div><ui:msg description="Tutorial text">Ich bin ein TUTORIAL!</ui:msg></div>
+                <nav id="tutorial_nav">
+                    <ul class="first_level">
+                        <li><a href="/Aurora.html#about">Über aurora</a></li>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#input">Editor</a>
+                            <ul class="second_level">
+                                <li><a href="input">Eingabefeld</a></li>
+                                <li><a href="#action_bar">Funtionsleiste</a></li>
+                                <li><a href="#step_view">Schrittfeld</a></li>
+                                <li><a href="#result_field">Ausgabefeld</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#step_change">Sidebar</a>
+                            <ul class="second_level">
+                                <li><a href="#step_change">Schrittauswahl</a></li>
+                                <li><a href="#st_library">Standardlibrary</a></li>
+                                <li><a href="#user_library">Benutzerbibliothek</a></li>
+                                <li><a href="#strategy">Strategieauswahl</a></li>
+                                <li><a href="#night_mode">Night Mode</a></li>
+                                <li><a href="#language_share">Sprache und Share</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#thanks">Unsere Danke</a></li>
+                        <li><a href="#contact_us">Kontakt</a></li>
+                    </ul>
+                </nav>
+
+                <div class="title" id="about">
+                    <h2>about</h2>
+                </div>
+                <section>
+                    <p> Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit ei- genen Lambda Termen sowohl arbeiten als auch experimentieren können. Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das λ-Kalkül zu entwickeln. Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch ei- ne anschauliche Darstellung von Zwischenschritte gegeben. Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.</p>
+                    <p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p>
+                </section>
+
+
+                <div class="title" id="overview">
+                    <h2>Overview</h2>
+                </div>
+                <section class="col3">
+                    <div>
+                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
+                    </div>
+                    <div class="middle"><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p>
+                        <img src="img/screenshots/main.png"/>
+                    </div>
+                    <div><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p></div>
+                </section>
+
+
+                <div class="title" id="input">
+                    <h2>editor</h2>
+                </div>
+                <section class="col2">
+                    <div>
+                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
+                    </div>
+                    <div class="middle">
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+                </section>
+
+                <div class="title">
+                    <h2>sidebar</h2>
+                </div>
+                <section class="col3 column_40-20-40">
+                    <div>
+                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
+                    </div>
+                    <div class="middle">
+                        <img src="img/screenshots/sidebar.png" style="width: 80%" />
+                    </div>
+                    <div><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p></div>
+                </section>
             </g:HTMLPanel>
         </g:tab>
 

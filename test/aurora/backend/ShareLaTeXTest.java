@@ -1,38 +1,40 @@
 package aurora.backend;
 
-import aurora.backend.tree.Abstraction;
-import aurora.backend.tree.BoundVariable;
-import aurora.backend.tree.FreeVariable;
-import aurora.backend.tree.Function;
-import org.junit.After;
-import org.junit.Before;
+import aurora.backend.library.HashLibrary;
+import aurora.backend.parser.LambdaLexer;
+import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.tree.Term;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class ShareLaTeXTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void testlambdasymbol() {
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Abstraction(
-                new BoundVariable(1),"x"));
-        ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals("$\\lambda x. x",sh.generateLaTeX());
-    }
+    public void testManyTerms() throws SyntaxException, SemanticException {
+        final String[] originals = {
+                "$true (a) 578",
+                "($true $true $true ($true) 2 2 2 ($true 1) \\x.($true x \\x.x)) 3",
+                "\\x. x_alpha"
+        };
+        final String[] expected = {
+                "$(\\texttt{\\$true})\\ a\\ \\textbf{578}$",
+                "$(\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ (\\texttt{\\$true})\\ "
+                        + "\\textbf{2}\\ \\textbf{2}\\ \\textbf{2}\\ ((\\texttt{\\$true})\\ \\textbf{1})\\ "
+                        + "(\\lambda x.\\ (\\texttt{\\$true})\\ x\\ (\\lambda x1.\\ x1))\\ \\textbf{3}$",
+                "$\\lambda x.\\ x\\_ alpha$"
+        };
 
-    @Test
-    public void dollar() {
-        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(new Function(
-                "test", new FreeVariable("x")));
-        ShareLaTeX sh = new ShareLaTeX(hle);
-        assertEquals(sh.generateLaTeX(), "\\$test");
+        HashLibrary library = new HashLibrary();
+        LambdaLexer lexer = new LambdaLexer();
+        LambdaParser parser = new LambdaParser(library);
+        library.define("true", "", parser.parse(lexer.lex("\\t.\\f.t")));
+        for (int i = 0; i < originals.length; i++) {
+            Term t = parser.parse(lexer.lex(originals[i]));
+            ShareLaTeX shareLaTeX = new ShareLaTeX(new HighlightableLambdaExpression(t));
+            String actual = shareLaTeX.generateLaTeX();
+            assertEquals(expected[i], actual);
+        }
     }
 }
