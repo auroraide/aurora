@@ -327,3 +327,7 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 #tutorial_nav ul li {
     border-bottom: 1px solid #33495D;
 }
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+    overflow-y: scroll !important;
+}
