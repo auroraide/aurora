@@ -229,8 +229,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
-        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException.getLine()
-                + " and column " + syntaxException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
@@ -240,8 +239,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
-        this.errorMessageDialogBox.setDescription("Semantic error detected at line " + semanticException.getLine()
-                + " and column " + semanticException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
