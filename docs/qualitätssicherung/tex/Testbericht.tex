@@ -60,6 +60,21 @@ bookmarks=true,
     \texttt{#1} & \ifthenelse{\equal{#2}{JA}}{\cellcolor{green!20}}{\cellcolor{red!20}}#2 \\ \hline
 }
 
+\newcommand{\signed}[1]{%
+   \unskip\hspace*{1em plus 1fill}%
+   \nolinebreak[3]\hspace*{\fill}\mbox{\upshape #1}
+}
+ 
+\newenvironment{xquote}{%
+   \begin{list}{}{%
+     \rightmargin
+     \leftmargin
+   }
+   \itshape
+   \item[]
+}
+{\end{list}}
+
 \begin{titlepage}
     \subject{Testbericht}
     \title{\textbf{$\uplambda$}urora}
@@ -77,8 +92,31 @@ bookmarks=true,
 \tableofcontents
 \newpage
 
+\begin{xquote}
+    %Program testing can be a very effective way to show the presence of bugs, but is hopelessly inadequate for showing their absence.
+    Testing shows the presence of bugs, not their absence.
+    \newline
+    \signed{-Edsger Wybe Dijkstra}
+\end{xquote}
+
 \section{Einleitung}
-Trotz der Diversität heutiger Programmiersprachen, teilen sich viele der damit geschriebenen Programme von Haus aus ein inhärentes Problem.
+Trotz der Diversität heutiger Programmiersprachen teilen sich viele der damit geschriebenen Programme von Haus aus ein inhärentes Problem.
+Setzt man sich nun das Ziel die Qualität, bzw. das Nutzererlebnis zu verbessern, ergeben sich für uns im Wesentlichen zwei Aufgabenbereiche.
+\newline
+Der eigentliche Schwerpunkt dieser Phase liegt darin, Aurora in einen möglichst stabilen Endzustand zu bringen.
+Hierzu werden wir verschiedene Testkomponenten einsetzen, um jeweils bestimmte Teilfunktionen von Aurora testen zu können.
+Die so gefundenen Fehler werden alle in diesem Dokument aufgelistet und dokumentiert.
+\newline
+Darüberhinaus kann eine Steigerung des Nutzererlebnisses auch durch das Erweitern der Funktionalität erreicht werden.
+Teile des Funktionsumfangs, die nicht mehr in der Implementierungsphase umgesetzt werden konnten, können nun auch noch zu einem späteren Zeitpunkt zu Aurora hinzugefügt werden.
+
+\subsection{JUnit/GWTTestCase}
+Zeitgleich mit Beginn der Implementierung haben wir begonnen, zu unserem Code JUnit Testfälle zu schreiben.
+Neben dem präventiven Schreiben von Testfällen, wurde auch zu jedem gefundenen Bug ein Test geschrieben, der genau diesen auslöste.
+Nachdem der Fehler behoben wurde konnte so während der gesamten Implementierungs- und Qualitätssicherungsphase gewährleistet werden, dass ein einmal behobener Bug nicht erneut auftreten konnte.
+Details, Ursachen, sowie die Behebung der Fehler sind in der Sektion \enquote{Regression Tests} festgehalten.
+
+
 
 
 \section{Testfallszenarien}
@@ -321,15 +359,16 @@ Trotz der Diversität heutiger Programmiersprachen, teilen sich viele der damit 
     % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
 
 \section{Regression Tests}
-    \textbf{Was das?}
-    Diese Tests, sollen verhindern, dass Modifikationen in der Software, 
-    keine neuen Fehler verursachen. Seit Beginn der Implementierung wurden Regression Tests
-    geschrieben, die eine korrekte Ausgabe überprüften.
-    Im folgenden, werden Bugs vorgestellt, die im Laufe der Implementierung entstanden
-    sind. Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
-    Nach jeder Behebung mussten Regression Test geschrieben werden, die verhindern, dass die Bugs erneut entstehen.
-    Jeder Bug wurde in einem Issue festgehalten, und die Issue-Nummer wird der Beschreibung des Bugs mitgeliefert.
+    Regression Tests sollen verhindern, dass Modifikationen an der Software, die unter anderem durch Wartung oder Korrektur von Komponenten entstehen kann, nicht dazu führen,
+        dass ehemals behobene Fehler erneut auftreten.
+    Um diesen Ansprüchen gerecht zu werden, ist es zwingend erforderlich, dass so früh wie möglich damit begonnen wird Testfälle zu schreiben,
+        weswegen wir bereits während der Implementierungsphase damit begonnen haben, Testfälle zu entwerfen, um die Korrektheit von Aurora zu gewährleisten.
+    Im folgenden, werden Bugs vorgestellt, die uns im Laufe der Implementierung bzw. Qualitätssicherung aufgefallen sind.
+    Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
+    Vor der Behebung eines Fehlers, musste ein Regression Test geschrieben werden, der ebendiesen auslöste, nachdem der Fehler behoben wurde, durfte er dementsprechend nicht mehr ausschlagen.
+    Bugs wurden durchgehend in einem Issue Tracker festgehalten, sobald eine Issue geschlossen werden konnte, wurde der commit vermerkt, der den Fehler behoben hat.
     
+    \textbf{Was das?}
     Gesquäschte Bugs: 1337.
 
     \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
@@ -577,5 +616,10 @@ Trotz der Diversität heutiger Programmiersprachen, teilen sich viele der damit 
 	Es wurde entschieden, dass der Nachtmodus der Default Modus ist und die Helle
 	Oberfläche durch den Button aktiviert wird.
 \section{Glossar}
+\begin{itemize}
+    \item Issue
+    \item Issue Tracker
+    \item commit?
+\end{itemize}
 
 \end{document}
