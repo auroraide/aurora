@@ -50,13 +50,9 @@ public class ShareDialogBox extends DialogBox {
     void onCopyToClipboardButtonClicked(ClickEvent event) {
         this.shareText.setFocus(true);
         this.shareText.selectAll();
-        boolean successful = copyToClipboard();
-
-        if (successful) {
-            // TODO Notify user, that copying to clipboard was succesful
-        } else {
-            // TODO Notify user, that copying to clipboard was not succesful
-        }
+        copyToClipboard();
+        ShareDialogBox.this.shareText.setText("");
+        ShareDialogBox.this.hide();
     }
 
     /**
