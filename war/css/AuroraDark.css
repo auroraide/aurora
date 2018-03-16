@@ -332,24 +332,25 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     overflow-y: scroll !important;
 }
 
-#errorMessageDialogBox {
-    background: rgba(204, 83, 83, 0.4);
+.infoDialogBox {
+    background: rgba(204, 83, 83, 0.9);
     min-height: 100px;
     border-radius: 10px;
     min-width: 350px;
     padding: 10px;
+    z-index: 1000;
 }
 
-#errorMessageDialogBox > div {
+.infoDialogBox > div {
     margin: 20px auto;
     width: 250px;
 }
 
-#errorMessageDialogBox table {
+.infoDialogBox table {
     margin: 0 auto;
 }
 
-#errorMessageDialogBox .gwt-Label {
+.infoDialogBox .gwt-Label {
     font-size: 18px;
     text-align: center;
     font-weight: 500;
@@ -357,7 +358,7 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     color: #fff;
 }
 
-#errorMessageDialogBox .popup_title {
+.infoDialogBox .popup_title {
     position: absolute;
     top: 0;
     width: 100%;
