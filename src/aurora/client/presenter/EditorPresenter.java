@@ -114,8 +114,10 @@ public class EditorPresenter {
         eventBus.addHandler(ResetEvent.TYPE, runEvent -> onReset());
         eventBus.addHandler(PauseEvent.TYPE, pauseEvent -> onPause());
         eventBus.addHandler(EvaluationStrategyChangedEvent.TYPE, this::onStrategyChange);
+        /* TODO this doesn't compile, fix me
         eventBus.addHandler(RedexClickedEvent.TYPE, redexClickedEvent
                 -> onRedexClicked(redexClickedEvent.getToken()));
+         */
         eventBus.addHandler(ContinueEvent.TYPE, e -> onContinue());
 
         eventBus.addHandler(ReStepEvent.TYPE, e -> onReStep());

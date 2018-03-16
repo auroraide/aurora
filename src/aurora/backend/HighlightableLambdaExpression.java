@@ -250,11 +250,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
          */
         private class AlphaconversionVisitorFV extends TermVisitor<Term> {
             private String name;
-            private boolean changed;
 
             public AlphaconversionVisitorFV(String name) {
                 this.name = name;
-                changed = false;
             }
 
 
@@ -307,8 +305,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         private int line;
         private int offset;
         private int column;
-        private boolean isapp;
-        private boolean isabs;
         int index;
         private RedexPath currentPath;
 
@@ -340,7 +336,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             offset++;
             tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
-            // replace all BoundVariables with Free Variables and perform alpha conversion
+            // replace all BoundVariables with Free Variables
             Term t = abs.body.accept(new BoundVariableFinder(abs.name));
             t.accept(this);
 
@@ -427,7 +423,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Boolean visit(Function libterm) {
-                return libterm.accept(this);
+                return libterm.term.accept(this);
             }
 
             @Override
