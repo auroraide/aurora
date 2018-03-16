@@ -12,7 +12,7 @@ import aurora.utils.GWTTestCaseSetup;
 /**
  * Tests {@link EditorView}.
  */
-public class EditorViewTest extends GWTTestCase {
+public class EditorViewGwtTest extends GWTTestCase {
     private CountingEventBus eventBus;
     private EditorView editorView;
 
