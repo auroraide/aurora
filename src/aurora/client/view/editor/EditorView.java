@@ -300,7 +300,7 @@ public class EditorView extends Composite implements EditorDisplay {
         HighlightedLambdaExpression hle = stepMap.get(stepNumber);
         int[] fromPos = getTokenPosition(cm, hle, startToken);
         int[] toPos = getTokenPosition(cm, hle, endToken);
-        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1]);
+        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
     }
 
     private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
@@ -324,6 +324,7 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         }
         GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
+        cm.markText(0, 1, 0, 5, "#ff0");
         return new int[] {line, ch};
     }
 

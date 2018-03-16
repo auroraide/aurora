@@ -93,16 +93,16 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param toLine line in which to stop marking.
      * @param toChar last char to mark in toLine.
      */
-    public void markText(int fromLine, int fromChar, int toLine, int toChar) {
-        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar);
+    public void markText(int fromLine, int fromChar, int toLine, int toChar, String backgroundClr) {
+        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, backgroundClr);
     }
 
     private native Object callCMmarkText(JavaScriptObject jso, String key,
-            Object arg1, Object arg2, Object arg3, Object arg4) /*-{
+            Object arg1, Object arg2, Object arg3, Object arg4, String arg5) /*-{
         return jso[key].apply(jso,
             [{line: arg1,ch: arg2},
             {line: arg3, ch: arg4},
-            {css: "background-color:#7FFF00"}]);
+            {css: "background-color:" + arg5}]);
     }-*/;
 
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
