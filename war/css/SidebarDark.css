@@ -265,9 +265,21 @@
     height:80px;
     background: #33495D !important;
 }
+
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2), .panelSettings .gwt-StackLayoutPanel > div:nth-child(4) {
     overflow-y: scroll !important;
 }
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div > div:nth-child(2) > table {
+    background: #187965 !important;
+    border: none;
+}
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div > div:nth-child(2) > table > tbody > tr {
+    border-bottom: 1px solid #6D8A88;
+}
+
+
 /*
 .gwt-MenuBarPopup {
     left:0 !important;
