@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ShareDialogBox extends DialogBox {
     interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {}
+
     private static ShareDialogBoxUiBinder ourUiBinder = GWT.create(ShareDialogBoxUiBinder.class);
 
     @UiField
