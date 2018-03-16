@@ -99,7 +99,7 @@ public class SidebarPresenter {
 
         List<Token> tokens;
         try {
-            tokens = lambdaLexer.lex("$" + functionName);
+            tokens = lambdaLexer.lex("$" + input.getName());
         } catch (SyntaxException ex) {
             sidebarDisplay.displayAddLibraryItemInvalidName();
             return;
