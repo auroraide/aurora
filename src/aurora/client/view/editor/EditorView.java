@@ -273,7 +273,7 @@ public class EditorView extends Composite implements EditorDisplay {
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
         // TODO set shareMenu Style and optionMenuStyle
-        stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
+        stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
 
         //TODO: once hle is done, use its magic
@@ -301,6 +301,18 @@ public class EditorView extends Composite implements EditorDisplay {
         int[] fromPos = getTokenPosition(cm, hle, startToken);
         int[] toPos = getTokenPosition(cm, hle, endToken);
         cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
+    }
+
+    /**
+     * Replace the last HLE with a new one.
+     *
+     * @param hle New hle to replace the old last one.
+     */
+    public void replaceLastStep(HighlightedLambdaExpression hle) {
+        int index = stepFieldTable.getRowCount();
+        stepMap.remove(index);
+        stepMap.put(index, hle);
+        ((CodeMirrorPanel) stepFieldTable.getWidget(index, 2)).setValue(hle.toString());
     }
 
     private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
