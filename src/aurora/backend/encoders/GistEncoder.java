@@ -3,6 +3,8 @@ package aurora.backend.encoders;
 import aurora.backend.encoders.exceptions.DecodeException;
 import aurora.backend.library.Library;
 import aurora.backend.encoders.JSONSessionEncoder;
+import aurora.backend.parser.LambdaLexer;
+import aurora.backend.parser.LambdaParser;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.http.client.RequestBuilder;
@@ -21,12 +23,29 @@ import com.google.gwt.core.client.JsArrayMixed;
  */
 public class GistEncoder {
 
-    private static final String POST_URL = "https://api.github.com/gists";
+    private static final String GIST_URL = "https://api.github.com/gists";
+    
+    private final LambdaLexer lambdaLexer;
+    private final LambdaParser lambdaParser;
 
     /**
      * Create a new GistEncoder.
      */
-    public GistEncoder() {}
+    public GistEncoder() {
+        this.lambdaLexer = null;
+        this.lambdaParser = null;
+    }
+
+    /**
+     * Decoding requires both lexer and parser.
+     *
+     * @param lambdaLexer The lambdaLexer.
+     * @param lambdaParser The lambdaParser.
+     */
+    public GistEncoder(LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
+        this.lambdaLexer = lambdaLexer;
+        this.lambdaParser = lambdaParser;
+    }
 
     /**
      * Encodes a given input along with the library.
@@ -41,12 +60,13 @@ public class GistEncoder {
         postGist(encodedString, callback);
     }
 
-    public void decode(String encodedInput, AsyncCallback<String> callback) throws DecodeException {
-        
+    public void decode(String url, AsyncCallback<String> callback) {
+        JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
+        getGist(url, callback);
     }
 
     private void postGist(String encodedString, AsyncCallback<String> callback) {
-        RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, POST_URL);
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, GIST_URL);
         try {
             Request response = builder.sendRequest(
                     "{ \"files\" :{"
@@ -75,6 +95,35 @@ public class GistEncoder {
         } catch (RequestException e) {
             //TODO: do something od Failure?
             throw new RuntimeException("Error while getting gist or whatever");
+        }
+    }
+
+    private void getGist(String url, AsyncCallback<String> callback) {
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, GIST_URL + "/" + url);
+        try {
+            Request response = builder.sendRequest("", new RequestCallback() {
+                public void onError(Request request, Throwable exception) {
+                    throw new RuntimeException("Error retrieving from gist.github.com");
+                }
+
+                public void onResponseReceived(Request request, Response response) {
+                    if(!JsonUtils.safeToEval(response.getText())) {
+                        throw new RuntimeException("gist url is not a valid json");
+                    }
+                    JavaScriptObject jso = JsonUtils.safeEval(response.getText());
+                    //TODO This thing is an array
+                    //callback.onSuccess(getProperty(jso, "files"));
+                    //jso = JsonUtils.safeEval(getProperty(jso, "files"));
+                    //callback.onSuccess(getProperty(jso, "content"));
+                }
+
+                private native void console(String message) /*-{
+                    console.log(message);
+                }-*/;
+            });
+        } catch (RequestException e) {
+            //TODO do something onFailure?
+            throw new RuntimeException("Error while getting json from url");
         }
     }
 
