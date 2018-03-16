@@ -66,7 +66,9 @@ public class JSONSessionEncoder extends SessionEncoder {
             throw new DecodeException("Invalid json file");
         }
         JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
-        String rawInput =  getProperty(jso, "rawInput");
+        //TODO Try catch rawInput
+        String rawInput = getProperty(jso, "rawInput");
+        //TODO Try catch this one
         String[][] libraryString = getLibrary(jso);
         Library library = new HashLibrary();
         
