@@ -100,7 +100,7 @@ public class EditorView extends Composite implements EditorDisplay {
                     EditorView.this.actionBar.setPausedStateAppearance();
                     break;
                 case STEP_BEFORE_RESULT_STATE:
-                    EditorView.this.actionBar.setStepBeforeResultAppearance();
+                    EditorView.this.actionBar.setPausedStateAppearance();
                     break;
                 case FINISHED_STATE:
                     EditorView.this.actionBar.setFinishedStateAppearance();
