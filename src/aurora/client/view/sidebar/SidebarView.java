@@ -150,6 +150,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
+        removeLibraryItemButton.setStyleName("deleteUserLibraryItem");
         removeLibraryItemButton.ensureDebugId("removeLibraryItemButton-" + row);
         removeLibraryItemButton.addClickHandler(event -> {
             Scheduler scheduler = Scheduler.get();

@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -40,7 +41,6 @@ public class AddLibraryItemDialogBox extends DialogBox {
         //TODO i18n right down there.
         setText("ADD NEW FUNCTION");
         setGlassEnabled(false);
-        getAbsoluteLeft();
         hide();
     }
 

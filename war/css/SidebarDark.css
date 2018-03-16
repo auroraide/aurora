@@ -260,15 +260,31 @@
 .gwt-ListBox {
     display: none;
 }
-
+/*LIBRARIES*/
 .panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
     height:80px;
     background: #33495D !important;
 }
 
+.panelSettings .gwt-StackLayoutPanel div:nth-child(4) table {
+    width: 100%;
+}
+
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2), .panelSettings .gwt-StackLayoutPanel > div:nth-child(4) {
     overflow-y: scroll !important;
 }
+
+/*STYLES FOR USER LIBRARY: LAYOUT*/
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:first-child {
+    width: 30%;
+    font-weight: 700;
+}
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:nth-child(2) {
+    width: 60%;
+    color: #c3c2c2;
+    padding-right: 3px;
+}
+
 
 .panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent {
     background: #187965 !important;
@@ -277,7 +293,19 @@
 
 .panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody > tr{
     border-bottom: 1px solid #6D8A88;
+    display: flex;
+    padding: 5px 0;
 }
+
+.deleteUserLibraryItem {
+    color: white;
+    font-weight: 800;
+    font-size: 15px;
+    border: 1px solid #883332;
+    background: #bc2423;
+    border-radius: 3px;
+}
+
 /*
 .gwt-MenuBarPopup {
     left:0 !important;
