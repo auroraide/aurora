@@ -1,6 +1,7 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
@@ -29,6 +30,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This is where the user may view and manipulate code.
@@ -43,6 +47,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private CodeMirrorPanel inputCodeMirror;
     private CodeMirrorPanel outputCodeMirror;
+    private Map<Integer, HighlightedLambdaExpression> stepMap;
     private Button inputOptionButton;
     private Button outputOptionButton;
     private InfoDialogBox infoDialogBox;
@@ -76,6 +81,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.errorMessageDialogBox = new InfoDialogBox();
         setupInputField();
         setupOutputField();
+        this.stepMap = new HashMap<Integer, HighlightedLambdaExpression>();
         setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
         this.actionBar.setDefaultStateAppearance();
@@ -184,6 +190,12 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         });
 
+        debugMenuBar.addItem("Highlight", new Command() {
+            public void execute() {
+                getTokenPosition((CodeMirrorPanel) stepFieldTable.getWidget(0, 2), stepMap.get(1), 14);
+            }
+        });
+
         return debugMenuBar;
     }
 
@@ -253,13 +265,13 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
         for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
+            stepMap.put(index + i, highlightedLambdaExpressions.get(i));
             addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
         }
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
         // TODO set shareMenu Style and optionMenuStyle
         stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
@@ -274,6 +286,46 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("theme", "material");
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+    }
+
+    /**
+     * Highlights content between two tokens from given step.
+     *
+     * @param stepNumber step to highlight.
+     * @param startToken index of first highlighted token.
+     * @param endToken index of last highlighted token.
+     */
+    public void highlightStep(int stepNumber, int startToken, int endToken) {
+        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
+        HighlightedLambdaExpression hle = stepMap.get(stepNumber);
+        int[] fromPos = getTokenPosition(cm, hle, startToken);
+        int[] toPos = getTokenPosition(cm, hle, endToken);
+        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
+    }
+
+    private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
+        GWT.log("getTokenPosition");
+        int tokenPosition = 0;
+        for (Token token: hle) {
+            if (token.getOffset() == index) {
+                break;
+            }
+            tokenPosition += token.toString().length();
+        }
+        
+        int line = 0;
+        int ch = 0;
+        for (int i = 0; i < cm.lineCount(); ++i) {
+            if (tokenPosition >= cm.getLine(i).length()) {
+                tokenPosition -= cm.getLine(i).length();
+            } else {
+                ch = tokenPosition;
+                break;
+            }
+        }
+        GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
+        cm.markText(0, 1, 0, 5, "#ff0");
+        return new int[] {line, ch};
     }
 
     //TODO:remove once hle is done
@@ -303,6 +355,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void resetSteps() {
+        stepMap.clear();
         stepFieldTable.removeAllRows();
     }
 

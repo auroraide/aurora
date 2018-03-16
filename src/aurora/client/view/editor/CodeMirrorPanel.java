@@ -65,6 +65,46 @@ public class CodeMirrorPanel extends SimplePanel {
         callCMFunction(editor, "setOption", option, value);
     }
 
+    /**
+     * Get the amount of lines in this panel.
+     *
+     * @return amount of lines in panel.
+     */
+    public int lineCount() {
+        return callCMFunctionInt(editor, "lineCount");
+    }
+
+    /**
+     * Get the content of a given line.
+     *
+     * @param lineNumber content of which line to get.
+     * @return gets content of given line.
+     */
+    public String getLine(int lineNumber) {
+        return (String) callCMFunction(editor, "getLine", lineNumber);
+    }
+
+    /**
+     * Mark text in a given interval.
+     * Requires selection/mark-selection.js addon to be loaded.
+     *
+     * @param fromLine line in which to begin marking.
+     * @param fromChar first char to mark in fromLine..
+     * @param toLine line in which to stop marking.
+     * @param toChar last char to mark in toLine.
+     */
+    public void markText(int fromLine, int fromChar, int toLine, int toChar, String backgroundClr) {
+        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, backgroundClr);
+    }
+
+    private native Object callCMmarkText(JavaScriptObject jso, String key,
+            Object arg1, Object arg2, Object arg3, Object arg4, String arg5) /*-{
+        return jso[key].apply(jso,
+            [{line: arg1,ch: arg2},
+            {line: arg3, ch: arg4},
+            {css: "background-color:" + arg5}]);
+    }-*/;
+
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
         return jso[key].apply(jso);
     }-*/;
@@ -75,6 +115,10 @@ public class CodeMirrorPanel extends SimplePanel {
 
     private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2) /*-{
         return jso[key].apply(jso, [arg1, arg2]);
+    }-*/;
+
+    private native int callCMFunctionInt(JavaScriptObject jso, String key) /*-{
+        return jso[key].apply(jso);
     }-*/;
 
     private static native void console(String text) /*-{
