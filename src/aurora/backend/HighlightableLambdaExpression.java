@@ -22,7 +22,7 @@ import java.util.Objects;
 public class HighlightableLambdaExpression implements HighlightedLambdaExpression {
     private List<Token> tokens;
     private List<Redex> redexes;
-    private Redex previous;
+    private SubTerm previous;
     private Redex next;
 
     /**
@@ -64,7 +64,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * @param previous previous
      * @param next next.
      */
-    public HighlightableLambdaExpression(Term t, RedexPath previous, RedexPath next) {
+    public HighlightableLambdaExpression(Term t, SubTerm previous, RedexPath next) {
         this();
         Term x = t.accept(new FindAbsForAlpha());
         x.accept(new TermToHighlightedLambdaExpressionVisitor(previous, next));
@@ -95,7 +95,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     @Override
-    public Redex getPreviousRedex() {
+    public SubTerm getPreviousSubTerm() {
         return previous;
     }
 

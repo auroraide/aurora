@@ -1,5 +1,6 @@
 package aurora.backend.betareduction;
 
+import aurora.backend.Path;
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
@@ -28,13 +29,26 @@ public class BetaReducer {
         alwaystrue = false;
     }
 
+    public static class ReductionResult {
+        public final RedexPath redex;
+
+        public final Term result;
+        public final Path resultPath;
+
+        public ReductionResult(RedexPath redex, Term result, Path resultPath) {
+            this.redex = redex;
+            this.result = result;
+            this.resultPath = resultPath;
+        }
+    }
+
     /**
      * This method performs one beta reduction.
      *
      * @param term The Term that will get reduced.
      * @return something.
      */
-    public Term reduce(Term term) {
+    public ReductionResult reduce(Term term) {
         RedexPath path = strategy.getRedexPath(term);
 
         // there is no reducible redex left, the given term is our result
@@ -50,7 +64,7 @@ public class BetaReducer {
         }
         Term substitutedWithoutabs = substitutedabs.body;
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
-        return term.accept(replaceVisitor);
+        return new ReductionResult(path, term.accept(replaceVisitor), );
     }
 
 

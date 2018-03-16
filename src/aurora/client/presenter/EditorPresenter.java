@@ -20,7 +20,6 @@ import aurora.client.event.ContinueEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ReStepEvent;
-import aurora.client.event.RedexClickedEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
@@ -54,10 +53,20 @@ public class EditorPresenter {
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
+    private static class Step {
+        public final Term term;
+        public final HighlightableLambdaExpression hle;
+
+        private Step(Term term, HighlightableLambdaExpression hle) {
+            this.term = term;
+            this.hle = hle;
+        }
+    }
+
     /**
      * Contains all steps in between, so without input and without output fields.
      */
-    private final ArrayList<Term> steps;
+    private final ArrayList<Step> steps;
     private final HighlightTimer highlightTimer;
     /**
      * GWT Timer, allows for "while" loops without blocking the GUI.
@@ -244,7 +253,24 @@ public class EditorPresenter {
             return false;
         }
 
-        steps.add(term);
+        Term simplified = simplify(term);
+        ReductionStrategy strategy = createReductionStrategy();
+        RedexPath path = strategy.getRedexPath(simplified); // FIXME getRedexPath is called twice => inefficient
+        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(strategy), simplified);
+
+        // is input reducible?
+        assert (bri.hasNext() == (path != null));
+        if (!bri.hasNext()) {
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplified);
+            editorDisplay.setInput(hle);
+            editorDisplay.displayResult(hle);
+            steps.add(new Step(term, hle));
+            assert (steps.size() == 1);
+            return;
+        } else {
+            // input it reducible => there exists at least one redex.
+            editorDisplay.setInput(new HighlightableLambdaExpression(simplified, null, path));
+        }
 
         // IMPORTANT: check any places that use this function whether I forgot to substitute the line i just removed.
         return true;
@@ -271,24 +297,25 @@ public class EditorPresenter {
                 HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplified);
                 editorDisplay.setInput(hle);
                 editorDisplay.displayResult(hle);
+                steps.add(new Step(term, hle));
                 assert (steps.size() == 1);
                 return;
             } else {
-                assert (path != null);
-                // need to do this: RedexPath -> startToken, midToken, endToken
+                // input it reducible => there exists at least one redex.
+                editorDisplay.setInput(new HighlightableLambdaExpression(simplified, null, path));
             }
         }
 
         assert (path != null && bri.hasNext());
 
-
         // input IS reducible
+        RedexPath x = strategy.getRedexPath(last());
         Term next = simplify(bri.next()); // <<<======= note this
         assert (next != null);
         steps.add(next);
         // we need to know if we just computed the result (=irreducible term) or just another step.
         if (!bri.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(next, ??, ??));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(next, ??, null));
             return;
         }
         editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??, ??), steps.size() - 1);
