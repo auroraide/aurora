@@ -12,6 +12,8 @@ import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.simplifier.ChurchNumberSimplifier;
+import aurora.backend.simplifier.LibraryTermSimplifier;
 import aurora.backend.tree.Term;
 import aurora.client.EditorDisplay;
 import aurora.client.event.ResetEvent;
@@ -57,8 +59,17 @@ public class EditorPresenterTest {
 
     private void setUpPresenterWithInput(String code) {
         when(editorDisplay.getInput()).thenReturn(code);
-        editorPresenter = new EditorPresenter(bus, editorDisplay, new HashLibrary(), new HashLibrary(),
-                new ArrayList<>(), lexer, parser);
+        editorPresenter = new EditorPresenter(
+                bus,
+                editorDisplay,
+                new HashLibrary(),
+                new HashLibrary(),
+                new ChurchNumberSimplifier(),
+                new LibraryTermSimplifier(new HashLibrary()),
+                new ArrayList<>(),
+                lexer,
+                parser
+        );
     }
 
     private Term parse(String code) throws SyntaxException, SemanticException {

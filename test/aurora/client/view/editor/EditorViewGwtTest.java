@@ -1,53 +1,33 @@
 package aurora.client.view.editor;
 
+import aurora.client.event.ContinueEvent;
+import aurora.client.event.RunEvent;
+import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.ViewState;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.testing.CountingEventBus;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
-
-import java.util.ArrayList;
-import java.util.List;
+import aurora.utils.GWTTestCaseSetup;
 
 /**
  * Tests {@link EditorView}.
  */
-public class EditorViewTest extends GWTTestCase {
+public class EditorViewGwtTest extends GWTTestCase {
     private CountingEventBus eventBus;
     private EditorView editorView;
 
-    private static native String getNodeName(Element elem) /*-{
-        return (elem.nodeName || "").toLowerCase();
-    }-*/;
-
-    
     public String getModuleName() {
-        return "aurora.Aurora";
+        return "aurora.Testing";
     }
 
     /**
-     * Removes all elements in the body, except scripts and iframes.
+     * Sets up the testing environment.
      */
     public void gwtSetUp() {
-        Element bodyElem = RootPanel.getBodyElement();
-
-        List<Element> toRemove = new ArrayList<Element>();
-        for (int i = 0, n = DOM.getChildCount(bodyElem); i < n; ++i) {
-            Element elem = DOM.getChild(bodyElem, i);
-            String nodeName = getNodeName(elem);
-            if (!"script".equals(nodeName) && !"iframe".equals(nodeName)) {
-                toRemove.add(elem);
-            }
-        }
-
-        for (int i = 0, n = toRemove.size(); i < n; ++i) {
-            bodyElem.removeChild(toRemove.get(i));
-        }
-
+        GWTTestCaseSetup.cleanUpDOM(RootPanel.get());
         eventBus = new CountingEventBus();
         editorView = new EditorView(eventBus);
     }
@@ -169,16 +149,36 @@ public class EditorViewTest extends GWTTestCase {
      */
     public void testStepBeforeResultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
-        assertTrue(editorView.getActionBar().getRunButton().isEnabled()
+        assertFalse(editorView.getActionBar().getRunButton().isEnabled()
                 && editorView.getActionBar().getRunButton().isVisible());
         assertFalse(editorView.getActionBar().getPauseButton().isEnabled()
                 && editorView.getActionBar().getPauseButton().isVisible());
-        assertFalse(editorView.getActionBar().getContinueButton().isEnabled()
+        assertTrue(editorView.getActionBar().getContinueButton().isEnabled()
                 && editorView.getActionBar().getContinueButton().isVisible());
         assertTrue(editorView.getActionBar().getStepButton().isEnabled()
                 && editorView.getActionBar().getStepButton().isVisible());
         assertTrue(editorView.getActionBar().getResetButton().isEnabled()
                 && editorView.getActionBar().getResetButton().isVisible());
+    }
+
+    /**
+     * Regression test. Typing 4 4 in inputCodeMirror, clicking step button and then continue button should not fail.
+     */
+    public void testStepRun() {
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            editorView.getInputCodeMirror().setValue("4 4");
+            editorView.getActionBar().getStepButton().click();
+        });
+
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            assertFalse(editorView.getActionBar().getRunButton().isEnabled());
+            assertTrue(editorView.getActionBar().getContinueButton().isEnabled());
+            editorView.getActionBar().getContinueButton().click();
+            assertEquals("256", editorView.getOutputCodeMirror().getValue());
+            assertEquals(1, eventBus.getFiredCount(StepEvent.TYPE));
+            assertEquals(1, eventBus.getFiredCount(ContinueEvent.TYPE));
+            assertEquals(0, eventBus.getFiredCount(RunEvent.TYPE));
+        });
     }
 
 }

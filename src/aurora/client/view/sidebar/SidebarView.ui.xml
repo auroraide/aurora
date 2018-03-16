@@ -4,18 +4,16 @@
              ui:generateFormat='com.google.gwt.i18n.server.PropertyCatalogFactory'
              ui:generateKeys="com.google.gwt.i18n.server.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
-
-
     <g:DockLayoutPanel unit="EM">
         <g:center>
 
             <g:DockLayoutPanel unit="EM" addStyleNames="panelSettings">
 
-                <g:north size="2.5">
+                <g:north size="3.5">
                     <!-- Step Setting -->
                     <g:FlowPanel addStyleNames="stepSettings">
                         <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
-                        <g:TextBox ui:field="stepNumber" visibleLength="2" addStyleNames="rightAlign"/>
+                        <g:TextBox ui:field="stepNumber" debugId="stepNumberTextBox" visibleLength="2" addStyleNames="rightAlign"/>
                     </g:FlowPanel>
                 </g:north>
 
@@ -28,7 +26,7 @@
                             <g:customHeader size="40">
                                 <g:FlowPanel addStyleNames="standrard_db">
                                     <!-- Placeholder for stdlib icon-->
-                                    <g:Label addStyleNames="rightAlign"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
+                                    <g:Label addStyleNames="rightAlign" debugId="stdlibLabel"><ui:msg description="Sidebar Standard library title">Standard Library</ui:msg></g:Label>
                                 </g:FlowPanel>
                             </g:customHeader>
 
@@ -40,7 +38,7 @@
                         <g:stack >
                             <g:customHeader size="40">
                                 <g:FlowPanel addStyleNames="user_db">
-                                    <g:Label><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
+                                    <g:Label debugId="usrlibLabel"><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
                                     <g:Button ui:field="addFunctionButton" addStyleNames="addButton">
                                     </g:Button>
                                 </g:FlowPanel>
@@ -62,12 +60,12 @@
                 <!-- Night Mode -->
                 <g:FlowPanel addStyleNames="night_mode">
                     <g:Label><ui:msg description="Sidebar NightMode title">Night Mode</ui:msg></g:Label>
-                    <g:CheckBox ui:field="nightModeSwitch" addStyleNames="slider_o">
+                    <g:CheckBox ui:field="nightModeSwitch" debugId="nightModeSwitch" addStyleNames="slider_o">
                     </g:CheckBox>
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel addStyleNames="share_language" ui:field="languageButton" />
+                <g:FlowPanel addStyleNames="share_language" ui:field="languageButton"/>
                 <g:FlowPanel addStyleNames="share_language" ui:field="shareButton" />
 
             </g:HorizontalPanel>

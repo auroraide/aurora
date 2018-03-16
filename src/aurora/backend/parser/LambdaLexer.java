@@ -19,7 +19,7 @@ public class LambdaLexer {
     private static final String T_RIGHT_PARENS_REGEX = "^\\)";
     private static final String T_FUNCTION_REGEX = "^\\$([A-Za-z][A-Za-z0-9_]*)";
     private static final String T_NUMBER_REGEX = "^([0-9]+)";
-    private static final String T_COMMENT_REGEX = "^\\#([^\\n\\r]*)(\\n|\\r|\\r|\\n)?";
+    private static final String T_COMMENT_REGEX = "^\\#([^\r\n]*(?:\n|\r\n)?)";
     private static final String T_WHITESPACE_REGEX = "^(\\s+)";
 
     private final RegExp lambdaPattern;

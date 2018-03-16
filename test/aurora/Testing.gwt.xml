@@ -9,4 +9,5 @@
     <!-- Inherit our applications main module.                      -->
     <inherits name='aurora.Aurora'/>
     <inherits name="com.google.gwt.debug.Debug"/>
+
 </module>

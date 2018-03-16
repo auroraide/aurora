@@ -2,28 +2,23 @@ package aurora.client.presenter;
 
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
-import aurora.backend.ShareLaTeX;
 import aurora.backend.library.Library;
+import aurora.backend.library.LibraryItem;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import aurora.client.SidebarDisplay;
 import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
-import aurora.client.event.ExportLaTeXAllEvent;
-import aurora.client.event.ExportLaTeXEvent;
-import aurora.client.event.ShareEmailAllEvent;
-import aurora.client.event.ShareEmailEvent;
-import aurora.client.event.ShareLinkAllEvent;
-import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
-import java.util.ArrayList;
-import java.util.Iterator;
+
+import java.util.List;
 
 
 /**
@@ -54,6 +49,7 @@ public class SidebarPresenter {
                             Library userLib,
                             LambdaLexer lambdaLexer,
                             LambdaParser lambdaParser) {
+        functionName = RegExp.compile("^([A-Za-z][A-Za-z0-9_]*)");
         this.eventBus = eventBus;
         this.sidebarDisplay = sidebarDisplay;
         this.stdLib = stdLib;
@@ -61,17 +57,27 @@ public class SidebarPresenter {
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
         bind();
-        functionName = RegExp.compile("^[a-z]+$");
+        populateStdLibInView();
+    }
+
+    private void populateStdLibInView() {
+        for (LibraryItem item : stdLib) {
+            sidebarDisplay.addStandardLibraryItem(item.getName(), item.getDescription());
+        }
     }
 
     private void bind() {
         eventBus.addHandler(AddFunctionEvent.TYPE, this::onAddFunction);
-        eventBus.addHandler(DeleteFunctionEvent.TYPE, this::onDeletFunction);
+        eventBus.addHandler(DeleteFunctionEvent.TYPE, this::onDeleteFunction);
     }
 
-    private void onDeletFunction(DeleteFunctionEvent e) {
+    private void onDeleteFunction(DeleteFunctionEvent e) {
         userLib.remove(e.getFunctionName());
-        GWT.log("Delete userllib function.");
+        GWT.log("Delete userlib function.");
+    }
+
+    private boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 
     private void onAddFunction(AddFunctionEvent input) {
@@ -91,9 +97,14 @@ public class SidebarPresenter {
             return;
         }
 
-        MatchResult result = functionName.exec(input.getName());
-        String resultString = result.getGroup(0);
-        if (resultString == null || resultString.isEmpty()) {
+        List<Token> tokens;
+        try {
+            tokens = lambdaLexer.lex("$" + input.getName());
+        } catch (SyntaxException ex) {
+            sidebarDisplay.displayAddLibraryItemInvalidName();
+            return;
+        }
+        if (tokens.size() != 1 || tokens.get(0).getType() != Token.TokenType.T_FUNCTION) {
             sidebarDisplay.displayAddLibraryItemInvalidName();
             return;
         }
@@ -112,4 +123,5 @@ public class SidebarPresenter {
         HighlightedLambdaExpression hle = new HighlightableLambdaExpression(t);
         GWT.log("Succesfully parsing lambda term. Parsed Lambda Term:" + hle.toString());
     }
+
 }

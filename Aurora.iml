@@ -45,6 +45,9 @@
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="gwt-dev-2.7.0" level="project" />
     <orderEntry type="library" name="mockito-core-1.9.5" level="project" />
+    <orderEntry type="library" name="jbrowserdriver-1.0.0-RC1" level="project"/>
+    <orderEntry type="library" name="selenium-remote-driver-3.10.0" level="project"/>
+    <orderEntry type="library" name="selenium-api-3.10.0" level="project"/>
     <orderEntry type="library" name="gwt-user" level="project" />
     <orderEntry type="module-library">
       <library name="IvyIDEA">
@@ -56,7 +59,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-cli/commons-cli/jars/commons-cli-1.4.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/bundles/guava-23.6-jre.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-1.3.9.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.checkerframework/checker-compat-qual/jars/checker-compat-qual-2.0.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.errorprone/error_prone_annotations/jars/error_prone_annotations-2.1.3.jar!/" />
@@ -78,6 +80,35 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/jars/mockito-core-1.9.5.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-1.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.17.1-GA.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/jars/guava-23.6-jre.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/jars/selenium-java-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/jars/selenium-api-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/jars/selenium-chrome-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/jars/selenium-remote-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.bytebuddy/byte-buddy/jars/byte-buddy-1.7.9.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.commons/commons-exec/jars/commons-exec-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.10.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.8.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okhttp3/okhttp/jars/okhttp-3.9.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okio/okio/jars/okio-1.13.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-edge-driver/jars/selenium-edge-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-firefox-driver/jars/selenium-firefox-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-ie-driver/jars/selenium-ie-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-opera-driver/jars/selenium-opera-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-safari-driver/jars/selenium-safari-driver-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-support/jars/selenium-support-3.10.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.machinepublishers/jbrowserdriver/jars/jbrowserdriver-1.0.0-RC1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient-cache/jars/httpclient-cache-4.5.4.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.5.4.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.4.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.25.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-process-killer/jars/zt-process-killer-1.8.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/jars/zt-exec-1.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/jars/jna-4.2.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/jars/fast-classpath-scanner-2.9.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/jars/slf4j-simple-1.7.25.jar!/" />
         </CLASSES>
         <JAVADOC>
           <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/javadocs/checkstyle-8.7-javadoc.jar!/" />
@@ -105,6 +136,35 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/javadocs/gwt-user-2.7.0-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/javadocs/mockito-core-1.9.5-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/javadocs/objenesis-1.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/javadocs/selenium-java-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/javadocs/selenium-api-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/javadocs/selenium-chrome-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/javadocs/selenium-remote-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.bytebuddy/byte-buddy/javadocs/byte-buddy-1.7.9-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.commons/commons-exec/javadocs/commons-exec-1.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-codec/commons-codec/javadocs/commons-codec-1.10-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/javadocs/gson-2.8.2-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okhttp3/okhttp/javadocs/okhttp-3.9.1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okio/okio/javadocs/okio-1.13.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-edge-driver/javadocs/selenium-edge-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-firefox-driver/javadocs/selenium-firefox-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-ie-driver/javadocs/selenium-ie-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-opera-driver/javadocs/selenium-opera-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-safari-driver/javadocs/selenium-safari-driver-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-support/javadocs/selenium-support-3.10.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.machinepublishers/jbrowserdriver/javadocs/jbrowserdriver-1.0.0-RC1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient-cache/javadocs/httpclient-cache-4.5.4-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient/javadocs/httpclient-4.5.4-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/javadocs/httpcore-4.4.7-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-api/javadocs/slf4j-api-1.7.25-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-server/javadocs/selenium-server-3.8.1-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-process-killer/javadocs/zt-process-killer-1.8-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/javadocs/zt-exec-1.7-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/javadocs/jna-4.2.2-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/javadocs/commons-lang-2.6-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/javadocs/commons-io-2.2-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/javadocs/fast-classpath-scanner-2.9.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/javadocs/slf4j-simple-1.7.25-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
           <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/sources/checkstyle-8.7-sources.jar!/" />
@@ -134,6 +194,35 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/sources/mockito-core-1.9.5-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/sources/objenesis-1.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/sources/javassist-3.17.1-GA-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/sources/selenium-java-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/sources/selenium-api-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/sources/selenium-chrome-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/sources/selenium-remote-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.bytebuddy/byte-buddy/sources/byte-buddy-1.7.9-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.commons/commons-exec/sources/commons-exec-1.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-codec/commons-codec/sources/commons-codec-1.10-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/sources/gson-2.8.2-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okhttp3/okhttp/sources/okhttp-3.9.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.squareup.okio/okio/sources/okio-1.13.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-edge-driver/sources/selenium-edge-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-firefox-driver/sources/selenium-firefox-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-ie-driver/sources/selenium-ie-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-opera-driver/sources/selenium-opera-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-safari-driver/sources/selenium-safari-driver-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-support/sources/selenium-support-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.machinepublishers/jbrowserdriver/sources/jbrowserdriver-1.0.0-RC1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient-cache/sources/httpclient-cache-4.5.4-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpclient/sources/httpclient-4.5.4-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/sources/httpcore-4.4.7-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-api/sources/slf4j-api-1.7.25-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-server/sources/selenium-server-3.8.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-process-killer/sources/zt-process-killer-1.8-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/sources/zt-exec-1.7-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/sources/jna-4.2.2-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/sources/commons-lang-2.6-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/sources/commons-io-2.2-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/sources/fast-classpath-scanner-2.9.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/sources/slf4j-simple-1.7.25-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

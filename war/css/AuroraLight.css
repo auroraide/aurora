@@ -41,7 +41,7 @@ div.gwt-TabLayoutPanelTabs {
     padding: 0 !important;
 }
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
-    background: #33495D !important;
+    background: #1f9e84 !important;
 }
 .gwt-TabLayoutPanelTabs > div {
     height: 100%;
@@ -51,18 +51,21 @@ div.gwt-TabLayoutPanelTabs {
     background-image: url("../img/aurora_logo.png");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 250px;
-    background-color: #33495D;
+    width: 260px;
+    background-color: #1f9e84;
+    border-radius: 0;
+    background-position-y: 30%;
 }
 
 .gwt-TabLayoutPanelTabs > div:last-child {
     float:right;
-    background-color: #19BB9B;
+    background-color: #f9f7f7;
     border-radius: 0;
     text-transform: capitalize;
-    color: #fff;
+    color: #19BB9B;
     width: 150px;
     font-size: 1.5em;
+    border-left: 1px solid #19BB9B;
 }
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
     margin: 0 !important;

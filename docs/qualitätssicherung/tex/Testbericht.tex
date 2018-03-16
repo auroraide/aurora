@@ -1,0 +1,634 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+\usepackage[T1]{fontenc}
+\usepackage[sfdefault]{roboto}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage{amsmath} % for $\text{}$
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\hypersetup{
+pdftitle={Testbericht},
+bookmarks=true,
+}
+\usepackage{csquotes}
+\usepackage{upgreek}
+
+\usepackage{ifthen}
+
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\newcommand{\issueref}[1]{
+    \href{https://git.scc.kit.edu/ap/Aurora/issues/#1}{(#1)}
+}
+
+
+% Titel GitLab issue number, Symptome, Grund, Behebung.
+\newcommand{\regrtest}[5]{
+    \subsection{#1 \issueref{#2}}
+    \begin{itemize}
+        \item \textbf{Symptom}
+            #3
+            %Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt
+            %fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+        \item \textbf{Grund}
+            #4
+            %Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem
+            %Regex-Shorthand \texttt{\textbackslash v}.
+        \item \textbf{Behebung}
+            #5
+            %Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    \end{itemize}
+}
+
+\newcommand{\testline}[2]{
+    \texttt{#1} & \ifthenelse{\equal{#2}{JA}}{\cellcolor{green!20}}{\cellcolor{red!20}}#2 \\ \hline
+}
+
+\newcommand{\signed}[1]{%
+   \unskip\hspace*{1em plus 1fill}%
+   \nolinebreak[3]\hspace*{\fill}\mbox{\upshape #1}
+}
+ 
+\newenvironment{xquote}{%
+   \begin{list}{}{%
+     \rightmargin
+     \leftmargin
+   }
+   \itshape
+   \item[]
+}
+{\end{list}}
+
+\begin{titlepage}
+    \subject{Testbericht}
+    \title{\textbf{$\uplambda$}urora}
+    \subtitle{The Lambda Calculus IDE}
+
+
+    \author{Iuliia Patrusheva, Alexander von Heyden\\
+    Younis Bensalah, Max Nowak\\
+    Nikolai Polley, Randy Seng}
+\end{titlepage}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{xquote}
+    %Program testing can be a very effective way to show the presence of bugs, but is hopelessly inadequate for showing their absence.
+    Testing shows the presence of bugs, not their absence.
+    \newline
+    \signed{-Edsger Wybe Dijkstra}
+\end{xquote}
+
+\section{Einleitung}
+Trotz der Diversität heutiger Programmiersprachen teilen sich viele der damit geschriebenen Programme von Haus aus ein inhärentes Problem.
+Setzt man sich nun das Ziel die Qualität, bzw. das Nutzererlebnis zu verbessern, ergeben sich für uns im Wesentlichen zwei Aufgabenbereiche.
+\newline
+Der eigentliche Schwerpunkt dieser Phase liegt darin, Aurora in einen möglichst stabilen Endzustand zu bringen.
+Hierzu werden wir verschiedene Testkomponenten einsetzen, um jeweils bestimmte Teilfunktionen von Aurora testen zu können.
+Die so gefundenen Fehler werden alle in diesem Dokument aufgelistet und dokumentiert.
+\newline
+Darüberhinaus kann eine Steigerung des Nutzererlebnisses auch durch das Erweitern der Funktionalität erreicht werden.
+Teile des Funktionsumfangs, die nicht mehr in der Implementierungsphase umgesetzt werden konnten, können nun auch noch zu einem späteren Zeitpunkt zu Aurora hinzugefügt werden.
+
+\subsection{JUnit/GWTTestCase}
+Zeitgleich mit Beginn der Implementierung haben wir begonnen, zu unserem Code JUnit Testfälle zu schreiben.
+Neben dem präventiven Schreiben von Testfällen, wurde auch zu jedem gefundenen Bug ein Test geschrieben, der genau diesen auslöste.
+Nachdem der Fehler behoben wurde konnte so während der gesamten Implementierungs- und Qualitätssicherungsphase gewährleistet werden, dass ein einmal behobener Bug nicht erneut auftreten konnte.
+Details, Ursachen, sowie die Behebung der Fehler sind in der Sektion \enquote{Regression Tests} festgehalten.
+
+\subsection{GUI Tests}
+Die GUI, als Schnittstelle zwischen dem Kern des Programmes und dem Nutzer, bedarf spezieller Testfälle zur Sicherstellung einer reibungslosen Interaktion.
+Hierzu benutzen wir ein spezielles Framework, das bei jedem Aufruf einen Nutzer simuliert.
+Dieser simulierte Nutzer kann, innerhalb von vordefinierten Abläufen, diverse Inputs, wie z.B. Tastatur- und Mausevents, an Aurora senden.
+Somit können unterschiedlich komplexe Arbeitsabläufe automatisiert, und das Ergebnis mit einem vorher definiertem Zustand verglichen werden.
+
+
+\section{Testfallszenarien}
+Zu Beginn unseres PSE Projektes haben wir uns mehrere Testfallszenarien ausgedacht, und im Pflichtenheft festgehalten.
+Jedes dieser Szenarien deckt für sich einen kleinen Teil der Funktionalität von Aurora ab, nacheinander ausgeführt ergänzen sie sich jedoch gegenseitig und decken einen großen Teil der nach außen sichtbaren Funktionen ab.
+Im folgenden ist eine Auflistung aller Testfallszenarien zu finden, die mit der finalen Version von Aurora funktionieren werden.
+Testfallszenarien, die auf Funktionen basieren, welche nicht Teil der finalen Version sein werden, sind, um Verwirrungen zu vermeiden, in der folgenden Auflistung nicht vorhanden.
+\textbf{Oder doch oder was oder wie???}
+
+
+\subsection{Sprachenauswahl}
+    Getestet:
+    Sprache ist auswählbar (F37)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T1.1}{JA}
+            \testline{T1.2}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Teilen-Funktion}
+    Getestet:
+    LaTeX-Export (F55)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T2.1}{JA}
+            \testline{T2.2}{NEIN}
+            \testline{T2.3}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Darstellung in Chrome}
+    Getestet:
+    Korrekte Darstellung in Google Chrome (N1),
+    Eingabefeld (F1),
+    Zeilennummern (F2),
+    Night Mode (F38),
+    Mobile Darstellung (F39)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T3.1}{JA}
+            \testline{T3.2}{NEIN}
+            \testline{T3.3}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Eingabe und korrektes Ergebnis}
+    Getestet:
+    Eingabefeld (F1),
+    Zeilennummern (F2),
+    Eingabefeld bearbeiten (F3),
+    Autovervollständigung von Klammern (F4),
+    Keine Änderungen während der Auswertung (F6),
+    Schleifenerkennung (F42),
+    Kein Timeout (F43),
+    Run (F14),
+    Normalreihenfolge (F27),
+    $\beta$-Reduktion (F40),
+    Auswertung beendet (F41),
+    Ausgabefeld (F32),
+    Reset (F16),
+    Pause (F17),
+    Continue (F18),
+    Ausgabefeld nicht editierbar (F33),
+    Kommentare (F8)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T4.1}{JA}
+            \testline{T4.2}{NEIN}
+            \testline{T4.3}{NEIN}
+            \testline{T4.4}{JA}
+            \testline{T4.5}{NEIN}
+            \testline{T4.6}{NEIN}
+            \testline{T4.7}{JA}
+            \testline{T4.8}{NEIN}
+            \testline{T4.9}{NEIN}
+            \testline{T4.10}{JA}
+            \testline{T4.11}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Testen von Highlighting}
+    Getestet:
+    Highlighting von Lambdas und Punkten (F9),
+    Highlighting von Klammern (F10),
+    Highlighting von Funktionsnamen (F11),
+    Highlighting des nächsten auszuwertenden Redex (F12),
+    Highlighting des zuletzt ausgeführten Redex (F13)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T5.1}{JA}
+            \testline{T5.2}{NEIN}
+            \testline{T5.3}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Testen der Standard- und Benutzerbibliotheken}
+    Getestet:
+    Eingabefeld (F1),
+    Zeilennummern (F2),
+    Eingabefeld bearbeiten (F3),
+    Autovervollständigung von Klammern (F4),
+    Run (F14),
+    Funktionsnamen-Konvention (F25),
+    Standardbibliothek (F20),
+    Benutzerbibliothek (F21),
+    Erweitern der Benutzerbibliothek (F22),
+    Definition einer Funktion (F24),
+    Normalreihenfolge (F27),
+    $\beta$-Reduktion (F40),
+    Auswertung beendet (F41),
+    Ausgabefeld (F32),
+    Entfernen aus der Benutzerbibliothek (F23),
+    Äquivalenz von Funktionen und deren Definition (F26),
+    $\beta$-Reduktionen angezeigen (F34),
+    Anzahl von dargestellten Schritten auswählen (F5)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T6.1}{JA}
+            \testline{T6.2}{NEIN}
+            \testline{T6.3}{NEIN}
+            \testline{T6.4}{JA}
+            \testline{T6.5}{NEIN}
+            \testline{T6.6}{NEIN}
+            \testline{T6.7}{JA}
+            \testline{T6.8}{NEIN}
+            \testline{T6.9}{NEIN}
+            \testline{T6.10}{JA}
+        \end{tabular}
+    \end{center}
+
+\subsection{Auswertungsstrategie und de Brujin}
+    Getestet:
+    Normalreihenfolge (F27),
+    Call-by-Name (F28),
+    Call-by-Value (F29),
+    Auswahl der Auswertungsstrategie (F30),
+    Benutzerdefinierte Redex Wahl (F31),
+    Share (F19),
+    De Bruijn-Indizes (F35)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T7.1}{JA}
+            \testline{T7.2}{NEIN}
+            \testline{T7.3}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Sharing und Speichern}
+    Getestet:
+    In neuem Tab öffnen (F54),
+    Historie (F44),
+    Permanenz der Historie (F45),
+    Wiederherstellen der Historie (F46),
+    Benutzerbibliothek in der Historie (F48),
+    Löschen der Historie (F47),
+    Share (F19),
+    E-Mail Link (F56)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T8.1}{JA}
+            \testline{T8.2}{NEIN}
+            \testline{T8.3}{NEIN}
+            \testline{T8.4}{JA}
+            \testline{T8.5}{NEIN}
+            \testline{T8.6}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Tutorial und Prettyprint}
+    Getestet:
+    Tutorial (F57),
+    Pretty Print (F7)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T9.1}{JA}
+            \testline{T9.1}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Ausgabe von Zwischenschritten}
+    Getestet:
+    Anzahl der angezeigten Schritte (F36),
+    Step (F15)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T10.1}{JA}
+            \testline{T10.2}{NEIN}
+            \testline{T10.3}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\subsection{Shortcuts}
+    Getestet:
+    Lambda-Shortcut (F49),
+    Run-Shortcut (F50),
+    Reset-Shortcut (F51),
+    Pause-Shortcut (F52),
+    Step-Shortcut (F53)
+
+    \label{shortcuts}
+    \begin{center}
+        \begin{tabular}{ p{9cm} p{4cm}}
+            Testfall & Abdeckung \\ \hline
+            \testline{T11.1}{JA}
+            \testline{T11.2}{NEIN}
+            \testline{T11.3}{NEIN}
+            \testline{T11.4}{NEIN}
+            \testline{T11.5}{NEIN}
+        \end{tabular}
+    \end{center}
+
+\section{Testfallüberdeckung per Package}
+    % Viele Screenshots von den überdeckungsberichtdingers.
+    % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
+
+\section{Regression Tests}
+    Regression Tests sollen verhindern, dass Modifikationen an der Software, die unter anderem durch Wartung oder Korrektur von Komponenten entstehen kann, nicht dazu führen,
+        dass ehemals behobene Fehler erneut auftreten.
+    Um diesen Ansprüchen gerecht zu werden, ist es zwingend erforderlich, dass so früh wie möglich damit begonnen wird Testfälle zu schreiben,
+        weswegen wir bereits während der Implementierungsphase damit begonnen haben, Testfälle zu entwerfen, um die Korrektheit von Aurora zu gewährleisten.
+    Im folgenden, werden Bugs vorgestellt, die uns im Laufe der Implementierung bzw. Qualitätssicherung aufgefallen sind.
+    Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
+    Vor der Behebung eines Fehlers, musste ein Regression Test geschrieben werden, der ebendiesen auslöste, nachdem der Fehler behoben wurde, durfte er dementsprechend nicht mehr ausschlagen.
+    Bugs wurden durchgehend in einem Issue Tracker festgehalten, sobald eine Issue geschlossen werden konnte, wurde der commit vermerkt, der den Fehler behoben hat.
+    
+    \textbf{Was das?}
+    Gesquäschte Bugs: 1337.
+
+    \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
+        Wir stellen die Schrittzahl auf 2 ein.
+        Es wird ($\lambda$x. x x)($\lambda$x. x x) in den Code-Editor eingegeben,
+            dann auf den Run Button klickt, dann ein paar Sekunden gewartet und auf den Pause-Button geklickt.
+        Es werden 2 Schritte im Schrittfenster angezeigt.
+        Beispielsweise tragen diese die Nummern 101 und 102.
+        Klickt man nun auf den Step Button, dann werden die 2 Schritte, die ausgegeben werden, die Nummern 104 und 105.
+        Dabei wird die Nummer 103 ausgelassen.
+    }{
+        Der EditorPresenter übergibt der EditorView via dem EditorDisplay den falschen Schrittindex.
+        Der EditorPresenter hat bei der Berechnung des Schrittindex einen falschen Offset angegeben, welcher zum Fehler führt.
+    }{
+        Es wird beim EditorPresenter der richtige Offset zur Berechnung des Schrittindex angegeben.
+    }
+
+    \regrtest{Leerer Input in StepNumber TextBox führt zu nicht valide, dargestellten Wert}{133}{
+        Lösche den gesamten Input in StepNumber TextBox, so dass diese leer ist. Klicke auf eine beliebige Stelle in der Aurora WebApp.
+        Klicke zum Beispiel auf den Input Editor, so dass die StepNumber TextBox den Fokus verliert.
+        Die StepNumber TextBox bleibt leer, obwohl sie eigentlich eine valide Schrittzahl anzeigen sollte.
+    }{
+        Die StepNumber TextBox überprüft den Input nach jeder neuen Eingabe.
+        Falls diese nicht valide ist, wird der letzte valide Wert angenommen.
+        Zudem wird auch eine leere TextBox akzeptiert, da auch valide Werte der Länge 1 eingegeben werden sollen.
+        Wenn die TextBox leer ist und den Fokus verliert, dann wird nicht der letzte valide Wert angenommen, da kein BlurHandler der StepNumber Textbox registriert wurde,
+            der den Wert wieder auf den letzten validen Wert setzt.
+    }{
+        Der StepNumber TextBox wird ein BlurHandler hinzugefügt, der den letzten validen Wert der StepNumber TextBox zuweist.
+    }
+
+    \regrtest{Das Ausführen einer nicht definierten Bibliotheksfunktion sollte einen Fehler anzeigen}{143}{
+        Man gibt einen regulären $\lambda$-Term ein, der eine nicht definierte Bibliotheksfunktion enthält, ein und drückt auf den Run Button.
+        Es wird keine Fehlermeldung angezeigt.
+    }{
+        Das Anzeigen von Fehlern, bei Eingabe eines ungültigen $\lambda$-Terms, wurde noch nicht implementiert.
+    }{
+        Implementiere die Funktionen displaySemanticError und displaySyntaxError in der Klasse EditorView.
+        Bei Ausführen der Berechnung eines ungültigen $\lambda$-Terms sollte in ein Zustandsübergang von RunningState auf DefaultState erfolgen.
+        Deswegen wird jedem Zustand eine neue Kante errorDisplayed hinzugefügt und implementiert.
+    }
+
+    \regrtest{Kommentare mitgeparst}{151}{
+        Hat man einen Term wie z.B. $\$plus\ 2\ 3\ \#\ foo$ eingegeben und klickt auf Step, so wurde der erste Schritt fälschlicherweise als $\$plus\ 2\ 3\ foo$ ausgegeben.
+    }{
+        Javascript RegExp und die Java Regular Expression Bibliotheken unterscheiden sich in der Behandlung von dem Regex-Shorthand \texttt{\textbackslash v}.
+    }{
+        Der Regex-Shorthand wurde explizit ausgeschrieben so wie es vorgesehen war.
+    }
+
+    \regrtest{Hinzufügen einer benutzerdefinierten Bibliotheksfunktion soll in allen Zuständen der View außer RunningState möglich sein}{172}{
+        Gibt man einen gültigen $\lambda$-Term in das Feld ein und klickt auf den Run Button.
+        Dann ist das Hinzufügen einer benutzerdefinierte Bibliotheksfunktion nicht möglich.
+    }{
+        Der SidebarView wird mitgeteilt, dass nur in den Zuständen DefaultState und
+            FinishedFinishedState das Hinzufügen von benutzerdefinierten Bibliotheksfunktionen möglich ist.
+    }{
+        Wir erlauben das Betätigen des AddFunctionButton in allen Zuständen außer RunningState,
+            indem wir auf den AddFunctionButton die Methode setEnabled(true) aufrufen.
+    }
+
+    \regrtest{Ungültige Funktionsnamen bewirken Exception}{179}{
+        Stand: Dialog zum Hinzufügen von einer neuen Benutzerbibliotheksfunktion is offen.
+        Gibt man einen ungültigen Namen ein und drückt auf Add, schließt sich der Dialog und die Funktion wird nicht hinzugefügt.
+        Auch sieht man eine UmbrellaException in der JavaScript Konsole.
+    }{
+        Der Fehler ist klassisch. Es wurde vergessen, den Rückgabewert von \texttt{RegExp.exec(..)} auf \texttt{null} zu überprüfen.
+    }{
+        Der mögliche \texttt{null}-return wird abgefangen und jetzt richtig behandelt.
+    }
+
+    \regrtest{Reduktion mit einer Libraryfunktion schlägt fehl}{172}{
+        Als die Funktion $\$$infinity mit dem Term ($\lambda$x. x x)($\lambda$x. x x) der
+        Benutzerbibliothek hinzugefügt wurde und sie in
+        das Eingabefeld geschrieben wurde, wurde der Term nicht reduziert.
+    }{
+        Die Strategie baut einen Redexpath, der auf eine Applikation zeigt.
+        Als die Applikation aber in einer Funktion war, wurde sie nicht gefunden und es wurde ein Error geworfen.
+        Bei der Entwicklung des Betareduzierers wurde vernachlässigt, dass es auch Redexe in Funktionen geben kann.
+        Die meisten Funktionen sind zwar nicht mit sich selbst reduzierbar, da man sonst die Funktion zuerst reduzieren würde und dann hinzufügen würde.
+        Dennoch muss es möglich sein auch Funktionen nicht in Normalform hinzuzufügen.
+    }{
+        Wenn der Redexpath entlanggegangen wird und er auf eine Funktion zeigt, wird diese in ihren Term umgewandelt und dann wird dieser Term abgestiegen.
+    }
+
+    \regrtest{Alphakonversion ist nicht korrekt}{134}{
+        Als 2 2 in das Inputfeld gegeben wurde und der Simplifier noch nicht implementiert war, wurde im Resultfeld das Ergebnis:
+        $\lambda$z.$\lambda$z.z1(z1(z1(z1 z)) angezeigt.
+        Intern war die Berechnung zwar korrekt und die Churchzahl 4 war berechnet worden,
+            aber die Alphakonversion war inkorrekt, da festgelegt wurde, dass jede Variable, der eine Nummer angehängt wurde,
+            eine freie Variable und keine gebundene Variable ist.
+    }{
+        Zu diesem Zeitpunk lief Alphakonversion folgendermaßen ab.
+        Jede Abstraktion suchte nach freien Variablen, die den gleichen Namen wie die Abstraktion hatten.
+        Falls dies der Fall war, wurde der freien Variable eine 1 angefügt.
+        Bei der Suche nach den freien Variablen wurde gleichzeitig jede gebundene Variable, die auf die Abstraktion zeigt,
+            mit einer freien Variable mit dem Namen der Abstraktion ersetzt.
+        Das Ergebnis ohne Alphakonversion wäre in Debruijnindizes:
+            $\lambda$z. $\lambda$z. 2 (2(2(2 1))).
+
+        Nach diesem ersten Schritt wäre es $\lambda$z. $\lambda$z. z(z(z(z 1))) wobei die $z$ freie Variablen wären und nicht mehr gebundene Variablen.
+        Vergessen wurde, dass es möglich ist, dass eine Abstraktion eine andere Abstraktion mit selben Namen im Body hat.
+        Jetzt wurden bei der zweiten Abstraktion erkannt, dass die freien Variablen den gleichen Namen wie die zweite Abstraktion haben,
+            und dann wurden sie alle alphakonvertiert zu z1 was dem Nutzer gesagt hätte, dass dies freie Variablen wären.
+        Durch die gebundene Variable $z$ am Schluss ist ein weiteres Problem aufgefallen:
+        Wie lassen sich diese  zwei unterschiedliche Ausdrücke noch in Debruijndarstellung mit Alphakonversion kenntlich machen.
+            $\lambda x.\lambda x. 1$
+            $\lambda x. \lambda x. 2$
+        Dies wurde zu diesem Zeitpunkt noch nicht berücksichtigt.
+    }{
+        Da dieses erste Problem dadurch herrührte, das die gebundenen Variablen gleichzeitig mit der Suche nach den freien Variablen passierte,
+            wurde dies in einen extra Schritt verfrachtet.
+        Es wurden zuerst freie Variablen auf Alphakonversion überprüft und erst dann die gebundenen Variablen ersetzt.
+        Um das zweite Problem zu beheben, wurde ein Visitor vor die Suche nach den freien Variablen gesetzt, der Namen von Abstraktionen ändert,
+            sollten sie gleich heißen wie eine Abstraktion in deren Body sie sind.
+        Dies führte zu einer funktionellen Alphakonversion, allerdings wurde uns mitgeteilt, dass man nicht den Namen von freien Variablen ändern sollte.
+        Sollte eine freie Variable mit gleichen Namen gefunden werden, muss der Name der Abstraktion geändert werden, nicht der Name der freien Variable.
+
+        Dies führt final zu folgender Struktur:
+           Es gibt einen Visitor, der den Term traversiert und bei jeder Abstraktion folgende Aktionen ausführt:
+           Er initialisiert einen weiteren Visitor, der den Term traversiert und nach Abstraktionen sucht, die den gleichen Namen haben wie die Abstraktion,
+            von der der Visitor gestartet ist.
+        Falls eine gefunden wurde, wird der Name dieser zweiten Abstraktion eine Zahl angehängt.
+
+        Als Beispiel: $\lambda z. \lambda z. \lambda z. ...$ wird zu $\lambda z. \lambda z1. \lambda z1. ...$
+            und wenn der ursprüngliche Visitor zu der zweiten Abstraktion kommt, wird daraus $\lambda z. \lambda z1. \lambda z2. ...$.
+           Dann wird nach freien Variablen gesucht, die den gleichen Namen haben wie die ursprüngliche Abstraktion.
+        Falls dies der Fall ist, wird der ursprünglichen Abstraktion ein $\_ alpha$ hinzugefügt.
+        In dem Beispiel $\lambda z. z$, bei dem das zweite $z$ eine freie Variable ist, wird dies zu $\lambda z \_ alpha. \  z$ verändert.
+           Hier wird keine Zahl an die Abstraktion gehängt, um dem Benutzer, klar zu machen, welche Form von Alphakonversion stattgefunden hat.
+           Wenn der Name der Abstraktion geändert wird, muss  nach neuen freien Variablen gesucht werden, die den gleichen Namen wie die neue Abstraktion haben.
+        Es könnte vorkommen, dass ein Tester diesen folgenden Term auf Alphakonversion testet:
+            $\lambda z. z \ z\_ alpha$ wobei $z$ und $z\_ alpha$ freie Variablen sind.
+           Hier wäre nach nur einem Schritt $z\_ alpha$ als gebundene Variable zu erkennen und nicht als freie Variable.
+           Deswegen muss erneut nach freien Variablen gesucht werden die den gleichen Namen besitzen.
+           In diesem Sonderfall würde erneut ein $\_ alpha$ an den Abstraktionsnamen angehängt werden.
+
+           Wenn dies vollbracht ist, werden gebundene Variablen durch freie Variablen mit dem Namen der Abstraktion ersetzt.
+    }
+    
+    \regrtest{ShareLateX Ausgabe kompiliert nicht in Latex}{171}
+    {
+	    Texte, die von dem Share Latex Button kopiert wurden, kompilierte nicht in Latex
+    }{
+	    Die Math Umgebung wurde nicht korrekt geschlossen und nicht alle Sonderzeichen wurden abgefangen.
+    }{
+	    Die Methode wurde so restrukturiert, damit der Latextext komplett in der Math Umgebung residiert und
+	    bei Notwendigkeit von anderen Textarten $\backslash$texttt$\{ \}$  und $\backslash$texttt$\{ \}$
+	    verwendet werden.
+    }
+    
+    \regrtest{Funktion wird nicht mit Funktionsname dargestellt, obwohl sie nicht reduziert wurde}{200}
+    {
+    	Die Eingabe $\lambda x. \$ \texttt{true}$ ist nicht reduzierbar und sollte nicht verändert werden.
+    	Dennoch wird im Ausgabefeld $\lambda x. \lambda t. \lambda f. t$ ausgegeben.
+    }{
+    	Der Visitor, der nach gebundenen Variablen sucht, traversiert auch in die Funktion.
+    	Bei der Implementierung wurde ignoriert, dass es unmöglich ist, dass eine Funktion eine gebundene Variable besitzt,
+    	die nach außerhalb der Funktion zeigt.
+    }{
+    	Bei der Suche nach gebundenen Variablen wird nicht mehr durch Funktionen traversiert sondern nur der Name
+    	der Funktion zurückgegeben.
+    	Damit wird nicht mehr nach nicht vorhandenen gebundenen Variablen gesucht und der Name der Funktion wird 
+    	immer angezeigt, wenn sie nicht verändert wurde.
+    }
+
+\section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
+\subsection{Musskriterien}
+
+\subsubsection{Anzahl von dargestellten Schritten auswählen (M6)}
+	In Funktionaler Anforderung \textbf{5.1} wurde für dieses Musskriterium ein \enquote{3-Punkte-Button}
+	vorgestellt.
+	Alle Funktionalität des \enquote{3-Punkte-Button} wurde in den Step-Button integriert, da die zwei Buttons nahezu identisch waren. 
+
+\subsection{Wunschkriterien}
+
+\subsubsection{Ausgabe mit De Brujin-Indizes (K22)}
+    Es wird immer noch intern mit De Brujin-Indizes gerechnet, jedoch hat das Hinzufügen und Testen einer zusätzlichen Option,
+        die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
+    Die Ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
+
+%\subsection{Benutzerdefinierte Reduktionsstrategie (K10)}
+    % TODO kann gut sein, dass das noch implementiert wird.
+    % Das selbe gilt für:
+    % K5: Redexe highlighten.
+    % K16: Öffnen im neuen Tab.
+    % K20: Aurora Tutorial.
+
+\subsubsection{Mobile Darstellung (K25)}
+	Eine explizite Anpassung der Graphischen Oberfläche an mobile Endgeräte wurde sehr früh in der Implementierung
+	ausgeschlossen.
+    Der Aufwand für den endgültigen Nutzen wäre zu groß gewesen, unter der Annahme das nicht viele Benutzter Lambda
+    Kalkül auf ihrem Smartphone programmieren.
+    Die Funktionalität des Programms ist auf einem modernen Smartphone dennoch gegeben.
+    % TODO oder machen wirs doch noch :P ?
+
+
+
+\subsubsection{Pretty Print(K6)}
+	Wie bereits im Entwurfsdokument beschrieben ist kein Pretty Print implementiert.
+	
+\subsubsection{Standardbibliothek (K7)}
+	In der Beschreibung der Standardbibliothek wird die Aussage getroffen, dass
+	Churchzahlen in der Bibliothek sind.
+	Die Churchzahlen sind implementiert sind aber nicht in der Standardbibliothek,
+	da Funktionen in der Standardbibliothek namentlich in der Sidebar stehen und mit 
+	einem $\$$ vorangestellt werden müssen.
+	Beides ist nicht der Fall bei Churchzahlen
+
+\subsubsection{Schleifenerkennung (K19)}
+	Wie bereits im Entwurfsdokument beschrieben ist dieses Wunschkriterium 
+	wegen zu geringen Nutzen nicht implementiert worden. 
+	Hiermit wird auch Nicht-Funktionale Anforderung \textbf{N10} nicht
+	mehr benötigt.
+	
+\subsubsection{Lokale Sessions (K23)}
+	Auch dies wurde wie im Entwurfsdokument beschrieben nicht implementiert.
+\subsection{Nichtfunktionale Anforderungen}
+
+\subsubsection{Standardbibliothek und Benutzerbibliothek (N11) und (N22)}
+	Es gibt keine Beschränkung der Anzahl der Funktionen in den Bibliotheken
+\subsubsection{Variablennamen (N17)}
+	Eine Variable darf groß oder kleingeschrieben werden, sie dürfen Zahlen
+	beinhalten, aber nicht als erstes Zeichen.
+	Das Sonderzeichen $\_ $ ist auch erlaubt worden, aber nicht als erstes Zeichen 
+\subsubsection{Funktionsnamen (N18)}
+	Eine Funktion hat nun die gleichen Regeln wie eine Variable, sie muss aber 
+	weiterhin mit einem $\$$ beginnen.
+	
+\subsection{Testfälle}
+	Die Testfälle, die eine der vorher genannte Funktion referenzieren die adaptiert oder
+	gelöscht wurden.
+\subsubsection{Teilen Funktion (T2)}
+	In T2.3 wird beschrieben, dass ein Popup mit einer Bestätigung erscheint.
+	Dies wurde geänder.
+	Der Share Latex Knopf öffnet ein unterschiedliches Popup.
+	Dieses Popup entählt den Latextext und zwei Buttons.
+	Der eine Button Kopiert den Text in die Zwischenablage, der andere
+	schließt das Popup.
+	Es wurde sich dafür entschieden, damit der Benutzer voher nochmal den
+	kopierten Text sieht und bei Bedarf nur Teile des Textes kopieren kann.
+	
+\subsubsection{Darstellung in Chrome (T3)}
+	In T3.3 wird erwähnt, dass der Nachtmodus durch den Button aktiviert werden muss.
+	Es wurde entschieden, dass der Nachtmodus der Default Modus ist und die Helle
+	Oberfläche durch den Button aktiviert wird.
+\section{Glossar}
+\begin{itemize}
+    \item Issue
+    \item Issue Tracker
+    \item commit?
+\end{itemize}
+
+\end{document}

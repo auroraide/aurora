@@ -9,6 +9,7 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -118,20 +119,36 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
 
-
-
     /**
      * Traverse the entire Term and initialize on every Abstraction the rename Abstraction Visitor
      * and the Free Variable Conversion Visitor.
      */
     private class FindAbsForAlpha extends TermVisitor<Term> {
+        // this bool is true if alphaconversion with fvar is needed
+        boolean chg = false;
 
         @Override
         public Term visit(Abstraction abs) {
+            chg = false;
             Abstraction absWithAbsConversion = new Abstraction(abs.body.accept(new RenameAbsVisitor(abs.name)),
                     abs.name);
-            Abstraction absWithFvConversion = new  Abstraction(absWithAbsConversion.body.accept(
-                    new AlphaconversionVisitorFV(absWithAbsConversion.name)), abs.name);
+            AlphaconversionVisitorFV x = new AlphaconversionVisitorFV(absWithAbsConversion.name);
+            Term body = absWithAbsConversion.body.accept(x);
+            Abstraction absWithFvConversion;
+            if (chg) {
+                absWithFvConversion = new Abstraction(body, absWithAbsConversion.name + "_alpha");
+                while (chg) {
+                    chg = false;
+                    x = new AlphaconversionVisitorFV(absWithFvConversion.name);
+                    body = absWithFvConversion.body.accept(x);
+
+                    if (chg) {
+                        absWithFvConversion = new Abstraction(body, absWithFvConversion.name + "_alpha");
+                    }
+                }
+            } else {
+                absWithFvConversion = new Abstraction(body, absWithAbsConversion.name);
+            }
 
 
             return new Abstraction(absWithFvConversion.body.accept(this), absWithFvConversion.name);
@@ -189,9 +206,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                     counter++;
                     int mycounter = counter;
                     String newname = name + Integer.toString(counter);
-                    return new Abstraction(abs.body.accept(this),name + Integer.toString(mycounter));
+                    return new Abstraction(abs.body.accept(this), name + Integer.toString(mycounter));
                 } else {
-                    return new Abstraction(abs.body.accept(this),abs.name);
+                    return new Abstraction(abs.body.accept(this), abs.name);
                 }
             }
 
@@ -229,10 +246,13 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
          */
         private class AlphaconversionVisitorFV extends TermVisitor<Term> {
             private String name;
+            private boolean changed;
 
             public AlphaconversionVisitorFV(String name) {
                 this.name = name;
+                changed = false;
             }
+
 
             @Override
             public Term visit(Abstraction abs) {
@@ -254,10 +274,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(FreeVariable fvar) {
                 if (fvar.name.equals(name)) {
-                    return new FreeVariable(fvar.name + "_alpha");
-                } else {
-                    return fvar;
+                    chg = true;
+
                 }
+                return fvar;
+
             }
 
             @Override
@@ -279,9 +300,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * builds token list of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
-        int line;
-        int offset;
-        int column;
+        private int line;
+        private int offset;
+        private int column;
         private boolean isapp;
         private boolean isabs;
         int index;
@@ -298,20 +319,20 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         public Void visit(Abstraction abs) {
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_LAMBDA,line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_LAMBDA, line, column, offset));
 
             int length = abs.name.length();
             column += length;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_VARIABLE,abs.name,line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_VARIABLE, abs.name, line, column, offset));
 
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_DOT,line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_DOT, line, column, offset));
 
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
             // replace all BoundVariables with Free Variables and perform alpha conversion
             Term t = abs.body.accept(new BoundVariableFinder(abs.name));
@@ -322,9 +343,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Application app) {
-            AppAbschecker abschecker = new AppAbschecker();
-            app.left.accept(abschecker);
-            if (isabs) {
+            if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -338,11 +357,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_WHITESPACE," ", line, column, offset));
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
-            AppAbschecker absappchecker = new AppAbschecker();
-            app.right.accept(absappchecker);
-            if (isabs || isapp) {
+            if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
@@ -362,7 +379,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             int length = String.valueOf(bvar.index).length();
             column += length;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_VARIABLE,String.valueOf(bvar.index),line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_VARIABLE, String.valueOf(bvar.index), line, column, offset));
             return null;
         }
 
@@ -371,7 +388,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             int length = fvar.name.length();
             column += length;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_VARIABLE,fvar.name,line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_VARIABLE, fvar.name, line, column, offset));
             return null;
         }
 
@@ -380,7 +397,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             int length = libterm.name.length();
             column += length;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_FUNCTION,libterm.name,line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_FUNCTION, libterm.name, line, column, offset));
             return null;
         }
 
@@ -389,61 +406,73 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             int length = String.valueOf(c.value).length();
             column += length;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_NUMBER,String.valueOf(c.value),line,column,offset));
+            tokens.add(new Token(Token.TokenType.T_NUMBER, String.valueOf(c.value), line, column, offset));
             return null;
         }
 
-        /**
-         * This Visitor checks if the given Term is an Application or Abstraction.
-         */
-        private class AppAbschecker extends TermVisitor<Void> {
-
-            AppAbschecker() {
-                isapp = false;
-                isabs = false;
+        private class DetermineIfParenthesisNecessaryOnTheLeft extends TermVisitor<Boolean> {
+            @Override
+            public Boolean visit(Abstraction abs) {
+                return true;
             }
 
             @Override
-            public Void visit(Abstraction abs) {
-                isapp = false;
-                isabs = true;
-                return null;
+            public Boolean visit(Application app) {
+                return false;
             }
 
             @Override
-            public Void visit(Application app) {
-                isapp = true;
-                isabs = false;
-                return null;
+            public Boolean visit(BoundVariable bvar) {
+                return false;
             }
 
             @Override
-            public Void visit(BoundVariable bvar) {
-                isapp = false;
-                isabs = false;
-                return null;
+            public Boolean visit(FreeVariable fvar) {
+                return false;
             }
 
             @Override
-            public Void visit(FreeVariable fvar) {
-                isapp = false;
-                isabs = false;
-                return null;
+            public Boolean visit(Function libterm) {
+                return libterm.term.accept(this);
             }
 
             @Override
-            public Void visit(Function libterm) {
-                Term t  = libterm.term;
-                t.accept(this);
-                return null;
+            public Boolean visit(ChurchNumber c) {
+                return false;
+            }
+        }
+
+        private class DetermineIfParenthesisNecessaryOnTheRight extends TermVisitor<Boolean> {
+            @Override
+            public Boolean visit(Abstraction abs) {
+                return true;
             }
 
             @Override
-            public Void visit(ChurchNumber c) {
-                isapp = false;
-                isabs = true;
-                return null;
+            public Boolean visit(Application app) {
+                return true;
             }
+
+            @Override
+            public Boolean visit(BoundVariable bvar) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(FreeVariable fvar) {
+                return false;
+            }
+
+            @Override
+            public Boolean visit(Function libterm) {
+                return libterm.term.accept(this);
+            }
+
+            @Override
+            public Boolean visit(ChurchNumber c) {
+                return false;
+            }
+
         }
 
         /**
@@ -467,8 +496,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             @Override
             public Term visit(Abstraction abs) {
                 index++;
-                return new Abstraction(abs.body.accept(this),abs.name);
-
+                return new Abstraction(abs.body.accept(this), abs.name);
             }
 
             @Override
@@ -495,8 +523,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             @Override
             public Term visit(Function function) {
-                Term t = function.term;
-                return t.accept(this);
+                return function;
             }
 
             @Override

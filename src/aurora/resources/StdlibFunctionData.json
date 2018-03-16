@@ -1,0 +1,116 @@
+[
+    {
+        "name" : "add",
+        "function" : "(\\m. \\n. \\s. \\z. m s (n s z))",
+        "description" : "$add x y // x + y"
+    },
+
+    {
+        "name" : "sub",
+        "function" : "(\\m.\\n.n (\\n.\\f.\\x.n (\\g.\\h.h (g f)) (\\u.x) (\\u.u)) m)",
+        "description" : "$sub x y // x - y"
+    },
+
+    {
+        "name" : "mul",
+        "function" : "(\\m. \\n. \\s. n (m s))" ,
+        "description" : "$mul x y // x * y"
+    },
+
+    {
+        "name" : "pow",
+        "function" : "(\\m. \\n. n m)",
+        "description" : "$pow x y // x^y"
+    },
+
+    {
+        "name" : "true",
+        "function" : "(\\t. \\f. t)",
+        "description" : "$true // church encoding of true"
+    },
+
+    {
+        "name" : "false",
+        "function" : "(\\t. \\f. f)",
+        "description" : "$false // church encoding of false"
+    },
+
+    {
+        "name" : "and",
+        "function" : "(\\p.\\q.p q p)",
+        "description" : "$and x y //  logical operator and"
+    },
+
+    {
+        "name" : "or",
+        "function" : "(\\p.\\q.p p q)",
+        "description" : "$or x y // logical operator or"
+    },
+
+    {
+        "name" : "not",
+        "function" : "(\\p.p (\\t. \\f. f) (\\t. \\f. t))",
+        "description" : "$not x //  logical operator not"
+    },
+
+    {
+        "name" : "EQ",
+        "function" : "(\\m.\\n. (\\p.\\q.p q p) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) m n) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) n m))",
+        "description" : "$EQ x y // returns $true if x is equal to y, otherwise $false"
+    },
+
+    {
+        "name" : "LEQ",
+        "function" : "(\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a))))",
+        "description" : "$LEQ x y // returns $true if x is less or equal than y"
+    },
+
+    {
+        "name" : "IsZero",
+        "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
+        "description" : "$isZero x // returns $true if x  is zero else $false"
+    },
+
+    {
+        "name" : "ifthenelse",
+        "function" : "(\\b.\\x.\\y.b x y)",
+        "description" : "$ifthenelse (cond) x y //  if condition cond evaluates to $true, then x else y"
+    },
+
+    {
+        "name" : "pair",
+        "function" : "(\\a. \\b. \\f. f a b)",
+        "description" : "$pair x y // church encoding of a 2-tuple (x, y)"
+    },
+
+    {
+        "name" : "first",
+        "function" : "(\\p. p (\\a. \\b. a))",
+        "description" : "$first ($pair x y) // returns the first variable of a pair"
+    },
+
+    {
+        "name" : "second",
+        "function" : "(\\p. p (\\a. \\b. b))",
+        "description" : "$second ($pair x y) // returns the second variable of a pair"
+    },
+
+    {
+        "name" : "succ",
+        "function" : "(\\n. \\s. \\z. s (n s z))",
+        "description" : "$succ number // increments a number"
+    },
+
+    {
+        "name" : "pred",
+        "function" : "(\\n.\\f.\\x.n (\\g.\\h.h (g f)) (\\u.x) (\\u.u))",
+        "description" : "$pred number // decrements a number"
+    },
+
+    {
+        "name"  : "Y",
+        "function" : "(\\f. (\\x. f (x x)) (\\x. f (x x)))",
+        "description" : "Y Combinator"
+    }
+
+]

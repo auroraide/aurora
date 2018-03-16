@@ -4,14 +4,14 @@
 }
 
 .inputFieldCenter, .centerPanel div:nth-child(6), .outputDockLayoutPanel {
-    background-color: #33485c;
+    background-color: #fff !important;
 }
 .gwt-SplitLayoutPanel-VDragger {
-    background-color: #177965 !important;
+    background-color: rgb(232, 232, 232) !important;
 }
 
 .gwt-MenuBar-vertical {
-    background: #33495D !important;
+    background: rgb(232, 232, 232) !important;
 }
 
 .action_bar {
@@ -140,5 +140,5 @@ td .subMenuItem {
     background-size: auto 50%;
     background-position: center center;
     background: url("../img/icons/icon_share.png") no-repeat center !important;
-    background-color: #177965;
+    background-color: rgb(232, 232, 232);
 }

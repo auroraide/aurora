@@ -6,51 +6,30 @@ import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.ViewState;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.ButtonElement;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.testing.CountingEventBus;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
-
-import java.util.ArrayList;
-import java.util.List;
+import aurora.utils.GWTTestCaseSetup;
 
 
 /**
  * Testing {@link SidebarView}.
  */
-public class SidebarViewTest extends GWTTestCase {
+public class SidebarViewGwtTest extends GWTTestCase {
     private SidebarView sidebarView;
     private CountingEventBus eventBus;
 
-    private static native String getNodeName(Element elem) /*-{
-        return (elem.nodeName || "").toLowerCase();
-    }-*/;
-
     public String getModuleName() {
-        return "aurora.Aurora";
+        return "aurora.Testing";
     }
 
 
     /**
-     * Removes all elements in the body, except scripts and iframes.
+     * Sets up the testing environment.
      */
     public void gwtSetUp() {
-        Element bodyElem = RootPanel.getBodyElement();
-
-        List<Element> toRemove = new ArrayList<Element>();
-        for (int i = 0, n = DOM.getChildCount(bodyElem); i < n; ++i) {
-            Element elem = DOM.getChild(bodyElem, i);
-            String nodeName = getNodeName(elem);
-            if (!"script".equals(nodeName) && !"iframe".equals(nodeName)) {
-                toRemove.add(elem);
-            }
-        }
-
-        for (int i = 0, n = toRemove.size(); i < n; ++i) {
-            bodyElem.removeChild(toRemove.get(i));
-        }
+        GWTTestCaseSetup.cleanUpDOM(RootPanel.get());
 
         eventBus = new CountingEventBus();
         sidebarView = new SidebarView(eventBus);
@@ -73,8 +52,8 @@ public class SidebarViewTest extends GWTTestCase {
         assertFalse(sidebarView.strategySelection.getCallByValue().getValue());
         assertFalse(sidebarView.strategySelection.getManualSelection().getValue());
 
-        // check, if nighMode is disabled on initialisation
-        assertFalse(sidebarView.nightModeSwitch.getValue());
+        // check, if nighMode is enabled on initialisation
+        assertTrue(sidebarView.nightModeSwitch.getValue());
     }
 
     /**
@@ -82,13 +61,7 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarDefaultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.DEFAULT_STATE));
-        assertTrue(sidebarView.stepNumber.isEnabled());
-        assertTrue(sidebarView.addFunctionButton.isEnabled());
-        assertTrue(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertTrue((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertTrue(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        assertTrue(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(true, true, true, true, true,true, true);
         //TODO Check if share and language button (Sidebar) are enabled in DefaultState
     }
 
@@ -97,13 +70,7 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarRunningState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.RUNNING_STATE));
-        assertFalse(sidebarView.stepNumber.isEnabled());
-        assertFalse(sidebarView.addFunctionButton.isEnabled());
-        assertFalse(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertFalse((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertFalse(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertFalse(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(false, false, false,false, false,false, false);
         // TODO Check if share and language button (Sidebar) are enabled in RunningState
     }
 
@@ -112,13 +79,7 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarPausedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.PAUSED_STATE));
-        assertTrue(sidebarView.stepNumber.isEnabled());
-        assertFalse(sidebarView.addFunctionButton.isEnabled());
-        assertTrue(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertTrue((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertTrue(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(true, true, true, true, true,true, true);
         // TODO Check if share and language button (Sidebar) are enabled in PausedState
     }
 
@@ -127,13 +88,7 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
-        assertTrue(sidebarView.stepNumber.isEnabled());
-        assertFalse(sidebarView.addFunctionButton.isEnabled());
-        assertTrue(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertTrue((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertTrue(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(true, true, true, true, true,true, true);
         // TODO Check if share and language button (Sidebar) are enabled in FinishedState
     }
 
@@ -142,13 +97,7 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarFinishedFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_FINISHED_STATE));
-        assertTrue(sidebarView.stepNumber.isEnabled());
-        assertTrue(sidebarView.addFunctionButton.isEnabled());
-        assertTrue(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertTrue((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertTrue(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(true, true, true, true, true,true, true);
         // TODO Check if share and language button (Sidebar) are enabled in FinishedFinishedState
     }
 
@@ -157,15 +106,11 @@ public class SidebarViewTest extends GWTTestCase {
      */
     public void testSidebarStepBeforeResultState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.STEP_BEFORE_RESULT_STATE));
-        assertTrue(sidebarView.stepNumber.isEnabled());
-        assertFalse(sidebarView.addFunctionButton.isEnabled());
-        assertTrue(sidebarView.strategySelection.getCallByValue().isEnabled());
-        assertTrue((sidebarView.strategySelection.getCallByName().isEnabled()));
-        assertTrue(sidebarView.strategySelection.getManualSelection().isEnabled());
-        assertTrue(sidebarView.strategySelection.getNormalOrder().isEnabled());
-        // TODO assertFalse(sidebarView.nightModeSwitch.isEnabled());
+        assertSidebarWidgetsEnabledDisabled(true, true, true, true, true,true, true);
         // TODO Check if share and language button (Sidebar) are enabled in StepBeforeResultState
     }
+
+
 
     /**
      * Tests if a user library function is correctly added to the user library and if an AddFunctionEvent is fired.
@@ -207,8 +152,6 @@ public class SidebarViewTest extends GWTTestCase {
                     eventBus.getFiredCount(DeleteFunctionEvent.TYPE) == 1);
 
         });
-
-
     }
 
     /**
@@ -217,5 +160,32 @@ public class SidebarViewTest extends GWTTestCase {
     public void testAddRemoveAddLibraryFunction() {
         testRemoveLibraryFunction();
         testRemoveLibraryFunction();
+    }
+
+    /**
+     * Checks if {@link SidebarView} widgets are enabled or disabled.
+     *
+     * The parameters describe the expectation, whether a the widgets are enabled or disabled.
+     *
+     * @param stepNumberIsEnabled The expected value of stepNumber widget.
+     * @param addFunctionButtonIsEnabled The expected value of addFunctionButton.
+     * @param callByValueIsEnabled The expected value of callByValue widget.
+     * @param callByNameIsEnabled The expected value of callByName widget.
+     * @param manualSelectionIsEnabled The expected value of manualSelection widget.
+     * @param normalOrderIsEnabled The expected value of normalOrder widget.
+     * @param nightModeSwitchIsEnabled The expected value of nightModeSwitch.
+     */
+    private void assertSidebarWidgetsEnabledDisabled(boolean stepNumberIsEnabled, boolean addFunctionButtonIsEnabled,
+                                                   boolean callByValueIsEnabled, boolean callByNameIsEnabled,
+                                                   boolean manualSelectionIsEnabled, boolean normalOrderIsEnabled,
+                                                   boolean nightModeSwitchIsEnabled) {
+        assertEquals(stepNumberIsEnabled, sidebarView.stepNumber.isEnabled());
+        assertEquals(addFunctionButtonIsEnabled, sidebarView.addFunctionButton.isEnabled());
+        assertEquals(callByValueIsEnabled, sidebarView.strategySelection.getCallByValue().isEnabled());
+        assertEquals(callByNameIsEnabled, sidebarView.strategySelection.getCallByName().isEnabled());
+        assertEquals(manualSelectionIsEnabled, sidebarView.strategySelection.getManualSelection().isEnabled());
+        assertEquals(normalOrderIsEnabled, sidebarView.strategySelection.getNormalOrder().isEnabled());
+        assertEquals(nightModeSwitchIsEnabled, sidebarView.nightModeSwitch.isEnabled());
+
     }
 }
