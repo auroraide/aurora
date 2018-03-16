@@ -65,23 +65,44 @@ public class CodeMirrorPanel extends SimplePanel {
         callCMFunction(editor, "setOption", option, value);
     }
 
+    /**
+     * Get the amount of lines in this panel.
+     *
+     * @return amount of lines in panel.
+     */
     public int lineCount() {
         return callCMFunctionInt(editor, "lineCount");
     }
 
+    /**
+     * Get the content of a given line.
+     *
+     * @param lineNumber content of which line to get.
+     * @return gets content of given line.
+     */
     public String getLine(int lineNumber) {
         return (String) callCMFunction(editor, "getLine", lineNumber);
     }
 
-    //requires selection/mark-selection.js addon to be loaded
+    /**
+     * Mark text in a given interval.
+     * Requires selection/mark-selection.js addon to be loaded.
+     *
+     * @param fromLine line in which to begin marking.
+     * @param fromChar first char to mark in fromLine..
+     * @param toLine line in which to stop marking.
+     * @param toChar last char to mark in toLine.
+     */
     public void markText(int fromLine, int fromChar, int toLine, int toChar) {
-        console("line 1");
-        //callCMFunction(editor, "markText", fromLine, fromChar, toLine, toChar);
-        console("line 2");
+        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar);
     }
 
-    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2, Object arg3, Object arg4) /*-{
-        return jso[key].apply(jso, [{line: arg1,ch: arg2}, {line: arg3, ch: arg4}, "#f77"]);
+    private native Object callCMmarkText(JavaScriptObject jso, String key,
+            Object arg1, Object arg2, Object arg3, Object arg4) /*-{
+        return jso[key].apply(jso,
+            [{line: arg1,ch: arg2},
+            {line: arg3, ch: arg4},
+            {css: "background-color:#7FFF00"}]);
     }-*/;
 
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
