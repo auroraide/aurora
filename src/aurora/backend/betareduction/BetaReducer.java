@@ -16,7 +16,7 @@ import aurora.backend.tree.Term;
 public class BetaReducer {
 
     private ReductionStrategy strategy;
-    private boolean alwaystrue;
+    private RedexPath lastPath;
 
     /**
      * The constructor gets a strategy that is used for the reduction.
@@ -25,7 +25,6 @@ public class BetaReducer {
      */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
-        alwaystrue = false;
     }
 
     /**
@@ -36,6 +35,7 @@ public class BetaReducer {
      */
     public Term reduce(Term term) {
         RedexPath path = strategy.getRedexPath(term);
+        lastPath = path;
 
         // there is no reducible redex left, the given term is our result
         if (path == null) {
@@ -53,6 +53,9 @@ public class BetaReducer {
         return term.accept(replaceVisitor);
     }
 
+    public RedexPath getLastPath() {
+        return lastPath;
+    }
 
     private class CastingVisitor extends TermVisitor<Abstraction> {
 

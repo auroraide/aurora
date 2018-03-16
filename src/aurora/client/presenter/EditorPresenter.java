@@ -20,7 +20,6 @@ import aurora.client.event.ContinueEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.PauseEvent;
 import aurora.client.event.ReStepEvent;
-import aurora.client.event.RedexClickedEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
@@ -53,11 +52,22 @@ public class EditorPresenter {
 
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
+    private BetaReductionIterator berry;
+
+    private static class Step {
+        public final Term term;
+        public final HighlightableLambdaExpression hle;
+
+        private Step(Term term, HighlightableLambdaExpression hle) {
+            this.term = term;
+            this.hle = hle;
+        }
+    }
 
     /**
      * Contains all steps in between, so without input and without output fields.
      */
-    private final ArrayList<Term> steps;
+    private final ArrayList<Step> steps;
     private final HighlightTimer highlightTimer;
     /**
      * GWT Timer, allows for "while" loops without blocking the GUI.
@@ -147,7 +157,7 @@ public class EditorPresenter {
         runTimer = null;
     }
 
-    private Term last() {
+    private Step last() {
         assert (!steps.isEmpty());
         return steps.get(steps.size() - 1);
     }
@@ -244,9 +254,30 @@ public class EditorPresenter {
             return false;
         }
 
-        steps.add(term);
+        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
 
-        // IMPORTANT: check any places that use this function whether I forgot to substitute the line i just removed.
+        // is input reducible?
+        if (berry.hasNext()) {
+            // input is reducible => there exists at least one redex.
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
+            steps.add(new Step(term, hle));
+            editorDisplay.setInput(hle);
+        } else {
+            // input (step #0) is NOT reducible => display result
+
+            HighlightableLambdaExpression hleInput = new HighlightableLambdaExpression(stream);
+            steps.add(new Step(term, hleInput));
+            editorDisplay.setInput(hleInput);
+
+            Term simplifiedInput = simplify(term);
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplifiedInput);
+            steps.add(new Step(simplifiedInput, hle));
+            editorDisplay.displayResult(hle);
+
+            assert (steps.size() == 2); // contains only input and output
+            return false;
+        }
+
         return true;
     }
 
@@ -255,43 +286,31 @@ public class EditorPresenter {
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         assert (!isRunning() && !isReStepping());
 
-        ReductionStrategy strategy = createReductionStrategy();
-        Term simplified = simplify(last());
-
-        RedexPath path = strategy.getRedexPath(simplified); // FIXME getRedexPath is called twice => inefficient
-        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(strategy), simplified);
-
         if (!isStarted()) {
             if (!tryStartOrHandleErrors()) {
                 return;
             }
-            // is input reducible?
-            assert (bri.hasNext() == (path != null));
-            if (!bri.hasNext()) {
-                HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplified);
-                editorDisplay.setInput(hle);
-                editorDisplay.displayResult(hle);
-                assert (steps.size() == 1);
-                return;
-            } else {
-                assert (path != null);
-                // need to do this: RedexPath -> startToken, midToken, endToken
-            }
         }
 
-        assert (path != null && bri.hasNext());
-
-
-        // input IS reducible
-        Term next = simplify(bri.next()); // <<<======= note this
-        assert (next != null);
-        steps.add(next);
-        // we need to know if we just computed the result (=irreducible term) or just another step.
-        if (!bri.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(next, ??, ??));
-            return;
+        if (!berry.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().term)));
         }
-        editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??, ??), steps.size() - 1);
+
+        new StepTimer().scheduleRepeating(1);
+
+//
+//        // input IS reducible
+//        Term next = simplify(berry.next()); // <<<======= note this
+//        assert (next != null);
+//        steps.add(next);
+//        // we need to know if we just computed the result (=irreducible term) or just another step.
+//        if (!berry.hasNext()) {
+//            editorDisplay.displayResult(new HighlightableLambdaExpression(next, null, null));
+//            return;
+//        }
+//        HighlightableLambdaExpression dings = new HighlightableLambdaExpression(next);
+//        dings.highlightNext(path);
+//        editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??), steps.size() - 1);
 
 //        /*
 //         * In the case of stepNumber being greater than the actual size of steps,
@@ -300,9 +319,9 @@ public class EditorPresenter {
 //        int stepIndex = (steps.size() - stepNumber > 0) ? steps.size() -  stepNumber : 1;
 //
 //        for (int i = 0; i < stepNumber; i++) {
-//            Term result = bri.next();
+//            Term result = berry.next();
 //            steps.add(result);
-//            if (!bri.hasNext()) {
+//            if (!berry.hasNext()) {
 //                // current is irreducible => current term is result.
 //                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(result)));
 //                break;
@@ -312,6 +331,36 @@ public class EditorPresenter {
 //        }
 //
 //        editorDisplay.addNextStep(stepsToDisplay, stepIndex);
+    }
+
+    private class StepTimer extends Timer {
+        private int counter;
+
+        public StepTimer() {
+            counter = stepNumber;
+        }
+
+        @Override
+        public void run() {
+            if (counter < 0) {
+                cancel();
+                return;
+            }
+
+            Term next = berry.next();
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplify(next));
+            steps.add(new Step(next, hle));
+
+            if (!berry.hasNext()) {
+                cancel();
+                editorDisplay.displayResult(hle);
+                return;
+            }
+
+            editorDisplay.addNextStep(hle, steps.size());
+
+            counter--;
+        }
     }
 
     private void onReStep() {
@@ -348,7 +397,7 @@ public class EditorPresenter {
         editorDisplay.addNextStep(ssss, nextReStepIndex);
         nextReStepIndex += stepNumber;
     }
-    
+
     private void onRedexClicked(HighlightedLambdaExpression.Redex redex) {
         GWT.log("EP: RedexClickEvent caught.");
         assert (!isRunning() && isStarted());
@@ -420,11 +469,6 @@ public class EditorPresenter {
         BetaReductionIterator betaReductionIterator =
                 new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
 
-        if (!betaReductionIterator.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last())));
-            return;
-        }
-
         runTimer = new RunTimer(betaReductionIterator);
         runTimer.scheduleRepeating(1);
     }
@@ -456,7 +500,25 @@ public class EditorPresenter {
     private class HighlightTimer extends Timer {
         @Override
         public void run() {
-           /* Term t = parseInputOrHandleErrors();
+            // lex input
+            List<Token> stream = lexInputOrHandleErrors();
+            if (stream == null) {
+                return;
+            }
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
+
+            // parse input
+            Term term = parseInputOrHandleErrors(stream);
+            if (term == null) {
+                return;
+            }
+
+            ReductionStrategy strategy = createReductionStrategy();
+            RedexPath path = strategy.getRedexPath(term);
+            hle.highlightNext(path);
+
+
+            /* Term t = parseInputOrHandleErrors();
             if (t == null) {
                 return;
             }

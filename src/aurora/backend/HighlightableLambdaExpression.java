@@ -22,7 +22,6 @@ import java.util.Objects;
 public class HighlightableLambdaExpression implements HighlightedLambdaExpression {
     private List<Token> tokens;
     private List<Redex> redexes;
-    private Redex previous;
     private Redex next;
 
     /**
@@ -57,20 +56,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         x.accept(new TermToHighlightedLambdaExpressionVisitor());
     }
 
-    /**
-     * Inherits the HLE(Term) constructor.
-     * Also sets prev and next rdex;
-     * @param t Term
-     * @param previous previous
-     * @param next next.
-     */
-    public HighlightableLambdaExpression(Term t, RedexPath previous, RedexPath next) {
-        this();
-        Term x = t.accept(new FindAbsForAlpha());
-        x.accept(new TermToHighlightedLambdaExpressionVisitor(previous, next));
-
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -95,11 +80,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     @Override
-    public Redex getPreviousRedex() {
-        return previous;
-    }
-
-    @Override
     public Redex getNextRedex() {
         return next;
     }
@@ -107,6 +87,96 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     @Override
     public List<Redex> getAllRedexes() {
         return redexes;
+    }
+
+    public void highlightNext(RedexPath path, Term term) {
+        term.accept(new TermToHighlightedLambdaExpressionVisitor(path));
+    }
+
+    public void highlightNextMeta(RedexPath path, MetaTerm term) {
+        term.accept(new DingsVisitor(path));
+    }
+
+    @SuppressWarnings("Duplicates")
+    private class DingsVisitor extends TermVisitor<Void> {
+        private final RedexPath nextPath;
+        private RedexPath currentPath;
+        private MetaTerm mt;
+
+        public DingsVisitor() {
+            currentPath = new RedexPath();
+            nextPath = null;
+        }
+
+        public DingsVisitor(RedexPath nextPath) {
+            this.nextPath = nextPath;
+        }
+
+        @Override
+        public Void visit(Abstraction abs) {
+            return abs.accept(this);
+        }
+
+        @Override
+        public Void visit(Application app) {
+            boolean amRedex = app.left.accept(new AbstractionFinder());
+            // these are used to construct Redex start/end token offsets for the view.
+            Token startToken = null;
+            Token middleToken = null;
+            Token lastToken = null;
+
+            startToken = mt.token;
+
+            currentPath.push(RedexPath.Direction.LEFT);
+            app.left.accept(this);
+            currentPath.pop();
+
+            middleToken = mt.token;
+
+            currentPath.push(RedexPath.Direction.RIGHT);
+            app.right.accept(this);
+            currentPath.pop();
+
+            lastToken = mt.token;
+
+            if (amRedex) {
+                assert (startToken != null && middleToken != null && lastToken != null);
+                Redex r = new Redex(startToken.getOffset(), middleToken.getOffset(), lastToken.getOffset(),
+                        currentPath.clone());
+                redexes.add(r);
+                if (currentPath.isSame(nextPath)) {
+                    next = r;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Void visit(BoundVariable bvar) {
+            return bvar.accept(this);
+        }
+
+        @Override
+        public Void visit(FreeVariable fvar) {
+            return fvar.accept(this);
+        }
+
+        @Override
+        public Void visit(Function libterm) {
+            return libterm.accept(this);
+        }
+
+        @Override
+        public Void visit(ChurchNumber c) {
+            return c.accept(this);
+        }
+
+        @Override
+        public Void visit(MetaTerm mt) {
+            this.mt = mt;
+            mt.term.accept(this);
+            return null;
+        }
     }
 
     /**
@@ -320,7 +390,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * builds token list of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
-        private final RedexPath previousPath;
         private final RedexPath nextPath;
         private int line;
         private int offset;
@@ -334,12 +403,10 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             column = 0;
             index = 0;
             currentPath = new RedexPath();
-            previousPath = null;
             nextPath = null;
         }
 
-        public TermToHighlightedLambdaExpressionVisitor(RedexPath previousPath, RedexPath nextPath) {
-            this.previousPath = previousPath;
+        public TermToHighlightedLambdaExpressionVisitor(RedexPath nextPath) {
             this.nextPath = nextPath;
         }
 
@@ -382,15 +449,14 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
                 column++;
                 offset++;
-                if (amRedex) {
-                    startToken = offset;
-                }
+                startToken = offset;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 app.left.accept(this);
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
             } else {
+                startToken = offset;
                 app.left.accept(this);
             }
             currentPath.pop();
@@ -403,66 +469,28 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
                 column++;
                 offset++;
-                if (amRedex) {
-                    middleToken = offset;
-                }
+                middleToken = offset;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 app.right.accept(this);
                 column++;
                 offset++;
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
             } else {
+                middleToken = offset;
                 app.right.accept(this);
             }
             currentPath.pop();
 
             if (amRedex) {
                 lastToken = offset;
+                assert (startToken >= 0 && middleToken >= 0);
                 Redex r = new Redex(startToken, middleToken, lastToken, currentPath.clone());
                 redexes.add(r);
-                if (currentPath.isSame(previousPath)) {
-                    previous = r;
-                } else if (currentPath.isSame(nextPath)) {
+                if (currentPath.isSame(nextPath)) {
                     next = r;
                 }
             }
             return null;
-        }
-
-        /**
-         * Visitor that helps find abstractions inside our Term tree.
-         */
-        private class AbstractionFinder extends TermVisitor<Boolean> {
-
-            @Override
-            public Boolean visit(Abstraction abs) {
-                return true;
-            }
-
-            @Override
-            public Boolean visit(Application app) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(BoundVariable bvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(FreeVariable fvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(Function libterm) {
-                return libterm.term.accept(this);
-            }
-
-            @Override
-            public Boolean visit(ChurchNumber c) {
-                return true;
-            }
         }
 
         @Override
@@ -501,129 +529,163 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             tokens.add(new Token(Token.TokenType.T_NUMBER, String.valueOf(c.value), line, column, offset));
             return null;
         }
+    }
 
-        private class DetermineIfParenthesisNecessaryOnTheLeft extends TermVisitor<Boolean> {
-            @Override
-            public Boolean visit(Abstraction abs) {
-                return true;
-            }
-
-            @Override
-            public Boolean visit(Application app) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(BoundVariable bvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(FreeVariable fvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(Function libterm) {
-                return libterm.term.accept(this);
-            }
-
-            @Override
-            public Boolean visit(ChurchNumber c) {
-                return false;
-            }
+    private static class DetermineIfParenthesisNecessaryOnTheLeft extends TermVisitor<Boolean> {
+        @Override
+        public Boolean visit(Abstraction abs) {
+            return true;
         }
 
-        private class DetermineIfParenthesisNecessaryOnTheRight extends TermVisitor<Boolean> {
-            @Override
-            public Boolean visit(Abstraction abs) {
-                return true;
-            }
-
-            @Override
-            public Boolean visit(Application app) {
-                return true;
-            }
-
-            @Override
-            public Boolean visit(BoundVariable bvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(FreeVariable fvar) {
-                return false;
-            }
-
-            @Override
-            public Boolean visit(Function libterm) {
-                return libterm.term.accept(this);
-            }
-
-            @Override
-            public Boolean visit(ChurchNumber c) {
-                return false;
-            }
-
+        @Override
+        public Boolean visit(Application app) {
+            return false;
         }
 
-        /**
-         * This visitor removes all bound variables with free variables.
-         */
-        private class BoundVariableFinder extends TermVisitor<Term> {
-            String name;
-            int index;
+        @Override
+        public Boolean visit(BoundVariable bvar) {
+            return false;
+        }
 
+        @Override
+        public Boolean visit(FreeVariable fvar) {
+            return false;
+        }
 
-            BoundVariableFinder(String name) {
-                this.name = name;
-                index = 1;
-            }
+        @Override
+        public Boolean visit(Function libterm) {
+            return libterm.term.accept(this);
+        }
 
-            BoundVariableFinder(String name, int index) {
-                this.name = name;
-                this.index = index;
-            }
+        @Override
+        public Boolean visit(ChurchNumber c) {
+            return false;
+        }
+    }
 
-            @Override
-            public Term visit(Abstraction abs) {
-                index++;
-                return new Abstraction(abs.body.accept(this), abs.name);
-            }
+    private static class DetermineIfParenthesisNecessaryOnTheRight extends TermVisitor<Boolean> {
+        @Override
+        public Boolean visit(Abstraction abs) {
+            return true;
+        }
 
-            @Override
-            public Term visit(Application app) {
+        @Override
+        public Boolean visit(Application app) {
+            return true;
+        }
 
-                Term left = app.left.accept(new BoundVariableFinder(name, index));
-                Term right = app.right.accept(new BoundVariableFinder(name, index));
-                return new Application(left, right);
-            }
+        @Override
+        public Boolean visit(BoundVariable bvar) {
+            return false;
+        }
 
-            @Override
-            public Term visit(BoundVariable bvar) {
-                if (bvar.index == index) {
-                    return new FreeVariable(name);
-                } else {
-                    return bvar;
-                }
-            }
+        @Override
+        public Boolean visit(FreeVariable fvar) {
+            return false;
+        }
 
-            @Override
-            public Term visit(FreeVariable fvar) {
-                return fvar;
-            }
+        @Override
+        public Boolean visit(Function libterm) {
+            return libterm.term.accept(this);
+        }
 
-            @Override
-            public Term visit(Function function) {
-                return function;
-            }
-
-            @Override
-            public Term visit(ChurchNumber c) {
-                return c;
-            }
+        @Override
+        public Boolean visit(ChurchNumber c) {
+            return false;
         }
 
     }
+    /**
+     * This visitor removes all bound variables with free variables.
+     */
+    private static class BoundVariableFinder extends TermVisitor<Term> {
+        String name;
+        int index;
 
+
+        BoundVariableFinder(String name) {
+            this.name = name;
+            index = 1;
+        }
+
+        BoundVariableFinder(String name, int index) {
+            this.name = name;
+            this.index = index;
+        }
+
+        @Override
+        public Term visit(Abstraction abs) {
+            index++;
+            return new Abstraction(abs.body.accept(this), abs.name);
+        }
+
+        @Override
+        public Term visit(Application app) {
+
+            Term left = app.left.accept(new BoundVariableFinder(name, index));
+            Term right = app.right.accept(new BoundVariableFinder(name, index));
+            return new Application(left, right);
+        }
+
+        @Override
+        public Term visit(BoundVariable bvar) {
+            if (bvar.index == index) {
+                return new FreeVariable(name);
+            } else {
+                return bvar;
+            }
+        }
+
+        @Override
+        public Term visit(FreeVariable fvar) {
+            return fvar;
+        }
+
+        @Override
+        public Term visit(Function function) {
+            return function;
+        }
+
+        @Override
+        public Term visit(ChurchNumber c) {
+            return c;
+        }
+    }
+
+
+    /**
+     * Visitor that helps find abstractions inside our Term tree.
+     */
+    private static class AbstractionFinder extends TermVisitor<Boolean> {
+
+        @Override
+        public Boolean visit(Abstraction abs) {
+            return true;
+        }
+
+        @Override
+        public Boolean visit(Application app) {
+            return false;
+        }
+
+        @Override
+        public Boolean visit(BoundVariable bvar) {
+            return false;
+        }
+
+        @Override
+        public Boolean visit(FreeVariable fvar) {
+            return false;
+        }
+
+        @Override
+        public Boolean visit(Function libterm) {
+            return libterm.term.accept(this);
+        }
+
+        @Override
+        public Boolean visit(ChurchNumber c) {
+            return true;
+        }
+    }
 }

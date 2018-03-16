@@ -1,6 +1,7 @@
 package aurora.backend;
 
 import aurora.backend.parser.Token;
+import aurora.backend.tree.Term;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,13 +12,6 @@ import java.util.List;
 public interface HighlightedLambdaExpression extends Iterable<Token> {
     @Override
     Iterator<Token> iterator();
-
-    /**
-     * Gets the redex resulting from the previous computation. Or null.
-     *
-     * @return Redex.
-     */
-    Redex getPreviousRedex();
 
     /**
      * Gets the redex that will be executed in the next step.
@@ -43,7 +37,7 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
          */
         public final int startToken;
         /**
-         * The first token of the right side of the application.
+         * The last token of the left side of the application.
          */
         public final int middleToken;
         /**
