@@ -65,6 +65,25 @@ public class CodeMirrorPanel extends SimplePanel {
         callCMFunction(editor, "setOption", option, value);
     }
 
+    public int lineCount() {
+        return callCMFunctionInt(editor, "lineCount");
+    }
+
+    public String getLine(int lineNumber) {
+        return (String) callCMFunction(editor, "getLine", lineNumber);
+    }
+
+    //requires selection/mark-selection.js addon to be loaded
+    public void markText(int fromLine, int fromChar, int toLine, int toChar) {
+        console("line 1");
+        //callCMFunction(editor, "markText", fromLine, fromChar, toLine, toChar);
+        console("line 2");
+    }
+
+    private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2, Object arg3, Object arg4) /*-{
+        return jso[key].apply(jso, [{line: arg1,ch: arg2}, {line: arg3, ch: arg4}, "#f77"]);
+    }-*/;
+
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
         return jso[key].apply(jso);
     }-*/;
@@ -75,6 +94,10 @@ public class CodeMirrorPanel extends SimplePanel {
 
     private native Object callCMFunction(JavaScriptObject jso, String key, Object arg1, Object arg2) /*-{
         return jso[key].apply(jso, [arg1, arg2]);
+    }-*/;
+
+    private native int callCMFunctionInt(JavaScriptObject jso, String key) /*-{
+        return jso[key].apply(jso);
     }-*/;
 
     private static native void console(String text) /*-{
