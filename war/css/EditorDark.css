@@ -142,3 +142,22 @@ td .subMenuItem {
     background: url("../img/icons/icon_share.png") no-repeat center !important;
     background-color: #177965;
 }
+
+.stepFieldTable .CodeMirror-line span[role=presentation], .outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 60vw;
+    overflow-x: hidden;
+}
+
+/*body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(6) > div > div > div > table > tbody > tr > td:nth-child(3) > div > div > div*/
+.stepFieldTable .CodeMirror-scroll > div.CodeMirror-sizer > div > div > div {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 60vw;
+    overflow-x: hidden;
+}
+
+.stepFieldTable * {
+    overflow-x: hidden !important;
+}

@@ -177,6 +177,9 @@ div.gwt-TabLayoutPanelTabs {
 
 
 /*SHARE POPUP*/
+.shareDialogBox, .addLibraryItem {
+    z-index: 1000;
+}
 .shareDialogBox .Caption {
     font-size: 15px;
 }
@@ -196,7 +199,7 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr > td > textarea {
     width: 90%;
-    color: #fff;
+    color: #0C1021;
 }
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table {
