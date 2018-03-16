@@ -123,7 +123,7 @@ public class EditorView extends Composite implements EditorDisplay {
         optionsMenu.addItem("options", setupInputMenuBar());
         MenuBar debugMenu = new MenuBar(true);
         debugMenu.addItem("debug", setupInputMenuBarDEBUG());
-        this.inputDockLayoutPanel.addWest(optionsMenu, 4);
+        //this.inputDockLayoutPanel.addWest(optionsMenu, 4);
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
@@ -140,6 +140,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
             inputCodeMirror.setOption("back2Lambda", null);
+            inputCodeMirror.setOption("lineWrapping", true);
         });
     }
 
@@ -208,6 +209,7 @@ public class EditorView extends Composite implements EditorDisplay {
             outputCodeMirror.setOption("readOnly", true);
             outputCodeMirror.setOption("mode", "aurorascript");
             outputCodeMirror.setOption("matchBrackets", true);
+            outputCodeMirror.setOption("lineWrapping", true);
         });
     }
 
@@ -221,7 +223,8 @@ public class EditorView extends Composite implements EditorDisplay {
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
-        shareMenu.addItem("option", options);
+        shareMenu.addItem("", options);
+        shareMenu.setStyleName("stepShareSettings");
 
         return shareMenu;
     }
@@ -279,6 +282,7 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("matchBrackets", true);
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
+            cmp.setOption("lineWrapping", true);
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
@@ -303,6 +307,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 cmp.setOption("readOnly", true);
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
+                cmp.setOption("lineWrapping", true);
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
