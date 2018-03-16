@@ -26,7 +26,7 @@ public class GistEncoder {
     /**
      * Create a new GistEncoder.
      */
-    public GistEncoder() {};
+    public GistEncoder() {}
 
     /**
      * Encodes a given input along with the library.
