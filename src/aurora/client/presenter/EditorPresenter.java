@@ -246,9 +246,7 @@ public class EditorPresenter {
 
         steps.add(term);
 
-        // use original token stream to preserve exact input with whitespaces and stuff
-        editorDisplay.setInput(new HighlightableLambdaExpression(stream));
-
+        // IMPORTANT: check any places that use this function whether I forgot to substitute the line i just removed.
         return true;
     }
 
@@ -257,25 +255,32 @@ public class EditorPresenter {
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         assert (!isRunning() && !isReStepping());
 
-        if (!isStarted()) {
-            if (!tryStartOrHandleErrors()) {
-                return;
-            }
-        }
-
         ReductionStrategy strategy = createReductionStrategy();
         Term simplified = simplify(last());
 
         RedexPath path = strategy.getRedexPath(simplified); // FIXME getRedexPath is called twice => inefficient
         BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(strategy), simplified);
 
-        // is input reducible?
-        assert (bri.hasNext() == (path != null));
-        if (!bri.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(simplified)); // no redexes at all.
-            assert (last() == steps.get(0));
-            return;
+        if (!isStarted()) {
+            if (!tryStartOrHandleErrors()) {
+                return;
+            }
+            // is input reducible?
+            assert (bri.hasNext() == (path != null));
+            if (!bri.hasNext()) {
+                HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplified);
+                editorDisplay.setInput(hle);
+                editorDisplay.displayResult(hle);
+                assert (steps.size() == 1);
+                return;
+            } else {
+                assert (path != null);
+                // need to do this: RedexPath -> startToken, midToken, endToken
+            }
         }
+
+        assert (path != null && bri.hasNext());
+
 
         // input IS reducible
         Term next = simplify(bri.next()); // <<<======= note this

@@ -45,6 +45,25 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
     }
 
     /**
+     * Checks if both point to the same redex. comapres only path.
+     * @param other other
+     * @return whether same.
+     */
+    public boolean isSame(RedexPath other) {
+        if (other.path.size() != path.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < path.size(); i++) {
+            if (path.get(i) != other.path.get(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Add a new enum to the List.
      *
      * @param d The enum left or right.

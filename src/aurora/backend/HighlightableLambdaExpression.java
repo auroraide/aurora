@@ -64,10 +64,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * @param previous previous
      * @param next next.
      */
-    public HighlightableLambdaExpression(Term t, Redex previous, Redex next) {
-        this(t);
-        this.previous = previous;
-        this.next = next;
+    public HighlightableLambdaExpression(Term t, RedexPath previous, RedexPath next) {
+        this();
+        Term x = t.accept(new FindAbsForAlpha());
+        x.accept(new TermToHighlightedLambdaExpressionVisitor(previous, next));
+
     }
 
     @Override
@@ -319,6 +320,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * builds token list of the term.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
+        private final RedexPath previousPath;
+        private final RedexPath nextPath;
         private int line;
         private int offset;
         private int column;
@@ -331,6 +334,13 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             column = 0;
             index = 0;
             currentPath = new RedexPath();
+            previousPath = null;
+            nextPath = null;
+        }
+
+        public TermToHighlightedLambdaExpressionVisitor(RedexPath previousPath, RedexPath nextPath) {
+            this.previousPath = previousPath;
+            this.nextPath = nextPath;
         }
 
 
@@ -408,7 +418,13 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             if (amRedex) {
                 lastToken = offset;
-                redexes.add(new Redex(startToken, middleToken, lastToken, currentPath.clone()));
+                Redex r = new Redex(startToken, middleToken, lastToken, currentPath.clone());
+                redexes.add(r);
+                if (currentPath.isSame(previousPath)) {
+                    previous = r;
+                } else if (currentPath.isSame(nextPath)) {
+                    next = r;
+                }
             }
             return null;
         }
