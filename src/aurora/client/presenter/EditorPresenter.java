@@ -263,37 +263,50 @@ public class EditorPresenter {
             }
         }
 
-        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-        ArrayList<HighlightedLambdaExpression> stepsToDisplay = new ArrayList<>();
+        ReductionStrategy strategy = createReductionStrategy();
+        Term simplified = simplify(last());
+
+        RedexPath path = strategy.getRedexPath(simplified); // FIXME getRedexPath is called twice => inefficient
+        BetaReductionIterator bri = new BetaReductionIterator(new BetaReducer(strategy), simplified);
 
         // is input reducible?
+        assert (bri.hasNext() == (path != null));
         if (!bri.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last())));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplified)); // no redexes at all.
             assert (last() == steps.get(0));
             return;
         }
 
-        // at this point steps.size() == 1.
-
-        for (int i = 0; i < stepNumber; i++) {
-            Term result = bri.next();
-            steps.add(result);
-            if (!bri.hasNext()) {
-                // current is irreducible => current term is result.
-                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(result)));
-                break;
-            } else {
-                stepsToDisplay.add(new HighlightableLambdaExpression(result));
-            }
+        // input IS reducible
+        Term next = simplify(bri.next()); // <<<======= note this
+        assert (next != null);
+        steps.add(next);
+        // we need to know if we just computed the result (=irreducible term) or just another step.
+        if (!bri.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(next, ??, ??));
+            return;
         }
+        editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??, ??), steps.size() - 1);
 
-        int stepsSize = steps.size();
-        /*
-         * In the case of stepNumber being greater than the actual size of steps,
-         * that can be displayed, we should set it to index 1.
-         */
-        int stepIndex = (stepsSize - stepNumber > 0) ? stepsSize -  stepNumber : 1;
-        editorDisplay.addNextStep(stepsToDisplay, stepIndex);
+//        /*
+//         * In the case of stepNumber being greater than the actual size of steps,
+//         * that can be displayed, we should set it to index 1.
+//         */
+//        int stepIndex = (steps.size() - stepNumber > 0) ? steps.size() -  stepNumber : 1;
+//
+//        for (int i = 0; i < stepNumber; i++) {
+//            Term result = bri.next();
+//            steps.add(result);
+//            if (!bri.hasNext()) {
+//                // current is irreducible => current term is result.
+//                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(result)));
+//                break;
+//            } else {
+//                editorDisplay.addNextStep(new HighlightableLambdaExpression(result), stepIn);
+//            }
+//        }
+//
+//        editorDisplay.addNextStep(stepsToDisplay, stepIndex);
     }
 
     private void onReStep() {

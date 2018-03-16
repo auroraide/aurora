@@ -121,7 +121,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 continue;
             }
 
-            if (smallest.startToken <= r.startToken) {
+            assert (smallest.startToken != r.startToken);
+            if (smallest.startToken < r.startToken) {
                 smallest = r;
             }
         }
