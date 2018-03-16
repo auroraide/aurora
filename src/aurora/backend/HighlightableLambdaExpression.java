@@ -20,8 +20,10 @@ import java.util.Objects;
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
 public class HighlightableLambdaExpression implements HighlightedLambdaExpression {
-    private final List<Token> tokens;
-    private final List<Redex> redexes;
+    private List<Token> tokens;
+    private List<Redex> redexes;
+    private Redex previous;
+    private Redex next;
 
     /**
      * Standard constructor that initializes with an empty {@link Token} list.
@@ -44,6 +46,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     /**
      * Constructor that analyzes a {@link Term} and creates the {@link HighlightableLambdaExpression}.
+     * Does NOT compute any redex, previous, next.
      *
      * @param t The {@link Term} that gets analyzed.
      */
@@ -52,6 +55,19 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         Term x = t.accept(new FindAbsForAlpha());
         x.accept(new TermToHighlightedLambdaExpressionVisitor());
+    }
+
+    /**
+     * Inherits the HLE(Term) constructor.
+     * Also sets prev and next rdex;
+     * @param t Term
+     * @param previous previous
+     * @param next next.
+     */
+    public HighlightableLambdaExpression(Term t, Redex previous, Redex next) {
+        this(t);
+        this.previous = previous;
+        this.next = next;
     }
 
     @Override
@@ -79,12 +95,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     @Override
     public Redex getPreviousRedex() {
-        return null; // TODO why does this exist?
+        return previous;
     }
 
     @Override
     public Redex getNextRedex() {
-        return null; // TODO why?
+        return next;
     }
 
     @Override
