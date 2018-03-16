@@ -107,7 +107,7 @@ public class GistEncoder {
                 }
 
                 public void onResponseReceived(Request request, Response response) {
-                    if(!JsonUtils.safeToEval(response.getText())) {
+                    if (!JsonUtils.safeToEval(response.getText())) {
                         throw new RuntimeException("gist url is not a valid json");
                     }
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
