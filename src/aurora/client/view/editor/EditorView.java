@@ -73,7 +73,9 @@ public class EditorView extends Composite implements EditorDisplay {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.shareLaTexSnippetDialogBox = new ShareDialogBox("");
+        this.shareLaTexSnippetDialogBox.ensureDebugId("editorShareLaTexDialogBox");
         this.errorMessageDialogBox = new InfoDialogBox();
+        this.errorMessageDialogBox.ensureDebugId("errorMessageDialogBox");
         setupInputField();
         setupOutputField();
         setupInfoDialogBox();
@@ -125,6 +127,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
+        this.inputCodeMirror.ensureDebugId("inputCodeMirror");
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
@@ -190,12 +193,14 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void setupOutputField() {
         MenuBar shareMenuBar = createShareMenu("outputShare", "", ExportLaTeXEvent.RESULT);
+        shareMenuBar.ensureDebugId("resultFieldShareMenuBar");
         //this.outputOptionButton = new Button(""); TODO delete if not needed
         // TODO Set styling for optionButton
         //outputOptionButton.addStyleName("outputShare");
         //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
         this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
+        this.outputCodeMirror.ensureDebugId("outputCodeMirror");
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
 
@@ -209,8 +214,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private MenuBar createShareMenu(String shareMenuStyleName, String optionstyleName, int index) {
-        MenuBar shareMenu = new MenuBar(true);
-        MenuBar options = new MenuBar(true);
+        final MenuBar shareMenu = new MenuBar(true);
+        final MenuBar options = new MenuBar(true);
+        options.ensureDebugId("shareMenuOptions");
 
         // TODO Set styling for option button
         //shareMenu.addStyleName(shareMenuStyleName);
@@ -229,8 +235,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
-        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException.getLine()
-                + " and column " + syntaxException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
@@ -240,8 +245,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
-        this.errorMessageDialogBox.setDescription("Semantic error detected at line " + semanticException.getLine()
-                + " and column " + semanticException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
@@ -266,6 +270,7 @@ public class EditorView extends Composite implements EditorDisplay {
         // TODO set shareMenu Style and optionMenuStyle
         stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
+        cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {

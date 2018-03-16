@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 
 public class SeleniumTemplate {
-    protected final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
+    protected static final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
     protected static WebDriver driver;
 
     /**
