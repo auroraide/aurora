@@ -116,8 +116,11 @@ Neben dem präventiven Schreiben von Testfällen, wurde auch zu jedem gefundenen
 Nachdem der Fehler behoben wurde konnte so während der gesamten Implementierungs- und Qualitätssicherungsphase gewährleistet werden, dass ein einmal behobener Bug nicht erneut auftreten konnte.
 Details, Ursachen, sowie die Behebung der Fehler sind in der Sektion \enquote{Regression Tests} festgehalten.
 
-
-
+\subsection{GUI Tests}
+Die GUI, als Schnittstelle zwischen dem Kern des Programmes und dem Nutzer, bedarf spezieller Testfälle zur Sicherstellung einer reibungslosen Interaktion.
+Hierzu benutzen wir ein spezielles Framework, das bei jedem Aufruf einen Nutzer simuliert.
+Dieser simulierte Nutzer kann, innerhalb von vordefinierten Abläufen, diverse Inputs, wie z.B. Tastatur- und Mausevents, an Aurora senden.
+Somit können unterschiedlich komplexe Arbeitsabläufe automatisiert, und das Ergebnis mit einem vorher definiertem Zustand verglichen werden.
 
 \section{Testfallszenarien}
     Die Testfallszenarien kommen aus dem Pflichtenheft. (Einführungstxt)
