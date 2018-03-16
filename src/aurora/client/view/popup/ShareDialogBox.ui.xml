@@ -6,12 +6,12 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shareText"/>
+            <g:TextArea ui:field="shareText" debugId="shareText"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>
-            <g:Button ui:field="copyToClipboardButton"><ui:msg description="Cope To Clipboard">Copy to Clipboard</ui:msg></g:Button>
-            <g:Button ui:field="closeButton"><ui:msg description="Share Cancel">CANCEL</ui:msg></g:Button>
+            <g:Button ui:field="copyToClipboardButton" debugId="copyToClipboardButton"><ui:msg description="Cope To Clipboard">Copy to Clipboard</ui:msg></g:Button>
+            <g:Button ui:field="closeButton" debugId="closeButton"><ui:msg description="Share Cancel">CANCEL</ui:msg></g:Button>
         </g:HorizontalPanel>
     </g:VerticalPanel>
 </ui:UiBinder>
