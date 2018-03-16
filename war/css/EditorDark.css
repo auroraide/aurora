@@ -128,7 +128,7 @@ td .subMenuItem {
 }
 
 .stepFieldTable tbody tr .CodeMirror-line {
-    margin-left: 10px;
+    padding-left: 10px;
 }
 
 .CodeMirror pre {
@@ -160,4 +160,28 @@ td .subMenuItem {
 
 .stepFieldTable * {
     overflow-x: hidden !important;
+}
+
+
+/*shaer settings*/
+
+.stepShareSettings .subMenuIcon img{
+    background: url("../img/icons/icon_settings.png") no-repeat !important;
+    background-size: cover !important;
+    height: 13px !important;
+    width: 13px !important;
+    z-index: 100;
+}
+.stepShareSettings > table > tbody > tr {
+    border: none;
+}
+
+.stepShareSettings > table > tbody > tr > td:nth-child(1) {
+    position: absolute;
+    width: 13px;
+    height: 15px;
+}
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(3) {
+    left: 18px !important;
 }

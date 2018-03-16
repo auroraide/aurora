@@ -121,8 +121,8 @@ public class EditorView extends Composite implements EditorDisplay {
         optionsMenu.addItem("options", setupInputMenuBar());
         MenuBar debugMenu = new MenuBar(true);
         debugMenu.addItem("debug", setupInputMenuBarDEBUG());
-        this.inputDockLayoutPanel.addWest(optionsMenu, 4);
-        this.inputDockLayoutPanel.addWest(debugMenu, 4);
+        //this.inputDockLayoutPanel.addWest(optionsMenu, 4);
+        //this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
@@ -217,7 +217,8 @@ public class EditorView extends Composite implements EditorDisplay {
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
-        shareMenu.addItem("option", options);
+        shareMenu.addItem("", options);
+        shareMenu.setStyleName("stepShareSettings");
 
         return shareMenu;
     }
