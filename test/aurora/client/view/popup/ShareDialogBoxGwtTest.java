@@ -1,11 +1,11 @@
 package aurora.client.view.popup;
 
+import aurora.utils.GWTTestCaseSetup;
+import aurora.utils.TestingUtilities;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.RootPanel;
-import aurora.utils.GWTTestCaseSetup;
-import aurora.utils.TestingUtilities;
 
 public class ShareDialogBoxGwtTest extends GWTTestCase {
     private ShareDialogBox shareDialogBox;
@@ -50,13 +50,24 @@ public class ShareDialogBoxGwtTest extends GWTTestCase {
         this.shareDialogBox.setShareText("Test 1.");
         assertEquals("Test 1.", this.shareDialogBox.shareText.getText());
         this.shareDialogBox.closeButton.click();
-        Scheduler.get().scheduleDeferred(new Command() {
-            @Override
-            public void execute() {
-                assertEquals("", ShareDialogBoxGwtTest.this.shareDialogBox.shareText.getText());
-            }
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            assertEquals("", ShareDialogBoxGwtTest.this.shareDialogBox.shareText.getText());
+            assertFalse("ShareDialogBox should not be visible anymore",
+                    ShareDialogBoxGwtTest.this.shareDialogBox.isAttached());
         });
     }
 
+    /**
+     * Tests, if ShareDialogBox is closed when copyToClipboardButton is clicked.
+     */
+    public void testCloseAfterCopyToClipboard() {
+        this.shareDialogBox.setShareText("Som text.");
+        this.shareDialogBox.getCopyToClipboardButton().click();
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            assertEquals("", ShareDialogBoxGwtTest.this.shareDialogBox.shareText.getText());
+            assertFalse("ShareDialogBox should not be visible anymore",
+                    ShareDialogBoxGwtTest.this.shareDialogBox.isAttached());
+        });
+    }
 
 }
