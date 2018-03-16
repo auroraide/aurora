@@ -270,16 +270,14 @@
     overflow-y: scroll !important;
 }
 
-body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div > div:nth-child(2) > table {
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent {
     background: #187965 !important;
     border: none;
 }
 
-body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div > div:nth-child(2) > table > tbody > tr {
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody > tr{
     border-bottom: 1px solid #6D8A88;
 }
-
-
 /*
 .gwt-MenuBarPopup {
     left:0 !important;

@@ -17,6 +17,7 @@ public class InfoDialogBox extends DialogBox {
      * Enables displaying different kind of information to the user.
      */
     public InfoDialogBox() {
+        this.setStyleName("infoDialogBox");
         setWidget(uiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
         setGlassEnabled(true);

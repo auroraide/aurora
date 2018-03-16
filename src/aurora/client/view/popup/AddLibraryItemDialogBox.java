@@ -40,7 +40,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
         //TODO i18n right down there.
         setText("ADD NEW FUNCTION");
         setGlassEnabled(false);
-        center();
+        getAbsoluteLeft();
         hide();
     }
 
