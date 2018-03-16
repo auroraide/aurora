@@ -1,17 +1,15 @@
 package aurora.client.view.editor;
 
 import aurora.utils.SeleniumTemplate;
-import com.machinepublishers.jbrowserdriver.JBrowserDriver;
-import com.machinepublishers.jbrowserdriver.Settings;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class EditorViewSeleniumTest extends SeleniumTemplate {
     private WebElement resultOption;
-    private WebElement resultOptionLatex;
     private WebElement runButton;
     private WebElement codeEditor;
     private WebElement resultField;
@@ -27,7 +25,7 @@ public class EditorViewSeleniumTest extends SeleniumTemplate {
         codeEditor = driver.findElement(By.xpath(pathToEditor));
         resultField = driver.findElement(By.id("outputCodeMirror"));
     }
-
+    @Ignore
     @Test
     public void testExportLaTeXResultField() {
         codeEditor.sendKeys("1 1");
