@@ -25,6 +25,7 @@ public class EditorViewSeleniumTest extends SeleniumTemplate {
         codeEditor = driver.findElement(By.xpath(pathToEditor));
         resultField = driver.findElement(By.id("outputCodeMirror"));
     }
+
     @Ignore
     @Test
     public void testExportLaTeXResultField() {
