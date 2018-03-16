@@ -8,6 +8,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
 import aurora.backend.library.HashLibrary;
@@ -50,7 +51,10 @@ public class JSONSessionEncoder extends SessionEncoder {
         JsArrayMixed lib = JavaScriptObject.createArray().cast();
         session.library.forEach(
                 item -> lib.push(
-                    addLibraryEntry(item.getName(), item.getDescription(), item.getTerm())));
+                    addLibraryEntry(
+                        item.getName(),
+                        item.getDescription(),
+                        new HighlightableLambdaExpression(item.getTerm()).toString())));
         setProperty(jso, "library", lib);
 
         return JsonUtils.stringify(jso);
@@ -89,6 +93,10 @@ public class JSONSessionEncoder extends SessionEncoder {
     }-*/;
 
     private native JsArrayMixed addLibraryEntry(String name, String description, Term term) /*-{
+        return [name, description, term];
+    }-*/;
+
+    private native JsArrayMixed addLibraryEntry(String name, String description, String term) /*-{
         return [name, description, term];
     }-*/;
 
