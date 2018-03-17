@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project xmlns:ivy="antlib:org.apache.ivy.ant" name="Aurora" default="devmode">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:jacoco="antlib:org.jacoco.ant" name="Aurora" default="devmode">
 
     <!-- very important project directories -->
     <property name="lib.dir" value="lib"/>
@@ -12,6 +12,12 @@
     <property name="docs.dir" value="docs"/>
     <property name="tex.dir" value="${docs.dir}/entwurf/tex"/>
     <property name="html.dir" value="${docs.dir}/entwurf/html"/>
+
+    <!-- important jacoco directories -->
+    <property name="jacoco.dir" value="${war.dir}/jacoco"/>
+    <property name="jacoco.report.dir" value="${jacoco.dir}/site/jacoco"/>
+    <property name="jacoco.report.dir" value="${jacoco.dir}/site/jacoco" />
+    <property name="jacoco.exec.file" value="${jacoco.dir}/jacoco/jacoco.exec"/>
 
     <!-- use project specific ivy dir -->
     <property name="ivy.default.ivy.user.dir" value="${basedir}/.ivy"/>
@@ -68,7 +74,20 @@
     <target name="selenium-test" description="Build and test selenium tests.">
         <!--<antcall target="cs"/>-->
         <antcall target="build"/>
-        <antcall target="-junit-selenium"/>
+        <antcall target="junit-selenium"/>
+    </target>
+
+    <target name="junit-selenium" depends="-javac-test">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="project.class.path"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest fork="yes">
+                <fileset dir="${test.dir}">
+                    <include name="**/*SeleniumTest.java"/>
+                    <exclude name="**/*GwtTest"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
     <target name="gwt-test" description="Build and test gwt tests.">
@@ -91,6 +110,12 @@
             <fileset dir="${test.dir}" includes="**/*.java"/>
         </checkstyle>
     </target>
+
+    <target name="jacoco-report">
+        <antcall target="cs"/>
+        <antcall target="-jacoco-report"/>
+    </target>
+
 
     <target name="doc" depends="-libs" description="Generate javadoc.">
         <delete dir="${html.dir}"/>
@@ -124,6 +149,10 @@
         <delete dir="${lib.dir}" failonerror="false"/>
         <delete dir="${html.dir}" failonerror="false"/>
         <antcall target="-ivy-clean"/>
+    </target>
+
+    <target name="jacoco-clean">
+        <delete dir="${jacoco.dir}"/>
     </target>
 
     <target name="war" depends="build" description="Pack everything into a WAR file.">
@@ -181,19 +210,6 @@
             </junit>
     </target>
 
-    <target name="-junit-selenium" depends="-javac-test">
-        <junit printsummary="yes" haltonfailure="yes">
-            <classpath refid="project.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <batchtest fork="yes">
-                <fileset dir="${test.dir}">
-                    <include name="**/*SeleniumTest.java"/>
-                    <exclude name="**/*GwtTest"/>
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
-
     <target name="-junit-gwt" depends="-javac-test">
         <junit printsummary="yes" haltonfailure="yes">
             <classpath refid="project.class.path"/>
@@ -205,6 +221,51 @@
                 </fileset>
             </batchtest>
         </junit>
+    </target>
+
+    <target name="-junit-jacoco" depends="-javac-test">
+        <delete dir="${jacoco.dir}"/>
+        <jacoco:coverage destfile="${jacoco.exec.file}">
+            <junit fork="true" forkmode="once" printsummary="yes" haltonfailure="yes">
+                <classpath>
+                    <path refid="project.class.path"/>
+                    <pathelement location="${war.classes.dir}"/>
+                </classpath>
+                <formatter type="plain" usefile="false"/>
+                <batchtest fork="yes">
+                    <fileset dir="${test.dir}">
+                        <include name="**/*Test.java"/>
+                        <exclude name="**/*GwtTest.java"/>
+                        <exclude name="**/*SeleniumTest.java"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+        </jacoco:coverage>
+    </target>
+
+    <target name="-jacoco-report" depends="-junit-jacoco">
+        <jacoco:report>
+
+            <!-- This task needs the collected execution data and ... -->
+            <executiondata>
+                <file file="${jacoco.exec.file}"/>
+            </executiondata>
+
+            <!-- the class files and optional source files ... -->
+            <structure name="Aurora Backend Code Coverage">
+                <classfiles>
+                    <fileset dir="${war.classes.dir}/aurora/backend"/> <!-- Change what you want to see in report here -->
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${src.dir}"/>
+                </sourcefiles>
+            </structure>
+
+            <!-- to produce reports in different formats. -->
+            <html destdir="${jacoco.report.dir}"/>
+            <csv destfile="${jacoco.report.dir}/report.csv"/>
+            <xml destfile="${jacoco.report.dir}/report.xml"/>
+        </jacoco:report>
     </target>
 
     <target name="-javac" depends="-libs">
