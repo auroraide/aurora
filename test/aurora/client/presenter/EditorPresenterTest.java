@@ -105,8 +105,7 @@ public class EditorPresenterTest {
         List<HighlightedLambdaExpression> steps = new ArrayList<>();
         Term last = sample;
         last = br.reduce(last);
-        steps.add(new HighlightableLambdaExpression(last));
-        verify(editorDisplay).addNextStep(steps, 1);
+        verify(editorDisplay).addNextStep(new HighlightableLambdaExpression(last), 1);
     }
 
     @Test

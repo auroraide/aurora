@@ -270,11 +270,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
-        for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
-            stepMap.put(index + i, highlightedLambdaExpressions.get(i));
-            addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
-        }
+    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression, int index) {
+        stepMap.put(index, highlightedLambdaExpression);
+        addStepEntry(stepFieldTable.getRowCount(), index, highlightedLambdaExpression);
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
