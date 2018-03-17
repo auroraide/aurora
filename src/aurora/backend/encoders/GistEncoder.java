@@ -65,7 +65,7 @@ public class GistEncoder {
         encode(new Session(rawInput, library), callback);
     }
 
-    public void decode(String url, AsyncCallback<String> callback) {
+    public void decode(String url, AsyncCallback<Session> callback) {
         JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
         getGist(url, callback);
     }
@@ -94,7 +94,6 @@ public class GistEncoder {
                                 throw new RuntimeException("shit happened with gist");
                             }
                             url = url.substring(url.lastIndexOf("/") + 1);
-                            JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
                             callback.onSuccess(url);
                         }
                     });
@@ -104,7 +103,7 @@ public class GistEncoder {
         }
     }
 
-    private void getGist(String url, AsyncCallback<String> callback) {
+    private void getGist(String url, AsyncCallback<Session> callback) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, GIST_URL + "/" + url);
         try {
             Request response = builder.sendRequest("", new RequestCallback() {
@@ -117,7 +116,15 @@ public class GistEncoder {
                         throw new RuntimeException("gist url is not a valid json");
                     }
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
-                    callback.onSuccess(getProperty(jso, "files", FILE_NAME, "content"));
+                    JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
+                    String json = getProperty(jso, "files", FILE_NAME, "content");
+                    Session session;
+                    try {
+                        session = jse.decode(json);
+                    } catch (DecodeException e){
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    callback.onSuccess(session);
                 }
 
                 private native void console(String message) /*-{
