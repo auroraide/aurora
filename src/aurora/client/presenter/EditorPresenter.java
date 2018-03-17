@@ -216,7 +216,6 @@ public class EditorPresenter {
         runTimer.cancel();
         runTimer = null;
 
-        List<HighlightedLambdaExpression> highlightedSteps = new ArrayList<>();
         // max(1,...) because otherwise we'd print the input as well
         for (int i = Math.max(1, steps.size() - stepsToComputeAtOnce); i < steps.size(); i++) {
             editorDisplay.addNextStep(steps.get(i).getHle(), i);
@@ -470,7 +469,7 @@ public class EditorPresenter {
                 finish();
             }
 
-            steps.add(new Step(current, null)); // <<= NOTE THIS `null`.
+            steps.add(new Step(current, new HighlightableLambdaExpression(current, berry.getSelectedRedex())));
         }
     }
 
