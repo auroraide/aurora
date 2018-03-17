@@ -294,7 +294,9 @@ public class EditorView extends Composite implements EditorDisplay {
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
 
-        highlightStep(entryIndex, hle.getNextRedex().startToken, hle.getNextRedex().lastToken);
+        if (hle.getNextRedex() != null) {
+            highlightStep(entryIndex, hle.getNextRedex().startToken, hle.getNextRedex().lastToken);
+        }
     }
 
     /**
