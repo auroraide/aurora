@@ -24,6 +24,7 @@ import com.google.gwt.core.client.JsArrayMixed;
 public class GistEncoder {
 
     private static final String GIST_URL = "https://api.github.com/gists";
+    private static final String FILE_NAME = "aurora.txt";
     
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
@@ -70,7 +71,7 @@ public class GistEncoder {
         try {
             Request response = builder.sendRequest(
                     "{ \"files\" :{"
-                    + "\"file1.txt\": {"
+                    + "\"" + FILE_NAME + "\": {"
                     + "\"content\": \"" + encodedString.replaceAll("\"", "\\\\\"") + "\""
                     + "}"
                     + "}}",
@@ -89,6 +90,7 @@ public class GistEncoder {
                                 throw new RuntimeException("shit happened with gist");
                             }
                             url = url.substring(url.lastIndexOf("/") + 1);
+                            JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
                             callback.onSuccess(url);
                         }
                     });
@@ -111,10 +113,7 @@ public class GistEncoder {
                         throw new RuntimeException("gist url is not a valid json");
                     }
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
-                    //TODO This thing is an array
-                    //callback.onSuccess(getProperty(jso, "files"));
-                    //jso = JsonUtils.safeEval(getProperty(jso, "files"));
-                    //callback.onSuccess(getProperty(jso, "content"));
+                    callback.onSuccess(getProperty(jso, "files", FILE_NAME, "content"));
                 }
 
                 private native void console(String message) /*-{
@@ -128,7 +127,11 @@ public class GistEncoder {
     }
 
     private native String getProperty(JavaScriptObject jso, String property) /*-{
-        return jso[property];
+        return jso[property].toString();
+    }-*/;
+
+    private native String getProperty(JavaScriptObject jso, String prop1, String prop2, String prop3) /*-{
+        return jso[prop1][prop2][prop3];
     }-*/;
 
 }
