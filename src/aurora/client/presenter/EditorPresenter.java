@@ -324,7 +324,7 @@ public class EditorPresenter {
                 return;
             }
 
-            editorDisplay.addNextStep(hle, steps.size());
+            editorDisplay.addNextStep(hle, steps.size() - 1);
         }
     }
 
