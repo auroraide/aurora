@@ -131,4 +131,28 @@ public class LambdaParserTest {
         assertTrue("No exception thrown.", thrown);
     }
 
+    @Test
+    public void semex() {
+        String input = "$thisisnotdefined";
+        boolean thrown = false;
+
+        try {
+            this.parser.parse(this.lexer.lex(input));
+        } catch (SemanticException e) {
+            thrown = true;
+            assertEquals(e.getColumn(), 1);
+            assertEquals(0, e.getOffset());
+            assertEquals(1, e.getLine());
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        }
+        assertEquals(thrown, true);
+    }
+
+    @Test
+    public void heregoesnothing() {
+        SemanticException s = new SemanticException();
+        SemanticException s1 = new SemanticException("itsbroke");
+        SyntaxException s2 = new SyntaxException();
+    }
 }
