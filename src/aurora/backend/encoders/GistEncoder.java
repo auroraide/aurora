@@ -48,6 +48,12 @@ public class GistEncoder {
         this.lambdaParser = lambdaParser;
     }
 
+    /**
+     * Encodes a given Session.
+     *
+     * @param session The session to be encoded.
+     * @param callback What to do on success/failuer.
+     */
     public void encode(Session session, AsyncCallback<String> callback) {
         JSONSessionEncoder jse = new JSONSessionEncoder();
         String encodedString = jse.encode(session);
@@ -121,7 +127,7 @@ public class GistEncoder {
                     Session session;
                     try {
                         session = jse.decode(json);
-                    } catch (DecodeException e){
+                    } catch (DecodeException e) {
                         throw new RuntimeException(e.getMessage());
                     }
                     callback.onSuccess(session);
