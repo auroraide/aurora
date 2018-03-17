@@ -66,19 +66,19 @@
     </target>
 
     <target name="selenium-test" description="Build and test selenium tests.">
-        <antcall target="cs"/>
+        <!--<antcall target="cs"/>-->
         <antcall target="build"/>
         <antcall target="-junit-selenium"/>
     </target>
 
     <target name="gwt-test" description="Build and test gwt tests.">
-        <antcall target="cs"/>
+        <!--<antcall target="cs"/>-->
         <antcall target="build"/>
         <antcall target="-junit-gwt"/>
     </target>
 
     <target name="junit-test" description="Build and test unit tests.">
-        <antcall target="cs"/>
+        <!--<antcall target="cs"/>-->
         <antcall target="-junit-unit"/>
     </target>
 
