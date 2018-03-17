@@ -99,7 +99,7 @@ public class SidebarPresenter {
         List<Token> tokens;
         String name = input.getName();
         try {
-            if (name.charAt(0) == '$'){
+            if (name.charAt(0) == '$') {
                 name = name.substring(1);
             }
             tokens = lambdaLexer.lex("$" + name);
