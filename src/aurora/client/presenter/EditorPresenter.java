@@ -54,16 +54,6 @@ public class EditorPresenter {
     private final LambdaParser lambdaParser;
     private BetaReductionIterator berry;
 
-    private static class Step {
-        public final Term term;
-        public final HighlightableLambdaExpression hle;
-
-        private Step(Term term, HighlightableLambdaExpression hle) {
-            this.term = term;
-            this.hle = hle;
-        }
-    }
-
     /**
      * Contains all steps in between, so without input and without output fields.
      */
@@ -95,7 +85,7 @@ public class EditorPresenter {
             Library userLibrary,
             ChurchNumberSimplifier churchNumberSimplifier,
             LibraryTermSimplifier libraryTermSimplifier,
-            ArrayList<Term> steps,
+            ArrayList<Step> steps,
             LambdaLexer lambdaLexer,
             LambdaParser lambdaParser) {
         this.editorDisplay = editorDisplay;
@@ -293,7 +283,7 @@ public class EditorPresenter {
         }
 
         if (!berry.hasNext()) {
-            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().term)));
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
         }
 
         new StepTimer().scheduleRepeating(1);
