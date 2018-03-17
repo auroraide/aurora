@@ -200,7 +200,6 @@ public class EditorPresenter {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-//        editorDisplay.resetSteps();
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
@@ -292,40 +291,6 @@ public class EditorPresenter {
 
         stepTimer = new StepTimer();
         stepTimer.scheduleRepeating(1);
-
-//
-//        // input IS reducible
-//        Term next = simplify(berry.next()); // <<<======= note this
-//        assert (next != null);
-//        steps.add(next);
-//        // we need to know if we just computed the result (=irreducible term) or just another step.
-//        if (!berry.hasNext()) {
-//            editorDisplay.displayResult(new HighlightableLambdaExpression(next, null, null));
-//            return;
-//        }
-//        HighlightableLambdaExpression dings = new HighlightableLambdaExpression(next);
-//        dings.highlightNext(path);
-//        editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??), steps.size() - 1);
-
-//        /*
-//         * In the case of stepsToComputeAtOnce being greater than the actual size of steps,
-//         * that can be displayed, we should set it to index 1.
-//         */
-//        int stepIndex = (steps.size() - stepsToComputeAtOnce > 0) ? steps.size() -  stepsToComputeAtOnce : 1;
-//
-//        for (int i = 0; i < stepsToComputeAtOnce; i++) {
-//            Term result = berry.next();
-//            steps.add(result);
-//            if (!berry.hasNext()) {
-//                // current is irreducible => current term is result.
-//                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(result)));
-//                break;
-//            } else {
-//                editorDisplay.addNextStep(new HighlightableLambdaExpression(result), stepIn);
-//            }
-//        }
-//
-//        editorDisplay.addNextStep(stepsToDisplay, stepIndex);
     }
 
     private class StepTimer extends Timer {
@@ -378,21 +343,6 @@ public class EditorPresenter {
         reStepTimer = new ReStepTimer();
         reStepTimer.scheduleRepeating(1);
 
-//        for (int i = 0; i < stepsToComputeAtOnce; i++) {
-//            Step current = reStepper.next();
-//
-//            if (!reStepper.hasNext()) {
-//                // current is irreducible => current term is result.
-//                editorDisplay.finishedFinished(current.getHle());
-//                break;
-//            } else {
-//                ssss.add(new HighlightableLambdaExpression(current));
-////                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
-//            }
-//        }
-//
-//        editorDisplay.addNextStep(ssss, nextReStepIndex);
-//        nextReStepIndex += stepsToComputeAtOnce;
     }
 
     private class ReStepTimer extends Timer {
@@ -496,7 +446,6 @@ public class EditorPresenter {
 
         assert (steps.size() == 1); // only the input is at index 0
         assert (berry != null);
-//        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
@@ -523,29 +472,6 @@ public class EditorPresenter {
     private class HighlightTimer extends Timer {
         @Override
         public void run() {
-//            // lex input
-//            List<Token> stream = lexInputOrHandleErrors();
-//            if (stream == null) {
-//                return;
-//            }
-//            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
-//
-//            // parse input
-//            Term term = parseInputOrHandleErrors(stream);
-//            if (term == null) {
-//                return;
-//            }
-//
-//            ReductionStrategy strategy = createReductionStrategy();
-//            RedexPath path = strategy.getRedexPath(term);
-//            hle.highlightNext(path);
-
-            /* Term t = parseInputOrHandleErrors();
-            if (t == null) {
-                return;
-            }
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-            // editorDisplay.setInput(hle); // TODO re-enable this once we have working semantic highlighting*/
         }
     }
 }
