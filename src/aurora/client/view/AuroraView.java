@@ -162,9 +162,13 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private HandlerRegistration getStepHotkey() {
         return Event.addNativePreviewHandler(event -> {
             NativeEvent nativeEvent = event.getNativeEvent();
-            if (nativeEvent.getCtrlKey() && nativeEvent.getShiftKey()) {
-                AuroraView.this.currentState.stepBtnClicked();
-                AuroraView.this.currentState.stateTransition();
+            //Space key has keyCode 32
+            if (nativeEvent.getCtrlKey() && nativeEvent.getKeyCode() == 32) {
+                nativeEvent.preventDefault();
+                if (nativeEvent.getType().equals("keyup")) {
+                    AuroraView.this.currentState.stepBtnClicked();
+                    AuroraView.this.currentState.stateTransition();
+                }
             }
         });
 
