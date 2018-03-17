@@ -3,7 +3,7 @@ package aurora.client.presenter;
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.tree.Term;
 
-public class Step implements Step {
+public class Step {
     private final Term term;
     private final HighlightableLambdaExpression hle;
 
@@ -12,7 +12,6 @@ public class Step implements Step {
         this.hle = hle;
     }
 
-    @Override
     public Term getTerm() {
         return null;
     }

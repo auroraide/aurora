@@ -58,18 +58,17 @@ public class EditorPresenter {
      * Contains all steps in between, so without input and without output fields.
      */
     private final ArrayList<Step> steps;
+
     private final HighlightTimer highlightTimer;
-    /**
-     * GWT Timer, allows for "while" loops without blocking the GUI.
-     * This will be null when not running, and not null when running.
-     */
     private RunTimer runTimer;
     private StepTimer stepTimer;
-    private int stepNumber;
-    private StrategyType reductionStrategy;
 
-    private Iterator<Term> reStepper;
+    private ReStepTimer reStepTimer;
+    private Iterator<Step> reStepper;
     private Integer nextReStepIndex;
+
+    private int stepsToComputeAtOnce;
+    private StrategyType reductionStrategy;
 
     /**
      * Creates an <code>EditorPresenter</code> with the given components.
@@ -102,7 +101,7 @@ public class EditorPresenter {
         highlightTimer = new HighlightTimer();
         runTimer = null;
         reStepper = null;
-        stepNumber = 1;
+        stepsToComputeAtOnce = 1;
 
         bind();
 
@@ -123,7 +122,7 @@ public class EditorPresenter {
 
         eventBus.addHandler(ReStepEvent.TYPE, e -> onReStep());
 
-        eventBus.addHandler(StepValueChangedEvent.TYPE, e -> stepNumber = e.getStepNumber());
+        eventBus.addHandler(StepValueChangedEvent.TYPE, e -> stepsToComputeAtOnce = e.getStepNumber());
     }
 
 
@@ -201,7 +200,7 @@ public class EditorPresenter {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        editorDisplay.resetSteps();
+//        editorDisplay.resetSteps();
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
@@ -215,10 +214,10 @@ public class EditorPresenter {
         runTimer = null;
 
         List<HighlightedLambdaExpression> highlightedSteps = new ArrayList<>();
-        for (int i = Math.max(0, steps.size() - stepNumber); i < steps.size(); i++) {
-            highlightedSteps.add(new HighlightableLambdaExpression(steps.get(i)));
+        // max(1,...) because otherwise we'd print the input as well
+        for (int i = Math.max(1, steps.size() - stepsToComputeAtOnce); i < steps.size(); i++) {
+            editorDisplay.addNextStep(steps.get(i).getHle(), i);
         }
-        editorDisplay.addNextStep(highlightedSteps, steps.size() - stepNumber);
     }
 
     private void onReset() {
@@ -254,7 +253,7 @@ public class EditorPresenter {
         // is input reducible?
         if (berry.hasNext()) {
             // input is reducible => there exists at least one redex.
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream, term, berry.getSelectedRedex());
             steps.add(new Step(term, hle));
             editorDisplay.setInput(hle);
         } else {
@@ -309,12 +308,12 @@ public class EditorPresenter {
 //        editorDisplay.addNextStep(new HighlightableLambdaExpression(next, ??), steps.size() - 1);
 
 //        /*
-//         * In the case of stepNumber being greater than the actual size of steps,
+//         * In the case of stepsToComputeAtOnce being greater than the actual size of steps,
 //         * that can be displayed, we should set it to index 1.
 //         */
-//        int stepIndex = (steps.size() - stepNumber > 0) ? steps.size() -  stepNumber : 1;
+//        int stepIndex = (steps.size() - stepsToComputeAtOnce > 0) ? steps.size() -  stepsToComputeAtOnce : 1;
 //
-//        for (int i = 0; i < stepNumber; i++) {
+//        for (int i = 0; i < stepsToComputeAtOnce; i++) {
 //            Term result = berry.next();
 //            steps.add(result);
 //            if (!berry.hasNext()) {
@@ -333,13 +332,14 @@ public class EditorPresenter {
         private int counter;
 
         public StepTimer() {
-            counter = stepNumber;
+            counter = stepsToComputeAtOnce;
         }
 
         @Override
         public void run() {
-            if (counter < 0) {
+            if (counter-- <= 0) {
                 cancel();
+                stepTimer = null;
                 return;
             }
 
@@ -349,49 +349,81 @@ public class EditorPresenter {
 
             if (!berry.hasNext()) {
                 cancel();
+                stepTimer = null; // works because GC
                 editorDisplay.displayResult(hle);
                 return;
             }
 
             editorDisplay.addNextStep(hle, steps.size());
-
-            counter--;
         }
     }
 
     private void onReStep() {
+        GWT.log("EP: ReStepEvent caught.");
+        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+
         if (!isReStepping()) {
             // if not yet restepping, initialize.
             reStepper = steps.iterator();
-            reStepper.next();
+            reStepper.next(); // skip input
             nextReStepIndex = 1;
             editorDisplay.resetSteps(); // this SHOULD not be necessary, but doesn't hurt anyway
         }
 
-        GWT.log("EP: ReStepEvent caught.");
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
-
-        ArrayList<HighlightedLambdaExpression> ssss = new ArrayList<>(stepNumber);
-
         if (!reStepper.hasNext()) {
-            editorDisplay.finishedFinished(new HighlightableLambdaExpression(steps.get(0)));
+            editorDisplay.finishedFinished(steps.get(steps.size() - 1).getHle());
             return;
         }
 
-        for (int i = 0; i < stepNumber; i++) {
-            Term current = reStepper.next();
+        reStepTimer = new ReStepTimer();
+        reStepTimer.scheduleRepeating(1);
 
-            if (!reStepper.hasNext()) {
-                // current is irreducible => current term is result.
-                editorDisplay.finishedFinished(new HighlightableLambdaExpression(current));
-                break;
-            } else {
-                ssss.add(new HighlightableLambdaExpression(current));
-            }
+//        for (int i = 0; i < stepsToComputeAtOnce; i++) {
+//            Step current = reStepper.next();
+//
+//            if (!reStepper.hasNext()) {
+//                // current is irreducible => current term is result.
+//                editorDisplay.finishedFinished(current.getHle());
+//                break;
+//            } else {
+//                ssss.add(new HighlightableLambdaExpression(current));
+////                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
+//            }
+//        }
+//
+//        editorDisplay.addNextStep(ssss, nextReStepIndex);
+//        nextReStepIndex += stepsToComputeAtOnce;
+    }
+
+    private class ReStepTimer extends Timer {
+        private int counter;
+
+        private ReStepTimer() {
+            this.counter = stepsToComputeAtOnce;
         }
 
-        editorDisplay.addNextStep(ssss, nextReStepIndex);
-        nextReStepIndex += stepNumber;
+        @Override
+        public void run() {
+            assert (reStepper.hasNext());
+
+            if (counter-- <= 0) {
+                cancel();
+                reStepTimer = null;
+                return;
+            }
+
+            Step current = reStepper.next();
+
+            if (reStepper.hasNext()) {
+                // current reducible
+                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
+            } else {
+                // current is irreducible => current term is result.
+                editorDisplay.finishedFinished(current.getHle());
+            }
+
+            nextReStepIndex++;
+        }
     }
 
     private void onRedexClicked(HighlightedLambdaExpression.Redex redex) {
@@ -463,7 +495,8 @@ public class EditorPresenter {
         }
 
         assert (steps.size() == 1); // only the input is at index 0
-        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        assert (berry != null);
+//        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
