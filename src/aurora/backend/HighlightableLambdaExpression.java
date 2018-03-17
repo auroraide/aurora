@@ -506,7 +506,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 assert (startToken >= 0 && middleToken >= 0);
                 Redex r = new Redex(startToken, middleToken, lastToken, currentPath.clone());
                 redexes.add(r);
-                if (currentPath.isSame(nextPath)) {
+                if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
                 }
             }
