@@ -91,6 +91,9 @@ public class GistEncoder {
                         }
 
                         public void onResponseReceived(Request request, Response response) {
+                            if (response.getStatusCode() != 201) {
+                                throw new RuntimeException("API limit reached?"); 
+                            }
                             if (!JsonUtils.safeToEval(response.getText())) {
                                 throw new RuntimeException("gist file is invalid");
                             }
@@ -118,6 +121,9 @@ public class GistEncoder {
                 }
 
                 public void onResponseReceived(Request request, Response response) {
+                    if (response.getStatusCode() != 200) {
+                        throw new RuntimeException("API limit reached?"); 
+                    }
                     if (!JsonUtils.safeToEval(response.getText())) {
                         throw new RuntimeException("gist url is not a valid json");
                     }
