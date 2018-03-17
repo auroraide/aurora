@@ -150,9 +150,25 @@ public class LambdaParserTest {
     }
 
     @Test
+    public void exceptions() {
+        String input = "\\\\";
+        boolean thrown = false;
+        try {
+            this.parser.parse(this.lexer.lex(input));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        } catch (SyntaxException e) {
+            thrown = true;
+
+        }
+        assertEquals(thrown, true);
+    }
+
+    @Test
     public void heregoesnothing() {
         SemanticException s = new SemanticException();
         SemanticException s1 = new SemanticException("itsbroke");
         SyntaxException s2 = new SyntaxException();
     }
+    
 }
