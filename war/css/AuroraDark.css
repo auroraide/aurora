@@ -65,6 +65,7 @@ div.gwt-TabLayoutPanelTabs {
     color: #fff;
     width: 150px;
     font-size: 1.5em;
+    line-height: 2em;
 }
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
     margin: 0 !important;
@@ -95,7 +96,7 @@ div.gwt-TabLayoutPanelTabs {
     box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
     left: 40vw !important;
     top: 20vh !important;
-    width: 40vw;
+    min-width: 40vw;
 
 }
 
@@ -120,6 +121,9 @@ div.gwt-TabLayoutPanelTabs {
     border: none;
     border-bottom: 1px solid #fff;
     width: 90%;
+    color: #fff;
+    width: 70%;
+    font-size: 14px;
 }
 .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) {
     vertical-align: top;
@@ -129,6 +133,7 @@ div.gwt-TabLayoutPanelTabs {
     margin-right: 10px;
     line-height: 15px;
     vertical-align: middle;
+    width: 30%;
 }
 
 .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) >.gwt-Label {
@@ -153,6 +158,7 @@ div.gwt-TabLayoutPanelTabs {
     margin-right: 5px;
     border: 1px solid #145f4f;
     width: 100% !important;
+    border-radius: 0;
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2) > button {
@@ -162,12 +168,18 @@ div.gwt-TabLayoutPanelTabs {
     color: #fff;
     border: 1px solid #692730;
     width: 100% !important;
+    border-radius: 0;
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td {
     width: 50% !important;
 }
 
+
+/*SHARE POPUP*/
+.shareDialogBox, .addLibraryItem {
+    z-index: 1000;
+}
 .shareDialogBox .Caption {
     font-size: 15px;
 }
@@ -187,7 +199,7 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr > td > textarea {
     width: 90%;
-    color: #fff;
+    color: #0C1021;
 }
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table {
@@ -212,4 +224,149 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(2) > button {
     background: #81333d !important;
+}
+
+
+/* TUTORIAL */
+.gwt-TabLayoutPanelContent {
+    background: #33485c;
+    color: #fff;
+    border-top: 1px solid #1abb9b;
+}
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div {
+    overflow-y: scroll;
+}
+
+.gwt-TabLayoutPanelContent .title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #1abb9b;
+}
+
+.gwt-TabLayoutPanelContent section {
+    border-bottom: 1px solid #1abb9b;
+    font-size: 17px;
+    column-count: 2;
+    padding: 0 20% 15px;
+}
+
+.gwt-TabLayoutPanelContent section span.highlight{
+    color: #1abb9b;
+    font-size: 17px;
+}
+
+.gwt-TabLayoutPanelContent section p {
+    font-size: 17px;
+    margin-top: 0;
+}
+
+.gwt-TabLayoutPanelContent section.col2 {
+    column-count: unset;
+    display: flex;
+}
+
+.gwt-TabLayoutPanelContent section.col2 div:nth-child(1){
+    width: 30%;
+}
+
+.gwt-TabLayoutPanelContent section.col2 div:nth-child(2){
+    width: 70%;
+}
+
+/* 3 colums */
+.gwt-TabLayoutPanelContent section.col3 {
+    column-count: unset;
+    display: flex;
+}
+
+.gwt-TabLayoutPanelContent section.col3 div:nth-child(2n-1) {
+    width: 20%;
+}
+.gwt-TabLayoutPanelContent section.col3 div.middle {
+    width: 60%;
+}
+.gwt-TabLayoutPanelContent section.col3 div p, .gwt-TabLayoutPanelContent section.col2 div p {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+}
+.gwt-TabLayoutPanelContent section.col3 img, .gwt-TabLayoutPanelContent section.col2 img {
+    margin: 20px auto;
+    width: 90%;
+    display: block;
+}
+
+.gwt-TabLayoutPanelContent section.column_40-20-40 div:nth-child(2n-1) {
+    width: 40%;
+}
+.gwt-TabLayoutPanelContent section.column_40-20-40 div:nth-child(2) {
+    width: 20%;
+}
+
+/* NAV */
+#tutorial_nav {
+    max-width: 30vw;
+    position: fixed;
+    background: #1abb9b;
+    top: 30%;
+}
+
+#tutorial_nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 17px;
+}
+
+#tutorial_nav ul.first_level {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#tutorial_nav ul li {
+    border-bottom: 1px solid #33495D;
+}
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+    overflow-y: scroll !important;
+}
+
+.infoDialogBox {
+    background: rgba(204, 83, 83, 0.9);
+    min-height: 100px;
+    border-radius: 10px;
+    min-width: 350px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.infoDialogBox > div {
+    margin: 20px auto;
+    width: 250px;
+}
+
+.infoDialogBox table {
+    margin: 0 auto;
+}
+
+.infoDialogBox .gwt-Label {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    padding: 5px 0;
+    color: #fff;
+}
+
+.infoDialogBox .popup_title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid #bdbcbc;
+    background: rgba(125, 35, 35, 0.8);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }

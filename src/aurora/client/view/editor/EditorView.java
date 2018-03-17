@@ -78,7 +78,9 @@ public class EditorView extends Composite implements EditorDisplay {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.shareLaTexSnippetDialogBox = new ShareDialogBox("");
+        this.shareLaTexSnippetDialogBox.ensureDebugId("editorShareLaTexDialogBox");
         this.errorMessageDialogBox = new InfoDialogBox();
+        this.errorMessageDialogBox.ensureDebugId("errorMessageDialogBox");
         setupInputField();
         setupOutputField();
         this.stepMap = new HashMap<Integer, HighlightedLambdaExpression>();
@@ -106,7 +108,7 @@ public class EditorView extends Composite implements EditorDisplay {
                     EditorView.this.actionBar.setPausedStateAppearance();
                     break;
                 case STEP_BEFORE_RESULT_STATE:
-                    EditorView.this.actionBar.setStepBeforeResultAppearance();
+                    EditorView.this.actionBar.setPausedStateAppearance();
                     break;
                 case FINISHED_STATE:
                     EditorView.this.actionBar.setFinishedStateAppearance();
@@ -127,10 +129,11 @@ public class EditorView extends Composite implements EditorDisplay {
         optionsMenu.addItem("options", setupInputMenuBar());
         MenuBar debugMenu = new MenuBar(true);
         debugMenu.addItem("debug", setupInputMenuBarDEBUG());
-        this.inputDockLayoutPanel.addWest(optionsMenu, 4);
+        //this.inputDockLayoutPanel.addWest(optionsMenu, 4);
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
+        this.inputCodeMirror.ensureDebugId("inputCodeMirror");
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
@@ -143,6 +146,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("matchBrackets", true);
             inputCodeMirror.setOption("styleActiveLine", true);
             inputCodeMirror.setOption("back2Lambda", null);
+            inputCodeMirror.setOption("lineWrapping", true);
         });
     }
 
@@ -192,7 +196,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
         debugMenuBar.addItem("Highlight", new Command() {
             public void execute() {
-                getTokenPosition((CodeMirrorPanel) stepFieldTable.getWidget(0, 2), stepMap.get(1), 14);
+                highlightDEBUG();
             }
         });
 
@@ -201,12 +205,14 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private void setupOutputField() {
         MenuBar shareMenuBar = createShareMenu("outputShare", "", ExportLaTeXEvent.RESULT);
+        shareMenuBar.ensureDebugId("resultFieldShareMenuBar");
         //this.outputOptionButton = new Button(""); TODO delete if not needed
         // TODO Set styling for optionButton
         //outputOptionButton.addStyleName("outputShare");
         //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
         this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
+        this.outputCodeMirror.ensureDebugId("outputCodeMirror");
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
 
@@ -215,19 +221,22 @@ public class EditorView extends Composite implements EditorDisplay {
             outputCodeMirror.setOption("readOnly", true);
             outputCodeMirror.setOption("mode", "aurorascript");
             outputCodeMirror.setOption("matchBrackets", true);
+            outputCodeMirror.setOption("lineWrapping", true);
         });
     }
 
     private MenuBar createShareMenu(String shareMenuStyleName, String optionstyleName, int index) {
-        MenuBar shareMenu = new MenuBar(true);
-        MenuBar options = new MenuBar(true);
+        final MenuBar shareMenu = new MenuBar(true);
+        final MenuBar options = new MenuBar(true);
+        options.ensureDebugId("shareMenuOptions");
 
         // TODO Set styling for option button
         //shareMenu.addStyleName(shareMenuStyleName);
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
-        shareMenu.addItem("option", options);
+        shareMenu.addItem("", options);
+        shareMenu.setStyleName("stepShareSettings");
 
         return shareMenu;
     }
@@ -238,8 +247,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
-        this.errorMessageDialogBox.setDescription("Syntax error detected at line " + syntaxException.getLine()
-                + " and column " + syntaxException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
@@ -249,8 +257,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
-        this.errorMessageDialogBox.setDescription("Semantic error detected at line " + semanticException.getLine()
-                + " and column " + semanticException.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
@@ -275,6 +282,7 @@ public class EditorView extends Composite implements EditorDisplay {
         // TODO set shareMenu Style and optionMenuStyle
         stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
+        cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
@@ -284,6 +292,7 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("matchBrackets", true);
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
+            cmp.setOption("lineWrapping", true);
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
@@ -336,7 +345,6 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         }
         GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
-        cm.markText(0, 1, 0, 5, "#ff0");
         return new int[] {line, ch};
     }
 
@@ -360,9 +368,14 @@ public class EditorView extends Composite implements EditorDisplay {
                 cmp.setOption("readOnly", true);
                 cmp.setOption("mode", "aurorascript");
                 cmp.setOption("matchBrackets", true);
+                cmp.setOption("lineWrapping", true);
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+    }
+
+    private void highlightDEBUG() {
+        inputCodeMirror.markText(0, 1, 0, 5, "#ff0");
     }
 
     @Override
@@ -397,8 +410,7 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
-        stepMap.remove(0);
-        stepMap.put(0, hle);
+        this.stepMap.put(0, highlightedLambdaExpression);
     }
 
     /**

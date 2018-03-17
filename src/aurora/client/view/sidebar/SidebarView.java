@@ -120,13 +120,13 @@ public class SidebarView extends Composite implements SidebarDisplay {
 
     @Override
     public void displayAddLibraryItemSyntaxError(SyntaxException error) {
-        this.errorMessageDialogBox.setDescription("Syntax error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription(error.getMessage());
         this.errorMessageDialogBox.show();
     }
 
     @Override
     public void displayAddLibraryItemSemanticError(SemanticException error) {
-        this.errorMessageDialogBox.setDescription("Semantic error detected at column " + error.getColumn() + ".");
+        this.errorMessageDialogBox.setDescription((error.getMessage()));
         this.errorMessageDialogBox.show();
     }
 
@@ -150,6 +150,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userLibraryTable.setText(row, 1, description);
 
         Button removeLibraryItemButton = new Button("x");
+        removeLibraryItemButton.setStyleName("deleteUserLibraryItem");
         removeLibraryItemButton.ensureDebugId("removeLibraryItemButton-" + row);
         removeLibraryItemButton.addClickHandler(event -> {
             Scheduler scheduler = Scheduler.get();

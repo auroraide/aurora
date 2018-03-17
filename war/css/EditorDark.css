@@ -128,7 +128,7 @@ td .subMenuItem {
 }
 
 .stepFieldTable tbody tr .CodeMirror-line {
-    margin-left: 10px;
+    padding-left: 10px;
 }
 
 .CodeMirror pre {
@@ -141,4 +141,51 @@ td .subMenuItem {
     background-position: center center;
     background: url("../img/icons/icon_share.png") no-repeat center !important;
     background-color: #177965;
+}
+
+.stepFieldTable .CodeMirror-line span[role=presentation], .outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 60vw;
+    overflow-x: hidden;
+}
+
+/*body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(6) > div > div > div > table > tbody > tr > td:nth-child(3) > div > div > div*/
+.stepFieldTable .CodeMirror-scroll > div.CodeMirror-sizer > div > div > div {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 60vw;
+    overflow-x: hidden;
+}
+
+.stepFieldTable * {
+    overflow-x: hidden !important;
+}
+
+
+/*shaer settings*/
+
+.stepShareSettings .subMenuIcon img{
+    background: url("../img/icons/icon_settings.png") no-repeat !important;
+    background-size: cover !important;
+    height: 13px !important;
+    width: 13px !important;
+    z-index: 100;
+}
+.stepShareSettings > table > tbody > tr {
+    border: none;
+}
+
+.stepShareSettings > table > tbody > tr > td:nth-child(1) {
+    position: absolute;
+    width: 13px;
+    height: 15px;
+}
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(3) {
+    left: 18px !important;
+}
+
+.CodeMirror-scroll {
+    margin-bottom: -20px !important;
 }

@@ -146,21 +146,6 @@ public class ActionBar extends Composite {
     }
 
     /**
-     * Sets the appearance of ActionBar's widgets to fit STEP_BEFORE_RESULT_STATE.
-     */
-    public void  setStepBeforeResultAppearance() {
-        this.overlay.setVisible(false);
-        this.runButton.setStyleName("hidden", false);
-        this.runButton.setEnabled(true);
-        this.continueButton.setStyleName("hidden", true);
-        this.continueButton.setEnabled(false);
-        this.pauseButton.setStyleName("hidden", true);
-        this.pauseButton.setEnabled(false);
-        this.resetButton.setEnabled(true);
-        this.stepButton.setEnabled(true);
-    }
-
-    /**
      * Sets the appearance of ActionBar's widgets to fit FINISHED_FINISHED_STATE.
      */
     public void setFinishedFinishedAppearance() {

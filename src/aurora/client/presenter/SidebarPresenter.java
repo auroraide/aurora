@@ -15,7 +15,6 @@ import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
 import java.util.List;
@@ -99,9 +98,9 @@ public class SidebarPresenter {
 
         List<Token> tokens;
         try {
-            tokens = lambdaLexer.lex("$" + functionName);
+            tokens = lambdaLexer.lex("$" + input.getName());
         } catch (SyntaxException ex) {
-            sidebarDisplay.displayAddLibraryItemInvalidName();
+            sidebarDisplay.displayAddLibraryItemSyntaxError(ex);
             return;
         }
         if (tokens.size() != 1 || tokens.get(0).getType() != Token.TokenType.T_FUNCTION) {

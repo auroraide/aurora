@@ -11,6 +11,7 @@ import aurora.client.event.ShareEmailAllEvent;
 import aurora.client.event.ShareEmailEvent;
 import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import java.util.ArrayList;
 
@@ -75,7 +76,8 @@ public class AuroraPresenter {
         if (e.getIndex() != ExportLaTeXEvent.RESULT) {
             hle = new HighlightableLambdaExpression(steps.get(e.getIndex()));
         } else {
-            hle = new HighlightableLambdaExpression(steps.get(steps.size()));
+            GWT.log(String.valueOf(steps.size()));
+            hle = new HighlightableLambdaExpression(steps.get(steps.size() - 1));
         }
         ShareLaTeX shareLaTeX = new ShareLaTeX(hle);
         auroraDisplay.displayLatexSnippetDialog(shareLaTeX.generateLaTeX());
