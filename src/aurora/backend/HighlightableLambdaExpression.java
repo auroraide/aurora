@@ -33,7 +33,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     /**
-     * Constructor that creates a {@link HighlightableLambdaExpression} from a stream of {@link Token}s.
+     * Create a {@link HighlightableLambdaExpression} from a stream of {@link Token}s.
      *
      * @param stream The {@link Token} stream.
      */
@@ -44,16 +44,37 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     }
 
     /**
-     * Constructor that analyzes a {@link Term} and creates the {@link HighlightableLambdaExpression}.
-     * Does NOT compute any redex, previous, next.
+     * Create a {@link HighlightableLambdaExpression} from a {@link Term}.
      *
-     * @param t The {@link Term} that gets analyzed.
+     * @param t The {@link Term}.
      */
     public HighlightableLambdaExpression(Term t) {
         this();
+        t.accept(new FindAbsForAlpha()).accept(new TermToHighlightedLambdaExpressionVisitor());
+    }
 
-        Term x = t.accept(new FindAbsForAlpha());
-        x.accept(new TermToHighlightedLambdaExpressionVisitor());
+    /**
+     * Create a {@link HighlightableLambdaExpression} from a {@link Term} and select a next redex.
+     *
+     * @param t
+     * @param next
+     */
+    public HighlightableLambdaExpression(Term t, RedexPath next) {
+        this(t);
+        t.accept(new RedexPathToRedexFromMetaTermVisitor(next));
+    }
+
+    /**
+     * Create a {@link HighlightableLambdaExpression} from a {@link Token} stream and a corresponding {@link Term}
+     * and select a next redex.
+     *
+     * @param stream
+     * @param t
+     * @param next
+     */
+    public HighlightableLambdaExpression(List<Token> stream, Term t, RedexPath next) {
+        this(stream);
+        t.accept(new RedexPathToRedexFromMetaTermVisitor(next));
     }
 
     @Override
@@ -89,62 +110,59 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         return redexes;
     }
 
-    public void highlightNext(RedexPath path, Term term) {
-        term.accept(new TermToHighlightedLambdaExpressionVisitor(path));
-    }
 
-    public void highlightNextMeta(RedexPath path, MetaTerm term) {
-        term.accept(new DingsVisitor(path));
-    }
 
     @SuppressWarnings("Duplicates")
-    private class DingsVisitor extends TermVisitor<Void> {
+    private class RedexPathToRedexFromMetaTermVisitor extends TermVisitor<Void> {
         private final RedexPath nextPath;
-        private RedexPath currentPath;
-        private MetaTerm mt;
+        private final RedexPath currentPath;
+        private MetaTerm lastMeta;
 
-        public DingsVisitor() {
-            currentPath = new RedexPath();
-            nextPath = null;
+        public RedexPathToRedexFromMetaTermVisitor(RedexPath nextPath) {
+            this.nextPath = nextPath;
+            this.currentPath = new RedexPath();
         }
 
-        public DingsVisitor(RedexPath nextPath) {
-            this.nextPath = nextPath;
+        public RedexPathToRedexFromMetaTermVisitor() {
+            this(null);
         }
 
         @Override
         public Void visit(Abstraction abs) {
-            return abs.accept(this);
+            return abs.body.accept(this);
         }
 
         @Override
         public Void visit(Application app) {
+            assert lastMeta != null;
+
             boolean amRedex = app.left.accept(new AbstractionFinder());
-            // these are used to construct Redex start/end token offsets for the view.
+
             Token startToken = null;
             Token middleToken = null;
             Token lastToken = null;
 
-            startToken = mt.token;
+            startToken = lastMeta.token;
 
             currentPath.push(RedexPath.Direction.LEFT);
             app.left.accept(this);
             currentPath.pop();
 
-            middleToken = mt.token;
+            middleToken = lastMeta.token;
 
             currentPath.push(RedexPath.Direction.RIGHT);
             app.right.accept(this);
             currentPath.pop();
 
-            lastToken = mt.token;
+            lastToken = lastMeta.token;
 
             if (amRedex) {
                 assert (startToken != null && middleToken != null && lastToken != null);
                 Redex r = new Redex(startToken.getOffset(), middleToken.getOffset(), lastToken.getOffset(),
                         currentPath.clone());
                 redexes.add(r);
-                if (currentPath.isSame(nextPath)) {
+                // null means we don't want to highlight a next redex
+                if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
                 }
             }
@@ -153,29 +171,31 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            return bvar.accept(this);
+            assert false;
+            return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            return fvar.accept(this);
+            assert false;
+            return null;
         }
 
         @Override
         public Void visit(Function libterm) {
-            return libterm.accept(this);
+            return libterm.term.accept(this);
         }
 
         @Override
         public Void visit(ChurchNumber c) {
-            return c.accept(this);
+            assert false;
+            return null;
         }
 
         @Override
         public Void visit(MetaTerm mt) {
-            this.mt = mt;
-            mt.term.accept(this);
-            return null;
+            this.lastMeta = mt;
+            return mt.term.accept(this);
         }
     }
 
