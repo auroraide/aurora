@@ -34,6 +34,10 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 import java.util.ArrayList;
 import java.util.List;
+import aurora.backend.encoders.GistEncoder;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import aurora.backend.encoders.Session;
+import aurora.backend.HighlightableLambdaExpression;
 
 /**
  * Responsible for intitalising the Aurora Web Application.
@@ -153,5 +157,44 @@ public class Aurora implements EntryPoint {
 
             stdLib.define(name, description, t);
         }
+
+        GistEncoder ge = new GistEncoder(lambdaLexer, lambdaParser);
+        ge.encode("Banana", stdLib, new AsyncCallback<String>() {
+            
+            @Override
+            public void onSuccess(String url) {
+                console(url);
+                ge.decode(url, new AsyncCallback<Session>() {
+                    @Override
+                    public void onSuccess(Session session) {
+                        console(session.rawInput);
+
+                        session.library.forEach(
+                            item -> {
+                                console(item.getName());
+                                console(item.getDescription());
+                                console(new HighlightableLambdaExpression(item.getTerm()).toString());
+                                console("\n");
+                            });
+                    }
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        console("meh2");
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Throwable caught) {
+                console("meh");
+            }
+        
+        });
+
     }
+
+    private native void console(Object message) /*-{
+        console.log(message);
+    }-*/;
 }
