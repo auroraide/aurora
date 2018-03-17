@@ -314,7 +314,7 @@ public class EditorPresenter {
             }
 
             Term next = berry.next();
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(simplify(next));
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
             steps.add(new Step(next, hle));
 
             if (!berry.hasNext()) {

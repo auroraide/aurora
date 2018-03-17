@@ -282,6 +282,7 @@ public class EditorView extends Composite implements EditorDisplay {
         CodeMirrorPanel cmp = new CodeMirrorPanel();
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
+
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
             cmp.setValue(hle.toString());
@@ -291,28 +292,52 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
             cmp.setOption("lineWrapping", true);
+
+            // highlight next redex
+            HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
+            if (nextRedex != null) {
+
+                // determine start and end tokens
+                int count = 0;
+                Token start = null;
+                Token end = null;
+                for (Token t : hle) {
+                    if (count++ == nextRedex.startToken) {
+                        start = t;
+                        continue;
+                    }
+                    if (count == nextRedex.lastToken) {
+                        end = t;
+                        break;
+                    }
+                }
+                cmp.markText(start.getLine()- 1,
+                        start.getColumn()- 1,
+                        end.getLine()- 1,
+                        end.getColumn()- 1,
+                        "#5a7083");
+            }
+
+
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
 
-        if (hle.getNextRedex() != null) {
-            highlightStep(entryIndex, hle.getNextRedex().startToken, hle.getNextRedex().lastToken);
-        }
+
     }
 
-    /**
-     * Highlights content between two tokens from given step.
-     *
-     * @param stepNumber step to highlight.
-     * @param startToken index of first highlighted token.
-     * @param endToken index of last highlighted token.
-     */
-    public void highlightStep(int stepNumber, int startToken, int endToken) {
-        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
-        HighlightedLambdaExpression hle = stepMap.get(stepNumber);
-        int[] fromPos = getTokenPosition(cm, hle, startToken);
-        int[] toPos = getTokenPosition(cm, hle, endToken);
-        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
-    }
+//    /**
+//     * Highlights content between two tokens from given step.
+//     *
+//     * @param stepNumber step to highlight.
+//     * @param startToken index of first highlighted token.
+//     * @param endToken index of last highlighted token.
+//     */
+//    public void highlightStep(HighlightedLambdaExpression hle) {
+//        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
+//        int[] fromPos = getTokenPosition(cm, hle, startToken);
+//        int[] toPos = getTokenPosition(cm, hle, endToken);
+//        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
+//    }
 
     /**
      * Replace the last HLE with a new one.
