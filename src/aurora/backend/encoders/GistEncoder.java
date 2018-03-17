@@ -48,6 +48,12 @@ public class GistEncoder {
         this.lambdaParser = lambdaParser;
     }
 
+    public void encode(Session session, AsyncCallback<String> callback) {
+        JSONSessionEncoder jse = new JSONSessionEncoder();
+        String encodedString = jse.encode(session);
+        postGist(encodedString, callback);
+    }
+
     /**
      * Encodes a given input along with the library.
      *
@@ -56,9 +62,7 @@ public class GistEncoder {
      * @param callback What to do on success/failuer.
      */
     public void encode(String rawInput, Library library, AsyncCallback<String> callback) {
-        JSONSessionEncoder jse = new JSONSessionEncoder();
-        String encodedString = jse.encode(rawInput, library);
-        postGist(encodedString, callback);
+        encode(new Session(rawInput, library), callback);
     }
 
     public void decode(String url, AsyncCallback<String> callback) {
