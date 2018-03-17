@@ -64,6 +64,7 @@ public class EditorPresenter {
      * This will be null when not running, and not null when running.
      */
     private RunTimer runTimer;
+    private StepTimer stepTimer;
     private int stepNumber;
     private StrategyType reductionStrategy;
 
@@ -173,6 +174,10 @@ public class EditorPresenter {
         return !steps.isEmpty();
     }
 
+    private boolean isStepping() {
+        return stepTimer != null;
+    }
+
     private boolean isReStepping() {
         // assert (!isRunning() && isStarted());
         assert ((nextReStepIndex == null) == (reStepper == null));
@@ -192,13 +197,13 @@ public class EditorPresenter {
         }
     }
 
-
     private void onContinue() {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         editorDisplay.resetSteps();
-        runTimer = new RunTimer(new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last()));
+        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
 
@@ -274,7 +279,7 @@ public class EditorPresenter {
     private void onStep() {
         GWT.log("EP: StepEvent caught.");
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        assert (!isRunning() && !isReStepping());
+        assert (!isRunning() && !isReStepping() && !isStepping());
 
         if (!isStarted()) {
             if (!tryStartOrHandleErrors()) {
@@ -286,7 +291,8 @@ public class EditorPresenter {
             editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
         }
 
-        new StepTimer().scheduleRepeating(1);
+        stepTimer = new StepTimer();
+        stepTimer.scheduleRepeating(1);
 
 //
 //        // input IS reducible
@@ -432,7 +438,7 @@ public class EditorPresenter {
         String input = editorDisplay.getInput();
 
         // lex input
-        List<Token> stream = null;
+        List<Token> stream;
         try {
             stream = lambdaLexer.lex(input);
         } catch (SyntaxException e) {
@@ -456,57 +462,50 @@ public class EditorPresenter {
             return;
         }
 
-        BetaReductionIterator betaReductionIterator =
-                new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last());
-
-        runTimer = new RunTimer(betaReductionIterator);
+        assert (steps.size() == 1); // only the input is at index 0
+        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
 
     private class RunTimer extends Timer {
-        private final BetaReductionIterator betaReductionIterator;
-
-        private RunTimer(BetaReductionIterator betaReductionIterator) {
-            this.betaReductionIterator = betaReductionIterator;
-        }
 
         @Override
         public void run() {
             // we have already been started by our onRun function.
-            assert (this.betaReductionIterator != null);
-            assert (this.betaReductionIterator.hasNext());
+            assert (berry != null);
+            assert (berry.hasNext());
 
-            Term current = betaReductionIterator.next();
-            steps.add(current);
-
-            if (!betaReductionIterator.hasNext()) {
+            Term current = berry.next();
+            if (!berry.hasNext()) {
                 // current is irreducible => result.
                 editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(current)));
                 finish();
             }
+
+            steps.add(new Step(current, null)); // <<= NOTE THIS `null`.
         }
     }
 
     private class HighlightTimer extends Timer {
         @Override
         public void run() {
-            // lex input
-            List<Token> stream = lexInputOrHandleErrors();
-            if (stream == null) {
-                return;
-            }
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
-
-            // parse input
-            Term term = parseInputOrHandleErrors(stream);
-            if (term == null) {
-                return;
-            }
-
-            ReductionStrategy strategy = createReductionStrategy();
-            RedexPath path = strategy.getRedexPath(term);
-            hle.highlightNext(path);
-
+//            // lex input
+//            List<Token> stream = lexInputOrHandleErrors();
+//            if (stream == null) {
+//                return;
+//            }
+//            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(stream);
+//
+//            // parse input
+//            Term term = parseInputOrHandleErrors(stream);
+//            if (term == null) {
+//                return;
+//            }
+//
+//            ReductionStrategy strategy = createReductionStrategy();
+//            RedexPath path = strategy.getRedexPath(term);
+//            hle.highlightNext(path);
 
             /* Term t = parseInputOrHandleErrors();
             if (t == null) {
