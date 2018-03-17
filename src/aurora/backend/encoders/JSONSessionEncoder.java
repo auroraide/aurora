@@ -112,7 +112,7 @@ public class JSONSessionEncoder extends SessionEncoder {
      * @param toUnescape String to unescape.
      * @return unescaped String.
      */
-    public String String unescape(String toUnescape) {
+    public String unescape(String toUnescape) {
         JSONEscaper jsonEscaper = new JSONEscaper();
         return jsonEscaper.unescape(toUnescape);
     }
