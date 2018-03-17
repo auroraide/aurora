@@ -124,8 +124,8 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      * this visitor finds the application to which the path is pointing.
      */
     private class Walker extends TermVisitor<Void> {
-
         private int counter = 0;
+
         @Override
         public Void visit(Abstraction abs) {
             return abs.body.accept(this);

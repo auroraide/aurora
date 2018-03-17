@@ -56,8 +56,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
     /**
      * Create a {@link HighlightableLambdaExpression} from a {@link Term} and select a next redex.
      *
-     * @param t
-     * @param next
+     * @param t Term.
+     * @param next Next.
      */
     public HighlightableLambdaExpression(Term t, RedexPath next) {
         this();
@@ -68,9 +68,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * Create a {@link HighlightableLambdaExpression} from a {@link Token} stream and a corresponding {@link Term}
      * and select a next redex.
      *
-     * @param stream
-     * @param t
-     * @param next
+     * @param stream Token stream.
+     * @param t Term.
+     * @param next Next.
      */
     public HighlightableLambdaExpression(List<Token> stream, Term t, RedexPath next) {
         this(stream);
@@ -138,23 +138,20 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             boolean amRedex = app.left.accept(new AbstractionFinder());
 
-            Token startToken = null;
-            Token middleToken = null;
-            Token lastToken = null;
-
-            startToken = lastMeta.token;
+            Token startToken = lastMeta.token;
 
             currentPath.push(RedexPath.Direction.LEFT);
             app.left.accept(this);
             currentPath.pop();
 
-            middleToken = lastMeta.token;
+            Token middleToken = lastMeta.token;
 
             currentPath.push(RedexPath.Direction.RIGHT);
             app.right.accept(this);
             currentPath.pop();
 
-            lastToken = lastMeta.token;
+            Token lastToken = lastMeta.token;
+
 
             if (amRedex) {
                 assert (startToken != null && middleToken != null && lastToken != null);
@@ -461,9 +458,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         public Void visit(Application app) {
             boolean amRedex = app.left.accept(new AbstractionFinder());
             // these are used to construct Redex start/end token offsets for the view.
-            int startToken = -1;
-            int middleToken = -1;
-            int lastToken = -1;
+            int startToken;
+            int middleToken;
+            int lastToken;
 
             currentPath.push(RedexPath.Direction.LEFT);
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
@@ -615,6 +612,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
     }
+
     /**
      * This visitor removes all bound variables with free variables.
      */
