@@ -36,6 +36,11 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         this.path = path;
     }
 
+    /**
+     * Makes deep copy of {@link RedexPath}.
+     *
+     * @return The deep copy.
+     */
     public RedexPath deepCopy() {
         RedexPath r = new RedexPath((LinkedList<Direction>) path.clone());
         r.finalapp = finalapp;
