@@ -311,10 +311,10 @@ public class EditorView extends Composite implements EditorDisplay {
                         break;
                     }
                 }
-                cmp.markText(start.getLine()- 1,
-                        start.getColumn()- 1,
-                        end.getLine()- 1,
-                        end.getColumn()- 1,
+                cmp.markText(start.getLine() - 1,
+                        start.getColumn() - 1,
+                        end.getLine() - 1,
+                        end.getColumn() - 1,
                         "#5a7083");
             }
 
@@ -324,20 +324,6 @@ public class EditorView extends Composite implements EditorDisplay {
 
 
     }
-
-//    /**
-//     * Highlights content between two tokens from given step.
-//     *
-//     * @param stepNumber step to highlight.
-//     * @param startToken index of first highlighted token.
-//     * @param endToken index of last highlighted token.
-//     */
-//    public void highlightStep(HighlightedLambdaExpression hle) {
-//        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
-//        int[] fromPos = getTokenPosition(cm, hle, startToken);
-//        int[] toPos = getTokenPosition(cm, hle, endToken);
-//        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
-//    }
 
     /**
      * Replace the last HLE with a new one.
