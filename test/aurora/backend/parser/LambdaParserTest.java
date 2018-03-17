@@ -167,8 +167,11 @@ public class LambdaParserTest {
     @Test
     public void heregoesnothing() {
         SemanticException s = new SemanticException();
+        assertEquals(s.getMessage(), "");
         SemanticException s1 = new SemanticException("itsbroke");
+        assertEquals(s1.getMessage(), "itsbroke");
         SyntaxException s2 = new SyntaxException();
+        assertEquals(s2.getMessage(), "");
     }
-    
+
 }
