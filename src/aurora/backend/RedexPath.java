@@ -11,6 +11,7 @@ import aurora.backend.tree.Term;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * A {@link RedexPath} is a series of left and right instructions that point.
@@ -30,6 +31,19 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
     public RedexPath(LinkedList<Direction> path) {
         this.path = path;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RedexPath that = (RedexPath) o;
+        return Objects.equals(path, that.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(path);
     }
 
     /**
