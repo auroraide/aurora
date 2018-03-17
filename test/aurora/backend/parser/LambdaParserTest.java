@@ -2,10 +2,16 @@ package aurora.backend.parser;
 
 import aurora.backend.TermPrinter;
 import aurora.backend.library.HashLibrary;
+import aurora.backend.library.Library;
+import aurora.backend.library.LibraryItem;
+import aurora.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.tree.FreeVariable;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -162,6 +168,74 @@ public class LambdaParserTest {
 
         }
         assertEquals(thrown, true);
+    }
+
+    // coverage for a broken library
+    @Test
+    public void funcs() {
+
+        class Stupidlib implements Library {
+
+            @Override
+            public LibraryItem getItem(String name) throws LibraryItemNotFoundException {
+                throw new LibraryItemNotFoundException();
+            }
+
+            @Override
+            public void define(LibraryItem item) {
+
+            }
+
+            @Override
+            public void define(Library library) {
+
+            }
+
+            @Override
+            public void remove(String name) {
+
+            }
+
+            @Override
+            public boolean exists(String name) {
+                return true;
+            }
+
+            @Override
+            public Iterator<LibraryItem> iterator() {
+                return null;
+            }
+        }
+
+        Stupidlib lib = new Stupidlib();
+        lib.define("test","t", new FreeVariable("a"));
+        LambdaParser pars2 = new LambdaParser(lib);
+        boolean exp = false;
+        try {
+            pars2.parse(this.lexer.lex("$err"));
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        } catch (RuntimeException e) {
+            exp = true;
+        }
+        assertEquals(true, exp);
+    }
+
+
+    @Test
+    public void expect() {
+        String input = ("\\");
+        boolean ex = false;
+        try {
+            this.parser.parse(this.lexer.lex(input));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        } catch (SyntaxException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
     }
 
     @Test
