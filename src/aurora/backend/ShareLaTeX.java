@@ -55,6 +55,9 @@ public class ShareLaTeX {
                 case T_WHITESPACE:
                     sb.append("\\ ");
                     break;
+                case T_COMMENT:
+                    // comments don't get printed
+                    break;
                 default:
                     throw new IllegalStateException("Unknown token type");
             }
