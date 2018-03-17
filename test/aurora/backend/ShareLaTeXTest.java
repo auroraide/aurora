@@ -3,10 +3,13 @@ package aurora.backend;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Term;
 import org.junit.Test;
+
+import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,5 +39,22 @@ public class ShareLaTeXTest {
             String actual = shareLaTeX.generateLaTeX();
             assertEquals(expected[i], actual);
         }
+    }
+
+    @Test
+    public void brokentoken() {
+        LinkedList<Token> l = new LinkedList<>();
+        Token t = new Token(Token.TokenType.T_COMMENT, "broke",0,0,0);
+        l.add(t);
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(l);
+        boolean ex = false;
+        ShareLaTeX sh = new ShareLaTeX(hle);
+        try {
+            sh.generateLaTeX();
+        } catch (IllegalStateException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
     }
 }
