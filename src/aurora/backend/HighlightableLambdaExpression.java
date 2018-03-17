@@ -168,13 +168,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            assert false;
             return null;
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            assert false;
             return null;
         }
 
@@ -185,7 +183,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(ChurchNumber c) {
-            assert false;
             return null;
         }
 
