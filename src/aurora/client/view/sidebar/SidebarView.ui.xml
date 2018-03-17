@@ -65,8 +65,7 @@
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel addStyleNames="share_language" ui:field="languageButton"/>
-                <g:FlowPanel addStyleNames="share_language" ui:field="shareButton" />
+                <g:FlowPanel addStyleNames="share_language" ui:field="shareAndLanguage"/>
 
             </g:HorizontalPanel>
         </g:south>

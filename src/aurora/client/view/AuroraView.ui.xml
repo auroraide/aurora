@@ -18,7 +18,7 @@
 
     <g:TabLayoutPanel barUnit='EM' barHeight="3">
         <!-- Aurora Tab -->
-        <g:tab>
+        <g:tab styleName="aurora">
 
             <g:header size='7'>
 
@@ -36,7 +36,7 @@
         </g:tab>
 
         <!-- TUTORIAL Tab-->
-        <g:tab>
+        <g:tab styleName="tutorial">
             <g:header size="7">
                 <b><ui:msg description="Tutorial tab title">TUTORIAL</ui:msg></b>
             </g:header>
