@@ -60,8 +60,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
      * @param next
      */
     public HighlightableLambdaExpression(Term t, RedexPath next) {
-        this(t);
-        t.accept(new RedexPathToRedexFromMetaTermVisitor(next));
+        this();
+        t.accept(new FindAbsForAlpha()).accept(new TermToHighlightedLambdaExpressionVisitor(next));
     }
 
     /**
