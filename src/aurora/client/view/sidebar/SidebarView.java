@@ -23,6 +23,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -95,7 +96,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     public SidebarView(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-
         this.addLibraryItemDialogBox = new AddLibraryItemDialogBox();
         this.errorMessageDialogBox = new InfoDialogBox();
         this.languageMenu = new MenuBar(true);
