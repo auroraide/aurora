@@ -136,6 +136,10 @@ public class EditorPresenter {
             runTimer.cancel();
             runTimer = null;
         }
+        if (stepTimer != null) {
+           stepTimer.cancel();
+           stepTimer = null;
+        }
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
