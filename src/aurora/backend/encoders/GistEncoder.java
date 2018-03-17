@@ -25,6 +25,10 @@ public class GistEncoder {
 
     private static final String GIST_URL = "https://api.github.com/gists";
     private static final String FILE_NAME = "aurora.txt";
+
+    private static final String ERROR_RETRIEVING = "Error receiving an answer from gist.github.com";
+    private static final String REQUEST_FAILED = "The request failed, maybe you exceeded your gist api limit?";
+    private static final String INVALID_ANSWER = "The received answer is invalid.";
     
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
@@ -87,20 +91,20 @@ public class GistEncoder {
                     + "}}",
                     new RequestCallback() {
                         public void onError(Request request, Throwable exception) {
-                            throw new RuntimeException("Error retrieving from gist.github.com");
+                            throw new RuntimeException(ERROR_RETRIEVING);
                         }
 
                         public void onResponseReceived(Request request, Response response) {
                             if (response.getStatusCode() != 201) {
-                                throw new RuntimeException("API limit reached?"); 
+                                throw new RuntimeException(REQUEST_FAILED); 
                             }
                             if (!JsonUtils.safeToEval(response.getText())) {
-                                throw new RuntimeException("gist file is invalid");
+                                throw new RuntimeException(REQUEST_FAILED);
                             }
                             JavaScriptObject jso = JsonUtils.safeEval(response.getText());
                             String url = getProperty(jso, "html_url");
                             if (url.lastIndexOf("/") == -1) {
-                                throw new RuntimeException("shit happened with gist");
+                                throw new RuntimeException(INVALID_ANSWER);
                             }
                             url = url.substring(url.lastIndexOf("/") + 1);
                             callback.onSuccess(url);
@@ -108,7 +112,7 @@ public class GistEncoder {
                     });
         } catch (RequestException e) {
             //TODO: do something od Failure?
-            throw new RuntimeException("Error while getting gist or whatever");
+            throw new RuntimeException(ERROR_RETRIEVING);
         }
     }
 
@@ -117,15 +121,15 @@ public class GistEncoder {
         try {
             Request response = builder.sendRequest("", new RequestCallback() {
                 public void onError(Request request, Throwable exception) {
-                    throw new RuntimeException("Error retrieving from gist.github.com");
+                    throw new RuntimeException(ERROR_RETRIEVING);
                 }
 
                 public void onResponseReceived(Request request, Response response) {
                     if (response.getStatusCode() != 200) {
-                        throw new RuntimeException("API limit reached?"); 
+                        throw new RuntimeException(REQUEST_FAILED); 
                     }
                     if (!JsonUtils.safeToEval(response.getText())) {
-                        throw new RuntimeException("gist url is not a valid json");
+                        throw new RuntimeException(INVALID_ANSWER);
                     }
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
                     JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
@@ -145,7 +149,7 @@ public class GistEncoder {
             });
         } catch (RequestException e) {
             //TODO do something onFailure?
-            throw new RuntimeException("Error while getting json from url");
+            throw new RuntimeException(ERROR_RETRIEVING);
         }
     }
 
