@@ -18,11 +18,18 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.LinkElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -299,7 +306,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private void wireAddLibraryFunction() {
-        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
         this.addLibraryItemDialogBox.getNameField().addKeyUpHandler(event -> {
         });
 
@@ -322,6 +328,8 @@ public class SidebarView extends Composite implements SidebarDisplay {
                             SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
                             SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText()));
         });
+        this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
+
     }
 
     private void wireOnViewStateChanged() {
