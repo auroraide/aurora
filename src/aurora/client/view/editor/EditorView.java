@@ -293,6 +293,8 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("lineWrapping", true);
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+
+        highlightStep(entryIndex, hle.getNextRedex().startToken, hle.getNextRedex().lastToken);
     }
 
     /**
