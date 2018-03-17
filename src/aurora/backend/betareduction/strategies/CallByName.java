@@ -70,8 +70,9 @@ public class CallByName extends ReductionStrategy {
 
         @Override
         public Void visit(BoundVariable bvar) {
-            assert false : "found Bound Variable outside Abstraction, check for Parser/Reducer-errors";
-            return null;
+            // "found Bound Variable outside Abstraction, check for Parser/Reducer-errors";
+            throw new RuntimeException();
+
         }
 
         @Override
@@ -109,8 +110,8 @@ public class CallByName extends ReductionStrategy {
 
             @Override
             public Void visit(BoundVariable bvar) {
-                assert false : "found a Bound Variable that isn't in an abstractin search for parser/reducer errors";
-                return null;
+                // "found a Bound Variable that isn't in an abstraction search for parser/reducer errors";
+                throw new RuntimeException();
             }
 
             @Override

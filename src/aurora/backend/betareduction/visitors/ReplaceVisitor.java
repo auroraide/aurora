@@ -58,14 +58,15 @@ public class ReplaceVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(BoundVariable bvar) {
-        assert false : "there can't be an application below a bvar";
-        return bvar;
+        // there cant be a App below bvar
+        throw new RuntimeException();
+
     }
 
     @Override
     public Term visit(FreeVariable fvar) {
-        assert false : "there can't be an application below a fvar";
-        return fvar;
+        //"there can't be an application below a fvar";
+        throw new RuntimeException();
     }
 
     @Override
@@ -76,8 +77,9 @@ public class ReplaceVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(ChurchNumber c) {
-        Abstraction abs = c.getAbstraction();
-        return new Abstraction(abs.body.accept(this),abs.name);
+        // there cant be redex in a churchnumber that needs to be replaced here the path is wrong
+        throw new RuntimeException();
+
     }
 
 }

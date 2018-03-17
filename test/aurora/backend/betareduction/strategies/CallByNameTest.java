@@ -157,17 +157,34 @@ public class CallByNameTest {
     }
 
     /**
-     * how do i test this? this throws assertion errors.
+     * This Terms should be impossible.
      */
-    @Ignore
-    public void assertfalse() {
+    @Test
+    public void boundVarWithoutAbs() {
+        boolean ex = false;
         Term t = new BoundVariable(1);
-        Term f = new Application(new BoundVariable(1), new FreeVariable("y"));
         CallByName cb1 = new CallByName();
-        CallByName cbn2 = new CallByName();
-        RedexPath path1 = cb1.getRedexPath(t);
-        RedexPath path2 = cbn2.getRedexPath(f);
+        try {
+            RedexPath path1 = cb1.getRedexPath(t);
 
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true,ex);
+    }
+
+    @Test
+    public void boundvarInAppWithoutAbs() {
+        boolean ex = false;
+        Term f = new Application(new BoundVariable(1), new FreeVariable("y"));
+        CallByName cbn2 = new CallByName();
+
+        try {
+            RedexPath path2 = cbn2.getRedexPath(f);
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(ex, true);
     }
 
 

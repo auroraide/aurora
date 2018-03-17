@@ -48,9 +48,6 @@ public class BetaReducer {
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
         Abstraction substitutedabs = substituted.accept(new CastingVisitor());
-        if (substitutedabs == null) {
-            assert false : "The Redexpath was wrong, there is no redex here. This should never happen";
-        }
         Term substitutedWithoutabs = substitutedabs.body;
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
         return term.accept(replaceVisitor);
@@ -66,34 +63,34 @@ public class BetaReducer {
 
         @Override
         public Abstraction visit(Application app) {
-            assert false : "This can't happen";
-            return null;
+            //An abstraction isn an application
+            throw new RuntimeException();
         }
 
         @Override
         public Abstraction visit(BoundVariable bvar) {
-            assert false : "This can't happen";
-            return null;
+            //An abstraction isnt a bvar
+            throw new RuntimeException();
+
         }
 
         @Override
         public Abstraction visit(FreeVariable fvar) {
-            assert false : "This can't happen";
-            return null;
+            // An abstraction is a fvar.
+            throw new RuntimeException();
         }
 
         @Override
         public Abstraction visit(Function function) {
-            assert false : "the function got changed it isn't a function anymore this can'T happen";
-            Term t = function.term;
-            t.accept(this);
-            return null;
+            // the function got changed it isn't a function anymore this can't happen and it can't be tested;
+            throw new RuntimeException();
+
         }
 
         @Override
         public Abstraction visit(ChurchNumber c) {
-            assert false : "the churchnumber got changed it isn't a Churchnumber anymore";
-            return null;
+            // the churchnumber got changed it isn't a Churchnumber anymore, this cant happen and can't be tested
+            throw new RuntimeException();
         }
     }
 }
