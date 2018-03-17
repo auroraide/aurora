@@ -156,7 +156,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             if (amRedex) {
                 assert (startToken != null && middleToken != null && lastToken != null);
                 Redex r = new Redex(startToken.getOffset(), middleToken.getOffset(), lastToken.getOffset(),
-                        currentPath.clone());
+                        currentPath.deepCopy());
                 redexes.add(r);
                 // null means we don't want to highlight a next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
@@ -501,7 +501,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             if (amRedex) {
                 lastToken = offset;
                 assert (startToken >= 0 && middleToken >= 0);
-                Redex r = new Redex(startToken, middleToken, lastToken, currentPath.clone());
+                Redex r = new Redex(startToken, middleToken, lastToken, currentPath.deepCopy());
                 redexes.add(r);
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;

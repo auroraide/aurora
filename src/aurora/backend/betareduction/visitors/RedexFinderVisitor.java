@@ -90,7 +90,7 @@ public class RedexFinderVisitor extends TermVisitor<Void> {
 
         @Override
         public Void visit(Abstraction abs) {
-            redexes.add(currentPath.clone());
+            redexes.add(currentPath.deepCopy());
             return null;
         }
 

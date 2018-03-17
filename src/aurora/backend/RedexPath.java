@@ -36,8 +36,7 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         this.path = path;
     }
 
-    @Override
-    public RedexPath clone() {
+    public RedexPath deepCopy() {
         RedexPath r = new RedexPath((LinkedList<Direction>) path.clone());
         r.finalapp = finalapp;
         r.foundapp = foundapp;
