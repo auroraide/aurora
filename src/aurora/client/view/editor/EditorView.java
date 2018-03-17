@@ -397,6 +397,7 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
+        this.stepMap.put(0, highlightedLambdaExpression);
     }
 
     /**
