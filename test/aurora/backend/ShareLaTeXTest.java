@@ -50,11 +50,7 @@ public class ShareLaTeXTest {
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(l);
         boolean ex = false;
         ShareLaTeX sh = new ShareLaTeX(hle);
-        try {
-            sh.generateLaTeX();
-        } catch (IllegalStateException e) {
-            ex = true;
-        }
-        assertEquals(true, ex);
+        String result = sh.generateLaTeX();
+        assertEquals(result, "$$");
     }
 }
