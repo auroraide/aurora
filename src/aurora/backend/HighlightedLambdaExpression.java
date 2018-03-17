@@ -5,6 +5,7 @@ import aurora.backend.tree.Term;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A read-only version of HighlightableLambdaExpression.
@@ -48,6 +49,23 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
          * Associated path to this redex in the specific tree this Redex belongs to.
          */
         public final RedexPath redex;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Redex redex1 = (Redex) o;
+            return startToken == redex1.startToken &&
+                    middleToken == redex1.middleToken &&
+                    lastToken == redex1.lastToken &&
+                    Objects.equals(redex, redex1.redex);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(startToken, middleToken, lastToken, redex);
+        }
 
         /**
          * Creates a new Redex.

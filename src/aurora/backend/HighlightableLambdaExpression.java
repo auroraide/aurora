@@ -79,20 +79,17 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         HighlightableLambdaExpression tokens1 = (HighlightableLambdaExpression) o;
-        return Objects.equals(tokens, tokens1.tokens);
+        return Objects.equals(tokens, tokens1.tokens) &&
+                Objects.equals(redexes, tokens1.redexes) &&
+                Objects.equals(next, tokens1.next);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(tokens);
+        return Objects.hash(tokens, redexes, next);
     }
 
     @Override
