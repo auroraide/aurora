@@ -393,7 +393,9 @@ public class EditorPresenter {
     private void onStrategyChange(EvaluationStrategyChangedEvent strat) {
         assert (runTimer == null);
         reductionStrategy = strat.getStrategyType();
-        berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        if (berry != null) {
+            berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        }
     }
 
     /**
