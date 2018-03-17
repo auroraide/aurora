@@ -62,10 +62,11 @@ public class JSONSessionEncoder extends SessionEncoder {
 
     @Override
     public Session decode(String encodedInput) throws DecodeException {
-        if (!JsonUtils.safeToEval(encodedInput)) {
+        String toDecode = encodedInput.replaceAll("\\\\", "\\\\\\\\");
+        if (!JsonUtils.safeToEval(toDecode)) {
             throw new DecodeException("Invalid json file");
         }
-        JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
+        JavaScriptObject jso = JsonUtils.safeEval(toDecode);
         //TODO Try catch rawInput
         String rawInput = getProperty(jso, "rawInput");
         //TODO Try catch this one

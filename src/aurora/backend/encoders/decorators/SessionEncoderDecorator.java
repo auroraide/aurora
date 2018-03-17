@@ -2,6 +2,7 @@ package aurora.backend.encoders.decorators;
 
 import aurora.backend.encoders.SessionEncoder;
 import aurora.backend.encoders.exceptions.DecodeException;
+import aurora.backend.encoders.Session;
 
 /**
  * Decorator for {@link SessionEncoder} objects.
