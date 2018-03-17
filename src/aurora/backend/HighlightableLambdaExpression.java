@@ -79,12 +79,16 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         HighlightableLambdaExpression tokens1 = (HighlightableLambdaExpression) o;
-        return Objects.equals(tokens, tokens1.tokens) &&
-                Objects.equals(redexes, tokens1.redexes) &&
-                Objects.equals(next, tokens1.next);
+        return Objects.equals(tokens, tokens1.tokens)
+                && Objects.equals(redexes, tokens1.redexes)
+                && Objects.equals(next, tokens1.next);
     }
 
     @Override
@@ -418,6 +422,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         public TermToHighlightedLambdaExpressionVisitor(RedexPath nextPath) {
+            line = 1;
+            offset = -1;
+            column = 0;
+            index = 0;
+            currentPath = new RedexPath();
             this.nextPath = nextPath;
         }
 

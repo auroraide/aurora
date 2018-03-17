@@ -137,6 +137,49 @@ public class CallByValueTest {
         RedexPath path = cbv.getRedexPath(t);
         assertEquals(null,path);
     }
+
+    @Test
+    public void boundVarWithoutAbs() {
+        boolean ex = false;
+        Term t = new BoundVariable(1);
+        CallByValue cb1 = new CallByValue();
+        try {
+            RedexPath path1 = cb1.getRedexPath(t);
+
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+    @Test
+    public void boundvarInAppWithoutAbs() {
+        Term f = new Application(new BoundVariable(1), new FreeVariable("y"));
+        CallByValue cbv2 = new CallByValue();
+        boolean ex = false;
+        try {
+            RedexPath path2 = cbv2.getRedexPath(f);
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+    @Test
+    public void boundVarAsValue() {
+        boolean ex = false;
+        Term t = new Application(new Abstraction(new BoundVariable(1), "x"),
+                new BoundVariable(1));
+        CallByValue cbv = new CallByValue();
+
+        try {
+            RedexPath path = cbv.getRedexPath(t);
+
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
 }
 
 

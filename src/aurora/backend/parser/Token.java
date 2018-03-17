@@ -123,8 +123,4 @@ public class Token {
         T_WHITESPACE
     }
 
-    public String debug() {
-        return "[" + toString() + " l:" + line + " c:" + column + " o:" + offset + "]";
-    }
-
 }

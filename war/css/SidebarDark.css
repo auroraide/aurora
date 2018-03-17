@@ -216,45 +216,89 @@
 .share_language, .share_language >div, .share_language table {
     height: 40px;
     color: #fff;
+    width: 100%;
 }
 
-.share_language tbody {
-    display: flex;
-    justify-content: space-between;
+.share_language tbody{
     width:100%;
     height: 100%;
     border-top: 2px solid #33485c;
+    display: block;
 }
 
 .share_language tbody tr:first-child {
     border-right: 1px solid #33485c;
+    display: flex;
+    flex-direction: row;
+    width:100%;
 }
-.share_language tbody tr{
+.share_language div table tbody tr td{
     width:49.5%;
     background-color: #167A66;
 }
 /* SHARE LANGUAGE HOVERING*/
 .share_language .gwt-MenuItem-selected{
-    background: rgba(255,255,255,0.2) !important;
+    background-color: rgba(255,255,255,0.2) !important;
 }
 
 .share_language .gwt-MenuItem {
-    height: 100%;
     width: 100%;
     padding: 7px 0 !important;
     text-align: center ;
     vertical-align: middle;
     font-size: 16px
 }
+
+.share_language .gwt-MenuItem:first-child {
+    border-right: 1px solid #33485c;
+}
 .share_language .subMenuIcon{
     display: none;
 }
 
-.share_language tbody tr:nth-child(2) {
+.share_language tbody tr td:nth-child(2) {
     background-image: url("../img/icons/icon_share.png");
     background-repeat: no-repeat;
     background-size: auto 50%;
     background-position: center center;
+}
+
+/* Language and Share: popup */
+
+.shareAndLanguagePopup {
+    left: 0 !important;
+    bottom: 40px !important;
+    top: unset !important;
+}
+
+.shareAndLanguagePopup *[class^="menuPopup"] {
+    background: none !important;
+}
+
+.shareAndLanguagePopup .menuPopupMiddleLeft {
+    display: none !important;
+}
+
+.shareAndLanguagePopup table {
+    width: 105%;
+    background: RGBA(93, 109, 125, 0.70);
+}
+
+.shareAndLanguagePopup .languageMenu tr, .shareAndLanguagePopup .shareMenu tr {
+    color: #fff;
+    display: block;
+    border-bottom: 1px solid #fff;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 5px;
+}
+
+.shareAndLanguagePopup .languageMenu tr:last-child, .shareAndLanguagePopup .shareMenu tr:last-child {
+    border-bottom: none;
+}
+
+.shareAndLanguagePopup .languageMenu tr:hover, .shareAndLanguagePopup .shareMenu tr:hover {
+    background: RGBA(41, 186, 155, .70);
 }
 
 .gwt-ListBox {
