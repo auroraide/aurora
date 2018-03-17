@@ -20,10 +20,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
 
     private final LinkedList<Direction> path;
 
-    private Application finalapp;
-
-    private boolean foundapp = false;
-
 
     /**
      * This constructor initializes an empty {@link RedexPath}.
@@ -43,8 +39,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      */
     public RedexPath deepCopy() {
         RedexPath r = new RedexPath((LinkedList<Direction>) path.clone());
-        r.finalapp = finalapp;
-        r.foundapp = foundapp;
         return r;
     }
 
@@ -96,14 +90,71 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      * @return The {@link Application} that we're pointing to.
      */
     public Application get(Term term) {
+
+        /**
+         * this visitor finds the application to which the path is pointing.
+         */
+        class Walker extends TermVisitor<Application> {
+            private int counter = 0;
+
+            @Override
+            public Application visit(Abstraction abs) {
+                return abs.body.accept(this);
+
+            }
+
+            @Override
+            public Application visit(Application app) {
+                if (counter == path.size()) {
+                    return app;
+
+                } else {
+                    if (path.get(counter) == Direction.LEFT) {
+                        counter++;
+                        return app.left.accept(this);
+                    }
+                    if (path.get(counter) == Direction.RIGHT) {
+                        counter++;
+                        return app.right.accept(this);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public Application visit(BoundVariable bvar) {
+                //"Tree is finished but no Application. This should never happen"
+                throw new RuntimeException();
+            }
+
+            @Override
+            public Application visit(FreeVariable fvar) {
+                //"Tree is finished but no Application. This should never happen"
+                throw new RuntimeException();
+
+            }
+
+            @Override
+            public Application visit(Function libterm) {
+                return libterm.term.accept(this);
+            }
+
+            @Override
+            public Application visit(ChurchNumber c) {
+                throw new RuntimeException();
+            }
+        }
+        // the nested class is finished here
+
         if (path == null) {
-            assert false : "No Redex here , This should never happen";
-            return null;
+            //No Redex here , This should never happen"
+            throw new RuntimeException();
         }
         Walker walker = new Walker();
-        term.accept(walker);
-        if (foundapp == false) {
-            assert false : "Didnt find the application. This should never happen";
+
+        Application finalapp = term.accept(walker);
+        if (finalapp == null) {
+            throw new RuntimeException();
         }
         return finalapp;
     }
@@ -124,63 +175,6 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         LEFT, RIGHT
     }
 
-    /**
-     * this visitor finds the application to which the path is pointing.
-     */
-    private class Walker extends TermVisitor<Void> {
-        private int counter = 0;
-
-        @Override
-        public Void visit(Abstraction abs) {
-            return abs.body.accept(this);
-
-        }
-
-        @Override
-        public Void visit(Application app) {
-            if (counter == path.size()) {
-                foundapp = true;
-                finalapp = app;
-
-            } else {
-                if (path.get(counter) == Direction.LEFT) {
-                    counter++;
-                    return app.left.accept(this);
-                }
-                if (path.get(counter) == Direction.RIGHT) {
-                    counter++;
-                    return app.right.accept(this);
-                }
-
-
-
-            }
-            return null;
-        }
-
-        @Override
-        public Void visit(BoundVariable bvar) {
-           assert false : "Tree is finished but no Application. This should never happen";
-            return null;
-        }
-
-        @Override
-        public Void visit(FreeVariable fvar) {
-            assert false : "Tree is finished but no Application. This should never happen";
-            return null;
-        }
-
-        @Override
-        public Void visit(Function libterm) {
-            return libterm.term.accept(this);
-        }
-
-        @Override
-        public Void visit(ChurchNumber c) {
-            assert false : "Searching for a Redex below Churchnumber, this can't happen";
-            return null;
-        }
-    }
 
 }
 
