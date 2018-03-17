@@ -82,7 +82,7 @@ public class JSONSessionEncoder extends SessionEncoder {
             try {
                 term = lambdaParser.parse(lambdaLexer.lex(libraryString[i][2]));
             } catch (SemanticException | SyntaxException e) {
-                throw new DecodeException("Invalid json file");
+                throw new DecodeException("Invalid json file: " + e.getMessage());
             } 
             library.define(name, description, term);
         }
