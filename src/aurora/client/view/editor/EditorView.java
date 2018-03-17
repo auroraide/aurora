@@ -192,7 +192,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
         debugMenuBar.addItem("Highlight", new Command() {
             public void execute() {
-                getTokenPosition((CodeMirrorPanel) stepFieldTable.getWidget(0, 2), stepMap.get(1), 14);
+                highlightDEBUG();
             }
         });
 
@@ -336,7 +336,6 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         }
         GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
-        cm.markText(0, 1, 0, 5, "#ff0");
         return new int[] {line, ch};
     }
 
@@ -363,6 +362,10 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+    }
+
+    private void highlightDEBUG() {
+        inputCodeMirror.markText(0, 1, 0, 5, "#ff0");
     }
 
     @Override
