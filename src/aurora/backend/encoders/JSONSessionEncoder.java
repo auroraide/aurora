@@ -13,6 +13,7 @@ import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.encoders.exceptions.DecodeException;
+import aurora.backend.encoders.JSONEscaper;
 
 /**
  * Serialize/deserialize a {@link Session} into a JSON string.
@@ -60,8 +61,23 @@ public class JSONSessionEncoder extends SessionEncoder {
         return JsonUtils.stringify(jso);
     }
 
+    /**
+     * Returns an escaped JSON String.
+     *
+     * @param toEscape String to escape.
+     * @return escaped String.
+     */   
+     public String escape(String toEscape) {
+        JSONEscaper jsonEscaper = new JSONEscaper();
+        return jsonEscaper.escape(toEscape);
+    }
+
     @Override
     public Session decode(String encodedInput) throws DecodeException {
+        console("JSON");
+        console(encodedInput);
+        String toDecode = JsonUtils.escapeJsonForEval(encodedInput);
+        console(toDecode);
         if (!JsonUtils.safeToEval(encodedInput)) {
             throw new DecodeException("Invalid json file");
         }
@@ -88,6 +104,17 @@ public class JSONSessionEncoder extends SessionEncoder {
         }
 
         return new Session(rawInput, library);
+    }
+
+    /**
+     * Returns an unescapes JSON String.
+     *
+     * @param toUnescape String to unescape.
+     * @return unescaped String.
+     */
+    public String String unescape(String toUnescape) {
+        JSONEscaper jsonEscaper = new JSONEscaper();
+        return jsonEscaper.unescape(toUnescape);
     }
 
     private native void setProperty(JavaScriptObject jso, String property, Object value) /*-{
