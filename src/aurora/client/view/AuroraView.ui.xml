@@ -72,9 +72,31 @@
                     <h2>about</h2>
                 </div>
                 <section>
-                    <p> Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit ei- genen Lambda Termen sowohl arbeiten als auch experimentieren können. Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das λ-Kalkül zu entwickeln. Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch ei- ne anschauliche Darstellung von Zwischenschritte gegeben. Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.</p>
-                    <p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p>
+                    <p> Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit eigenen Lambda Termen sowohl arbeiten, als auch experimentieren können.
+                        Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das λ-Kalkül zu entwickeln.
+                        Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch eine anschauliche Darstellung von Zwischenschritte gegeben.
+                        Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.</p>
+                    <p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbibliothek.</p>
                 </section>
+
+
+                <div class="title" id="hotkeys">
+                    <h2>Hotkeys</h2>
+                </div>
+                <section>
+                    <p> Zur Verbesserung der Nutzererfahrung sind für gängige Funktionen Hotkeys implementiert worden.
+                        Im Folgenden ist eine vollständige Liste zu finden.</p>
+                    <p>
+                        <div>
+                            <p><span><b>Run  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Pause  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Continue  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Reset  </b></span>Ctrl + Backspace</p>
+                            <p><span><b>Pause  </b></span>Ctrl + Shift</p>
+                        </div>
+                    </p>
+                </section>
+
 
 
                 <div class="title" id="overview">
