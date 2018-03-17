@@ -418,6 +418,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         }
 
         public TermToHighlightedLambdaExpressionVisitor(RedexPath nextPath) {
+            line = 1;
+            offset = -1;
+            column = 0;
+            index = 0;
+            currentPath = new RedexPath();
             this.nextPath = nextPath;
         }
 
