@@ -144,7 +144,7 @@ public class GistEncoder {
     }
 
     private native String getProperty(JavaScriptObject jso, String property) /*-{
-        return jso[property].toString();
+        return jso[property];
     }-*/;
 
     private native String getProperty(JavaScriptObject jso, String prop1, String prop2, String prop3) /*-{
