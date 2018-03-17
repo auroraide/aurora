@@ -1,10 +1,16 @@
 package aurora.client.view.popup;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -17,7 +23,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
     @UiField
     TextBox nameField;
     @UiField
-    TextBox functionField;
+    TextArea functionField;
     @UiField
     TextArea descriptionField;
     @UiField
@@ -42,6 +48,20 @@ public class AddLibraryItemDialogBox extends DialogBox {
         setGlassEnabled(false);
         center();
         hide();
+    }
+
+    @UiHandler("functionField")
+    void onFunctionFieldKeyPressed(KeyUpEvent event) {
+        if (functionField.getText().contains("\\")) {
+            final int cursorPosition = functionField.getCursorPos();
+            functionField.setText(functionField.getText().replace("\\", "λ"));
+            functionField.setCursorPos(cursorPosition);
+        }
+    }
+
+    @UiHandler("functionField")
+    void onFunctionFieldBlur(BlurEvent event) {
+        functionField.getText().replace("\\", "λ");
     }
 
     /**
@@ -78,7 +98,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
      *
      * @return functionField
      */
-    public TextBox getFunctionField() {
+    public TextArea getFunctionField() {
         return functionField;
     }
 
