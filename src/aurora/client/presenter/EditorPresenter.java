@@ -101,7 +101,7 @@ public class EditorPresenter {
         this.steps = steps;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
-
+        this.reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer = new HighlightTimer();
         runTimer = null;
         reStepper = null;
@@ -136,8 +136,6 @@ public class EditorPresenter {
             runTimer.cancel();
             runTimer = null;
         }
-
-        reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
@@ -190,10 +188,13 @@ public class EditorPresenter {
     private ReductionStrategy createReductionStrategy() {
         switch (reductionStrategy) {
             case CALLBYVALUE:
+                GWT.log("CBV detected");
                 return new CallByValue();
             case CALLBYNAME:
+                GWT.log("CBN detected");
                 return new CallByName();
             case NORMALORDER:
+                GWT.log("Normalorder detected");
                 return new NormalOrder();
             default:
                 throw new IllegalStateException("Unknown strategy type");
