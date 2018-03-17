@@ -109,6 +109,11 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
      */
     public Application get(Term term) {
 
+        if (path == null) {
+            //No Redex here , This should never happen"
+            throw new RuntimeException();
+        }
+
         /**
          * this visitor finds the application to which the path is pointing.
          */
@@ -130,13 +135,11 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
                     if (path.get(counter) == Direction.LEFT) {
                         counter++;
                         return app.left.accept(this);
-                    }
-                    if (path.get(counter) == Direction.RIGHT) {
+                    } else {
                         counter++;
                         return app.right.accept(this);
                     }
                 }
-                return null;
             }
 
             @Override
@@ -164,16 +167,11 @@ public class RedexPath implements Iterable<RedexPath.Direction> {
         }
         // the nested class is finished here
 
-        if (path == null) {
-            //No Redex here , This should never happen"
-            throw new RuntimeException();
-        }
+
         Walker walker = new Walker();
 
         Application finalapp = term.accept(walker);
-        if (finalapp == null) {
-            throw new RuntimeException();
-        }
+
         return finalapp;
     }
 
