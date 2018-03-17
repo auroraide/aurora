@@ -16,21 +16,24 @@ import aurora.client.view.sidebar.strategy.StrategySelection;
 import aurora.client.view.sidebar.strategy.StrategyType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.client.*;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.StackLayoutPanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 
@@ -208,23 +211,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         shareMenu.addItem("Link", (Command) () -> SidebarView.this.eventBus.fireEvent(new ShareLinkAllEvent()));
         shareMenu.setStyleName("shareMenu");
         shareMenu.setSize("250px", "auto");
-    }
-
-    private MenuBar createShareMenuBar() {
-        MenuBar shareMenuBar = new MenuBar(true);
-        shareMenuBar.addStyleName("shareMenuBar");
-        shareMenuBar.addItem("LaTeX", (Command) () -> SidebarView.this.eventBus.fireEvent(new ExportLaTeXAllEvent()));
-        shareMenuBar.addItem("Link", (Command) () -> SidebarView.this.eventBus.fireEvent(new ShareLinkAllEvent()));
-        return shareMenuBar;
-    }
-
-    private MenuBar createLanguageMenuBar() {
-        MenuBar languageMenuBar = new MenuBar(true);
-        languageMenuBar.addStyleName("languageMenuBar");
-        languageMenuBar.addItem("RU", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/?locale=ru"));
-        languageMenuBar.addItem("ENG", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/"));
-        languageMenuBar.addItem("DE", (Command) () -> Window.alert("hhh"));
-        return languageMenuBar;
     }
 
     private void createCssLinks() {
