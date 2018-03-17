@@ -1,9 +1,11 @@
 package aurora.backend;
 
 import aurora.backend.parser.Token;
+import aurora.backend.tree.Term;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A read-only version of HighlightableLambdaExpression.
@@ -11,13 +13,6 @@ import java.util.List;
 public interface HighlightedLambdaExpression extends Iterable<Token> {
     @Override
     Iterator<Token> iterator();
-
-    /**
-     * Gets the redex resulting from the previous computation. Or null.
-     *
-     * @return Redex.
-     */
-    Redex getPreviousRedex();
 
     /**
      * Gets the redex that will be executed in the next step.
@@ -43,7 +38,7 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
          */
         public final int startToken;
         /**
-         * The first token of the right side of the application.
+         * The last token of the left side of the application.
          */
         public final int middleToken;
         /**
@@ -54,6 +49,26 @@ public interface HighlightedLambdaExpression extends Iterable<Token> {
          * Associated path to this redex in the specific tree this Redex belongs to.
          */
         public final RedexPath redex;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Redex redex1 = (Redex) o;
+            return startToken == redex1.startToken
+                    && middleToken == redex1.middleToken
+                    && lastToken == redex1.lastToken
+                    && Objects.equals(redex, redex1.redex);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(startToken, middleToken, lastToken, redex);
+        }
 
         /**
          * Creates a new Redex.

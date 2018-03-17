@@ -14,6 +14,7 @@ import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * <code>AuroraPresenter</code> is responsible for the presentation logic.
@@ -24,15 +25,15 @@ import java.util.ArrayList;
 public class AuroraPresenter {
     private final EventBus eventBus;
     private final AuroraDisplay auroraDisplay;
-    private final ArrayList<Term> steps;
+    private final ArrayList<Step> steps;
 
     /**
      * Creates an <code>AuroraPresenter</code> with an event bus and a {@link AuroraDisplay}.
-     *  @param eventBus      The event bus.
+     * @param eventBus      The event bus.
      * @param auroraDisplay The aurora display.
      * @param steps Shared state between presenters. Index 0 is input.
      */
-    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, ArrayList<Term> steps) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, ArrayList<Step> steps) {
         this.eventBus = eventBus;
         this.auroraDisplay = auroraDisplay;
         this.steps = steps;
@@ -63,7 +64,7 @@ public class AuroraPresenter {
 
     private void onExportLaTeXAll(ExportLaTeXAllEvent e) {
         StringBuilder sb = new StringBuilder();
-        for (Term t : steps) {
+        for (Term t : steps.stream().map(Step::getTerm).collect(Collectors.toList())) {
             String latex = new ShareLaTeX(new HighlightableLambdaExpression(t)).generateLaTeX();
             sb.append(latex);
             sb.append("\n");
@@ -74,10 +75,10 @@ public class AuroraPresenter {
     private void onExportLaTeX(ExportLaTeXEvent e) {
         HighlightedLambdaExpression hle;
         if (e.getIndex() != ExportLaTeXEvent.RESULT) {
-            hle = new HighlightableLambdaExpression(steps.get(e.getIndex()));
+            hle = new HighlightableLambdaExpression(steps.get(e.getIndex()).getTerm());
         } else {
             GWT.log(String.valueOf(steps.size()));
-            hle = new HighlightableLambdaExpression(steps.get(steps.size() - 1));
+            hle = new HighlightableLambdaExpression(steps.get(steps.size() - 1).getTerm());
         }
         ShareLaTeX shareLaTeX = new ShareLaTeX(hle);
         auroraDisplay.displayLatexSnippetDialog(shareLaTeX.generateLaTeX());
