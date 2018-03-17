@@ -1,6 +1,7 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
@@ -29,6 +30,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This is where the user may view and manipulate code.
@@ -43,6 +47,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private CodeMirrorPanel inputCodeMirror;
     private CodeMirrorPanel outputCodeMirror;
+    private Map<Integer, HighlightedLambdaExpression> stepMap;
     private Button inputOptionButton;
     private Button outputOptionButton;
     private InfoDialogBox infoDialogBox;
@@ -78,6 +83,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.errorMessageDialogBox.ensureDebugId("errorMessageDialogBox");
         setupInputField();
         setupOutputField();
+        this.stepMap = new HashMap<Integer, HighlightedLambdaExpression>();
         setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
         this.actionBar.setDefaultStateAppearance();
@@ -188,6 +194,12 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         });
 
+        debugMenuBar.addItem("Highlight", new Command() {
+            public void execute() {
+                highlightDEBUG();
+            }
+        });
+
         return debugMenuBar;
     }
 
@@ -260,15 +272,15 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
         for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
+            stepMap.put(index + i, highlightedLambdaExpressions.get(i));
             addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
         }
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
         // TODO set shareMenu Style and optionMenuStyle
-        stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
+        stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
@@ -283,6 +295,57 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("lineWrapping", true);
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+    }
+
+    /**
+     * Highlights content between two tokens from given step.
+     *
+     * @param stepNumber step to highlight.
+     * @param startToken index of first highlighted token.
+     * @param endToken index of last highlighted token.
+     */
+    public void highlightStep(int stepNumber, int startToken, int endToken) {
+        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
+        HighlightedLambdaExpression hle = stepMap.get(stepNumber);
+        int[] fromPos = getTokenPosition(cm, hle, startToken);
+        int[] toPos = getTokenPosition(cm, hle, endToken);
+        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
+    }
+
+    /**
+     * Replace the last HLE with a new one.
+     *
+     * @param hle New hle to replace the old last one.
+     */
+    public void replaceLastStep(HighlightedLambdaExpression hle) {
+        int index = stepFieldTable.getRowCount();
+        stepMap.remove(index);
+        stepMap.put(index, hle);
+        ((CodeMirrorPanel) stepFieldTable.getWidget(index, 2)).setValue(hle.toString());
+    }
+
+    private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
+        GWT.log("getTokenPosition");
+        int tokenPosition = 0;
+        for (Token token: hle) {
+            if (token.getOffset() == index) {
+                break;
+            }
+            tokenPosition += token.toString().length();
+        }
+        
+        int line = 0;
+        int ch = 0;
+        for (int i = 0; i < cm.lineCount(); ++i) {
+            if (tokenPosition >= cm.getLine(i).length()) {
+                tokenPosition -= cm.getLine(i).length();
+            } else {
+                ch = tokenPosition;
+                break;
+            }
+        }
+        GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
+        return new int[] {line, ch};
     }
 
     //TODO:remove once hle is done
@@ -311,8 +374,13 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
 
+    private void highlightDEBUG() {
+        inputCodeMirror.markText(0, 1, 0, 5, "#ff0");
+    }
+
     @Override
     public void resetSteps() {
+        stepMap.clear();
         stepFieldTable.removeAllRows();
     }
 
@@ -342,6 +410,7 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
+        this.stepMap.put(0, highlightedLambdaExpression);
     }
 
     /**
