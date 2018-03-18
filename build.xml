@@ -187,7 +187,9 @@
             <formatter type="plain" usefile="false"/>
             <batchtest fork="yes">
                 <fileset dir="${test.dir}">
-                    <include name="**/*Test.java"/>
+                    <!--<include name="**/*Test.java"/>-->
+                    <include name="**/*Suite.java"/>
+                    <exclude name="**/*GwtTest"/>
                 </fileset>
             </batchtest>
         </junit>
