@@ -297,7 +297,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-
+# jacoco coverage folder
+war/jacoco/
 
 .metadata
 bin/
