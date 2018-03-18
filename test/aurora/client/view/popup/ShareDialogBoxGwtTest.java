@@ -11,7 +11,7 @@ public class ShareDialogBoxGwtTest extends GWTTestCase {
     private ShareDialogBox shareDialogBox;
 
     public String getModuleName() {
-        return "aurora.Testing";
+        return "aurora.Aurora";
     }
 
     /**
