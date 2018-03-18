@@ -11,6 +11,8 @@ public class InfoDialogBox extends DialogBox {
     private static InfoDialogBoxUiBinder uiBinder = GWT.create(InfoDialogBoxUiBinder.class);
     @UiField
     Label descriptionLabel;
+    @UiField
+    Label title;
 
     /**
      * Build a new InfoDialogBox.
