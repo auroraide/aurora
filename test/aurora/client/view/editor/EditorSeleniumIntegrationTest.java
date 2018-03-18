@@ -5,7 +5,6 @@ import com.machinepublishers.jbrowserdriver.Settings;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -24,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class EditorSeleniumIntegrationTest {
     private final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
     private static WebDriver driver;
-    private WebElement codeEditor;
+//    private WebElement codeEditor;
 
     /**
      * Starts the webdriver.
@@ -39,13 +38,46 @@ public class EditorSeleniumIntegrationTest {
         driver.quit();
     }
 
+    private WebElement getInput() {
+        return driver.findElement(By.xpath(pathToEditor));
+    }
+
+    private WebElement getRunButton() {
+        return driver.findElement(By.id("runButton"));
+    }
+
+    private String getOutput() {
+//        return driver.findElement(By.id("outputCodeMirror"));
+        return driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(1).getText();
+    }
+
+    private String waitForOutput() {
+        Wait<WebDriver> waiter = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(20))
+                .pollingEvery(Duration.ofSeconds(1))
+                .ignoring(NoSuchElementException.class);
+
+        return waiter.until(dr -> {
+            String o = getOutput();
+//            System.out.println("o = \"" + o + "\" (hashCode = " + o.hashCode() + ")");
+            return o.isEmpty() ? null : o;
+        });
+    }
+
+    @Test
+    public void testRunning() {
+        getInput().sendKeys("(\\x.x x a) (\\x. x x a)");
+        getRunButton().click();
+
+        // TODO continue
+    }
+
     /**
      * Sets up the testing environment.
      */
     @Before
     public void setUp() {
         driver.navigate().to("http://localhost:4000");
-        codeEditor = driver.findElement(By.xpath(pathToEditor));
     }
 
     /**
@@ -53,10 +85,9 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testIrreducibleLambdaTerm() {
-        codeEditor.sendKeys("λx.x");
+        getInput().sendKeys("λx.x");
         driver.findElement(By.id("runButton")).click();
-        String result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0).getText();
-        assertEquals("λx. x", result);
+        assertEquals("λx. x", waitForOutput());
     }
 
     /**
@@ -64,10 +95,9 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testOneBetaReduction() {
-        codeEditor.sendKeys("(λx.x) z");
+        getInput().sendKeys("(λx.x) z");
         driver.findElement(By.id("runButton")).click();
-        String result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0).getText();
-        assertEquals("z", result);
+        assertEquals("z", waitForOutput());
     }
 
     /**
@@ -75,10 +105,9 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testPlusTwoTwoReduction() {
-        codeEditor.sendKeys("(λn.λm.λs.λz.n s (m s z)) (λs.λz.s(s z)) (λs.λz.s(s z))");
+        getInput().sendKeys("(λn.λm.λs.λz.n s (m s z)) (λs.λz.s(s z)) (λs.λz.s(s z))");
         driver.findElement(By.id("runButton")).click();
-        String result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0).getText();
-        assertEquals("4", result);
+        assertEquals("4", waitForOutput());
     }
 
     /**
@@ -86,11 +115,9 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testNoResultOnResetBtnClicked() {
-        codeEditor.sendKeys("$pow 5 5");
+        getInput().sendKeys("$pow 5 5");
         driver.findElement(By.id("runButton")).click();
-        int result = driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre"))
-                .get(0).getText().hashCode();
-        assertEquals(8203, result);
+        assertEquals(8203, getOutput().hashCode());
     }
 
     /**
@@ -98,10 +125,10 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testEditingInEditorNotPossible() {
-        codeEditor.sendKeys("(λ.x x) (λx.x x)");
+        getInput().sendKeys("(λ.x x) (λx.x x)");
         driver.findElement(By.id("runButton")).click();
-        codeEditor.click();
-        assertFalse("Is code editor selected", codeEditor.isSelected());
+        getInput().click();
+        assertFalse("Is code editor selected", getInput().isSelected());
     }
 
     /**
@@ -109,7 +136,7 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testContinueButtonClickedPossible() {
-        codeEditor.sendKeys("$pow 5 5");
+        getInput().sendKeys("$pow 5 5");
         driver.findElement(By.id("runButton")).click();
         driver.findElement(By.id("pauseButton")).click();
 
@@ -133,49 +160,34 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testBraceAutoComplete() {
-        codeEditor.sendKeys("(");
+        getInput().sendKeys("(");
         // document.getElementById("inputCodeMirror").getElementsByTagName("pre")[0].textContent
         String editorContent = "" + driver.findElement(By.id("inputCodeMirror")).findElements(By.tagName("pre"))
                 .get(1).getText();
         assertEquals("()", editorContent);
     }
 
-    /**
-     * Tests T4.10 (See Pflichtenheft).
-     */
-    @Test
-    public void testResultFieldNotEditable() {
-        WebElement resultField = driver.findElement(By.id("outputCodeMirror"))
-                .findElements(By.tagName("pre")).get(0);
-        resultField.click();
-        assertFalse("Result field should not be clickable", resultField.isSelected());
-    }
+//    /**
+//     * Tests T4.10 (See Pflichtenheft).
+//     */
+//    @Test
+//    public void testResultFieldNotEditable() {
+////        WebElement resultField = driver.findElement(By.id("outputCodeMirror"))
+////                .findElements(By.tagName("pre")).get(0);
+//        getOutput().click();
+//        assertFalse("Result field should not be clickable", getOutput().isSelected());
+//    }
 
     /**
      * Tests T4.11 (See Pflichtenheft).
      */
     @Test
-    @Ignore
     public void testCommentsIgnoredInCalculation() {
-        codeEditor.sendKeys("(λ x. x) z");
-        codeEditor.sendKeys(Keys.RETURN);
-        codeEditor.sendKeys("#dies ist ein test (λz.z) a");
-        System.out.println(driver.findElement(By.id("inputCodeMirror"))
-                .findElements(By.tagName("pre")).get(0).getText());
-        driver.findElement(By.id("runButton")).click();
+        getInput().sendKeys("(λ x. x) z");
+        getInput().sendKeys(Keys.RETURN);
+        getInput().sendKeys("#dies ist ein test (λz.z) a");
+        getRunButton().click();
 
-        Wait<WebDriver> waiter = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(20))
-                .pollingEvery(Duration.ofSeconds(2))
-                .ignoring(NoSuchElementException.class);
-
-        String outputStr = waiter.until(dr -> {
-            WebElement output = dr.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(0);
-            String o = output.getText();
-            System.out.println("o = \"" + o + "\"");
-            return o.hashCode() == 8203 ? null : o;
-        });
-
-        assertEquals("z", outputStr);
+        assertEquals("z", waitForOutput());
     }
 }
