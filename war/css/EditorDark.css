@@ -158,13 +158,18 @@ td .subMenuItem {
     background-color: #177965;
 }
 
-.stepFieldTable .CodeMirror-line span[role=presentation], .outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+.stepFieldTable .CodeMirror-line span[role=presentation]{
     display: flex !important;
     flex-wrap: wrap;
     width: 60vw;
     overflow-x: hidden;
 }
 
+.outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+    width: 60vw;
+    overflow-x: hidden;
+    word-break: break-all;
+}
 /*body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(6) > div > div > div > table > tbody > tr > td:nth-child(3) > div > div > div*/
 .stepFieldTable .CodeMirror-scroll > div.CodeMirror-sizer > div > div > div {
     display: flex !important;
