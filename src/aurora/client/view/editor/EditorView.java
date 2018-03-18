@@ -34,6 +34,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static com.google.gwt.core.client.GWT.log;
+
 /**
  * This is where the user may view and manipulate code.
  * Three different kinds of code fields are provided.
@@ -271,6 +273,7 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
+        log(hle.toString());
 
 
         //TODO: once hle is done, use its magic
@@ -305,7 +308,7 @@ public class EditorView extends Composite implements EditorDisplay {
                         start.getColumn() - 1,
                         end.getLine() - 1,
                         end.getColumn() - 1,
-                        "#5a7083");
+                        "red");
             }
 
 
@@ -371,7 +374,7 @@ public class EditorView extends Composite implements EditorDisplay {
         Scheduler scheduler = Scheduler.get();
         scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new ResultCalculatedEvent()));
         // TODO Remove log, when not needed anymore
-        GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
+        log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
     @Override
