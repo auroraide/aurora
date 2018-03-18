@@ -283,7 +283,7 @@ public class EditorView extends Composite implements EditorDisplay {
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
 
-        //TODO: once hle is done, use its magic
+        // once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
             cmp.setValue(hle.toString());
             cmp.setOption("readOnly", true);

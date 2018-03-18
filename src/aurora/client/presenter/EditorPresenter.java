@@ -45,6 +45,7 @@ import java.util.List;
  * via the {@link EditorDisplay}.
  */
 public class EditorPresenter {
+
     private final EventBus eventBus;
     private final EditorDisplay editorDisplay;
 
@@ -108,7 +109,6 @@ public class EditorPresenter {
         stepsToComputeAtOnce = 1;
 
         bind();
-
         reset();
     }
 
@@ -138,7 +138,7 @@ public class EditorPresenter {
         }
 
         reductionStrategy = StrategyType.NORMALORDER;
-        highlightTimer.scheduleRepeating(1000);
+        highlightTimer.scheduleRepeating(100);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
         reStepper = null;
@@ -297,36 +297,6 @@ public class EditorPresenter {
         stepTimer.scheduleRepeating(1);
     }
 
-    private class StepTimer extends Timer {
-        private int counter;
-
-        public StepTimer() {
-            counter = stepsToComputeAtOnce;
-        }
-
-        @Override
-        public void run() {
-            if (counter-- <= 0) {
-                cancel();
-                stepTimer = null;
-                return;
-            }
-
-            Term next = berry.next();
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
-            steps.add(new Step(next, hle));
-
-            if (!berry.hasNext()) {
-                cancel();
-                stepTimer = null; // works because GC
-                editorDisplay.displayResult(hle);
-                return;
-            }
-
-            editorDisplay.addNextStep(hle, steps.size() - 1);
-        }
-    }
-
     private void onReStep() {
         GWT.log("EP: ReStepEvent caught.");
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
@@ -347,37 +317,6 @@ public class EditorPresenter {
         reStepTimer = new ReStepTimer();
         reStepTimer.scheduleRepeating(1);
 
-    }
-
-    private class ReStepTimer extends Timer {
-        private int counter;
-
-        private ReStepTimer() {
-            this.counter = stepsToComputeAtOnce;
-        }
-
-        @Override
-        public void run() {
-            assert (reStepper.hasNext());
-
-            if (counter-- <= 0) {
-                cancel();
-                reStepTimer = null;
-                return;
-            }
-
-            Step current = reStepper.next();
-
-            if (reStepper.hasNext()) {
-                // current reducible
-                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
-            } else {
-                // current is irreducible => current term is result.
-                editorDisplay.finishedFinished(current.getHle());
-            }
-
-            nextReStepIndex++;
-        }
     }
 
     private void onRedexClicked(HighlightedLambdaExpression.Redex redex) {
@@ -457,6 +396,37 @@ public class EditorPresenter {
         runTimer.scheduleRepeating(1);
     }
 
+    private class ReStepTimer extends Timer {
+        private int counter;
+
+        private ReStepTimer() {
+            this.counter = stepsToComputeAtOnce;
+        }
+
+        @Override
+        public void run() {
+            assert (reStepper.hasNext());
+
+            if (counter-- <= 0) {
+                cancel();
+                reStepTimer = null;
+                return;
+            }
+
+            Step current = reStepper.next();
+
+            if (reStepper.hasNext()) {
+                // current reducible
+                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
+            } else {
+                // current is irreducible => current term is result.
+                editorDisplay.finishedFinished(current.getHle());
+            }
+
+            nextReStepIndex++;
+        }
+    }
+
     private class RunTimer extends Timer {
 
         @Override
@@ -477,8 +447,74 @@ public class EditorPresenter {
     }
 
     private class HighlightTimer extends Timer {
+
+        private String lastInput = "";
+
         @Override
         public void run() {
+            String input = editorDisplay.getInput();
+
+            // skip if input unchanged
+            if (lastInput.equals(input)) {
+                return;
+            }
+
+            // cache last input string
+            lastInput = input;
+
+            // attempt lex
+            List<Token> stream = null;
+            try {
+                stream = lambdaLexer.lex(input);
+            } catch (SyntaxException e) {
+                // skip
+                return;
+            }
+
+            // attempt parse
+            Term term = null;
+            try {
+                term = lambdaParser.parse(stream);
+            } catch (SyntaxException | SemanticException e) {
+                return;
+            }
+
+            // display highlighted input
+            berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
+            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, berry.getSelectedRedex());
+            editorDisplay.setInput(hle);
         }
     }
+
+    private class StepTimer extends Timer {
+
+        private int counter;
+
+        public StepTimer() {
+            counter = stepsToComputeAtOnce;
+        }
+
+        @Override
+        public void run() {
+            if (counter-- <= 0) {
+                cancel();
+                stepTimer = null;
+                return;
+            }
+
+            Term next = berry.next();
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
+            steps.add(new Step(next, hle));
+
+            if (!berry.hasNext()) {
+                cancel();
+                stepTimer = null; // works because GC
+                editorDisplay.displayResult(hle);
+                return;
+            }
+
+            editorDisplay.addNextStep(hle, steps.size() - 1);
+        }
+    }
+
 }
