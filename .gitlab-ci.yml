@@ -41,7 +41,7 @@ texjob:
     before_script:
         - echo "nop"
     script:
-        - pdflatex -output-directory docs/qualitätssicherung/tex docs/qualitätssicherung/tex/Testbericht.tex && pdflatex -output-directory docs/qualitätssicherung/tex docs/qualitätssicherung/tex/Testbericht.tex
+        - (cd  && pdflatex -output-directory . Testbericht.tex && pdflatex -output-directory . Testbericht.tex)
     artifacts:
         paths:
             - "docs/qualitätssicherung/tex/Testbericht.pdf"
