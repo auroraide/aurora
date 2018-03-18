@@ -290,7 +290,14 @@
     border-bottom: 1px solid #fff;
     font-size: 22px;
     font-weight: 700;
-    padding: 5px;
+}
+
+.shareAndLanguagePopup .gwt-MenuItem {
+    line-height: 25px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    display: block;
+    width:100%;
 }
 
 .shareAndLanguagePopup .languageMenu tr:last-child, .shareAndLanguagePopup .shareMenu tr:last-child {
