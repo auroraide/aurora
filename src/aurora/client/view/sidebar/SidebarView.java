@@ -208,7 +208,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         languageMenu.setAnimationEnabled(false);
         languageMenu.addItem("RU", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/?locale=ru"));
         languageMenu.addItem("ENG", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/"));
-        languageMenu.addItem("DE", (Command) () -> Window.alert("hhh"));
         languageMenu.setStyleName("languageMenu");
         languageMenu.setSize("250px", "auto");
 
