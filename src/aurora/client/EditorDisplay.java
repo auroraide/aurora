@@ -46,10 +46,10 @@ public interface EditorDisplay {
     /**
      * Appends a new list of steps to the current step list.
      *
-     * @param highlightedLambdaExpressions Steps to append.
-     * @param index index of the first item in the given list.
+     * @param highlightedLambdaExpression Step to append.
+     * @param index index of the step.
      */
-    void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index);
+    void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression, int index);
 
     /**
      * Wipes the step list entirely.

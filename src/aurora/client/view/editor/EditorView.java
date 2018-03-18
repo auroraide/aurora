@@ -270,11 +270,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
-        for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
-            stepMap.put(index + i, highlightedLambdaExpressions.get(i));
-            addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
-        }
+    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression, int index) {
+        stepMap.put(index, highlightedLambdaExpression);
+        addStepEntry(stepFieldTable.getRowCount(), index, highlightedLambdaExpression);
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
@@ -283,6 +281,7 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
+
 
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
@@ -293,59 +292,37 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
             cmp.setOption("lineWrapping", true);
+
+            // highlight next redex
+            HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
+            if (nextRedex != null) {
+
+                // determine start and end tokens
+                int count = 0;
+                Token start = null;
+                Token end = null;
+                for (Token t : hle) {
+                    if (count++ == nextRedex.startToken) {
+                        start = t;
+                        continue;
+                    }
+                    if (count == nextRedex.lastToken) {
+                        end = t;
+                        break;
+                    }
+                }
+                cmp.markText(start.getLine() - 1,
+                        start.getColumn() - 1,
+                        end.getLine() - 1,
+                        end.getColumn() - 1,
+                        "#5a7083");
+            }
+
+
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
-    }
 
-    /**
-     * Highlights content between two tokens from given step.
-     *
-     * @param stepNumber step to highlight.
-     * @param startToken index of first highlighted token.
-     * @param endToken index of last highlighted token.
-     */
-    public void highlightStep(int stepNumber, int startToken, int endToken) {
-        CodeMirrorPanel cm = (CodeMirrorPanel) stepFieldTable.getWidget(stepNumber, 2);
-        HighlightedLambdaExpression hle = stepMap.get(stepNumber);
-        int[] fromPos = getTokenPosition(cm, hle, startToken);
-        int[] toPos = getTokenPosition(cm, hle, endToken);
-        cm.markText(fromPos[0], fromPos[1], toPos[0], toPos[1], "#ff0");
-    }
 
-    /**
-     * Replace the last HLE with a new one.
-     *
-     * @param hle New hle to replace the old last one.
-     */
-    public void replaceLastStep(HighlightedLambdaExpression hle) {
-        int index = stepFieldTable.getRowCount();
-        stepMap.remove(index);
-        stepMap.put(index, hle);
-        ((CodeMirrorPanel) stepFieldTable.getWidget(index, 2)).setValue(hle.toString());
-    }
-
-    private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
-        GWT.log("getTokenPosition");
-        int tokenPosition = 0;
-        for (Token token: hle) {
-            if (token.getOffset() == index) {
-                break;
-            }
-            tokenPosition += token.toString().length();
-        }
-        
-        int line = 0;
-        int ch = 0;
-        for (int i = 0; i < cm.lineCount(); ++i) {
-            if (tokenPosition >= cm.getLine(i).length()) {
-                tokenPosition -= cm.getLine(i).length();
-            } else {
-                ch = tokenPosition;
-                break;
-            }
-        }
-        GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
-        return new int[] {line, ch};
     }
 
     //TODO:remove once hle is done

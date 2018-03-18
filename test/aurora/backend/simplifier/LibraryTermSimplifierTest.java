@@ -7,6 +7,8 @@ import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
+import aurora.backend.tree.ChurchNumber;
+import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.Test;
@@ -52,6 +54,31 @@ public class LibraryTermSimplifierTest {
             e.printStackTrace();
             fail("SemanticException thrown instead: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void specialfunctions() {
+        Library lib = new HashLibrary();
+        lib.define("f", "f", new Function(
+                "f", (new Function(("a"), new FreeVariable("a")))));
+        LibraryTermSimplifier lts = new LibraryTermSimplifier(lib);
+
+        Function f = lts.simplify(new Function("f", new FreeVariable("a")));
+
+        assertEquals(f.name, "f");
+        Function zero = lts.simplify(new FreeVariable("b"));
+        assertEquals(null, zero);
+
+        lib.define("c", "c", new ChurchNumber(2));
+        Function church = lts.simplify(new ChurchNumber(2));
+        assertEquals(church.name, "c");
+
+        lib.define("fvar", "fvar", new FreeVariable("y"));
+        Function fv = lts.simplify(new FreeVariable("y"));
+        assertEquals("fvar", fv.name);
+
+        Function fverror = lts.simplify(new FreeVariable("z"));
+        assertEquals(fverror, null);
     }
 
 }
