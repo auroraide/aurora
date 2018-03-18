@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 public class EditorSeleniumIntegrationTest {
     private final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
     private static WebDriver driver;
-//    private WebElement codeEditor;
 
     /**
      * Starts the webdriver.
@@ -47,7 +46,6 @@ public class EditorSeleniumIntegrationTest {
     }
 
     private String getOutput() {
-//        return driver.findElement(By.id("outputCodeMirror"));
         return driver.findElement(By.id("outputCodeMirror")).findElements(By.tagName("pre")).get(1).getText();
     }
 
@@ -59,7 +57,6 @@ public class EditorSeleniumIntegrationTest {
 
         return waiter.until(dr -> {
             String o = getOutput();
-//            System.out.println("o = \"" + o + "\" (hashCode = " + o.hashCode() + ")");
             return o.isEmpty() ? null : o;
         });
     }
@@ -161,22 +158,10 @@ public class EditorSeleniumIntegrationTest {
     @Test
     public void testBraceAutoComplete() {
         getInput().sendKeys("(");
-        // document.getElementById("inputCodeMirror").getElementsByTagName("pre")[0].textContent
         String editorContent = "" + driver.findElement(By.id("inputCodeMirror")).findElements(By.tagName("pre"))
                 .get(1).getText();
         assertEquals("()", editorContent);
     }
-
-//    /**
-//     * Tests T4.10 (See Pflichtenheft).
-//     */
-//    @Test
-//    public void testResultFieldNotEditable() {
-////        WebElement resultField = driver.findElement(By.id("outputCodeMirror"))
-////                .findElements(By.tagName("pre")).get(0);
-//        getOutput().click();
-//        assertFalse("Result field should not be clickable", getOutput().isSelected());
-//    }
 
     /**
      * Tests T4.11 (See Pflichtenheft).
