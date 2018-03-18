@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SidebarSeleniumTest {
     private static WebDriver driver;
@@ -52,6 +53,18 @@ public class SidebarSeleniumTest {
         stepNumberTextBox.clear();
         driver.findElement(By.id("stdlibLabel")).click();
         assertEquals("1", stepNumberTextBox.getAttribute("value"));
+    }
+
+    @Test
+    public void testAddLibraryFuncRegrTest() {
+        driver.findElement(By.id("addFunctionButton")).click();
+        driver.findElement(By.id("nameField")).sendKeys("infinite_loop");
+        driver.findElement(By.id("functionField")).sendKeys("(\\x.x x) (\\x. x x)");
+        driver.findElement(By.id("descriptionField")).sendKeys("I am a simple infinite loop");
+        driver.findElement(By.id("addButton")).click();
+        String stdlibContent = driver.findElement(By.id("userLibraryTable"))
+                .findElements(By.tagName("tbody")).get(0).findElements(By.tagName("tr")).get(0).getText();
+        assertTrue(stdlibContent.startsWith("$infinite_loop"));
     }
 
 }

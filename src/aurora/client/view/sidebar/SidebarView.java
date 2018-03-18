@@ -324,7 +324,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
             SidebarView.this.eventBus.fireEvent(
                     new AddFunctionEvent(
                             SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
-                            SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText(),
+                            SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText().replace("λ", "\\"),
                             SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText()));
         });
         this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
