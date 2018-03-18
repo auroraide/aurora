@@ -325,42 +325,6 @@ public class EditorView extends Composite implements EditorDisplay {
 
     }
 
-    /**
-     * Replace the last HLE with a new one.
-     *
-     * @param hle New hle to replace the old last one.
-     */
-    public void replaceLastStep(HighlightedLambdaExpression hle) {
-        int index = stepFieldTable.getRowCount();
-        stepMap.remove(index);
-        stepMap.put(index, hle);
-        ((CodeMirrorPanel) stepFieldTable.getWidget(index, 2)).setValue(hle.toString());
-    }
-
-    private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
-        GWT.log("getTokenPosition");
-        int tokenPosition = 0;
-        for (Token token: hle) {
-            if (token.getOffset() == index) {
-                break;
-            }
-            tokenPosition += token.toString().length();
-        }
-        
-        int line = 0;
-        int ch = 0;
-        for (int i = 0; i < cm.lineCount(); ++i) {
-            if (tokenPosition >= cm.getLine(i).length()) {
-                tokenPosition -= cm.getLine(i).length();
-            } else {
-                ch = tokenPosition;
-                break;
-            }
-        }
-        GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
-        return new int[] {line, ch};
-    }
-
     //TODO:remove once hle is done
     private void addNextStepDEBUG(List<String> highlightedLambdaExpressions) {
         highlightedLambdaExpressions.forEach((hle) -> {
