@@ -753,9 +753,23 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     mit GWTTestcases und Selenium geschrieben werden.
     Beide dieser Testarten werden von gängigen Coveragetools nicht erkannt und die Coverage wird nicht
     ermittelt.
-    Damit können genaue Aussagen nur über das Backend getroffen werden, welches vollständig mit JUnit und ähnlichem
+    Damit können genaue Überdeckungsaussagen nur über das Backend getroffen werden, welches vollständig mit JUnit und ähnlichem
     testbar ist, weil es keine GWT Klassen oder ähnliches benutzt.
-    
+	Das Backend hat folgende Überdeckung:
+	
+	
+	Dem Team ist es nicht gelungen Coverage auf ein paar Methoden anzuwenden, weil sie Fälle abfangen, die zu dem jetzigen Zeitpunkt nicht auftreten können.
+	Ein Beispiel: Der Lexer lexed den Input in einen Tokenstrem, die Arten der Tokens sind in einem Enum vordefiniert.
+	Dennoch sind im Parser Methoden die überprüfen, dass alle Tokens erkannt und geparsed wurden.
+	Dies ist nicht testbar, weil es zur Runtime nicht möglich ist neue Arten von Tokens zu definieren.
+	Dieser zurzeit toter Code hätte für eine besser Coverage gelöscht werden können, es wurde sich aber dagegen entschieden, da die Möglichkeit besteht, 
+	dass das Programm geforked wird und neue Tokens im Enum definiert wurden.
+	Ein zweites Problem sind die Visitoren, die alle Methoden überschreiben müssen.
+	
+	Im HighlghtableLambdaExpression werden alle gebundenen Variablen in Freie Variablen geändert.
+	Dennoch müssen alle Visitoren die Methode accept(BoundedVariable bvar) obwohl es unmöglich ist, dass diese Methode aufrufbar ist.
+	
+	Gäbe es diese zwei Fälle nicht, wäre die Coverage des Backends bei 100 \%. 
 
 \section{Glossar}
 \begin{itemize}
