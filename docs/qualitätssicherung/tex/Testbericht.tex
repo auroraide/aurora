@@ -71,6 +71,9 @@ bookmarks=true,
     \ifthenelse{\equal{#2}{Automatisiert getestet}}
         {\cellcolor{green!20}}
         {}
+    \ifthenelse{\equal{#2}{Nicht testbar}}
+    {\cellcolor{gray!20}}
+     {}
     #2 \\ \hline
 }
 
@@ -275,10 +278,11 @@ Mit dieser oder ähnlichen Modifikationen sind Tests T6.2 bis T6.4 ausführbar.
 Erneut ist in T6.5 der Name der Funktion auf $\texttt{\$add}$ geändert worden.
 T6.6 benutzt den Stepbutton und nicht den \enquote{3-Punkte-Button}.
 Dies wird ab jetzt als bekannt vorausgesetzt und nicht erneut erwähnt.
-
 Die Churchzahlen werden erst bei Bedarf in ihre wahren Terme überführt um die
 Anschaulichkeit zu steigern. Damit sind die Schritte zu ausführlich.
 
+Bei T6.7 ist im Pflichtenheft ein Fehler unterlaufen, anstelle des Run Buttons
+war natürlich der Step Button gemeint
 In T6.9 wurde minus durch $\texttt{\$sub}$ ersetzt. 
 
 \subsubsection{Auswertungsstrategie und De Bruijn (T7)}
@@ -537,9 +541,9 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
-%            \testline{T2.1}{Nicht getestet}
-            \testline{T2.2}{Nicht getestet}
-            \testline{T2.3}{Nicht getestet}
+            \testline{T2.1}{Manuell getestet}
+            \testline{T2.2}{Manuell getestet}
+            \testline{T2.3}{Automatisiert getestet}
         \end{tabular}
     \end{center}
 
@@ -555,9 +559,9 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
-            \testline{T3.1}{Nicht getestet}
-            \testline{T3.2}{Nicht getestet}
-            \testline{T3.3}{Nicht getestet}
+            \testline{T3.1}{Manuell getestet}
+            \testline{T3.2}{Manuell getestet}
+            \testline{T3.3}{Manuell getestet}
         \end{tabular}
     \end{center}
 
@@ -643,6 +647,7 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
             \testline{T6.1}{Automatisiert getestet}
+            \testline{T6.2}{Nicht getestet}
             \testline{T6.3}{Automatisiert getestet}
             \testline{T6.4}{Automatisiert getestet}
             \testline{T6.5}{Automatisiert getestet}
@@ -669,7 +674,7 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
             \testline{T7.1}{Automatisiert getestet}
-            \testline{T7.2}{Automatisiert getestet}
+            \testline{T7.2}{Nicht testbar}
             \testline{T7.3}{Automatisiert getestet}
         \end{tabular}
     \end{center}
@@ -689,12 +694,12 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
-            \testline{T8.1}{Nicht getestet}
-            \testline{T8.2}{Nicht getestet}
-            \testline{T8.3}{Nicht getestet}
-            \testline{T8.4}{Nicht getestet}
-            \testline{T8.5}{Nicht getestet}
-            \testline{T8.6}{Nicht getestet}
+            \testline{T8.1}{Nicht testbar}
+            \testline{T8.2}{Nicht testbar}
+            \testline{T8.3}{Nicht testbar}
+            \testline{T8.4}{Nicht testbar}
+            \testline{T8.5}{Nicht testbar}
+            \testline{T8.6}{Nicht testbar}
         \end{tabular}
     \end{center}
 
