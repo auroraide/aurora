@@ -6,6 +6,19 @@
 .inputFieldCenter, .centerPanel div:nth-child(6), .outputDockLayoutPanel {
     background-color: #33485c;
 }
+
+.inputFieldCenter > div:nth-child(2) {
+    display: inline-block !important;
+    z-index: 10 !important;
+}
+
+.inputFieldCenter > div:nth-child(4) {
+    height: 120% !important;
+    display: inline-block !important;
+    overflow-y: scroll !important;
+
+}
+
 .gwt-SplitLayoutPanel-VDragger {
     background-color: #177965 !important;
 }
