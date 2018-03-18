@@ -12,7 +12,7 @@
         <g:Button ui:field="pauseButton" debugId="pauseButton" addStyleNames="pause"><ui:msg description="actionBar pause">pause</ui:msg></g:Button>
         <g:Button ui:field="continueButton" debugId="continueButton" addStyleNames="continue"><ui:msg description="actionBar continue">continue</ui:msg></g:Button>
         <g:Button ui:field="resetButton" debugId="resetButton" addStyleNames="reset"><ui:msg description="actionBar reset">reset</ui:msg></g:Button>
-        <g:Button ui:field="stepButton" debugId="stepButton" addStyleNames="step disabled"><ui:msg description="actionBar step">step</ui:msg></g:Button>
+        <g:Button ui:field="stepButton" debugId="stepButton" addStyleNames="step"><ui:msg description="actionBar step">step</ui:msg></g:Button>
     </g:FlowPanel>
 
 </ui:UiBinder>
