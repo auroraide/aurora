@@ -10,10 +10,12 @@
 .inputFieldCenter > div:nth-child(2) {
     display: inline-block !important;
     z-index: 10 !important;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .inputFieldCenter > div:nth-child(4) {
-    height: 120% !important;
+    height: 100% !important;
     display: inline-block !important;
     overflow-y: scroll !important;
 
