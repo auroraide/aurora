@@ -6,7 +6,7 @@
 
     <g:VerticalPanel>
         <g:HorizontalPanel>
-            <g:TextArea ui:field="shareText"/>
+            <g:TextArea ui:field="shareText" debugId="shareText"/>
         </g:HorizontalPanel>
 
         <g:HorizontalPanel>

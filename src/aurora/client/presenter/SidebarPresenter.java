@@ -97,8 +97,12 @@ public class SidebarPresenter {
         }
 
         List<Token> tokens;
+        String name = input.getName();
         try {
-            tokens = lambdaLexer.lex("$" + input.getName());
+            if (name.charAt(0) == '$') {
+                name = name.substring(1);
+            }
+            tokens = lambdaLexer.lex("$" + name);
         } catch (SyntaxException ex) {
             sidebarDisplay.displayAddLibraryItemSyntaxError(ex);
             return;
@@ -108,14 +112,14 @@ public class SidebarPresenter {
             return;
         }
 
-        if (userLib.exists(input.getName()) || stdLib.exists(input.getName())) {
+        if (userLib.exists(name) || stdLib.exists(name)) {
             sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
             GWT.log("Name is already taken.");
             return;
         }
 
-        userLib.define(input.getName(), input.getDescription(), t);
-        sidebarDisplay.addUserLibraryItem(input.getName(), input.getDescription());
+        userLib.define(name, input.getDescription(), t);
+        sidebarDisplay.addUserLibraryItem(name, input.getDescription());
         sidebarDisplay.closeAddLibraryItemDialog();
 
         // TODO Only for debug reasons here. Should be deleted at some time.

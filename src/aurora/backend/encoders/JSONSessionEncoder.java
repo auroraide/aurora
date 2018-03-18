@@ -8,6 +8,7 @@ import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
 import aurora.backend.library.HashLibrary;
@@ -50,7 +51,10 @@ public class JSONSessionEncoder extends SessionEncoder {
         JsArrayMixed lib = JavaScriptObject.createArray().cast();
         session.library.forEach(
                 item -> lib.push(
-                    addLibraryEntry(item.getName(), item.getDescription(), item.getTerm())));
+                    addLibraryEntry(
+                        item.getName(),
+                        item.getDescription(),
+                        new HighlightableLambdaExpression(item.getTerm()).toString())));
         setProperty(jso, "library", lib);
 
         return JsonUtils.stringify(jso);
@@ -58,11 +62,14 @@ public class JSONSessionEncoder extends SessionEncoder {
 
     @Override
     public Session decode(String encodedInput) throws DecodeException {
-        if (!JsonUtils.safeToEval(encodedInput)) {
+        String toDecode = encodedInput.replaceAll("\\\\", "\\\\\\\\");
+        if (!JsonUtils.safeToEval(toDecode)) {
             throw new DecodeException("Invalid json file");
         }
-        JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
-        String rawInput =  getProperty(jso, "rawInput");
+        JavaScriptObject jso = JsonUtils.safeEval(toDecode);
+        //TODO Try catch rawInput
+        String rawInput = getProperty(jso, "rawInput");
+        //TODO Try catch this one
         String[][] libraryString = getLibrary(jso);
         Library library = new HashLibrary();
         
@@ -89,6 +96,10 @@ public class JSONSessionEncoder extends SessionEncoder {
     }-*/;
 
     private native JsArrayMixed addLibraryEntry(String name, String description, Term term) /*-{
+        return [name, description, term];
+    }-*/;
+
+    private native JsArrayMixed addLibraryEntry(String name, String description, String term) /*-{
         return [name, description, term];
     }-*/;
 

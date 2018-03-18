@@ -1,6 +1,7 @@
 package aurora.client.view.editor;
 
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.client.EditorDisplay;
@@ -29,6 +30,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This is where the user may view and manipulate code.
@@ -43,6 +47,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     private CodeMirrorPanel inputCodeMirror;
     private CodeMirrorPanel outputCodeMirror;
+    private Map<Integer, HighlightedLambdaExpression> stepMap;
     private Button inputOptionButton;
     private Button outputOptionButton;
     private InfoDialogBox infoDialogBox;
@@ -73,9 +78,12 @@ public class EditorView extends Composite implements EditorDisplay {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         this.shareLaTexSnippetDialogBox = new ShareDialogBox("");
+        this.shareLaTexSnippetDialogBox.ensureDebugId("editorShareLaTexDialogBox");
         this.errorMessageDialogBox = new InfoDialogBox();
+        this.errorMessageDialogBox.ensureDebugId("errorMessageDialogBox");
         setupInputField();
         setupOutputField();
+        this.stepMap = new HashMap<Integer, HighlightedLambdaExpression>();
         setupInfoDialogBox();
         stepFieldTable.setSize("100%", "100%");
         this.actionBar.setDefaultStateAppearance();
@@ -125,6 +133,7 @@ public class EditorView extends Composite implements EditorDisplay {
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
         this.inputCodeMirror = new CodeMirrorPanel();
+        this.inputCodeMirror.ensureDebugId("inputCodeMirror");
         this.inputDockLayoutPanel.add(this.inputCodeMirror);
         this.inputDockLayoutPanel.setSize("100%", "100%");
 
@@ -185,17 +194,25 @@ public class EditorView extends Composite implements EditorDisplay {
             }
         });
 
+        debugMenuBar.addItem("Highlight", new Command() {
+            public void execute() {
+                highlightDEBUG();
+            }
+        });
+
         return debugMenuBar;
     }
 
     private void setupOutputField() {
         MenuBar shareMenuBar = createShareMenu("outputShare", "", ExportLaTeXEvent.RESULT);
+        shareMenuBar.ensureDebugId("resultFieldShareMenuBar");
         //this.outputOptionButton = new Button(""); TODO delete if not needed
         // TODO Set styling for optionButton
         //outputOptionButton.addStyleName("outputShare");
         //this.outputDockLayoutPanel.addWest(this.outputOptionButton, 4); // TODO delete if not needed
         this.outputDockLayoutPanel.addWest(shareMenuBar, 4);
         this.outputCodeMirror = new CodeMirrorPanel();
+        this.outputCodeMirror.ensureDebugId("outputCodeMirror");
         this.outputDockLayoutPanel.add(this.outputCodeMirror);
         this.outputDockLayoutPanel.setSize("100%", "100%");
 
@@ -209,8 +226,9 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     private MenuBar createShareMenu(String shareMenuStyleName, String optionstyleName, int index) {
-        MenuBar shareMenu = new MenuBar(true);
-        MenuBar options = new MenuBar(true);
+        final MenuBar shareMenu = new MenuBar(true);
+        final MenuBar options = new MenuBar(true);
+        options.ensureDebugId("shareMenuOptions");
 
         // TODO Set styling for option button
         //shareMenu.addStyleName(shareMenuStyleName);
@@ -252,18 +270,18 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void addNextStep(List<HighlightedLambdaExpression> highlightedLambdaExpressions, int index) {
-        for (int i = 0; i < highlightedLambdaExpressions.size(); i++) {
-            addStepEntry(stepFieldTable.getRowCount(), index + i, highlightedLambdaExpressions.get(i));
-        }
+    public void addNextStep(HighlightedLambdaExpression highlightedLambdaExpression, int index) {
+        stepMap.put(index, highlightedLambdaExpression);
+        addStepEntry(stepFieldTable.getRowCount(), index, highlightedLambdaExpression);
     }
 
     private void addStepEntry(int entryIndex, int visibleIndex, HighlightedLambdaExpression hle) {
         stepFieldTable.setText(entryIndex, 0, Integer.toString(visibleIndex));
-        //stepFieldTable.setWidget(entryIndex, 1, new Button()); TODO Delete if new solution works
         // TODO set shareMenu Style and optionMenuStyle
-        stepFieldTable.setWidget(entryIndex,1, createShareMenu("", "", visibleIndex));
+        stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
+        cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
+
 
         //TODO: once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
@@ -274,8 +292,73 @@ public class EditorView extends Composite implements EditorDisplay {
             cmp.setOption("lineNumbers", false);
             cmp.setOption("theme", "material");
             cmp.setOption("lineWrapping", true);
+
+            // highlight next redex
+            HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
+            if (nextRedex != null) {
+
+                // determine start and end tokens
+                int count = 0;
+                Token start = null;
+                Token end = null;
+                for (Token t : hle) {
+                    if (count++ == nextRedex.startToken) {
+                        start = t;
+                        continue;
+                    }
+                    if (count == nextRedex.lastToken) {
+                        end = t;
+                        break;
+                    }
+                }
+                cmp.markText(start.getLine() - 1,
+                        start.getColumn() - 1,
+                        end.getLine() - 1,
+                        end.getColumn() - 1,
+                        "#5a7083");
+            }
+
+
         });
         stepFieldTable.setWidget(entryIndex, 2, cmp);
+
+
+    }
+
+    /**
+     * Replace the last HLE with a new one.
+     *
+     * @param hle New hle to replace the old last one.
+     */
+    public void replaceLastStep(HighlightedLambdaExpression hle) {
+        int index = stepFieldTable.getRowCount();
+        stepMap.remove(index);
+        stepMap.put(index, hle);
+        ((CodeMirrorPanel) stepFieldTable.getWidget(index, 2)).setValue(hle.toString());
+    }
+
+    private int[] getTokenPosition(CodeMirrorPanel cm, HighlightedLambdaExpression hle, int index) {
+        GWT.log("getTokenPosition");
+        int tokenPosition = 0;
+        for (Token token: hle) {
+            if (token.getOffset() == index) {
+                break;
+            }
+            tokenPosition += token.toString().length();
+        }
+        
+        int line = 0;
+        int ch = 0;
+        for (int i = 0; i < cm.lineCount(); ++i) {
+            if (tokenPosition >= cm.getLine(i).length()) {
+                tokenPosition -= cm.getLine(i).length();
+            } else {
+                ch = tokenPosition;
+                break;
+            }
+        }
+        GWT.log(String.valueOf(line) + "  " + String.valueOf(ch));
+        return new int[] {line, ch};
     }
 
     //TODO:remove once hle is done
@@ -304,8 +387,13 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.setWidget(entryIndex, 2, cmp);
     }
 
+    private void highlightDEBUG() {
+        inputCodeMirror.markText(0, 1, 0, 5, "#ff0");
+    }
+
     @Override
     public void resetSteps() {
+        stepMap.clear();
         stepFieldTable.removeAllRows();
     }
 
@@ -335,6 +423,7 @@ public class EditorView extends Composite implements EditorDisplay {
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
+        this.stepMap.put(0, highlightedLambdaExpression);
     }
 
     /**

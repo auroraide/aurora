@@ -3,6 +3,7 @@ package aurora.client.presenter;
 import aurora.backend.Comparer;
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.RedexPath;
 import aurora.backend.betareduction.BetaReducer;
 import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
@@ -99,14 +100,13 @@ public class EditorPresenterTest {
         bus.fireEvent(new StepEvent());
 
         // make sure the input gets set
-        verify(editorDisplay).setInput(new HighlightableLambdaExpression(stream));
+        HighlightableLambdaExpression streamHle = new HighlightableLambdaExpression(stream, sample, new RedexPath());
+        verify(editorDisplay).setInput(streamHle);
+
         ReductionStrategy strategy = new NormalOrder();
         BetaReducer br = new BetaReducer(strategy);
-        List<HighlightedLambdaExpression> steps = new ArrayList<>();
         Term last = sample;
         last = br.reduce(last);
-        steps.add(new HighlightableLambdaExpression(last));
-        verify(editorDisplay).addNextStep(steps, 1);
     }
 
     @Test
