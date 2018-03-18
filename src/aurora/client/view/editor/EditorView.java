@@ -129,7 +129,7 @@ public class EditorView extends Composite implements EditorDisplay {
         optionsMenu.addItem("", setupInputMenuBar());
         optionsMenu.setStyleName("stepShareSettings");
         MenuBar debugMenu = new MenuBar(true);
-        debugMenu.addItem("debug", setupInputMenuBarDEBUG());
+        //debugMenu.addItem("debug", setupInputMenuBarDEBUG());
         this.inputDockLayoutPanel.addWest(optionsMenu, 4);
         this.inputDockLayoutPanel.addWest(debugMenu, 4);
 
@@ -169,37 +169,25 @@ public class EditorView extends Composite implements EditorDisplay {
     private MenuBar setupInputMenuBarDEBUG() {
         MenuBar debugMenuBar = new MenuBar(true);
 
-        debugMenuBar.addItem("add 5 Steps", new Command() {
-            public void execute() {
-                List<String> strings = new LinkedList<String>();
-                strings.add("#Ugly as a blobfish, but hey, it works :)");
-                strings.add("#Should add a scrollbar, shouldn't I\n$plus");
-                strings.add("third #<- not a comment :)");
-                strings.add("$plus 2 λs.λz.s(sz)");
-                strings.add("whatchaknow\nnever thought you'd make it down here");
-                addNextStepDEBUG(strings);
-            }
+        debugMenuBar.addItem("add 5 Steps", (Command) () -> {
+            List<String> strings = new LinkedList<String>();
+            strings.add("#Ugly as a blobfish, but hey, it works :)");
+            strings.add("#Should add a scrollbar, shouldn't I\n$plus");
+            strings.add("third #<- not a comment :)");
+            strings.add("$plus 2 λs.λz.s(sz)");
+            strings.add("whatchaknow\nnever thought you'd make it down here");
+            addNextStepDEBUG(strings);
         });
 
-        debugMenuBar.addItem("remove Steps", new Command() {
-            public void execute() {
-                resetSteps();
-            }
+        debugMenuBar.addItem("remove Steps", (Command) () -> resetSteps());
+
+        debugMenuBar.addItem("show Error Popup", (Command) () -> {
+            infoDialogBox.setTitle("This is an error");
+            infoDialogBox.setDescription("42");
+            infoDialogBox.show();
         });
 
-        debugMenuBar.addItem("show Error Popup", new Command() {
-            public void execute() {
-                infoDialogBox.setTitle("This is an error");
-                infoDialogBox.setDescription("42");
-                infoDialogBox.show();
-            }
-        });
-
-        debugMenuBar.addItem("Highlight", new Command() {
-            public void execute() {
-                highlightDEBUG();
-            }
-        });
+        debugMenuBar.addItem("Highlight", (Command) () -> highlightDEBUG());
 
         return debugMenuBar;
     }
