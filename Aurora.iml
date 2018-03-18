@@ -45,9 +45,9 @@
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="gwt-dev-2.7.0" level="project" />
     <orderEntry type="library" name="mockito-core-1.9.5" level="project" />
-    <orderEntry type="library" name="jbrowserdriver-1.0.0-RC1" level="project"/>
-    <orderEntry type="library" name="selenium-remote-driver-3.10.0" level="project"/>
-    <orderEntry type="library" name="selenium-api-3.10.0" level="project"/>
+    <orderEntry type="library" name="jbrowserdriver-1.0.0-RC1" level="project" />
+    <orderEntry type="library" name="selenium-remote-driver-3.10.0" level="project" />
+    <orderEntry type="library" name="selenium-api-3.10.0" level="project" />
     <orderEntry type="library" name="gwt-user" level="project" />
     <orderEntry type="module-library">
       <library name="IvyIDEA">
@@ -77,9 +77,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/jars/gwtmockito-1.1.6.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/jars/gwt-dev-2.7.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/jars/gwt-user-2.7.0.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/jars/mockito-core-1.9.5.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-1.0.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.17.1-GA.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.guava/guava/jars/guava-23.6-jre.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/jars/selenium-java-3.10.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/jars/selenium-api-3.10.0.jar!/" />
@@ -106,9 +103,25 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/jars/zt-exec-1.7.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/jars/jna-4.2.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.6.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/jars/fast-classpath-scanner-2.9.3.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/jars/slf4j-simple-1.7.25.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stefanbirkner/system-rules/jars/system-rules-1.17.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/nl.jqno.equalsverifier/equalsverifier/jars/equalsverifier-2.4.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito/jars/powermock-api-mockito-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito-common/jars/powermock-api-mockito-common-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-support/jars/powermock-api-support-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-reflect/jars/powermock-reflect-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-2.4.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-core/jars/powermock-core-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.21.0-GA.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/jars/mockito-core-1.10.19.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4/jars/powermock-module-junit4-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4-common/jars/powermock-module-junit4-common-1.7.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jgit/org.eclipse.jgit/jars/org.eclipse.jgit-4.9.2.201712150930-r.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.jcraft/jsch/jars/jsch-0.1.54.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.javaewah/JavaEWAH/bundles/JavaEWAH-1.1.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.jacoco/org.jacoco.agent/jars/org.jacoco.agent-0.7.9-runtime.jar!/" />
         </CLASSES>
         <JAVADOC>
           <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/javadocs/checkstyle-8.7-javadoc.jar!/" />
@@ -134,8 +147,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/javadocs/gwtmockito-1.1.6-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/javadocs/gwt-dev-2.7.0-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/javadocs/gwt-user-2.7.0-javadoc.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/javadocs/mockito-core-1.9.5-javadoc.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/javadocs/objenesis-1.0-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/javadocs/selenium-java-3.10.0-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/javadocs/selenium-api-3.10.0-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/javadocs/selenium-chrome-driver-3.10.0-javadoc.jar!/" />
@@ -162,9 +173,25 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/javadocs/zt-exec-1.7-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/javadocs/jna-4.2.2-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/javadocs/commons-lang-2.6-javadoc.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/javadocs/commons-io-2.2-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/javadocs/fast-classpath-scanner-2.9.3-javadoc.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/javadocs/slf4j-simple-1.7.25-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stefanbirkner/system-rules/javadocs/system-rules-1.17.0-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/nl.jqno.equalsverifier/equalsverifier/javadocs/equalsverifier-2.4-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito/javadocs/powermock-api-mockito-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito-common/javadocs/powermock-api-mockito-common-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-support/javadocs/powermock-api-support-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-reflect/javadocs/powermock-reflect-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/javadocs/objenesis-2.4-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-core/javadocs/powermock-core-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/javadocs/javassist-3.21.0-GA-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/javadocs/mockito-core-1.10.19-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4/javadocs/powermock-module-junit4-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4-common/javadocs/powermock-module-junit4-common-1.7.3-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/javadocs/commons-io-2.6-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jgit/org.eclipse.jgit/javadocs/org.eclipse.jgit-4.9.2.201712150930-r-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.jcraft/jsch/javadocs/jsch-0.1.54-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.javaewah/JavaEWAH/javadocs/JavaEWAH-1.1.6-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.jacoco/org.jacoco.agent/javadocs/org.jacoco.agent-0.7.9-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
           <root url="jar://$USER_HOME$/.ivy2/cache/com.puppycrawl.tools/checkstyle/sources/checkstyle-8.7-sources.jar!/" />
@@ -191,9 +218,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt.gwtmockito/gwtmockito/sources/gwtmockito-1.1.6-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-dev/sources/gwt-dev-2.7.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.gwt/gwt-user/sources/gwt-user-2.7.0-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/sources/mockito-core-1.9.5-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/sources/objenesis-1.0-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/sources/javassist-3.17.1-GA-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-java/sources/selenium-java-3.10.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-api/sources/selenium-api-3.10.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/sources/selenium-chrome-driver-3.10.0-sources.jar!/" />
@@ -220,9 +244,25 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.zeroturnaround/zt-exec/sources/zt-exec-1.7-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/sources/jna-4.2.2-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/sources/commons-lang-2.6-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/sources/commons-io-2.2-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/io.github.lukehutch/fast-classpath-scanner/sources/fast-classpath-scanner-2.9.3-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-simple/sources/slf4j-simple-1.7.25-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.stefanbirkner/system-rules/sources/system-rules-1.17.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/nl.jqno.equalsverifier/equalsverifier/sources/equalsverifier-2.4-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito/sources/powermock-api-mockito-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-mockito-common/sources/powermock-api-mockito-common-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-api-support/sources/powermock-api-support-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-reflect/sources/powermock-reflect-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.objenesis/objenesis/sources/objenesis-2.4-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-core/sources/powermock-core-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.javassist/javassist/sources/javassist-3.21.0-GA-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.mockito/mockito-core/sources/mockito-core-1.10.19-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4/sources/powermock-module-junit4-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.powermock/powermock-module-junit4-common/sources/powermock-module-junit4-common-1.7.3-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-io/commons-io/sources/commons-io-2.6-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jgit/org.eclipse.jgit/sources/org.eclipse.jgit-4.9.2.201712150930-r-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.jcraft/jsch/sources/jsch-0.1.54-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.javaewah/JavaEWAH/sources/JavaEWAH-1.1.6-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.jacoco/org.jacoco.agent/sources/org.jacoco.agent-0.7.9-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
