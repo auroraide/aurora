@@ -111,12 +111,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         return redexes;
     }
 
-
-
-    @SuppressWarnings("Duplicates")
     private class RedexPathToRedexFromMetaTermVisitor extends TermVisitor<Void> {
+
         private final RedexPath nextPath;
+
         private final RedexPath currentPath;
+        
         private MetaTerm lastMeta;
 
         public RedexPathToRedexFromMetaTermVisitor(RedexPath nextPath) {
@@ -509,53 +509,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             if (amRedex) {
                 // more magic
-                /*int offsetoffset = app.right.accept(new TermVisitor<Integer>() {
-                    @Override
-                    public Integer visit(Abstraction abs) {
-                        // 4 = lambda, var, dot, whitespace
-                        return 4 + abs.body.accept(this);
-                    }
-
-                    @Override
-                    public Integer visit(Application app) {
-                        int count = 0;
-                        if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
-                            count += 2;
-                        }
-                        if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
-                            count += 2;
-                        }
-                        count++;
-
-                        int left = app.left.accept(this);
-                        int right = app.left.accept(this);
-
-                        return count + left + right;
-                    }
-
-                    @Override
-                    public Integer visit(BoundVariable bvar) {
-                        return 1;
-                    }
-
-                    @Override
-                    public Integer visit(FreeVariable fvar) {
-                        return 1;
-                    }
-
-                    @Override
-                    public Integer visit(Function libterm) {
-                        return 1;
-                    }
-
-                    @Override
-                    public Integer visit(ChurchNumber c) {
-                        return 1;
-                    }
-                }) - 1;
-
-                lastTokenOffset = offset + offsetoffset;*/
-
                 lastTokenOffset = tokens.get(tokens.size() - 1).getOffset();
 
                 assert (startTokenOffset >= 0 && middleTokenOffset >= 0 && lastTokenOffset >= 0);
@@ -763,4 +716,5 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             return true;
         }
     }
+
 }
