@@ -429,7 +429,6 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             this.nextPath = nextPath;
         }
 
-
         @Override
         public Void visit(Abstraction abs) {
             tokens.add(new Token(Token.TokenType.T_LAMBDA, line, column, offset));

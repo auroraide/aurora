@@ -20,7 +20,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -32,7 +31,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This is where the user may view and manipulate code.
@@ -299,7 +297,7 @@ public class EditorView extends Composite implements EditorDisplay {
             if (nextRedex != null) {
 
                 GWT.log("nextRedex.startToken = " + nextRedex.startToken);
-                GWT.log("nextRedex.startToken = " + nextRedex.middleToken);
+                GWT.log("nextRedex.middleToken = " + nextRedex.middleToken);
                 GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
 
                 // determine start and end tokens
@@ -334,13 +332,13 @@ public class EditorView extends Composite implements EditorDisplay {
                         start.getColumn() - 1,
                         middle.getLine() - 1,
                         middle.getColumn(),
-                        "#5a7083");
+                        "magenta");
 
                 cmp.markText(middle.getLine() - 1,
                         middle.getColumn(),
                         end.getLine() - 1,
                         end.getColumn() + end.toString().length(),
-                        "#697e79");
+                        "lime");
             }
 
 
@@ -410,9 +408,49 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
-        this.stepMap.put(0, highlightedLambdaExpression);
+    public void setInput(HighlightedLambdaExpression hle) {
+        this.inputCodeMirror.setValue(hle.toString());
+        this.stepMap.put(0, hle);
+
+        // highlight next redex
+        HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
+        if (nextRedex != null) {
+            // determine start and end tokens
+            Token start = null;
+            Token middle = null;
+            Token end = null;
+            for (Token t : hle) {
+                if (t.getOffset() == nextRedex.startToken) {
+                    start = t;
+                    // we have to keep looking because middle might be == start
+                    //continue;
+                }
+                if (t.getOffset() == nextRedex.middleToken) {
+                    middle = t;
+                    continue;
+                }
+                if (t.getOffset() == nextRedex.lastToken) {
+                    end = t;
+                    break;
+                }
+            }
+
+            assert (start != null);
+            assert (middle != null);
+            assert (end != null);
+
+            inputCodeMirror.markText(start.getLine() - 1,
+                    start.getColumn() - 1,
+                    middle.getLine() - 1,
+                    middle.getColumn(),
+                    "#5a7083");
+
+            inputCodeMirror.markText(middle.getLine() - 1,
+                    middle.getColumn(),
+                    end.getLine() - 1,
+                    end.getColumn() + end.toString().length(),
+                    "#4b636b");
+        }
     }
 
     /**
