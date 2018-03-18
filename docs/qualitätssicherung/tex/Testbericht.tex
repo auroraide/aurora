@@ -20,7 +20,8 @@
 \usepackage[nameinlink]{cleveref}
 \crefname{figure}{Abb}{Abb}
 \usepackage[section]{placeins}
-\usepackage{xcolor}
+%\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{graphicx}
 \usepackage{colortbl}
 \usepackage{xcolor}
@@ -65,7 +66,7 @@ bookmarks=true,
         {\cellcolor{red!20}}
         {}
     \ifthenelse{\equal{#2}{Manuell getestet}}
-        {\cellcolor{orange!20}}
+        {\cellcolor{LimeGreen!20}}
         {}
     \ifthenelse{\equal{#2}{Automatisiert getestet}}
         {\cellcolor{green!20}}
@@ -668,9 +669,9 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
-            \testline{T7.1}{Nicht getestet}
-            \testline{T7.2}{Nicht getestet}
-            \testline{T7.3}{Nicht getestet}
+            \testline{T7.1}{Automatisiert getestet}
+            \testline{T7.2}{Automatisiert getestet}
+            \testline{T7.3}{Automatisiert getestet}
         \end{tabular}
     \end{center}
 
@@ -707,8 +708,8 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
             Testfall & Testgüte \\ \hline
-            \testline{T9.1}{Nicht getestet}
-            \testline{T9.1}{Nicht getestet}
+            \testline{T9.1}{Manuell getestet}
+            \testline{T9.1}{Automatisiert getestet}
         \end{tabular}
     \end{center}
 
@@ -754,6 +755,7 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     Diese Übersetzung erschwert es Programmen wie Jacoco eine Coveragestatistik anzeigen zu lassen.
     Tests, die das Programm als Blackbox betrachten und überprüfen, dass die Aufgaben korrekt sind müssen
     mit GWTTestcases und Selenium geschrieben werden.
+    Beide Testfälle haben auch das Problem, dass sie sehr lange brauchen um durchzulaufen.
     Beide dieser Testarten werden von gängigen Coveragetools nicht erkannt und die Coverage wird nicht
     ermittelt.
     Damit können genaue Überdeckungsaussagen nur über das Backend getroffen werden, welches vollständig mit JUnit und ähnlichem
@@ -771,13 +773,19 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 	Ein zweites Problem sind die Visitoren, die alle Methoden überschreiben müssen.
 	Im HighlghtableLambdaExpression werden zum Beispiel alle gebundenen Variablen in Freie Variablen geändert.
 	Dennoch müssen alle Visitoren die Methode accept(BoundedVariable bvar) implementieren obwohl es unmöglich ist, dass diese Methode aufgerufen ist.
-	Gäbe es diese zwei Fälle nicht, wäre die Coverage des Backends bei 100 \%. 
-
+	Gäbe es diese zwei Fälle nicht, wäre die Coverage des Backends bei 100\%. 
+	
 	
 	\begin{figure}[H]
 		\includegraphics[scale = 0.55]{images/backend.png}
 	\end{figure}
 	
 	Die Zeilenüberdeckung des Backends ist mit diesen zwei Problemfällen bei nur 96\% 
-		
+	
+	
+	Die Überdeckung des Frontends und des Presenter konnte nicht bestimmt werden. 
+	Für eine bessere Einschätzung gibt es folgende Werte:
+	Die Tests für Frontend und Presenter bestehen aus \textasciitilde 1000 Zeilen Code.
+	
+	
 \end{document}

@@ -175,4 +175,19 @@ public class EditorIntegrationSeleniumTest {
 
         assertEquals("z", waitForOutput());
     }
+
+    /**
+     * Tests T6.1 (See Pflichtenheft).
+     */
+    @Test
+    public void testPlusColoredHighlighting() {
+        WebElement inputCodeMirror;
+        getInput().sendKeys("$add");
+        getRunButton().click();
+        inputCodeMirror = driver.findElement(By.id("inputCodeMirror")).findElements(By.tagName("span")).get(2);
+        assertEquals("$add", inputCodeMirror.getText());
+        assertEquals("rgba(199, 146, 234, 1)",inputCodeMirror.getCssValue("color"));
+    }
+
+
 }
