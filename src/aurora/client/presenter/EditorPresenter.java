@@ -209,6 +209,7 @@ public class EditorPresenter {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        GWT.log("redstrat = "+ reductionStrategy + " ");
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
@@ -466,8 +467,11 @@ public class EditorPresenter {
         public void run() {
             // we have already been started by our onRun function.
             assert (berry != null);
-            assert (berry.hasNext());
-
+            //assert (berry.hasNext());
+            if (!berry.hasNext()) {
+                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+                finish();
+            }
             Term current = berry.next();
             if (!berry.hasNext()) {
                 // current is irreducible => result.
