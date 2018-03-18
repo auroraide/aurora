@@ -67,6 +67,7 @@ public class EditorPresenter {
     private final HighlightTimer highlightTimer;
     private RunTimer runTimer;
     private StepTimer stepTimer;
+    private PrintNLastStepsTimer printNLastTimer;
 
     private ReStepTimer reStepTimer;
     private Iterator<Step> reStepper;
@@ -102,13 +103,14 @@ public class EditorPresenter {
         this.steps = steps;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
-
+        this.reductionStrategy = StrategyType.NORMALORDER;
         highlightTimer = new HighlightTimer();
         runTimer = null;
         reStepper = null;
         stepsToComputeAtOnce = 1;
 
         bind();
+
         reset();
     }
 
@@ -136,8 +138,10 @@ public class EditorPresenter {
             runTimer.cancel();
             runTimer = null;
         }
-
-        reductionStrategy = StrategyType.NORMALORDER;
+        if (stepTimer != null) {
+            stepTimer.cancel();
+            stepTimer = null;
+        }
         highlightTimer.scheduleRepeating(100);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
@@ -147,8 +151,10 @@ public class EditorPresenter {
     }
 
     private void finish() {
-        runTimer.cancel();
-        runTimer = null;
+        if (runTimer != null) {
+            runTimer.cancel();
+            runTimer = null;
+        }
     }
 
     private Step last() {
@@ -190,10 +196,13 @@ public class EditorPresenter {
     private ReductionStrategy createReductionStrategy() {
         switch (reductionStrategy) {
             case CALLBYVALUE:
+                GWT.log("CBV detected");
                 return new CallByValue();
             case CALLBYNAME:
+                GWT.log("CBN detected");
                 return new CallByName();
             case NORMALORDER:
+                GWT.log("Normalorder detected");
                 return new NormalOrder();
             default:
                 throw new IllegalStateException("Unknown strategy type");
@@ -205,6 +214,11 @@ public class EditorPresenter {
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        if (!berry.hasNext()) {
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+            finish();
+            return;
+        }
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
@@ -216,9 +230,28 @@ public class EditorPresenter {
         runTimer.cancel();
         runTimer = null;
 
-        // max(1,...) because otherwise we'd print the input as well
-        for (int i = Math.max(1, steps.size() - stepsToComputeAtOnce); i < steps.size(); i++) {
-            editorDisplay.addNextStep(steps.get(i).getHle(), i);
+        printNLastTimer = new PrintNLastStepsTimer();
+        printNLastTimer.scheduleRepeating(1);
+    }
+
+    private class PrintNLastStepsTimer extends Timer {
+        private int counter;
+
+        public PrintNLastStepsTimer() {
+            counter = Math.max(1, steps.size() - stepsToComputeAtOnce);
+        }
+
+        @Override
+        public void run() {
+            if (counter >= steps.size()) {
+                int bla = steps.size();
+                cancel();
+                printNLastTimer = null;
+                return;
+            }
+
+            editorDisplay.addNextStep(steps.get(counter).getHle(), counter);
+            counter++;
         }
     }
 
@@ -291,10 +324,43 @@ public class EditorPresenter {
 
         if (!berry.hasNext()) {
             editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+            finish();
+            return;
         }
 
         stepTimer = new StepTimer();
         stepTimer.scheduleRepeating(1);
+    }
+
+    private class StepTimer extends Timer {
+        private int counter;
+
+        public StepTimer() {
+            counter = stepsToComputeAtOnce;
+        }
+
+        @Override
+        public void run() {
+            if (counter-- <= 0) {
+                cancel();
+                stepTimer = null;
+                return;
+            }
+
+            Term next = berry.next();
+            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
+            steps.add(new Step(next, hle));
+
+
+            if (!berry.hasNext()) {
+                cancel();
+                stepTimer = null; // works because GC
+                editorDisplay.displayResult(hle);
+                return;
+            }
+
+            editorDisplay.addNextStep(hle, steps.size() - 1);
+        }
     }
 
     private void onReStep() {
@@ -317,6 +383,37 @@ public class EditorPresenter {
         reStepTimer = new ReStepTimer();
         reStepTimer.scheduleRepeating(1);
 
+    }
+
+    private class ReStepTimer extends Timer {
+        private int counter;
+
+        private ReStepTimer() {
+            this.counter = stepsToComputeAtOnce;
+        }
+
+        @Override
+        public void run() {
+            assert (reStepper.hasNext());
+
+            if (counter-- <= 0) {
+                cancel();
+                reStepTimer = null;
+                return;
+            }
+
+            Step current = reStepper.next();
+
+            if (reStepper.hasNext()) {
+                // current reducible
+                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
+            } else {
+                // current is irreducible => current term is result.
+                editorDisplay.finishedFinished(current.getHle());
+            }
+
+            nextReStepIndex++;
+        }
     }
 
     private void onRedexClicked(HighlightedLambdaExpression.Redex redex) {
