@@ -24,7 +24,7 @@ import aurora.utils.GWTTestCaseSetup;
 public class JSONSessionEncoderGwtTest extends GWTTestCase {
 
     public String getModuleName() {
-        return "aurora.Testing";
+        return "aurora.Aurora";
     }
 
 
