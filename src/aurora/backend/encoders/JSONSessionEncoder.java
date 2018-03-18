@@ -13,6 +13,7 @@ import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.encoders.exceptions.DecodeException;
+import aurora.backend.encoders.JSONEscaper;
 
 /**
  * Serialize/deserialize a {@link Session} into a JSON string.
@@ -60,13 +61,24 @@ public class JSONSessionEncoder extends SessionEncoder {
         return JsonUtils.stringify(jso);
     }
 
+    /**
+     * Returns an escaped JSON String.
+     *
+     * @param toEscape String to escape.
+     * @return escaped String.
+     */   
+    public String escape(String toEscape) {
+        JSONEscaper jsonEscaper = new JSONEscaper();
+        return jsonEscaper.escape(toEscape);
+    }
+
     @Override
     public Session decode(String encodedInput) throws DecodeException {
-        String toDecode = encodedInput.replaceAll("\\\\", "\\\\\\\\");
-        if (!JsonUtils.safeToEval(toDecode)) {
+        String toDecode = JsonUtils.escapeJsonForEval(encodedInput);
+        if (!JsonUtils.safeToEval(encodedInput)) {
             throw new DecodeException("Invalid json file");
         }
-        JavaScriptObject jso = JsonUtils.safeEval(toDecode);
+        JavaScriptObject jso = JsonUtils.safeEval(encodedInput);
         //TODO Try catch rawInput
         String rawInput = getProperty(jso, "rawInput");
         //TODO Try catch this one
@@ -83,12 +95,23 @@ public class JSONSessionEncoder extends SessionEncoder {
             try {
                 term = lambdaParser.parse(lambdaLexer.lex(libraryString[i][2]));
             } catch (SemanticException | SyntaxException e) {
-                throw new DecodeException("Invalid json file");
+                throw new DecodeException("Invalid json file: " + e.getMessage());
             } 
             library.define(name, description, term);
         }
 
         return new Session(rawInput, library);
+    }
+
+    /**
+     * Returns an unescapes JSON String.
+     *
+     * @param toUnescape String to unescape.
+     * @return unescaped String.
+     */
+    public String unescape(String toUnescape) {
+        JSONEscaper jsonEscaper = new JSONEscaper();
+        return jsonEscaper.unescape(toUnescape);
     }
 
     private native void setProperty(JavaScriptObject jso, String property, Object value) /*-{
