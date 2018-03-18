@@ -1,5 +1,11 @@
 [
     {
+        "name": "id",
+        "function": "\\x.x",
+        "description": "$id x // identity of x"
+    },
+
+    {
         "name" : "add",
         "function" : "(\\m. \\n. \\s. \\z. m s (n s z))",
         "description" : "$add x y // x + y"
