@@ -138,8 +138,8 @@ public class EditorPresenter {
             runTimer = null;
         }
         if (stepTimer != null) {
-           stepTimer.cancel();
-           stepTimer = null;
+            stepTimer.cancel();
+            stepTimer = null;
         }
         highlightTimer.scheduleRepeating(1000);
         editorDisplay.resetSteps();
@@ -212,16 +212,10 @@ public class EditorPresenter {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        GWT.log("redstrat = "+ reductionStrategy + " ");
-        GWT.log("nullpe0");
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
-        GWT.log("nullp1");
         if (!berry.hasNext()) {
-            GWT.log("nullp2");
             editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
-            GWT.log("nullp3");
             finish();
-            GWT.log("nullp4");
             return;
         }
         runTimer = new RunTimer();
@@ -351,7 +345,7 @@ public class EditorPresenter {
                 stepTimer = null;
                 return;
             }
-            
+
             Term next = berry.next();
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
             steps.add(new Step(next, hle));

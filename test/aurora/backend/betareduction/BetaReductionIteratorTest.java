@@ -59,23 +59,4 @@ public class BetaReductionIteratorTest {
         assertEquals(true, ex);
     }
 
-    @Test
-    public void runtime() {
-        LambdaLexer lex = new LambdaLexer();
-        LambdaParser parser = new LambdaParser(new HashLibrary());
-        String input = "(\\x. (\\a. a) a)";
-
-        try {
-            BetaReductionIterator it = new BetaReductionIterator(new BetaReducer(new CallByValue()), parser.parse(lex.lex(input))
-               );
-            if (!it.hasNext()) {
-                System.out.println("t");
-            }
-        } catch (SyntaxException e) {
-            e.printStackTrace();
-        } catch (SemanticException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
