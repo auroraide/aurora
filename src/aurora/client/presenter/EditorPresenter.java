@@ -66,6 +66,7 @@ public class EditorPresenter {
     private final HighlightTimer highlightTimer;
     private RunTimer runTimer;
     private StepTimer stepTimer;
+    private PrintNLastStepsTimer printNLastTimer;
 
     private ReStepTimer reStepTimer;
     private Iterator<Step> reStepper;
@@ -221,9 +222,28 @@ public class EditorPresenter {
         runTimer.cancel();
         runTimer = null;
 
-        // max(1,...) because otherwise we'd print the input as well
-        for (int i = Math.max(1, steps.size() - stepsToComputeAtOnce); i < steps.size(); i++) {
-            editorDisplay.addNextStep(steps.get(i).getHle(), i);
+        printNLastTimer = new PrintNLastStepsTimer();
+        printNLastTimer.scheduleRepeating(1);
+    }
+
+    private class PrintNLastStepsTimer extends Timer {
+        private int counter;
+
+        public PrintNLastStepsTimer() {
+            counter = Math.max(1, steps.size() - stepsToComputeAtOnce);
+        }
+
+        @Override
+        public void run() {
+            if (counter >= steps.size()) {
+                int bla = steps.size();
+                cancel();
+                printNLastTimer = null;
+                return;
+            }
+
+            editorDisplay.addNextStep(steps.get(counter).getHle(), counter);
+            counter++;
         }
     }
 
