@@ -23,6 +23,9 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage[font=small,labelfont=bf]{caption} 
+\usepackage{float}
 \hypersetup{
 pdftitle={Testbericht},
 bookmarks=true,
@@ -758,29 +761,23 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 	Das Backend hat folgende Überdeckung:
 	
 	
-	Dem Team ist es nicht gelungen Coverage auf ein paar Methoden anzuwenden, weil sie Fälle abfangen, die zu dem jetzigen Zeitpunkt nicht auftreten können.
+	Es gibt zwei Arten von Fällen in denen es nicht gelungen ist, den Code mit Tests zu erreichen, 
+	weil sie zum Beispiel Fälle abfangen, die zu dem jetzigen Zeitpunkt nicht auftreten können.
 	Ein Beispiel: Der Lexer lexed den Input in einen Tokenstrem, die Arten der Tokens sind in einem Enum vordefiniert.
-	Dennoch sind im Parser Methoden die überprüfen, dass alle Tokens erkannt und geparsed wurden.
+	Dennoch sind im Parser Methoden, die überprüfen, dass alle Tokens erkannt und geparsed wurden.
 	Dies ist nicht testbar, weil es zur Runtime nicht möglich ist neue Arten von Tokens zu definieren.
-	Dieser zurzeit toter Code hätte für eine besser Coverage gelöscht werden können, es wurde sich aber dagegen entschieden, da die Möglichkeit besteht, 
-	dass das Programm geforked wird und neue Tokens im Enum definiert wurden.
+	Dieser zurzeit toter Code hätte für eine besser Coverage gelöscht werden müssen, es wurde sich aber dagegen entschieden, da die Möglichkeit besteht, 
+	dass das Programm geforked wird und in der Zukunft neue Tokens im Enum definiert werden, die nicht geparsed werden können.
 	Ein zweites Problem sind die Visitoren, die alle Methoden überschreiben müssen.
-	
-	Im HighlghtableLambdaExpression werden alle gebundenen Variablen in Freie Variablen geändert.
-	Dennoch müssen alle Visitoren die Methode accept(BoundedVariable bvar) obwohl es unmöglich ist, dass diese Methode aufrufbar ist.
-	
+	Im HighlghtableLambdaExpression werden zum Beispiel alle gebundenen Variablen in Freie Variablen geändert.
+	Dennoch müssen alle Visitoren die Methode accept(BoundedVariable bvar) implementieren obwohl es unmöglich ist, dass diese Methode aufgerufen ist.
 	Gäbe es diese zwei Fälle nicht, wäre die Coverage des Backends bei 100 \%. 
 
-\section{Glossar}
-\begin{itemize}
-    \item Issue
-    \item Issue Tracker
-    \item commit?
-    \item Backend
-    \item White-Box-Test
-    \item Black-Box-Test
-    \item push
-    \item GitLab
-\end{itemize}
-
+	
+	\begin{figure}[H]
+		\includegraphics[scale = 0.55]{images/backend.png}
+	\end{figure}
+	
+	Die Zeilenüberdeckung des Backends ist mit diesen zwei Problemfällen bei nur 96\% 
+		
 \end{document}
