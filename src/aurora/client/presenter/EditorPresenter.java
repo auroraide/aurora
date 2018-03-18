@@ -150,8 +150,10 @@ public class EditorPresenter {
     }
 
     private void finish() {
-        runTimer.cancel();
-        runTimer = null;
+        if (runTimer != null) {
+            runTimer.cancel();
+            runTimer = null;
+        }
     }
 
     private Step last() {
@@ -327,6 +329,8 @@ public class EditorPresenter {
 
         if (!berry.hasNext()) {
             editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+            finish();
+            return;
         }
 
         stepTimer = new StepTimer();
@@ -347,10 +351,11 @@ public class EditorPresenter {
                 stepTimer = null;
                 return;
             }
-
+            
             Term next = berry.next();
             HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
             steps.add(new Step(next, hle));
+
 
             if (!berry.hasNext()) {
                 cancel();
