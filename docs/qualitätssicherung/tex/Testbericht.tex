@@ -409,9 +409,7 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
     Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
     Vor der Behebung eines Fehlers, musste ein Regression Test geschrieben werden, der ebendiesen auslöste, nachdem der Fehler behoben wurde, durfte er dementsprechend nicht mehr ausschlagen.
     Bugs wurden durchgehend in einem Issue Tracker festgehalten, sobald eine Issue geschlossen werden konnte, wurde der commit vermerkt, der den Fehler behoben hat.
-    
-    \textbf{Was das?}
-    Gesquäschte Bugs: 1337.
+
 
     \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
         Wir stellen die Schrittzahl auf 2 ein.
@@ -592,20 +590,26 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
         die vom Benutzer verändert werden kann, zeitlich nicht gereicht.
     Die Ausgabe erfolgt jetzt mit Variablennamen und es wird $\alpha$-Konversion durchgeführt.
 
+\subsubsection{Benutzerdefinierte Auswahl (K10)}
+	Diese Auswertungsstrategie wurde wegen Zeitknappheit nicht implementiert.
+	Der Programmcode ist allerdings auf dieses Feature ausgelet und bietet
+	alle Methoden an, die für diese Strategie gebraucht werden.
+	 
 %\subsection{Benutzerdefinierte Reduktionsstrategie (K10)}
     % TODO kann gut sein, dass das noch implementiert wird.
     % Das selbe gilt für:
     % K5: Redexe highlighten.
     % K16: Öffnen im neuen Tab.
     % K20: Aurora Tutorial.
-
+	%TODO K16 neuer tab
+	%TODO HIGHLIGHTING K5
 \subsubsection{Mobile Darstellung (K25)}
 	Eine explizite Anpassung der Graphischen Oberfläche an mobile Endgeräte wurde sehr früh in der Implementierung
 	ausgeschlossen.
     Der Aufwand für den endgültigen Nutzen wäre zu groß gewesen, unter der Annahme das nicht viele Benutzter Lambda
     Kalkül auf ihrem Smartphone programmieren.
     Die Funktionalität des Programms ist auf einem modernen Smartphone dennoch gegeben.
-    % TODO oder machen wirs doch noch :P ?
+
 
 
 
@@ -628,6 +632,16 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 	
 \subsubsection{Lokale Sessions (K23)}
 	Auch dies wurde wie im Entwurfsdokument beschrieben nicht implementiert.
+	
+\subsubsection{Tastatur-Shortcuts (K24)} \label{w:k24}
+
+	Der Run Button wird mit \enquote{ctrl + enter} ausgelöst
+	Da der Pause Button der Run Button ersetzt, wenn eine Reduktion ausgeführt wird,
+	ist auch der Shortcut des Pause Button \enquote{ctrl + enter}
+	Gleiches gilt für den Continue Button, der den Pause Button ersetzt.
+	Der Shortcut für Step ist \enquote{ctrl + space}
+	Resetted wird mit \enquote{ctrl + backspace}.
+	
 \subsection{Nichtfunktionale Anforderungen}
 
 \subsubsection{Standardbibliothek und Benutzerbibliothek (N11) und (N22)}
@@ -640,10 +654,21 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 	Eine Funktion hat nun die gleichen Regeln wie eine Variable, sie muss aber 
 	weiterhin mit einem $\$$ beginnen.
 	
+	
+	
 \subsection{Testfälle}
 	Die Testfälle, die eine der vorher genannte Funktion referenzieren die adaptiert oder
 	gelöscht wurden.
+	
+	%TODO T5.3 HIGHLIGHTING
+	%TOD T8 sharing und speichern
+\subsubsection{Sprachenauswahl}
+Der "ENG-Knopf" wurde durch einen Sprachenknopf ersetzt um sofort den Zweckes des Buttons
+zu signalisieren.
 \subsubsection{Teilen Funktion (T2)}
+	T2.1 beschreibt den Schrittmenüknop, der durch hovern erscheint. Da die Benutzbarkeit
+	des Programms durch unsichtbare Buttons erschwert würde, wurde sich für einen 
+	permanenten Button entschieden.
 	In T2.3 wird beschrieben, dass ein Popup mit einer Bestätigung erscheint.
 	Dies wurde geänder.
 	Der Share Latex Knopf öffnet ein unterschiedliches Popup.
@@ -657,6 +682,66 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 	In T3.3 wird erwähnt, dass der Nachtmodus durch den Button aktiviert werden muss.
 	Es wurde entschieden, dass der Nachtmodus der Default Modus ist und die Helle
 	Oberfläche durch den Button aktiviert wird.
+	
+	In T4.3 wurde eine Bedingung gesetzt, dass die Ausgabe 4 ist, falls ein Wunschkriterium
+	erfüllt ist. Dieses ist erfüllt und die Ausgabe ist 4.
+	
+	T4.4 Wie bereits erwähnt ist dieses Kriterium nicht implementiert.
+	
+\subsubsection{Testen von Highlighting (T5)}
+	T5.1 referenziert die Funktion plus.
+	Bei dem Schreiben des Tests wurde der schon damals definierte Beginn einer Funktion
+	vergessen und $\texttt{\$plus}$ gemeint. Diese Funktion ist unter dem Namen $\texttt{\$add} $ 
+	implementiert.
+	
+	%todo correct highlightin%
+
+\subsubsection{Testen der Standard- und Benutzerbibliotheken (T6)}
+	In Test T6.2 sollte die \enquote{first} Funktion in die Benutzerbibliothek
+	hinzugefügt werden. Da diese Funktion als wichtig gilt wurden sie bereits 
+	in die Standardbibliothek integriert. 
+	Die Tests funktionieren allerdings mit beliebigen anderen Funktionen.
+	Als neues Beispiel wird die Funktion threeissmaller der Benutzerbibliothek
+	hinzugefügt und mit Term $\$LEQ \ 3 \ 5$ gespeichert.
+	
+	Der Benutzer kann nun in das Inputfeld $\texttt{\$threeissmaller} $ eingeben und 
+	im Ergebnis steht $\texttt{\$true}$
+	Mit dieser oder ähnlichen Modifikationen sind Tests T6.2 bis T6.4 ausführbar.
+	
+	
+	Erneut ist in T6.5 der Name der Funktion auf $\texttt{\$add}$ geändert worden.
+	T6.6 benutzt den Stepbutton und nicht den \enquote{3-Punkte-Button}.
+	Dies wird ab jetzt als bekannt vorausgesetzt und nicht erneut erwähnt.
+	
+	Die Churchzahlen werden erst bei Bedarf in ihre wahren Terme überführt um die
+	Anschaulichkeit zu steigern. Damit sind die Schritte zu ausführlich.
+	
+	In T6.9 wurde minus durch $\texttt{\$sub}$ ersetzt. 
+	
+	\subsubsection{Auswertungsstrategie und De Bruijn (T7)}
+	T7.2 Dass manuelle Drücken auf Redexe als Auswertungsstrategie wurde nicht implementiert.
+	
+	\subsubsection{Sharing und Speichern (T8)}
+	
+	% TODO T8.1 
+	% TODO t8.2
+	Die Funktion einen Term als Email zu verschicken, die in T8.3 getestet wird,
+	ist nicht implementiert.
+	
+	T8.5 und T8.6 benutzen das Wunschkriterium History, welches in der Implementierung
+	ausgeschlossen wurde.
+	\subsubsection{Tutorial und Prettyprint (T9)}
+	T9.1 ein Zeilenumbruch wird erfolgen, er wird allerdings nicht intelligent erfolgen
+	wie im Test beschrieben.
+	
+	\subsubsection{Ausgabe von Zwischenschritten (T10)}
+	In T10.2 wird gesagt, dass Zwischenschritte gelöscht wurde.
+	Es wurde sich dagen entschieden, da es eine schlechtere Benutzerfreundlichkeit
+	zur Folge gehabt hätte.
+	
+	\subsubsection{Shortcuts}
+	Shortcuts werden wie in \ref{w:k24} beschrieen ausgelöst.
+
 \section{Glossar}
 \begin{itemize}
     \item Issue
