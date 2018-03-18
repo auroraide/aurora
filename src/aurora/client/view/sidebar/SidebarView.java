@@ -108,7 +108,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.languageMenu = new MenuBar(true);
         this.shareMenu = new MenuBar(true);
         this.shareAndLanguageMenu = new MenuBar();
-        shareAndLanguageMenu.setAutoOpen(true);
+        shareAndLanguageMenu.setAutoOpen(false);
         shareAndLanguageMenu.setAnimationEnabled(true);
         this.userlib = new ArrayList<>();
 
