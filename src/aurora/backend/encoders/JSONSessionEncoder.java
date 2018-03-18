@@ -74,10 +74,7 @@ public class JSONSessionEncoder extends SessionEncoder {
 
     @Override
     public Session decode(String encodedInput) throws DecodeException {
-        console("JSON");
-        console(encodedInput);
         String toDecode = JsonUtils.escapeJsonForEval(encodedInput);
-        console(toDecode);
         if (!JsonUtils.safeToEval(encodedInput)) {
             throw new DecodeException("Invalid json file");
         }
