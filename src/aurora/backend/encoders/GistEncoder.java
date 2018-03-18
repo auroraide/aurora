@@ -3,8 +3,6 @@ package aurora.backend.encoders;
 import aurora.backend.encoders.exceptions.DecodeException;
 import aurora.backend.library.Library;
 import aurora.backend.encoders.JSONSessionEncoder;
-import aurora.backend.parser.LambdaLexer;
-import aurora.backend.parser.LambdaParser;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.http.client.RequestBuilder;
@@ -30,26 +28,22 @@ public class GistEncoder {
     private static final String REQUEST_FAILED = "The request failed, maybe you exceeded your gist api limit?";
     private static final String INVALID_ANSWER = "The received answer is invalid.";
     
-    private final LambdaLexer lambdaLexer;
-    private final LambdaParser lambdaParser;
+    private final Library stdLibrary;
 
     /**
      * Create a new GistEncoder.
      */
     public GistEncoder() {
-        this.lambdaLexer = null;
-        this.lambdaParser = null;
+        this.stdLibrary = null;
     }
 
     /**
-     * Decoding requires both lexer and parser.
+     * Create a new GistEncoder, useful for decoding.
      *
-     * @param lambdaLexer The lambdaLexer.
-     * @param lambdaParser The lambdaParser.
+     * @param stdLib which base library to use.
      */
-    public GistEncoder(LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
-        this.lambdaLexer = lambdaLexer;
-        this.lambdaParser = lambdaParser;
+    public GistEncoder(Library stdLib) {
+        this.stdLibrary = stdLib;
     }
 
     /**
@@ -77,7 +71,7 @@ public class GistEncoder {
     }
 
     public void decode(String url, AsyncCallback<Session> callback) {
-        JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
+        JSONSessionEncoder jse = new JSONSessionEncoder(stdLibrary);
         getGist(url, callback);
     }
 
@@ -133,7 +127,7 @@ public class GistEncoder {
                         throw new RuntimeException(INVALID_ANSWER);
                     }
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
-                    JSONSessionEncoder jse = new JSONSessionEncoder(lambdaLexer, lambdaParser);
+                    JSONSessionEncoder jse = new JSONSessionEncoder(stdLibrary);
                     String json = getProperty(jso, "files", FILE_NAME, "content");
                     Session session;
                     try {

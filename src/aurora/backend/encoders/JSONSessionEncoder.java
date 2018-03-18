@@ -12,6 +12,7 @@ import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.tree.Term;
 import aurora.backend.library.Library;
 import aurora.backend.library.HashLibrary;
+import aurora.backend.library.MultiLibrary;
 import aurora.backend.encoders.exceptions.DecodeException;
 import aurora.backend.encoders.JSONEscaper;
 
@@ -20,28 +21,33 @@ import aurora.backend.encoders.JSONEscaper;
  */
 public class JSONSessionEncoder extends SessionEncoder {
 
+    private final Library stdLib;
+    private final Library userLib;
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
     /**
-     * Neither lexer nor parser are needed to encode to JSON.
+     * Creates a new JSONSessionEncoder, useful for encoding.
      */
     public JSONSessionEncoder() {
         super();
+        this.stdLib = null;
+        this.userLib = null;
         this.lambdaLexer = null;
         this.lambdaParser = null;
     }
 
     /**
-     * Decoding requires both lexer and parser.
+     * Creates a new JSONSessionEncoder, useful for decoding.
      *
-     * @param lambdaLexer The lambdaLexer.
-     * @param lambdaParser The LambdaParser.
+     * @param stdLib the default library.
      */
-    public JSONSessionEncoder(LambdaLexer lambdaLexer, LambdaParser lambdaParser) {
+    public JSONSessionEncoder(Library stdLib) {
         super();
-        this.lambdaLexer = lambdaLexer;
-        this.lambdaParser = lambdaParser;
+        this.stdLib = stdLib;
+        this.userLib = new HashLibrary();
+        this.lambdaLexer = new LambdaLexer();
+        this.lambdaParser = new LambdaParser(new MultiLibrary(this.stdLib, this.userLib));
     }
 
     @Override
@@ -83,7 +89,6 @@ public class JSONSessionEncoder extends SessionEncoder {
         String rawInput = getProperty(jso, "rawInput");
         //TODO Try catch this one
         String[][] libraryString = getLibrary(jso);
-        Library library = new HashLibrary();
         
         String name;
         String description;
@@ -97,10 +102,10 @@ public class JSONSessionEncoder extends SessionEncoder {
             } catch (SemanticException | SyntaxException e) {
                 throw new DecodeException("Invalid json file: " + e.getMessage());
             } 
-            library.define(name, description, term);
+            userLib.define(name, description, term);
         }
 
-        return new Session(rawInput, library);
+        return new Session(rawInput, userLib);
     }
 
     /**
@@ -141,7 +146,6 @@ public class JSONSessionEncoder extends SessionEncoder {
     private native void console(String message) /*-{
         console.log(message);
     }-*/;
-
 
 }
 

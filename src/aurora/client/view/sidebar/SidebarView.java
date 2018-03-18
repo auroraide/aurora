@@ -113,7 +113,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.userlib = new ArrayList<>();
 
         this.stepNumber.setText(1 + "");
-        this.stackLibraries.showWidget(1);
+        //this.stackLibraries.showWidget(0);
         this.nightModeSwitch.setValue(true);
 
         setupShareLanguageMenu();
