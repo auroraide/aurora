@@ -210,7 +210,18 @@ public class EditorPresenter {
         GWT.log("EP: ContinueEvent caught.");
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        GWT.log("redstrat = "+ reductionStrategy + " ");
+        GWT.log("nullpe0");
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        GWT.log("nullp1");
+        if (!berry.hasNext()) {
+            GWT.log("nullp2");
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+            GWT.log("nullp3");
+            finish();
+            GWT.log("nullp4");
+            return;
+        }
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
