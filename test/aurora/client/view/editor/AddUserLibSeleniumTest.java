@@ -2,10 +2,7 @@ package aurora.client.view.editor;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.Settings;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -83,6 +80,7 @@ public class AddUserLibSeleniumTest {
      * T6.2
      */
     @Test
+    @Ignore
     public void addUserLibFunctionAndUse() {
         waitForElemExists(By.id("addFunctionButton")).click();
         waitForElemExists(By.id("nameField")).sendKeys("plus");
