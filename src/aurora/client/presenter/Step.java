@@ -13,7 +13,7 @@ public class Step {
     }
 
     public Term getTerm() {
-        return null;
+        return this.term;
     }
 
     public HighlightableLambdaExpression getHle() {

@@ -1,7 +1,13 @@
 package aurora.backend.betareduction;
 
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.betareduction.strategies.CallByValue;
 import aurora.backend.betareduction.strategies.NormalOrder;
+import aurora.backend.library.HashLibrary;
+import aurora.backend.parser.LambdaLexer;
+import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.exceptions.SemanticException;
+import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Abstraction;
 import aurora.backend.tree.Application;
 import aurora.backend.tree.BoundVariable;
@@ -52,4 +58,5 @@ public class BetaReductionIteratorTest {
         }
         assertEquals(true, ex);
     }
+
 }
