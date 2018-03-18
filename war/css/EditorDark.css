@@ -18,6 +18,7 @@
     height: 100% !important;
     display: inline-block !important;
     overflow-y: scroll !important;
+    left: 1em !important;
 
 }
 
@@ -59,7 +60,7 @@
     background-size: auto 70%;
     background-position: 5% center;
     background-color: #AE9945;
-    width: 95px;
+    width: 105px;
 }
 
 .action_bar .continue {
@@ -68,7 +69,7 @@
     background-size: auto 70%;
     background-position: 5% center;
     background-color: #AE9945;
-    width: 110px;
+    width: 130px;
 }
 
 .action_bar .reset {
@@ -158,18 +159,22 @@ td .subMenuItem {
     background-color: #177965;
 }
 
-.stepFieldTable .CodeMirror-line span[role=presentation], .outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
-    display: flex !important;
-    flex-wrap: wrap;
+.stepFieldTable .CodeMirror-line span[role=presentation]{
+    word-wrap: break-word;
     width: 60vw;
     overflow-x: hidden;
 }
 
+.outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+    width: 60vw;
+    overflow-x: hidden;
+    word-wrap: break-word;
+}
 /*body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(6) > div > div > div > table > tbody > tr > td:nth-child(3) > div > div > div*/
 .stepFieldTable .CodeMirror-scroll > div.CodeMirror-sizer > div > div > div {
     display: flex !important;
     flex-wrap: wrap;
-    width: 60vw;
+    width: 70vw;
     overflow-x: hidden;
 }
 
@@ -203,4 +208,19 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 
 .CodeMirror-scroll {
     margin-bottom: -20px !important;
+}
+
+/* OPTIONS for sharing */
+
+.stepShareSettingsPopup *[class^="menuPopup"] {
+    background: none !important;
+}
+
+
+.stepShareSettingsPopup .menuPopupMiddleLeft {
+    display: none !important;
+}
+
+.stepShareSettingsPopup table {
+    background: RGBA(93, 109, 125, 0.70);
 }

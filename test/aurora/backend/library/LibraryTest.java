@@ -140,4 +140,9 @@ public class LibraryTest {
         LibraryItemNotFoundException ex = new LibraryItemNotFoundException("test");
         assertEquals(ex.getMessage(), "test");
     }
+
+    @Test
+    public void emptymult() {
+        MultiLibrary library = new MultiLibrary();
+    }
 }

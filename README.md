@@ -83,3 +83,11 @@ ant doc
 ```
 
 and check out `docs/entwurf/html/index.html`.
+
+
+
+## CodeMirror
+
+This project uses CodeMirror to display code.
+CodeMirror is licensed under the MIT License.
+Visit https://github.com/codemirror/CodeMirror for its github page.

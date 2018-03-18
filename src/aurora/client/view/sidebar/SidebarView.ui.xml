@@ -30,7 +30,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="standardLibraryTable"/>
+                            <g:FlexTable ui:field="standardLibraryTable" debugId="standardLibraryTable"/>
 
                         </g:stack >
 
@@ -44,7 +44,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="userLibraryTable"/>
+                            <g:FlexTable ui:field="userLibraryTable" debugId="userLibraryTable"/>
                         </g:stack>
                     </g:StackLayoutPanel>
                 </g:center>
