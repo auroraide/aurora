@@ -20,7 +20,7 @@ public class EditorViewGwtTest extends GWTTestCase {
     private EditorView editorView;
 
     public String getModuleName() {
-        return "aurora.Testing";
+        return "aurora.Aurora";
     }
 
     /**

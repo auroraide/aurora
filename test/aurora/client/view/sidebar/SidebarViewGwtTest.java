@@ -21,7 +21,7 @@ public class SidebarViewGwtTest extends GWTTestCase {
     private CountingEventBus eventBus;
 
     public String getModuleName() {
-        return "aurora.Testing";
+        return "aurora.Aurora";
     }
 
 
