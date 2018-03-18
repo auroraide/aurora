@@ -17,6 +17,7 @@ import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -291,14 +292,18 @@ public class HighlightableLambdaExpressionTest {
         assertEquals(hle.toString(), "\\a. a a");
     }
 
+    /**
+     * this tests wont start
+     */
     @Test
-    public void meta() {
+    public void metas() {
         LambdaLexer lex = new LambdaLexer();
         HashLibrary lib = new HashLibrary();
         lib.define("foo", "bar", new FreeVariable("foo"));
         LambdaParser pars = new LambdaParser(lib);
         List<Token> tokenlist = new LinkedList<>();
         Term t = null;
+
         try {
             tokenlist = lex.lex("(\\x.   x)  (a $foo) 2 #comm");
             t = pars.parse(tokenlist);
@@ -316,46 +321,27 @@ public class HighlightableLambdaExpressionTest {
         HighlightableLambdaExpression htwo = new HighlightableLambdaExpression(twored,
                 new NormalOrder().getRedexPath(twored));
 
-        Iterator<Token> it = htwo.iterator();
-        int n = 0;
-        while (it.hasNext()) {
-            //System.out.println("n = "+ n + " "+ it.next().toString());
 
-            n++;
-        }
         /*
         RedexPath path2 = htwo.getRedexPathFromToken(new Token(Token.TokenType.T_LAMBDA,
                 "",1,8, 8));
         List<HighlightedLambdaExpression.Redex> lr = htwo.getAllRedexes();
-        System.out.println("start = "+ lr.get(0).startToken+ " middle= "+ lr.get(0).middleToken +
-                " end = " + lr.get(0).lastToken);
-        System.out.println("start = "+ lr.get(1).startToken+ " middle= "+ lr.get(1).middleToken +
-                " end = " + lr.get(1).lastToken);
+
          */
     }
 
+    /**
+     * this these wont start.
+     */
     @Test
-    public void twored(){
+    public void twored() {
         //(\x.(\y.y)a)b
         Term t = new Application(new Abstraction(new Application(new Abstraction(new BoundVariable(1), "y"),
                 new FreeVariable("a")), "x"), new FreeVariable("b"));
 
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        Iterator it = hle.iterator();
-        int n = 0;
-        while (it.hasNext()) {
-            System.out.println(n + it.next().toString());
-            n++;
-        }
-
         List<HighlightedLambdaExpression.Redex> lr = hle.getAllRedexes();
-        System.out.println("firstred = " + lr.get(0).startToken + "mid = "+ lr.get(0).middleToken + "last ="+ lr.get(0).lastToken);
-        System.out.println("scndred = " + lr.get(1).startToken + "mid = "+ lr.get(1).middleToken + "last ="+ lr.get(1).lastToken);
         HighlightableLambdaExpression hl2 = new HighlightableLambdaExpression(t, new NormalOrder().getRedexPath(t));
 
-        HighlightableLambdaExpression.Redex red = hl2.getNextRedex();
-        System.out.println(red.startToken);
-        System.out.println(red.middleToken);
-        System.out.println(red.lastToken);
     }
 }
