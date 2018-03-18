@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class EditorSeleniumIntegrationTest {
-    private final String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
     private static WebDriver driver;
 
     /**
@@ -38,6 +37,7 @@ public class EditorSeleniumIntegrationTest {
     }
 
     private WebElement getInput() {
+        String pathToEditor = "//*[@id=\"inputCodeMirror\"]/div/div[1]/textarea";
         return driver.findElement(By.xpath(pathToEditor));
     }
 
@@ -57,7 +57,7 @@ public class EditorSeleniumIntegrationTest {
 
         return waiter.until(dr -> {
             String o = getOutput();
-            return o.isEmpty() ? null : o;
+            return o.isEmpty() || o.hashCode() == 8203 ? null : o;
         });
     }
 
