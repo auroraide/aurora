@@ -64,6 +64,9 @@ public class JSONSessionEncoderGwtTest extends GWTTestCase {
     //    assertEquals("banana", "banana");
     //}
 
+    /**
+     * Tests encoding with empty library.
+     */
     public void testEmptyLibrary() {
         System.out.println("THIS IS A TEST");
         JSONSessionEncoder jse = new JSONSessionEncoder();
