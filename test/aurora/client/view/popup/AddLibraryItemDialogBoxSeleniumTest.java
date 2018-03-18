@@ -19,6 +19,8 @@ public class AddLibraryItemDialogBoxSeleniumTest extends SeleniumTemplate {
         driver.findElement(By.id("functionField")).click();
         driver.findElement(By.id("functionField")).sendKeys("(\\x. x x) (\\x. x x)");
 
+        System.out.println(driver.findElement(By.id("functionField"))
+                .getAttribute("value"));
         Assert.assertEquals("(λx. x x) (λx. x x)", driver.findElement(By.id("functionField"))
                 .getAttribute("value"));
     }
