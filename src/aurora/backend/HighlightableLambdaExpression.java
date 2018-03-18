@@ -414,8 +414,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
-            offset = -1;
-            column = 0;
+            column = 1;
+            offset = 0;
             index = 0;
             currentPath = new RedexPath();
             nextPath = null;
@@ -423,8 +423,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         public TermToHighlightedLambdaExpressionVisitor(RedexPath nextPath) {
             line = 1;
-            offset = -1;
-            column = 0;
+            column = 1;
+            offset = 0;
             index = 0;
             currentPath = new RedexPath();
             this.nextPath = nextPath;
@@ -433,22 +433,21 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Abstraction abs) {
-            column++;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_LAMBDA, line, column, offset));
-
-            int length = abs.name.length();
-            column += length;
+            column++;
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_VARIABLE, abs.name, line, column, offset));
-
-            column++;
+            column += abs.name.length();
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_DOT, line, column, offset));
-
             column++;
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
+            column++;
+            offset++;
 
             // replace all BoundVariables with Free Variables
             Term t = abs.body.accept(new BoundVariableFinder(abs.name));
@@ -467,34 +466,36 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             currentPath.push(RedexPath.Direction.LEFT);
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
-                column++;
-                offset++;
                 startToken = offset;
+
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
-                app.left.accept(this);
                 column++;
                 offset++;
+
+                app.left.accept(this);
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
+                column++;
+                offset++;
             } else {
                 startToken = offset;
                 app.left.accept(this);
             }
             currentPath.pop();
 
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
             currentPath.push(RedexPath.Direction.RIGHT);
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
-                column++;
-                offset++;
                 middleToken = offset;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
-                app.right.accept(this);
                 column++;
                 offset++;
+                app.right.accept(this);
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
+                column++;
+                offset++;
             } else {
                 middleToken = offset;
                 app.right.accept(this);
@@ -502,7 +503,51 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             currentPath.pop();
 
             if (amRedex) {
-                lastToken = offset;
+                int offsetoffset = app.right.accept(new TermVisitor<Integer>() {
+
+                    @Override
+                    public Integer visit(Abstraction abs) {
+                        return 4 + abs.body.accept(this);
+                    }
+
+                    @Override
+                    public Integer visit(Application app) {
+                        int count = 0;
+                        if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
+                            count += 2;
+                        }
+                        if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
+                            count += 2;
+                        }
+                        count++;
+                        int left = app.left.accept(this);
+                        int right = app.left.accept(this);
+                        return count + left + right;
+                    }
+
+                    @Override
+                    public Integer visit(BoundVariable bvar) {
+                        return 1;
+                    }
+
+                    @Override
+                    public Integer visit(FreeVariable fvar) {
+                        return 1;
+                    }
+
+                    @Override
+                    public Integer visit(Function libterm) {
+                        return 1;
+                    }
+
+                    @Override
+                    public Integer visit(ChurchNumber c) {
+                        return 1;
+                    }
+                }) - 1;
+
+                lastToken = offset + offsetoffset;
+
                 assert (startToken >= 0 && middleToken >= 0);
                 Redex r = new Redex(startToken, middleToken, lastToken, currentPath.deepCopy());
                 redexes.add(r);
@@ -515,38 +560,30 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            assert false : "found a bvar after turning them into fvars";
-            int length = String.valueOf(bvar.index).length();
-            column += length;
-            offset++;
-            tokens.add(new Token(Token.TokenType.T_VARIABLE, String.valueOf(bvar.index), line, column, offset));
-            return null;
+            throw new RuntimeException();
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            int length = fvar.name.length();
-            column += length;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_VARIABLE, fvar.name, line, column, offset));
+            column += fvar.name.length();
+            offset++;
             return null;
         }
 
         @Override
         public Void visit(Function libterm) {
-            int length = libterm.name.length();
-            column += length;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_FUNCTION, libterm.name, line, column, offset));
+            column += libterm.name.length() + 1;
+            offset++;
             return null;
         }
 
         @Override
         public Void visit(ChurchNumber c) {
-            int length = String.valueOf(c.value).length();
-            column += length;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_NUMBER, String.valueOf(c.value), line, column, offset));
+            column += String.valueOf(c.value).length();
+            offset++;
             return null;
         }
     }

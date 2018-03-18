@@ -298,6 +298,9 @@ public class EditorView extends Composite implements EditorDisplay {
             HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
             if (nextRedex != null) {
 
+                GWT.log("nextRedex.startToken = " + nextRedex.startToken);
+                GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
+
                 // determine start and end tokens
                 int count = 0;
                 Token start = null;
@@ -312,10 +315,13 @@ public class EditorView extends Composite implements EditorDisplay {
                         break;
                     }
                 }
+
+                GWT.log("" + start.getColumn());
+                GWT.log("" + end.getColumn());
                 cmp.markText(start.getLine() - 1,
                         start.getColumn() - 1,
                         end.getLine() - 1,
-                        end.getColumn() - 1,
+                        end.getColumn(),
                         "#5a7083");
             }
 
