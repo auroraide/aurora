@@ -82,9 +82,9 @@ public class EditorSeleniumIntegrationTest {
      */
     @Test
     public void testIrreducibleLambdaTerm() {
-        getInput().sendKeys("λx.x");
+        getInput().sendKeys("λx.x x");
         driver.findElement(By.id("runButton")).click();
-        assertEquals("λx. x", waitForOutput());
+        assertEquals("λx. x x", waitForOutput());
     }
 
     /**
