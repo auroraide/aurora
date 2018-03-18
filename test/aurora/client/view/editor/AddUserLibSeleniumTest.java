@@ -33,6 +33,11 @@ public class AddUserLibSeleniumTest {
         driver.quit();
     }
 
+    @Before
+    public void setUp() {
+        driver.navigate().to("http://localhost:4000/");
+    }
+
     private Wait<WebDriver> waiter() {
         return new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(20))
@@ -77,14 +82,13 @@ public class AddUserLibSeleniumTest {
     }
 
     /**
-     * T6.2
+     * T6.1, T6.2
      */
     @Test
-    @Ignore
     public void addUserLibFunctionAndUse() {
         waitForElemExists(By.id("addFunctionButton")).click();
         waitForElemExists(By.id("nameField")).sendKeys("plus");
-        waitForElemExists(By.id("functionField")).sendKeys("\\p.p(\\a.\\b.a)");
+        waitForElemExists(By.id("functionField")).sendKeys("(\\m. \\n. \\s. \\z. m s (n s z))");
         waitForElemExists(By.id("addButton")).click();
 
         getInput().sendKeys("$plus 5 8");
