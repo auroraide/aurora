@@ -292,9 +292,8 @@ public class HighlightableLambdaExpressionTest {
         assertEquals(hle.toString(), "\\a. a a");
     }
 
-    /**
-     * this tests wont start
-     */
+
+
     @Test
     public void metas() {
         LambdaLexer lex = new LambdaLexer();
@@ -330,9 +329,7 @@ public class HighlightableLambdaExpressionTest {
          */
     }
 
-    /**
-     * this these wont start.
-     */
+
     @Test
     public void twored() {
         //(\x.(\y.y)a)b
