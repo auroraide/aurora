@@ -210,7 +210,17 @@ public class EditorPresenter {
         assert (!isRunning() && isStarted() && !isReStepping());
         assert (reductionStrategy != StrategyType.MANUALSELECTION);
         GWT.log("redstrat = "+ reductionStrategy + " ");
+        GWT.log("nullpe0");
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
+        GWT.log("nullp1");
+        if (!berry.hasNext()) {
+            GWT.log("nullp2");
+            editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
+            GWT.log("nullp3");
+            finish();
+            GWT.log("nullp4");
+            return;
+        }
         runTimer = new RunTimer();
         runTimer.scheduleRepeating(1);
     }
@@ -467,11 +477,8 @@ public class EditorPresenter {
         public void run() {
             // we have already been started by our onRun function.
             assert (berry != null);
-            //assert (berry.hasNext());
-            if (!berry.hasNext()) {
-                editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
-                finish();
-            }
+            assert (berry.hasNext());
+
             Term current = berry.next();
             if (!berry.hasNext()) {
                 // current is irreducible => result.
