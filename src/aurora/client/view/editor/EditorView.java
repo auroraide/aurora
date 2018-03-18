@@ -309,7 +309,8 @@ public class EditorView extends Composite implements EditorDisplay {
                 for (Token t : hle) {
                     if (t.getOffset() == nextRedex.startToken) {
                         start = t;
-                        continue;
+                        // we have to keep looking because middle might be == start
+                        //continue;
                     }
                     if (t.getOffset() == nextRedex.middleToken) {
                         middle = t;

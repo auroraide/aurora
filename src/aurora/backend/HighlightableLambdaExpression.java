@@ -116,7 +116,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         private final RedexPath nextPath;
 
         private final RedexPath currentPath;
-        
+
         private MetaTerm lastMeta;
 
         public RedexPathToRedexFromMetaTermVisitor(RedexPath nextPath) {
