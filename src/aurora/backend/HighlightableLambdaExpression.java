@@ -352,6 +352,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
          * Free Variable to name_alpha.
          */
         private class AlphaconversionVisitorFV extends TermVisitor<Term> {
+
             private String name;
 
             public AlphaconversionVisitorFV(String name) {
@@ -380,10 +381,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             public Term visit(FreeVariable fvar) {
                 if (fvar.name.equals(name)) {
                     chg = true;
-
                 }
                 return fvar;
-
             }
 
             @Override
@@ -395,14 +394,14 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             public Term visit(ChurchNumber c) {
                 return c;
             }
-        }
 
+        }
 
     }
 
     /**
      * Compute the {@link HighlightableLambdaExpression} representation of the {@link Term} it is applied on.
-     * builds token list of the term.
+     * The {@link Token} stream is generated from the visited {@link Term}.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
         private final RedexPath nextPath;
@@ -459,54 +458,61 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         @Override
         public Void visit(Application app) {
             boolean amRedex = app.left.accept(new AbstractionFinder());
-            // these are used to construct Redex start/end token offsets for the view.
-            int startToken;
-            int middleToken;
-            int lastToken;
+
+            int startTokenOffset;
+            int middleTokenOffset;
+            int lastTokenOffset;
 
             currentPath.push(RedexPath.Direction.LEFT);
-            if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
-                startToken = offset;
+            startTokenOffset = offset;
 
+            if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
 
                 app.left.accept(this);
+
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
             } else {
-                startToken = offset;
                 app.left.accept(this);
             }
+
             currentPath.pop();
+
+            // last token of left side
+            middleTokenOffset = offset - 1;
 
             tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
             column++;
             offset++;
 
             currentPath.push(RedexPath.Direction.RIGHT);
+
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
-                middleToken = offset;
                 tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
+
                 app.right.accept(this);
+
                 tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
             } else {
-                middleToken = offset;
                 app.right.accept(this);
             }
+
             currentPath.pop();
 
             if (amRedex) {
-                int offsetoffset = app.right.accept(new TermVisitor<Integer>() {
-
+                // more magic
+                /*int offsetoffset = app.right.accept(new TermVisitor<Integer>() {
                     @Override
                     public Integer visit(Abstraction abs) {
+                        // 4 = lambda, var, dot, whitespace
                         return 4 + abs.body.accept(this);
                     }
 
@@ -520,8 +526,10 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                             count += 2;
                         }
                         count++;
+
                         int left = app.left.accept(this);
                         int right = app.left.accept(this);
+
                         return count + left + right;
                     }
 
@@ -546,11 +554,18 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                     }
                 }) - 1;
 
-                lastToken = offset + offsetoffset;
+                lastTokenOffset = offset + offsetoffset;*/
 
-                assert (startToken >= 0 && middleToken >= 0);
-                Redex r = new Redex(startToken, middleToken, lastToken, currentPath.deepCopy());
+                lastTokenOffset = tokens.get(tokens.size() - 1).getOffset();
+
+                assert (startTokenOffset >= 0 && middleTokenOffset >= 0 && lastTokenOffset >= 0);
+
+                Redex r = new Redex(startTokenOffset, middleTokenOffset, lastTokenOffset, currentPath.deepCopy());
+
+                // add this redex we just found to our list of all redexes
                 redexes.add(r);
+
+                // is this our next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
                 }
@@ -560,7 +575,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            throw new RuntimeException();
+            throw new RuntimeException("This should not have happened.");
         }
 
         @Override
@@ -574,6 +589,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         @Override
         public Void visit(Function libterm) {
             tokens.add(new Token(Token.TokenType.T_FUNCTION, libterm.name, line, column, offset));
+            // +1 because of extra $
             column += libterm.name.length() + 1;
             offset++;
             return null;
@@ -581,8 +597,9 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(ChurchNumber c) {
-            tokens.add(new Token(Token.TokenType.T_NUMBER, String.valueOf(c.value), line, column, offset));
-            column += String.valueOf(c.value).length();
+            String n = "" + c.value;
+            tokens.add(new Token(Token.TokenType.T_NUMBER, n, line, column, offset));
+            column += n.length();
             offset++;
             return null;
         }

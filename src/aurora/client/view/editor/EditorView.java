@@ -299,30 +299,47 @@ public class EditorView extends Composite implements EditorDisplay {
             if (nextRedex != null) {
 
                 GWT.log("nextRedex.startToken = " + nextRedex.startToken);
+                GWT.log("nextRedex.startToken = " + nextRedex.middleToken);
                 GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
 
                 // determine start and end tokens
-                int count = 0;
                 Token start = null;
+                Token middle = null;
                 Token end = null;
                 for (Token t : hle) {
-                    if (count++ == nextRedex.startToken) {
+                    if (t.getOffset() == nextRedex.startToken) {
                         start = t;
                         continue;
                     }
-                    if (count == nextRedex.lastToken) {
+                    if (t.getOffset() == nextRedex.middleToken) {
+                        middle = t;
+                        continue;
+                    }
+                    if (t.getOffset() == nextRedex.lastToken) {
                         end = t;
                         break;
                     }
                 }
 
-                GWT.log("" + start.getColumn());
-                GWT.log("" + end.getColumn());
+                assert (start != null);
+                assert (middle != null);
+                assert (end != null);
+
+                GWT.log("start.getColumn() = " + start.getColumn());
+                GWT.log("middle.getColumn() = " + middle.getColumn());
+                GWT.log("end.getColumn() = " + end.getColumn());
+
                 cmp.markText(start.getLine() - 1,
                         start.getColumn() - 1,
-                        end.getLine() - 1,
-                        end.getColumn(),
+                        middle.getLine() - 1,
+                        middle.getColumn(),
                         "#5a7083");
+
+                cmp.markText(middle.getLine() - 1,
+                        middle.getColumn(),
+                        end.getLine() - 1,
+                        end.getColumn() + end.toString().length(),
+                        "#697e79");
             }
 
 
