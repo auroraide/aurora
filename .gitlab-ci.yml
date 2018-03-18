@@ -36,8 +36,8 @@ deployjob:
 texjob:
     stage: tex
     image: blang/latex
-#    only:
-#        - master
+    only:
+        - master
     before_script:
         - echo "nop"
     script:
