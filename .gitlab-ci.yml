@@ -12,7 +12,26 @@ before_script:
     - cp ../gwt-2.8.2/gwt-user.jar "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
 
 stages:
+    - test
+    - deploy
     - tex
+
+testjob:
+    stage: test
+    script:
+        - wget https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz
+        - tar xzf caddy_v0.10.11_linux_amd64.tar.gz
+        - nohup ./caddy &
+        - ant test-ci -lib vendor
+
+deployjob:
+    stage: deploy
+    only:
+        - master
+    script:
+        - git rev-parse --short HEAD > war/VERSION
+        - ant war -lib vendor
+        - curl -F 'war=@aurora.war' "https://aurora.younishd.fr:8080?key=$DEPLOY_KEY"
 
 texjob:
     stage: tex
