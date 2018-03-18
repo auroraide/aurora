@@ -67,7 +67,7 @@ public class JSONSessionEncoder extends SessionEncoder {
      * @param toEscape String to escape.
      * @return escaped String.
      */   
-     public String escape(String toEscape) {
+    public String escape(String toEscape) {
         JSONEscaper jsonEscaper = new JSONEscaper();
         return jsonEscaper.escape(toEscape);
     }
