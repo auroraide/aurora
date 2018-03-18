@@ -1,5 +1,11 @@
 [
     {
+        "name": "id",
+        "function": "\\x.x",
+        "description": "$id x // identity of x"
+    },
+
+    {
         "name" : "add",
         "function" : "(\\m. \\n. \\s. \\z. m s (n s z))",
         "description" : "$add x y // x + y"
@@ -54,19 +60,19 @@
     },
 
     {
-        "name" : "EQ",
-        "function" : "(\\m.\\n. (\\p.\\q.p q p) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) m n) ((\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))) n m))",
-        "description" : "$EQ x y // returns $true if x is equal to y, otherwise $false"
-    },
-
-    {
         "name" : "LEQ",
-        "function" : "(\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a))))",
+        "function" : "(\\m.\\n.(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a))) ((\\m.\\n.n (\\n.\\f.\\x.n (\\g.\\h.h (g f)) (\\u.x) (\\u.u)) m) m n))",
         "description" : "$LEQ x y // returns $true if x is less or equal than y"
     },
 
     {
-        "name" : "IsZero",
+        "name" : "EQ",
+        "function" : "(\\m. \\n. $and ($LEQ m n) ($LEQ n m))",
+        "description" : "$EQ x y // returns $true if x is equal to y, otherwise $false"
+    },
+
+    {
+        "name" : "isZero",
         "function": "(\\n.(( n (\\x.\\y.\\z.z)) (\\a.\\b.a)))",
         "description" : "$isZero x // returns $true if x  is zero else $false"
     },

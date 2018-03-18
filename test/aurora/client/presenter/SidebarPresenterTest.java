@@ -51,6 +51,14 @@ public class SidebarPresenterTest {
         );
     }
 
+    /**
+     * T6.2
+     */
+    @Test
+    public void testAddUserLib() {
+
+    }
+
     @Test
     public void regressionTest178AddingFunctionnameWithWhitespaceWorksBug() {
         bus.fireEvent(new AddFunctionEvent("hello there", "x", "descr"));

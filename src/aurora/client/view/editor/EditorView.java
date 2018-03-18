@@ -226,8 +226,9 @@ public class EditorView extends Composite implements EditorDisplay {
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
-        shareMenu.addItem("", options);
+        shareMenu.ensureDebugId("shareMenu-step-" + index);
         shareMenu.setStyleName("stepShareSettings");
+        shareMenu.addItem("", options);
 
         return shareMenu;
     }

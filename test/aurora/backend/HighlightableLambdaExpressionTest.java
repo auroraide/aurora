@@ -258,6 +258,7 @@ public class HighlightableLambdaExpressionTest {
         RedexPath path = new NormalOrder().getRedexPath(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t, path);
         HighlightedLambdaExpression.Redex r = hle.getNextRedex();
+        //this might fail if better Highlighting is implemented
         assertEquals(r.startToken, 0);
         assertEquals(r.middleToken, 7);
         assertEquals(r.lastToken, 8);
