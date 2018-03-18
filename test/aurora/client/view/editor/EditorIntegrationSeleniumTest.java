@@ -20,7 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class EditorSeleniumIntegrationTest {
+public class EditorIntegrationSeleniumTest {
     private static WebDriver driver;
 
     /**
