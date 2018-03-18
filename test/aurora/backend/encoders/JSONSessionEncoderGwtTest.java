@@ -63,20 +63,33 @@ public class JSONSessionEncoderGwtTest extends GWTTestCase {
     //    
     //    assertEquals("banana", "banana");
     //}
+    //
+
+    /**
+     * Encode no input.
+     */
+    public void testEverythingEmpty() {
+        JSONSessionEncoder jse = new JSONSessionEncoder();
+        String rawInput = "";
+        Library stdLib = new HashLibrary();
+
+        String json = "{\"rawInput\":\"\",\"library\":[]}";
+        String encoded = jse.encode(new Session(rawInput, stdLib));
+    
+        assertEquals(encoded, json);
+    }
 
     /**
      * Tests encoding with empty library.
      */
     public void testEmptyLibrary() {
-        System.out.println("THIS IS A TEST");
         JSONSessionEncoder jse = new JSONSessionEncoder();
         String rawInput = "λx.x";
         Library stdLib = new HashLibrary();
-        String json = "{\"rawInput\":\"λx.x\", \"library\":[]}";
-        System.out.println(json);
+
+        String json = "{\"rawInput\":\"λx.x\",\"library\":[]}";
         String encoded = jse.encode(new Session(rawInput, stdLib));
 
-        System.out.println(encoded);
         assertEquals(encoded, json);
     }
 }
