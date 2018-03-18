@@ -61,6 +61,7 @@ public class GistEncoder {
     public void encode(Session session, AsyncCallback<String> callback) {
         JSONSessionEncoder jse = new JSONSessionEncoder();
         String encodedString = jse.encode(session);
+        encodedString = jse.escape(encodedString);
         postGist(encodedString, callback);
     }
 
@@ -86,7 +87,7 @@ public class GistEncoder {
             Request response = builder.sendRequest(
                     "{ \"files\" :{"
                     + "\"" + FILE_NAME + "\": {"
-                    + "\"content\": \"" + encodedString.replaceAll("\"", "\\\\\"") + "\""
+                    + "\"content\": \"" + encodedString + "\""
                     + "}"
                     + "}}",
                     new RequestCallback() {
@@ -143,9 +144,6 @@ public class GistEncoder {
                     callback.onSuccess(session);
                 }
 
-                private native void console(String message) /*-{
-                    console.log(message);
-                }-*/;
             });
         } catch (RequestException e) {
             //TODO do something onFailure?
