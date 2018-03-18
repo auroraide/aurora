@@ -12,8 +12,6 @@ before_script:
     - cp ../gwt-2.8.2/gwt-user.jar "$CI_PROJECT_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
 
 stages:
-    - test
-    - deploy
     - tex
 
 testjob:
