@@ -1,6 +1,7 @@
 package aurora.backend.betareduction;
 
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.RedexPath;
 import aurora.backend.betareduction.strategies.CallByValue;
 import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.library.HashLibrary;
@@ -59,4 +60,11 @@ public class BetaReductionIteratorTest {
         assertEquals(true, ex);
     }
 
+    @Test
+    public void path() {
+        BetaReductionIterator br = new BetaReductionIterator(new BetaReducer(new NormalOrder()), new FreeVariable("a"));
+        RedexPath path = br.getSelectedRedex();
+        assertEquals(path, null);
+
+    }
 }
