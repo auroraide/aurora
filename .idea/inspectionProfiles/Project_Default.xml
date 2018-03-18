@@ -3,5 +3,6 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="LatexMissingDocumentEnvironment" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="LatexMissingDocumentclass" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="NonJREEmulationClassesInClientCode" enabled="false" level="ERROR" enabled_by_default="false" />
   </profile>
 </component>

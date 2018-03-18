@@ -2,7 +2,10 @@ package aurora.client.view.editor;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.Settings;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +34,11 @@ public class AddUserLibSeleniumTest {
     @AfterClass
     public static void closeWebDriver() {
         driver.quit();
+    }
+
+    @Before
+    public void setUp() {
+        driver.navigate().to("http://localhost:4000/");
     }
 
     private Wait<WebDriver> waiter() {
@@ -77,14 +85,13 @@ public class AddUserLibSeleniumTest {
     }
 
     /**
-     * T6.2
+     * T6.1, T6.2
      */
     @Test
-    @Ignore
     public void addUserLibFunctionAndUse() {
         waitForElemExists(By.id("addFunctionButton")).click();
         waitForElemExists(By.id("nameField")).sendKeys("plus");
-        waitForElemExists(By.id("functionField")).sendKeys("\\p.p(\\a.\\b.a)");
+        waitForElemExists(By.id("functionField")).sendKeys("(\\m. \\n. \\s. \\z. m s (n s z))");
         waitForElemExists(By.id("addButton")).click();
 
         getInput().sendKeys("$plus 5 8");
