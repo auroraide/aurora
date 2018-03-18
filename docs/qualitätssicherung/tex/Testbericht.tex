@@ -57,14 +57,14 @@ bookmarks=true,
 }
 
 \newcommand{\testline}[2]{
-    \texttt{#1} & %\ifthenelse{\equal{#2}{Nicht getestet}}{\cellcolor{red!20}}{\cellcolor{green!20}}#2 \\ \hline
+    \texttt{#1} & 
     \ifthenelse{\equal{#2}{Nicht getestet}}
         {\cellcolor{red!20}}
         {}
     \ifthenelse{\equal{#2}{Manuell getestet}}
         {\cellcolor{orange!20}}
         {}
-    \ifthenelse{\equal{#2}{Automatisiert getestet}}%pc=paper center
+    \ifthenelse{\equal{#2}{Automatisiert getestet}}
         {\cellcolor{green!20}}
         {}
     #2 \\ \hline
