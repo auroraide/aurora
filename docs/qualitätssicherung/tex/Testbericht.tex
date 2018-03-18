@@ -134,7 +134,7 @@ Somit können unterschiedlich komplexe Arbeitsabläufe automatisiert, und das Er
 
 
 
-\section{Entfallene/Adaptierte Kriterien und Testfallszenarien}
+\section{Adaptionen des Pflichtenhefts}
 \subsection{Musskriterien}
 
 \subsubsection{Anzahl von dargestellten Schritten auswählen (M6)}
@@ -747,7 +747,15 @@ Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen 
 \section{Testfallüberdeckung per Package}
     % Viele Screenshots von den überdeckungsberichtdingers.
     % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
-
+    Aurora ist ein Programm, welches mit GWT von Java in Javascript übersetzt wird.
+    Diese Übersetzung erschwert es Programmen wie Jacoco eine Coveragestatistik anzeigen zu lassen.
+    Tests, die das Programm als Blackbox betrachten und überprüfen, dass die Aufgaben korrekt sind müssen
+    mit GWTTestcases und Selenium geschrieben werden.
+    Beide dieser Testarten werden von gängigen Coveragetools nicht erkannt und die Coverage wird nicht
+    ermittelt.
+    Damit können genaue Aussagen nur über das Backend getroffen werden, welches vollständig mit JUnit und ähnlichem
+    testbar ist, weil es keine GWT Klassen oder ähnliches benutzt.
+    
 
 \section{Glossar}
 \begin{itemize}
