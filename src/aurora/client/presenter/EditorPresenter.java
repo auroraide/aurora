@@ -493,37 +493,6 @@ public class EditorPresenter {
         runTimer.scheduleRepeating(1);
     }
 
-    private class ReStepTimer extends Timer {
-        private int counter;
-
-        private ReStepTimer() {
-            this.counter = stepsToComputeAtOnce;
-        }
-
-        @Override
-        public void run() {
-            assert (reStepper.hasNext());
-
-            if (counter-- <= 0) {
-                cancel();
-                reStepTimer = null;
-                return;
-            }
-
-            Step current = reStepper.next();
-
-            if (reStepper.hasNext()) {
-                // current reducible
-                editorDisplay.addNextStep(current.getHle(), nextReStepIndex);
-            } else {
-                // current is irreducible => current term is result.
-                editorDisplay.finishedFinished(current.getHle());
-            }
-
-            nextReStepIndex++;
-        }
-    }
-
     private class RunTimer extends Timer {
 
         @Override
@@ -580,37 +549,6 @@ public class EditorPresenter {
             berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
             HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, berry.getSelectedRedex());
             editorDisplay.setInput(hle);
-        }
-    }
-
-    private class StepTimer extends Timer {
-
-        private int counter;
-
-        public StepTimer() {
-            counter = stepsToComputeAtOnce;
-        }
-
-        @Override
-        public void run() {
-            if (counter-- <= 0) {
-                cancel();
-                stepTimer = null;
-                return;
-            }
-
-            Term next = berry.next();
-            HighlightableLambdaExpression hle = new HighlightableLambdaExpression(next, berry.getSelectedRedex());
-            steps.add(new Step(next, hle));
-
-            if (!berry.hasNext()) {
-                cancel();
-                stepTimer = null; // works because GC
-                editorDisplay.displayResult(hle);
-                return;
-            }
-
-            editorDisplay.addNextStep(hle, steps.size() - 1);
         }
     }
 
