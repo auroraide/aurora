@@ -108,7 +108,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.languageMenu = new MenuBar(true);
         this.shareMenu = new MenuBar(true);
         this.shareAndLanguageMenu = new MenuBar();
-        shareAndLanguageMenu.setAutoOpen(true);
+        shareAndLanguageMenu.setAutoOpen(false);
         shareAndLanguageMenu.setAnimationEnabled(true);
         this.userlib = new ArrayList<>();
 
@@ -208,7 +208,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         languageMenu.setAnimationEnabled(false);
         languageMenu.addItem("RU", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/?locale=ru"));
         languageMenu.addItem("ENG", (Command) () -> Window.Location.assign("https://aurora.younishd.fr/"));
-        languageMenu.addItem("DE", (Command) () -> Window.alert("hhh"));
         languageMenu.setStyleName("languageMenu");
         languageMenu.setSize("250px", "auto");
 

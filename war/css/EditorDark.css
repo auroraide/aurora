@@ -204,3 +204,18 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 .CodeMirror-scroll {
     margin-bottom: -20px !important;
 }
+
+/* OPTIONS for sharing */
+
+.stepShareSettingsPopup *[class^="menuPopup"] {
+    background: none !important;
+}
+
+
+.stepShareSettingsPopup .menuPopupMiddleLeft {
+    display: none !important;
+}
+
+.stepShareSettingsPopup table {
+    background: RGBA(93, 109, 125, 0.70);
+}
