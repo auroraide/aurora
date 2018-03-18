@@ -346,6 +346,11 @@
     border-bottom: 1px solid #6D8A88;
     display: flex;
     padding: 5px 0;
+    max-width: 250px;
+}
+
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody tr td{
+    max-width: 250px;
 }
 
 .deleteUserLibraryItem {
