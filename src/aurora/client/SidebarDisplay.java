@@ -21,13 +21,13 @@ public interface SidebarDisplay {
 
     /**
      * The user made a simple syntax error in their input.
-     * @param error Exception containing detailed information abotu what exactly they did wrong.
+     * @param error Exception containing detailed information about what exactly they did wrong.
      */
     void displayAddLibraryItemSyntaxError(SyntaxException error);
 
     /**
      * The user made a semantic mistake in their input.
-     * @param error Exception containing detailed information abotu what exactly they did wrong.
+     * @param error Exception containing detailed information about what exactly they did wrong.
      */
     void displayAddLibraryItemSemanticError(SemanticException error);
 

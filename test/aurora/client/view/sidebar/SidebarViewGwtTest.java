@@ -16,12 +16,12 @@ import aurora.utils.GWTTestCaseSetup;
 /**
  * Testing {@link SidebarView}.
  */
-public class SidebarViewTest extends GWTTestCase {
+public class SidebarViewGwtTest extends GWTTestCase {
     private SidebarView sidebarView;
     private CountingEventBus eventBus;
 
     public String getModuleName() {
-        return "aurora.Testing";
+        return "aurora.Aurora";
     }
 
 

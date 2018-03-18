@@ -9,10 +9,23 @@ import aurora.backend.tree.Term;
  * The strategy calculates the RedexPath to the chosen redex.
  */
 public class UserStrategy extends ReductionStrategy {
+    private RedexPath path;
+    private boolean valid;
+
+    public UserStrategy(RedexPath path) {
+        this.path = path;
+        valid = true;
+    }
+
+    public void setRedexPath(RedexPath path) {
+        this.path = path;
+        valid = true;
+    }
 
     @Override
     public RedexPath getRedexPath(Term t) {
-        return null;
+        valid = false;
+        return path;
     }
 
 }

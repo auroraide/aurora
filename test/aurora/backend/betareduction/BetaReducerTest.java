@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import aurora.backend.Comparer;
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.RedexPath;
 import aurora.backend.betareduction.strategies.CallByName;
 import aurora.backend.betareduction.strategies.NormalOrder;
+import aurora.backend.betareduction.strategies.ReductionStrategy;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -443,5 +445,78 @@ public class BetaReducerTest {
         Term result = br.reduce(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(result);
         assertEquals("x", hle.toString());
+    }
+
+    @Test
+    public void breakitfvar() {
+        boolean ex = false;
+        Term t = new Application(new FreeVariable("a"), new FreeVariable("a"));
+        BetaReducer br = new BetaReducer(new Badstrategy());
+        try {
+            br.reduce(t);
+
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+    @Test
+    public void breakitbvar() {
+        boolean ex = false;
+        Term t = new Application(new BoundVariable(1), new FreeVariable("a"));
+        BetaReducer br = new BetaReducer(new Badstrategy());
+        try {
+            br.reduce(t);
+
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+    @Test
+    public void breakitapp() {
+        boolean ex = false;
+        Term t = new Application(new Application(new FreeVariable("a"), new FreeVariable("b")),
+                new FreeVariable("a"));
+        BetaReducer br = new BetaReducer(new Badstrategy());
+        try {
+            br.reduce(t);
+
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+    @Test
+    public void breakitfunc() {
+        boolean ex = false;
+        Term t = new Application(new Function("test", new Function("test1", new FreeVariable("c"))),
+                new FreeVariable("a"));
+        BetaReducer br = new BetaReducer(new Badstrategy());
+        try {
+            t = br.reduce(t);
+            Comparer cr = new Comparer(t, new FreeVariable("x"));
+            System.out.println(cr.compare());
+        } catch (RuntimeException e) {
+            ex = true;
+        }
+        assertEquals(true, ex);
+    }
+
+
+
+
+    private class Badstrategy extends ReductionStrategy {
+
+        @Override
+        public RedexPath getRedexPath(Term t) {
+            NormalOrder n = new NormalOrder();
+            RedexPath path = n.getRedexPath(new Application(new Abstraction(new BoundVariable(1), "a"),
+                    new FreeVariable("a")));
+            return path;
+        }
     }
 }

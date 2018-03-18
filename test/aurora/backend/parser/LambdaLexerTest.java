@@ -1,5 +1,6 @@
 package aurora.backend.parser;
 
+import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import org.junit.Test;
 
@@ -50,16 +51,6 @@ public class LambdaLexerTest {
                 new Token(Token.TokenType.T_WHITESPACE, " ", 2, 20, 27),
                 new Token(Token.TokenType.T_COMMENT, " blah blah blah", 2, 21, 28)
         );
-
-        /*System.out.println("\nactual = ");
-        for (Token t : actual) {
-            System.out.print(t.debug());
-        }
-        System.out.println("\nexpected = ");
-        for (Token t : expected) {
-            System.out.print(t.debug());
-        }
-        System.out.println();*/
 
         assertThat(actual, is(expected));
     }
@@ -210,5 +201,4 @@ public class LambdaLexerTest {
         }
         assertTrue("lex() should have thrown a SyntaxException", thrown);
     }
-
 }

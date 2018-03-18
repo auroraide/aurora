@@ -5,6 +5,7 @@ import aurora.backend.betareduction.strategies.NormalOrder;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
+import aurora.backend.parser.Token;
 import aurora.backend.parser.exceptions.SemanticException;
 import aurora.backend.parser.exceptions.SyntaxException;
 import aurora.backend.tree.Abstraction;
@@ -16,9 +17,16 @@ import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * these tests fail if you improve hle.
@@ -244,4 +252,93 @@ public class HighlightableLambdaExpressionTest {
         assertEquals("\\m. $true", hle.toString());
     }
 
+    @Test
+    public void hlewithpath() {
+        Term t = new Application(new Abstraction(new BoundVariable(1), "a"), new FreeVariable("a"));
+        RedexPath path = new NormalOrder().getRedexPath(t);
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t, path);
+        HighlightedLambdaExpression.Redex r = hle.getNextRedex();
+        assertEquals(r.startToken, 0);
+        assertEquals(r.middleToken, 7);
+        assertEquals(r.lastToken, 8);
+
+        HighlightableLambdaExpression samehle = hle;
+
+        assertEquals(hle.equals(samehle), true);
+        HighlightableLambdaExpression zero = null;
+        assertEquals(hle.equals(zero), false);
+
+        Term x =  new Application(new Abstraction(new BoundVariable(1), "a"), new FreeVariable("a"));
+        RedexPath p1 = new NormalOrder().getRedexPath(x);
+        HighlightableLambdaExpression hle2 = new HighlightableLambdaExpression(x, p1);
+
+        assertEquals(hle.equals(hle2), true);
+
+        int hash = hle.hashCode();
+        assertNotNull(hash);
+
+        List<HighlightedLambdaExpression.Redex> l = hle.getAllRedexes();
+        assertEquals(l.size(), 1);
+
+        RedexPath p2 = hle.getRedexPathFromToken(new Token(Token.TokenType.T_LAMBDA, 1,1,1));
+        assertEquals(p2.getPath().toString(), "[]");
+
+    }
+
+    @Test
+    public void bvars() {
+        Term t = new Abstraction(new Application(new BoundVariable(1), new BoundVariable(1)), "a");
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        assertEquals(hle.toString(), "\\a. a a");
+    }
+
+
+
+    @Test
+    public void metas() {
+        LambdaLexer lex = new LambdaLexer();
+        HashLibrary lib = new HashLibrary();
+        lib.define("foo", "bar", new FreeVariable("foo"));
+        LambdaParser pars = new LambdaParser(lib);
+        List<Token> tokenlist = new LinkedList<>();
+        Term t = null;
+
+        try {
+            tokenlist = lex.lex("(\\x.   x)  (a $foo) 2 #comm");
+            t = pars.parse(tokenlist);
+        } catch (SyntaxException e) {
+            e.printStackTrace();
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+        RedexPath path = new NormalOrder().getRedexPath(t);
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(tokenlist, t,path);
+        assertEquals(hle.toString(), "(\\x.   x)  (a $foo) 2 #comm");
+
+        Term twored = new Application(new Abstraction(new BoundVariable(1), "a"),
+                new Application(new Abstraction(new BoundVariable(1), "y"), new FreeVariable("z")));
+        HighlightableLambdaExpression htwo = new HighlightableLambdaExpression(twored,
+                new NormalOrder().getRedexPath(twored));
+
+
+        /*
+        RedexPath path2 = htwo.getRedexPathFromToken(new Token(Token.TokenType.T_LAMBDA,
+                "",1,8, 8));
+        List<HighlightedLambdaExpression.Redex> lr = htwo.getAllRedexes();
+
+         */
+    }
+
+
+    @Test
+    public void twored() {
+        //(\x.(\y.y)a)b
+        Term t = new Application(new Abstraction(new Application(new Abstraction(new BoundVariable(1), "y"),
+                new FreeVariable("a")), "x"), new FreeVariable("b"));
+
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        List<HighlightedLambdaExpression.Redex> lr = hle.getAllRedexes();
+        HighlightableLambdaExpression hl2 = new HighlightableLambdaExpression(t, new NormalOrder().getRedexPath(t));
+
+    }
 }

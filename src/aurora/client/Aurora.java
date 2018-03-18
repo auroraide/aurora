@@ -14,6 +14,7 @@ import aurora.backend.tree.Term;
 import aurora.client.presenter.AuroraPresenter;
 import aurora.client.presenter.EditorPresenter;
 import aurora.client.presenter.SidebarPresenter;
+import aurora.client.presenter.Step;
 import aurora.client.view.AuroraView;
 import aurora.client.view.editor.EditorView;
 import aurora.client.view.sidebar.SidebarView;
@@ -28,8 +29,6 @@ import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class Aurora implements EntryPoint {
         Library stdLib = new HashLibrary();
         readInStdLibFunctions(stdLib);
 
-        ArrayList<Term> steps = new ArrayList<>();
+        ArrayList<Step> steps = new ArrayList<>();
 
         Library library = new MultiLibrary(userLib, stdLib);
 

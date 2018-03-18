@@ -57,8 +57,23 @@ bookmarks=true,
 }
 
 \newcommand{\testline}[2]{
-    \texttt{#1} & \ifthenelse{\equal{#2}{JA}}{\cellcolor{green!20}}{\cellcolor{red!20}}#2 \\ \hline
+    \texttt{#1} & \ifthenelse{\equal{#2}{Nicht getestet}}{\cellcolor{red!20}}{\cellcolor{green!20}}#2 \\ \hline
 }
+
+\newcommand{\signed}[1]{%
+   \unskip\hspace*{1em plus 1fill}%
+   \nolinebreak[3]\hspace*{\fill}\mbox{\upshape #1}
+}
+ 
+\newenvironment{xquote}{%
+   \begin{list}{}{%
+     \rightmargin
+     \leftmargin
+   }
+   \itshape
+   \item[]
+}
+{\end{list}}
 
 \begin{titlepage}
     \subject{Testbericht}
@@ -77,40 +92,96 @@ bookmarks=true,
 \tableofcontents
 \newpage
 
+\begin{xquote}
+    %Program testing can be a very effective way to show the presence of bugs, but is hopelessly inadequate for showing their absence.
+    Testing shows the presence of bugs, not their absence.
+    \newline
+    \signed{-Edsger Wybe Dijkstra}
+\end{xquote}
+
 \section{Einleitung}
+Trotz der Diversität heutiger Programmiersprachen teilen sich viele der damit geschriebenen Programme von Haus aus ein inhärentes Problem.
+Setzt man sich nun das Ziel die Qualität, bzw. das Nutzererlebnis zu verbessern, ergeben sich für uns im Wesentlichen zwei Aufgabenbereiche.
+\newline
+Der eigentliche Schwerpunkt dieser Phase liegt darin, Aurora in einen möglichst stabilen Endzustand zu bringen.
+Hierzu werden wir verschiedene Testkomponenten einsetzen, um jeweils bestimmte Teilfunktionen von Aurora testen zu können.
+Die so gefundenen Fehler werden alle in diesem Dokument aufgelistet und dokumentiert.
+\newline
+Darüberhinaus kann eine Steigerung des Nutzererlebnisses auch durch das Erweitern der Funktionalität erreicht werden.
+Teile des Funktionsumfangs, die nicht mehr in der Implementierungsphase umgesetzt werden konnten, können nun auch noch zu einem späteren Zeitpunkt zu Aurora hinzugefügt werden.
+
+\subsection{JUnit/GWTTestCase}
+Zeitgleich mit Beginn der Implementierung haben wir begonnen, zu unserem Code JUnit Testfälle zu schreiben.
+Neben dem präventiven Schreiben von Testfällen, wurde auch zu jedem gefundenen Bug ein Test geschrieben, der genau diesen auslöste.
+Nachdem der Fehler behoben wurde konnte so während der gesamten Implementierungs- und Qualitätssicherungsphase gewährleistet werden, dass ein einmal behobener Bug nicht erneut auftreten konnte.
+Details, Ursachen, sowie die Behebung der Fehler sind in der Sektion \enquote{Regression Tests} festgehalten.
+
+\subsection{GUI Tests}
+Die GUI, als Schnittstelle zwischen dem Kern des Programmes und dem Nutzer, bedarf spezieller Testfälle zur Sicherstellung einer reibungslosen Interaktion.
+Hierzu benutzen wir ein spezielles Framework, das bei jedem Aufruf einen Nutzer simuliert.
+Dieser simulierte Nutzer kann, innerhalb von vordefinierten Abläufen, diverse Inputs, wie z.B. Tastatur- und Mausevents, an Aurora senden.
+Somit können unterschiedlich komplexe Arbeitsabläufe automatisiert, und das Ergebnis mit einem vorher definiertem Zustand verglichen werden.
 
 
 \section{Testfallszenarien}
-    Die Testfallszenarien kommen aus dem Pflichtenheft. (Einführungstxt)
+Zu Beginn unseres PSE Projektes haben wir uns mehrere Testfallszenarien ausgedacht, und im Pflichtenheft festgehalten.
+Jedes dieser Szenarien deckt für sich einen kleinen Teil der Funktionalität von Aurora ab, nacheinander ausgeführt ergänzen sie sich jedoch gegenseitig und decken einen großen Teil der nach außen sichtbaren Funktionen ab.
+Im folgenden ist eine Auflistung aller Testfallszenarien zu finden, die mit der finalen Version von Aurora funktionieren werden.
+Testfallszenarien, die auf Funktionen basieren, welche nicht Teil der finalen Version sein werden, sind, um Verwirrungen zu vermeiden, in der folgenden Auflistung nicht vorhanden.
+\newline
+\textbf{Oder doch oder was oder wie???}
 
-\subsection{Sprachenauswahl}
+\subsection{Testabstufungen}
+Funktionalität innerhalb eines Programmes unterscheidet sich in vielerlei Hinsicht.
+Demzufolge schwierig gestaltet es sich, für alle Funktionen gleichermaßen automatisierte Testfälle zu entwerfen.
+Während es uns im Backend gelungen ist, eine fast flächendeckende Überdeckung zu erzielen, hat es sich, insbedondere in Teilen des Presenters und des Frontends, als wesentlich schwieriger erwiesen, eine ähnlich gute Abdeckung zu erreichen.
+Zur besseren Darstellung unserer Tests haben wir uns dazu entschieden, nicht nur zwischen \enquote{automatisiert}, und \enquote{nicht} getestet zu unterscheiden, sondern auch Graustufen einzuführen, die sich dazwischen befinden.
+
+\subsubsection{Nicht getestet}
+Für nicht getestete Funktionen existieren keinerlei Tests jeglicher Art.
+Sie wurden auch während der Entwicklung nicht regelmäßig von Hand ausprobiert.
+
+\subsection{Von Hand getestet}
+In bestimmten Szenarien war das Schreiben von komplett automatisierten Testfällen wesentlich aufwendiger als in anderen.
+Falls es sich in gegebenem Szenario um Funktionen gehandelt hat die teilweise schon von anderen Tests überdeckt wurde,
+    bzw. um Funktionen, die ggf. durch das Drücken eine Knopfes erneut ausgelöst werden konnten, haben wir und in bestimmten Fällen dazu entschieden,
+    diese Szenarien in regelmäßigen Abständen von Hand zu testen.
+
+\subsubsection{Automatisierte Tests}
+Die meisten unserer Testfälle erfolgen automatisiert.
+Hierzu zählen sowohl White, als auch Black-Box-Tests, die regelmäßig und automatisiert ausgeführt werden.
+Insbesondere werden diese Testfälle auch von GitLab, nach jedem push, in einen beliebigen branch ausgeführt.
+
+\subsection{Tests}
+
+\subsubsection{Sprachenauswahl}
     Getestet:
     Sprache ist auswählbar (F37)
 
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T1.1}{JA}
-            \testline{T1.2}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T1.1}{Nicht getestet}
+            \testline{T1.2}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Teilen-Funktion}
+\subsubsection{Teilen-Funktion}
     Getestet:
     LaTeX-Export (F55)
 
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T2.1}{JA}
-            \testline{T2.2}{NEIN}
-            \testline{T2.3}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T2.1}{Nicht getestet}
+            \testline{T2.2}{Nicht getestet}
+            \testline{T2.3}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Darstellung in Chrome}
+\subsubsection{Darstellung in Chrome}
     Getestet:
     Korrekte Darstellung in Google Chrome (N1),
     Eingabefeld (F1),
@@ -121,14 +192,14 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T3.1}{JA}
-            \testline{T3.2}{NEIN}
-            \testline{T3.3}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T3.1}{Nicht getestet}
+            \testline{T3.2}{Nicht getestet}
+            \testline{T3.3}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Eingabe und korrektes Ergebnis}
+\subsubsection{Eingabe und korrektes Ergebnis}
     Getestet:
     Eingabefeld (F1),
     Zeilennummern (F2),
@@ -151,22 +222,22 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T4.1}{JA}
-            \testline{T4.2}{NEIN}
-            \testline{T4.3}{NEIN}
-            \testline{T4.4}{JA}
-            \testline{T4.5}{NEIN}
-            \testline{T4.6}{NEIN}
-            \testline{T4.7}{JA}
-            \testline{T4.8}{NEIN}
-            \testline{T4.9}{NEIN}
-            \testline{T4.10}{JA}
-            \testline{T4.11}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T4.1}{Nicht getestet}
+            \testline{T4.2}{Nicht getestet}
+            \testline{T4.3}{Nicht getestet}
+            \testline{T4.4}{Nicht getestet}
+            \testline{T4.5}{Nicht getestet}
+            \testline{T4.6}{Nicht getestet}
+            \testline{T4.7}{Nicht getestet}
+            \testline{T4.8}{Nicht getestet}
+            \testline{T4.9}{Nicht getestet}
+            \testline{T4.10}{Nicht getestet}
+            \testline{T4.11}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Testen von Highlighting}
+\subsubsection{Testen von Highlighting}
     Getestet:
     Highlighting von Lambdas und Punkten (F9),
     Highlighting von Klammern (F10),
@@ -177,14 +248,14 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T5.1}{JA}
-            \testline{T5.2}{NEIN}
-            \testline{T5.3}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T5.1}{Nicht getestet}
+            \testline{T5.2}{Nicht getestet}
+            \testline{T5.3}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Testen der Standard- und Benutzerbibliotheken}
+\subsubsection{Testen der Standard- und Benutzerbibliotheken}
     Getestet:
     Eingabefeld (F1),
     Zeilennummern (F2),
@@ -208,21 +279,21 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T6.1}{JA}
-            \testline{T6.2}{NEIN}
-            \testline{T6.3}{NEIN}
-            \testline{T6.4}{JA}
-            \testline{T6.5}{NEIN}
-            \testline{T6.6}{NEIN}
-            \testline{T6.7}{JA}
-            \testline{T6.8}{NEIN}
-            \testline{T6.9}{NEIN}
-            \testline{T6.10}{JA}
+            Testfall & Testgüte \\ \hline
+            \testline{T6.1}{Nicht getestet}
+            \testline{T6.2}{Nicht getestet}
+            \testline{T6.3}{Nicht getestet}
+            \testline{T6.4}{Nicht getestet}
+            \testline{T6.5}{Nicht getestet}
+            \testline{T6.6}{Nicht getestet}
+            \testline{T6.7}{Nicht getestet}
+            \testline{T6.8}{Nicht getestet}
+            \testline{T6.9}{Nicht getestet}
+            \testline{T6.10}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Auswertungsstrategie und de Brujin}
+\subsubsection{Auswertungsstrategie und de Brujin}
     Getestet:
     Normalreihenfolge (F27),
     Call-by-Name (F28),
@@ -235,14 +306,14 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T7.1}{JA}
-            \testline{T7.2}{NEIN}
-            \testline{T7.3}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T7.1}{Nicht getestet}
+            \testline{T7.2}{Nicht getestet}
+            \testline{T7.3}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Sharing und Speichern}
+\subsubsection{Sharing und Speichern}
     Getestet:
     In neuem Tab öffnen (F54),
     Historie (F44),
@@ -256,17 +327,17 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T8.1}{JA}
-            \testline{T8.2}{NEIN}
-            \testline{T8.3}{NEIN}
-            \testline{T8.4}{JA}
-            \testline{T8.5}{NEIN}
-            \testline{T8.6}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T8.1}{Nicht getestet}
+            \testline{T8.2}{Nicht getestet}
+            \testline{T8.3}{Nicht getestet}
+            \testline{T8.4}{Nicht getestet}
+            \testline{T8.5}{Nicht getestet}
+            \testline{T8.6}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Tutorial und Prettyprint}
+\subsubsection{Tutorial und Prettyprint}
     Getestet:
     Tutorial (F57),
     Pretty Print (F7)
@@ -274,13 +345,13 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T9.1}{JA}
-            \testline{T9.1}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T9.1}{Nicht getestet}
+            \testline{T9.1}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Ausgabe von Zwischenschritten}
+\subsubsection{Ausgabe von Zwischenschritten}
     Getestet:
     Anzahl der angezeigten Schritte (F36),
     Step (F15)
@@ -288,14 +359,14 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T10.1}{JA}
-            \testline{T10.2}{NEIN}
-            \testline{T10.3}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T10.1}{Nicht getestet}
+            \testline{T10.2}{Nicht getestet}
+            \testline{T10.3}{Nicht getestet}
         \end{tabular}
     \end{center}
 
-\subsection{Shortcuts}
+\subsubsection{Shortcuts}
     Getestet:
     Lambda-Shortcut (F49),
     Run-Shortcut (F50),
@@ -306,12 +377,12 @@ bookmarks=true,
     \label{shortcuts}
     \begin{center}
         \begin{tabular}{ p{9cm} p{4cm}}
-            Testfall & Abdeckung \\ \hline
-            \testline{T11.1}{JA}
-            \testline{T11.2}{NEIN}
-            \testline{T11.3}{NEIN}
-            \testline{T11.4}{NEIN}
-            \testline{T11.5}{NEIN}
+            Testfall & Testgüte \\ \hline
+            \testline{T11.1}{Nicht getestet}
+            \testline{T11.2}{Nicht getestet}
+            \testline{T11.3}{Nicht getestet}
+            \testline{T11.4}{Nicht getestet}
+            \testline{T11.5}{Nicht getestet}
         \end{tabular}
     \end{center}
 
@@ -320,15 +391,16 @@ bookmarks=true,
     % Vielleich auch Überdeckung mit nur JUnit, und dann noch mit Selenium mit dazu?
 
 \section{Regression Tests}
-    \textbf{Was das?}
-    Diese Tests, sollen verhindern, dass Modifikationen in der Software, 
-    keine neuen Fehler verursachen. Seit Beginn der Implementierung wurden Regression Tests
-    geschrieben, die eine korrekte Ausgabe überprüften.
-    Im folgenden, werden Bugs vorgestellt, die im Laufe der Implementierung entstanden
-    sind. Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
-    Nach jeder Behebung mussten Regression Test geschrieben werden, die verhindern, dass die Bugs erneut entstehen.
-    Jeder Bug wurde in einem Issue festgehalten, und die Issue-Nummer wird der Beschreibung des Bugs mitgeliefert.
+    Regression Tests sollen verhindern, dass Modifikationen an der Software, die unter anderem durch Wartung oder Korrektur von Komponenten entstehen kann, nicht dazu führen,
+        dass ehemals behobene Fehler erneut auftreten.
+    Um diesen Ansprüchen gerecht zu werden, ist es zwingend erforderlich, dass so früh wie möglich damit begonnen wird Testfälle zu schreiben,
+        weswegen wir bereits während der Implementierungsphase damit begonnen haben, Testfälle zu entwerfen, um die Korrektheit von Aurora zu gewährleisten.
+    Im folgenden, werden Bugs vorgestellt, die uns im Laufe der Implementierung bzw. Qualitätssicherung aufgefallen sind.
+    Die Fehler werden beschrieben, die Symptomatik festgehalten und die Behebung annotiert.
+    Vor der Behebung eines Fehlers, musste ein Regression Test geschrieben werden, der ebendiesen auslöste, nachdem der Fehler behoben wurde, durfte er dementsprechend nicht mehr ausschlagen.
+    Bugs wurden durchgehend in einem Issue Tracker festgehalten, sobald eine Issue geschlossen werden konnte, wurde der commit vermerkt, der den Fehler behoben hat.
     
+    \textbf{Was das?}
     Gesquäschte Bugs: 1337.
 
     \regrtest{Schrittzahl im Schrittfenster fängt mit falschen Index an}{120}{
@@ -576,5 +648,15 @@ bookmarks=true,
 	Es wurde entschieden, dass der Nachtmodus der Default Modus ist und die Helle
 	Oberfläche durch den Button aktiviert wird.
 \section{Glossar}
+\begin{itemize}
+    \item Issue
+    \item Issue Tracker
+    \item commit?
+    \item Backend
+    \item White-Box-Test
+    \item Black-Box-Test
+    \item push
+    \item GitLab
+\end{itemize}
 
 \end{document}

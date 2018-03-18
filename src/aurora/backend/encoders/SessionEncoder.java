@@ -2,6 +2,7 @@ package aurora.backend.encoders;
 
 import aurora.backend.encoders.exceptions.DecodeException;
 import aurora.backend.library.Library;
+import aurora.backend.encoders.Session;
 
 /**
  * Encode and decode facilities to save and restore sessions (i.e., raw lambda code along with Library entries).
@@ -37,26 +38,5 @@ public abstract class SessionEncoder {
      */
     public abstract Session decode(String encodedInput) throws DecodeException;
 
-    /**
-     * A Session is lambda code (e.g., from user input) along with some Library context.
-     */
-    public class Session {
-
-        public final String rawInput;
-
-        public final Library library;
-
-        /**
-         * Construct a Session from raw input and Library instance.
-         *
-         * @param rawInput The raw input string.
-         * @param library  The Library instance.
-         */
-        public Session(String rawInput, Library library) {
-            this.rawInput = rawInput;
-            this.library = library;
-        }
-
-    }
-
 }
+

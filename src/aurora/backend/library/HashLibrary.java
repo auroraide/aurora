@@ -3,8 +3,8 @@ package aurora.backend.library;
 import aurora.backend.library.exceptions.LibraryItemNotFoundException;
 import aurora.backend.tree.Term;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +18,7 @@ public class HashLibrary implements Library {
      * Standard constructor, that initializes an empty hash map.
      */
     public HashLibrary() {
-        this.map = new HashMap<>();
+        this.map = new LinkedHashMap<>();
     }
 
     @Override

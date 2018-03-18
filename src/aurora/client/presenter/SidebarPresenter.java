@@ -15,7 +15,6 @@ import aurora.client.event.AddFunctionEvent;
 import aurora.client.event.DeleteFunctionEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
 import java.util.List;
@@ -98,10 +97,14 @@ public class SidebarPresenter {
         }
 
         List<Token> tokens;
+        String name = input.getName();
         try {
-            tokens = lambdaLexer.lex("$" + functionName);
+            if (name.charAt(0) == '$') {
+                name = name.substring(1);
+            }
+            tokens = lambdaLexer.lex("$" + name);
         } catch (SyntaxException ex) {
-            sidebarDisplay.displayAddLibraryItemInvalidName();
+            sidebarDisplay.displayAddLibraryItemSyntaxError(ex);
             return;
         }
         if (tokens.size() != 1 || tokens.get(0).getType() != Token.TokenType.T_FUNCTION) {
@@ -109,14 +112,14 @@ public class SidebarPresenter {
             return;
         }
 
-        if (userLib.exists(input.getName()) || stdLib.exists(input.getName())) {
+        if (userLib.exists(name) || stdLib.exists(name)) {
             sidebarDisplay.displayAddLibraryItemNameAlreadyTaken();
             GWT.log("Name is already taken.");
             return;
         }
 
-        userLib.define(input.getName(), input.getDescription(), t);
-        sidebarDisplay.addUserLibraryItem(input.getName(), input.getDescription());
+        userLib.define(name, input.getDescription(), t);
+        sidebarDisplay.addUserLibraryItem(name, input.getDescription());
         sidebarDisplay.closeAddLibraryItemDialog();
 
         // TODO Only for debug reasons here. Should be deleted at some time.

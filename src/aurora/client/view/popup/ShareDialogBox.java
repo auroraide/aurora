@@ -11,7 +11,10 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShareDialogBox extends DialogBox {
+    interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {}
+
     private static ShareDialogBoxUiBinder ourUiBinder = GWT.create(ShareDialogBoxUiBinder.class);
+
     @UiField
     TextArea shareText;
     @UiField
@@ -33,10 +36,6 @@ public class ShareDialogBox extends DialogBox {
         hide();
     }
 
-    private static native boolean copyToClipboard() /*-{
-        return $doc.execCommand('copy');
-    }-*/;
-
     /**
      * Executes once the cancelButton is pressed.
      */
@@ -50,13 +49,9 @@ public class ShareDialogBox extends DialogBox {
     void onCopyToClipboardButtonClicked(ClickEvent event) {
         this.shareText.setFocus(true);
         this.shareText.selectAll();
-        boolean successful = copyToClipboard();
-
-        if (successful) {
-            // TODO Notify user, that copying to clipboard was succesful
-        } else {
-            // TODO Notify user, that copying to clipboard was not succesful
-        }
+        copyToClipboard();
+        ShareDialogBox.this.shareText.setText("");
+        ShareDialogBox.this.hide();
     }
 
     /**
@@ -79,7 +74,8 @@ public class ShareDialogBox extends DialogBox {
         this.shareText.selectAll();
     }
 
-    interface ShareDialogBoxUiBinder extends UiBinder<Widget, ShareDialogBox> {
-    }
+    private static native boolean copyToClipboard() /*-{
+        return $doc.execCommand('copy');
+    }-*/;
 
 }

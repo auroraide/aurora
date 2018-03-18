@@ -3,7 +3,6 @@ package aurora.backend.betareduction;
 import aurora.backend.RedexPath;
 import aurora.backend.TermVisitor;
 import aurora.backend.betareduction.strategies.ReductionStrategy;
-import aurora.backend.betareduction.visitors.RedexFinderVisitor;
 import aurora.backend.betareduction.visitors.ReplaceVisitor;
 import aurora.backend.betareduction.visitors.SubstitutionVisitor;
 import aurora.backend.tree.Abstraction;
@@ -14,12 +13,10 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
-import java.util.List;
-
 public class BetaReducer {
 
     private ReductionStrategy strategy;
-    private boolean alwaystrue;
+    private RedexPath lastPath;
 
     /**
      * The constructor gets a strategy that is used for the reduction.
@@ -28,7 +25,6 @@ public class BetaReducer {
      */
     public BetaReducer(ReductionStrategy strategy) {
         this.strategy = strategy;
-        alwaystrue = false;
     }
 
     /**
@@ -39,6 +35,7 @@ public class BetaReducer {
      */
     public Term reduce(Term term) {
         RedexPath path = strategy.getRedexPath(term);
+        lastPath = path;
 
         // there is no reducible redex left, the given term is our result
         if (path == null) {
@@ -48,14 +45,14 @@ public class BetaReducer {
         SubstitutionVisitor substitutionVisitor = new SubstitutionVisitor(app.right);
         Term substituted = app.left.accept(substitutionVisitor);
         Abstraction substitutedabs = substituted.accept(new CastingVisitor());
-        if (substitutedabs == null) {
-            assert false : "The Redexpath was wrong, there is no redex here. This should never happen";
-        }
         Term substitutedWithoutabs = substitutedabs.body;
         ReplaceVisitor replaceVisitor = new ReplaceVisitor(path, substitutedWithoutabs);
         return term.accept(replaceVisitor);
     }
 
+    public RedexPath getLastPath() {
+        return lastPath;
+    }
 
     private class CastingVisitor extends TermVisitor<Abstraction> {
 
@@ -66,34 +63,34 @@ public class BetaReducer {
 
         @Override
         public Abstraction visit(Application app) {
-            assert false : "This can't happen";
-            return null;
+            //An abstraction isn an application
+            throw new RuntimeException();
         }
 
         @Override
         public Abstraction visit(BoundVariable bvar) {
-            assert false : "This can't happen";
-            return null;
+            //An abstraction isnt a bvar
+            throw new RuntimeException();
+
         }
 
         @Override
         public Abstraction visit(FreeVariable fvar) {
-            assert false : "This can't happen";
-            return null;
+            // An abstraction is a fvar.
+            throw new RuntimeException();
         }
 
         @Override
         public Abstraction visit(Function function) {
-            assert false : "the function got changed it isn't a function anymore this can'T happen";
-            Term t = function.term;
-            t.accept(this);
-            return null;
+            // the function got changed it isn't a function anymore this can't happen and it can't be tested;
+            throw new RuntimeException();
+
         }
 
         @Override
         public Abstraction visit(ChurchNumber c) {
-            assert false : "the churchnumber got changed it isn't a Churchnumber anymore";
-            return null;
+            // the churchnumber got changed it isn't a Churchnumber anymore, this cant happen and can't be tested
+            throw new RuntimeException();
         }
     }
 }

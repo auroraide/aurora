@@ -30,7 +30,7 @@
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="standardLibraryTable"/>
+                            <g:FlexTable ui:field="standardLibraryTable" debugId="standardLibraryTable"/>
 
                         </g:stack >
 
@@ -39,12 +39,12 @@
                             <g:customHeader size="40">
                                 <g:FlowPanel addStyleNames="user_db">
                                     <g:Label debugId="usrlibLabel"><ui:msg description="Sidebar Standard library title">User Library</ui:msg></g:Label>
-                                    <g:Button ui:field="addFunctionButton" addStyleNames="addButton">
+                                    <g:Button ui:field="addFunctionButton" debugId="addFunctionButton" addStyleNames="addButton">
                                     </g:Button>
                                 </g:FlowPanel>
                             </g:customHeader>
 
-                            <g:FlexTable ui:field="userLibraryTable"/>
+                            <g:FlexTable ui:field="userLibraryTable" debugId="userLibraryTable"/>
                         </g:stack>
                     </g:StackLayoutPanel>
                 </g:center>
@@ -65,8 +65,7 @@
                 </g:FlowPanel>
 
                 <!--Share and Language Button -->
-                <g:FlowPanel addStyleNames="share_language" ui:field="languageButton"/>
-                <g:FlowPanel addStyleNames="share_language" ui:field="shareButton" />
+                <g:FlowPanel addStyleNames="share_language" ui:field="shareAndLanguage"/>
 
             </g:HorizontalPanel>
         </g:south>
