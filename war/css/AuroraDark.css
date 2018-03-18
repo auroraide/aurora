@@ -30,7 +30,7 @@ h1 {
 
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
-    margin: 15px 6px 6px;
+    /*margin: 15px 6px 6px;*/
 }
 
 
@@ -356,6 +356,7 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     font-weight: 500;
     padding: 5px 0;
     color: #fff;
+    word-break: break-word;
 }
 
 .infoDialogBox .popup_title {
