@@ -208,6 +208,7 @@ h1 {
 
 .stepShareSettings .subMenuIcon img{
     background: url("../img/icons/icon_settings.png") no-repeat !important;
+    background-size: cover !important;
 }
 
 .stepShareSettingsPopup *[class^="menuPopup"] {
@@ -239,14 +240,18 @@ h1 {
 .standrard_db {
     color: #fff;
     background: url("../img/icons/icon_db.png") no-repeat !important;
-    border-bottom: 0.2em solid #167A66 !important;
+    background-repeat: no-repeat;
+    background-size: auto 60% !important;
+    background-position: 3% center !important;
 }
 
 .user_db {
     color: #fff;
     background: url("../img/icons/icon_user_db.png") no-repeat !important;
+    background-repeat: no-repeat;
+    background-size: auto 70% !important;
+    background-position: 3% center !important;
     background-color: #33495D !important;
-    border-bottom: 0.2em solid #167A66 !important;
 }
 
 .user_db .addButton {
