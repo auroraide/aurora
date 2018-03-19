@@ -151,7 +151,6 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("styleActiveLine", true);
             inputCodeMirror.setOption("back2Lambda", null);
             inputCodeMirror.setOption("lineWrapping", true);
-            inputCodeMirror.focus();
         });
     }
 
@@ -228,9 +227,8 @@ public class EditorView extends Composite implements EditorDisplay {
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
-        shareMenu.ensureDebugId("shareMenu-step-" + index);
-        shareMenu.setStyleName("stepShareSettings");
         shareMenu.addItem("", options);
+        shareMenu.setStyleName("stepShareSettings");
 
         return shareMenu;
     }
@@ -285,10 +283,9 @@ public class EditorView extends Composite implements EditorDisplay {
         stepFieldTable.setWidget(entryIndex, 1, createShareMenu("", "", visibleIndex));
         CodeMirrorPanel cmp = new CodeMirrorPanel();
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
-        log(hle.toString());
 
 
-        //TODO: once hle is done, use its magic
+        // once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
             cmp.setValue(hle.toString());
             cmp.setOption("readOnly", true);
@@ -302,25 +299,50 @@ public class EditorView extends Composite implements EditorDisplay {
             HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
             if (nextRedex != null) {
 
+                GWT.log("nextRedex.startToken = " + nextRedex.startToken);
+                GWT.log("nextRedex.middleToken = " + nextRedex.middleToken);
+                GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
+
                 // determine start and end tokens
                 int count = 0;
                 Token start = null;
+                Token middle = null;
                 Token end = null;
                 for (Token t : hle) {
-                    if (count++ == nextRedex.startToken) {
+                    if (t.getOffset() == nextRedex.startToken) {
                         start = t;
+                        // we have to keep looking because middle might be == start
+                        //continue;
+                    }
+                    if (t.getOffset() == nextRedex.middleToken) {
+                        middle = t;
                         continue;
                     }
-                    if (count == nextRedex.lastToken) {
+                    if (t.getOffset() == nextRedex.lastToken) {
                         end = t;
                         break;
                     }
                 }
+
+                assert (start != null);
+                assert (middle != null);
+                assert (end != null);
+
+                GWT.log("start.getColumn() = " + start.getColumn());
+                GWT.log("middle.getColumn() = " + middle.getColumn());
+                GWT.log("end.getColumn() = " + end.getColumn());
+
                 cmp.markText(start.getLine() - 1,
                         start.getColumn() - 1,
+                        middle.getLine() - 1,
+                        middle.getColumn(),
+                        "next-left");
+
+                cmp.markText(middle.getLine() - 1,
+                        middle.getColumn(),
                         end.getLine() - 1,
-                        end.getColumn() - 1,
-                        "red");
+                        end.getColumn() + end.toString().length(),
+                        "next-right");
             }
 
 
@@ -390,9 +412,49 @@ public class EditorView extends Composite implements EditorDisplay {
     }
 
     @Override
-    public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
-        this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
-        this.stepMap.put(0, highlightedLambdaExpression);
+    public void setInput(HighlightedLambdaExpression hle) {
+        this.inputCodeMirror.setValue(hle.toString());
+        this.stepMap.put(0, hle);
+
+        // highlight next redex
+        HighlightedLambdaExpression.Redex nextRedex = hle.getNextRedex();
+        if (nextRedex != null) {
+            // determine start and end tokens
+            Token start = null;
+            Token middle = null;
+            Token end = null;
+            for (Token t : hle) {
+                if (t.getOffset() == nextRedex.startToken) {
+                    start = t;
+                    // we have to keep looking because middle might be == start
+                    //continue;
+                }
+                if (t.getOffset() == nextRedex.middleToken) {
+                    middle = t;
+                    continue;
+                }
+                if (t.getOffset() == nextRedex.lastToken) {
+                    end = t;
+                    break;
+                }
+            }
+
+            assert (start != null);
+            assert (middle != null);
+            assert (end != null);
+
+            inputCodeMirror.markText(start.getLine() - 1,
+                    start.getColumn() - 1,
+                    middle.getLine() - 1,
+                    middle.getColumn(),
+                    "next-left");
+
+            inputCodeMirror.markText(middle.getLine() - 1,
+                    middle.getColumn(),
+                    end.getLine() - 1,
+                    end.getColumn() + end.toString().length(),
+                    "next-right");
+        }
     }
 
     /**

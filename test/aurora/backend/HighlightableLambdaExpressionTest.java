@@ -254,14 +254,15 @@ public class HighlightableLambdaExpressionTest {
 
     @Test
     public void hlewithpath() {
+        // (\a. a) a
         Term t = new Application(new Abstraction(new BoundVariable(1), "a"), new FreeVariable("a"));
         RedexPath path = new NormalOrder().getRedexPath(t);
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t, path);
         HighlightedLambdaExpression.Redex r = hle.getNextRedex();
         //this might fail if better Highlighting is implemented
-        assertEquals(r.startToken, 0);
-        assertEquals(r.middleToken, 7);
-        assertEquals(r.lastToken, 8);
+        assertEquals(0, r.startToken);
+        assertEquals(6, r.middleToken);
+        assertEquals(8, r.lastToken);
 
         HighlightableLambdaExpression samehle = hle;
 
