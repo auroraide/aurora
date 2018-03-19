@@ -16,6 +16,7 @@ import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import java.util.ArrayList;
@@ -71,7 +72,9 @@ public class AuroraPresenter {
 
             @Override
             public void onSuccess(String result) {
-                auroraDisplay.displayShortLinkDialog(result);
+                StringBuffer buffer = new StringBuffer();
+                buffer.append(Window.Location.getHref()).append("#").append(result);
+                auroraDisplay.displayShortLinkDialog(buffer.toString());
             }
         });
     }
