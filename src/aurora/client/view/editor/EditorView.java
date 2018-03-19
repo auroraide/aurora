@@ -240,6 +240,8 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
+        GWT.log("synex line = " + syntaxException.getLine() + " col = "+ syntaxException.getColumn());
+        inputCodeMirror.markText(syntaxException.getLine() - 1, syntaxException.getColumn()- 1, syntaxException.getLine()- 1, syntaxException.getColumn(), "red");
         this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
@@ -250,6 +252,7 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
+        inputCodeMirror.markText(semanticException.getLine() - 1, semanticException.getColumn() - 1, semanticException.getLine() - 1, semanticException.getColumn() - 1, "red");
         this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
