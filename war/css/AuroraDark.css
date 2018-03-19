@@ -407,7 +407,7 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     font-weight: 500;
     padding: 5px 0;
     color: #fff;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .infoDialogBox .popup_title {
@@ -421,4 +421,12 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     background: rgba(125, 35, 35, 0.8);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.highlight-red {
+    background-color: red;
+}
+
+.highlight-green {
+    background-color: green;
 }
