@@ -27,7 +27,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 
+import java.awt.font.ShapeGraphicAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,7 +117,7 @@ public class EditorPresenterTest {
         setUpPresenterWithInput(sampleString);
 
         bus.fireEvent(new RunEvent());
-        verify(editorDisplay).setInput(any());
+        verify(editorDisplay).setInput(Matchers.<String>any());
         bus.fireEvent(new ResetEvent());
         bus.fireEvent(new StepEvent());
     }
