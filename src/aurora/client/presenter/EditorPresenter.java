@@ -66,7 +66,6 @@ public class EditorPresenter {
     private final HighlightTimer highlightTimer;
     private RunTimer runTimer;
     private StepTimer stepTimer;
-    private PrintNLastStepsTimer printNLastTimer;
 
     private ReStepTimer reStepTimer;
     private Iterator<Step> reStepper;
@@ -157,7 +156,6 @@ public class EditorPresenter {
     }
 
     private Step last() {
-        assert (!steps.isEmpty());
         return steps.get(steps.size() - 1);
     }
 
@@ -188,7 +186,7 @@ public class EditorPresenter {
 
     private boolean isReStepping() {
         // assert (!isRunning() && isStarted());
-        assert ((nextReStepIndex == null) == (reStepper == null));
+        // assert ((nextReStepIndex == null) == (reStepper == null));
         return reStepper != null;
     }
 
@@ -210,8 +208,18 @@ public class EditorPresenter {
 
     private void onContinue() {
         GWT.log("EP: ContinueEvent caught.");
-        assert (!isRunning() && isStarted() && !isReStepping());
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        if (isRunning() || !isStarted() || isReStepping()) {
+            return;
+        }
+        if (reductionStrategy == StrategyType.MANUALSELECTION) {
+            return;
+        }
+
+        if (isStepping()) {
+            stepTimer.cancel();
+            stepTimer = null;
+        }
+
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         if (!berry.hasNext()) {
             editorDisplay.displayResult(new HighlightableLambdaExpression(simplify(last().getTerm())));
@@ -224,34 +232,26 @@ public class EditorPresenter {
 
     private void onPause() {
         GWT.log("EP: PauseEvent caught.");
-        assert (isRunning() && isStarted() && !isReStepping());
-
-        runTimer.cancel();
-        runTimer = null;
-
-        printNLastTimer = new PrintNLastStepsTimer();
-        printNLastTimer.scheduleRepeating(1);
-    }
-
-    private class PrintNLastStepsTimer extends Timer {
-        private int counter;
-
-        public PrintNLastStepsTimer() {
-            counter = Math.max(1, steps.size() - stepsToComputeAtOnce);
+        if (!isStarted()) {
+            return;
+        }
+        if (isReStepping()) {
+            return;
         }
 
-        @Override
-        public void run() {
-            if (counter >= steps.size()) {
-                int bla = steps.size();
-                cancel();
-                printNLastTimer = null;
-                return;
-            }
-
-            editorDisplay.addNextStep(steps.get(counter).getHle(), counter);
-            counter++;
+        if (isRunning()) {
+            runTimer.cancel();
+            runTimer = null;
+        } else if (isStepping()) {
+            stepTimer.cancel();
+            stepTimer = null;
+        } else {
+            return;
         }
+
+        editorDisplay.resetSteps();
+
+        editorDisplay.addNextStep(last().getHle(), steps.size() - 1);
     }
 
     private void onReset() {
@@ -312,8 +312,12 @@ public class EditorPresenter {
 
     private void onStep() {
         GWT.log("EP: StepEvent caught.");
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
-        assert (!isRunning() && !isReStepping() && !isStepping());
+        if (reductionStrategy == StrategyType.MANUALSELECTION) {
+            return;
+        }
+        if (isRunning() || isReStepping() || isStepping()) {
+            return;
+        }
 
         if (!isStarted()) {
             if (!tryStartOrHandleErrors()) {
@@ -364,7 +368,9 @@ public class EditorPresenter {
 
     private void onReStep() {
         GWT.log("EP: ReStepEvent caught.");
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        if (reductionStrategy == StrategyType.MANUALSELECTION) {
+            return;
+        }
 
         if (!isReStepping()) {
             // if not yet restepping, initialize.
@@ -393,7 +399,9 @@ public class EditorPresenter {
 
         @Override
         public void run() {
-            assert (reStepper.hasNext());
+            if (!reStepper.hasNext()) {
+                return;
+            }
 
             if (counter-- <= 0) {
                 cancel();
@@ -417,16 +425,16 @@ public class EditorPresenter {
 
     private void onRedexClicked(HighlightedLambdaExpression.Redex redex) {
         GWT.log("EP: RedexClickEvent caught.");
-        assert (!isRunning() && isStarted());
-
-        RedexPath path = redex.redex;
-        ReductionStrategy strategy = new UserStrategy(path);
-
-
+        if (isRunning() || !isStarted()) {
+            RedexPath path = redex.redex;
+            ReductionStrategy strategy = new UserStrategy(path);
+        }
     }
 
     private void onStrategyChange(EvaluationStrategyChangedEvent strat) {
-        assert (runTimer == null);
+        if (runTimer != null) {
+            return;
+        }
         reductionStrategy = strat.getStrategyType();
         if (berry != null) {
             berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
@@ -479,8 +487,12 @@ public class EditorPresenter {
      */
     private void onRun() {
         GWT.log("EP: RunEvent caught.");
-        assert (!isRunning() && !isStarted() && !isReStepping());
-        assert (reductionStrategy != StrategyType.MANUALSELECTION);
+        if (isRunning() || isStarted() || isReStepping()) {
+            return;
+        }
+        if (reductionStrategy == StrategyType.MANUALSELECTION) {
+            return;
+        }
 
         if (!tryStartOrHandleErrors()) {
             return;
