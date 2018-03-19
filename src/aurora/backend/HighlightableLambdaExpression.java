@@ -478,9 +478,11 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             public Term visit(Abstraction abs) {
                 if (abs.name.equals(name)) {
                     counter++;
-                    int mycounter = counter;
                     String newname = name + Integer.toString(counter);
-                    return new Abstraction(abs.body.accept(this), name + Integer.toString(mycounter));
+                    if (newname.length() == 2) {
+                        newname = "\u2063" + newname;
+                    }
+                    return new Abstraction(abs.body.accept(this), name + newname);
                 } else {
                     return new Abstraction(abs.body.accept(this), abs.name);
                 }
@@ -700,6 +702,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(FreeVariable fvar) {
+            if (fvar.name.length() == 2) {
+                tokens.add(new Token(Token.TokenType.T_VARIABLE, "\u2063" + fvar.name, line, column, offset));
+                column += fvar.name.length() + 1;
+                offset++;
+                return null;
+            }
             tokens.add(new Token(Token.TokenType.T_VARIABLE, fvar.name, line, column, offset));
             column += fvar.name.length();
             offset++;

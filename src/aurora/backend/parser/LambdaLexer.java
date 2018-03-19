@@ -109,6 +109,12 @@ public class LambdaLexer {
                 // consume token
                 code = code.substring(whole.length());
 
+                int hack = 0;
+                if (name.length() == 2) {
+                    name = "\u2063" + name;
+                    ++hack;
+                }
+
                 // spawn token
                 result.add(new Token(
                         Token.TokenType.T_VARIABLE,
@@ -117,6 +123,8 @@ public class LambdaLexer {
                         column,
                         offset
                 ));
+
+                column += hack;
 
                 // update line, column, and offset
                 column += whole.length();
