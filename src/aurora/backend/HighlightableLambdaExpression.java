@@ -16,6 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import static aurora.backend.parser.Token.TokenType.T_LEFT_PARENS;
+import static aurora.backend.parser.Token.TokenType.T_RIGHT_PARENS;
+
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
@@ -111,12 +114,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         return redexes;
     }
 
-
-
-    @SuppressWarnings("Duplicates")
     private class RedexPathToRedexFromMetaTermVisitor extends TermVisitor<Void> {
+
         private final RedexPath nextPath;
+
         private final RedexPath currentPath;
+
         private MetaTerm lastMeta;
 
         public RedexPathToRedexFromMetaTermVisitor(RedexPath nextPath) {
@@ -156,9 +159,121 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             if (amRedex) {
                 assert (startToken != null && middleToken != null && lastToken != null);
-                Redex r = new Redex(startToken.getOffset(), middleToken.getOffset(), lastToken.getOffset(),
+
+                // do magic
+                boolean foundParens = false;
+                int explodedStart = startToken.getOffset();
+                int explodedMiddle = middleToken.getOffset();
+                int explodedEnd = lastToken.getOffset();
+
+                int leftOfMiddle = explodedMiddle;
+                while (true) {
+                    boolean exploding = true;
+
+                    // inner
+                    int newExplodedMiddle = cleanRight(explodedMiddle) + 1;
+                    if (newExplodedMiddle >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedMiddle).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // match left now
+                    leftOfMiddle = skipLeft(leftOfMiddle) - 1;
+                    if (leftOfMiddle <= explodedStart) {
+                        exploding = false;
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedMiddle = newExplodedMiddle;
+                }
+
+                while (true) {
+                    boolean exploding = true;
+
+                    // left
+                    int newExplodedStart = cleanLeft(explodedStart) - 1;
+                    if (newExplodedStart < 0) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedStart).getType()) {
+                        case T_LEFT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // right
+                    int newExplodedMiddle = cleanRight(explodedMiddle) + 1;
+                    if (newExplodedMiddle >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedMiddle).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedStart = newExplodedStart;
+                    explodedMiddle = newExplodedMiddle;
+                }
+
+                int leftOfEnd = explodedEnd;
+                while (true) {
+                    boolean exploding = true;
+
+                    // inner
+                    int newExplodedEnd = cleanRight(explodedEnd) + 1;
+                    if (newExplodedEnd >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedEnd).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // match left now
+                    leftOfEnd = skipLeft(leftOfEnd) - 1;
+                    if (leftOfEnd <= explodedMiddle) {
+                        exploding = false;
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedEnd = newExplodedEnd;
+                }
+
+                Redex r = new Redex(
+                        explodedStart,
+                        explodedMiddle,
+                        explodedEnd,
                         currentPath.deepCopy());
+
+                // add this redex we just found to our list of all redexes
                 redexes.add(r);
+
+                // is this our next redex
                 // null means we don't want to highlight a next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
@@ -192,6 +307,58 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             this.lastMeta = mt;
             return mt.term.accept(this);
         }
+
+        private int cleanRight(int offset) {
+            int cleanOffset = offset;
+            while (cleanOffset < tokens.size() - 1) {
+                ++cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_COMMENT:
+                    case T_WHITESPACE:
+                        break;
+                    default:
+                        return cleanOffset - 1;
+                }
+            }
+            return cleanOffset;
+        }
+
+        private int cleanLeft(int offset) {
+            int cleanOffset = offset;
+            while (cleanOffset > 0) {
+                --cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_COMMENT:
+                    case T_WHITESPACE:
+                        break;
+                    default:
+                        return cleanOffset + 1;
+                }
+            }
+            return cleanOffset;
+        }
+
+        private int skipLeft(int offset) {
+            int idx = 0;
+            int cleanOffset = offset;
+            while (cleanOffset > 0) {
+                --cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_LEFT_PARENS:
+                        if (idx == 0) {
+                            return cleanOffset;
+                        }
+                        ++idx;
+                        break;
+                    case T_RIGHT_PARENS:
+                        --idx;
+                        break;
+                    default:
+                }
+            }
+            return cleanOffset;
+        }
+
     }
 
     /**
@@ -352,6 +519,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
          * Free Variable to name_alpha.
          */
         private class AlphaconversionVisitorFV extends TermVisitor<Term> {
+
             private String name;
 
             public AlphaconversionVisitorFV(String name) {
@@ -380,10 +548,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             public Term visit(FreeVariable fvar) {
                 if (fvar.name.equals(name)) {
                     chg = true;
-
                 }
                 return fvar;
-
             }
 
             @Override
@@ -395,14 +561,14 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             public Term visit(ChurchNumber c) {
                 return c;
             }
-        }
 
+        }
 
     }
 
     /**
      * Compute the {@link HighlightableLambdaExpression} representation of the {@link Term} it is applied on.
-     * builds token list of the term.
+     * The {@link Token} stream is generated from the visited {@link Term}.
      */
     private class TermToHighlightedLambdaExpressionVisitor extends TermVisitor<Void> {
         private final RedexPath nextPath;
@@ -414,8 +580,8 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         TermToHighlightedLambdaExpressionVisitor() {
             line = 1;
-            offset = -1;
-            column = 0;
+            column = 1;
+            offset = 0;
             index = 0;
             currentPath = new RedexPath();
             nextPath = null;
@@ -423,32 +589,30 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         public TermToHighlightedLambdaExpressionVisitor(RedexPath nextPath) {
             line = 1;
-            offset = -1;
-            column = 0;
+            column = 1;
+            offset = 0;
             index = 0;
             currentPath = new RedexPath();
             this.nextPath = nextPath;
         }
 
-
         @Override
         public Void visit(Abstraction abs) {
-            column++;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_LAMBDA, line, column, offset));
-
-            int length = abs.name.length();
-            column += length;
+            column++;
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_VARIABLE, abs.name, line, column, offset));
-
-            column++;
+            column += abs.name.length();
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_DOT, line, column, offset));
-
             column++;
             offset++;
+
             tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
+            column++;
+            offset++;
 
             // replace all BoundVariables with Free Variables
             Term t = abs.body.accept(new BoundVariableFinder(abs.name));
@@ -460,52 +624,68 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         @Override
         public Void visit(Application app) {
             boolean amRedex = app.left.accept(new AbstractionFinder());
-            // these are used to construct Redex start/end token offsets for the view.
-            int startToken;
-            int middleToken;
-            int lastToken;
+
+            int startTokenOffset;
+            int middleTokenOffset;
+            int lastTokenOffset;
 
             currentPath.push(RedexPath.Direction.LEFT);
+            startTokenOffset = offset;
+
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
+                tokens.add(new Token(T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
-                startToken = offset;
-                tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
+
                 app.left.accept(this);
+
+                tokens.add(new Token(T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
-                tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
             } else {
-                startToken = offset;
                 app.left.accept(this);
             }
+
             currentPath.pop();
 
+            // last token of left side
+            middleTokenOffset = offset - 1;
+
+            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
             column++;
             offset++;
-            tokens.add(new Token(Token.TokenType.T_WHITESPACE, " ", line, column, offset));
 
             currentPath.push(RedexPath.Direction.RIGHT);
+
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
+                tokens.add(new Token(T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
-                middleToken = offset;
-                tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
+
                 app.right.accept(this);
+
+                tokens.add(new Token(T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
-                tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
             } else {
-                middleToken = offset;
                 app.right.accept(this);
             }
+
             currentPath.pop();
 
             if (amRedex) {
-                lastToken = offset;
-                assert (startToken >= 0 && middleToken >= 0);
-                Redex r = new Redex(startToken, middleToken, lastToken, currentPath.deepCopy());
+                // more magic
+                lastTokenOffset = tokens.get(tokens.size() - 1).getOffset();
+
+                assert (startTokenOffset >= 0 && middleTokenOffset >= 0 && lastTokenOffset >= 0);
+
+                Redex r = new Redex(startTokenOffset, middleTokenOffset, lastTokenOffset, currentPath.deepCopy());
+
+                // add this redex we just found to our list of all redexes
                 redexes.add(r);
+
+                // is this our next redex
+                // null means we don't want to highlight a next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
                 }
@@ -515,38 +695,32 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            assert false : "found a bvar after turning them into fvars";
-            int length = String.valueOf(bvar.index).length();
-            column += length;
-            offset++;
-            tokens.add(new Token(Token.TokenType.T_VARIABLE, String.valueOf(bvar.index), line, column, offset));
-            return null;
+            throw new RuntimeException("This should not have happened.");
         }
 
         @Override
         public Void visit(FreeVariable fvar) {
-            int length = fvar.name.length();
-            column += length;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_VARIABLE, fvar.name, line, column, offset));
+            column += fvar.name.length();
+            offset++;
             return null;
         }
 
         @Override
         public Void visit(Function libterm) {
-            int length = libterm.name.length();
-            column += length;
-            offset++;
             tokens.add(new Token(Token.TokenType.T_FUNCTION, libterm.name, line, column, offset));
+            // +1 because of extra $
+            column += libterm.name.length() + 1;
+            offset++;
             return null;
         }
 
         @Override
         public Void visit(ChurchNumber c) {
-            int length = String.valueOf(c.value).length();
-            column += length;
+            String n = "" + c.value;
+            tokens.add(new Token(Token.TokenType.T_NUMBER, n, line, column, offset));
+            column += n.length();
             offset++;
-            tokens.add(new Token(Token.TokenType.T_NUMBER, String.valueOf(c.value), line, column, offset));
             return null;
         }
     }
@@ -709,4 +883,5 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             return true;
         }
     }
+
 }

@@ -1,3 +1,10 @@
+.highlight-next-left {
+    background-color:#537971;
+}
+.highlight-next-right {
+    background-color:#537698;
+}
+
 /** Add css rules here for your application. */
 h1 {
     font-size: 2em;
