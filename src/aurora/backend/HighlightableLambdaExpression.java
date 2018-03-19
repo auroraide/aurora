@@ -294,7 +294,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(Function libterm) {
-            return libterm.term.accept(this);
+            return null;
         }
 
         @Override
