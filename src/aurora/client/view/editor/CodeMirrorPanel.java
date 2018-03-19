@@ -119,10 +119,6 @@ public class CodeMirrorPanel extends SimplePanel {
             {className: "highlight-" + arg5}]);
     }-*/;
 
-    private native void removeMarker(JavaScriptObject marker) /*-{
-        marker["clear"].apply(marker);
-    }-*/;
-
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{
         return jso[key].apply(jso);
     }-*/;
