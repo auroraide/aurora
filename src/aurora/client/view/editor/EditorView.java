@@ -20,6 +20,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -31,6 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import static com.google.gwt.core.client.GWT.log;
 
 /**
  * This is where the user may view and manipulate code.
@@ -146,6 +150,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("styleActiveLine", true);
             inputCodeMirror.setOption("back2Lambda", null);
             inputCodeMirror.setOption("lineWrapping", true);
+            inputCodeMirror.focus();
         });
     }
 
@@ -222,6 +227,8 @@ public class EditorView extends Composite implements EditorDisplay {
         //optionMenu.addStyleName(optionsStyleName);
         options.addItem("LaTeX", (Command) () -> EditorView.this.eventBus.fireEvent(new ExportLaTeXEvent(index)));
         options.addItem("Link", (Command) () -> EditorView.this.eventBus.fireEvent(new ShareLinkEvent(index)));
+        shareMenu.ensureDebugId("shareMenu-step-" + index);
+        shareMenu.setStyleName("stepShareSettings");
         shareMenu.addItem("", options);
         shareMenu.setStyleName("stepShareSettings");
 
@@ -270,6 +277,7 @@ public class EditorView extends Composite implements EditorDisplay {
         cmp.ensureDebugId("stepCodeMirror-" + visibleIndex);
 
 
+
         // once hle is done, use its magic
         Scheduler.get().scheduleDeferred((Command) () -> {
             cmp.setValue(hle.toString());
@@ -289,6 +297,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
 
                 // determine start and end tokens
+                int count = 0;
                 Token start = null;
                 Token middle = null;
                 Token end = null;

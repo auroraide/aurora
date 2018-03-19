@@ -50,7 +50,7 @@ public class SidebarViewGwtTest extends GWTTestCase {
         assertTrue(sidebarView.strategySelection.getNormalOrder().getValue());
         assertFalse(sidebarView.strategySelection.getCallByName().getValue());
         assertFalse(sidebarView.strategySelection.getCallByValue().getValue());
-        assertFalse(sidebarView.strategySelection.getManualSelection().getValue());
+        //assertFalse(sidebarView.strategySelection.getManualSelection().getValue());
 
         // check, if nighMode is enabled on initialisation
         assertTrue(sidebarView.nightModeSwitch.getValue());
@@ -183,7 +183,7 @@ public class SidebarViewGwtTest extends GWTTestCase {
         assertEquals(addFunctionButtonIsEnabled, sidebarView.addFunctionButton.isEnabled());
         assertEquals(callByValueIsEnabled, sidebarView.strategySelection.getCallByValue().isEnabled());
         assertEquals(callByNameIsEnabled, sidebarView.strategySelection.getCallByName().isEnabled());
-        assertEquals(manualSelectionIsEnabled, sidebarView.strategySelection.getManualSelection().isEnabled());
+        //assertEquals(manualSelectionIsEnabled, sidebarView.strategySelection.getManualSelection().isEnabled());
         assertEquals(normalOrderIsEnabled, sidebarView.strategySelection.getNormalOrder().isEnabled());
         assertEquals(nightModeSwitchIsEnabled, sidebarView.nightModeSwitch.isEnabled());
 
