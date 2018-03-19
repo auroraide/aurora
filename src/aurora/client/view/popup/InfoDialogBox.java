@@ -22,8 +22,8 @@ public class InfoDialogBox extends DialogBox {
         this.setStyleName("infoDialogBox");
         setWidget(uiBinder.createAndBindUi(this));
         setAutoHideEnabled(true);
-        setGlassEnabled(true);
-        center();
+        setGlassEnabled(false);
+        //center();
         hide();
     }
 
