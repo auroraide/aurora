@@ -108,7 +108,7 @@ public class CodeMirrorPanel extends SimplePanel {
      * Removes a marker from the editor.
      */
     public void deleteMarker(Object marker) {
-        removeMarker((JavaScriptObject) marker);
+        callCMFunction((JavaScriptObject) marker, "clear");
     }
 
     private native Object callCMmarkText(JavaScriptObject jso, String key,
