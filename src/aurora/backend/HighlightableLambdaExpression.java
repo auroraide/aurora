@@ -16,6 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import static aurora.backend.parser.Token.TokenType.T_LEFT_PARENS;
+import static aurora.backend.parser.Token.TokenType.T_RIGHT_PARENS;
+
 /**
  * Encapsulates the lambda term combined with meta information about highlighting.
  */
@@ -156,9 +159,121 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
             if (amRedex) {
                 assert (startToken != null && middleToken != null && lastToken != null);
-                Redex r = new Redex(startToken.getOffset(), middleToken.getOffset(), lastToken.getOffset(),
+
+                // do magic
+                boolean foundParens = false;
+                int explodedStart = startToken.getOffset();
+                int explodedMiddle = middleToken.getOffset();
+                int explodedEnd = lastToken.getOffset();
+
+                int leftOfMiddle = explodedMiddle;
+                while (true) {
+                    boolean exploding = true;
+
+                    // inner
+                    int newExplodedMiddle = cleanRight(explodedMiddle) + 1;
+                    if (newExplodedMiddle >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedMiddle).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // match left now
+                    leftOfMiddle = skipLeft(leftOfMiddle) - 1;
+                    if (leftOfMiddle <= explodedStart) {
+                        exploding = false;
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedMiddle = newExplodedMiddle;
+                }
+
+                while (true) {
+                    boolean exploding = true;
+
+                    // left
+                    int newExplodedStart = cleanLeft(explodedStart) - 1;
+                    if (newExplodedStart < 0) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedStart).getType()) {
+                        case T_LEFT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // right
+                    int newExplodedMiddle = cleanRight(explodedMiddle) + 1;
+                    if (newExplodedMiddle >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedMiddle).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedStart = newExplodedStart;
+                    explodedMiddle = newExplodedMiddle;
+                }
+
+                int leftOfEnd = explodedEnd;
+                while (true) {
+                    boolean exploding = true;
+
+                    // inner
+                    int newExplodedEnd = cleanRight(explodedEnd) + 1;
+                    if (newExplodedEnd >= tokens.size()) {
+                        break;
+                    }
+                    switch (tokens.get(newExplodedEnd).getType()) {
+                        case T_RIGHT_PARENS:
+                            break;
+                        default:
+                            exploding = false;
+                    }
+                    if (exploding == false) {
+                        break;
+                    }
+
+                    // match left now
+                    leftOfEnd = skipLeft(leftOfEnd) - 1;
+                    if (leftOfEnd <= explodedMiddle) {
+                        exploding = false;
+                        break;
+                    }
+
+                    // apply explosion
+                    explodedEnd = newExplodedEnd;
+                }
+
+                Redex r = new Redex(
+                        explodedStart,
+                        explodedMiddle,
+                        explodedEnd,
                         currentPath.deepCopy());
+
+                // add this redex we just found to our list of all redexes
                 redexes.add(r);
+
+                // is this our next redex
                 // null means we don't want to highlight a next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
@@ -192,6 +307,58 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             this.lastMeta = mt;
             return mt.term.accept(this);
         }
+
+        private int cleanRight(int offset) {
+            int cleanOffset = offset;
+            while (cleanOffset < tokens.size() - 1) {
+                ++cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_COMMENT:
+                    case T_WHITESPACE:
+                        break;
+                    default:
+                        return cleanOffset - 1;
+                }
+            }
+            return cleanOffset;
+        }
+
+        private int cleanLeft(int offset) {
+            int cleanOffset = offset;
+            while (cleanOffset > 0) {
+                --cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_COMMENT:
+                    case T_WHITESPACE:
+                        break;
+                    default:
+                        return cleanOffset + 1;
+                }
+            }
+            return cleanOffset;
+        }
+
+        private int skipLeft(int offset) {
+            int idx = 0;
+            int cleanOffset = offset;
+            while (cleanOffset > 0) {
+                --cleanOffset;
+                switch (tokens.get(cleanOffset).getType()) {
+                    case T_LEFT_PARENS:
+                        if (idx == 0) {
+                            return cleanOffset;
+                        }
+                        ++idx;
+                        break;
+                    case T_RIGHT_PARENS:
+                        --idx;
+                        break;
+                    default:
+                }
+            }
+            return cleanOffset;
+        }
+
     }
 
     /**
@@ -466,13 +633,13 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             startTokenOffset = offset;
 
             if (app.left.accept(new DetermineIfParenthesisNecessaryOnTheLeft())) {
-                tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
+                tokens.add(new Token(T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
 
                 app.left.accept(this);
 
-                tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
+                tokens.add(new Token(T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
             } else {
@@ -491,13 +658,13 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
             currentPath.push(RedexPath.Direction.RIGHT);
 
             if (app.right.accept(new DetermineIfParenthesisNecessaryOnTheRight())) {
-                tokens.add(new Token(Token.TokenType.T_LEFT_PARENS, line, column, offset));
+                tokens.add(new Token(T_LEFT_PARENS, line, column, offset));
                 column++;
                 offset++;
 
                 app.right.accept(this);
 
-                tokens.add(new Token(Token.TokenType.T_RIGHT_PARENS, line, column, offset));
+                tokens.add(new Token(T_RIGHT_PARENS, line, column, offset));
                 column++;
                 offset++;
             } else {
@@ -518,6 +685,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
                 redexes.add(r);
 
                 // is this our next redex
+                // null means we don't want to highlight a next redex
                 if (nextPath != null && currentPath.isSame(nextPath)) {
                     next = r;
                 }
