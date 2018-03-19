@@ -47,9 +47,10 @@
                         <li><a href="#overview">Overview</a></li>
                         <li><a href="#eingabefeld">Editor</a>
                             <ul class="second_level">
-                                <li><a href="eingabefeld">Eingabefeld</a></li>
+                                <li><a href="#eingabefeld">Eingabefeld</a></li>
                                 <li><a href="#funktionsleiste">Funtionsleiste</a></li>
                                 <li><a href="#stepfield">Stepfield</a></li>
+                                <li><a href="#hotkeys">Hotkeys</a></li>
                                 <li><a href="#ausgabefield">Ausgabefeld</a></li>
                             </ul>
                         </li>
