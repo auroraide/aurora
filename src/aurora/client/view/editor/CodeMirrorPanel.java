@@ -101,7 +101,8 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param toChar last char to mark in toLine.
      */
     public Object markText(int fromLine, int fromChar, int toLine, int toChar, String classCSS) {
-        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, classCSS);
+        return callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, classCSS);
+
     }
 
     /**

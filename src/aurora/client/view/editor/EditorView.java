@@ -242,12 +242,15 @@ public class EditorView extends Composite implements EditorDisplay {
     public void displaySyntaxError(SyntaxException syntaxException) {
         inputCodeMirror.setOption("clearOnEnter", true);
         GWT.log(syntaxException.getMessage() + "synex line = " + syntaxException.getLine() + " col = "+ syntaxException.getColumn());
-        inputCodeMirror.markText(syntaxException.getLine() - 1, syntaxException.getColumn()- 1, syntaxException.getLine()- 1, syntaxException.getColumn(), "red");
+        Object x = inputCodeMirror.markText(syntaxException.getLine() - 1, syntaxException.getColumn()- 1, syntaxException.getLine()- 1, syntaxException.getColumn(), "red");
+
         this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
+
+        inputCodeMirror.deleteMarker(x);
 
     }
 
@@ -255,11 +258,13 @@ public class EditorView extends Composite implements EditorDisplay {
     public void displaySemanticError(SemanticException semanticException) {
         GWT.log(semanticException.getMessage() + "semex line = " + semanticException.getLine() + " col = "+ semanticException.getColumn());
         Object x = inputCodeMirror.markText(semanticException.getLine() - 1, semanticException.getColumn() - 1, semanticException.getLine() - 1, semanticException.getColumn() - 1, "red");
+        inputCodeMirror.deleteMarker(x);
         this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
+        inputCodeMirror.deleteMarker(x);
     }
 
     @Override
