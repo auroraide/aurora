@@ -94,6 +94,12 @@ public class SidebarView extends Composite implements SidebarDisplay {
     private LinkElement linkLightCMStyle;
     private LinkElement linkDarkCMStyle;
 
+    private LinkElement editorStyle;
+    private LinkElement sidebarStyle;
+    private LinkElement auroraStyle;
+    private LinkElement darkModeStyle;
+    private LinkElement lightModeStyle;
+
 
     /**
      * Created the Sidebar.
@@ -220,7 +226,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     private void createCssLinks() {
-        linkDarkModeAuroraStyle = Document.get().createLinkElement();
+        /*linkDarkModeAuroraStyle = Document.get().createLinkElement();
         linkDarkModeAuroraStyle.setHref("css/AuroraDark.css");
         linkDarkModeAuroraStyle.setRel("stylesheet");
         linkLightModeAuroraStyle = Document.get().createLinkElement();
@@ -240,17 +246,36 @@ public class SidebarView extends Composite implements SidebarDisplay {
         linkLightModeEditorStyle = Document.get().createLinkElement();
         linkLightModeEditorStyle.setHref("css/EditorLight.css");
         linkLightModeEditorStyle.setRel("stylesheet");
-
+*/
         linkDarkCMStyle = Document.get().createLinkElement();
         linkDarkCMStyle.setHref("css/CodeMirror/material.css");
         linkDarkCMStyle.setRel("stylesheet");
 
+        editorStyle = Document.get().createLinkElement();
+        editorStyle.setHref("css/Editor.css");
+        editorStyle.setRel("stylesheet");
+        sidebarStyle = Document.get().createLinkElement();
+        sidebarStyle.setHref("css/Sidebar.css");
+        sidebarStyle.setRel("stylesheet");
+        auroraStyle = Document.get().createLinkElement();
+        auroraStyle.setHref("css/Aurora.css");
+        auroraStyle.setRel("stylesheet");
+
+
+        darkModeStyle = Document.get().createLinkElement();
+        darkModeStyle.setHref("css/AuroraDarkMode.css");
+        darkModeStyle.setRel("stylesheet");
+        lightModeStyle = Document.get().createLinkElement();
+        lightModeStyle.setHref("css/AuroraStrawberryCheescakeMode.css");
+        lightModeStyle.setRel("stylesheet");
     }
 
     private void setupDefaultAuroraCSS() {
-        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
-        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
-        Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(editorStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(sidebarStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(auroraStyle);
+        Document.get().getElementsByTagName("head").getItem(0).appendChild(darkModeStyle);
+
         Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
     }
 
@@ -391,26 +416,18 @@ public class SidebarView extends Composite implements SidebarDisplay {
         this.nightModeSwitch.addClickHandler(event -> {
             boolean checked = ((CheckBox) event.getSource()).getValue();
             if (!checked) {
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeAuroraStyle);
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeSidebarStyle);
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkLightModeEditorStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(lightModeStyle);
 
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeAuroraStyle);
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeSidebarStyle);
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkModeEditorStyle);
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(darkModeStyle);
                 Document.get().getElementsByTagName("head").getItem(0).removeChild(linkDarkCMStyle);
 
                 Document.get().getBody().addClassName("lightMode");
                 Document.get().getBody().removeClassName("darkMode");
             } else if (checked) {
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeAuroraStyle);
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeSidebarStyle);
-                Document.get().getElementsByTagName("head").getItem(0).removeChild(linkLightModeEditorStyle);
-
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeAuroraStyle);
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeSidebarStyle);
-                Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkModeEditorStyle);
+                Document.get().getElementsByTagName("head").getItem(0).appendChild(darkModeStyle);
                 Document.get().getElementsByTagName("head").getItem(0).appendChild(linkDarkCMStyle);
+
+                Document.get().getElementsByTagName("head").getItem(0).removeChild(lightModeStyle);
                 Document.get().getBody().removeClassName("lightMode");
                 Document.get().getBody().addClassName("darkMode");
             }

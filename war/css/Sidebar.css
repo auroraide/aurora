@@ -1,0 +1,334 @@
+.westPanel {
+    font-weight: 200;
+}
+
+.stepSettings {
+    font-size: 16px;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: 3% center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stepSettings .leftAlign{
+    margin-left: 30px;
+    position: relative;
+}
+.stepSettings .gwt-TextBox {
+    background-color: #33495D;
+    border-bottom: 1px solid #b2b0b0 !important;
+    color: #fff;
+}
+
+.standrard_db {
+    background-repeat: no-repeat;
+    background-size: auto 60% !important;
+    background-position: 3% center !important;
+    border: none !important;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_db {
+    background-repeat: no-repeat;
+    background-size: auto 70% !important;
+    background-position: 3% center !important;
+    border: none !important;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.standrard_db .gwt-Label, .user_db .gwt-Label {
+    margin-left: 37px;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.user_db .addButton {
+    background: url("../img/icons/icon_plus.png") no-repeat center !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    top: -4px;
+    /* right: 6px; */
+    position: relative;
+    border: none;
+    padding: 0;
+}
+
+.user_db .addButton:before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top:5px;
+    height: 30px;
+}
+
+.user_db .addButton:focus {
+    border: none;
+}
+
+.extra_settings {
+    width: 100%
+}
+
+.extra_settings tbody tr {
+    display: flex;
+    flex-direction:column;
+}
+
+.extra_settings table {
+    display: block;
+    clear:both;
+}
+
+.extra_settings tr:nth-child(3) {
+    z-index: 100;
+}
+
+.style-strategy {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gwt-RadioButton {
+    width: 49%;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    font-size: 1em;
+}
+
+.strategy .gwt-RadioButton:nth-child(3) {
+    width: 100%;
+}
+.strategy .gwt-RadioButton input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+
+.strategy .gwt-RadioButton label {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+.strategy .gwt-RadioButton:nth-child(3) label{
+    padding: 15px 0;
+}
+
+.strategy .gwt-RadioButton input[type=radio]:checked + label{
+    width: 70%;
+}
+
+.strategy .gwt-RadioButton:nth-child(3) input[type=radio]:checked + label{
+    width: 100%;
+}
+
+.night_mode {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-image: url("../img/icons/icon_night_mode.png");
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: 5% center;
+}
+
+.night_mode .gwt-CheckBox {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.night_mode .gwt-CheckBox input {
+    display:none;
+}
+
+.night_mode .gwt-CheckBox label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.night_mode .gwt-CheckBox label:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 5px;
+    bottom: 3px;
+    border-radius: 50%;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.night_mode .gwt-CheckBox input:checked + label:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+
+
+.night_mode .gwt-Label {
+    margin-left: 30px;
+    vertical-align: middle;
+    line-height: 2em;
+    font-size: 1.2em;
+}
+.share_language, .share_language >div, .share_language table {
+    height: 40px;
+    width: 100%;
+}
+
+.share_language tbody{
+    width:100%;
+    height: 100%;
+    display: block;
+}
+
+.share_language tbody tr:first-child {
+    display: flex;
+    flex-direction: row;
+    width:100%;
+}
+.share_language div table tbody tr td{
+    width:49.5%;
+}
+/* SHARE LANGUAGE HOVERING*/
+.share_language .gwt-MenuItem-selected{
+}
+
+.share_language .gwt-MenuItem {
+    width: 100%;
+    padding: 7px 0 !important;
+    text-align: center ;
+    vertical-align: middle;
+    font-size: 16px
+}
+
+.share_language .subMenuIcon{
+    display: none;
+}
+
+.share_language tbody tr td:nth-child(2) {
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center center;
+}
+
+/* Language and Share: popup */
+
+.shareAndLanguagePopup {
+    left: 0 !important;
+    bottom: 40px !important;
+    top: unset !important;
+}
+.shareAndLanguagePopup .menuPopupMiddleLeft {
+    display: none !important;
+}
+
+.shareAndLanguagePopup table {
+    width: 105%;
+}
+
+.shareAndLanguagePopup .languageMenu tr, .shareAndLanguagePopup .shareMenu tr {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.shareAndLanguagePopup .gwt-MenuItem {
+    line-height: 25px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    display: block;
+    width:100%;
+}
+
+.shareAndLanguagePopup .languageMenu tr:last-child, .shareAndLanguagePopup .shareMenu tr:last-child {
+    border-bottom: none;
+}
+
+.shareAndLanguagePopup .languageMenu tr:hover, .shareAndLanguagePopup .shareMenu tr:hover {
+    background: RGBA(41, 186, 155, .70);
+}
+
+.gwt-ListBox {
+    display: none;
+}
+/*LIBRARIES*/
+.panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
+    height:80px;
+}
+
+.panelSettings .gwt-StackLayoutPanel div:nth-child(4) table {
+    width: 100%;
+}
+
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2), .panelSettings .gwt-StackLayoutPanel > div:nth-child(4) {
+    overflow-y: scroll !important;
+}
+
+/*STYLES FOR USER LIBRARY: LAYOUT*/
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:first-child {
+    width: 30%;
+    font-weight: 700;
+    word-break: break-all;
+}
+.panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:nth-child(2) {
+    width: 60%;
+    padding: 0 3px;
+}
+
+
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent {
+    border: none;
+}
+
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody > tr{
+    display: flex;
+    padding: 5px 0;
+    max-width: 250px;
+}
+
+.panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody tr td{
+    max-width: 250px;
+}
+
+.deleteUserLibraryItem {
+    font-weight: 800;
+    font-size: 15px;
+    border-radius: 3px;
+}
+
+/*
+.gwt-MenuBarPopup {
+    left:0 !important;
+    bottom: 0;
+    width: 130px;
+    height: 10px;
+     margin-bottom: 100px;
+    padding-bottom: 100px;
+}
+.gwt-MenuBarPopup table {
+    width: 100%;
+}*/
