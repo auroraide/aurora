@@ -73,7 +73,7 @@ public class JSONSessionEncoderGwtTest extends GWTTestCase {
         String rawInput = "";
         Library stdLib = new HashLibrary();
 
-        String json = "{\"rawInput\":\"\",\"library\":[]}";
+        String json = "{\"rawInput\":\"\", \"library\":[]}";
         String encoded = jse.encode(new Session(rawInput, stdLib));
     
         assertEquals(encoded, json);
@@ -87,7 +87,7 @@ public class JSONSessionEncoderGwtTest extends GWTTestCase {
         String rawInput = "λx.x";
         Library stdLib = new HashLibrary();
 
-        String json = "{\"rawInput\":\"λx.x\",\"library\":[]}";
+        String json = "{\"rawInput\":\"λx.x\", \"library\":[]}";
         String encoded = jse.encode(new Session(rawInput, stdLib));
 
         assertEquals(encoded, json);

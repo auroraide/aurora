@@ -85,6 +85,13 @@ public class CodeMirrorPanel extends SimplePanel {
     }
 
     /**
+     * Give focus to the CMP.
+     */
+    public void focus() {
+        callCMFunction(editor, "focus");
+    }
+
+    /**
      * Mark text in a given interval.
      * Requires selection/mark-selection.js addon to be loaded.
      *
@@ -93,8 +100,8 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param toLine line in which to stop marking.
      * @param toChar last char to mark in toLine.
      */
-    public void markText(int fromLine, int fromChar, int toLine, int toChar, String backgroundClr) {
-        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, backgroundClr);
+    public void markText(int fromLine, int fromChar, int toLine, int toChar, String classCSS) {
+        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, classCSS);
     }
 
     private native Object callCMmarkText(JavaScriptObject jso, String key,
@@ -102,7 +109,7 @@ public class CodeMirrorPanel extends SimplePanel {
         return jso[key].apply(jso,
             [{line: arg1,ch: arg2},
             {line: arg3, ch: arg4},
-            {css: "background-color:" + arg5}]);
+            {className: "highlight-" + arg5}]);
     }-*/;
 
     private native Object callCMFunction(JavaScriptObject jso, String key) /*-{

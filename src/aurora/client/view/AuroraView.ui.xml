@@ -72,79 +72,284 @@
                     <h2>about</h2>
                 </div>
                 <section>
-                    <p> Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit eigenen Lambda Termen sowohl arbeiten, als auch experimentieren können.
-                        Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das λ-Kalkül zu entwickeln.
-                        Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch eine anschauliche Darstellung von Zwischenschritte gegeben.
-                        Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.</p>
+                    <p> Ziel der Software Aurora ist es, Studenten eine Lernumgebung zu bieten, in der sie mit eigenen Lambda Termen sowohl arbeiten, als auch experimentieren können.</p>
+                    <p>Hierdurch soll es den Studenten ermöglicht werden, ein besseres Gefühl für das λ-Kalkül zu entwickeln.</p>
+                    <p> Hilfestellungen werden neben farbiger Hervorhebung der Termstrukturen auch durch eine anschauliche Darstellung von Zwischenschritte gegeben.</p>
+                    <p> Darüberhinaus existiert eine vordefinierte Standardbibliothek, in der häufig benutzte Funktionen und Church Zahlen (in numerischer Schreibweise) vordefiniert sind.</p>
                     <p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbibliothek.</p>
                 </section>
-
-
-                <div class="title" id="hotkeys">
-                    <h2>Hotkeys</h2>
-                </div>
-                <section>
-                    <p> Zur Verbesserung der Nutzererfahrung sind für gängige Funktionen Hotkeys implementiert worden.
-                        Im Folgenden ist eine vollständige Liste zu finden.</p>
-                    <p>
-                        <div>
-                            <p><span><b>Run  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Pause  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Continue  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Reset  </b></span>Ctrl + Backspace</p>
-                            <p><span><b>Pause  </b></span>Ctrl + Space</p>
-                        </div>
-                    </p>
-                </section>
-
 
 
                 <div class="title" id="overview">
                     <h2>Overview</h2>
                 </div>
-                <section class="col3">
-                    <div>
-                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
-                    </div>
-                    <div class="middle"><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p>
-                        <img src="img/screenshots/main.png"/>
-                    </div>
-                    <div><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p></div>
-                </section>
-
-
-                <div class="title" id="input">
-                    <h2>editor</h2>
-                </div>
                 <section class="col2">
                     <div>
-                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
+                        <p><span class="number">[1] </span>Die <strong>Sidebar</strong> enthält den grössten Teil der Funktionen und Einstellungen, die der Benutzer verwenden kann.</p>
+                        <p><span class="number">[2] </span>In dem <strong>Eingabefeld</strong> kann der Benutzer Lambda Terme des Lambda-Kalküls eingeben.</p>
+                        <p><span class="number">[3] </span>In der <strong>Funktionsleiste</strong> kann der Benutzer die Reduktion steuern.</p>
+                        <p><span class="number">[4] </span>In dem <strong>Schrittfeld</strong> können die Zwischenschritte der Reduktion angezeigt werden.</p>
+                        <p><span class="number">[5] </span>In dem <strong>Ausgabefeld</strong> kann das Ergebnis der Berechnung ausgegeben werden.</p>
                     </div>
                     <div class="middle">
                         <img src="img/screenshots/editor.png"/>
                     </div>
                 </section>
 
-                <div class="title">
-                    <h2>sidebar</h2>
+
+                <div class="title" id="eingabefeld">
+                    <h2>EDITOR: Eingabefeld</h2>
+                    <p>Der Benutzer kann das Eingabefeld folgendermaßen benutzten.</p>
                 </div>
-                <section class="col3 column_40-20-40">
-                    <div>
-                        <p><span class="number">[1] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[2] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[3] </span>Explanation one bla bla bla</p>
-                        <p><span class="number">[4] </span>Explanation one bla bla bla</p>
+                <section class="col2">
+                    <div class="image middle">
+                        <img src="img/screenshots/editor.png"/>
                     </div>
+
+                    <div class="description">
+                        <ul>
+                            <li>das <span class="highlight">Backslashsymbol</span> eruzeugt das Lambdasymbol des Lambda-Kalküls</li>
+                            <li>Eine Variable kann aus mehreren groß und klein <span class="highlight">Buschstaben</span>, aus <span class="highlight">Zahlen</span> und dem <span class="highlight">Sonderzeichen _</span> bestehen. Die Zahlen und _ dürfen allerdings nicht der erste Character sein.</li>
+                            <li>Der Punkt des Lambdakalküls ist der normale Punkt.</li>
+                            <li>Eine Funktion der Benutzer oder Standardbibliothek kann mit dem speizifischen Funktionsnamen hinter einem $ verwendet werden.</li>
+                            <li>Eine Churchzahl besteht aus Ziffern.</li>
+                            <li>Falls keine Klammern vorhanden sind, wird implizit links geklammert.</li>
+                            <li>Ein Kommentar beginnt nach einem #</li>
+                            <li>Eine schließende Klammer wird automatisch hinzugefügt, wenn eine Klammer geöffnet wird.</li>
+                        </ul>
+                    </div>
+                </section>
+
+
+                <div class="title" id="eingabefeld">
+                    <h2>EDITOR: Funktionsleiste</h2>
+                    <p>Die Funktionsleiste besteht aus drei Knöpfen. Die Knöpfe sind ausgegraut wenn sie deaktiviert sind.</p>
+                </div>
+                <section class="col2">
+                    <div class="image middle">
+                        <p>Bild mit Standard Funktionsleiste.</p>
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+
+                    <div class="description">
+                        <p><span class="number">[1] </span>Der Step Knopf zeigt so viele Schritte im Schrittfeld an, wieviele im Stepfenster eingestellt sind.</p>
+                        <p><span class="number">[2] </span>Mithilfe des Reset Knopfs wird die Reduktion abgebrochen und alle Zwischenschritte der Reduktion gelöscht.</p>
+                        <p><span class="number">[3] </span>Der Step Knopf zeigt so viele Schritte im Schrittfeld an, wieviele im Stepfenster eingestellt sind.</p>
+                    </div>
+                </section>
+                <section class="col2">
+                    <div class="description">
+                        <p><span class="number">[1] </span>Falls der Run Button gedrückt wurde, kann der Benutzer mithilfe des Pause Knopfes, der den Run Button ersetzt pausieren.</p>
+                        <p><span class="number">[2] </span>Wenn pausiert wird, wird der aktuelle Schritt des</p>
+                    </div>
+                    <div class="image middle">
+                        <p>Bild mit Funktionsleiste während run gedrückt</p>
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+                </section>
+                <section class="col2">
+                    <div class="image middle">
+                        <p>Bild mit Rechnung pausiert</p>
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+                    <div class="description">
+                        <p>Während die Rechnung pausiert ist, werden die Zwischenschritte wie in dem Stepfeld spezifiziert sind angezeigt.</p>
+                    </div>
+                </section>
+
+
+
+
+                <div class="title" id="eingabefeld">
+                    <h2>EDITOR: Stepfield</h2>
+                    <p>Das Stepfeld zeigt die so viele Zwischenschritte der Reduktion an,
+                        wie in dem Stepfeld spezifiziert wurde.</p>
+                </div>
+                <section class="col2">
+                    <div class="image middle">
+                        <p>Bild von den Schritten von $add 2 2</p>
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+
+                    <div class="description">
+                        <p><span class="number">[1] </span>Die Schritte sind unterteil und besitzen eine Schrittnummer.</p>
+                        <p><span class="number">[2] </span>Die Schritte werden Alphakonversion unterzogen und behalten Funktionsnamen und Churchzahlen solange, bis sie reduziert werden.</p>
+                        <p><span class="number">[3] </span>Die einzelnen Schritte könenn durch den Einstellungsknopf in Latex konformen Text gewandelt werden, der in ein Latexdokumen kopiert werden können.</p>
+                    </div>
+                </section>
+
+
+
+                <div class="title" id="hotkeys">
+                    <h2>EDITOR: Hotkeys</h2>
+                </div>
+                <section class="col2_50-50">
+                    <div class="description">
+                        <p> Zur Verbesserung der Nutzererfahrung sind für gängige Funktionen Hotkeys implementiert worden.</p>
+                        <p>Im Folgenden ist eine vollständige Liste zu finden.</p>
+                    </div>
+
+                        <div class="image">
+                            <p><span><b>Run  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Pause  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Continue  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Reset  </b></span>Ctrl + Backspace</p>
+                            <p><span><b>Pause  </b></span>Ctrl + Space</p>
+                        </div>
+
+                </section>
+
+                <div class="title" id="eingabefeld">
+                    <h2>EDITOR: Ausgabefeld</h2>
+                    <p>Im Ausgabefeld steht die reduzierte Eingabe in Normalform.</p>
+                </div>
+                <section class="col2">
+                    <div class="image middle">
+                        <p>Bild von 4 im resultfeld, Bild von \x.x im Ausgabefeld</p>
+                        <img src="img/screenshots/editor.png"/>
+                    </div>
+
+                    <div class="description">
+                        <p><span class="number">[1] </span>Falls das Ergebnis eine Churchzahl oder eine bekannte Funktion aus den Bibliotheken ist, wird der Funktionsname oder die Zahl ausgegeben.
+                        </p>
+                    </div>
+                </section>
+
+
+
+
+                <div class="title" id="eingabefeld">
+                    <h2>SIDEBAR</h2>
+                </div>
+                <section class="col2">
+
+                    <div class="description">
+                        <p><span class="number">[1] </span>Im Stepfeld kann die Anzahl der angezeigten Zwischenschritte der Reduktion eingestellt werden</p>
+                        <p><span class="number">[2] </span>In der Standardbibliothek sind von den Entwicklern vorgefertigte Funktionen definiert.</p>
+                        <p><span class="number">[3] </span>In der Benutzerbibliothek kann der Benutzer selber Funktionen definieren. Achtung, die Namen der Funktionen beinhalten nicht das $ das die Funktion</p>
+                        <p><span class="number">[4] </span>Man kann die Reduktionsstrategien, der Betareduktion auswählen.</p>
+                        <p><span class="number">[5] </span>Der Nachtmodus ist standardmäßig angestellt, bei Wunsch kann der Benutzer einen Normalen Modus einschalten.</p>
+                        <p><span class="number">[6] </span>Mit dem Sprachenbknopf kann die Sprache des Programms verändert werden. Zur Auswahl stehen Russisch und Englisch (Englisch ist default)</p>
+                        <p><span class="number">[7] </span>Mit dem Shareknopf kann die geparsde Eingabe und alle Schritte in Latex kopiert werden.</p>
+                    </div>
+                    <div class="image middle">
+                        <p>Bild von der Sidebar mit Standardbibliothek offen.</p>
+                        <img src="img/screenshots/sidebar.png"/>
+                    </div>
+                </section>
+
+
+                <div class="title" id="eingabefeld">
+                    <h2>POPUPS</h2>
+                </div>
+                <section class="col2">
+                    <div class="image middle">
+                        <p>Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                        <img src="img/screenshots/addNewFunctionPopup.png"/>
+                    </div>
+                    <div class="description">
+                    <p><span class="number">[1] </span>Die neuen Funktionen bestehen aus einem Namen, einem Lambdaterm und einer optionalen Beschreibung.</p>
+                    </div>
+                </section>
+
+
+
+                <div class="title" id="thanks">
+                    <h2>Unsere Danke</h2>
+                </div>
+                <section class="col1">
                     <div class="middle">
-                        <img src="img/screenshots/sidebar.png" style="width: 80%" />
+                        <p style="text-align: center">Unsere fette Danke geht an <span class="highlight">Denis Lohner</span>, der uns für Lambda Kalkul insperiert hat und ohne ende in untrschiedlichen Formen unterstutzt hat (auch süsse Verpflegung)</p>
                     </div>
-                    <div><p>Weitere Features sind unter anderem das einfache Erstellen von Lernmaterial durch einen LATEX-Export, als auch das Teilen des eigenen Inputs, inklusive dazugehöriger Benutzerbi- bliothek.</p></div>
+
+                </section>
+
+
+                <div class="title" id="contact_us">
+                    <h2>KONTAKT</h2>
+                </div>
+                <section class="col2_50-50">
+                    <div>
+                        <div class="person">
+                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <div class="person_info">
+                                <div class="person_ava">
+                                    <img src="img/persons/Alex.png"/>
+                                </div>
+                                <div class="person_bio">
+                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="person">
+                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <div class="person_info">
+                                <div class="person_ava">
+                                    <img src="img/persons/Alex.png"/>
+                                </div>
+                                <div class="person_bio">
+                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="person">
+                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <div class="person_info">
+                                <div class="person_ava">
+                                    <img src="img/persons/Alex.png"/>
+                                </div>
+                                <div class="person_bio">
+                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div>
+                        <div class="person">
+                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <div class="person_info">
+                                <div class="person_ava">
+                                    <img src="img/persons/Alex.png"/>
+                                </div>
+                                <div class="person_bio">
+                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                                </div>
+                            </div>
+                        </div><div class="person">
+                        <h2><span class="highlight">Alexander von Heyden</span></h2>
+                        <div class="person_info">
+                            <div class="person_ava">
+                                <img src="img/persons/Alex.png"/>
+                            </div>
+                            <div class="person_bio">
+                                <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                            </div>
+                        </div>
+                    </div><div class="person">
+                        <h2><span class="highlight">Alexander von Heyden</span></h2>
+                        <div class="person_info">
+                            <div class="person_ava">
+                                <img src="img/persons/Alex.png"/>
+                            </div>
+                            <div class="person_bio">
+                                <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </section>
             </g:HTMLPanel>
         </g:tab>

@@ -240,6 +240,11 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 
 .gwt-TabLayoutPanelContent .title {
     text-align: center;
+    font-size: 17px;
+}
+
+.gwt-TabLayoutPanelContent .title h2{
+    text-align: center;
     text-transform: uppercase;
     color: #1abb9b;
 }
@@ -248,10 +253,17 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     border-bottom: 1px solid #1abb9b;
     font-size: 17px;
     column-count: 2;
-    padding: 0 20% 15px;
+    padding: 0 15% 15px;
 }
 
-.gwt-TabLayoutPanelContent section span.highlight{
+.gwt-TabLayoutPanelContent section.col1{
+    border-bottom: 1px solid #1abb9b;
+    font-size: 17px;
+    column-count: 1;
+    padding: 0 15% 15px;
+}
+
+.gwt-TabLayoutPanelContent section span.highlight, .gwt-TabLayoutPanelContent section a{
     color: #1abb9b;
     font-size: 17px;
 }
@@ -261,17 +273,54 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     margin-top: 0;
 }
 
+.gwt-TabLayoutPanelContent section .person_info {
+    display: flex;
+}
+
+.gwt-TabLayoutPanelContent section .person {
+    margin-bottom: 25px;
+}
+
+.gwt-TabLayoutPanelContent section .person h2{
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.gwt-TabLayoutPanelContent section .person .person_bio {
+    margin-left: 20px;
+}
+
+.gwt-TabLayoutPanelContent section .person .person_ava, .gwt-TabLayoutPanelContent section .person .person_ava img {
+    position: relative;
+    top: 10%;
+    width:100px;
+    height:100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
 .gwt-TabLayoutPanelContent section.col2 {
     column-count: unset;
     display: flex;
 }
 
-.gwt-TabLayoutPanelContent section.col2 div:nth-child(1){
-    width: 30%;
+.gwt-TabLayoutPanelContent section.col2 .description {
+    width: 40%;
 }
 
-.gwt-TabLayoutPanelContent section.col2 div:nth-child(2){
-    width: 70%;
+.gwt-TabLayoutPanelContent section.col2 .image {
+    width: 60%;
+}
+
+.gwt-TabLayoutPanelContent section.col2_50-50 {
+    column-count: unset;
+    display: flex;
+}
+
+.gwt-TabLayoutPanelContent section.col2_50-50 > div {
+    width: 50%;
 }
 
 /* 3 colums */
@@ -327,6 +376,8 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 #tutorial_nav ul li {
     border-bottom: 1px solid #33495D;
 }
+
+
 
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
     overflow-y: scroll !important;
