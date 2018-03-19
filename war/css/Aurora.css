@@ -228,9 +228,9 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     font-size: 17px;
 }
 
-.gwt-TabLayoutPanelContent section p {
+.gwt-TabLayoutPanelContent section p, .gwt-TabLayoutPanelContent section li {
     font-size: 17px;
-    margin-top: 0;
+    margin: 10px 0 !important;
 }
 
 .gwt-TabLayoutPanelContent section .person_info {
@@ -297,7 +297,6 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 }
 .gwt-TabLayoutPanelContent section.col3 div p, .gwt-TabLayoutPanelContent section.col2 div p {
     width: 90%;
-    margin: 0 auto;
     display: block;
 }
 .gwt-TabLayoutPanelContent section.col3 img, .gwt-TabLayoutPanelContent section.col2 img {
@@ -317,18 +316,30 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 #tutorial_nav {
     max-width: 30vw;
     position: fixed;
-    top: 30%;
+    top: 10%;
 }
 
 #tutorial_nav a {
     text-decoration: none;
     font-size: 17px;
+    width: 100%;
+    display: block;
+    line-height: 30px;
 }
 
-#tutorial_nav ul.first_level {
+#tutorial_nav a:hover {
+    background-color: rgba(0,0,0,0.4);
+}
+
+#tutorial_nav ul.first_level, #tutorial_nav ul.second_level {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+#tutorial_nav ul.second_level li {
+    position: relative;
+    padding-left: 20px;
 }
 
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
