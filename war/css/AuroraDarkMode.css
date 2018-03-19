@@ -4,6 +4,10 @@
 h1 {
     color: #777777;
 }
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+    padding:0 !important;
+}
 .serverResponseLabelError {
     color: red;
 }
@@ -76,7 +80,7 @@ h1 {
 /* TUTORIAL */
 .gwt-TabLayoutPanelContent {
     background: #33485c;
-    color: #fff;
+    color: #d6d3d3;
     border-top: 1px solid #1abb9b;
 }
 .gwt-TabLayoutPanelContent .title h2{
@@ -208,6 +212,10 @@ h1 {
 
 .stepShareSettings .subMenuIcon img{
     background: url("../img/icons/icon_settings.png") no-repeat !important;
+    background-size: cover !important;
+    height: 13px !important;
+    width: 13px !important;
+    z-index: 100;
 }
 
 .stepShareSettingsPopup *[class^="menuPopup"] {
@@ -231,6 +239,8 @@ h1 {
     border-bottom: 0.2em solid #167A66;
 }
 .stepSettings .gwt-TextBox {
+    border: none;
+    text-align: center;
     background-color: #33495D;
     border-bottom: 1px solid #b2b0b0 !important;
     color: #fff;
@@ -239,14 +249,18 @@ h1 {
 .standrard_db {
     color: #fff;
     background: url("../img/icons/icon_db.png") no-repeat !important;
-    border-bottom: 0.2em solid #167A66 !important;
+    background-repeat: no-repeat;
+    background-size: auto 60% !important;
+    background-position: 3% center !important;
 }
 
 .user_db {
     color: #fff;
     background: url("../img/icons/icon_user_db.png") no-repeat !important;
+    background-repeat: no-repeat;
+    background-size: auto 70% !important;
+    background-position: 3% center !important;
     background-color: #33495D !important;
-    border-bottom: 0.2em solid #167A66 !important;
 }
 
 .user_db .addButton {

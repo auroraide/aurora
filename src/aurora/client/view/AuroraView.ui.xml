@@ -43,26 +43,18 @@
             <g:HTMLPanel>
                 <nav id="tutorial_nav">
                     <ul class="first_level">
-                        <li><a href="/Aurora.html#about">Über aurora</a></li>
+                        <li><a href="#about">Über aurora</a></li>
                         <li><a href="#overview">Overview</a></li>
-                        <li><a href="#input">Editor</a>
+                        <li><a href="#eingabefeld">Editor</a>
                             <ul class="second_level">
-                                <li><a href="input">Eingabefeld</a></li>
-                                <li><a href="#action_bar">Funtionsleiste</a></li>
-                                <li><a href="#step_view">Schrittfeld</a></li>
-                                <li><a href="#result_field">Ausgabefeld</a></li>
+                                <li><a href="eingabefeld">Eingabefeld</a></li>
+                                <li><a href="#funktionsleiste">Funtionsleiste</a></li>
+                                <li><a href="#stepfield">Stepfield</a></li>
+                                <li><a href="#ausgabefield">Ausgabefeld</a></li>
                             </ul>
                         </li>
-                        <li><a href="#step_change">Sidebar</a>
-                            <ul class="second_level">
-                                <li><a href="#step_change">Schrittauswahl</a></li>
-                                <li><a href="#st_library">Standardlibrary</a></li>
-                                <li><a href="#user_library">Benutzerbibliothek</a></li>
-                                <li><a href="#strategy">Strategieauswahl</a></li>
-                                <li><a href="#night_mode">Night Mode</a></li>
-                                <li><a href="#language_share">Sprache und Share</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#sidebar">Sidebar</a></li>
+                        <li><a href="#popups">Popups</a></li>
                         <li><a href="#thanks">Unsere Danke</a></li>
                         <li><a href="#contact_us">Kontakt</a></li>
                     </ul>
@@ -92,7 +84,7 @@
                         <p><span class="number">[5] </span>In dem <strong>Ausgabefeld</strong> kann das Ergebnis der Berechnung ausgegeben werden.</p>
                     </div>
                     <div class="middle">
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/overview.png"/>
                     </div>
                 </section>
 
@@ -103,7 +95,7 @@
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/eingabefeld.png"/>
                     </div>
 
                     <div class="description">
@@ -121,14 +113,13 @@
                 </section>
 
 
-                <div class="title" id="eingabefeld">
+                <div class="title" id="funktionsleiste">
                     <h2>EDITOR: Funktionsleiste</h2>
                     <p>Die Funktionsleiste besteht aus drei Knöpfen. Die Knöpfe sind ausgegraut wenn sie deaktiviert sind.</p>
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <p>Bild mit Standard Funktionsleiste.</p>
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/funktionsleiste.png"/>
                     </div>
 
                     <div class="description">
@@ -143,14 +134,12 @@
                         <p><span class="number">[2] </span>Wenn pausiert wird, wird der aktuelle Schritt des</p>
                     </div>
                     <div class="image middle">
-                        <p>Bild mit Funktionsleiste während run gedrückt</p>
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/funktionsleiste_running.png"/>
                     </div>
                 </section>
                 <section class="col2">
                     <div class="image middle">
-                        <p>Bild mit Rechnung pausiert</p>
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/funktionsleiste_pause.png"/>
                     </div>
                     <div class="description">
                         <p>Während die Rechnung pausiert ist, werden die Zwischenschritte wie in dem Stepfeld spezifiziert sind angezeigt.</p>
@@ -160,15 +149,14 @@
 
 
 
-                <div class="title" id="eingabefeld">
+                <div class="title" id="stepfield">
                     <h2>EDITOR: Stepfield</h2>
                     <p>Das Stepfeld zeigt die so viele Zwischenschritte der Reduktion an,
                         wie in dem Stepfeld spezifiziert wurde.</p>
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <p>Bild von den Schritten von $add 2 2</p>
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/step.png"/>
                     </div>
 
                     <div class="description">
@@ -199,18 +187,17 @@
 
                 </section>
 
-                <div class="title" id="eingabefeld">
+                <div class="title" id="ausgabefeld">
                     <h2>EDITOR: Ausgabefeld</h2>
                     <p>Im Ausgabefeld steht die reduzierte Eingabe in Normalform.</p>
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <p>Bild von 4 im resultfeld, Bild von \x.x im Ausgabefeld</p>
-                        <img src="img/screenshots/editor.png"/>
+                        <img src="img/screenshots/ausgabe.png"/>
                     </div>
 
                     <div class="description">
-                        <p><span class="number">[1] </span>Falls das Ergebnis eine Churchzahl oder eine bekannte Funktion aus den Bibliotheken ist, wird der Funktionsname oder die Zahl ausgegeben.
+                        <p>Falls das Ergebnis eine Churchzahl oder eine bekannte Funktion aus den Bibliotheken ist, wird der Funktionsname oder die Zahl ausgegeben.
                         </p>
                     </div>
                 </section>
@@ -218,7 +205,7 @@
 
 
 
-                <div class="title" id="eingabefeld">
+                <div class="title" id="sidebar">
                     <h2>SIDEBAR</h2>
                 </div>
                 <section class="col2">
@@ -233,22 +220,30 @@
                         <p><span class="number">[7] </span>Mit dem Shareknopf kann die geparsde Eingabe und alle Schritte in Latex kopiert werden.</p>
                     </div>
                     <div class="image middle">
-                        <p>Bild von der Sidebar mit Standardbibliothek offen.</p>
-                        <img src="img/screenshots/sidebar.png"/>
+                        <img src="img/screenshots/sidebar.png" style="width: 50%"/>
                     </div>
                 </section>
 
 
-                <div class="title" id="eingabefeld">
+                <div class="title" id="popups">
                     <h2>POPUPS</h2>
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <p>Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
-                        <img src="img/screenshots/addNewFunctionPopup.png"/>
+                        <p style="text-align:center;">ADD NEW FUNCTION in user library</p>
+                        <img src="img/screenshots/addNewFunktion.png"/>
                     </div>
                     <div class="description">
-                    <p><span class="number">[1] </span>Die neuen Funktionen bestehen aus einem Namen, einem Lambdaterm und einer optionalen Beschreibung.</p>
+                    <p>Die neuen Funktionen bestehen aus einem Namen, einem Lambdaterm und einer optionalen Beschreibung.</p>
+                    </div>
+                </section>
+                <section class="col2">
+                    <div class="image middle">
+                        <p style="text-align:center;">ERROR POPUP</p>
+                        <img src="img/screenshots/error.png"/>
+                    </div>
+                    <div class="description">
+                        <p>Bei Fehlern der Eingabe werden Errors gezeigt. Die Errormessage beinhaltet eine Beschreibung des Fehlers und den Ort des Fehlers.</p>
                     </div>
                 </section>
 
@@ -277,7 +272,7 @@
                                     <img src="img/persons/Alex.png"/>
                                 </div>
                                 <div class="person_bio">
-                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                     <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                                 </div>
                             </div>
@@ -285,13 +280,13 @@
 
 
                         <div class="person">
-                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <h2><span class="highlight">Iuliia Patrusheva</span></h2>
                             <div class="person_info">
                                 <div class="person_ava">
-                                    <img src="img/persons/Alex.png"/>
+                                    <img src="img/persons/Juli.png"/>
                                 </div>
                                 <div class="person_bio">
-                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                     <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                                 </div>
                             </div>
@@ -299,13 +294,13 @@
 
 
                         <div class="person">
-                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <h2><span class="highlight">Max Nowak</span></h2>
                             <div class="person_info">
                                 <div class="person_ava">
-                                    <img src="img/persons/Alex.png"/>
+                                    <img src="img/persons/Max.png"/>
                                 </div>
                                 <div class="person_bio">
-                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                     <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                                 </div>
                             </div>
@@ -316,35 +311,35 @@
 
                     <div>
                         <div class="person">
-                            <h2><span class="highlight">Alexander von Heyden</span></h2>
+                            <h2><span class="highlight">Nikolai Polley</span></h2>
                             <div class="person_info">
                                 <div class="person_ava">
-                                    <img src="img/persons/Alex.png"/>
+                                    <img src="img/persons/Niko.png"/>
                                 </div>
                                 <div class="person_bio">
-                                    <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                    <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                     <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                                 </div>
                             </div>
                         </div><div class="person">
-                        <h2><span class="highlight">Alexander von Heyden</span></h2>
+                        <h2><span class="highlight">Randy Seng</span></h2>
                         <div class="person_info">
                             <div class="person_ava">
-                                <img src="img/persons/Alex.png"/>
+                                <img src="img/persons/Randy.png"/>
                             </div>
                             <div class="person_bio">
-                                <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                 <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                             </div>
                         </div>
                     </div><div class="person">
-                        <h2><span class="highlight">Alexander von Heyden</span></h2>
+                        <h2><span class="highlight">Younis Bensalah</span></h2>
                         <div class="person_info">
                             <div class="person_ava">
-                                <img src="img/persons/Alex.png"/>
+                                <img src="img/persons/Younis.png"/>
                             </div>
                             <div class="person_bio">
-                                <p class="bio">Bild von der Sidebar mit Standardbibliothek offen. Bild mit Sidebar mit Popup in dem man eine Funktion der Benutzerbibliothek hinzufügt.</p>
+                                <p class="bio">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
                                 <p> <a href="#">GitHub</a> | <a href="#">email</a> | <a href="#">homepage</a></p>
                             </div>
                         </div>
