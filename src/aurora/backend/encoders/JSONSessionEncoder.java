@@ -107,7 +107,7 @@ public class JSONSessionEncoder extends SessionEncoder {
         }
 
         try {
-           encodedLibrary = (JSONArray) value.get("library").isArray();
+            encodedLibrary = (JSONArray) value.get("library").isArray();
         } catch (JSONException e) {
             throw new DecodeException(e.getMessage());
         }
