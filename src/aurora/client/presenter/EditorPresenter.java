@@ -531,7 +531,6 @@ public class EditorPresenter {
         @Override
         public void run() {
             String input = editorDisplay.getInput();
-            String input = editorDisplay.getInput();
 
             // skip if input unchanged
             if (lastInput.equals(input)) {
@@ -540,7 +539,7 @@ public class EditorPresenter {
 
             // cache last input string
             lastInput = input;
-
+            editorDisplay.deletem();
             // attempt lex
             List<Token> stream = null;
             try {
