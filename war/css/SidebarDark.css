@@ -342,11 +342,12 @@
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:first-child {
     width: 30%;
     font-weight: 700;
+    word-break: break-all;
 }
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:nth-child(2) {
     width: 60%;
     color: #c3c2c2;
-    padding-right: 3px;
+    padding: 0 3px;
 }
 
 
