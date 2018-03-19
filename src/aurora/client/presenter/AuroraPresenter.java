@@ -3,8 +3,11 @@ package aurora.client.presenter;
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.ShareLaTeX;
+import aurora.backend.encoders.GistEncoder;
+import aurora.backend.library.Library;
 import aurora.backend.tree.Term;
 import aurora.client.AuroraDisplay;
+import aurora.client.EditorDisplay;
 import aurora.client.event.ExportLaTeXAllEvent;
 import aurora.client.event.ExportLaTeXEvent;
 import aurora.client.event.ShareEmailAllEvent;
@@ -13,6 +16,8 @@ import aurora.client.event.ShareLinkAllEvent;
 import aurora.client.event.ShareLinkEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -25,17 +30,23 @@ import java.util.stream.Collectors;
 public class AuroraPresenter {
     private final EventBus eventBus;
     private final AuroraDisplay auroraDisplay;
+    private final EditorDisplay editorDisplay;
     private final ArrayList<Step> steps;
+    private final Library stdLib;
 
     /**
      * Creates an <code>AuroraPresenter</code> with an event bus and a {@link AuroraDisplay}.
      * @param eventBus      The event bus.
      * @param auroraDisplay The aurora display.
+     * @param editorDisplay Editor presenter. Used to get input.
+     * @param stdLib Standard library.
      * @param steps Shared state between presenters. Index 0 is input.
      */
-    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, ArrayList<Step> steps) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, EditorDisplay editorDisplay, Library stdLib, ArrayList<Step> steps) {
         this.eventBus = eventBus;
         this.auroraDisplay = auroraDisplay;
+        this.editorDisplay = editorDisplay;
+        this.stdLib = stdLib;
         this.steps = steps;
 
         bind();
@@ -51,9 +62,34 @@ public class AuroraPresenter {
     }
 
     private void onShareLinkAll(ShareLinkAllEvent e) {
+        GistEncoder ge = new GistEncoder(stdLib);
+        ge.encode(editorDisplay.getInput(), stdLib, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                auroraDisplay.displayShortLinkDialog("ERROR");
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                auroraDisplay.displayShortLinkDialog(result);
+            }
+        });
     }
 
     private void onShareLink(ShareLinkEvent e) {
+        Step step = steps.get(e.getStep());
+        GistEncoder ge = new GistEncoder(stdLib);
+        ge.encode(step.getHle().toString(), stdLib, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                auroraDisplay.displayShortLinkDialog("ERROR");
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                auroraDisplay.displayShortLinkDialog(result);
+            }
+        });
     }
 
     private void onShareEmailAll(ShareEmailAllEvent e) {

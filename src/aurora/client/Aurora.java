@@ -71,7 +71,7 @@ public class Aurora implements EntryPoint {
         AuroraPresenter auroraPresenter = new AuroraPresenter(
                 eventBus,
                 auroraView,
-                steps);
+                auroraView.getEditor(), stdLib, steps);
 
         SidebarPresenter sidebarPresenter = new SidebarPresenter(
                 eventBus,
