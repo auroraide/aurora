@@ -4,7 +4,9 @@ import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
 import aurora.backend.ShareLaTeX;
 import aurora.backend.encoders.GistEncoder;
+import aurora.backend.encoders.Session;
 import aurora.backend.library.Library;
+import aurora.backend.library.LibraryItem;
 import aurora.backend.tree.Term;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
@@ -43,13 +45,14 @@ public class AuroraPresenter {
      * @param stdLib Standard library.
      * @param steps Shared state between presenters. Index 0 is input.
      */
-    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, EditorDisplay editorDisplay, Library stdLib, ArrayList<Step> steps) {
+    public AuroraPresenter(EventBus eventBus, AuroraDisplay auroraDisplay, EditorDisplay editorDisplay,
+                           Library stdLib, ArrayList<Step> steps) {
         this.eventBus = eventBus;
         this.auroraDisplay = auroraDisplay;
         this.editorDisplay = editorDisplay;
         this.stdLib = stdLib;
         this.steps = steps;
-
+        loadRawInputFromURL();
         bind();
     }
 
@@ -67,14 +70,12 @@ public class AuroraPresenter {
         ge.encode(editorDisplay.getInput(), stdLib, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
-                auroraDisplay.displayShortLinkDialog("ERROR");
+                auroraDisplay.displayShortLinkDialog("Error, could not get generate link.");
             }
 
             @Override
             public void onSuccess(String result) {
-                StringBuffer buffer = new StringBuffer();
-                buffer.append(Window.Location.getHref()).append("#").append(result);
-                auroraDisplay.displayShortLinkDialog(buffer.toString());
+                auroraDisplay.displayShortLinkDialog(appendGistToURL(result));
             }
         });
     }
@@ -85,14 +86,19 @@ public class AuroraPresenter {
         ge.encode(step.getHle().toString(), stdLib, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
-                auroraDisplay.displayShortLinkDialog("ERROR");
+                auroraDisplay.displayShortLinkDialog("ERROR, could not generate link.");
             }
 
             @Override
             public void onSuccess(String result) {
-                auroraDisplay.displayShortLinkDialog(result);
+                auroraDisplay.displayShortLinkDialog(appendGistToURL(result));
             }
         });
+    }
+
+    private String appendGistToURL(String gistResult) {
+        StringBuffer buffer = new StringBuffer();
+        return buffer.append(Window.Location.getHref()).append("#").append(gistResult).toString();
     }
 
     private void onShareEmailAll(ShareEmailAllEvent e) {
@@ -121,5 +127,36 @@ public class AuroraPresenter {
         }
         ShareLaTeX shareLaTeX = new ShareLaTeX(hle);
         auroraDisplay.displayLatexSnippetDialog(shareLaTeX.generateLaTeX());
+    }
+
+    private void loadRawInputFromURL() {
+        String url = Window.Location.getHref();
+        String[] urlSplit;
+        String gistCode;
+
+        if (!url.contains("#")) {
+            // Nothing to load, therefore stop
+            return;
+        }
+
+        urlSplit = url.split("#");
+        assert (urlSplit.length == 2);
+
+        gistCode = urlSplit[1];
+
+        GistEncoder encoder = new GistEncoder(stdLib);
+
+        encoder.decode(gistCode, new AsyncCallback<Session>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                editorDisplay.displayError("Session restore failed.");
+            }
+
+            @Override
+            public void onSuccess(Session result) {
+                editorDisplay.setInput(result.rawInput);
+            }
+        });
+
     }
 }

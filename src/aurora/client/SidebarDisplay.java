@@ -56,4 +56,11 @@ public interface SidebarDisplay {
      * @param description The function description.
      */
     void addStandardLibraryItem(String name, String description);
+
+    /**
+     * Displays an error to sidebar.
+     *
+     * @param errorMessage The error message.
+     */
+    void displayError(String errorMessage);
 }

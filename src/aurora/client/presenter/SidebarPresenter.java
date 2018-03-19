@@ -2,6 +2,8 @@ package aurora.client.presenter;
 
 import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.HighlightedLambdaExpression;
+import aurora.backend.encoders.GistEncoder;
+import aurora.backend.encoders.Session;
 import aurora.backend.library.Library;
 import aurora.backend.library.LibraryItem;
 import aurora.backend.parser.LambdaLexer;
@@ -16,6 +18,9 @@ import aurora.client.event.DeleteFunctionEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.regexp.shared.RegExp;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import javafx.geometry.Side;
 
 import java.util.List;
 
@@ -31,7 +36,7 @@ public class SidebarPresenter {
     private final EventBus eventBus;
     private final SidebarDisplay sidebarDisplay;
     private final Library stdLib;
-    private final Library userLib;
+    private Library userLib;
     private final LambdaLexer lambdaLexer;
     private final LambdaParser lambdaParser;
 
@@ -55,6 +60,7 @@ public class SidebarPresenter {
         this.userLib = userLib;
         this.lambdaLexer = lambdaLexer;
         this.lambdaParser = lambdaParser;
+        loadUserLibFromURL();
         bind();
         populateStdLibInView();
     }
@@ -125,6 +131,40 @@ public class SidebarPresenter {
         // TODO Only for debug reasons here. Should be deleted at some time.
         HighlightedLambdaExpression hle = new HighlightableLambdaExpression(t);
         GWT.log("Succesfully parsing lambda term. Parsed Lambda Term:" + hle.toString());
+    }
+
+    private void loadUserLibFromURL() {
+        String url = Window.Location.getHref();
+        String[] urlSplit;
+        String gistCode;
+
+        if (!url.contains("#")) {
+            // Nothing to load, therefore stop
+            return;
+        }
+
+        urlSplit = url.split("#");
+        assert (urlSplit.length == 2);
+
+        gistCode = urlSplit[1];
+
+        GistEncoder encoder = new GistEncoder(stdLib);
+        encoder.decode(gistCode, new AsyncCallback<Session>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                sidebarDisplay.displayError("Session restore failed.");
+            }
+
+            @Override
+            public void onSuccess(Session result) {
+                SidebarPresenter.this.userLib = result.library;
+
+                for (LibraryItem item : userLib) {
+                    SidebarPresenter.this.sidebarDisplay.addUserLibraryItem(item.getName(), item.getDescription());
+                }
+            }
+        });
+
     }
 
 }

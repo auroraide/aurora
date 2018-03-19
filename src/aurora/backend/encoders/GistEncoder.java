@@ -4,6 +4,7 @@ import aurora.backend.encoders.exceptions.DecodeException;
 import aurora.backend.library.Library;
 import aurora.backend.encoders.JSONSessionEncoder;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.Request;
@@ -120,12 +121,15 @@ public class GistEncoder {
                 }
 
                 public void onResponseReceived(Request request, Response response) {
+
                     if (response.getStatusCode() != 200) {
                         throw new RuntimeException(REQUEST_FAILED); 
                     }
                     if (!JsonUtils.safeToEval(response.getText())) {
                         throw new RuntimeException(INVALID_ANSWER);
                     }
+
+                    GWT.log(response.getText());
                     JavaScriptObject jso = JsonUtils.safeEval(response.getText());
                     JSONSessionEncoder jse = new JSONSessionEncoder(stdLibrary);
                     String json = getProperty(jso, "files", FILE_NAME, "content");

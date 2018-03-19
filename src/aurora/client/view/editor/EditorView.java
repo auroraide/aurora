@@ -378,10 +378,25 @@ public class EditorView extends Composite implements EditorDisplay {
         log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
+    /**
+     * Displays an error message to the editor view.
+     *
+     * @param errorMessage The error.
+     */
+    @Override
+    public void displayError(String errorMessage) {
+        this.errorMessageDialogBox.setDescription(errorMessage);
+    }
+
     @Override
     public void setInput(HighlightedLambdaExpression highlightedLambdaExpression) {
         this.inputCodeMirror.setValue(highlightedLambdaExpression.toString());
         this.stepMap.put(0, highlightedLambdaExpression);
+    }
+
+    @Override
+    public void setInput(String input) {
+        this.inputCodeMirror.setValue(input);
     }
 
     /**

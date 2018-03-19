@@ -44,6 +44,13 @@ public interface EditorDisplay {
     void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 
     /**
+     * Set the content of the code editor, replacing it entirely.
+     *
+     * @param input The input.
+     */
+    void setInput(String input);
+
+    /**
      * Appends a new list of steps to the current step list.
      *
      * @param highlightedLambdaExpression Step to append.
@@ -73,5 +80,13 @@ public interface EditorDisplay {
      * @param highlightedLambdaExpression Result to display.
      */
     void displayResult(HighlightedLambdaExpression highlightedLambdaExpression);
+
+    /**
+     * Displays an error message to the editor view.
+     *
+     * @param errorMessage The error.
+     */
+    void displayError(String errorMessage);
+
 }
 

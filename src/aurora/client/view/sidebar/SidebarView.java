@@ -192,6 +192,16 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
+     * Displays an error to sidebar.
+     *
+     * @param errorMessage The error message.
+     */
+    @Override
+    public void displayError(String errorMessage) {
+        this.errorMessageDialogBox.setDescription(errorMessage);
+    }
+
+    /**
      * Getter for stepNumber.
      *
      * @return stepNumber
