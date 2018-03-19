@@ -20,7 +20,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import javafx.geometry.Side;
 
 import java.util.List;
 
