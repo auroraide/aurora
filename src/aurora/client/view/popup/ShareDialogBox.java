@@ -29,7 +29,7 @@ public class ShareDialogBox extends DialogBox {
     public ShareDialogBox(String captionText) {
         this.setStyleName("shareDialogBox");
         setWidget(ourUiBinder.createAndBindUi(this));
-        setAutoHideEnabled(true);
+        setAutoHideEnabled(false);
         setText(captionText);
         setGlassEnabled(true);
         center();
