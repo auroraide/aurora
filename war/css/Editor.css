@@ -1,0 +1,191 @@
+.centerPanel {
+    font-size: 16px;
+}
+
+.inputFieldCenter > div:nth-child(2) {
+    display: inline-block !important;
+    z-index: 10 !important;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.inputFieldCenter > div:nth-child(4) {
+    height: 100% !important;
+    display: inline-block !important;
+    overflow-y: scroll !important;
+    left: 1em !important;
+
+}
+
+.action_bar {
+    text-align: center;
+}
+
+.action_bar button {
+    padding: 3px 18px;
+    width: 75px;
+    text-align: right;
+    margin: 0 1px;
+    font-size: 1.2em;
+    background: unset;
+    position: relative;
+}
+
+.action_bar .run {
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+}
+
+.action_bar .pause {
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    width: 105px;
+}
+
+.action_bar .continue {
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    width: 130px;
+}
+
+.action_bar .reset {
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    width: 90px;
+}
+
+.action_bar .step {
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    background-position: 5% center;
+    width: 80px;
+}
+
+.action_bar .hidden {
+    display: none;
+}
+
+.action_bar .up {
+    z-index: 1000;
+}
+
+
+/* STEPS */
+
+.stepFieldTable .CodeMirror {
+    height: auto !important;
+}
+
+.stepFieldTable span{
+    font-size: 16px;
+}
+
+.stepFieldTable tbody tr {
+    display: flex;
+    padding: 2px 5px;
+}
+
+.stepFieldTable tbody tr td:nth-child(1) {
+    margin-right: 2px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stepFieldTable tbody tr .gwt-Button {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+td .subMenuItem {
+    display: none;
+}
+
+.stepFieldTable tbody tr .CodeMirror-line {
+    padding-left: 10px;
+}
+
+.CodeMirror pre {
+    background: inherit !important;
+}
+
+.outputShare {
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: center center;
+}
+
+.stepFieldTable .CodeMirror-line span[role=presentation]{
+    word-wrap: break-word;
+    width: 60vw;
+    overflow-x: hidden;
+}
+
+.outputDockLayoutPanel .CodeMirror-line span[role=presentation] {
+    width: 60vw;
+    overflow-x: hidden;
+    word-wrap: break-word;
+}
+/*body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(6) > div > div > div > table > tbody > tr > td:nth-child(3) > div > div > div*/
+.stepFieldTable .CodeMirror-scroll > div.CodeMirror-sizer > div > div > div {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 70vw;
+    overflow-x: hidden;
+}
+
+.stepFieldTable * {
+    overflow-x: hidden !important;
+}
+
+
+/*shaer settings*/
+
+.stepShareSettings .subMenuIcon img{
+    background: url("../img/icons/icon_settings.png") no-repeat !important;
+    background-size: cover !important;
+    height: 13px !important;
+    width: 13px !important;
+    z-index: 100;
+}
+.stepShareSettings > table > tbody > tr {
+    border: none;
+}
+
+.stepShareSettings > table > tbody > tr > td:nth-child(1) {
+    position: absolute;
+    width: 13px;
+    height: 15px;
+}
+
+body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(3) {
+    left: 18px !important;
+}
+
+.CodeMirror-scroll {
+    margin-bottom: -20px !important;
+}
+
+/* OPTIONS for sharing */
+
+.stepShareSettingsPopup *[class^="menuPopup"] {
+    background: none !important;
+}
+
+
+.stepShareSettingsPopup .menuPopupMiddleLeft {
+    display: none !important;
+}
+
+.stepShareSettingsPopup table {
+    background: RGBA(93, 109, 125, 0.70);
+}

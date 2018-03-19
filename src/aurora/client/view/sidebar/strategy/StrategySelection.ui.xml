@@ -10,11 +10,11 @@
             </g:RadioButton>
 
             <g:RadioButton ui:field="callByName" debugId="callByName" name="strategyButton" value="false">
-                <ui:msg description="Strategy callByName">call by <span>NAME</span></ui:msg>
+                <ui:msg description="Strategy callByName">call by <br /><span>NAME</span></ui:msg>
             </g:RadioButton>
 
         <g:RadioButton ui:field="normalOrder" debugId="normalOrder" name="strategyButton" value="true">
-            <ui:msg description="Strategy normalOrder">NORMAL <br />ORDER</ui:msg>
+            <ui:msg description="Strategy normalOrder">NORMAL ORDER</ui:msg>
         </g:RadioButton>
             <!--<g:RadioButton ui:field="manualSelection" debugId="manualSelection" name="strategyButton" value="false">
                 <ui:msg description="Strategy manualSelection">MANUAL <br />SELECTION</ui:msg>
