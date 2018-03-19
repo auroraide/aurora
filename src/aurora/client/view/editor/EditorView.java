@@ -325,13 +325,13 @@ public class EditorView extends Composite implements EditorDisplay {
                         start.getColumn() - 1,
                         middle.getLine() - 1,
                         middle.getColumn(),
-                        "magenta");
+                        "next-left");
 
                 cmp.markText(middle.getLine() - 1,
                         middle.getColumn(),
                         end.getLine() - 1,
                         end.getColumn() + end.toString().length(),
-                        "lime");
+                        "next-right");
             }
 
 
@@ -436,13 +436,13 @@ public class EditorView extends Composite implements EditorDisplay {
                     start.getColumn() - 1,
                     middle.getLine() - 1,
                     middle.getColumn(),
-                    "#5a7083");
+                    "next-left");
 
             inputCodeMirror.markText(middle.getLine() - 1,
                     middle.getColumn(),
                     end.getLine() - 1,
                     end.getColumn() + end.toString().length(),
-                    "#4b636b");
+                    "next-right");
         }
     }
 
