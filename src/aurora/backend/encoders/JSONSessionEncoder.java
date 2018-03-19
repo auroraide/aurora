@@ -101,9 +101,13 @@ public class JSONSessionEncoder extends SessionEncoder {
         }
 
         try {
-            rawInput = value.get("rawInput").toString(); 
+            rawInput = value.get("rawInput").toString();
         } catch (JSONException e) {
             throw new DecodeException(e.getMessage());
+        }
+
+        if (rawInput != null && rawInput.length() >= 2) {
+            rawInput = rawInput.substring(1, rawInput.length() - 1);
         }
 
         try {
@@ -115,8 +119,8 @@ public class JSONSessionEncoder extends SessionEncoder {
         for (int i = 0; i < encodedLibrary.size(); ++i) {
             JSONArray userLibData = (JSONArray) encodedLibrary.get(i);
             final String name = userLibData.get(0).isString().stringValue();
-            final String function = userLibData.get(1).isString().stringValue();
-            final String description = userLibData.get(2).isString().stringValue();
+            final String function = userLibData.get(2).isString().stringValue();
+            final String description = userLibData.get(1).isString().stringValue();
 
             Term term;
             try {
