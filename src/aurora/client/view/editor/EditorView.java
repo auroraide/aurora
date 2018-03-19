@@ -421,7 +421,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 if (t.getOffset() == nextRedex.middleToken) {
                     middle = t;
                     // fuck my life.
-                    //continue;
+                    continue;
                 }
                 if (t.getOffset() == nextRedex.lastToken) {
                     end = t;
