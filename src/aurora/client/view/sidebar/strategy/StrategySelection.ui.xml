@@ -8,14 +8,14 @@
             <g:RadioButton ui:field="callByValue" debugId="callByValue" name="strategyButton" value="false">
                 <ui:msg description="Strategy callByValue">call by<br /><span>VALUE</span></ui:msg>
             </g:RadioButton>
-            <g:RadioButton ui:field="normalOrder" debugId="normalOrder" name="strategyButton" value="true">
-                <ui:msg description="Strategy normalOrder">NORMAL <br />ORDER</ui:msg>
-            </g:RadioButton>
 
             <g:RadioButton ui:field="callByName" debugId="callByName" name="strategyButton" value="false">
                 <ui:msg description="Strategy callByName">call by <span>NAME</span></ui:msg>
             </g:RadioButton>
 
+        <g:RadioButton ui:field="normalOrder" debugId="normalOrder" name="strategyButton" value="true">
+            <ui:msg description="Strategy normalOrder">NORMAL <br />ORDER</ui:msg>
+        </g:RadioButton>
             <!--<g:RadioButton ui:field="manualSelection" debugId="manualSelection" name="strategyButton" value="false">
                 <ui:msg description="Strategy manualSelection">MANUAL <br />SELECTION</ui:msg>
             </g:RadioButton>-->
