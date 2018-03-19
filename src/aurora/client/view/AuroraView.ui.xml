@@ -47,9 +47,10 @@
                         <li><a href="#overview">Overview</a></li>
                         <li><a href="#eingabefeld">Editor</a>
                             <ul class="second_level">
-                                <li><a href="eingabefeld">Eingabefeld</a></li>
+                                <li><a href="#eingabefeld">Eingabefeld</a></li>
                                 <li><a href="#funktionsleiste">Funtionsleiste</a></li>
                                 <li><a href="#stepfield">Stepfield</a></li>
+                                <li><a href="#hotkeys">Hotkeys</a></li>
                                 <li><a href="#ausgabefield">Ausgabefeld</a></li>
                             </ul>
                         </li>
@@ -100,10 +101,10 @@
 
                     <div class="description">
                         <ul>
-                            <li>das <span class="highlight">Backslashsymbol</span> eruzeugt das Lambdasymbol des Lambda-Kalküls</li>
-                            <li>Eine Variable kann aus mehreren groß und klein <span class="highlight">Buschstaben</span>, aus <span class="highlight">Zahlen</span> und dem <span class="highlight">Sonderzeichen _</span> bestehen. Die Zahlen und _ dürfen allerdings nicht der erste Character sein.</li>
+                            <li>das <span class="highlight">Backslashsymbol</span> erzeugt das Lambdasymbol des Lambda-Kalküls</li>
+                            <li>Eine Variable kann aus mehreren groß und klein <span class="highlight">Buchstaben</span>, aus <span class="highlight">Zahlen</span> und dem <span class="highlight">Sonderzeichen _</span> bestehen. Die Zahlen und _ dürfen allerdings nicht der erste Charakter sein.</li>
                             <li>Der Punkt des Lambdakalküls ist der normale Punkt.</li>
-                            <li>Eine Funktion der Benutzer oder Standardbibliothek kann mit dem speizifischen Funktionsnamen hinter einem $ verwendet werden.</li>
+                            <li>Eine Funktion der Benutzer oder Standardbibliothek kann mit dem spezifischen Funktionsnamen hinter einem $ verwendet werden.</li>
                             <li>Eine Churchzahl besteht aus Ziffern.</li>
                             <li>Falls keine Klammern vorhanden sind, wird implizit links geklammert.</li>
                             <li>Ein Kommentar beginnt nach einem #</li>
@@ -123,15 +124,15 @@
                     </div>
 
                     <div class="description">
-                        <p><span class="number">[1] </span>Der Step Knopf zeigt so viele Schritte im Schrittfeld an, wieviele im Stepfenster eingestellt sind.</p>
+                        <p><span class="number">[1] </span>Der Benutzer kann die Reduktion mithilfe des Run Buttons starten</p>
                         <p><span class="number">[2] </span>Mithilfe des Reset Knopfs wird die Reduktion abgebrochen und alle Zwischenschritte der Reduktion gelöscht.</p>
                         <p><span class="number">[3] </span>Der Step Knopf zeigt so viele Schritte im Schrittfeld an, wieviele im Stepfenster eingestellt sind.</p>
                     </div>
                 </section>
                 <section class="col2">
                     <div class="description">
-                        <p><span class="number">[1] </span>Falls der Run Button gedrückt wurde, kann der Benutzer mithilfe des Pause Knopfes, der den Run Button ersetzt pausieren.</p>
-                        <p><span class="number">[2] </span>Wenn pausiert wird, wird der aktuelle Schritt des</p>
+                        <p>Falls der Run Button gedrückt wurde, kann der Benutzer mithilfe des Pause Knopfes, der den Run Button ersetzt pausieren oder die Reduktion mithilfe des Reset Buttons abbrechen</p>
+
                     </div>
                     <div class="image middle">
                         <img src="img/screenshots/funktionsleiste_running.png"/>
@@ -142,7 +143,10 @@
                         <img src="img/screenshots/funktionsleiste_pause.png"/>
                     </div>
                     <div class="description">
-                        <p>Während die Rechnung pausiert ist, werden die Zwischenschritte wie in dem Stepfeld spezifiziert sind angezeigt.</p>
+                        <p>Wenn die Reduktion pausiert ist, wird
+                            der aktuelle Schritt im Stepfeld
+                            angezeigt. Die Reduktion kann mithilfe des
+                            Continue Buttons fortgesetzt werden.</p>
                     </div>
                 </section>
 
@@ -151,8 +155,8 @@
 
                 <div class="title" id="stepfield">
                     <h2>EDITOR: Stepfield</h2>
-                    <p>Das Stepfeld zeigt die so viele Zwischenschritte der Reduktion an,
-                        wie in dem Stepfeld spezifiziert wurde.</p>
+                    <p>Das Stepfeld zeigt die Zwischenschritte der Reduktion
+                    an.</p>
                 </div>
                 <section class="col2">
                     <div class="image middle">
@@ -160,9 +164,10 @@
                     </div>
 
                     <div class="description">
-                        <p><span class="number">[1] </span>Die Schritte sind unterteil und besitzen eine Schrittnummer.</p>
+                        <p><span class="number">[1] </span>Die Schritte werden
+                            einzeln dargestellt und besitzen eine Schrittnummer.</p>
                         <p><span class="number">[2] </span>Die Schritte werden Alphakonversion unterzogen und behalten Funktionsnamen und Churchzahlen solange, bis sie reduziert werden.</p>
-                        <p><span class="number">[3] </span>Die einzelnen Schritte könenn durch den Einstellungsknopf in Latex konformen Text gewandelt werden, der in ein Latexdokumen kopiert werden können.</p>
+                        <p><span class="number">[3] </span>Die einzelnen Schritte könenn durch den Einstellungsknopf in Latex konformen Text gewandelt werden, der in ein Latexdokument kopiert werden kann.</p>
                     </div>
                 </section>
 
@@ -178,11 +183,11 @@
                     </div>
 
                         <div class="image">
-                            <p><span><b>Run  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Pause  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Continue  </b></span>Ctrl + Enter</p>
-                            <p><span><b>Reset  </b></span>Ctrl + Backspace</p>
-                            <p><span><b>Pause  </b></span>Ctrl + Space</p>
+                            <p><span><b>Run:  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Pause:  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Continue:  </b></span>Ctrl + Enter</p>
+                            <p><span><b>Reset:  </b></span>Ctrl + Backspace</p>
+                            <p><span><b>Pause:  </b></span>Ctrl + Space</p>
                         </div>
 
                 </section>
@@ -191,13 +196,13 @@
                     <h2>EDITOR: Ausgabefeld</h2>
                     <p>Im Ausgabefeld steht die reduzierte Eingabe in Normalform.</p>
                 </div>
-                <section class="col2">
+                <section class="col2_50-50">
                     <div class="image middle">
                         <img src="img/screenshots/ausgabe.png"/>
                     </div>
 
                     <div class="description">
-                        <p>Falls das Ergebnis eine Churchzahl oder eine bekannte Funktion aus den Bibliotheken ist, wird der Funktionsname oder die Zahl ausgegeben.
+                        <p><span class="number">[1] </span>Falls das Ergebnis eine Churchzahl oder eine bekannte Funktion aus den Bibliotheken ist, wird der Funktionsname oder die Zahl ausgegeben.
                         </p>
                     </div>
                 </section>
@@ -213,11 +218,11 @@
                     <div class="description">
                         <p><span class="number">[1] </span>Im Stepfeld kann die Anzahl der angezeigten Zwischenschritte der Reduktion eingestellt werden</p>
                         <p><span class="number">[2] </span>In der Standardbibliothek sind von den Entwicklern vorgefertigte Funktionen definiert.</p>
-                        <p><span class="number">[3] </span>In der Benutzerbibliothek kann der Benutzer selber Funktionen definieren. Achtung, die Namen der Funktionen beinhalten nicht das $ das die Funktion</p>
+                        <p><span class="number">[3] </span>In der Benutzerbibliothek kann der Benutzer selber Funktionen definieren. Achtung, die Namen der Funktionen beinhalten nicht das $ das der Funktion in der Eingabe voransteht.</p>
                         <p><span class="number">[4] </span>Man kann die Reduktionsstrategien, der Betareduktion auswählen.</p>
                         <p><span class="number">[5] </span>Der Nachtmodus ist standardmäßig angestellt, bei Wunsch kann der Benutzer einen Normalen Modus einschalten.</p>
-                        <p><span class="number">[6] </span>Mit dem Sprachenbknopf kann die Sprache des Programms verändert werden. Zur Auswahl stehen Russisch und Englisch (Englisch ist default)</p>
-                        <p><span class="number">[7] </span>Mit dem Shareknopf kann die geparsde Eingabe und alle Schritte in Latex kopiert werden.</p>
+                        <p><span class="number">[6] </span>Mit dem Sprachenknopf kann die Sprache des Programms verändert werden. Zur Auswahl stehen Russisch und Englisch (Englisch ist standardmäßig eingestellt)</p>
+                        <p><span class="number">[7] </span>Mit dem Shareknopf kann die geparste Eingabe und alle Schritte in Latex kopiert werden.</p>
                     </div>
                     <div class="image middle">
                         <img src="img/screenshots/sidebar.png" style="width: 50%"/>
@@ -230,7 +235,7 @@
                 </div>
                 <section class="col2">
                     <div class="image middle">
-                        <p style="text-align:center;">ADD NEW FUNCTION in user library</p>
+                        <p style="text-align:center;">Neue Funktion in Benutzerbibliothek einfügen</p>
                         <img src="img/screenshots/addNewFunktion.png"/>
                     </div>
                     <div class="description">
@@ -239,11 +244,11 @@
                 </section>
                 <section class="col2">
                     <div class="image middle">
-                        <p style="text-align:center;">ERROR POPUP</p>
+                        <p style="text-align:center;">Benachrichtung bei Eingabefehlern</p>
                         <img src="img/screenshots/error.png"/>
                     </div>
                     <div class="description">
-                        <p>Bei Fehlern der Eingabe werden Errors gezeigt. Die Errormessage beinhaltet eine Beschreibung des Fehlers und den Ort des Fehlers.</p>
+                        <p>Bei Fehlern der Eingabe werden Errors gezeigt. Die Errormessage beinhaltet eine Beschreibung des Fehlers und den Ort des Fehlers. Der Fehler wird in der Eingabe rot markiert.</p>
                     </div>
                 </section>
 
@@ -254,7 +259,7 @@
                 </div>
                 <section class="col1">
                     <div class="middle">
-                        <p style="text-align: center">Unsere fette Danke geht an <span class="highlight">Denis Lohner</span>, der uns für Lambda Kalkul insperiert hat und ohne ende in untrschiedlichen Formen unterstutzt hat (auch süsse Verpflegung)</p>
+                        <p style="text-align: center">Unsere großes Dankeschön geht an <span class="highlight">Denis Lohner</span>, der uns für das Lambda Kalkül inspiriert und uns ohne Ende mit allen möglichen Mitteln unterstützt hat (auch süsse Verpflegung)</p>
                     </div>
 
                 </section>

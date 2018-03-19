@@ -24,6 +24,7 @@ public class InfoDialogBox extends DialogBox {
         setAutoHideEnabled(true);
         setGlassEnabled(false);
         //center();
+        this.setPopupPosition(250,200);
         hide();
     }
 
