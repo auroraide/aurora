@@ -1,19 +1,14 @@
 .westPanel {
-    background-color: #167A66;
     font-weight: 200;
 }
 
 .stepSettings {
     font-size: 16px;
-    color: #fff;
-    background-image: url("../img/icons/icon_step_turkis.png");
     background-repeat: no-repeat;
     background-size: auto 50%;
     background-position: 3% center;
-    background-color: #33495D;
     padding: 10px;
     display: flex;
-    border-bottom: 0.2em solid #167A66;
     justify-content: space-between;
 }
 
@@ -23,26 +18,15 @@
 }
 .stepSettings .gwt-TextBox {
     background-color: #33495D;
-    border: none !important;
     border-bottom: 1px solid #b2b0b0 !important;
-    text-align: center;
-    /*border-radius: 15%;*/
-    position: relative;
-    bottom: 6px;
-    line-height: 1em;
     color: #fff;
-    height: 90%;
-    width: 13%;
 }
 
 .standrard_db {
-    color: #fff;
-    background: url("../img/icons/icon_db.png") no-repeat !important;
     background-repeat: no-repeat;
     background-size: auto 60% !important;
     background-position: 3% center !important;
     border: none !important;
-    border-bottom: 0.2em solid #167A66 !important;
     text-align: center;
     padding: 10px;
     display: flex;
@@ -50,14 +34,10 @@
 }
 
 .user_db {
-    color: #fff;
-    background: url("../img/icons/icon_user_db.png") no-repeat !important;
     background-repeat: no-repeat;
     background-size: auto 70% !important;
     background-position: 3% center !important;
-    background-color: #33495D !important;
     border: none !important;
-    border-bottom: 0.2em solid #167A66 !important;
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -87,12 +67,10 @@
 
 .user_db .addButton:before {
     content: "";
-    color: #fff;
     position: absolute;
     left: -10px;
     top:5px;
     height: 30px;
-    border-right:1px solid #878787;
 }
 
 .user_db .addButton:focus {
@@ -100,7 +78,6 @@
 }
 
 .extra_settings {
-    background: #33495D;
     width: 100%
 }
 
@@ -127,8 +104,6 @@
     width: 49%;
     height: 100%;
     display: inline-block;
-    border: 1px solid #177965;
-    color: #fff;
     text-align: center;
     font-size: 1em;
 }
@@ -143,7 +118,6 @@
 }
 
 .strategy .gwt-RadioButton label {
-    color: #fff;
     display: inline-block;
     cursor: pointer;
     font-weight: bold;
@@ -155,15 +129,11 @@
 }
 
 .strategy .gwt-RadioButton input[type=radio]:checked + label{
-    background: #1e9e84;
     width: 70%;
-    color: #000;
 }
 
 .strategy .gwt-RadioButton:nth-child(3) input[type=radio]:checked + label{
-    background: #1e9e84;
     width: 100%;
-    color: #000;
 }
 
 .night_mode {
@@ -174,7 +144,6 @@
     background-repeat: no-repeat;
     background-size: auto 50%;
     background-position: 5% center;
-    background-color: #167A66;
 }
 
 .night_mode .gwt-CheckBox {
@@ -196,7 +165,6 @@
     right: 0;
     bottom: 0;
     border-radius: 24px;
-    background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -209,61 +177,45 @@
     left: 5px;
     bottom: 3px;
     border-radius: 50%;
-    background-color: #fff;
     -webkit-transition: .4s;
     transition: .4s;
-}
-
-.night_mode .gwt-CheckBox input:checked + label {
-    background-color: #33485c;
-}
-
-.night_mode .gwt-CheckBox input:focus + label {
-    box-shadow: 0 0 1px #33485c;
 }
 
 .night_mode .gwt-CheckBox input:checked + label:before {
     -webkit-transform: translateX(22px);
     -ms-transform: translateX(22px);
     transform: translateX(22px);
-    background-color: #11ba98;
 }
 
 
 
 .night_mode .gwt-Label {
     margin-left: 30px;
-    color: #fff;
     vertical-align: middle;
     line-height: 2em;
     font-size: 1.2em;
 }
 .share_language, .share_language >div, .share_language table {
     height: 40px;
-    color: #fff;
     width: 100%;
 }
 
 .share_language tbody{
     width:100%;
     height: 100%;
-    border-top: 2px solid #33485c;
     display: block;
 }
 
 .share_language tbody tr:first-child {
-    border-right: 1px solid #33485c;
     display: flex;
     flex-direction: row;
     width:100%;
 }
 .share_language div table tbody tr td{
     width:49.5%;
-    background-color: #167A66;
 }
 /* SHARE LANGUAGE HOVERING*/
 .share_language .gwt-MenuItem-selected{
-    background-color: rgba(255,255,255,0.2) !important;
 }
 
 .share_language .gwt-MenuItem {
@@ -274,15 +226,11 @@
     font-size: 16px
 }
 
-.share_language .gwt-MenuItem:first-child {
-    border-right: 1px solid #33485c;
-}
 .share_language .subMenuIcon{
     display: none;
 }
 
 .share_language tbody tr td:nth-child(2) {
-    background-image: url("../img/icons/icon_share.png");
     background-repeat: no-repeat;
     background-size: auto 50%;
     background-position: center center;
@@ -295,26 +243,17 @@
     bottom: 40px !important;
     top: unset !important;
 }
-
-.shareAndLanguagePopup *[class^="menuPopup"] {
-    background: none !important;
-}
-
 .shareAndLanguagePopup .menuPopupMiddleLeft {
     display: none !important;
 }
 
 .shareAndLanguagePopup table {
     width: 105%;
-    background: RGBA(93, 109, 125, 0.70);
 }
 
 .shareAndLanguagePopup .languageMenu tr, .shareAndLanguagePopup .shareMenu tr {
     color: #fff;
-    display: block;
     border-bottom: 1px solid #fff;
-    font-size: 22px;
-    font-weight: 700;
 }
 
 .shareAndLanguagePopup .gwt-MenuItem {
@@ -339,7 +278,6 @@
 /*LIBRARIES*/
 .panelSettings .gwt-StackLayoutPanel div:nth-child(3) {
     height:80px;
-    background: #33495D !important;
 }
 
 .panelSettings .gwt-StackLayoutPanel div:nth-child(4) table {
@@ -358,18 +296,15 @@
 }
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:nth-child(2) {
     width: 60%;
-    color: #c3c2c2;
     padding: 0 3px;
 }
 
 
 .panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent {
-    background: #187965 !important;
     border: none;
 }
 
 .panelSettings .gwt-StackLayoutPanel .gwt-StackLayoutPanelContent tbody > tr{
-    border-bottom: 1px solid #6D8A88;
     display: flex;
     padding: 5px 0;
     max-width: 250px;
@@ -380,11 +315,8 @@
 }
 
 .deleteUserLibraryItem {
-    color: white;
     font-weight: 800;
     font-size: 15px;
-    border: 1px solid #883332;
-    background: #bc2423;
     border-radius: 3px;
 }
 
