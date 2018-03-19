@@ -76,13 +76,25 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    width: 12px;
-    height: 14px;
-    top: 6px;
-    right: 6px;
+    width: 40px;
+    height: 40px;
+    top: -4px;
+    /* right: 6px; */
     position: relative;
     border: none;
+    padding: 0;
 }
+
+.user_db .addButton:before {
+    content: "";
+    color: #fff;
+    position: absolute;
+    left: -10px;
+    top:5px;
+    height: 30px;
+    border-right:1px solid #878787;
+}
+
 .user_db .addButton:focus {
     border: none;
 }
