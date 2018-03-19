@@ -268,7 +268,6 @@ public class EditorPresenter {
     private boolean tryStartOrHandleErrors() {
         assert (steps.isEmpty());
 
-        highlightTimer.cancel();
 
         // lex input
         List<Token> stream = lexInputOrHandleErrors();
@@ -281,6 +280,7 @@ public class EditorPresenter {
         if (term == null) {
             return false;
         }
+        highlightTimer.cancel();
 
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
 
@@ -524,8 +524,24 @@ public class EditorPresenter {
     }
 
     private class HighlightTimer extends Timer {
+
+        private String lastInput = "";
+
         @Override
         public void run() {
+            String input = editorDisplay.getInput();
+
+            // skip if input unchanged
+            if (lastInput.equals(input)) {
+                GWT.log("keinunterschied");
+                return;
+            }
+            GWT.log("erkenneunterschied");
+            // cache last input string
+            lastInput = input;
+            editorDisplay.deletem();
+
+
         }
     }
 }
