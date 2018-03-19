@@ -120,6 +120,10 @@
     text-align: center;
     font-size: 1em;
 }
+
+.strategy .gwt-RadioButton:nth-child(3) {
+    width: 100%;
+}
 .strategy .gwt-RadioButton input[type=radio] {
     position: absolute;
     visibility: hidden;
@@ -134,11 +138,20 @@
     padding: 5px 20px;
 }
 
+.strategy .gwt-RadioButton:nth-child(3) label{
+    padding: 15px 0;
+}
+
 .strategy .gwt-RadioButton input[type=radio]:checked + label{
     background: #1e9e84;
     width: 70%;
     color: #000;
-    
+}
+
+.strategy .gwt-RadioButton:nth-child(3) input[type=radio]:checked + label{
+    background: #1e9e84;
+    width: 100%;
+    color: #000;
 }
 
 .night_mode {
@@ -329,11 +342,12 @@
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:first-child {
     width: 30%;
     font-weight: 700;
+    word-break: break-all;
 }
 .panelSettings .gwt-StackLayoutPanel > div:nth-child(2n) .gwt-StackLayoutPanelContent > tbody tr td:nth-child(2) {
     width: 60%;
     color: #c3c2c2;
-    padding-right: 3px;
+    padding: 0 3px;
 }
 
 
