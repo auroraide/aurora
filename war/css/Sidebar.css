@@ -15,17 +15,11 @@
 .stepSettings .leftAlign{
     margin-left: 30px;
     position: relative;
-}
-.stepSettings .gwt-TextBox {
-    background-color: #33495D;
-    border-bottom: 1px solid #b2b0b0 !important;
-    color: #fff;
+    border: none;
+    text-align: center;
 }
 
 .standrard_db {
-    background-repeat: no-repeat;
-    background-size: auto 60% !important;
-    background-position: 3% center !important;
     border: none !important;
     text-align: center;
     padding: 10px;
@@ -34,9 +28,6 @@
 }
 
 .user_db {
-    background-repeat: no-repeat;
-    background-size: auto 70% !important;
-    background-position: 3% center !important;
     border: none !important;
     text-align: center;
     display: flex;
