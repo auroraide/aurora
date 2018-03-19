@@ -2,7 +2,6 @@
 h1 {
     font-size: 2em;
     font-weight: bold;
-    color: #777777;
     margin: 40px 0px 70px;
     text-align: center;
 }
@@ -23,11 +22,6 @@ h1 {
 .dialogVPanel {
     margin: 5px;
 }
-
-.serverResponseLabelError {
-    color: red;
-}
-
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
     /*margin: 15px 6px 6px;*/
@@ -40,9 +34,6 @@ div.gwt-TabLayoutPanelTabs {
     width: 100% !important;
     padding: 0 !important;
 }
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
-    background: #33495D !important;
-}
 .gwt-TabLayoutPanelTabs > div {
     height: 100%;
     margin: 0 !important;
@@ -52,17 +43,14 @@ div.gwt-TabLayoutPanelTabs {
     background-size: cover;
     background-repeat: no-repeat;
     width: 260px;
-    background-color: #33495D;
     border-radius: 0;
     background-position-y: 30%;
 }
 
 .gwt-TabLayoutPanelTabs > div:last-child {
     float:right;
-    background-color: #19BB9B;
     border-radius: 0;
     text-transform: capitalize;
-    color: #fff;
     width: 150px;
     font-size: 1.5em;
     line-height: 2em;
@@ -89,7 +77,6 @@ div.gwt-TabLayoutPanelTabs {
 
 /*ADD NEW FUNCTION*/
 .addLibraryItem, .shareDialogBox {
-    background: #4f5356;
     border-radius: 3%;
     -webkit-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 7px 6px 25px 1px rgba(0,0,0,0.75);
@@ -101,13 +88,10 @@ div.gwt-TabLayoutPanelTabs {
 }
 
 .addLibraryItem .Caption, .shareDialogBox .Caption {
-    color: #fff;
     text-align: center;
     padding: 10px;
-    border-bottom: 1px solid #fff;
     font-weight: 700;
     font-size: 14px;
-    background: #177965;
     border-radius: 3%;
 }
 
@@ -117,18 +101,14 @@ div.gwt-TabLayoutPanelTabs {
 }
 
 .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > input, .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(2) > textarea {
-    background: #4f5356;
     border: none;
-    border-bottom: 1px solid #fff;
     width: 90%;
-    color: #fff;
     width: 70%;
     font-size: 14px;
 }
 .addLibraryItem .dialogMiddle .dialogMiddleCenter > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) {
     vertical-align: top;
     font-size: 13px;
-    color: #fff;
     text-transform: uppercase;
     margin-right: 10px;
     line-height: 15px;
@@ -152,21 +132,15 @@ div.gwt-TabLayoutPanelTabs {
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(1) > button {
-    background: #177965 !important;
     border: none;
-    color: #fff;
     margin-right: 5px;
-    border: 1px solid #145f4f;
     width: 100% !important;
     border-radius: 0;
 }
 
 .addLibraryItem > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2) > button {
-    background: #81333d !important;
     min-width: 80px;
     border: none;
-    color: #fff;
-    border: 1px solid #692730;
     width: 100% !important;
     border-radius: 0;
 }
@@ -199,7 +173,6 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table > tbody > tr > td > textarea {
     width: 90%;
-    color: #0C1021;
 }
 
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(1) > td > table {
@@ -213,26 +186,10 @@ body > div.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMid
 .shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > button {
     width: 100%;
     border: none;
-    color: #fff;
     border-radius: 0;
 }
 
-.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(1) > button {
-    background: #177965 !important;
-    border-right: 1px solid #0C1021;
-}
-
-.shareDialogBox > div > table > tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(2) > button {
-    background: #81333d !important;
-}
-
-
 /* TUTORIAL */
-.gwt-TabLayoutPanelContent {
-    background: #33485c;
-    color: #fff;
-    border-top: 1px solid #1abb9b;
-}
 
 body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:nth-child(3) > div {
     overflow-y: scroll;
@@ -246,25 +203,21 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 .gwt-TabLayoutPanelContent .title h2{
     text-align: center;
     text-transform: uppercase;
-    color: #1abb9b;
 }
 
 .gwt-TabLayoutPanelContent section {
-    border-bottom: 1px solid #1abb9b;
     font-size: 17px;
     column-count: 2;
     padding: 0 15% 15px;
 }
 
 .gwt-TabLayoutPanelContent section.col1{
-    border-bottom: 1px solid #1abb9b;
     font-size: 17px;
     column-count: 1;
     padding: 0 15% 15px;
 }
 
 .gwt-TabLayoutPanelContent section span.highlight, .gwt-TabLayoutPanelContent section a{
-    color: #1abb9b;
     font-size: 17px;
 }
 
@@ -357,13 +310,11 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
 #tutorial_nav {
     max-width: 30vw;
     position: fixed;
-    background: #1abb9b;
     top: 30%;
 }
 
 #tutorial_nav a {
     text-decoration: none;
-    color: #fff;
     font-size: 17px;
 }
 
@@ -373,18 +324,11 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     padding: 0;
 }
 
-#tutorial_nav ul li {
-    border-bottom: 1px solid #33495D;
-}
-
-
-
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
     overflow-y: scroll !important;
 }
 
 .infoDialogBox {
-    background: rgba(204, 83, 83, 0.9);
     min-height: 100px;
     border-radius: 10px;
     min-width: 350px;
@@ -406,7 +350,6 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     text-align: center;
     font-weight: 500;
     padding: 5px 0;
-    color: #fff;
     word-wrap: break-word;
 }
 
@@ -417,16 +360,6 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     left: 0;
     text-transform: uppercase;
     font-weight: 800;
-    border-bottom: 1px solid #bdbcbc;
-    background: rgba(125, 35, 35, 0.8);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-.highlight-red {
-    background-color: red;
-}
-
-.highlight-green {
-    background-color: green;
 }

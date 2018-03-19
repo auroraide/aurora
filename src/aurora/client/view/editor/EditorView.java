@@ -20,6 +20,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -31,6 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import static com.google.gwt.core.client.GWT.log;
 
 /**
  * This is where the user may view and manipulate code.
@@ -289,6 +293,7 @@ public class EditorView extends Composite implements EditorDisplay {
                 GWT.log("nextRedex.lastToken = " + nextRedex.lastToken);
 
                 // determine start and end tokens
+                int count = 0;
                 Token start = null;
                 Token middle = null;
                 Token end = null;
@@ -392,7 +397,7 @@ public class EditorView extends Composite implements EditorDisplay {
         Scheduler scheduler = Scheduler.get();
         scheduler.scheduleDeferred((Command) () -> EditorView.this.eventBus.fireEvent(new ResultCalculatedEvent()));
         // TODO Remove log, when not needed anymore
-        GWT.log("View should display HLE: " + highlightedLambdaExpression.toString());
+        log("View should display HLE: " + highlightedLambdaExpression.toString());
     }
 
     @Override

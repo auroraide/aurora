@@ -18,8 +18,8 @@ public class StrategySelection extends Composite {
     RadioButton callByName;
     @UiField
     RadioButton normalOrder;
-    @UiField
-    RadioButton manualSelection;
+    //@UiField
+    //RadioButton manualSelection;
 
     /**
      * Creates the strategy selection area.
@@ -55,14 +55,14 @@ public class StrategySelection extends Composite {
         return normalOrder;
     }
 
-    /**
+    /*/**
      * Getter for manual selection.
      *
      * @return manualSelection
      */
-    public RadioButton getManualSelection() {
+    /*public RadioButton getManualSelection() {
         return manualSelection;
-    }
+    }*/
 
     /**
      * Enables or disables the StrategySelection widget.
@@ -73,7 +73,7 @@ public class StrategySelection extends Composite {
         this.normalOrder.setEnabled(enabled);
         this.callByName.setEnabled(enabled);
         this.callByValue.setEnabled(enabled);
-        this.manualSelection.setEnabled(enabled);
+        //this.manualSelection.setEnabled(enabled);
     }
 
     interface StrategySelectionUiBinder extends UiBinder<Widget, StrategySelection> {
