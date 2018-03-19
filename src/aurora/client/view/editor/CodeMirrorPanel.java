@@ -85,6 +85,13 @@ public class CodeMirrorPanel extends SimplePanel {
     }
 
     /**
+     * Give focus to the CMP.
+     */
+    public void focus() {
+        callCMFunction(editor, "focus");
+    }
+
+    /**
      * Mark text in a given interval.
      * Requires selection/mark-selection.js addon to be loaded.
      *

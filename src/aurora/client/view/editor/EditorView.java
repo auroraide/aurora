@@ -150,6 +150,7 @@ public class EditorView extends Composite implements EditorDisplay {
             inputCodeMirror.setOption("styleActiveLine", true);
             inputCodeMirror.setOption("back2Lambda", null);
             inputCodeMirror.setOption("lineWrapping", true);
+            inputCodeMirror.focus();
         });
     }
 
