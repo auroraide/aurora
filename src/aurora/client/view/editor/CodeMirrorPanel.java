@@ -43,7 +43,9 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param content New content of the panel.
      */
     public void setValue(String content) {
+        Object cursorPos = callCMFunction(editor, "getCursor");
         callCMFunction(editor, "setValue", content);
+        callCMFunction(editor, "setCursor", cursorPos);
     }
 
     /**

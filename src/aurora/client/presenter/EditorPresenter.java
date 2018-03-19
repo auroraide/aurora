@@ -45,6 +45,7 @@ import java.util.List;
  * via the {@link EditorDisplay}.
  */
 public class EditorPresenter {
+
     private final EventBus eventBus;
     private final EditorDisplay editorDisplay;
 
@@ -140,7 +141,7 @@ public class EditorPresenter {
             stepTimer.cancel();
             stepTimer = null;
         }
-        highlightTimer.scheduleRepeating(1000);
+        highlightTimer.scheduleRepeating(100);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
         reStepper = null;
@@ -524,8 +525,43 @@ public class EditorPresenter {
     }
 
     private class HighlightTimer extends Timer {
+
+        private String lastInput = "";
+
         @Override
         public void run() {
+            String input = editorDisplay.getInput();
+
+            // skip if input unchanged
+            if (lastInput.equals(input)) {
+                return;
+            }
+
+            // cache last input string
+            lastInput = input;
+
+            // attempt lex
+            List<Token> stream = null;
+            try {
+                stream = lambdaLexer.lex(input);
+            } catch (SyntaxException e) {
+                // skip
+                return;
+            }
+
+            // attempt parse
+            Term term = null;
+            try {
+                term = lambdaParser.parse(stream);
+            } catch (SyntaxException | SemanticException e) {
+                return;
+            }
+
+            // display highlighted input
+            berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
+            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, berry.getSelectedRedex());
+            editorDisplay.setInput(hle);
         }
     }
+
 }
