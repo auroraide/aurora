@@ -269,7 +269,6 @@ public class EditorPresenter {
     private boolean tryStartOrHandleErrors() {
         assert (steps.isEmpty());
 
-        highlightTimer.cancel();
 
         // lex input
         List<Token> stream = lexInputOrHandleErrors();
@@ -282,6 +281,7 @@ public class EditorPresenter {
         if (term == null) {
             return false;
         }
+        highlightTimer.cancel();
 
         berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
 
@@ -539,7 +539,7 @@ public class EditorPresenter {
 
             // cache last input string
             lastInput = input;
-
+            editorDisplay.deletem();
             // attempt lex
             List<Token> stream = null;
             try {

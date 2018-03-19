@@ -56,6 +56,7 @@ public class EditorView extends Composite implements EditorDisplay {
     private InfoDialogBox errorMessageDialogBox;
     private ShareDialogBox shareLaTexSnippetDialogBox;
     private EventBus eventBus;
+    private Object errorHighlight;
 
     // Input Field
     @UiField
@@ -238,21 +239,37 @@ public class EditorView extends Composite implements EditorDisplay {
 
     @Override
     public void displaySyntaxError(SyntaxException syntaxException) {
+        inputCodeMirror.setOption("clearOnEnter", true);
+        GWT.log(syntaxException.getMessage() + "synex line = " + syntaxException.getLine()
+                + " col = " + syntaxException.getColumn());
+        errorHighlight = inputCodeMirror.markText(syntaxException.getLine() - 1,
+                syntaxException.getColumn() - 1, syntaxException.getLine() - 1,
+                syntaxException.getColumn(), "red");
+
         this.errorMessageDialogBox.setDescription(syntaxException.getMessage());
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
 
+        //inputCodeMirror.deleteMarker(x);
+
     }
 
     @Override
     public void displaySemanticError(SemanticException semanticException) {
+        GWT.log(semanticException.getMessage() + "semex line = "
+                + semanticException.getLine() + " col = " + semanticException.getColumn());
+        errorHighlight = inputCodeMirror.markText(semanticException.getLine() - 1,
+                semanticException.getColumn() - 1, semanticException.getLine() - 1,
+                semanticException.getColumn() - 1, "red");
+        //inputCodeMirror.deleteMarker(x);
         this.errorMessageDialogBox.setDescription((semanticException.getMessage()));
         this.errorMessageDialogBox.show();
         Scheduler.get().scheduleDeferred((Command) () -> {
             EditorView.this.eventBus.fireEvent(new ErrorDisplayedEvent());
         });
+        //inputCodeMirror.deleteMarker(x);
     }
 
     @Override
@@ -496,5 +513,13 @@ public class EditorView extends Composite implements EditorDisplay {
         console.log(text);
     }-*/;
 
+    @Override
+    public void deletem() {
+        GWT.log("bindrin");
+        if (this.errorHighlight != null) {
+            GWT.log("bintiefdrin");
+            this.inputCodeMirror.deleteMarker(this.errorHighlight);
+        }
+    }
 }
 

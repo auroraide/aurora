@@ -73,5 +73,7 @@ public interface EditorDisplay {
      * @param highlightedLambdaExpression Result to display.
      */
     void displayResult(HighlightedLambdaExpression highlightedLambdaExpression);
+
+    void deletem();
 }
 

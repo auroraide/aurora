@@ -102,8 +102,16 @@ public class CodeMirrorPanel extends SimplePanel {
      * @param toLine line in which to stop marking.
      * @param toChar last char to mark in toLine.
      */
-    public void markText(int fromLine, int fromChar, int toLine, int toChar, String classCSS) {
-        callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, classCSS);
+    public Object markText(int fromLine, int fromChar, int toLine, int toChar, String classCSS) {
+        return callCMmarkText(editor, "markText", fromLine, fromChar, toLine, toChar, classCSS);
+
+    }
+
+    /**
+     * Removes a marker from the editor.
+     */
+    public void deleteMarker(Object marker) {
+        callCMFunction((JavaScriptObject) marker, "clear");
     }
 
     private native Object callCMmarkText(JavaScriptObject jso, String key,
