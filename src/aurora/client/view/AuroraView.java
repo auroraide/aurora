@@ -14,6 +14,7 @@ import aurora.client.event.RunEvent;
 import aurora.client.event.StepEvent;
 import aurora.client.event.ViewStateChangedEvent;
 import aurora.client.view.editor.EditorView;
+import aurora.client.view.popup.InfoDialogBox;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
@@ -49,6 +50,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
     private final EventBus eventBus;
     private final ShareDialogBox latexDialogBox;
     private final ShareDialogBox shortLinkDialogBox;
+    private final InfoDialogBox errorDialogBox;
 
     private HandlerRegistration logHandlerRunHotkey;
     private HandlerRegistration logHandlerPauseHotkey;
@@ -84,6 +86,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         this.latexDialogBox = new ShareDialogBox("Share LaTeX");
         this.shortLinkDialogBox = new ShareDialogBox("Share short link");
+        this.errorDialogBox = new InfoDialogBox();
 
         this.defaultState = new DefaultState();
         this.runningState = new RunningState();
@@ -111,6 +114,17 @@ public class AuroraView extends Composite implements AuroraDisplay {
     @Override
     public void setStepNumber(int stepNumber) {
 
+    }
+
+    /**
+     * Displays errror message.
+     *
+     * @param errorMessage The error message.
+     */
+    @Override
+    public void displayError(String errorMessage) {
+        this.errorDialogBox.setDescription(errorMessage);
+        this.errorDialogBox.show();
     }
 
     private void eventWiring() {

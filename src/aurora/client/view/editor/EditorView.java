@@ -464,6 +464,11 @@ public class EditorView extends Composite implements EditorDisplay {
         }
     }
 
+    @Override
+    public void setInput(String input) {
+        this.inputCodeMirror.setValue(input);
+    }
+
     /**
      * Returns the inputCodeMirror.
      *
@@ -520,6 +525,11 @@ public class EditorView extends Composite implements EditorDisplay {
             GWT.log("bintiefdrin");
             this.inputCodeMirror.deleteMarker(this.errorHighlight);
         }
+    }
+
+    @Override
+    public void displayError(String error) {
+        this.errorMessageDialogBox.setDescription(error);
     }
 }
 

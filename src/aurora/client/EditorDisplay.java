@@ -44,6 +44,13 @@ public interface EditorDisplay {
     void setInput(HighlightedLambdaExpression highlightedLambdaExpression); // TODO umbenenny, staeamynecheine
 
     /**
+     * Sets the code editor input.
+     *
+     * @param input The input.
+     */
+    void setInput(String input);
+
+    /**
      * Appends a new list of steps to the current step list.
      *
      * @param highlightedLambdaExpression Step to append.
@@ -74,6 +81,16 @@ public interface EditorDisplay {
      */
     void displayResult(HighlightedLambdaExpression highlightedLambdaExpression);
 
+    /**
+     * Used for highlighting? //TODO whoever wrote this method should add JAVADOC pls.
+     */
     void deletem();
+
+    /**
+     * Display error in editor view.
+     *
+     * @param error The error
+     */
+    void displayError(String error);
 }
 

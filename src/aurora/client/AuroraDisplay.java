@@ -30,5 +30,10 @@ public interface AuroraDisplay {
      */
     void setStepNumber(int stepNumber);
 
-
+    /**
+     * Displays errror message.
+     *
+     * @param errorMessage The error message.
+     */
+    void displayError(String errorMessage);
 }

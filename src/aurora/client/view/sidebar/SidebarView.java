@@ -192,6 +192,24 @@ public class SidebarView extends Composite implements SidebarDisplay {
     }
 
     /**
+     * Display error message.
+     *
+     * @param error The error.
+     */
+    @Override
+    public void displayError(String error) {
+        this.errorMessageDialogBox.setDescription(error);
+        this.errorMessageDialogBox.show();
+    }
+
+    /**
+     * Clears the user library.
+     */
+    public void clearUserLibrary() {
+        this.userLibraryTable.clear();
+    }
+
+    /**
      * Getter for stepNumber.
      *
      * @return stepNumber
