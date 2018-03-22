@@ -1,7 +1,10 @@
 package aurora.client;
 
+import aurora.backend.encoders.GistEncoder;
+import aurora.backend.encoders.Session;
 import aurora.backend.library.HashLibrary;
 import aurora.backend.library.Library;
+import aurora.backend.library.LibraryItem;
 import aurora.backend.library.MultiLibrary;
 import aurora.backend.parser.LambdaLexer;
 import aurora.backend.parser.LambdaParser;
@@ -21,6 +24,7 @@ import aurora.client.view.sidebar.SidebarView;
 import aurora.resources.Resources;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -29,6 +33,9 @@ import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 import java.util.ArrayList;
@@ -50,11 +57,6 @@ public class Aurora implements EntryPoint {
 
         EventBus eventBus = GWT.create(SimpleEventBus.class);
 
-        // views/displays, ordering is important
-        SidebarView sidebarView = new SidebarView(eventBus);
-        EditorView editorView = new EditorView(eventBus);
-        AuroraView auroraView = new AuroraView(eventBus, sidebarView, editorView);
-
         // libraries
         Library userLib = new HashLibrary();
         Library stdLib = new HashLibrary();
@@ -67,15 +69,32 @@ public class Aurora implements EntryPoint {
         LambdaLexer lexer = new LambdaLexer();
         LambdaParser parser = new LambdaParser(library);
 
+        // views/displays, ordering is important
+        SidebarView sidebarView = new SidebarView(eventBus);
+        EditorView editorView = new EditorView(eventBus);
+        AuroraView auroraView = new AuroraView(eventBus, sidebarView, editorView);
+
+        restoreSession(auroraView, editorView, sidebarView, library, stdLib, userLib);
+        setupPresenter(eventBus, auroraView, editorView, sidebarView, library, stdLib, userLib, steps, lexer, parser);
+
+    }
+
+    private void setupPresenter(EventBus eventBus, AuroraView auroraView, EditorView editorView,
+                                SidebarView sidebarView, Library library, Library stdLib, Library userLib,
+                             ArrayList<Step> steps, LambdaLexer lexer, LambdaParser parser) {
+
         // presenters
         AuroraPresenter auroraPresenter = new AuroraPresenter(
                 eventBus,
                 auroraView,
+                editorView,
+                userLib,
+                stdLib,
                 steps);
 
         SidebarPresenter sidebarPresenter = new SidebarPresenter(
                 eventBus,
-                auroraView.getSidebar(),
+                sidebarView,
                 stdLib,
                 userLib,
                 lexer,
@@ -83,7 +102,7 @@ public class Aurora implements EntryPoint {
 
         EditorPresenter editorPresenter = new EditorPresenter(
                 eventBus,
-                auroraView.getEditor(),
+                editorView,
                 stdLib,
                 userLib,
                 new ChurchNumberSimplifier(),
@@ -93,6 +112,58 @@ public class Aurora implements EntryPoint {
                 parser);
 
         RootLayoutPanel.get().add(auroraView);
+
+    }
+
+    private void restoreSession(AuroraView auroraView, EditorView editorView, SidebarView sidebarView,
+                                Library multiLibrary, Library stdLib, Library userLib) {
+        String url = Window.Location.getHref();
+        String[] urlSplit;
+        String gistCode;
+
+
+        if (!url.contains("#")) {
+            // Nothing to load, therefore stop
+            return;
+        }
+
+        urlSplit = url.split("#");
+        assert (urlSplit.length == 2);
+
+        gistCode = urlSplit[1];
+
+        GistEncoder encoder = new GistEncoder(stdLib);
+
+        encoder.decode(gistCode, new AsyncCallback<Session>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Scheduler.get().scheduleDeferred((Command) () ->
+                        auroraView.displayError("Session restore failed."));
+            }
+
+            @Override
+            public void onSuccess(Session result) {
+                multiLibrary.clear();
+                multiLibrary.define(stdLib);
+                multiLibrary.define(result.library);
+
+                userLib.clear();
+                userLib.define(result.library);
+
+                Scheduler.get().scheduleDeferred((Command) () -> {
+                    editorView.setInput(result.rawInput.replaceAll("\\n", ""));
+                    sidebarView.clearUserLibrary();
+
+                    for (LibraryItem item : result.library) {
+                        sidebarView.addUserLibraryItem(item.getName(), item.getDescription());
+                    }
+                });
+
+            }
+
+        });
+
+
     }
 
     private boolean isNullOrEmpty(String str) {
