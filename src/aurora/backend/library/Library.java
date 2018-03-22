@@ -18,4 +18,6 @@ public interface Library extends Iterable<LibraryItem> {
     void remove(String name);
 
     boolean exists(String name);
+
+    void clear();
 }

@@ -61,6 +61,12 @@ public class MultiLibrary implements Library {
     }
 
     @Override
+    public void clear() {
+        libraryItems.clear();
+        libraries.forEach(Library::clear);
+    }
+
+    @Override
     public Iterator<LibraryItem> iterator() {
         return new Iterator<LibraryItem>() {
             private Iterator<Library> libraryIterator;

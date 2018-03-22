@@ -93,4 +93,9 @@ public class HashLibrary implements Library {
         return map.containsKey(name);
     }
 
+    @Override
+    public void clear() {
+        this.map.clear();
+    }
+
 }
