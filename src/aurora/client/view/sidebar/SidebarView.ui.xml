@@ -13,7 +13,7 @@
                     <!-- Step Setting -->
                     <g:FlowPanel addStyleNames="stepSettings">
                         <g:Label addStyleNames="leftAlign"><ui:msg description="Sidebar Step title">Steps</ui:msg></g:Label>
-                        <g:TextBox ui:field="stepNumber" debugId="stepNumberTextBox" visibleLength="2" addStyleNames="rightAlign"/>
+                        <g:TextBox ui:field="stepNumber" debugId="stepNumberTextBox" visibleLength="4" addStyleNames="rightAlign"/>
                     </g:FlowPanel>
                 </g:north>
 
