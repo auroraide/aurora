@@ -507,7 +507,46 @@ public class BetaReducerTest {
     }
 
 
+    @Test
+    public void nofolding() throws SyntaxException {
+        HashLibrary succlib = new HashLibrary();
+        LambdaLexer lex = new LambdaLexer();
+        LambdaParser parsog = new LambdaParser(new HashLibrary());
+        try {
+            succlib.define("succ","succ", parsog.parse(lex.lex("(\\n. \\s. \\z. s (n s z))")));
+        } catch (SemanticException e) {
+            System.out.println("ex");
+            e.printStackTrace();
+        }
+        LambdaParser parssuc = new LambdaParser(succlib);
+        HashLibrary userlib = new HashLibrary();
+        try {
+            userlib.define("phi", "phi", parssuc.parse(lex.lex("(\\x. \\f. f(x 0) ($succ (x 0)))")));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+        userlib.define("true", "true", new Abstraction(new Abstraction(new BoundVariable(2), "f"), "t"));
+        LambdaParser bestparser = new LambdaParser(userlib);
+        try {
+            userlib.define("ogpred", "ogpred", bestparser.parse(lex.lex("\\n. n $phi (\\f. f 0 0) $true")));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+        Term t = null;
+        LambdaParser finalparser = new LambdaParser(userlib);
+        try {
+            t = finalparser.parse(lex.lex("$ogpred 2"));
+        } catch (SemanticException e) {
+            e.printStackTrace();
+        }
+        HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
+        System.out.println(hle.toString());
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        t = br.reduce(t);
+        hle = new HighlightableLambdaExpression(t);
+        System.out.println(hle.toString());
 
+    }
 
     private class Badstrategy extends ReductionStrategy {
 
