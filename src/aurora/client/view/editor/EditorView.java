@@ -435,7 +435,7 @@ public class EditorView extends Composite implements EditorDisplay {
                     // we have to keep looking because middle might be == start
                     //continue;
                 }
-                if (t.getOffset() == nextRedex.middleToken) {
+                if (t.getOffset() - 1 == nextRedex.middleToken) {
                     middle = t;
                     // fuck my life.
                     continue;
@@ -449,15 +449,17 @@ public class EditorView extends Composite implements EditorDisplay {
             assert (start != null);
             assert (middle != null);
             assert (end != null);
-
+            GWT.log("start.getColumn() = " + start.getColumn());
+            GWT.log("middle.getColumn() = " + middle.getColumn());
+            GWT.log("end.getColumn() = " + end.getColumn());
             inputCodeMirror.markText(start.getLine() - 1,
                     start.getColumn() - 1,
                     middle.getLine() - 1,
-                    middle.getColumn(),
+                    middle.getColumn() - 1,
                     "next-left");
 
             inputCodeMirror.markText(middle.getLine() - 1,
-                    middle.getColumn(),
+                    middle.getColumn() - 1,
                     end.getLine() - 1,
                     end.getColumn() + end.toString().length(),
                     "next-right");
