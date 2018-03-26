@@ -376,7 +376,7 @@ public class BetaReducerTest {
 
                         new Application(
                                 new Application(
-                                        new ChurchNumber(2).getAbstraction(), new BoundVariable(2)
+                                        new ChurchNumber(2), new BoundVariable(2)
                                 ),
                                 new Application(
                                         new Application(
@@ -392,7 +392,7 @@ public class BetaReducerTest {
         assertTrue(cr.compare());
 
         HighlightableLambdaExpression hel2 = new HighlightableLambdaExpression(t);
-        assertEquals("\\s. \\z. (\\s1. \\z1. s1 (s1 z1)) s (2 s z)", hel2.toString());
+        assertEquals("\\s. \\z. 2 s (2 s z)", hel2.toString());
 
         String test = "(\\y. y x y) (\\y. y x y) (\\y. y x y)";
         try {
