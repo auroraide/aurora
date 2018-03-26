@@ -115,7 +115,7 @@ public class EditorViewGwtTest extends GWTTestCase {
      */
     public void testFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
-        assertFalse(editorView.getActionBar().getRunButton().isEnabled()
+        assertTrue(editorView.getActionBar().getRunButton().isEnabled()
                 && editorView.getActionBar().getRunButton().isVisible());
         assertFalse(editorView.getActionBar().getPauseButton().isEnabled()
                 && editorView.getActionBar().getPauseButton().isVisible());
@@ -132,8 +132,8 @@ public class EditorViewGwtTest extends GWTTestCase {
      */
     public void testFinishedFinishedState() {
         eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_FINISHED_STATE));
-        assertFalse(editorView.getActionBar().getRunButton().isEnabled()
-                && !editorView.getActionBar().getRunButton().isVisible());
+        assertTrue(editorView.getActionBar().getRunButton().isEnabled()
+                && editorView.getActionBar().getRunButton().isVisible());
         assertFalse(editorView.getActionBar().getPauseButton().isEnabled()
                 && editorView.getActionBar().getPauseButton().isVisible());
         assertFalse(editorView.getActionBar().getContinueButton().isEnabled()
