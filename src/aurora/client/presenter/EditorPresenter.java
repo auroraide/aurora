@@ -23,6 +23,7 @@ import aurora.client.EditorDisplay;
 import aurora.client.event.ContinueEvent;
 import aurora.client.event.EvaluationStrategyChangedEvent;
 import aurora.client.event.PauseEvent;
+import aurora.client.event.ReRunEvent;
 import aurora.client.event.ReStepEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.RunEvent;
@@ -115,6 +116,7 @@ public class EditorPresenter {
 
     private void bind() {
         eventBus.addHandler(RunEvent.TYPE, runEvent -> onRun());
+        eventBus.addHandler(ReRunEvent.TYPE, reRunEvent -> onReRun());
         eventBus.addHandler(StepEvent.TYPE, stepEvent -> onStep());
         eventBus.addHandler(ResetEvent.TYPE, runEvent -> onReset());
         eventBus.addHandler(PauseEvent.TYPE, pauseEvent -> onPause());
@@ -141,10 +143,16 @@ public class EditorPresenter {
             stepTimer.cancel();
             stepTimer = null;
         }
+
+        if (reStepTimer != null) {
+            reStepTimer.cancel();
+            reStepTimer = null;
+            reStepper = null;
+            nextReStepIndex = null;
+        }
         highlightTimer.scheduleRepeating(100);
         editorDisplay.resetSteps();
         editorDisplay.resetResult();
-        reStepper = null;
         nextReStepIndex = null;
         berry = null;
         steps.clear();
@@ -259,6 +267,11 @@ public class EditorPresenter {
     private void onReset() {
         GWT.log("EP: ResetEvent caught.");
         reset();
+    }
+
+    private void onReRun() {
+        reset();
+        onRun();
     }
 
     /**
