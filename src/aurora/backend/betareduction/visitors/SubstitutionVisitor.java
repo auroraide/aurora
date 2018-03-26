@@ -46,10 +46,13 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
     @Override
     public Term visit(Application app) {
         int appindex = index;
-        return new Application(
-                app.left.accept(new SubstitutionVisitor(index,with)),
-                app.right.accept(new SubstitutionVisitor(index,with))
-        );
+
+        Term left = app.left.accept(new SubstitutionVisitor(index,with));
+        Term right = app.right.accept(new SubstitutionVisitor(index,with));
+        if (left != app.left || right != app.right) {
+            return new Application(left, right);
+        }
+        return app;
     }
 
     @Override
