@@ -31,7 +31,12 @@ public class ChurchNumberSimplifier implements ResultSimplifier<ChurchNumber> {
                     if (app.right.accept(new BVarfinder(1)) != null) {
                         return new ChurchNumber(counter);
                     }
-                    apporbvar = app.right;
+                    Application newapp = app.right.accept(new Appfinder());
+                    if (newapp != null) {
+                        app = newapp;
+                    } else {
+                        return null;
+                    }
                 }
                 if (apporbvar.accept(new BVarfinder(1)) != null) {
                     return new ChurchNumber(counter);
