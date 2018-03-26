@@ -146,6 +146,7 @@ public class EditorPresenter {
         editorDisplay.resetResult();
         reStepper = null;
         nextReStepIndex = null;
+        berry = null;
         steps.clear();
     }
 
@@ -560,7 +561,8 @@ public class EditorPresenter {
             }
 
             // display highlighted input
-            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, createReductionStrategy().getRedexPath(term));
+            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term,
+                    createReductionStrategy().getRedexPath(term));
             editorDisplay.setInput(hle);
         }
     }
