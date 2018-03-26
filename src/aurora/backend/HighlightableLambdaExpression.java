@@ -695,7 +695,12 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
 
         @Override
         public Void visit(BoundVariable bvar) {
-            throw new RuntimeException("This should not have happened.");
+            String idx = "<" + bvar.index + ">";
+            tokens.add(new Token(Token.TokenType.T_VARIABLE, idx, line, column, offset));
+            column += idx.length();
+            offset++;
+            return null;
+//            throw new RuntimeException("This should not have happened.");
         }
 
         @Override

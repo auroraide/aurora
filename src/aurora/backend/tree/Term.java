@@ -1,5 +1,6 @@
 package aurora.backend.tree;
 
+import aurora.backend.HighlightableLambdaExpression;
 import aurora.backend.TermVisitor;
 
 /**
@@ -18,4 +19,8 @@ public abstract class Term {
      */
     public abstract <T> T accept(TermVisitor<T> visitor);
 
+    @Override
+    public String toString() {
+        return new HighlightableLambdaExpression(this).toString();
+    }
 }
