@@ -527,18 +527,20 @@ public class EditorPresenter {
     private class HighlightTimer extends Timer {
 
         private String lastInput = "";
+        private StrategyType lastStrategy = null;
 
         @Override
         public void run() {
             String input = editorDisplay.getInput();
 
             // skip if input unchanged
-            if (lastInput.equals(input)) {
+            if (lastInput.equals(input) && lastStrategy == reductionStrategy) {
                 return;
             }
 
             // cache last input string
             lastInput = input;
+            lastStrategy = reductionStrategy;
             editorDisplay.deletem();
             // attempt lex
             List<Token> stream = null;
