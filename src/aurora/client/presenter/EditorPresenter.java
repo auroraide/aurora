@@ -441,6 +441,8 @@ public class EditorPresenter {
         if (berry != null) {
             berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), last().getTerm());
         }
+
+        highlightTimer.run();
     }
 
     /**
