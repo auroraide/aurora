@@ -40,7 +40,11 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Abstraction abs) {
-        return new Abstraction(abs.body.accept(new SubstitutionVisitor(index + 1, with)), abs.name);
+        Term bork = abs.body.accept(new SubstitutionVisitor(index + 1, with));
+        if (bork != abs.body) {
+            return new Abstraction(bork, abs.name);
+        }
+        return abs;
     }
 
     @Override
@@ -75,14 +79,21 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Function function) {
-        Term t = function.term;
-        return t.accept(this);
+        Term t = function.term.accept(this);
+        if (t != function.term) {
+            return t;
+        }
+        return function;
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        Abstraction abs = c.getAbstraction();
-        return abs.accept(this);
+        Term number = c.getAbstraction();
+        Term result = number.accept(this);
+        if (result != number) {
+            return result;
+        }
+        return c;
     }
 
 
