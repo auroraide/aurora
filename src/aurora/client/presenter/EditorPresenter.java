@@ -560,8 +560,7 @@ public class EditorPresenter {
             }
 
             // display highlighted input
-            berry = new BetaReductionIterator(new BetaReducer(createReductionStrategy()), term);
-            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, berry.getSelectedRedex());
+            HighlightedLambdaExpression hle = new HighlightableLambdaExpression(stream, term, createReductionStrategy().getRedexPath(term));
             editorDisplay.setInput(hle);
         }
     }
