@@ -540,11 +540,9 @@ public class BetaReducerTest {
             e.printStackTrace();
         }
         HighlightableLambdaExpression hle = new HighlightableLambdaExpression(t);
-        System.out.println(hle.toString());
         BetaReducer br = new BetaReducer(new NormalOrder());
         t = br.reduce(t);
         hle = new HighlightableLambdaExpression(t);
-        System.out.println(hle.toString());
 
     }
 

@@ -9,20 +9,20 @@ import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
 
-import javax.validation.constraints.Null;
-
 /**
  * Visitor that traverses the Term tree and substitutes a BoundVariable with a given Term.
  */
 public class SubstitutionVisitor extends TermVisitor<Term> {
     private int index;
     private Term with;
+
     public SubstitutionVisitor(Term with) {
         this.with = with;
     }
+
     @Override
     public Term visit(Abstraction abs) {
-        return abs.accept(new Actualsubvisitor(with));
+        return abs.accept(new Subvisitor(with));
     }
 
     @Override
@@ -42,25 +42,25 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Function function) {
-        return function.term.accept(new Actualsubvisitor(with));
+        return function.term.accept(new Subvisitor(with));
     }
 
     @Override
     public Term visit(ChurchNumber c) {
-        return c.getAbstraction().accept(new Actualsubvisitor(with));
+        return c.getAbstraction().accept(new Subvisitor(with));
     }
 
 
 
-    private class Actualsubvisitor extends TermVisitor<Term> {
+    private class Subvisitor extends TermVisitor<Term> {
         int index;
         Term with;
 
         /**
-         * constructor
-         * @param with
+         * constructor.
+         * @param with the substituted term
          */
-        public Actualsubvisitor(Term with) {
+        public Subvisitor(Term with) {
             this(0, with);
         }
         /**
@@ -69,21 +69,23 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
          * @param index The index of the visitor.
          * @param with  The term that will substitute something.
          */
-        private Actualsubvisitor(int index, Term with) {
+
+        private Subvisitor(int index, Term with) {
             this.index = index;
             this.with = with;
         }
+
         @Override
         public Term visit(Abstraction abs) {
-            return new Abstraction(abs.body.accept(new Actualsubvisitor(index + 1, with)), abs.name);
+            return new Abstraction(abs.body.accept(new Subvisitor(index + 1, with)), abs.name);
         }
 
         @Override
         public Term visit(Application app) {
             int appindex = index;
             return new Application(
-                    app.left.accept(new Actualsubvisitor(index, with)),
-                    app.right.accept(new Actualsubvisitor(index, with))
+                    app.left.accept(new Subvisitor(index, with)),
+                    app.right.accept(new Subvisitor(index, with))
             );
         }
 
