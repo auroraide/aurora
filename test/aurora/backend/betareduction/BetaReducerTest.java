@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import aurora.backend.Comparer;
 import aurora.backend.HighlightableLambdaExpression;
+import aurora.backend.MetaTerm;
 import aurora.backend.RedexPath;
 import aurora.backend.betareduction.strategies.CallByName;
 import aurora.backend.betareduction.strategies.NormalOrder;
@@ -517,6 +518,28 @@ public class BetaReducerTest {
         lib.define("phi", "phi", parser.parse(lex.lex("(\\x. \\f. f(x 0) ($succ (x 0)))")));
         lib.define("true", "true", new Abstraction(new Abstraction(new BoundVariable(2), "f"), "t"));
         lib.define("ogpred", "ogpred", parser.parse(lex.lex("\\n. n $phi (\\f. f 0 0) $true")));
+
+        // make sure input is correct. just a sanity check.
+        Term start = parser.parse(lex.lex("$ogpred 2"));
+        assertEquals("($ogpred) 2", new HighlightableLambdaExpression(start).toString());
+
+//        MetaTerm og = (MetaTerm) ((Application)((MetaTerm)start).term).left;
+//        System.out.println(((Function)og.term).term);
+
+        // reduce once.
+        BetaReducer br = new BetaReducer(new NormalOrder());
+        Term oneStep = br.reduce(start);
+        assertEquals("2 $phi (\\f. f 0 0) ($true)", new HighlightableLambdaExpression(oneStep).toString());
+    }
+
+    @Test
+    public void nofolding2() throws SyntaxException, SemanticException {
+        HashLibrary lib = new HashLibrary();
+        LambdaLexer lex = new LambdaLexer();
+        LambdaParser parser = new LambdaParser(lib);
+
+        lib.define("succ","succ", parser.parse(lex.lex("(\\n. \\s. \\z. s (n s z))")));
+        lib.define("phi", "phi", parser.parse(lex.lex("(\\x. \\f. f(x 0) ($succ (x 0)))")));
 
         // make sure input is correct. just a sanity check.
         Term start = parser.parse(lex.lex("$ogpred 2"));

@@ -49,8 +49,6 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
 
     @Override
     public Term visit(Application app) {
-        int appindex = index;
-
         Term left = app.left.accept(new SubstitutionVisitor(index,with));
         Term right = app.right.accept(new SubstitutionVisitor(index,with));
         if (left != app.left || right != app.right) {
@@ -62,12 +60,10 @@ public class SubstitutionVisitor extends TermVisitor<Term> {
     @Override
     public Term visit(BoundVariable bvar) {
         if (bvar.index == this.index) {
-            //return with.accept(new DebruijnFixVisitor(0));
             return with.accept(new DebruijnFixWithVisitor(bvar.index,0));
         }
         if (bvar.index > this.index) {
-            int updateindex = bvar.index - 1;
-            return new BoundVariable(updateindex);
+            return new BoundVariable(bvar.index - 1);
         }
         return bvar;
     }
