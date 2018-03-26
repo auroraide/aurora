@@ -22,16 +22,21 @@ public class ChurchNumberSimplifier implements ResultSimplifier<ChurchNumber> {
             Abstraction secondabs = firstabs.body.accept(new Absfinder());
             if (secondabs != null) {
                 Term apporbvar = secondabs.body;
-                while (apporbvar.accept(new Appfinder()) != null) {
+                Application app = apporbvar.accept(new Appfinder());
+                while (app != null) {
                     counter++;
-                    Application app = (Application) apporbvar;
                     if (app.left.accept(new BVarfinder(2)) == null) {
                         return null;
                     }
                     if (app.right.accept(new BVarfinder(1)) != null) {
                         return new ChurchNumber(counter);
                     }
-                    apporbvar = app.right;
+                    Application newapp = app.right.accept(new Appfinder());
+                    if (newapp != null) {
+                        app = newapp;
+                    } else {
+                        return null;
+                    }
                 }
                 if (apporbvar.accept(new BVarfinder(1)) != null) {
                     return new ChurchNumber(counter);
