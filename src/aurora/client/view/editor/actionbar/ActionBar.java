@@ -136,7 +136,7 @@ public class ActionBar extends Composite {
     public void setFinishedStateAppearance() {
         this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
-        this.runButton.setEnabled(false);
+        this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
         this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);
@@ -151,7 +151,7 @@ public class ActionBar extends Composite {
     public void setFinishedFinishedAppearance() {
         this.overlay.setVisible(false);
         this.runButton.setStyleName("hidden", false);
-        this.runButton.setEnabled(false);
+        this.runButton.setEnabled(true);
         this.continueButton.setStyleName("hidden", true);
         this.continueButton.setEnabled(false);
         this.pauseButton.setStyleName("hidden", true);

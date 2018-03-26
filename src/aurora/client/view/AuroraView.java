@@ -7,6 +7,7 @@ import aurora.client.event.ContinueEvent;
 import aurora.client.event.ErrorDisplayedEvent;
 import aurora.client.event.FinishFinishEvent;
 import aurora.client.event.PauseEvent;
+import aurora.client.event.ReRunEvent;
 import aurora.client.event.ReStepEvent;
 import aurora.client.event.ResetEvent;
 import aurora.client.event.ResultCalculatedEvent;
@@ -17,13 +18,11 @@ import aurora.client.view.editor.EditorView;
 import aurora.client.view.popup.ShareDialogBox;
 import aurora.client.view.sidebar.SidebarView;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -339,7 +338,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedState");
+            this.state = AuroraView.this.runningState;
+            AuroraView.this.eventBus.fireEvent(new ReRunEvent());
         }
 
         @Override
@@ -650,8 +650,8 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void runBtnClicked() {
-            GWT.log("Executing runBtnClicked is not allowed in FinishedFinishedState!");
-            throw new IllegalStateException("Executing runBtnClicked is not allowed in FinishedFinishedState!");
+            this.state = AuroraView.this.runningState;
+            AuroraView.this.eventBus.fireEvent(new ReRunEvent());
         }
 
         @Override
