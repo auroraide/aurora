@@ -8,6 +8,7 @@ import aurora.backend.tree.ChurchNumber;
 import aurora.backend.tree.FreeVariable;
 import aurora.backend.tree.Function;
 import aurora.backend.tree.Term;
+import com.google.gwt.core.client.GWT;
 
 
 import java.util.ArrayList;
@@ -710,6 +711,7 @@ public class HighlightableLambdaExpression implements HighlightedLambdaExpressio
         public Void visit(Function libterm) {
             tokens.add(new Token(Token.TokenType.T_FUNCTION, libterm.name, line, column, offset));
             // +1 because of extra $
+            GWT.log("findefunc");
             column += libterm.name.length() + 1;
             offset++;
             return null;
