@@ -69,8 +69,7 @@ public class AuroraPresenter {
             String latex;
             if (counter > 0) {
                 latex = "$\\Rightarrow$ \\underbar{ ";
-            }
-            else {
+            } else {
                 latex = "\\underbar{ ";
             }
             latex += new ShareLaTeX(new HighlightableLambdaExpression(t)).generateLaTeX();
