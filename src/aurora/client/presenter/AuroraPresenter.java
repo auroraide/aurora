@@ -64,10 +64,20 @@ public class AuroraPresenter {
 
     private void onExportLaTeXAll(ExportLaTeXAllEvent e) {
         StringBuilder sb = new StringBuilder();
+        int  counter = 0;
         for (Term t : steps.stream().map(Step::getTerm).collect(Collectors.toList())) {
-            String latex = new ShareLaTeX(new HighlightableLambdaExpression(t)).generateLaTeX();
+            String latex;
+            if (counter > 0) {
+                latex = "$\\Rightarrow$ \\underbar{ ";
+            }
+            else {
+                latex = "\\underbar{ ";
+            }
+            latex += new ShareLaTeX(new HighlightableLambdaExpression(t)).generateLaTeX();
+            latex += "}  \\newline";
             sb.append(latex);
             sb.append("\n");
+            counter++;
         }
         auroraDisplay.displayLatexSnippetDialog(sb.toString());
     }
