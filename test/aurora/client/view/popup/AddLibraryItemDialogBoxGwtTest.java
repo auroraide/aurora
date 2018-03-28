@@ -43,10 +43,10 @@ public class AddLibraryItemDialogBoxGwtTest extends GWTTestCase {
 
         Scheduler.get().scheduleDeferred((Command) () -> {
             addLibItemDB.nameField.setText(infiniteLoopName);
-            addLibItemDB.functionField.setText(infiniteLoopFunc);
+            addLibItemDB.setFunctionFieldInput(infiniteLoopFunc);
             addLibItemDB.descriptionField.setText(infiniteLoopDesc);
             assertEquals(infiniteLoopName, addLibItemDB.nameField.getText());
-            assertEquals(infiniteLoopFunc, addLibItemDB.functionField.getText());
+            assertEquals(infiniteLoopFunc, addLibItemDB.getFunctionFieldInput());
             assertEquals(infiniteLoopDesc, addLibItemDB.descriptionField.getText());
 
             this.addLibItemDB.cancelButton.click();
@@ -57,7 +57,7 @@ public class AddLibraryItemDialogBoxGwtTest extends GWTTestCase {
                     addLibItemDB.isAttached());
 
             assertEquals("", addLibItemDB.nameField.getText());
-            assertEquals("", addLibItemDB.functionField.getText());
+            assertEquals("", addLibItemDB.getFunctionFieldInput());
             assertEquals("", addLibItemDB.descriptionField.getText());
         });
     }
