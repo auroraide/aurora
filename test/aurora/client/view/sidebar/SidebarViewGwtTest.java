@@ -117,7 +117,7 @@ public class SidebarViewGwtTest extends GWTTestCase {
      */
     public void testAddLibraryFunction() {
         sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
-        sidebarView.addLibraryItemDialogBox.getFunctionField().setText("(\\x.x x) (\\x.x x)");
+        sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
         sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
 
         sidebarView.addLibraryItemDialogBox.getAddButton().click();
@@ -136,7 +136,7 @@ public class SidebarViewGwtTest extends GWTTestCase {
     public void testRemoveLibraryFunction() {
         // Add a function to the user library
         sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
-        sidebarView.addLibraryItemDialogBox.getFunctionField().setText("(\\x.x x) (\\x.x x)");
+        sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
         sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
         sidebarView.addLibraryItemDialogBox.getAddButton().click();
 

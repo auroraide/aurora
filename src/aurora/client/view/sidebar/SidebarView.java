@@ -340,7 +340,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
                 SidebarView.this.errorMessageDialogBox.setDescription("Please enter a name.");
                 SidebarView.this.errorMessageDialogBox.show();
                 return;
-            } else if  (SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText().isEmpty()) {
+            } else if  (SidebarView.this.addLibraryItemDialogBox.getFunctionFieldInput().isEmpty()) {
                 SidebarView.this.errorMessageDialogBox.setDescription("Please enter a λ-term.");
                 SidebarView.this.errorMessageDialogBox.show();
                 return;
@@ -349,7 +349,7 @@ public class SidebarView extends Composite implements SidebarDisplay {
             SidebarView.this.eventBus.fireEvent(
                     new AddFunctionEvent(
                             SidebarView.this.addLibraryItemDialogBox.getNameField().getText(),
-                            SidebarView.this.addLibraryItemDialogBox.getFunctionField().getText().replace("λ", "\\"),
+                            SidebarView.this.addLibraryItemDialogBox.getFunctionFieldInput().replace("λ", "\\"),
                             SidebarView.this.addLibraryItemDialogBox.getDescriptionField().getText()));
         });
         this.addFunctionButton.addClickHandler(event -> SidebarView.this.addLibraryItemDialogBox.show());
