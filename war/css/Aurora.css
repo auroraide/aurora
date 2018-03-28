@@ -381,3 +381,8 @@ body > div:nth-child(7) > div:nth-child(2) > div > div:nth-child(3) > div > div:
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
+#functionField .CodeMirror {
+    font-size: 17px !important;
+    height: 200px !important;
+}
