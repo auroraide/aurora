@@ -1,5 +1,6 @@
 package aurora.client.view;
 
+import aurora.client.Aurora;
 import aurora.client.AuroraDisplay;
 import aurora.client.EditorDisplay;
 import aurora.client.SidebarDisplay;
@@ -387,6 +388,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("FinishedState.onEntry()");
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getRunHotkey();
             AuroraView.this.logHandlerStepHotKey = AuroraView.this.getStepHotkey();
             AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_STATE));
@@ -394,6 +396,7 @@ public class AuroraView extends Composite implements AuroraDisplay {
 
         @Override
         protected void onExit() {
+            AuroraView.this.logHandlerRunHotkey.removeHandler();
             AuroraView.this.logHandlerStepHotKey.removeHandler();
             AuroraView.this.logHandlerResetHotKey.removeHandler();
         }
@@ -700,12 +703,14 @@ public class AuroraView extends Composite implements AuroraDisplay {
         @Override
         protected void onEntry() {
             GWT.log("FinishedFinishedState.onEntry()");
+            AuroraView.this.logHandlerRunHotkey = AuroraView.this.getRunHotkey();
             AuroraView.this.logHandlerResetHotKey = AuroraView.this.getResetHotkey();
             AuroraView.this.eventBus.fireEvent(new ViewStateChangedEvent(ViewState.FINISHED_FINISHED_STATE));
         }
 
         @Override
         protected void onExit() {
+            AuroraView.this.logHandlerRunHotkey.removeHandler();
             AuroraView.this.logHandlerResetHotKey.removeHandler();
         }
 
