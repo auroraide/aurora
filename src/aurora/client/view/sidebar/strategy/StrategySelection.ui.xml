@@ -6,15 +6,15 @@
 
     <g:FlowPanel>
             <g:RadioButton ui:field="callByValue" debugId="callByValue" name="strategyButton" value="false">
-                <ui:msg description="Strategy callByValue">Call by<br /><span>Value</span></ui:msg>
+                <ui:msg description="Strategy callByValue" key="callByValue">Call by<br />VALUE</ui:msg>
             </g:RadioButton>
 
             <g:RadioButton ui:field="callByName" debugId="callByName" name="strategyButton" value="false">
-                <ui:msg description="Strategy callByName">Call by <br /><span>Name</span></ui:msg>
+                <ui:msg description="Strategy callByName" key="callByName">Call by <br />NAME</ui:msg>
             </g:RadioButton>
 
         <g:RadioButton ui:field="normalOrder" debugId="normalOrder" name="strategyButton" value="true">
-            <ui:msg description="Strategy normalOrder">Normal Order</ui:msg>
+            <ui:msg description="Strategy normalOrder" key="normalOrder">Normal Order</ui:msg>
         </g:RadioButton>
             <!--<g:RadioButton ui:field="manualSelection" debugId="manualSelection" name="strategyButton" value="false">
                 <ui:msg description="Strategy manualSelection">MANUAL <br />SELECTION</ui:msg>
