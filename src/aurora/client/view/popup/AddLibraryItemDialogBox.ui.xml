@@ -13,7 +13,7 @@
 
         <g:HorizontalPanel>
             <g:Label><ui:msg description="Add LibraryItem LambdaTerm">Lambda-Term:</ui:msg></g:Label>
-            <g:TextArea ui:field="functionField" debugId="functionField"/>
+            <g:FlowPanel ui:field="functionField" debugId="functionField"/>
             <g:Label ui:field="functionFieldError" visible="false"/>
         </g:HorizontalPanel>
 
