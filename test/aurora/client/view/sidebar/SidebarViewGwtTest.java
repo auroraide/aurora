@@ -116,11 +116,13 @@ public class SidebarViewGwtTest extends GWTTestCase {
      * Tests if a user library function is correctly added to the user library and if an AddFunctionEvent is fired.
      */
     public void testAddLibraryFunction() {
-        sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
-        sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
-        sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
+            sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
+            sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
+            sidebarView.addLibraryItemDialogBox.getAddButton().click();
+        });
 
-        sidebarView.addLibraryItemDialogBox.getAddButton().click();
         Scheduler.get().scheduleDeferred((Command) () -> {
             assertTrue("userLibraryTable should have one entry", sidebarView.userLibraryTable.getRowCount() == 1);
             assertTrue("userLibraryTabel should have 2 column entries",
