@@ -135,12 +135,14 @@ public class SidebarViewGwtTest extends GWTTestCase {
      */
     public void testRemoveLibraryFunction() {
         // Add a function to the user library
-        sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
-        sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
-        sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
-        sidebarView.addLibraryItemDialogBox.getAddButton().click();
+        Scheduler.get().scheduleDeferred((Command) () -> {
+            sidebarView.addLibraryItemDialogBox.getNameField().setText("Infinite Loop");
+            sidebarView.addLibraryItemDialogBox.setFunctionFieldInput("(\\x.x x) (\\x.x x)");
+            sidebarView.addLibraryItemDialogBox.getDescriptionField().setText("primitive infinite loop");
+        });
 
-        // view.getSubmitButton.getElement().<ButtonElement>cast().click();
+        Scheduler.get().scheduleDeferred((Command) () -> sidebarView.addLibraryItemDialogBox.getAddButton().click());
+
         Scheduler.get().scheduleDeferred((Command) () ->
                 sidebarView.userLibraryTable.getWidget(0, 2).getElement().<ButtonElement>cast().click());
 
