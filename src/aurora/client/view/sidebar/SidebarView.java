@@ -189,8 +189,6 @@ public class SidebarView extends Composite implements SidebarDisplay {
         int row = this.standardLibraryTable.getRowCount();
         this.standardLibraryTable.setText(row, 0, "$" + name);
         this.standardLibraryTable.setText(row, 1, description);
-        //Button showInfo = new Button("i");
-       // showInfo.setStyleName("showInfoLibraryItem");
     }
 
     /**
