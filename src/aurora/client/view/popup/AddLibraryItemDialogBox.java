@@ -22,7 +22,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
     private static AddLibraryItemDialogBoxUiBinder ourUiBinder = GWT.create(AddLibraryItemDialogBoxUiBinder.class);
 
     @UiField
-    TextBox nameField;
+    TextArea nameField;
     @UiField
     TextArea functionField;
     @UiField
@@ -89,7 +89,7 @@ public class AddLibraryItemDialogBox extends DialogBox {
      *
      * @return nameField
      */
-    public TextBox getNameField() {
+    public TextArea getNameField() {
         return nameField;
     }
 
