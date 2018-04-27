@@ -6,12 +6,6 @@ before_install:
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar
     - wget -q https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz && tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-    - mkdir -p "$TRAVIS_BUILD_DIR"/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - mkdir -p "$TRAVIS_BUILD_DIR"/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
-    - mkdir -p "$TRAVIS_BUILD_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
-    - cp /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar "$TRAVIS_BUILD_DIR"/.ivy/local/com.sun/tools/1.8.0_111.0/jars/
-    - cp ../gwt-2.8.2/gwt-dev.jar "$TRAVIS_BUILD_DIR"/.ivy/local/com.google.gwt/gwt-dev/2.7.0/jars/
-    - cp ../gwt-2.8.2/gwt-user.jar "$TRAVIS_BUILD_DIR"/.ivy/local/com.google.gwt/gwt-user/2.7.0/jars/
 install:
     - nohup ./caddy &
     - ant test-ci -lib .

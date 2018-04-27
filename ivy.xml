@@ -10,5 +10,6 @@
         <dependency org="com.google.gwt.gwtmockito" name="gwtmockito" rev="1.1.6"/>
         <dependency org="org.seleniumhq.selenium" name="selenium-java" rev="3.10.0"/>
         <dependency org="com.machinepublishers" name="jbrowserdriver" rev="1.0.0-RC1"/>
+        <dependency org="com.sun" name="tools" rev="1.7.0.13"/>
     </dependencies>
 </ivy-module>
