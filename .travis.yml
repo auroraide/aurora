@@ -2,10 +2,8 @@ language: java
 dist: trusty
 sudo: required
 before_install:
-    - sudo apt-get update && sudo apt-get install -y ant unzip
+    - sudo apt-get update && sudo apt-get install -y ant unzip openjdk-8-jdk
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar
-    - wget -q https://github.com/mholt/caddy/releases/download/v0.10.11/caddy_v0.10.11_linux_amd64.tar.gz && tar xzf caddy_v0.10.11_linux_amd64.tar.gz
-install:
-    - nohup ./caddy &
+script:
     - ant test-ci -lib .
