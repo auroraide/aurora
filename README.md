@@ -1,6 +1,6 @@
 # Aurora
 
-[![pipeline status](https://git.scc.kit.edu/ap/Aurora/badges/master/pipeline.svg)](https://git.scc.kit.edu/ap/Aurora/commits/master)
+[![Build Status](https://travis-ci.org/auroraide/aurora.svg?branch=master)](https://travis-ci.org/auroraide/aurora)
 
 The Lambda Calculus IDE
 
@@ -14,34 +14,34 @@ The Lambda Calculus IDE
 - [Selenium](https://www.seleniumhq.org)
     - [How to use Selenium Webdriver](https://www.seleniumhq.org/docs/03_webdriver.jsp)
     - you need to execute ant build and start Caddy before testing with Selenium
-    - We are using JBrowser as our webdriver. Have a look at the ExampleSeleniumTest.java, which is located in 
+    - We are using JBrowser as our webdriver. Have a look at the ExampleSeleniumTest.java, which is located in
       Aurora/test/client.
-      
+
  ## Testing
-      
+
 To run all tests execute
-      
+
 ```
 ant test  
 ```
 To run only JUnit unit tests execute
-      
+
 ```
 ant junit-test
 ```
-      
+
 To run only Selenium tests execute
-      
+
 ```
 ant selenium-test
 ```
-      
+
 To run only GWTTestCase tests execute
-      
+
 ```
 ant gwt-test
 ```
-      
+
 ## Build
 
 ### Dev mode
@@ -88,6 +88,9 @@ and check out `docs/entwurf/html/index.html`.
 
 ## CodeMirror
 
-This project uses CodeMirror to display code.
-CodeMirror is licensed under the MIT License.
-Visit https://github.com/codemirror/CodeMirror for its github page.
+We are using the awesome [CodeMirror](https://github.com/codemirror/CodeMirror) as code editor.
+CodeMirror is licensed under the [MIT License](war/codemirror/LICENSE).
+
+## License
+
+Aurora is is open-sourced software licensed under the [MIT license](LICENSE).
