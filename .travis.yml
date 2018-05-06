@@ -6,6 +6,6 @@ before_install:
     - wget -q https://storage.googleapis.com/gwt-releases/gwt-2.8.2.zip && unzip -qq -o -d .. gwt-2.8.2.zip
     - wget -q https://builds.apache.org/job/Ivy/lastStableBuild/artifact/build/artifact/jars/ivy.jar
 script:
-    - ant test-ci -lib .
+    - ant -debug test-ci -lib .
 jdk:
     - openjdk8
